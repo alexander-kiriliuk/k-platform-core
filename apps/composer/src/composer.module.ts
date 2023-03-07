@@ -14,16 +14,19 @@
  *    limitations under the License.
  */
 
-import { Controller, Get } from "@nestjs/common";
-import { AppService } from "./app.service";
+import { Module } from "@nestjs/common";
+import { ComposerController } from "./composer.controller";
+import { ClientsModule, Transport } from "@nestjs/microservices";
+import { MS_CLIENT } from "./composer.constants";
 
-@Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {
-  }
-
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
+@Module({
+  imports: [
+    ClientsModule.register([
+      { name: MS_CLIENT, transport: Transport.TCP },
+    ]),
+  ],
+  controllers: [ComposerController],
+  providers: [],
+})
+export class ComposerModule {
 }

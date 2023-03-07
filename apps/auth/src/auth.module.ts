@@ -14,11 +14,11 @@
  *    limitations under the License.
  */
 
-import { Injectable } from "@nestjs/common";
+import { Module } from "@nestjs/common";
+import { AuthController } from "./auth.controller";
 
-@Injectable()
-export class AppService {
-  getHello(): string {
-    return "Hello World!";
-  }
+@Module({
+  controllers: [AuthController],
+})
+export class AuthModule {
 }

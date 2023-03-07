@@ -14,12 +14,24 @@
  *    limitations under the License.
  */
 
-import { NestFactory } from "@nestjs/core";
-import { AppModule } from "./app.module";
+import { Test, TestingModule } from "@nestjs/testing";
+import { ComposerController } from "./composer.controller";
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
-}
+describe("AppController", () => {
+  let appController: ComposerController;
 
-bootstrap();
+  beforeEach(async () => {
+    const app: TestingModule = await Test.createTestingModule({
+      controllers: [ComposerController],
+      // providers: [AppService],
+    }).compile();
+
+    appController = app.get<ComposerController>(ComposerController);
+  });
+
+  describe("root", () => {
+    it("should return \"Hello World!\"", () => {
+      expect(appController.getHello()).toBe("Hello World!");
+    });
+  });
+});

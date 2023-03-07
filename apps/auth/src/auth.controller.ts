@@ -14,25 +14,15 @@
  *    limitations under the License.
  */
 
-import { Test, TestingModule } from "@nestjs/testing";
-import { AppController } from "./app.controller";
-import { AppService } from "./app.service";
+import { MessagePattern } from "@nestjs/microservices";
+import { Controller } from "@nestjs/common";
 
-describe("AppController", () => {
-  let appController: AppController;
+@Controller()
+export class AuthController {
 
-  beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [AppService],
-    }).compile();
+  @MessagePattern("auth.hello")
+  someName(data: number[]): string {
+    return "hello auth: " + data.join(", ");
+  }
 
-    appController = app.get<AppController>(AppController);
-  });
-
-  describe("root", () => {
-    it("should return \"Hello World!\"", () => {
-      expect(appController.getHello()).toBe("Hello World!");
-    });
-  });
-});
+}
