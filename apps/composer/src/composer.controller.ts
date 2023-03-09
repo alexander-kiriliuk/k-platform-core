@@ -14,20 +14,23 @@
  *    limitations under the License.
  */
 
-import { Controller, Get, Inject } from "@nestjs/common";
-import { ClientProxy } from "@nestjs/microservices";
-import { MS_CLIENT } from "./composer.constants";
+import { Controller, Get, InternalServerErrorException } from "@nestjs/common";
+import { ComposerClient } from "@shared/clien-proxy/composer.client";
 
 @Controller()
 export class ComposerController {
 
   constructor(
-    @Inject(MS_CLIENT) private client: ClientProxy) {
+    private client: ComposerClient) {
   }
 
   @Get()
-  getHello() {
-    return this.client.send<number>("auth.hello", [1, 2, 3, 4]);
+  async getHello() {
+    try {
+      return await this.client.dispatch<string>("auth.hello", [1, 2, 3, 4]);
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
   }
 
 }

@@ -16,8 +16,9 @@
 
 import { Module } from "@nestjs/common";
 import { ComposerController } from "./composer.controller";
-import { ClientsModule, Transport } from "@nestjs/microservices";
-import { MS_CLIENT } from "./composer.constants";
+import { ClientProxy, ClientsModule, Transport } from "@nestjs/microservices";
+import { MS_CLIENT } from "../../shared/constants";
+import { ComposerClient } from "../../shared/clien-proxy/composer.client";
 
 @Module({
   imports: [
@@ -26,7 +27,13 @@ import { MS_CLIENT } from "./composer.constants";
     ]),
   ],
   controllers: [ComposerController],
-  providers: [],
+  providers: [
+    {
+      provide: ComposerClient,
+      useFactory: (client: ClientProxy) => new ComposerClient(client),
+      inject: [MS_CLIENT],
+    },
+  ],
 })
 export class ComposerModule {
 }
