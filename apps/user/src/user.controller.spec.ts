@@ -14,13 +14,25 @@
  *    limitations under the License.
  */
 
-import { Transport } from "@nestjs/microservices";
+import { Test, TestingModule } from "@nestjs/testing";
+import { UserController } from "./user.controller";
+import { UserService } from "./user.service";
 
-export const MS_CLIENT = "MS_CLIENT";
+describe("UserController", () => {
+  let userController: UserController;
 
-export const TRANSPORT_OPTIONS = {
-  host: "localhost",
-  port: 6379,
-};
+  beforeEach(async () => {
+    const app: TestingModule = await Test.createTestingModule({
+      controllers: [UserController],
+      providers: [UserService],
+    }).compile();
 
-export const TRANSPORT_TYPE = Transport.REDIS;
+    userController = app.get<UserController>(UserController);
+  });
+
+  describe("root", () => {
+    it("should return \"Hello World!\"", () => {
+      expect(userController.getHello()).toBe("Hello World!");
+    });
+  });
+});

@@ -14,13 +14,17 @@
  *    limitations under the License.
  */
 
-import { Transport } from "@nestjs/microservices";
+import { Controller } from "@nestjs/common";
+import { UserService } from "./user.service";
+import { MessagePattern } from "@nestjs/microservices";
 
-export const MS_CLIENT = "MS_CLIENT";
+@Controller()
+export class UserController {
+  constructor(private readonly userService: UserService) {
+  }
 
-export const TRANSPORT_OPTIONS = {
-  host: "localhost",
-  port: 6379,
-};
-
-export const TRANSPORT_TYPE = Transport.REDIS;
+  @MessagePattern("user.hello")
+  getHello(): string {
+    return this.userService.getHello();
+  }
+}

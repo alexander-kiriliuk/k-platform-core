@@ -14,13 +14,16 @@
  *    limitations under the License.
  */
 
-import { Transport } from "@nestjs/microservices";
+import { Controller, Get } from "@nestjs/common";
+import { FilesService } from "./files.service";
 
-export const MS_CLIENT = "MS_CLIENT";
+@Controller()
+export class FilesController {
+  constructor(private readonly filesService: FilesService) {
+  }
 
-export const TRANSPORT_OPTIONS = {
-  host: "localhost",
-  port: 6379,
-};
-
-export const TRANSPORT_TYPE = Transport.REDIS;
+  @Get()
+  getHello(): string {
+    return this.filesService.getHello();
+  }
+}

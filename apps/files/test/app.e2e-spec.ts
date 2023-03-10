@@ -14,13 +14,27 @@
  *    limitations under the License.
  */
 
-import { Transport } from "@nestjs/microservices";
+import { Test, TestingModule } from "@nestjs/testing";
+import { INestApplication } from "@nestjs/common";
+import * as request from "supertest";
+import { FilesModule } from "../src/files.module";
 
-export const MS_CLIENT = "MS_CLIENT";
+describe("FilesController (e2e)", () => {
+  let app: INestApplication;
 
-export const TRANSPORT_OPTIONS = {
-  host: "localhost",
-  port: 6379,
-};
+  beforeEach(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [FilesModule],
+    }).compile();
 
-export const TRANSPORT_TYPE = Transport.REDIS;
+    app = moduleFixture.createNestApplication();
+    await app.init();
+  });
+
+  it("/ (GET)", () => {
+    return request(app.getHttpServer())
+      .get("/")
+      .expect(200)
+      .expect("Hello World!");
+  });
+});

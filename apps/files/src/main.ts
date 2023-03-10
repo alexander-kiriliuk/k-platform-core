@@ -14,13 +14,18 @@
  *    limitations under the License.
  */
 
-import { Transport } from "@nestjs/microservices";
+import { NestFactory } from "@nestjs/core";
+import { FilesModule } from "./files.module";
+import { TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
 
-export const MS_CLIENT = "MS_CLIENT";
+async function bootstrap() {
+  const app = await NestFactory.createMicroservice(
+    FilesModule,
+    {
+      transport: TRANSPORT_TYPE,
+      options: TRANSPORT_OPTIONS,
+    });
+  await app.listen();
+}
 
-export const TRANSPORT_OPTIONS = {
-  host: "localhost",
-  port: 6379,
-};
-
-export const TRANSPORT_TYPE = Transport.REDIS;
+bootstrap();

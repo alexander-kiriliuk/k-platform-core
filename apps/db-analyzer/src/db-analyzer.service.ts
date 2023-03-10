@@ -14,13 +14,11 @@
  *    limitations under the License.
  */
 
-import { Transport } from "@nestjs/microservices";
+import { Injectable } from "@nestjs/common";
 
-export const MS_CLIENT = "MS_CLIENT";
-
-export const TRANSPORT_OPTIONS = {
-  host: "localhost",
-  port: 6379,
-};
-
-export const TRANSPORT_TYPE = Transport.REDIS;
+@Injectable()
+export class DbAnalyzerService {
+  getHello(): string {
+    return "Hello World! DbAnalyzer";
+  }
+}

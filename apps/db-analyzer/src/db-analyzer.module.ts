@@ -15,25 +15,13 @@
  */
 
 import { Module } from "@nestjs/common";
-import { ComposerController } from "./composer.controller";
-import { ClientProxy, ClientsModule } from "@nestjs/microservices";
-import { MS_CLIENT, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
-import { ComposerClient } from "@shared/clien-proxy/composer.client";
+import { DbAnalyzerController } from "./db-analyzer.controller";
+import { DbAnalyzerService } from "./db-analyzer.service";
 
 @Module({
-  imports: [
-    ClientsModule.register([
-      { name: MS_CLIENT, transport: TRANSPORT_TYPE, options: TRANSPORT_OPTIONS },
-    ]),
-  ],
-  controllers: [ComposerController],
-  providers: [
-    {
-      provide: ComposerClient,
-      useFactory: (client: ClientProxy) => new ComposerClient(client),
-      inject: [MS_CLIENT],
-    },
-  ],
+  imports: [],
+  controllers: [DbAnalyzerController],
+  providers: [DbAnalyzerService],
 })
-export class ComposerModule {
+export class DbAnalyzerModule {
 }

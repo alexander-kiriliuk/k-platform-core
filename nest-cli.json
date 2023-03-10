@@ -10,6 +10,15 @@
   "monorepo": true,
   "root": "apps",
   "projects": {
+    "composer": {
+      "type": "application",
+      "root": "apps/composer",
+      "entryFile": "main",
+      "sourceRoot": "apps/composer/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/composer/tsconfig.app.json"
+      }
+    },
     "auth": {
       "type": "application",
       "root": "apps/auth",
@@ -19,13 +28,49 @@
         "tsConfigPath": "apps/auth/tsconfig.app.json"
       }
     },
-    "composer": {
+    "user": {
       "type": "application",
-      "root": "apps/composer",
+      "root": "apps/user",
       "entryFile": "main",
-      "sourceRoot": "apps/composer/src",
+      "sourceRoot": "apps/user/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/composer/tsconfig.app.json"
+        "tsConfigPath": "apps/user/tsconfig.app.json"
+      }
+    },
+    "media": {
+      "type": "application",
+      "root": "apps/media",
+      "entryFile": "main",
+      "sourceRoot": "apps/media/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/media/tsconfig.app.json"
+      }
+    },
+    "db-analyzer": {
+      "type": "application",
+      "root": "apps/db-analyzer",
+      "entryFile": "main",
+      "sourceRoot": "apps/db-analyzer/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/db-analyzer/tsconfig.app.json"
+      }
+    },
+    "db-script-evaluator": {
+      "type": "application",
+      "root": "apps/db-script-evaluator",
+      "entryFile": "main",
+      "sourceRoot": "apps/db-script-evaluator/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/db-script-evaluator/tsconfig.app.json"
+      }
+    },
+    "files": {
+      "type": "application",
+      "root": "apps/files",
+      "entryFile": "main",
+      "sourceRoot": "apps/files/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/files/tsconfig.app.json"
       }
     }
   }
