@@ -15,6 +15,8 @@
  */
 
 import { Transport } from "@nestjs/microservices";
+import { DataSource } from "typeorm";
+import { User } from "../user/src/user.entity";
 
 export const MS_CLIENT = "MS_CLIENT";
 
@@ -24,3 +26,20 @@ export const TRANSPORT_OPTIONS = {
 };
 
 export const TRANSPORT_TYPE = Transport.REDIS;
+
+export const DB_CONFIG = new DataSource({
+  type: "postgres",
+  host: "localhost",
+  schema: "core",
+  port: 5432,
+  synchronize: true,
+  logging: true,
+  database: "k_platform",
+  username: "root",
+  password: "1111",
+  entities: [
+    User,
+  ],
+  migrations: [],
+  subscribers: [],
+});

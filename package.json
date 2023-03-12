@@ -2,7 +2,7 @@
   "name": "k-platform-core",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Alexander Kiriliuk",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -49,8 +49,10 @@
     "@nestjs/microservices": "^9.3.9",
     "@nestjs/platform-express": "^9.0.0",
     "ioredis": "^5.3.1",
+    "pg": "^8.10.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.3.12"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
@@ -58,7 +60,7 @@
     "@nestjs/testing": "^9.0.0",
     "@types/express": "^4.17.13",
     "@types/jest": "29.2.4",
-    "@types/node": "18.11.18",
+    "@types/node": "^18.11.18",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",

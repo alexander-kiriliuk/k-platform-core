@@ -16,7 +16,7 @@
 
 import { NestFactory } from "@nestjs/core";
 import { UserModule } from "./user.module";
-import { TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
+import { DB_CONFIG, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice(
@@ -25,6 +25,7 @@ async function bootstrap() {
       transport: TRANSPORT_TYPE,
       options: TRANSPORT_OPTIONS,
     });
+  await DB_CONFIG.initialize();
   await app.listen();
 }
 
