@@ -17,9 +17,10 @@
 import { Module, OnModuleInit } from "@nestjs/common";
 import { DbAnalyzerController } from "./db-analyzer.controller";
 import { DbAnalyzerService } from "./db-analyzer.service";
+import { LogModule } from "@shared/logger/log.module";
 
 @Module({
-  imports: [],
+  imports: [LogModule],
   controllers: [DbAnalyzerController],
   providers: [DbAnalyzerService],
 })

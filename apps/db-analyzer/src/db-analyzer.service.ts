@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { PG_DATA_SOURCE } from "@shared/constants";
 
 type ColumnDataType = "string" | "number" | "boolean" | "reference";
@@ -33,11 +33,16 @@ interface Metadata {
 @Injectable()
 export class DbAnalyzerService {
 
+  constructor(
+    private readonly logger: Logger) {
+  }
+
   private get connection() {
     return PG_DATA_SOURCE.manager.connection;
   };
 
   async analyzeDatabase() {
+    this.logger.log("Do analyze database");
     // todo
   }
 
