@@ -16,7 +16,14 @@
 
 import { Transport } from "@nestjs/microservices";
 import { DataSource } from "typeorm";
-import { User } from "../user/src/user.entity";
+import { UserEntity } from "@user/src/entity/user.entity";
+import { UserRoleEntity } from "@user/src/entity/user-role.entity";
+import { MediaEntity } from "@media/src/entity/media.entity";
+import { MediaFileEntity } from "@media/src/entity/media-file.entity";
+import { MediaSizeEntity } from "@media/src/entity/media-size.entity";
+import { MediaTypeEntity } from "@media/src/entity/media-type.entity";
+import { TypeEntity } from "@shared/type/entity/type.entity";
+import { TypeCategoryEntity } from "@shared/type/entity/type-category.entity";
 
 export const MS_CLIENT = "MS_CLIENT";
 
@@ -27,7 +34,7 @@ export const TRANSPORT_OPTIONS = {
 
 export const TRANSPORT_TYPE = Transport.REDIS;
 
-export const DB_CONFIG = new DataSource({
+export const PG_DATA_SOURCE = new DataSource({
   type: "postgres",
   host: "localhost",
   schema: "core",
@@ -38,7 +45,14 @@ export const DB_CONFIG = new DataSource({
   username: "root",
   password: "1111",
   entities: [
-    User,
+    UserEntity,
+    UserRoleEntity,
+    MediaEntity,
+    MediaFileEntity,
+    MediaSizeEntity,
+    MediaTypeEntity,
+    TypeEntity,
+    TypeCategoryEntity,
   ],
   migrations: [],
   subscribers: [],

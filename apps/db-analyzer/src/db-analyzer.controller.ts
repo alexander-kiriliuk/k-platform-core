@@ -24,6 +24,6 @@ export class DbAnalyzerController {
 
   @Get()
   getHello(): string {
-    return this.dbAnalyzerService.getHello();
+    return "this.dbAnalyzerService.analyzeDatabase()";
   }
 }

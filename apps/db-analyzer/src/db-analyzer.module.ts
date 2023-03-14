@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
+import { Module, OnModuleInit } from "@nestjs/common";
 import { DbAnalyzerController } from "./db-analyzer.controller";
 import { DbAnalyzerService } from "./db-analyzer.service";
 
@@ -23,5 +23,14 @@ import { DbAnalyzerService } from "./db-analyzer.service";
   controllers: [DbAnalyzerController],
   providers: [DbAnalyzerService],
 })
-export class DbAnalyzerModule {
+export class DbAnalyzerModule implements OnModuleInit {
+
+  constructor(
+    private readonly service: DbAnalyzerService) {
+  }
+
+  onModuleInit() {
+    this.service.analyzeDatabase();
+  }
+
 }

@@ -20,6 +20,27 @@
     "paths": {
       "@shared/*": [
         "apps/shared/*"
+      ],
+      "@user/*": [
+        "apps/user/*"
+      ],
+      "@media/*": [
+        "apps/media/*"
+      ],
+      "@files/*": [
+        "apps/files/*"
+      ],
+      "@db-script-evaluator/*": [
+        "apps/db-script-evaluator/*"
+      ],
+      "@db-analyzer/*": [
+        "apps/db-analyzer/*"
+      ],
+      "@composer/*": [
+        "apps/composer/*"
+      ],
+      "@auth/*": [
+        "apps/auth/*"
       ]
     }
   }

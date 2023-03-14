@@ -14,31 +14,40 @@
  *    limitations under the License.
  */
 
-import { Injectable } from "@nestjs/common";
-import { PG_DATA_SOURCE } from "@shared/constants";
+import { Type } from "@shared/type/type";
 
-type ColumnDataType = "string" | "number" | "boolean" | "reference";
-
-interface Metadata {
-  tableName: string;
-  columnName: string;
-  isPrimary: boolean;
-  isUnique: boolean;
-  columnDataType: ColumnDataType;
-  referenceToTable?: string;
-  sourceColumn?: string;
-  referenceColumn?: string;
+export interface Media {
+  id: number;
+  code: string;
+  name: string;
+  type: MediaType;
+  files: MediaFile[];
 }
 
-@Injectable()
-export class DbAnalyzerService {
+export interface MediaType {
+  id: number;
+  code: string;
+  name: string;
+  vp6: boolean;
+  ext: Type;
+  sizes: MediaSize[];
+}
 
-  private get connection() {
-    return PG_DATA_SOURCE.manager.connection;
-  };
+export interface MediaSize {
+  id: number;
+  code: string;
+  name: string;
+  width: string;
+  height: string;
+}
 
-  async analyzeDatabase() {
-    // todo
-  }
-
+export interface MediaFile {
+  id: number;
+  code: string;
+  name: string;
+  width: number;
+  height: number;
+  format: string;
+  size: number;
+  media: Media;
 }

@@ -14,31 +14,23 @@
  *    limitations under the License.
  */
 
-import { Injectable } from "@nestjs/common";
-import { PG_DATA_SOURCE } from "@shared/constants";
+import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
+import { UserRole } from "@user/src/user";
 
-type ColumnDataType = "string" | "number" | "boolean" | "reference";
+@Entity("users_roles")
+export class UserRoleEntity implements UserRole {
 
-interface Metadata {
-  tableName: string;
-  columnName: string;
-  isPrimary: boolean;
-  isUnique: boolean;
-  columnDataType: ColumnDataType;
-  referenceToTable?: string;
-  sourceColumn?: string;
-  referenceColumn?: string;
-}
+  @PrimaryGeneratedColumn({ zerofill: true })
+  id: string;
 
-@Injectable()
-export class DbAnalyzerService {
+  @Column("varchar", { nullable: false, unique: true })
+  code: string;
 
-  private get connection() {
-    return PG_DATA_SOURCE.manager.connection;
-  };
+  @Column("varchar", { nullable: false })
+  name: string;
 
-  async analyzeDatabase() {
-    // todo
-  }
+  @Index()
+  @CreateDateColumn({ name: "ts_created", type: "timestamp" })
+  tsCreated: Date;
 
 }
