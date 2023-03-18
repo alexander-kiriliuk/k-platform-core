@@ -15,17 +15,16 @@
  */
 
 import { NestFactory } from "@nestjs/core";
-import { DbAnalyzerModule } from "./db-analyzer.module";
-import { PG_DATA_SOURCE, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
+import { ExplorerModule } from "./explorer.module";
+import { TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice(
-    DbAnalyzerModule,
+    ExplorerModule,
     {
       transport: TRANSPORT_TYPE,
       options: TRANSPORT_OPTIONS,
     });
-  await PG_DATA_SOURCE.initialize();
   await app.listen();
 }
 

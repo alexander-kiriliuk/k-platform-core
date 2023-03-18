@@ -46,13 +46,13 @@
         "tsConfigPath": "apps/media/tsconfig.app.json"
       }
     },
-    "db-analyzer": {
+    "explorer": {
       "type": "application",
-      "root": "apps/db-analyzer",
+      "root": "apps/explorer",
       "entryFile": "main",
-      "sourceRoot": "apps/db-analyzer/src",
+      "sourceRoot": "apps/explorer/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/db-analyzer/tsconfig.app.json"
+        "tsConfigPath": "apps/explorer/tsconfig.app.json"
       }
     },
     "db-script-evaluator": {

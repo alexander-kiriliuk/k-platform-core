@@ -14,36 +14,29 @@
  *    limitations under the License.
  */
 
-import { Injectable, Logger } from "@nestjs/common";
-import { PG_DATA_SOURCE } from "@shared/constants";
+import { MediaEntity } from "@media/src/entity/media.entity";
+import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
 
-type ColumnDataType = "string" | "number" | "boolean" | "reference";
+export type ColumnDataType = "string" | "number" | "boolean" | "reference" | "date" | "unknown";
 
-interface Metadata {
+export interface ExplorerTarget {
+  target: string;
   tableName: string;
-  columnName: string;
-  isPrimary: boolean;
-  isUnique: boolean;
-  columnDataType: ColumnDataType;
-  referenceToTable?: string;
-  sourceColumn?: string;
-  referenceColumn?: string;
+  name: string;
+  description: string;
+  icon: MediaEntity;
+  columns: ExplorerColumnEntity[];
 }
 
-@Injectable()
-export class DbAnalyzerService {
-
-  constructor(
-    private readonly logger: Logger) {
-  }
-
-  private get connection() {
-    return PG_DATA_SOURCE.manager.connection;
-  };
-
-  async analyzeDatabase() {
-    this.logger.log("Do analyze database");
-    // todo
-  }
-
+export interface ExplorerColumn {
+  id: string;
+  property: string;
+  name: string;
+  description: string;
+  target: ExplorerTarget;
+  primary: boolean;
+  unique: boolean;
+  type: ColumnDataType | string;
+  multiple: boolean;
 }
+

@@ -17,14 +17,14 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { INestApplication } from "@nestjs/common";
 import * as request from "supertest";
-import { DbAnalyzerModule } from "../src/db-analyzer.module";
+import { ExplorerModule } from "../src/explorer.module";
 
 describe("DbAnalyzerController (e2e)", () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [DbAnalyzerModule],
+      imports: [ExplorerModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();

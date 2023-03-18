@@ -17,9 +17,12 @@
 import { Module } from "@nestjs/common";
 import { UserController } from "./user.controller";
 import { UserService } from "./user.service";
+import { DatabaseModule } from "@shared/constants";
 
 @Module({
-  imports: [],
+  imports: [
+    DatabaseModule.forRoot(),
+  ],
   controllers: [UserController],
   providers: [UserService],
 })

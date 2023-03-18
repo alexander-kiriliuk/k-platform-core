@@ -15,24 +15,24 @@
  */
 
 import { Test, TestingModule } from "@nestjs/testing";
-import { DbAnalyzerController } from "./db-analyzer.controller";
-import { DbAnalyzerService } from "./db-analyzer.service";
+import { ExplorerController } from "./explorer.controller";
+import { ExplorerService } from "./explorer.service";
 
-describe("DbAnalyzerController", () => {
-  let dbAnalyzerController: DbAnalyzerController;
+describe("ExplorerController", () => {
+  let explorerController: ExplorerController;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      controllers: [DbAnalyzerController],
-      providers: [DbAnalyzerService],
+      controllers: [ExplorerController],
+      providers: [ExplorerService],
     }).compile();
 
-    dbAnalyzerController = app.get<DbAnalyzerController>(DbAnalyzerController);
+    explorerController = app.get<ExplorerController>(ExplorerController);
   });
 
   describe("root", () => {
     it("should return \"Hello World!\"", () => {
-      expect(dbAnalyzerController.getHello()).toBe("Hello World!");
+      expect(explorerController.getHello()).toBe("Hello World!");
     });
   });
 });

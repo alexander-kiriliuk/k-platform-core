@@ -15,7 +15,7 @@
  */
 
 import { Transport } from "@nestjs/microservices";
-import { DataSource } from "typeorm";
+import { LoggerOptions } from "typeorm";
 import { UserEntity } from "@user/src/entity/user.entity";
 import { UserRoleEntity } from "@user/src/entity/user-role.entity";
 import { MediaEntity } from "@media/src/entity/media.entity";
@@ -24,6 +24,11 @@ import { MediaSizeEntity } from "@media/src/entity/media-size.entity";
 import { MediaTypeEntity } from "@media/src/entity/media-type.entity";
 import { TypeEntity } from "@shared/type/entity/type.entity";
 import { TypeCategoryEntity } from "@shared/type/entity/type-category.entity";
+import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
+import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
+import { TypeOrmModuleOptions } from "@nestjs/typeorm/dist/interfaces/typeorm-options.interface";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { DynamicModule } from "@nestjs/common";
 
 export const MS_CLIENT = "MS_CLIENT";
 
@@ -34,13 +39,13 @@ export const TRANSPORT_OPTIONS = {
 
 export const TRANSPORT_TYPE = Transport.REDIS;
 
-export const PG_DATA_SOURCE = new DataSource({
+export const PG_DATA_SOURCE: TypeOrmModuleOptions = {
   type: "postgres",
   host: "localhost",
   schema: "core",
   port: 5432,
   synchronize: true,
-  logging: true,
+  logging: "error" as LoggerOptions,
   database: "k_platform",
   username: "root",
   password: "1111",
@@ -53,7 +58,20 @@ export const PG_DATA_SOURCE = new DataSource({
     MediaTypeEntity,
     TypeEntity,
     TypeCategoryEntity,
+    ExplorerTargetEntity,
+    ExplorerColumnEntity,
   ],
   migrations: [],
   subscribers: [],
-});
+};
+
+export class DatabaseModule {
+  static forRoot(): DynamicModule {
+    return {
+      module: DatabaseModule,
+      imports: [
+        TypeOrmModule.forRoot(PG_DATA_SOURCE),
+      ],
+    };
+  }
+}
