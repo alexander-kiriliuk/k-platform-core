@@ -54,5 +54,13 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   @Column("boolean", { default: false })
   multiple: boolean;
 
+  @Index()
+  @Column("varchar", { nullable: true })
+  referencedEntityName: string;
+
+  @Index()
+  @Column("varchar", { nullable: true })
+  referencedTableName: string;
+
 }
 

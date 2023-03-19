@@ -31,7 +31,8 @@ import { User } from "../user";
 @Entity("users")
 export class UserEntity implements User {
 
-  @PrimaryGeneratedColumn() id: string;
+  @PrimaryGeneratedColumn()
+  id: string;
 
   @ManyToOne(t => MediaEntity, t => t.code)
   avatar: MediaEntity;
@@ -59,7 +60,8 @@ export class UserEntity implements User {
   active: boolean;
 
   @ManyToMany(t => UserRoleEntity)
-  @JoinTable() roles: UserRoleEntity[];
+  @JoinTable()
+  roles: UserRoleEntity[];
 
   @Index()
   @CreateDateColumn({ name: "ts_created", type: "timestamp" })

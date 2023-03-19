@@ -41,10 +41,8 @@ export class ExplorerModule implements OnModuleInit {
     private readonly service: ExplorerService) {
   }
 
-  onModuleInit() {
-    setTimeout(() => {
-      this.service.runAnalyzer();
-    }, 5000);
+  async onModuleInit() {
+    await this.service.analyzeDatabase();
   }
 
 }

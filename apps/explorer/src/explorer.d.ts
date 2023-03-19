@@ -17,7 +17,7 @@
 import { MediaEntity } from "@media/src/entity/media.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
 
-export type ColumnDataType = "string" | "number" | "boolean" | "reference" | "date" | "unknown";
+export type ColumnDataType = "string" | "number" | "boolean" | "date" | "reference" | "unknown";
 
 export interface ExplorerTarget {
   target: string;
@@ -38,5 +38,7 @@ export interface ExplorerColumn {
   unique: boolean;
   type: ColumnDataType | string;
   multiple: boolean;
+  referencedTableName: string;
+  referencedEntityName: string;
 }
 
