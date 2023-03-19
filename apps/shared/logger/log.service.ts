@@ -4,11 +4,10 @@ export class LogService extends Logger {
 
   log(message: string) {
     const ctx = this.getCallingContext();
-    super.log(`${message} <${ctx.filePath}:${ctx.lineNumber}>`, ctx.methodName);
+    super.log(`${message}`, ctx.methodName);
   }
 
   error(message: string, trace?: string) {
-    super.error(message, trace, this.getCallingContext());
     const ctx = this.getCallingContext();
     super.error(`${message} <${ctx.filePath}:${ctx.lineNumber}>`, trace, ctx.methodName);
   }
@@ -16,6 +15,16 @@ export class LogService extends Logger {
   warn(message: string) {
     const ctx = this.getCallingContext();
     super.warn(`${message} <${ctx.filePath}:${ctx.lineNumber}>`, ctx.methodName);
+  }
+
+  verbose(message: string) {
+    const ctx = this.getCallingContext();
+    super.verbose(`${message} <${ctx.filePath}:${ctx.lineNumber}>`, ctx.methodName);
+  }
+
+  debug(message: string) {
+    const ctx = this.getCallingContext();
+    super.debug(`${message} <${ctx.filePath}:${ctx.lineNumber}>`, ctx.methodName);
   }
 
   private getCallingContext() {
