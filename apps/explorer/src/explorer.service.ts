@@ -55,7 +55,7 @@ export class ExplorerService {
       for (const column of md.nonVirtualColumns) {
         const c = new ExplorerColumnEntity();
         c.target = t;
-        c.id = column.databasePath;
+        c.id = `${t.tableName}.${column.databasePath}`;
         c.name = column.propertyName;
         c.property = column.propertyName;
         c.type = this.getColumnType(column.type as string);
