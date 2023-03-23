@@ -15,6 +15,7 @@
  */
 
 import { Media } from "@media/src/media";
+import { LocalizedString } from "@shared/locale/locale";
 
 export interface User {
   id: string;
@@ -34,6 +35,6 @@ export interface User {
 export interface UserRole {
   id: string;
   code: string;
-  name: string;
+  name: LocalizedString[];
   tsCreated: Date;
 }

@@ -1,5 +1,6 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, Index, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { TypeCategory } from "@shared/type/type";
+import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
 
 @Entity("types_categories")
 export class TypeCategoryEntity implements TypeCategory {
@@ -11,8 +12,8 @@ export class TypeCategoryEntity implements TypeCategory {
   @Column("varchar")
   code: string;
 
-  @Index()
-  @Column("varchar", { nullable: true })
-  name: string;
+  @ManyToMany(() => LocalizedStringEntity)
+  @JoinTable()
+  name: LocalizedStringEntity[];
 
 }

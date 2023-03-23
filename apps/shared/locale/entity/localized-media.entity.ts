@@ -14,41 +14,25 @@
  *    limitations under the License.
  */
 
-import { Type } from "@shared/type/type";
-import { LocalizedString } from "@shared/locale/locale";
+import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { LanguageEntity } from "@shared/locale/entity/language.entity";
+import { LocalizedMedia } from "@shared/locale/locale";
+import { MediaEntity } from "@media/src/entity/media.entity";
 
-export interface Media {
-  id: number;
-  code: string;
-  name: LocalizedString[];
-  type: MediaType;
-  files: MediaFile[];
-}
+@Entity("localized_medias")
+export class LocalizedMediaEntity implements LocalizedMedia {
 
-export interface MediaType {
+  @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
-  code: string;
-  name: string;
-  vp6: boolean;
-  ext: Type;
-  sizes: MediaSize[];
-}
 
-export interface MediaSize {
-  id: number;
+  @Index({ unique: true })
+  @Column("varchar", { nullable: false })
   code: string;
-  name: string;
-  width: string;
-  height: string;
-}
 
-export interface MediaFile {
-  id: number;
-  code: string;
-  name: string;
-  width: number;
-  height: number;
-  format: string;
-  size: number;
-  media: Media;
+  @ManyToOne(t => LanguageEntity, t => t.id)
+  lang: LanguageEntity;
+
+  @ManyToOne(t => MediaEntity, t => t.code)
+  value: MediaEntity;
+
 }

@@ -14,25 +14,27 @@
  *    limitations under the License.
  */
 
-import { Column, CreateDateColumn, Entity, Index, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
-import { UserRole } from "@user/src/user";
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { LanguageEntity } from "@shared/locale/entity/language.entity";
 import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
+import { LocalizedMediaEntity } from "@shared/locale/entity/localized-media.entity";
+import { LocaleService } from "@shared/locale/locale.service";
 
-@Entity("users_roles")
-export class UserRoleEntity implements UserRole {
-
-  @PrimaryGeneratedColumn({ zerofill: true })
-  id: string;
-
-  @Column("varchar", { nullable: false, unique: true })
-  code: string;
-
-  @ManyToMany(() => LocalizedStringEntity)
-  @JoinTable()
-  name: LocalizedStringEntity[];
-
-  @Index()
-  @CreateDateColumn({ name: "ts_created", type: "timestamp" })
-  tsCreated: Date;
-
+@Module({
+  imports: [
+    TypeOrmModule.forFeature([
+      LanguageEntity,
+      LocalizedStringEntity,
+      LocalizedMediaEntity,
+    ]),
+  ],
+  providers: [
+    LocaleService,
+  ],
+  exports: [
+    LocaleService,
+  ],
+})
+export class LocaleModule {
 }

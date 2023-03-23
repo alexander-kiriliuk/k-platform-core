@@ -14,10 +14,11 @@
  *    limitations under the License.
  */
 
-import { Column, Entity, Index, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 import { ExplorerColumnEntity } from "./explorer-column.entity";
 import { MediaEntity } from "@media/src/entity/media.entity";
 import { ExplorerTarget } from "../explorer";
+import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
 
 
 @Entity("explorer2_targets")
@@ -30,12 +31,13 @@ export class ExplorerTargetEntity implements ExplorerTarget {
   @Column("varchar", { name: "table_name", nullable: false })
   tableName: string;
 
-  @Index()
-  @Column("varchar", { nullable: false })
-  name: string;
+  @ManyToMany(() => LocalizedStringEntity)
+  @JoinTable()
+  name: LocalizedStringEntity[];
 
-  @Column("text", { nullable: true })
-  description: string;
+  @ManyToMany(() => LocalizedStringEntity)
+  @JoinTable()
+  description: LocalizedStringEntity[];
 
   @ManyToOne(t => MediaEntity, t => t.code)
   icon: MediaEntity;

@@ -14,9 +14,10 @@
  *    limitations under the License.
  */
 
-import { Column, Entity, Index, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, PrimaryColumn } from "typeorm";
 import { ExplorerTargetEntity } from "./explorer-target.entity";
 import { ExplorerColumn } from "../explorer";
+import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
 
 
 @Entity("explorer_columns")
@@ -30,17 +31,17 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   @Column("varchar", { nullable: false })
   property: string;
 
-  @Index()
-  @Column("varchar", { nullable: false })
-  name: string;
+  @ManyToMany(() => LocalizedStringEntity)
+  @JoinTable()
+  name: LocalizedStringEntity[];
 
-  @Column("text", { nullable: true })
-  description: string;
+  @ManyToMany(() => LocalizedStringEntity)
+  @JoinTable()
+  description: LocalizedStringEntity[];
 
   @ManyToOne(t => ExplorerTargetEntity, t => t.target)
   target: ExplorerTargetEntity;
 
-  @Index()
   @Column("text", { nullable: false })
   type: string;
 

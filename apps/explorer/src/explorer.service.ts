@@ -22,6 +22,7 @@ import { DataSource, EntityMetadata, Repository } from "typeorm";
 import { ColumnDataType } from "@explorer/src/explorer";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
+import { LocaleService } from "@shared/locale/locale.service";
 
 @Injectable()
 export class ExplorerService {
@@ -33,7 +34,8 @@ export class ExplorerService {
     private readonly targetRepository: Repository<ExplorerTargetEntity>,
     @InjectRepository(ExplorerColumnEntity)
     private readonly columnRepository: Repository<ExplorerColumnEntity>,
-    private readonly logger: Logger) {
+    private readonly logger: Logger,
+    private readonly localeService: LocaleService) {
   }
 
   private get connection() {
@@ -41,14 +43,13 @@ export class ExplorerService {
   }
 
   async analyzeDatabase() {
-    const result: ExplorerTargetEntity[] = [];
     for (const md of this.connection.entityMetadatas) {
       if (md.tableType !== "regular") {
         continue;
       }
       const t = new ExplorerTargetEntity();
       t.target = md.targetName;
-      t.name = md.targetName;
+      t.name = await this.localeService.createLocalizedStrings(md.targetName);
       t.tableName = md.tableName;
       await this.saveTarget(t);
       t.columns = [];
@@ -56,7 +57,7 @@ export class ExplorerService {
         const c = new ExplorerColumnEntity();
         c.target = t;
         c.id = `${t.tableName}.${column.databasePath}`;
-        c.name = column.propertyName;
+        c.name = await this.localeService.createLocalizedStrings(column.propertyName);
         c.property = column.propertyName;
         c.type = this.getColumnType(column.type as string);
         c.primary = md.primaryColumns.find(pc => pc.propertyName === column.propertyName) !== undefined;
@@ -67,22 +68,18 @@ export class ExplorerService {
       }
       for (const relation of [...md.oneToManyRelations, ...md.manyToManyRelations]) {
         const c = new ExplorerColumnEntity();
-        this.setColumnProperties(c, relation, t);
+        await this.setColumnProperties(c, relation, t);
         c.multiple = true;
         t.columns.push(c);
         await this.saveColumn(c);
       }
       for (const relation of [...md.oneToOneRelations, ...md.manyToOneRelations]) {
         const c = new ExplorerColumnEntity();
-        this.setColumnProperties(c, relation, t);
+        await this.setColumnProperties(c, relation, t);
         c.multiple = false;
         t.columns.push(c);
         await this.saveColumn(c);
       }
-      if (!t.columns.length) {
-        continue;
-      }
-      result.push(t);
     }
     this.logger.log(`Entities was analyzed`);
   }
@@ -107,10 +104,10 @@ export class ExplorerService {
     this.logger.log(`Column ${column.name} was created`);
   }
 
-  private setColumnProperties(c: ExplorerColumnEntity, relation: RelationMetadata, target: ExplorerTargetEntity) {
+  private async setColumnProperties(c: ExplorerColumnEntity, relation: RelationMetadata, target: ExplorerTargetEntity) {
     c.target = target;
     c.id = relation.propertyPath;
-    c.name = relation.propertyName;
+    c.name = await this.localeService.createLocalizedStrings(relation.propertyName);
     c.property = relation.propertyName;
     c.type = "reference";
     c.referencedTableName = relation.inverseEntityMetadata.tableName;

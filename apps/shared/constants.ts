@@ -29,6 +29,9 @@ import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entit
 import { TypeOrmModuleOptions } from "@nestjs/typeorm/dist/interfaces/typeorm-options.interface";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { DynamicModule } from "@nestjs/common";
+import { LanguageEntity } from "@shared/locale/entity/language.entity";
+import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
+import { LocalizedMediaEntity } from "@shared/locale/entity/localized-media.entity";
 
 export const MS_CLIENT = "MS_CLIENT";
 
@@ -60,6 +63,9 @@ export const PG_DATA_SOURCE: TypeOrmModuleOptions = {
     TypeCategoryEntity,
     ExplorerTargetEntity,
     ExplorerColumnEntity,
+    LanguageEntity,
+    LocalizedStringEntity,
+    LocalizedMediaEntity,
   ],
   migrations: [],
   subscribers: [],

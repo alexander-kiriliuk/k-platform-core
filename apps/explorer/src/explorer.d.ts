@@ -16,14 +16,15 @@
 
 import { MediaEntity } from "@media/src/entity/media.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
+import { LocalizedString } from "@shared/locale/locale";
 
 export type ColumnDataType = "string" | "number" | "boolean" | "date" | "reference" | "unknown";
 
 export interface ExplorerTarget {
   target: string;
   tableName: string;
-  name: string;
-  description: string;
+  name: LocalizedString[];
+  description: LocalizedString[];
   icon: MediaEntity;
   columns: ExplorerColumnEntity[];
 }
@@ -31,8 +32,8 @@ export interface ExplorerTarget {
 export interface ExplorerColumn {
   id: string;
   property: string;
-  name: string;
-  description: string;
+  name: LocalizedString[];
+  description: LocalizedString[];
   target: ExplorerTarget;
   primary: boolean;
   unique: boolean;

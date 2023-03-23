@@ -1,7 +1,8 @@
-import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { TypeCategoryEntity } from "@shared/type/entity/type-category.entity";
 import { MediaEntity } from "@media/src/entity/media.entity";
 import { Type } from "../type";
+import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
 
 @Entity("types")
 export class TypeEntity implements Type {
@@ -13,12 +14,13 @@ export class TypeEntity implements Type {
   @Column("varchar")
   code: string;
 
-  @Index()
-  @Column("varchar", { nullable: true })
-  name: string;
+  @ManyToMany(() => LocalizedStringEntity)
+  @JoinTable()
+  name: LocalizedStringEntity[];
 
-  @Column("text", { nullable: true })
-  description: string;
+  @ManyToMany(() => LocalizedStringEntity)
+  @JoinTable()
+  description: LocalizedStringEntity[];
 
   @ManyToOne(t => TypeCategoryEntity, c => c.code)
   category: TypeCategoryEntity;

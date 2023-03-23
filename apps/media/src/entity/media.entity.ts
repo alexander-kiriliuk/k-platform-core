@@ -1,7 +1,8 @@
-import { Column, Entity, Index, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { MediaTypeEntity } from "./media-type.entity";
 import { MediaFileEntity } from "./media-file.entity";
 import { Media } from "../media";
+import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
 
 @Entity("medias")
 export class MediaEntity implements Media {
@@ -13,9 +14,9 @@ export class MediaEntity implements Media {
   @Column("varchar", { nullable: true })
   code: string;
 
-  @Index()
-  @Column("varchar", { nullable: true })
-  name: string;
+  @ManyToMany(() => LocalizedStringEntity)
+  @JoinTable()
+  name: LocalizedStringEntity[];
 
   @ManyToOne(t => MediaTypeEntity, type => type.code)
   type: MediaTypeEntity;

@@ -22,6 +22,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
 import { DatabaseModule } from "@shared/constants";
+import { LocaleModule } from "@shared/locale/locale.module";
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { DatabaseModule } from "@shared/constants";
       ExplorerTargetEntity,
       ExplorerColumnEntity,
     ]),
+    LocaleModule,
   ],
   controllers: [ExplorerController],
   providers: [ExplorerService],

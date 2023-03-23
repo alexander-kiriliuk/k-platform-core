@@ -15,12 +15,13 @@
  */
 
 import { Media } from "@media/src/media";
+import { LocalizedString } from "@shared/locale/locale";
 
 export interface Type {
   id: number;
   code: string;
-  name: string;
-  description: string;
+  name: LocalizedString[];
+  description: LocalizedString[];
   category: TypeCategory;
   image: Media;
 }
@@ -28,5 +29,5 @@ export interface Type {
 export interface TypeCategory {
   id: number;
   code: string;
-  name: string;
+  name: LocalizedString[];
 }
