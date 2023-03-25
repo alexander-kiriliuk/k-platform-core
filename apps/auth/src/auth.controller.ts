@@ -16,13 +16,39 @@
 
 import { MessagePattern } from "@nestjs/microservices";
 import { Controller } from "@nestjs/common";
+import { AuthService } from "./auth.service";
+import { JwtService } from "@nestjs/jwt";
+import { JwtDto, LoginPayload } from "@auth/src/auth.types";
+import { JWT } from "@shared/constants";
+import { RedisService } from "@liaoliaots/nestjs-redis";
 
 @Controller()
 export class AuthController {
 
-  @MessagePattern("auth.hello")
-  someName(data: number[]): string {
-    return "hello auth: " + data.join(", ");
+  constructor(
+    private readonly redisService: RedisService,
+    private readonly authService: AuthService,
+    private readonly jwtService: JwtService) {
+  }
+
+  private get redisClient() {
+    return this.redisService.getClient();
+  }
+
+  @MessagePattern("auth.login")
+  async login(data: LoginPayload): Promise<JwtDto> {
+    const user = await this.authService.validateUser(data);
+    if (!user) {
+      return null;
+    }
+    const accessToken = this.jwtService.sign({ login: user.login });
+    await this.redisClient.set(
+      `${JWT.redisPrefix}:${JWT.redisTokenPrefix}:${accessToken}`,
+      user.login,
+      "EX",
+      JWT.accessTokenExpiration,
+    );
+    return { user, accessToken };
   }
 
 }

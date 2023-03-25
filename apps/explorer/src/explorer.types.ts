@@ -16,7 +16,7 @@
 
 import { MediaEntity } from "@media/src/entity/media.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
-import { LocalizedString } from "@shared/locale/locale";
+import { LocalizedString } from "@shared/locale/locale.types";
 
 export type ColumnDataType = "string" | "number" | "boolean" | "date" | "reference" | "unknown";
 

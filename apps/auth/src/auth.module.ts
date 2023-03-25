@@ -16,9 +16,29 @@
 
 import { Module } from "@nestjs/common";
 import { AuthController } from "./auth.controller";
+import { JwtModule } from "@nestjs/jwt";
+import { PassportModule } from "@nestjs/passport";
+import { AuthService } from "@auth/src/auth.service";
+import { JWT, REDIS_OPTIONS } from "@shared/constants";
+import { RedisModule } from "@liaoliaots/nestjs-redis";
 
 @Module({
-  controllers: [AuthController],
+  controllers: [
+    AuthController,
+  ],
+  imports: [
+    PassportModule,
+    JwtModule.register({
+      secret: JWT.secret,
+      signOptions: { expiresIn: JWT.accessTokenExpiration },
+    }),
+    RedisModule.forRoot({
+      config: REDIS_OPTIONS,
+    }),
+  ],
+  providers: [
+    AuthService,
+  ],
 })
 export class AuthModule {
 }

@@ -1,7 +1,7 @@
 import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { MediaSizeEntity } from "./media-size.entity";
 import { TypeEntity } from "@shared/type/entity/type.entity";
-import { MediaType } from "@media/src/media";
+import { MediaType } from "@media/src/media.types";
 
 @Entity("medias_types")
 export class MediaTypeEntity implements MediaType {

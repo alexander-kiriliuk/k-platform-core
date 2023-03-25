@@ -18,7 +18,7 @@ import { NestFactory } from "@nestjs/core";
 import { MediaModule } from "./media.module";
 import { TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
 
-async function bootstrap() {
+(async () => {
   const app = await NestFactory.createMicroservice(
     MediaModule,
     {
@@ -26,6 +26,4 @@ async function bootstrap() {
       options: TRANSPORT_OPTIONS,
     });
   await app.listen();
-}
-
-bootstrap();
+})();

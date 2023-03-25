@@ -1,5 +1,5 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
-import { MediaSize } from "@media/src/media";
+import { MediaSize } from "@media/src/media.types";
 
 @Entity("medias_sizes")
 export class MediaSizeEntity implements MediaSize {

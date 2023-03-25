@@ -14,20 +14,41 @@
  *    limitations under the License.
  */
 
-import { Media } from "@media/src/media";
-import { LocalizedString } from "@shared/locale/locale";
+import { Type } from "@shared/type/type.types";
+import { LocalizedString } from "@shared/locale/locale.types";
 
-export interface Type {
+export interface Media {
   id: number;
   code: string;
   name: LocalizedString[];
-  description: LocalizedString[];
-  category: TypeCategory;
-  image: Media;
+  type: MediaType;
+  files: MediaFile[];
 }
 
-export interface TypeCategory {
+export interface MediaType {
   id: number;
   code: string;
-  name: LocalizedString[];
+  name: string;
+  vp6: boolean;
+  ext: Type;
+  sizes: MediaSize[];
+}
+
+export interface MediaSize {
+  id: number;
+  code: string;
+  name: string;
+  width: string;
+  height: string;
+}
+
+export interface MediaFile {
+  id: number;
+  code: string;
+  name: string;
+  width: number;
+  height: number;
+  format: string;
+  size: number;
+  media: Media;
 }

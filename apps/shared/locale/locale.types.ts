@@ -1,4 +1,4 @@
-import { Media } from "@media/src/media";
+import { Media } from "@media/src/media.types";
 
 export interface Language {
   id: string;

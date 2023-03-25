@@ -1,6 +1,6 @@
 import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { MediaEntity } from "./media.entity";
-import { MediaFile } from "@media/src/media";
+import { MediaFile } from "@media/src/media.types";
 
 @Entity("medias_files")
 export class MediaFileEntity implements MediaFile {

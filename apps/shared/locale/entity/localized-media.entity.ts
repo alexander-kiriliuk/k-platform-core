@@ -16,7 +16,7 @@
 
 import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { LanguageEntity } from "@shared/locale/entity/language.entity";
-import { LocalizedMedia } from "@shared/locale/locale";
+import { LocalizedMedia } from "@shared/locale/locale.types";
 import { MediaEntity } from "@media/src/entity/media.entity";
 
 @Entity("localized_medias")

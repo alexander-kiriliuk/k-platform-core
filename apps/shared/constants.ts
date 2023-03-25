@@ -32,15 +32,34 @@ import { DynamicModule } from "@nestjs/common";
 import { LanguageEntity } from "@shared/locale/entity/language.entity";
 import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
 import { LocalizedMediaEntity } from "@shared/locale/entity/localized-media.entity";
+import { RedisClientOptions } from "@liaoliaots/nestjs-redis/dist/redis/interfaces/redis-module-options.interface";
 
 export const MS_CLIENT = "MS_CLIENT";
+
+export const API = {
+  prefix: "api/v1",
+  port: 3001,
+};
+
+export const TRANSPORT_TYPE = Transport.REDIS;
 
 export const TRANSPORT_OPTIONS = {
   host: "localhost",
   port: 6379,
 };
 
-export const TRANSPORT_TYPE = Transport.REDIS;
+export const REDIS_OPTIONS: RedisClientOptions = {
+  host: "localhost",
+  port: 6379,
+  db: 0,
+};
+
+export const JWT = {
+  secret: "yourSecretKey",
+  redisPrefix: "jwt",
+  redisTokenPrefix: "access_token",
+  accessTokenExpiration: 600,
+};
 
 export const PG_DATA_SOURCE: TypeOrmModuleOptions = {
   type: "postgres",

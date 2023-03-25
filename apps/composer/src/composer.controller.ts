@@ -14,8 +14,10 @@
  *    limitations under the License.
  */
 
-import { Controller, Get, InternalServerErrorException } from "@nestjs/common";
-import { ComposerClient } from "@shared/clien-proxy/composer.client";
+import { BadRequestException, Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { ComposerClient } from "@shared/client-proxy/composer.client";
+import { JwtDto, LoginPayload } from "@auth/src/auth.types";
+import { RedisAuthGuard } from "@shared/guarg/redis-auth.guard";
 
 @Controller()
 export class ComposerController {
@@ -24,13 +26,20 @@ export class ComposerController {
     private client: ComposerClient) {
   }
 
-  @Get()
-  async getHello() {
-    try {
-      return await this.client.dispatch<string>("auth.hello", [1, 2, 3, 4]);
-    } catch (e) {
-      throw new InternalServerErrorException(e);
+  @Post("/auth/login")
+  async login(@Body() payload: LoginPayload) {
+    const dto = await this.client.dispatch<JwtDto, LoginPayload>("auth.login", payload);
+    if (!dto) {
+      throw new BadRequestException();
     }
+    return dto;
+  }
+
+  @UseGuards(RedisAuthGuard)
+  @Get("/profile")
+  async profile() {
+    // todo return current user profile
+    return { ok: 200 };
   }
 
 }

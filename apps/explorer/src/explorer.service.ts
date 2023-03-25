@@ -19,7 +19,7 @@ import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entit
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 import { DataSource, EntityMetadata, Repository } from "typeorm";
-import { ColumnDataType } from "@explorer/src/explorer";
+import { ColumnDataType } from "@explorer/src/explorer.types";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
 import { LocaleService } from "@shared/locale/locale.service";

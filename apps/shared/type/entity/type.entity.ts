@@ -1,7 +1,7 @@
 import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { TypeCategoryEntity } from "@shared/type/entity/type-category.entity";
 import { MediaEntity } from "@media/src/entity/media.entity";
-import { Type } from "../type";
+import { Type } from "../type.types";
 import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
 
 @Entity("types")

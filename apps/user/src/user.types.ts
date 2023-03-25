@@ -14,8 +14,8 @@
  *    limitations under the License.
  */
 
-import { Media } from "@media/src/media";
-import { LocalizedString } from "@shared/locale/locale";
+import { Media } from "@media/src/media.types";
+import { LocalizedString } from "@shared/locale/locale.types";
 
 export interface User {
   id: string;

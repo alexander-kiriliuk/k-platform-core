@@ -16,10 +16,10 @@
 
 import { NestFactory } from "@nestjs/core";
 import { ComposerModule } from "./composer.module";
+import { API } from "@shared/constants";
 
-async function bootstrap() {
+(async () => {
   const app = await NestFactory.create(ComposerModule);
-  await app.listen(3001);
-}
-
-bootstrap();
+  app.setGlobalPrefix(API.prefix);
+  await app.listen(API.port);
+})();

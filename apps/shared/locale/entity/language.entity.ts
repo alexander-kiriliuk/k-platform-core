@@ -16,7 +16,7 @@
 
 import { Column, Entity, Index, ManyToOne, PrimaryColumn } from "typeorm";
 import { MediaEntity } from "@media/src/entity/media.entity";
-import { Language } from "@shared/locale/locale";
+import { Language } from "@shared/locale/locale.types";
 
 @Entity("languages")
 export class LanguageEntity implements Language {

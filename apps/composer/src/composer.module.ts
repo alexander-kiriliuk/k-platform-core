@@ -17,14 +17,18 @@
 import { Module } from "@nestjs/common";
 import { ComposerController } from "./composer.controller";
 import { ClientProxy, ClientsModule } from "@nestjs/microservices";
-import { MS_CLIENT, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
-import { ComposerClient } from "@shared/clien-proxy/composer.client";
+import { MS_CLIENT, REDIS_OPTIONS, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
+import { ComposerClient } from "@shared/client-proxy/composer.client";
+import { RedisModule } from "@liaoliaots/nestjs-redis";
 
 @Module({
   imports: [
     ClientsModule.register([
       { name: MS_CLIENT, transport: TRANSPORT_TYPE, options: TRANSPORT_OPTIONS },
     ]),
+    RedisModule.forRoot({
+      config: REDIS_OPTIONS,
+    }),
   ],
   controllers: [ComposerController],
   providers: [

@@ -26,7 +26,7 @@ import {
 } from "typeorm";
 import { UserRoleEntity } from "./user-role.entity";
 import { MediaEntity } from "@media/src/entity/media.entity";
-import { User } from "../user";
+import { User } from "../user.types";
 
 @Entity("users")
 export class UserEntity implements User {
