@@ -18,21 +18,41 @@ import { Injectable } from "@nestjs/common";
 import * as bcrypt from "bcrypt";
 import { LoginPayload } from "@auth/src/auth.types";
 import { User } from "@user/src/user.types";
+import { MsClient } from "@shared/client-proxy/ms-client";
+import { JWT } from "@shared/constants";
+import { RedisService } from "@liaoliaots/nestjs-redis";
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class AuthService {
-  // Здесь должна быть логика работы с базой данных для получения и сохранения пользователей
-  private users: User[] = [
-    {
-      id: "1",
-      login: "user1",
-      password: "$2b$10$Qp04yRuLNKVMUtFthM3pYuj9mrOvlNPtYaa2lCozrCrITIr5iJYoC", // 123456
-    } as User,
-  ];
 
-  async validateUser(payload: LoginPayload): Promise<User> {
-    // todo check real user
-    const user = this.users.find((user) => user.login === payload.login);
+  constructor(
+    private readonly client: MsClient,
+    private readonly redisService: RedisService,
+    private readonly jwtService: JwtService) {
+  }
+
+  private get redisClient() {
+    return this.redisService.getClient();
+  }
+
+  async authenticate(data: LoginPayload) {
+    const user = await this.validateUser(data);
+    if (!user) {
+      return null;
+    }
+    const accessToken = this.jwtService.sign({ login: user.login });
+    await this.redisClient.set(
+      `${JWT.redisPrefix}:${JWT.redisTokenPrefix}:${accessToken}`,
+      user.login,
+      "EX",
+      JWT.accessTokenExpiration,
+    );
+    return { user, accessToken };
+  }
+
+  private async validateUser(payload: LoginPayload): Promise<User> {
+    const user = await this.client.dispatch("user.find.by.login", payload.login);
     if (!user) {
       return null;
     }

@@ -19,8 +19,10 @@ import { AuthController } from "./auth.controller";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { AuthService } from "@auth/src/auth.service";
-import { JWT, REDIS_OPTIONS } from "@shared/constants";
+import { JWT, MS_CLIENT, REDIS_OPTIONS, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
 import { RedisModule } from "@liaoliaots/nestjs-redis";
+import { MsClient } from "@shared/client-proxy/ms-client";
+import { ClientProxy, ClientsModule } from "@nestjs/microservices";
 
 @Module({
   controllers: [
@@ -35,9 +37,17 @@ import { RedisModule } from "@liaoliaots/nestjs-redis";
     RedisModule.forRoot({
       config: REDIS_OPTIONS,
     }),
+    ClientsModule.register([
+      { name: MS_CLIENT, transport: TRANSPORT_TYPE, options: TRANSPORT_OPTIONS },
+    ]),
   ],
   providers: [
     AuthService,
+    {
+      provide: MsClient,
+      useFactory: (client: ClientProxy) => new MsClient(client),
+      inject: [MS_CLIENT],
+    },
   ],
 })
 export class AuthModule {

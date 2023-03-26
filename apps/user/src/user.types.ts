@@ -29,7 +29,6 @@ export interface User {
   active: boolean;
   roles: UserRole[];
   tsCreated: Date;
-  readonly fullName: string;
 }
 
 export interface UserRole {

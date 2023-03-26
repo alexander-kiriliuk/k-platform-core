@@ -15,10 +15,25 @@
  */
 
 import { Injectable } from "@nestjs/common";
+import { User } from "@user/src/user.types";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { UserEntity } from "@user/src/entity/user.entity";
 
 @Injectable()
 export class UserService {
-  getHello(): string {
-    return "Hello World user!";
+
+  constructor(
+    @InjectRepository(UserEntity)
+    private readonly userRep: Repository<UserEntity>) {
   }
+
+  async create(user: User) {
+    return await this.userRep.save(user);
+  }
+
+  async findByLogin(login: string) {
+    return await this.userRep.findOne({ where: { login } });
+  }
+
 }

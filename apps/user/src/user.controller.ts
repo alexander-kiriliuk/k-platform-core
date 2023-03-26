@@ -17,14 +17,23 @@
 import { Controller } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { MessagePattern } from "@nestjs/microservices";
+import { User } from "@user/src/user.types";
 
 @Controller()
 export class UserController {
-  constructor(private readonly userService: UserService) {
+
+  constructor(
+    private readonly userService: UserService) {
   }
 
-  @MessagePattern("user.hello")
-  getHello(): string {
-    return this.userService.getHello();
+  @MessagePattern("user.create")
+  async create(user: User) {
+    return await this.userService.create(user);
   }
+
+  @MessagePattern("user.find.by.login")
+  async findByLogin(login: string) {
+    return await this.userService.findByLogin(login);
+  }
+
 }

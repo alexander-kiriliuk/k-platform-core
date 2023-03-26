@@ -67,11 +67,4 @@ export class UserEntity implements User {
   @CreateDateColumn({ name: "ts_created", type: "timestamp" })
   tsCreated: Date;
 
-  get fullName() {
-    if (this.firstName && this.lastName) {
-      return `${this.firstName} ${this.lastName}`;
-    }
-    return this.login;
-  }
-
 }

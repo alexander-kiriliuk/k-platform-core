@@ -33,6 +33,7 @@ import { LanguageEntity } from "@shared/locale/entity/language.entity";
 import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
 import { LocalizedMediaEntity } from "@shared/locale/entity/localized-media.entity";
 import { RedisClientOptions } from "@liaoliaots/nestjs-redis/dist/redis/interfaces/redis-module-options.interface";
+import { UserSubscriber } from "@user/src/entity/user-subscriber";
 
 export const MS_CLIENT = "MS_CLIENT";
 
@@ -61,6 +62,8 @@ export const JWT = {
   accessTokenExpiration: 600,
 };
 
+export const PWD_SALT = 10;
+
 export const PG_DATA_SOURCE: TypeOrmModuleOptions = {
   type: "postgres",
   host: "localhost",
@@ -87,7 +90,9 @@ export const PG_DATA_SOURCE: TypeOrmModuleOptions = {
     LocalizedMediaEntity,
   ],
   migrations: [],
-  subscribers: [],
+  subscribers: [
+    UserSubscriber,
+  ],
 };
 
 export class DatabaseModule {

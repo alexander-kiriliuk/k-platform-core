@@ -18,7 +18,7 @@ import { Module } from "@nestjs/common";
 import { ComposerController } from "./composer.controller";
 import { ClientProxy, ClientsModule } from "@nestjs/microservices";
 import { MS_CLIENT, REDIS_OPTIONS, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
-import { ComposerClient } from "@shared/client-proxy/composer.client";
+import { MsClient } from "@shared/client-proxy/ms-client";
 import { RedisModule } from "@liaoliaots/nestjs-redis";
 
 @Module({
@@ -33,8 +33,8 @@ import { RedisModule } from "@liaoliaots/nestjs-redis";
   controllers: [ComposerController],
   providers: [
     {
-      provide: ComposerClient,
-      useFactory: (client: ClientProxy) => new ComposerClient(client),
+      provide: MsClient,
+      useFactory: (client: ClientProxy) => new MsClient(client),
       inject: [MS_CLIENT],
     },
   ],

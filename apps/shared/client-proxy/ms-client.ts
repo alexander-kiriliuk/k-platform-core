@@ -16,7 +16,7 @@
 
 import { ClientProxy } from "@nestjs/microservices";
 
-export class ComposerClient {
+export class MsClient {
 
   constructor(
     readonly proxy: ClientProxy) {

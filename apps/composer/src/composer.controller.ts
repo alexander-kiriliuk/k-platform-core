@@ -15,7 +15,7 @@
  */
 
 import { BadRequestException, Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
-import { ComposerClient } from "@shared/client-proxy/composer.client";
+import { MsClient } from "@shared/client-proxy/ms-client";
 import { JwtDto, LoginPayload } from "@auth/src/auth.types";
 import { RedisAuthGuard } from "@shared/guarg/redis-auth.guard";
 
@@ -23,7 +23,7 @@ import { RedisAuthGuard } from "@shared/guarg/redis-auth.guard";
 export class ComposerController {
 
   constructor(
-    private client: ComposerClient) {
+    private readonly client: MsClient) {
   }
 
   @Post("/auth/login")

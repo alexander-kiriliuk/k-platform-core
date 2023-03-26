@@ -31,9 +31,9 @@ export class ExplorerService {
     @InjectDataSource()
     private readonly dataSource: DataSource,
     @InjectRepository(ExplorerTargetEntity)
-    private readonly targetRepository: Repository<ExplorerTargetEntity>,
+    private readonly targetRep: Repository<ExplorerTargetEntity>,
     @InjectRepository(ExplorerColumnEntity)
-    private readonly columnRepository: Repository<ExplorerColumnEntity>,
+    private readonly columnRep: Repository<ExplorerColumnEntity>,
     private readonly logger: Logger,
     private readonly localeService: LocaleService) {
   }
@@ -85,22 +85,22 @@ export class ExplorerService {
   }
 
   private async saveTarget(target: ExplorerTargetEntity) {
-    const t = await this.targetRepository.findOne({ where: { target: target.target } });
+    const t = await this.targetRep.findOne({ where: { target: target.target } });
     if (t) {
       this.logger.log(`Entity ${target.target} was exist, skip`);
       return;
     }
-    await this.targetRepository.save(target);
+    await this.targetRep.save(target);
     this.logger.log(`Entity ${target.target} was created`);
   }
 
   private async saveColumn(column: ExplorerColumnEntity) {
-    const c = await this.columnRepository.findOne({ where: { id: column.id } });
+    const c = await this.columnRep.findOne({ where: { id: column.id } });
     if (c) {
       this.logger.log(`Column ${column.name} was exist, skip`);
       return;
     }
-    await this.columnRepository.save(column);
+    await this.columnRep.save(column);
     this.logger.log(`Column ${column.name} was created`);
   }
 
