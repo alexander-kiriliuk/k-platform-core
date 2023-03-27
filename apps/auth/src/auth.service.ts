@@ -51,7 +51,7 @@ export class AuthService {
     return { user, accessToken };
   }
 
-  private async validateUser(payload: LoginPayload): Promise<User> {
+  async validateUser(payload: LoginPayload): Promise<User> {
     const user = await this.client.dispatch("user.find.by.login", payload.login);
     if (!user) {
       return null;

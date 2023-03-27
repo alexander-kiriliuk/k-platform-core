@@ -86,6 +86,16 @@
     "typescript": "4.7.4"
   },
   "jest": {
+    "moduleNameMapper": {
+      "^@shared/(.*)$": "<rootDir>/apps/shared/$1",
+      "^@user/(.*)$": "<rootDir>/apps/user/$1",
+      "^@media/(.*)$": "<rootDir>/apps/media/$1",
+      "^@files/(.*)$": "<rootDir>/apps/files/$1",
+      "^@db-script-evaluator/(.*)$": "<rootDir>/apps/db-script-evaluator/$1",
+      "^@explorer/(.*)$": "<rootDir>/apps/explorer/$1",
+      "^@composer/(.*)$": "<rootDir>/apps/composer/$1",
+      "^@auth/(.*)$": "<rootDir>/apps/auth/$1"
+    },
     "moduleFileExtensions": [
       "js",
       "json",
