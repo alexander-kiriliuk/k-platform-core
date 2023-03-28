@@ -15,7 +15,7 @@
  */
 
 import { Media } from "@media/src/media.types";
-import { LocalizedString } from "@shared/locale/locale.types";
+import { LocalizedString } from "@shared/modules/locale/locale.types";
 
 export interface User {
   id: string;

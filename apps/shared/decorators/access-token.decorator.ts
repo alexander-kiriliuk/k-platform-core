@@ -14,26 +14,12 @@
  *    limitations under the License.
  */
 
-import { Column, Entity, Index, ManyToOne, PrimaryColumn } from "typeorm";
-import { MediaEntity } from "@media/src/entity/media.entity";
-import { Language } from "@shared/locale/locale.types";
+import { createParamDecorator, ExecutionContext } from "@nestjs/common";
+import { REQUEST_PROPS } from "@shared/constants";
 
-@Entity("languages")
-export class LanguageEntity implements Language {
-
-  @Index({ unique: true })
-  @PrimaryColumn("varchar")
-  id: string;
-
-  @Index({ unique: true })
-  @Column("varchar", { nullable: true })
-  code: string;
-
-  @Index()
-  @Column("varchar", { nullable: false })
-  name: string;
-
-  @ManyToOne(t => MediaEntity, t => t.code)
-  icon: MediaEntity;
-
-}
+export const AccessToken = createParamDecorator(
+  (data: unknown, ctx: ExecutionContext) => {
+    const request = ctx.switchToHttp().getRequest();
+    return request[REQUEST_PROPS.accessToken];
+  },
+);

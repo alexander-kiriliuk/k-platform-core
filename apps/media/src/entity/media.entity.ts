@@ -2,7 +2,7 @@ import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, OneToMany, Pri
 import { MediaTypeEntity } from "./media-type.entity";
 import { MediaFileEntity } from "./media-file.entity";
 import { Media } from "../media.types";
-import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
+import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 
 @Entity("medias")
 export class MediaEntity implements Media {

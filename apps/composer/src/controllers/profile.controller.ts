@@ -14,20 +14,18 @@
  *    limitations under the License.
  */
 
-import { Media } from "@media/src/media.types";
-import { LocalizedString } from "@shared/locale/locale.types";
+import { Controller, Get, UseGuards } from "@nestjs/common";
+import { AuthGuard } from "@shared/guards/auth.guard";
+import { CurrentUser } from "@shared/decorators/current-user.decorator";
+import { User } from "@user/src/user.types";
 
-export interface Type {
-  id: number;
-  code: string;
-  name: LocalizedString[];
-  description: LocalizedString[];
-  category: TypeCategory;
-  image: Media;
-}
+@Controller("/profile")
+export class ProfileController {
 
-export interface TypeCategory {
-  id: number;
-  code: string;
-  name: LocalizedString[];
+  @UseGuards(AuthGuard)
+  @Get("/current")
+  async profile(@CurrentUser() user: User) {
+    return user;
+  }
+
 }

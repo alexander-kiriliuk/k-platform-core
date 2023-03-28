@@ -16,18 +16,19 @@
 
 import { Injectable } from "@nestjs/common";
 import * as bcrypt from "bcrypt";
-import { LoginPayload } from "@auth/src/auth.types";
+import { JwtDto, LoginPayload } from "@auth/src/auth.types";
 import { User } from "@user/src/user.types";
 import { MsClient } from "@shared/client-proxy/ms-client";
 import { JWT } from "@shared/constants";
 import { RedisService } from "@liaoliaots/nestjs-redis";
 import { JwtService } from "@nestjs/jwt";
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable()
 export class AuthService {
 
   constructor(
-    private readonly client: MsClient,
+    private readonly msClient: MsClient,
     private readonly redisService: RedisService,
     private readonly jwtService: JwtService) {
   }
@@ -36,23 +37,89 @@ export class AuthService {
     return this.redisService.getClient();
   }
 
-  async authenticate(data: LoginPayload) {
+  async authenticate(data: LoginPayload): Promise<JwtDto> {
     const user = await this.validateUser(data);
     if (!user) {
       return null;
     }
     const accessToken = this.jwtService.sign({ login: user.login });
     await this.redisClient.set(
-      `${JWT.redisPrefix}:${JWT.redisTokenPrefix}:${accessToken}`,
+      `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`,
       user.login,
       "EX",
       JWT.accessTokenExpiration,
     );
-    return { user, accessToken };
+    const refreshToken = uuidv4();
+    await this.redisClient.set(
+      `${JWT.redisPrefix}:${JWT.refreshTokenPrefix}:${accessToken}:${refreshToken}`,
+      user.login,
+      "EX",
+      JWT.refreshTokenExpiration,
+    );
+    return { user, accessToken, refreshToken };
+  }
+
+  async invalidateToken(accessToken: string) {
+    const userLogin = await this.redisClient.get(
+      `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`,
+    );
+    if (userLogin) {
+      await this.redisClient.del(`${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`);
+      const refreshTokenKeyPattern = `${JWT.redisPrefix}:${JWT.refreshTokenPrefix}:${accessToken}:*`;
+      const refreshTokenKeys = await this.redisClient.keys(refreshTokenKeyPattern);
+      // delete all related refresh tokens
+      if (refreshTokenKeys.length > 0) {
+        await this.redisClient.del(...refreshTokenKeys);
+      }
+    } else {
+      return false;
+    }
+    return true;
+  }
+
+  async exchangeToken(refreshToken: string): Promise<Partial<JwtDto>> {
+    const refreshTokenKeyPattern = `${JWT.redisPrefix}:${JWT.refreshTokenPrefix}:*:${refreshToken}`;
+    const refreshTokenKeys = await this.redisClient.keys(refreshTokenKeyPattern);
+    if (refreshTokenKeys.length === 0) {
+      return null;
+    }
+    const refreshTokenKey = refreshTokenKeys[0];
+    const userLogin = await this.redisClient.get(refreshTokenKey);
+    if (!userLogin) {
+      return null;
+    }
+    const accessToken = this.jwtService.sign({ login: userLogin });
+    await this.redisClient.set(
+      `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`,
+      userLogin,
+      "EX",
+      JWT.accessTokenExpiration,
+    );
+    const newRefreshToken = uuidv4();
+    await this.redisClient.set(
+      `${JWT.redisPrefix}:${JWT.refreshTokenPrefix}:${accessToken}:${newRefreshToken}`,
+      userLogin,
+      "EX",
+      JWT.refreshTokenExpiration,
+    );
+    // extract related access token for delete
+    const oldAccessToken = this.extractAccessTokenFromRefreshTokenKey(refreshTokenKey);
+    const oldAccessTokenKey = `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${oldAccessToken}`;
+    await this.redisClient.del(refreshTokenKey, oldAccessTokenKey);
+    return { accessToken, refreshToken: newRefreshToken };
+  }
+
+  private extractAccessTokenFromRefreshTokenKey(refreshTokenKey: string) {
+    const regex = new RegExp(`${JWT.redisPrefix}:${JWT.refreshTokenPrefix}:(.*):[^:]*$`);
+    const parts = refreshTokenKey.match(regex);
+    if (parts?.length) {
+      return parts[1];
+    }
+    return null;
   }
 
   async validateUser(payload: LoginPayload): Promise<User> {
-    const user = await this.client.dispatch("user.find.by.login", payload.login);
+    const user = await this.msClient.dispatch<User, string>("user.find.by.login", payload.login);
     if (!user) {
       return null;
     }

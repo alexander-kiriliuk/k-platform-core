@@ -16,7 +16,7 @@
 
 import { Column, CreateDateColumn, Entity, Index, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { UserRole } from "@user/src/user.types";
-import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
+import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 
 @Entity("users_roles")
 export class UserRoleEntity implements UserRole {

@@ -15,6 +15,10 @@
  */
 
 import { ClientProxy } from "@nestjs/microservices";
+import { catchError, Observable, throwError, timeout } from "rxjs";
+import { TRANSPORT_OPTIONS } from "@shared/constants";
+import { HttpException } from "@nestjs/common";
+import { MsClientOptions } from "@shared/client-proxy/ms-client.types";
 
 export class MsClient {
 
@@ -22,21 +26,37 @@ export class MsClient {
     readonly proxy: ClientProxy) {
   }
 
-  dispatch<TResult = any, TInput = any>(pattern: any, data: TInput): Promise<TResult> {
+  dispatch<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions): Promise<TResult> {
     return new Promise<TResult>((resolve, reject) => {
-      this.proxy.send<TResult, TInput>(pattern, data).subscribe({
+      const ob = this.proxy.send<TResult, TInput>(pattern, data);
+      this.handleRequest(ob, opts).subscribe({
         next: result => resolve(result),
         error: error => reject(error),
       });
     });
   }
 
-  send<TResult = any, TInput = any>(pattern: any, data: TInput) {
-    return this.proxy.send<TResult, TInput>(pattern, data);
+  send<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions) {
+    const ob = this.proxy.send<TResult, TInput>(pattern, data);
+    return this.handleRequest(ob, opts);
   }
 
-  emit<TResult = any, TInput = any>(pattern: any, data: TInput) {
-    return this.proxy.emit<TResult, TInput>(pattern, data);
+  emit<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions) {
+    const ob = this.proxy.emit<TResult, TInput>(pattern, data);
+    return this.handleRequest(ob, opts);
+  }
+
+  private handleRequest<T>(source: Observable<T>, opts?: MsClientOptions): Observable<T> {
+    return source.pipe(
+      timeout(opts?.timeout || TRANSPORT_OPTIONS.timeout),
+      catchError(error => {
+        if (error.name === "TimeoutError") {
+          throw new HttpException("Request Timeout", 408);
+        }
+        return throwError(error);
+      }),
+    );
   }
 
 }
+

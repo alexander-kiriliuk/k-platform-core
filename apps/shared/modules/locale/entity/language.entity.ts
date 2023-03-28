@@ -14,25 +14,26 @@
  *    limitations under the License.
  */
 
-import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { LanguageEntity } from "@shared/locale/entity/language.entity";
-import { LocalizedMedia } from "@shared/locale/locale.types";
+import { Column, Entity, Index, ManyToOne, PrimaryColumn } from "typeorm";
 import { MediaEntity } from "@media/src/entity/media.entity";
+import { Language } from "@shared/modules/locale/locale.types";
 
-@Entity("localized_medias")
-export class LocalizedMediaEntity implements LocalizedMedia {
-
-  @PrimaryGeneratedColumn({ zerofill: true })
-  id: number;
+@Entity("languages")
+export class LanguageEntity implements Language {
 
   @Index({ unique: true })
-  @Column("varchar", { nullable: false })
+  @PrimaryColumn("varchar")
+  id: string;
+
+  @Index({ unique: true })
+  @Column("varchar", { nullable: true })
   code: string;
 
-  @ManyToOne(t => LanguageEntity, t => t.id)
-  lang: LanguageEntity;
+  @Index()
+  @Column("varchar", { nullable: false })
+  name: string;
 
   @ManyToOne(t => MediaEntity, t => t.code)
-  value: MediaEntity;
+  icon: MediaEntity;
 
 }

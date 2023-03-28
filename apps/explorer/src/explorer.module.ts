@@ -17,12 +17,12 @@
 import { Module, OnModuleInit } from "@nestjs/common";
 import { ExplorerController } from "./explorer.controller";
 import { ExplorerService } from "./explorer.service";
-import { LogModule } from "@shared/logger/log.module";
+import { LogModule } from "@shared/modules/logger/log.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
 import { DatabaseModule } from "@shared/constants";
-import { LocaleModule } from "@shared/locale/locale.module";
+import { LocaleModule } from "@shared/modules/locale/locale.module";
 
 @Module({
   imports: [

@@ -22,16 +22,16 @@ import { MediaEntity } from "@media/src/entity/media.entity";
 import { MediaFileEntity } from "@media/src/entity/media-file.entity";
 import { MediaSizeEntity } from "@media/src/entity/media-size.entity";
 import { MediaTypeEntity } from "@media/src/entity/media-type.entity";
-import { TypeEntity } from "@shared/type/entity/type.entity";
-import { TypeCategoryEntity } from "@shared/type/entity/type-category.entity";
+import { TypeEntity } from "@shared/modules/type/entity/type.entity";
+import { TypeCategoryEntity } from "@shared/modules/type/entity/type-category.entity";
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
 import { TypeOrmModuleOptions } from "@nestjs/typeorm/dist/interfaces/typeorm-options.interface";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { DynamicModule } from "@nestjs/common";
-import { LanguageEntity } from "@shared/locale/entity/language.entity";
-import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
-import { LocalizedMediaEntity } from "@shared/locale/entity/localized-media.entity";
+import { LanguageEntity } from "@shared/modules/locale/entity/language.entity";
+import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { LocalizedMediaEntity } from "@shared/modules/locale/entity/localized-media.entity";
 import { RedisClientOptions } from "@liaoliaots/nestjs-redis/dist/redis/interfaces/redis-module-options.interface";
 import { UserSubscriber } from "@user/src/entity/user-subscriber";
 
@@ -47,6 +47,7 @@ export const TRANSPORT_TYPE = Transport.REDIS;
 export const TRANSPORT_OPTIONS = {
   host: "localhost",
   port: 6379,
+  timeout: 10000,
 };
 
 export const REDIS_OPTIONS: RedisClientOptions = {
@@ -58,11 +59,18 @@ export const REDIS_OPTIONS: RedisClientOptions = {
 export const JWT = {
   secret: "yourSecretKey",
   redisPrefix: "jwt",
-  redisTokenPrefix: "access_token",
+  accessTokenPrefix: "access_token",
   accessTokenExpiration: 600,
+  refreshTokenPrefix: "refresh_token",
+  refreshTokenExpiration: 600 * 6,
 };
 
 export const PWD_SALT = 10;
+
+export const REQUEST_PROPS = {
+  accessToken: "accessToken",
+  currentUser: "currentUser",
+};
 
 export const PG_DATA_SOURCE: TypeOrmModuleOptions = {
   type: "postgres",

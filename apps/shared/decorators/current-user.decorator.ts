@@ -14,19 +14,12 @@
  *    limitations under the License.
  */
 
-import { User } from "@user/src/user.types";
+import { createParamDecorator, ExecutionContext } from "@nestjs/common";
+import { REQUEST_PROPS } from "@shared/constants";
 
-export interface LoginPayload {
-  login: string;
-  password: string;
-}
-
-export interface ExchangeTokenPayload {
-  token: string;
-}
-
-export interface JwtDto {
-  user: User;
-  accessToken: string;
-  refreshToken: string;
-}
+export const CurrentUser = createParamDecorator(
+  (data: unknown, ctx: ExecutionContext) => {
+    const request = ctx.switchToHttp().getRequest();
+    return request[REQUEST_PROPS.currentUser];
+  },
+);

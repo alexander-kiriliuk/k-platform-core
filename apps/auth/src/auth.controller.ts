@@ -31,4 +31,14 @@ export class AuthController {
     return await this.authService.authenticate(data);
   }
 
+  @MessagePattern("auth.logout")
+  async logout(accessToken: string) {
+    return await this.authService.invalidateToken(accessToken);
+  }
+
+  @MessagePattern("auth.token.exchange")
+  async exchange(refreshToken: string) {
+    return await this.authService.exchangeToken(refreshToken);
+  }
+
 }

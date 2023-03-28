@@ -18,7 +18,7 @@ import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, OneToMany, Pri
 import { ExplorerColumnEntity } from "./explorer-column.entity";
 import { MediaEntity } from "@media/src/entity/media.entity";
 import { ExplorerTarget } from "../explorer.types";
-import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
+import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 
 
 @Entity("explorer2_targets")

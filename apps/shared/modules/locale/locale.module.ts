@@ -16,10 +16,10 @@
 
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { LanguageEntity } from "@shared/locale/entity/language.entity";
-import { LocalizedStringEntity } from "@shared/locale/entity/localized-string.entity";
-import { LocalizedMediaEntity } from "@shared/locale/entity/localized-media.entity";
-import { LocaleService } from "@shared/locale/locale.service";
+import { LanguageEntity } from "@shared/modules/locale/entity/language.entity";
+import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { LocalizedMediaEntity } from "@shared/modules/locale/entity/localized-media.entity";
+import { LocaleService } from "@shared/modules/locale/locale.service";
 
 @Module({
   imports: [

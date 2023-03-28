@@ -15,13 +15,18 @@
  */
 
 import { Module } from "@nestjs/common";
-import { ComposerController } from "./composer.controller";
+import { ProfileController } from "./controllers/profile.controller";
 import { ClientProxy, ClientsModule } from "@nestjs/microservices";
 import { MS_CLIENT, REDIS_OPTIONS, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
 import { MsClient } from "@shared/client-proxy/ms-client";
 import { RedisModule } from "@liaoliaots/nestjs-redis";
+import { AuthenticationController } from "@composer/src/controllers/authentication.controller";
 
 @Module({
+  controllers: [
+    AuthenticationController,
+    ProfileController,
+  ],
   imports: [
     ClientsModule.register([
       { name: MS_CLIENT, transport: TRANSPORT_TYPE, options: TRANSPORT_OPTIONS },
@@ -30,7 +35,6 @@ import { RedisModule } from "@liaoliaots/nestjs-redis";
       config: REDIS_OPTIONS,
     }),
   ],
-  controllers: [ComposerController],
   providers: [
     {
       provide: MsClient,

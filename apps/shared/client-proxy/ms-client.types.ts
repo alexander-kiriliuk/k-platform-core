@@ -14,24 +14,6 @@
  *    limitations under the License.
  */
 
-import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { LanguageEntity } from "@shared/locale/entity/language.entity";
-import { LocalizedString } from "@shared/locale/locale.types";
-
-@Entity("localized_strings")
-export class LocalizedStringEntity implements LocalizedString {
-
-  @PrimaryGeneratedColumn({ zerofill: true })
-  id: number;
-
-  @Index({ unique: true })
-  @Column("varchar", { nullable: true })
-  code: string;
-
-  @ManyToOne(t => LanguageEntity, t => t.id)
-  lang: LanguageEntity;
-
-  @Column("text", { nullable: false })
-  value: string;
-
+export type MsClientOptions = {
+  timeout: number;
 }

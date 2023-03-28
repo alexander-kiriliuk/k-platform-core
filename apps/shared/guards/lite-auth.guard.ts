@@ -14,19 +14,20 @@
  *    limitations under the License.
  */
 
-import { User } from "@user/src/user.types";
+import { Injectable } from "@nestjs/common";
+import { RedisService } from "@liaoliaots/nestjs-redis";
+import { AbstractAuthGuard } from "@shared/guards/abstract-auth.guard";
+import { MsClient } from "@shared/client-proxy/ms-client";
 
-export interface LoginPayload {
-  login: string;
-  password: string;
-}
+@Injectable()
+export class LiteAuthGuard extends AbstractAuthGuard {
 
-export interface ExchangeTokenPayload {
-  token: string;
-}
+  protected fetchUser = false;
 
-export interface JwtDto {
-  user: User;
-  accessToken: string;
-  refreshToken: string;
+  constructor(
+    protected readonly msClient: MsClient,
+    protected readonly redisService: RedisService) {
+    super();
+  }
+
 }

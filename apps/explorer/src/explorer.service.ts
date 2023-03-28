@@ -22,7 +22,7 @@ import { DataSource, EntityMetadata, Repository } from "typeorm";
 import { ColumnDataType } from "@explorer/src/explorer.types";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
-import { LocaleService } from "@shared/locale/locale.service";
+import { LocaleService } from "@shared/modules/locale/locale.service";
 
 @Injectable()
 export class ExplorerService {

@@ -14,32 +14,18 @@
  *    limitations under the License.
  */
 
-import { BadRequestException, Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
+import { RedisService } from "@liaoliaots/nestjs-redis";
+import { AbstractAuthGuard } from "@shared/guards/abstract-auth.guard";
 import { MsClient } from "@shared/client-proxy/ms-client";
-import { JwtDto, LoginPayload } from "@auth/src/auth.types";
-import { RedisAuthGuard } from "@shared/guarg/redis-auth.guard";
 
-@Controller()
-export class ComposerController {
+@Injectable()
+export class AuthGuard extends AbstractAuthGuard {
 
   constructor(
-    private readonly client: MsClient) {
-  }
-
-  @Post("/auth/login")
-  async login(@Body() payload: LoginPayload) {
-    const dto = await this.client.dispatch<JwtDto, LoginPayload>("auth.login", payload);
-    if (!dto) {
-      throw new BadRequestException();
-    }
-    return dto;
-  }
-
-  @UseGuards(RedisAuthGuard)
-  @Get("/profile")
-  async profile() {
-    // todo return current user profile
-    return { ok: 200 };
+    protected readonly msClient: MsClient,
+    protected readonly redisService: RedisService) {
+    super();
   }
 
 }
