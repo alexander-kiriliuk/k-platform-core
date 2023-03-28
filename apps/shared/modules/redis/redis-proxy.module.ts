@@ -14,40 +14,23 @@
  *    limitations under the License.
  */
 
-import { UserDto } from "@user/src/user.types";
-import { IsNotEmpty, IsString } from "class-validator";
-import { Expose, Type } from "class-transformer";
+import { Module } from "@nestjs/common";
+import { RedisModule } from "@liaoliaots/nestjs-redis";
+import { REDIS_OPTIONS } from "@shared/constants";
+import { RedisProxyService } from "@shared/modules/redis/redis-proxy.service";
 
-export class LoginPayload {
-
-  @IsString()
-  @IsNotEmpty()
-  login: string;
-
-  @IsString()
-  @IsNotEmpty()
-  password: string;
-
-}
-
-export class ExchangeTokenPayload {
-
-  @IsString()
-  @IsNotEmpty()
-  token: string;
-
-}
-
-export class JwtDto {
-
-  @Expose()
-  @Type(() => UserDto)
-  user: UserDto;
-
-  @Expose()
-  accessToken: string;
-
-  @Expose()
-  refreshToken: string;
-
+@Module({
+  imports: [
+    RedisModule.forRoot({
+      config: REDIS_OPTIONS,
+    }),
+  ],
+  providers: [
+    RedisProxyService,
+  ],
+  exports: [
+    RedisProxyService,
+  ],
+})
+export class RedisProxyModule {
 }

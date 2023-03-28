@@ -17,11 +17,13 @@
 import { Controller, Get, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { CurrentUser } from "@shared/decorators/current-user.decorator";
-import { User } from "@user/src/user.types";
+import { User, UserDto } from "@user/src/user.types";
+import { Dto } from "@shared/decorators/dto.decorator";
 
 @Controller("/profile")
 export class ProfileController {
 
+  @Dto(UserDto)
   @UseGuards(AuthGuard)
   @Get("/current")
   async profile(@CurrentUser() user: User) {

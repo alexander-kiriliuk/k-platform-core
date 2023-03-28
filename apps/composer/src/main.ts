@@ -17,9 +17,13 @@
 import { NestFactory } from "@nestjs/core";
 import { ComposerModule } from "./composer.module";
 import { API } from "@shared/constants";
+import { ValidationPipe } from "@nestjs/common";
 
 (async () => {
   const app = await NestFactory.create(ComposerModule);
+  app.useGlobalPipes(
+    new ValidationPipe({ transform: true }),
+  );
   app.setGlobalPrefix(API.prefix);
   await app.listen(API.port);
 })();

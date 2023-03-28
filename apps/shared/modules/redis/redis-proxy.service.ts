@@ -15,19 +15,33 @@
  */
 
 import { Injectable } from "@nestjs/common";
-import { AbstractAuthGuard } from "@shared/guards/abstract-auth.guard";
-import { MsClient } from "@shared/client-proxy/ms-client";
-import { RedisProxyService } from "@shared/modules/redis/redis-proxy.service";
+import { RedisService } from "@liaoliaots/nestjs-redis";
 
 @Injectable()
-export class LiteAuthGuard extends AbstractAuthGuard {
-
-  protected fetchUser = false;
+export class RedisProxyService {
 
   constructor(
-    protected readonly msClient: MsClient,
-    protected readonly redisService: RedisProxyService) {
-    super();
+    private readonly redisService: RedisService) {
+  }
+
+  get client() {
+    return this.redisService.getClient();
+  }
+
+  getFromPattern(pattern: string): Promise<string[]> {
+    return new Promise((resolve, reject) => {
+      const keys: string[] = [];
+      const stream = this.client.scanStream({ match: pattern });
+      stream.on("data", (chunk: string[]) => {
+        keys.push(...chunk);
+      });
+      stream.on("end", () => {
+        resolve(keys);
+      });
+      stream.on("error", (err: Error) => {
+        reject(err);
+      });
+    });
   }
 
 }

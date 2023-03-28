@@ -15,16 +15,16 @@
  */
 
 import { Injectable } from "@nestjs/common";
-import { RedisService } from "@liaoliaots/nestjs-redis";
 import { AbstractAuthGuard } from "@shared/guards/abstract-auth.guard";
 import { MsClient } from "@shared/client-proxy/ms-client";
+import { RedisProxyService } from "@shared/modules/redis/redis-proxy.service";
 
 @Injectable()
 export class AuthGuard extends AbstractAuthGuard {
 
   constructor(
     protected readonly msClient: MsClient,
-    protected readonly redisService: RedisService) {
+    protected readonly redisService: RedisProxyService) {
     super();
   }
 

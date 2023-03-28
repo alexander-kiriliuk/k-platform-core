@@ -14,40 +14,9 @@
  *    limitations under the License.
  */
 
-import { UserDto } from "@user/src/user.types";
-import { IsNotEmpty, IsString } from "class-validator";
-import { Expose, Type } from "class-transformer";
+import { DtoInterceptor } from "@shared/interceptors/dto.interceptor";
+import { applyDecorators, UseInterceptors } from "@nestjs/common";
 
-export class LoginPayload {
-
-  @IsString()
-  @IsNotEmpty()
-  login: string;
-
-  @IsString()
-  @IsNotEmpty()
-  password: string;
-
-}
-
-export class ExchangeTokenPayload {
-
-  @IsString()
-  @IsNotEmpty()
-  token: string;
-
-}
-
-export class JwtDto {
-
-  @Expose()
-  @Type(() => UserDto)
-  user: UserDto;
-
-  @Expose()
-  accessToken: string;
-
-  @Expose()
-  refreshToken: string;
-
+export function Dto<T>(serializer: new () => T) {
+  return applyDecorators(UseInterceptors(new DtoInterceptor<T>(serializer)));
 }

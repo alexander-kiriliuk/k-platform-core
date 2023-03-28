@@ -20,21 +20,17 @@ import { JwtDto, LoginPayload } from "@auth/src/auth.types";
 import { User } from "@user/src/user.types";
 import { MsClient } from "@shared/client-proxy/ms-client";
 import { JWT } from "@shared/constants";
-import { RedisService } from "@liaoliaots/nestjs-redis";
 import { JwtService } from "@nestjs/jwt";
 import { v4 as uuidv4 } from "uuid";
+import { RedisProxyService } from "@shared/modules/redis/redis-proxy.service";
 
 @Injectable()
 export class AuthService {
 
   constructor(
     private readonly msClient: MsClient,
-    private readonly redisService: RedisService,
+    private readonly redisService: RedisProxyService,
     private readonly jwtService: JwtService) {
-  }
-
-  private get redisClient() {
-    return this.redisService.getClient();
   }
 
   async authenticate(data: LoginPayload): Promise<JwtDto> {
@@ -43,14 +39,14 @@ export class AuthService {
       return null;
     }
     const accessToken = this.jwtService.sign({ login: user.login });
-    await this.redisClient.set(
+    await this.redisService.client.set(
       `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`,
       user.login,
       "EX",
       JWT.accessTokenExpiration,
     );
     const refreshToken = uuidv4();
-    await this.redisClient.set(
+    await this.redisService.client.set(
       `${JWT.redisPrefix}:${JWT.refreshTokenPrefix}:${accessToken}:${refreshToken}`,
       user.login,
       "EX",
@@ -60,16 +56,16 @@ export class AuthService {
   }
 
   async invalidateToken(accessToken: string) {
-    const userLogin = await this.redisClient.get(
+    const userLogin = await this.redisService.client.get(
       `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`,
     );
     if (userLogin) {
-      await this.redisClient.del(`${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`);
+      await this.redisService.client.del(`${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`);
       const refreshTokenKeyPattern = `${JWT.redisPrefix}:${JWT.refreshTokenPrefix}:${accessToken}:*`;
-      const refreshTokenKeys = await this.redisClient.keys(refreshTokenKeyPattern);
+      const refreshTokenKeys = await this.redisService.getFromPattern(refreshTokenKeyPattern);
       // delete all related refresh tokens
       if (refreshTokenKeys.length > 0) {
-        await this.redisClient.del(...refreshTokenKeys);
+        await this.redisService.client.del(...refreshTokenKeys);
       }
     } else {
       return false;
@@ -79,24 +75,24 @@ export class AuthService {
 
   async exchangeToken(refreshToken: string): Promise<Partial<JwtDto>> {
     const refreshTokenKeyPattern = `${JWT.redisPrefix}:${JWT.refreshTokenPrefix}:*:${refreshToken}`;
-    const refreshTokenKeys = await this.redisClient.keys(refreshTokenKeyPattern);
+    const refreshTokenKeys = await this.redisService.getFromPattern(refreshTokenKeyPattern);
     if (refreshTokenKeys.length === 0) {
       return null;
     }
     const refreshTokenKey = refreshTokenKeys[0];
-    const userLogin = await this.redisClient.get(refreshTokenKey);
+    const userLogin = await this.redisService.client.get(refreshTokenKey);
     if (!userLogin) {
       return null;
     }
     const accessToken = this.jwtService.sign({ login: userLogin });
-    await this.redisClient.set(
+    await this.redisService.client.set(
       `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`,
       userLogin,
       "EX",
       JWT.accessTokenExpiration,
     );
     const newRefreshToken = uuidv4();
-    await this.redisClient.set(
+    await this.redisService.client.set(
       `${JWT.redisPrefix}:${JWT.refreshTokenPrefix}:${accessToken}:${newRefreshToken}`,
       userLogin,
       "EX",
@@ -105,8 +101,20 @@ export class AuthService {
     // extract related access token for delete
     const oldAccessToken = this.extractAccessTokenFromRefreshTokenKey(refreshTokenKey);
     const oldAccessTokenKey = `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${oldAccessToken}`;
-    await this.redisClient.del(refreshTokenKey, oldAccessTokenKey);
+    await this.redisService.client.del(refreshTokenKey, oldAccessTokenKey);
     return { accessToken, refreshToken: newRefreshToken };
+  }
+
+  private async validateUser(payload: LoginPayload): Promise<User> {
+    const user = await this.msClient.dispatch<User, string>("user.find.by.login", payload.login);
+    if (!user) {
+      return null;
+    }
+    const passwordValid = await bcrypt.compare(payload.password, user.password);
+    if (user && passwordValid) {
+      return user;
+    }
+    return null;
   }
 
   private extractAccessTokenFromRefreshTokenKey(refreshTokenKey: string) {
@@ -114,19 +122,6 @@ export class AuthService {
     const parts = refreshTokenKey.match(regex);
     if (parts?.length) {
       return parts[1];
-    }
-    return null;
-  }
-
-  async validateUser(payload: LoginPayload): Promise<User> {
-    const user = await this.msClient.dispatch<User, string>("user.find.by.login", payload.login);
-    if (!user) {
-      return null;
-    }
-    const passwordValid = await bcrypt.compare(payload.password, user.password);
-    if (user && passwordValid) {
-      const { password, ...result } = user;
-      return result as User;
     }
     return null;
   }

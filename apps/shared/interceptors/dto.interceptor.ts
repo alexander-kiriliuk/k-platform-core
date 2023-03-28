@@ -14,40 +14,21 @@
  *    limitations under the License.
  */
 
-import { UserDto } from "@user/src/user.types";
-import { IsNotEmpty, IsString } from "class-validator";
-import { Expose, Type } from "class-transformer";
+import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
+import { map } from "rxjs";
+import { plainToInstance } from "class-transformer";
 
-export class LoginPayload {
+@Injectable()
+export class DtoInterceptor<T> implements NestInterceptor {
 
-  @IsString()
-  @IsNotEmpty()
-  login: string;
+  constructor(
+    private readonly serializer: new () => T) {
+  }
 
-  @IsString()
-  @IsNotEmpty()
-  password: string;
-
-}
-
-export class ExchangeTokenPayload {
-
-  @IsString()
-  @IsNotEmpty()
-  token: string;
-
-}
-
-export class JwtDto {
-
-  @Expose()
-  @Type(() => UserDto)
-  user: UserDto;
-
-  @Expose()
-  accessToken: string;
-
-  @Expose()
-  refreshToken: string;
+  intercept(context: ExecutionContext, next: CallHandler) {
+    return next
+      .handle()
+      .pipe(map(data => plainToInstance(this.serializer, data)));
+  }
 
 }

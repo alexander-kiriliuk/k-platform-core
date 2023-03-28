@@ -17,10 +17,10 @@
 import { Module } from "@nestjs/common";
 import { ProfileController } from "./controllers/profile.controller";
 import { ClientProxy, ClientsModule } from "@nestjs/microservices";
-import { MS_CLIENT, REDIS_OPTIONS, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
+import { MS_CLIENT, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
 import { MsClient } from "@shared/client-proxy/ms-client";
-import { RedisModule } from "@liaoliaots/nestjs-redis";
 import { AuthenticationController } from "@composer/src/controllers/authentication.controller";
+import { RedisProxyModule } from "@shared/modules/redis/redis-proxy.module";
 
 @Module({
   controllers: [
@@ -28,12 +28,10 @@ import { AuthenticationController } from "@composer/src/controllers/authenticati
     ProfileController,
   ],
   imports: [
+    RedisProxyModule,
     ClientsModule.register([
       { name: MS_CLIENT, transport: TRANSPORT_TYPE, options: TRANSPORT_OPTIONS },
     ]),
-    RedisModule.forRoot({
-      config: REDIS_OPTIONS,
-    }),
   ],
   providers: [
     {

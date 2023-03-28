@@ -20,6 +20,7 @@ import { MsClient } from "@shared/client-proxy/ms-client";
 import { ExchangeTokenPayload, JwtDto, LoginPayload } from "@auth/src/auth.types";
 import { LiteAuthGuard } from "@shared/guards/lite-auth.guard";
 import { AccessToken } from "@shared/decorators/access-token.decorator";
+import { Dto } from "@shared/decorators/dto.decorator";
 
 @Controller("/auth")
 export class AuthenticationController {
@@ -28,6 +29,7 @@ export class AuthenticationController {
     private readonly msClient: MsClient) {
   }
 
+  @Dto(JwtDto)
   @Post("/login")
   async login(@Body() payload: LoginPayload) {
     const dto = await this.msClient.dispatch<JwtDto, LoginPayload>("auth.login", payload);
@@ -44,6 +46,7 @@ export class AuthenticationController {
     return { result };
   }
 
+  @Dto(JwtDto)
   @Post("/exchange-token")
   async exchange(@Body() payload: ExchangeTokenPayload) {
     const dto = await this.msClient.dispatch<JwtDto, string>("auth.token.exchange", payload.token);

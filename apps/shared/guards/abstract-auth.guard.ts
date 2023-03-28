@@ -15,20 +15,17 @@
  */
 
 import { CanActivate, ExecutionContext } from "@nestjs/common";
-import { RedisService } from "@liaoliaots/nestjs-redis";
 import { JWT, REQUEST_PROPS } from "@shared/constants";
 import { MsClient } from "@shared/client-proxy/ms-client";
 import { User } from "@user/src/user.types";
+import { RedisProxyService } from "@shared/modules/redis/redis-proxy.service";
 
 export abstract class AbstractAuthGuard implements CanActivate {
 
-  protected abstract readonly redisService: RedisService;
+  protected abstract readonly redisService: RedisProxyService;
   protected abstract readonly msClient: MsClient;
   protected fetchUser = true;
 
-  get redisClient() {
-    return this.redisService.getClient();
-  }
 
   async canActivate(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest();
@@ -49,15 +46,13 @@ export abstract class AbstractAuthGuard implements CanActivate {
       return false;
     }
     if (this.fetchUser) {
-      const user = await this.msClient.dispatch<User, string>("user.find.by.login", userIdentity);
-      delete user.password;
-      req[REQUEST_PROPS.currentUser] = user;
+      req[REQUEST_PROPS.currentUser] = await this.msClient.dispatch<User, string>("user.find.by.login", userIdentity);
     }
     return true;
   }
 
   private async validateToken(token: string) {
-    return this.redisClient.get(`${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${token}`);
+    return this.redisService.client.get(`${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${token}`);
   }
 
 }

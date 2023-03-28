@@ -16,6 +16,7 @@
 
 import { Media } from "@media/src/media.types";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
+import { Exclude, Expose, Type } from "class-transformer";
 
 export interface User {
   id: string;
@@ -36,4 +37,58 @@ export interface UserRole {
   code: string;
   name: LocalizedString[];
   tsCreated: Date;
+}
+
+export class UserRoleDto implements UserRole {
+
+  @Exclude()
+  id: string;
+
+  @Expose()
+  code: string;
+
+  @Expose()
+  name: LocalizedString[];
+
+  @Exclude()
+  tsCreated: Date;
+
+}
+
+export class UserDto implements User {
+
+  @Expose()
+  id: string;
+
+  @Expose()
+  login: string;
+
+  @Expose()
+  email: string;
+
+  @Expose()
+  firstName: string;
+
+  @Expose()
+  lastName: string;
+
+  @Exclude()
+  password: string;
+
+  @Expose()
+  @Type(() => UserRoleDto)
+  roles: UserRoleDto[];
+
+  @Expose()
+  active: boolean;
+
+  @Expose()
+  avatar: Media;
+
+  @Expose()
+  phone: string;
+
+  @Exclude()
+  tsCreated: Date;
+
 }
