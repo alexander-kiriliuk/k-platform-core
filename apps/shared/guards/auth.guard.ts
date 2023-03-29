@@ -17,7 +17,8 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { AbstractAuthGuard } from "@shared/guards/abstract-auth.guard";
 import { MsClient } from "@shared/client-proxy/ms-client";
-import { CACHE_SERVICE, CacheService } from "@shared/modules/cache/cache.types";
+import { CacheService } from "@shared/modules/cache/cache.types";
+import { CACHE_SERVICE } from "@shared/modules/cache/cache.constants";
 
 @Injectable()
 export class AuthGuard extends AbstractAuthGuard {

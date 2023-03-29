@@ -14,16 +14,4 @@
  *    limitations under the License.
  */
 
-export interface CacheService {
-  get(key: string): Promise<string>;
-
-  set(key: string, value: string | number, expiration: number): Promise<boolean>;
-
-  del(...keys: string[]): Promise<boolean>;
-
-  incr(key: string): Promise<number>;
-
-  expire(key: string, expiresIn: number): Promise<boolean>;
-
-  getFromPattern(pattern: string): Promise<string[]>;
-}
+export const CACHE_SERVICE = Symbol("CACHE_SERVICE");

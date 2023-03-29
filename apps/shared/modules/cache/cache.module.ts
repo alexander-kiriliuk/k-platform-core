@@ -19,7 +19,7 @@ import { RedisModule } from "@liaoliaots/nestjs-redis";
 import { REDIS_OPTIONS } from "@shared/constants";
 import { RedisCacheService } from "@shared/modules/cache/redis-cache.service";
 import { LogModule } from "@shared/modules/logger/log.module";
-import { CACHE_SERVICE } from "@shared/modules/cache/cache.types";
+import { CACHE_SERVICE } from "@shared/modules/cache/cache.constants";
 
 @Module({
   imports: [

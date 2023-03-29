@@ -24,7 +24,8 @@ import { JwtService } from "@nestjs/jwt";
 import { v4 as uuidv4 } from "uuid";
 import { TooManyRequestsMsException } from "@shared/exceptions/too-many-requests-ms.exception";
 import { bruteForceIPKey, bruteForceLoginKey, jwtAccessTokenKey, jwtRefreshTokenKey } from "@auth/src/auth.constants";
-import { CACHE_SERVICE, CacheService } from "@shared/modules/cache/cache.types";
+import { CacheService } from "@shared/modules/cache/cache.types";
+import { CACHE_SERVICE } from "@shared/modules/cache/cache.constants";
 
 @Injectable()
 export class AuthService {
