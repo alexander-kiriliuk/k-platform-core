@@ -19,10 +19,12 @@ import * as bcrypt from "bcrypt";
 import { JwtDto, LoginPayload } from "@auth/src/auth.types";
 import { User } from "@user/src/user.types";
 import { MsClient } from "@shared/client-proxy/ms-client";
-import { JWT } from "@shared/constants";
+import { BRUTEFORCE, JWT, UNKNOWN_IP } from "@shared/constants";
 import { JwtService } from "@nestjs/jwt";
 import { v4 as uuidv4 } from "uuid";
 import { RedisProxyService } from "@shared/modules/redis/redis-proxy.service";
+import { RpcException } from "@nestjs/microservices";
+import { TooManyRequestsException } from "@shared/exceptions/too-many-requests.exception";
 
 @Injectable()
 export class AuthService {
@@ -34,10 +36,19 @@ export class AuthService {
   }
 
   async authenticate(data: LoginPayload): Promise<JwtDto> {
+    if (!data.ipAddress?.length) {
+      data.ipAddress = UNKNOWN_IP;
+    }
+    const isBlocked = await this.isBlocked(data.login, data.ipAddress);
+    if (isBlocked) {
+      throw new RpcException(new TooManyRequestsException());
+    }
     const user = await this.validateUser(data);
     if (!user) {
+      await this.registerFailedAttempt(data.login, data.ipAddress);
       return null;
     }
+    await this.resetFailedAttempts(data.login, data.ipAddress);
     const accessToken = this.jwtService.sign({ login: user.login });
     await this.redisService.client.set(
       `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`,
@@ -103,6 +114,54 @@ export class AuthService {
     const oldAccessTokenKey = `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${oldAccessToken}`;
     await this.redisService.client.del(refreshTokenKey, oldAccessTokenKey);
     return { accessToken, refreshToken: newRefreshToken };
+  }
+
+  private async isBlocked(login: string, ipAddress: string): Promise<boolean> {
+    if (!BRUTEFORCE.enabled) {
+      return false;
+    }
+    const loginKey = `${BRUTEFORCE.redisPrefix}:login:${login}`;
+    const ipKey = `${BRUTEFORCE.redisPrefix}:ip:${ipAddress}`;
+    const [loginAttempts, ipAttempts] = await Promise.all([
+      this.redisService.client.get(loginKey),
+      this.redisService.client.get(ipKey),
+    ]);
+    return (loginAttempts && parseInt(loginAttempts, 10) >= BRUTEFORCE.maxAttempts) ||
+      (ipAttempts && parseInt(ipAttempts, 10) >= BRUTEFORCE.maxAttempts);
+  }
+
+  private async registerFailedAttempt(login: string, ipAddress: string): Promise<void> {
+    if (!BRUTEFORCE.enabled) {
+      return;
+    }
+    const loginKey = `${BRUTEFORCE.redisPrefix}:login:${login}`;
+    const ipKey = `${BRUTEFORCE.redisPrefix}:ip:${ipAddress}`;
+    const [loginAttempts, ipAttempts] = await Promise.all([
+      this.redisService.client.get(loginKey),
+      this.redisService.client.get(ipKey),
+    ]);
+    if (loginAttempts) {
+      await this.redisService.client.incr(loginKey);
+    } else {
+      await this.redisService.client.set(loginKey, 1, "EX", BRUTEFORCE.blockDuration);
+    }
+    if (ipAttempts) {
+      await this.redisService.client.incr(ipKey);
+    } else {
+      await this.redisService.client.set(ipKey, 1, "EX", BRUTEFORCE.blockDuration);
+    }
+  }
+
+  private async resetFailedAttempts(login: string, ipAddress: string): Promise<void> {
+    if (!BRUTEFORCE.enabled) {
+      return;
+    }
+    const loginKey = `${BRUTEFORCE.redisPrefix}:login:${login}`;
+    const ipKey = `${BRUTEFORCE.redisPrefix}:ip:${ipAddress}`;
+    await Promise.all([
+      this.redisService.client.del(loginKey),
+      this.redisService.client.del(ipKey),
+    ]);
   }
 
   private async validateUser(payload: LoginPayload): Promise<User> {

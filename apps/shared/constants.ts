@@ -65,6 +65,15 @@ export const JWT = {
   refreshTokenExpiration: 600 * 6,
 };
 
+export const UNKNOWN_IP = "unknown";
+
+export const BRUTEFORCE = {
+  enabled: true,
+  redisPrefix: "bruteforce",
+  maxAttempts: 3,
+  blockDuration: 300,
+};
+
 export const PWD_SALT = 10;
 
 export const REQUEST_PROPS = {

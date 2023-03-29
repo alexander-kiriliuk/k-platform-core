@@ -15,12 +15,13 @@
  */
 
 
-import { BadRequestException, Body, Controller, Post, UseGuards } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Post, Req, UseGuards } from "@nestjs/common";
 import { MsClient } from "@shared/client-proxy/ms-client";
 import { ExchangeTokenPayload, JwtDto, LoginPayload } from "@auth/src/auth.types";
 import { LiteAuthGuard } from "@shared/guards/lite-auth.guard";
 import { AccessToken } from "@shared/decorators/access-token.decorator";
 import { Dto } from "@shared/decorators/dto.decorator";
+import { Request } from "express";
 
 @Controller("/auth")
 export class AuthenticationController {
@@ -31,7 +32,10 @@ export class AuthenticationController {
 
   @Dto(JwtDto)
   @Post("/login")
-  async login(@Body() payload: LoginPayload) {
+  async login(@Body() payload: LoginPayload, @Req() request: Request) {
+    if (request.ip) {
+      payload.ipAddress = request.ip;
+    }
     const dto = await this.msClient.dispatch<JwtDto, LoginPayload>("auth.login", payload);
     if (!dto) {
       throw new BadRequestException();

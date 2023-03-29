@@ -14,44 +14,17 @@
  *    limitations under the License.
  */
 
-import { UserDto } from "@user/src/user.types";
-import { IsIP, IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { Expose, Type } from "class-transformer";
+import { HttpException, HttpStatus } from "@nestjs/common";
 
-export class LoginPayload {
-
-  @IsString()
-  @IsNotEmpty()
-  login: string;
-
-  @IsString()
-  @IsNotEmpty()
-  password: string;
-
-  @IsIP()
-  @IsOptional()
-  ipAddress: string;
-
-}
-
-export class ExchangeTokenPayload {
-
-  @IsString()
-  @IsNotEmpty()
-  token: string;
-
-}
-
-export class JwtDto {
-
-  @Expose()
-  @Type(() => UserDto)
-  user: UserDto;
-
-  @Expose()
-  accessToken: string;
-
-  @Expose()
-  refreshToken: string;
-
+export class TooManyRequestsException extends HttpException {
+  constructor(message?: string | object, error = "Too Many Requests") {
+    super(
+      {
+        statusCode: HttpStatus.TOO_MANY_REQUESTS,
+        message: message || "You have made too many requests. Please try again later.",
+        error,
+      },
+      HttpStatus.TOO_MANY_REQUESTS,
+    );
+  }
 }
