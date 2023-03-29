@@ -20,7 +20,7 @@ import { ClientProxy, ClientsModule } from "@nestjs/microservices";
 import { MS_CLIENT, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
 import { MsClient } from "@shared/client-proxy/ms-client";
 import { AuthenticationController } from "@composer/src/controllers/authentication.controller";
-import { RedisProxyModule } from "@shared/modules/redis/redis-proxy.module";
+import { CacheModule } from "@shared/modules/cache/cache.module";
 
 @Module({
   controllers: [
@@ -28,7 +28,7 @@ import { RedisProxyModule } from "@shared/modules/redis/redis-proxy.module";
     ProfileController,
   ],
   imports: [
-    RedisProxyModule,
+    CacheModule,
     ClientsModule.register([
       { name: MS_CLIENT, transport: TRANSPORT_TYPE, options: TRANSPORT_OPTIONS },
     ]),

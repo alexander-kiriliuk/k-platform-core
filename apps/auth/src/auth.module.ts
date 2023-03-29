@@ -22,7 +22,7 @@ import { AuthService } from "@auth/src/auth.service";
 import { JWT, MS_CLIENT, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
 import { MsClient } from "@shared/client-proxy/ms-client";
 import { ClientProxy, ClientsModule } from "@nestjs/microservices";
-import { RedisProxyModule } from "@shared/modules/redis/redis-proxy.module";
+import { CacheModule } from "@shared/modules/cache/cache.module";
 
 @Module({
   controllers: [
@@ -30,7 +30,7 @@ import { RedisProxyModule } from "@shared/modules/redis/redis-proxy.module";
   ],
   imports: [
     PassportModule,
-    RedisProxyModule,
+    CacheModule,
     JwtModule.register({
       secret: JWT.secret,
       signOptions: { expiresIn: JWT.accessTokenExpiration },

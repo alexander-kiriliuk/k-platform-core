@@ -14,17 +14,17 @@
  *    limitations under the License.
  */
 
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { AbstractAuthGuard } from "@shared/guards/abstract-auth.guard";
 import { MsClient } from "@shared/client-proxy/ms-client";
-import { RedisProxyService } from "@shared/modules/redis/redis-proxy.service";
+import { CACHE_SERVICE, CacheService } from "@shared/modules/cache/cache.types";
 
 @Injectable()
 export class AuthGuard extends AbstractAuthGuard {
 
   constructor(
-    protected readonly msClient: MsClient,
-    protected readonly redisService: RedisProxyService) {
+    @Inject(CACHE_SERVICE) protected readonly cacheService: CacheService,
+    protected readonly msClient: MsClient) {
     super();
   }
 

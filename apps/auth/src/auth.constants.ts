@@ -14,23 +14,14 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
-import { RedisModule } from "@liaoliaots/nestjs-redis";
-import { REDIS_OPTIONS } from "@shared/constants";
-import { RedisProxyService } from "@shared/modules/redis/redis-proxy.service";
+import { BRUTEFORCE, JWT } from "@shared/constants";
 
-@Module({
-  imports: [
-    RedisModule.forRoot({
-      config: REDIS_OPTIONS,
-    }),
-  ],
-  providers: [
-    RedisProxyService,
-  ],
-  exports: [
-    RedisProxyService,
-  ],
-})
-export class RedisProxyModule {
-}
+export const jwtAccessTokenKey = (accessToken: string) => `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`;
+
+export const jwtRefreshTokenKey = (accessToken: string, refreshToken: string) => {
+  return `${JWT.redisPrefix}:${JWT.refreshTokenPrefix}:${accessToken}:${refreshToken}`;
+};
+
+export const bruteForceLoginKey = (login: string) => `${BRUTEFORCE.redisPrefix}:login:${login}`;
+
+export const bruteForceIPKey = (ipAddress: string) => `${BRUTEFORCE.redisPrefix}:ip:${ipAddress}`;

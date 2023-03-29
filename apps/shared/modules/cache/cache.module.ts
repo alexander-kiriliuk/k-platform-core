@@ -14,20 +14,29 @@
  *    limitations under the License.
  */
 
-import { Inject, Injectable } from "@nestjs/common";
-import { AbstractAuthGuard } from "@shared/guards/abstract-auth.guard";
-import { MsClient } from "@shared/client-proxy/ms-client";
-import { CACHE_SERVICE, CacheService } from "@shared/modules/cache/cache.types";
+import { Module } from "@nestjs/common";
+import { RedisModule } from "@liaoliaots/nestjs-redis";
+import { REDIS_OPTIONS } from "@shared/constants";
+import { RedisCacheService } from "@shared/modules/cache/redis-cache.service";
+import { LogModule } from "@shared/modules/logger/log.module";
+import { CACHE_SERVICE } from "@shared/modules/cache/cache.types";
 
-@Injectable()
-export class LiteAuthGuard extends AbstractAuthGuard {
-
-  protected fetchUser = false;
-
-  constructor(
-    @Inject(CACHE_SERVICE) protected readonly cacheService: CacheService,
-    protected readonly msClient: MsClient) {
-    super();
-  }
-
+@Module({
+  imports: [
+    RedisModule.forRoot({
+      config: REDIS_OPTIONS,
+    }),
+    LogModule,
+  ],
+  providers: [
+    {
+      provide: CACHE_SERVICE,
+      useClass: RedisCacheService,
+    },
+  ],
+  exports: [
+    CACHE_SERVICE,
+  ],
+})
+export class CacheModule {
 }

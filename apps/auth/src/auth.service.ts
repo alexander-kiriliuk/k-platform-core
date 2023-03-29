@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import * as bcrypt from "bcrypt";
 import { JwtDto, LoginPayload } from "@auth/src/auth.types";
 import { User } from "@user/src/user.types";
@@ -22,15 +22,16 @@ import { MsClient } from "@shared/client-proxy/ms-client";
 import { BRUTEFORCE, JWT, UNKNOWN_IP } from "@shared/constants";
 import { JwtService } from "@nestjs/jwt";
 import { v4 as uuidv4 } from "uuid";
-import { RedisProxyService } from "@shared/modules/redis/redis-proxy.service";
 import { TooManyRequestsMsException } from "@shared/exceptions/too-many-requests-ms.exception";
+import { bruteForceIPKey, bruteForceLoginKey, jwtAccessTokenKey, jwtRefreshTokenKey } from "@auth/src/auth.constants";
+import { CACHE_SERVICE, CacheService } from "@shared/modules/cache/cache.types";
 
 @Injectable()
 export class AuthService {
 
   constructor(
+    @Inject(CACHE_SERVICE) private readonly cacheService: CacheService,
     private readonly msClient: MsClient,
-    private readonly redisService: RedisProxyService,
     private readonly jwtService: JwtService) {
   }
 
@@ -49,33 +50,21 @@ export class AuthService {
     }
     await this.resetFailedAttempts(data.login, data.ipAddress);
     const accessToken = this.jwtService.sign({ login: user.login });
-    await this.redisService.client.set(
-      `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`,
-      user.login,
-      "EX",
-      JWT.accessTokenExpiration,
-    );
+    await this.cacheService.set(jwtAccessTokenKey(accessToken), user.login, JWT.accessTokenExpiration);
     const refreshToken = uuidv4();
-    await this.redisService.client.set(
-      `${JWT.redisPrefix}:${JWT.refreshTokenPrefix}:${accessToken}:${refreshToken}`,
-      user.login,
-      "EX",
-      JWT.refreshTokenExpiration,
-    );
+    await this.cacheService.set(jwtRefreshTokenKey(accessToken, refreshToken), user.login, JWT.refreshTokenExpiration);
     return { user, accessToken, refreshToken };
   }
 
   async invalidateToken(accessToken: string) {
-    const userLogin = await this.redisService.client.get(
-      `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`,
-    );
+    const userLogin = await this.cacheService.get(jwtAccessTokenKey(accessToken));
     if (userLogin) {
-      await this.redisService.client.del(`${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`);
-      const refreshTokenKeyPattern = `${JWT.redisPrefix}:${JWT.refreshTokenPrefix}:${accessToken}:*`;
-      const refreshTokenKeys = await this.redisService.getFromPattern(refreshTokenKeyPattern);
+      await this.cacheService.del(jwtAccessTokenKey(accessToken));
+      const refreshTokenKeyPattern = jwtRefreshTokenKey(accessToken, "*");
+      const refreshTokenKeys = await this.cacheService.getFromPattern(refreshTokenKeyPattern);
       // delete all related refresh tokens
       if (refreshTokenKeys.length > 0) {
-        await this.redisService.client.del(...refreshTokenKeys);
+        await this.cacheService.del(...refreshTokenKeys);
       }
     } else {
       return false;
@@ -84,34 +73,28 @@ export class AuthService {
   }
 
   async exchangeToken(refreshToken: string): Promise<Partial<JwtDto>> {
-    const refreshTokenKeyPattern = `${JWT.redisPrefix}:${JWT.refreshTokenPrefix}:*:${refreshToken}`;
-    const refreshTokenKeys = await this.redisService.getFromPattern(refreshTokenKeyPattern);
+    const refreshTokenKeyPattern = jwtRefreshTokenKey("*", refreshToken);
+    const refreshTokenKeys = await this.cacheService.getFromPattern(refreshTokenKeyPattern);
     if (refreshTokenKeys.length === 0) {
       return null;
     }
     const refreshTokenKey = refreshTokenKeys[0];
-    const userLogin = await this.redisService.client.get(refreshTokenKey);
+    const userLogin = await this.cacheService.get(refreshTokenKey);
     if (!userLogin) {
       return null;
     }
     const accessToken = this.jwtService.sign({ login: userLogin });
-    await this.redisService.client.set(
-      `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${accessToken}`,
-      userLogin,
-      "EX",
-      JWT.accessTokenExpiration,
-    );
+    await this.cacheService.set(jwtAccessTokenKey(accessToken), userLogin, JWT.accessTokenExpiration);
     const newRefreshToken = uuidv4();
-    await this.redisService.client.set(
+    await this.cacheService.set(
       `${JWT.redisPrefix}:${JWT.refreshTokenPrefix}:${accessToken}:${newRefreshToken}`,
       userLogin,
-      "EX",
       JWT.refreshTokenExpiration,
     );
     // extract related access token for delete
     const oldAccessToken = this.extractAccessTokenFromRefreshTokenKey(refreshTokenKey);
-    const oldAccessTokenKey = `${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${oldAccessToken}`;
-    await this.redisService.client.del(refreshTokenKey, oldAccessTokenKey);
+    const oldAccessTokenKey = jwtAccessTokenKey(oldAccessToken);
+    await this.cacheService.del(refreshTokenKey, oldAccessTokenKey);
     return { accessToken, refreshToken: newRefreshToken };
   }
 
@@ -119,11 +102,11 @@ export class AuthService {
     if (!BRUTEFORCE.enabled) {
       return false;
     }
-    const loginKey = `${BRUTEFORCE.redisPrefix}:login:${login}`;
-    const ipKey = `${BRUTEFORCE.redisPrefix}:ip:${ipAddress}`;
+    const loginKey = bruteForceLoginKey(login);
+    const ipKey = bruteForceIPKey(ipAddress);
     const [loginAttempts, ipAttempts] = await Promise.all([
-      this.redisService.client.get(loginKey),
-      this.redisService.client.get(ipKey),
+      this.cacheService.get(loginKey),
+      this.cacheService.get(ipKey),
     ]);
     return (loginAttempts && parseInt(loginAttempts, 10) >= BRUTEFORCE.maxAttempts) ||
       (ipAttempts && parseInt(ipAttempts, 10) >= BRUTEFORCE.maxAttempts);
@@ -133,34 +116,28 @@ export class AuthService {
     if (!BRUTEFORCE.enabled) {
       return;
     }
-    const loginKey = `${BRUTEFORCE.redisPrefix}:login:${login}`;
-    const ipKey = `${BRUTEFORCE.redisPrefix}:ip:${ipAddress}`;
+    const loginKey = bruteForceLoginKey(login);
+    const ipKey = bruteForceIPKey(ipAddress);
     const [loginAttempts, ipAttempts] = await Promise.all([
-      this.redisService.client.get(loginKey),
-      this.redisService.client.get(ipKey),
+      this.cacheService.get(loginKey),
+      this.cacheService.get(ipKey),
     ]);
-    if (loginAttempts) {
-      await this.redisService.client.incr(loginKey);
-    } else {
-      await this.redisService.client.set(loginKey, 1, "EX", BRUTEFORCE.blockDuration);
-    }
-    if (ipAttempts) {
-      await this.redisService.client.incr(ipKey);
-    } else {
-      await this.redisService.client.set(ipKey, 1, "EX", BRUTEFORCE.blockDuration);
-    }
+    const loginUpdate = loginAttempts
+      ? this.cacheService.incr(loginKey)
+      : this.cacheService.set(loginKey, 1, BRUTEFORCE.blockDuration);
+    const ipUpdate = ipAttempts
+      ? this.cacheService.incr(ipKey)
+      : this.cacheService.set(ipKey, 1, BRUTEFORCE.blockDuration);
+    await Promise.all([loginUpdate, ipUpdate]);
   }
 
   private async resetFailedAttempts(login: string, ipAddress: string): Promise<void> {
     if (!BRUTEFORCE.enabled) {
       return;
     }
-    const loginKey = `${BRUTEFORCE.redisPrefix}:login:${login}`;
-    const ipKey = `${BRUTEFORCE.redisPrefix}:ip:${ipAddress}`;
-    await Promise.all([
-      this.redisService.client.del(loginKey),
-      this.redisService.client.del(ipKey),
-    ]);
+    const loginKey = bruteForceLoginKey(login);
+    const ipKey = bruteForceIPKey(ipAddress);
+    await this.cacheService.del(loginKey, ipKey);
   }
 
   private async validateUser(payload: LoginPayload): Promise<User> {

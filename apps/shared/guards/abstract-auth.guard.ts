@@ -18,14 +18,13 @@ import { CanActivate, ExecutionContext } from "@nestjs/common";
 import { JWT, REQUEST_PROPS } from "@shared/constants";
 import { MsClient } from "@shared/client-proxy/ms-client";
 import { User } from "@user/src/user.types";
-import { RedisProxyService } from "@shared/modules/redis/redis-proxy.service";
+import { CacheService } from "@shared/modules/cache/cache.types";
 
 export abstract class AbstractAuthGuard implements CanActivate {
 
-  protected abstract readonly redisService: RedisProxyService;
+  protected abstract readonly cacheService: CacheService;
   protected abstract readonly msClient: MsClient;
   protected fetchUser = true;
-
 
   async canActivate(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest();
@@ -39,7 +38,6 @@ export abstract class AbstractAuthGuard implements CanActivate {
     }
     const token = parts[1];
     const userIdentity = await this.validateToken(token);
-    console.log(userIdentity);
     if (userIdentity) {
       req[REQUEST_PROPS.accessToken] = token;
     } else {
@@ -52,7 +50,7 @@ export abstract class AbstractAuthGuard implements CanActivate {
   }
 
   private async validateToken(token: string) {
-    return this.redisService.client.get(`${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${token}`);
+    return this.cacheService.get(`${JWT.redisPrefix}:${JWT.accessTokenPrefix}:${token}`);
   }
 
 }

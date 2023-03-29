@@ -14,20 +14,18 @@
  *    limitations under the License.
  */
 
-import { Inject, Injectable } from "@nestjs/common";
-import { AbstractAuthGuard } from "@shared/guards/abstract-auth.guard";
-import { MsClient } from "@shared/client-proxy/ms-client";
-import { CACHE_SERVICE, CacheService } from "@shared/modules/cache/cache.types";
+export const CACHE_SERVICE = Symbol("CACHE_SERVICE");
 
-@Injectable()
-export class LiteAuthGuard extends AbstractAuthGuard {
+export interface CacheService {
+  get(key: string): Promise<string>;
 
-  protected fetchUser = false;
+  set(key: string, value: string | number, expiration: number): Promise<boolean>;
 
-  constructor(
-    @Inject(CACHE_SERVICE) protected readonly cacheService: CacheService,
-    protected readonly msClient: MsClient) {
-    super();
-  }
+  del(...keys: string[]): Promise<boolean>;
 
+  incr(key: string): Promise<number>;
+
+  expire(key: string, expiresIn: number): Promise<boolean>;
+
+  getFromPattern(pattern: string): Promise<string[]>;
 }

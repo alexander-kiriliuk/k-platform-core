@@ -17,7 +17,7 @@
 import { ClientProxy } from "@nestjs/microservices";
 import { catchError, Observable, throwError, timeout } from "rxjs";
 import { MS_EXCEPTION_ID, TRANSPORT_OPTIONS } from "@shared/constants";
-import { HttpException } from "@nestjs/common";
+import { HttpException, HttpStatus } from "@nestjs/common";
 import { MsClientOptions } from "@shared/client-proxy/ms-client.types";
 import { MsException } from "@shared/exceptions/ms.exception";
 
@@ -56,7 +56,7 @@ export class MsClient {
           throw new HttpException(err.message, err.code);
         }
         if (error.name === "TimeoutError") {
-          throw new HttpException("Request Timeout", 408);
+          throw new HttpException("Request Timeout", HttpStatus.REQUEST_TIMEOUT);
         }
         return throwError(error);
       }),
