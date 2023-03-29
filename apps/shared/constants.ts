@@ -67,6 +67,8 @@ export const JWT = {
 
 export const UNKNOWN_IP = "unknown";
 
+export const MS_EXCEPTION_ID = "MsException";
+
 export const BRUTEFORCE = {
   enabled: true,
   redisPrefix: "bruteforce",

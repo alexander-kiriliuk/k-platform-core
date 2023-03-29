@@ -14,17 +14,16 @@
  *    limitations under the License.
  */
 
-import { HttpException, HttpStatus } from "@nestjs/common";
+import { RpcException } from "@nestjs/microservices";
+import { MS_EXCEPTION_ID } from "@shared/constants";
 
-export class TooManyRequestsException extends HttpException {
-  constructor(message?: string | object, error = "Too Many Requests") {
-    super(
-      {
-        statusCode: HttpStatus.TOO_MANY_REQUESTS,
-        message: message || "You have made too many requests. Please try again later.",
-        error,
-      },
-      HttpStatus.TOO_MANY_REQUESTS,
-    );
+export class MsException extends RpcException {
+
+  constructor(
+    readonly code: number,
+    readonly message: string = undefined,
+    readonly stack?: any) {
+    super({ type: MS_EXCEPTION_ID, message, code, stack });
   }
+
 }

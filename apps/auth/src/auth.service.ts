@@ -23,8 +23,7 @@ import { BRUTEFORCE, JWT, UNKNOWN_IP } from "@shared/constants";
 import { JwtService } from "@nestjs/jwt";
 import { v4 as uuidv4 } from "uuid";
 import { RedisProxyService } from "@shared/modules/redis/redis-proxy.service";
-import { RpcException } from "@nestjs/microservices";
-import { TooManyRequestsException } from "@shared/exceptions/too-many-requests.exception";
+import { TooManyRequestsMsException } from "@shared/exceptions/too-many-requests-ms.exception";
 
 @Injectable()
 export class AuthService {
@@ -41,7 +40,7 @@ export class AuthService {
     }
     const isBlocked = await this.isBlocked(data.login, data.ipAddress);
     if (isBlocked) {
-      throw new RpcException(new TooManyRequestsException());
+      throw new TooManyRequestsMsException();
     }
     const user = await this.validateUser(data);
     if (!user) {

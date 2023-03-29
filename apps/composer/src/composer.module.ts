@@ -21,8 +21,6 @@ import { MS_CLIENT, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants"
 import { MsClient } from "@shared/client-proxy/ms-client";
 import { AuthenticationController } from "@composer/src/controllers/authentication.controller";
 import { RedisProxyModule } from "@shared/modules/redis/redis-proxy.module";
-import { RpcErrorHandlingInterceptor } from "@shared/interceptors/rpc-error-handling.interceptor";
-import { APP_INTERCEPTOR } from "@nestjs/core";
 
 @Module({
   controllers: [
@@ -40,10 +38,6 @@ import { APP_INTERCEPTOR } from "@nestjs/core";
       provide: MsClient,
       useFactory: (client: ClientProxy) => new MsClient(client),
       inject: [MS_CLIENT],
-    },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: RpcErrorHandlingInterceptor,
     },
   ],
 })
