@@ -18,10 +18,10 @@ import { ClientProxy } from "@nestjs/microservices";
 import { catchError, Observable, tap, throwError, timeout } from "rxjs";
 import { MS_EXCEPTION_ID, TRANSPORT_OPTIONS } from "@shared/constants";
 import { HttpException, HttpStatus, Inject, Logger } from "@nestjs/common";
-import { MsClientOptions } from "@shared/client-proxy/ms-client.types";
+import { MsClientOptions } from "@shared/ms-client/ms-client.types";
 import { MsException } from "@shared/exceptions/ms.exception";
 import { ObjectUtils } from "@shared/utils/object.utils";
-import { LOGGER } from "@shared/modules/logger/log.constants";
+import { LOGGER } from "@shared/modules/log/log.constants";
 import inspect = ObjectUtils.inspect;
 
 export class MsClient {

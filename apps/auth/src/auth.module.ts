@@ -21,8 +21,8 @@ import { PassportModule } from "@nestjs/passport";
 import { AuthService } from "@auth/src/auth.service";
 import { JWT } from "@shared/constants";
 import { CacheModule } from "@shared/modules/cache/cache.module";
-import { LogModule } from "@shared/modules/logger/log.module";
-import { MsClientModule } from "@shared/client-proxy/ms-client.module";
+import { LogModule } from "@shared/modules/log/log.module";
+import { MsClientModule } from "@shared/ms-client/ms-client.module";
 
 @Module({
   controllers: [

@@ -17,7 +17,7 @@
 import { Inject, Injectable, Logger } from "@nestjs/common";
 import { RedisService } from "@liaoliaots/nestjs-redis";
 import { CacheService } from "@shared/modules/cache/cache.types";
-import { LOGGER } from "@shared/modules/logger/log.constants";
+import { LOGGER } from "@shared/modules/log/log.constants";
 
 @Injectable()
 export class RedisCacheService implements CacheService {

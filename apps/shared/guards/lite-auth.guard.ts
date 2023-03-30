@@ -16,10 +16,10 @@
 
 import { Inject, Injectable, Logger } from "@nestjs/common";
 import { AbstractAuthGuard } from "@shared/guards/abstract-auth.guard";
-import { MsClient } from "@shared/client-proxy/ms-client";
+import { MsClient } from "@shared/ms-client/ms-client";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { CACHE_SERVICE } from "@shared/modules/cache/cache.constants";
-import { LOGGER } from "@shared/modules/logger/log.constants";
+import { LOGGER } from "@shared/modules/log/log.constants";
 
 @Injectable()
 export class LiteAuthGuard extends AbstractAuthGuard {

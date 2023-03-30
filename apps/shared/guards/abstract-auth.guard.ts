@@ -16,7 +16,7 @@
 
 import { CanActivate, ExecutionContext, Logger } from "@nestjs/common";
 import { JWT, REQUEST_PROPS } from "@shared/constants";
-import { MsClient } from "@shared/client-proxy/ms-client";
+import { MsClient } from "@shared/ms-client/ms-client";
 import { User } from "@user/src/user.types";
 import { CacheService } from "@shared/modules/cache/cache.types";
 

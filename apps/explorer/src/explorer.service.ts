@@ -23,7 +23,7 @@ import { ColumnDataType } from "@explorer/src/explorer.types";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
 import { LocaleService } from "@shared/modules/locale/locale.service";
-import { LOGGER } from "@shared/modules/logger/log.constants";
+import { LOGGER } from "@shared/modules/log/log.constants";
 
 @Injectable()
 export class ExplorerService {

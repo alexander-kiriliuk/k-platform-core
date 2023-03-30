@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { LogService } from "./log.service";
-import { LOGGER } from "@shared/modules/logger/log.constants";
+import { LOGGER } from "@shared/modules/log/log.constants";
 
 @Module({
   providers: [

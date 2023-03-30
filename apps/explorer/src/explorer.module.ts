@@ -17,7 +17,7 @@
 import { Module, OnModuleInit } from "@nestjs/common";
 import { ExplorerController } from "./explorer.controller";
 import { ExplorerService } from "./explorer.service";
-import { LogModule } from "@shared/modules/logger/log.module";
+import { LogModule } from "@shared/modules/log/log.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";

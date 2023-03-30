@@ -16,7 +16,7 @@
 
 
 import { BadRequestException, Body, Controller, Post, Req, UnauthorizedException, UseGuards } from "@nestjs/common";
-import { MsClient } from "@shared/client-proxy/ms-client";
+import { MsClient } from "@shared/ms-client/ms-client";
 import { ExchangeTokenPayload, JwtDto, LoginPayload } from "@auth/src/auth.types";
 import { LiteAuthGuard } from "@shared/guards/lite-auth.guard";
 import { AccessToken } from "@shared/decorators/access-token.decorator";
