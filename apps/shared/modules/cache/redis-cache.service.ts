@@ -14,16 +14,17 @@
  *    limitations under the License.
  */
 
-import { Injectable, Logger } from "@nestjs/common";
+import { Inject, Injectable, Logger } from "@nestjs/common";
 import { RedisService } from "@liaoliaots/nestjs-redis";
 import { CacheService } from "@shared/modules/cache/cache.types";
+import { LOGGER } from "@shared/modules/logger/log.constants";
 
 @Injectable()
 export class RedisCacheService implements CacheService {
 
   constructor(
-    private readonly redis: RedisService,
-    private readonly logger: Logger) {
+    @Inject(LOGGER) private readonly logger: Logger,
+    private readonly redis: RedisService) {
   }
 
   private get client() {

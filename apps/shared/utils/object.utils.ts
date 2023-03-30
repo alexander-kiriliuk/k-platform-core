@@ -14,23 +14,12 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
-import { ProfileController } from "./controllers/profile.controller";
-import { AuthenticationController } from "@composer/src/controllers/authentication.controller";
-import { CacheModule } from "@shared/modules/cache/cache.module";
-import { LogModule } from "@shared/modules/logger/log.module";
-import { MsClientModule } from "@shared/client-proxy/ms-client.module";
+import * as util from "util";
 
-@Module({
-  controllers: [
-    AuthenticationController,
-    ProfileController,
-  ],
-  imports: [
-    CacheModule,
-    LogModule,
-    MsClientModule,
-  ],
-})
-export class ComposerModule {
+export namespace ObjectUtils {
+
+  export function inspect<T = any>(obj: T) {
+    return util.inspect(obj, { showHidden: false, depth: null });
+  }
+
 }

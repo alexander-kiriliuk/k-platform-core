@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { CanActivate, ExecutionContext } from "@nestjs/common";
+import { CanActivate, ExecutionContext, Logger } from "@nestjs/common";
 import { JWT, REQUEST_PROPS } from "@shared/constants";
 import { MsClient } from "@shared/client-proxy/ms-client";
 import { User } from "@user/src/user.types";
@@ -22,6 +22,7 @@ import { CacheService } from "@shared/modules/cache/cache.types";
 
 export abstract class AbstractAuthGuard implements CanActivate {
 
+  protected abstract readonly logger: Logger;
   protected abstract readonly cacheService: CacheService;
   protected abstract readonly msClient: MsClient;
   protected fetchUser = true;
@@ -39,8 +40,10 @@ export abstract class AbstractAuthGuard implements CanActivate {
     const token = parts[1];
     const userIdentity = await this.validateToken(token);
     if (userIdentity) {
+      this.logger.debug(`Valid token for user ${userIdentity}`);
       req[REQUEST_PROPS.accessToken] = token;
     } else {
+      this.logger.warn(`Invalid token: ${token}`);
       return false;
     }
     if (this.fetchUser) {

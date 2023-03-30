@@ -17,6 +17,6 @@
 import { DtoInterceptor } from "@shared/interceptors/dto.interceptor";
 import { applyDecorators, UseInterceptors } from "@nestjs/common";
 
-export function Dto<T>(serializer: new () => T) {
+export function ResponseDto<T>(serializer: new () => T) {
   return applyDecorators(UseInterceptors(new DtoInterceptor<T>(serializer)));
 }

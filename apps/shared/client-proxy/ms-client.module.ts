@@ -14,23 +14,30 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
-import { ProfileController } from "./controllers/profile.controller";
-import { AuthenticationController } from "@composer/src/controllers/authentication.controller";
-import { CacheModule } from "@shared/modules/cache/cache.module";
+import { Logger, Module } from "@nestjs/common";
 import { LogModule } from "@shared/modules/logger/log.module";
-import { MsClientModule } from "@shared/client-proxy/ms-client.module";
+import { MS_CLIENT, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
+import { ClientProxy, ClientsModule } from "@nestjs/microservices";
+import { MsClient } from "@shared/client-proxy/ms-client";
+import { LOGGER } from "@shared/modules/logger/log.constants";
 
 @Module({
-  controllers: [
-    AuthenticationController,
-    ProfileController,
-  ],
   imports: [
-    CacheModule,
     LogModule,
-    MsClientModule,
+    ClientsModule.register([
+      { name: MS_CLIENT, transport: TRANSPORT_TYPE, options: TRANSPORT_OPTIONS },
+    ]),
+  ],
+  providers: [
+    {
+      provide: MsClient,
+      useFactory: (logger: Logger, client: ClientProxy) => new MsClient(logger, client),
+      inject: [LOGGER, MS_CLIENT],
+    },
+  ],
+  exports: [
+    MsClient,
   ],
 })
-export class ComposerModule {
+export class MsClientModule {
 }

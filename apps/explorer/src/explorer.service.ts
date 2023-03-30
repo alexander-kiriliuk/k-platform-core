@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Injectable, Logger } from "@nestjs/common";
+import { Inject, Injectable, Logger } from "@nestjs/common";
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
@@ -23,6 +23,7 @@ import { ColumnDataType } from "@explorer/src/explorer.types";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
 import { LocaleService } from "@shared/modules/locale/locale.service";
+import { LOGGER } from "@shared/modules/logger/log.constants";
 
 @Injectable()
 export class ExplorerService {
@@ -34,7 +35,7 @@ export class ExplorerService {
     private readonly targetRep: Repository<ExplorerTargetEntity>,
     @InjectRepository(ExplorerColumnEntity)
     private readonly columnRep: Repository<ExplorerColumnEntity>,
-    private readonly logger: Logger,
+    @Inject(LOGGER) private readonly logger: Logger,
     private readonly localeService: LocaleService) {
   }
 

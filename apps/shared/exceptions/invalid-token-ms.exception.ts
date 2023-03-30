@@ -14,23 +14,11 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
-import { ProfileController } from "./controllers/profile.controller";
-import { AuthenticationController } from "@composer/src/controllers/authentication.controller";
-import { CacheModule } from "@shared/modules/cache/cache.module";
-import { LogModule } from "@shared/modules/logger/log.module";
-import { MsClientModule } from "@shared/client-proxy/ms-client.module";
+import { HttpStatus } from "@nestjs/common";
+import { MsException } from "@shared/exceptions/ms.exception";
 
-@Module({
-  controllers: [
-    AuthenticationController,
-    ProfileController,
-  ],
-  imports: [
-    CacheModule,
-    LogModule,
-    MsClientModule,
-  ],
-})
-export class ComposerModule {
+export class InvalidTokenMsException extends MsException {
+  constructor(message?: string) {
+    super(HttpStatus.UNAUTHORIZED, message || "Invalid token");
+  }
 }

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Inject, Injectable } from "@nestjs/common";
+import { Inject, Injectable, Logger } from "@nestjs/common";
 import * as bcrypt from "bcrypt";
 import { JwtDto, LoginPayload } from "@auth/src/auth.types";
 import { User } from "@user/src/user.types";
@@ -26,11 +26,14 @@ import { TooManyRequestsMsException } from "@shared/exceptions/too-many-requests
 import { bruteForceIPKey, bruteForceLoginKey, jwtAccessTokenKey, jwtRefreshTokenKey } from "@auth/src/auth.constants";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { CACHE_SERVICE } from "@shared/modules/cache/cache.constants";
+import { InvalidTokenMsException } from "@shared/exceptions/invalid-token-ms.exception";
+import { LOGGER } from "@shared/modules/logger/log.constants";
 
 @Injectable()
 export class AuthService {
 
   constructor(
+    @Inject(LOGGER) private readonly logger: Logger,
     @Inject(CACHE_SERVICE) private readonly cacheService: CacheService,
     private readonly msClient: MsClient,
     private readonly jwtService: JwtService) {
@@ -42,10 +45,12 @@ export class AuthService {
     }
     const isBlocked = await this.isBlocked(data.login, data.ipAddress);
     if (isBlocked) {
+      this.logger.warn(`Too many login attempts for ${data.login} from ${data.ipAddress}`);
       throw new TooManyRequestsMsException();
     }
     const user = await this.validateUser(data);
     if (!user) {
+      this.logger.debug(`Invalid credentials for user ${data.login}`);
       await this.registerFailedAttempt(data.login, data.ipAddress);
       return null;
     }
@@ -60,15 +65,12 @@ export class AuthService {
   async invalidateToken(accessToken: string) {
     const userLogin = await this.cacheService.get(jwtAccessTokenKey(accessToken));
     if (userLogin) {
-      await this.cacheService.del(jwtAccessTokenKey(accessToken));
-      const refreshTokenKeyPattern = jwtRefreshTokenKey(accessToken, "*");
-      const refreshTokenKeys = await this.cacheService.getFromPattern(refreshTokenKeyPattern);
-      // delete all related refresh tokens
-      if (refreshTokenKeys.length > 0) {
-        await this.cacheService.del(...refreshTokenKeys);
-      }
+      this.logger.debug(`Invalidating access token for user ${userLogin}`);
+      await this.deleteAccessToken(accessToken);
+      await this.deleteRefreshTokens(accessToken, jwtRefreshTokenKey(accessToken, "*"));
     } else {
-      return false;
+      this.logger.warn(`Attempt to invalidate an invalid token: ${accessToken}`);
+      throw new InvalidTokenMsException();
     }
     return true;
   }
@@ -77,6 +79,7 @@ export class AuthService {
     const refreshTokenKeyPattern = jwtRefreshTokenKey("*", refreshToken);
     const refreshTokenKeys = await this.cacheService.getFromPattern(refreshTokenKeyPattern);
     if (refreshTokenKeys.length === 0) {
+      this.logger.warn(`Attempt to exchange an invalid refresh token: ${refreshToken}`);
       return null;
     }
     const refreshTokenKey = refreshTokenKeys[0];
@@ -94,8 +97,8 @@ export class AuthService {
     );
     // extract related access token for delete
     const oldAccessToken = this.extractAccessTokenFromRefreshTokenKey(refreshTokenKey);
-    const oldAccessTokenKey = jwtAccessTokenKey(oldAccessToken);
-    await this.cacheService.del(refreshTokenKey, oldAccessTokenKey);
+    await this.deleteAccessToken(oldAccessToken);
+    await this.deleteRefreshTokens(oldAccessToken, refreshTokenKey);
     return { accessToken, refreshToken: newRefreshToken };
   }
 
@@ -117,6 +120,7 @@ export class AuthService {
     if (!BRUTEFORCE.enabled) {
       return;
     }
+    this.logger.debug(`Registering failed login attempt for ${login} from ${ipAddress}`);
     const loginKey = bruteForceLoginKey(login);
     const ipKey = bruteForceIPKey(ipAddress);
     const [loginAttempts, ipAttempts] = await Promise.all([
@@ -136,6 +140,7 @@ export class AuthService {
     if (!BRUTEFORCE.enabled) {
       return;
     }
+    this.logger.debug(`Resetting failed login attempts for ${login} from ${ipAddress}`);
     const loginKey = bruteForceLoginKey(login);
     const ipKey = bruteForceIPKey(ipAddress);
     await this.cacheService.del(loginKey, ipKey);
@@ -144,6 +149,7 @@ export class AuthService {
   private async validateUser(payload: LoginPayload): Promise<User> {
     const user = await this.msClient.dispatch<User, string>("user.find.by.login", payload.login);
     if (!user) {
+      this.logger.debug(`User not found: ${payload.login}`);
       return null;
     }
     const passwordValid = await bcrypt.compare(payload.password, user.password);
@@ -160,6 +166,19 @@ export class AuthService {
       return parts[1];
     }
     return null;
+  }
+
+  private async deleteAccessToken(accessToken: string): Promise<void> {
+    this.logger.debug(`Deleting access token: ${accessToken}`);
+    await this.cacheService.del(jwtAccessTokenKey(accessToken));
+  }
+
+  private async deleteRefreshTokens(accessToken: string, pattern: string): Promise<void> {
+    this.logger.debug(`Deleting refresh tokens for access token: ${accessToken}`);
+    const refreshTokenKeys = await this.cacheService.getFromPattern(pattern);
+    if (refreshTokenKeys.length > 0) {
+      await this.cacheService.del(...refreshTokenKeys);
+    }
   }
 
 }

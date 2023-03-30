@@ -9,22 +9,22 @@ export class LogService extends Logger {
 
   error(message: string, trace?: string) {
     const ctx = this.getCallingContext();
-    super.error(`${message} <${ctx.filePath}:${ctx.lineNumber}>`, trace, ctx.methodName);
+    super.error(`${message}`, trace, `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
   }
 
   warn(message: string) {
     const ctx = this.getCallingContext();
-    super.warn(`${message} <${ctx.filePath}:${ctx.lineNumber}>`, ctx.methodName);
+    super.warn(`${message}`, `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
   }
 
   verbose(message: string) {
     const ctx = this.getCallingContext();
-    super.verbose(`${message} <${ctx.filePath}:${ctx.lineNumber}>`, ctx.methodName);
+    super.verbose(`${message}`, `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
   }
 
   debug(message: string) {
     const ctx = this.getCallingContext();
-    super.debug(`${message} <${ctx.filePath}:${ctx.lineNumber}>`, ctx.methodName);
+    super.debug(`${message}`, `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
   }
 
   private getCallingContext() {

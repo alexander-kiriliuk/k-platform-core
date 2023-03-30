@@ -15,22 +15,26 @@
  */
 
 import { ClientProxy } from "@nestjs/microservices";
-import { catchError, Observable, throwError, timeout } from "rxjs";
+import { catchError, Observable, tap, throwError, timeout } from "rxjs";
 import { MS_EXCEPTION_ID, TRANSPORT_OPTIONS } from "@shared/constants";
-import { HttpException, HttpStatus } from "@nestjs/common";
+import { HttpException, HttpStatus, Inject, Logger } from "@nestjs/common";
 import { MsClientOptions } from "@shared/client-proxy/ms-client.types";
 import { MsException } from "@shared/exceptions/ms.exception";
+import { ObjectUtils } from "@shared/utils/object.utils";
+import { LOGGER } from "@shared/modules/logger/log.constants";
+import inspect = ObjectUtils.inspect;
 
 export class MsClient {
 
   constructor(
-    readonly proxy: ClientProxy) {
+    @Inject(LOGGER) private readonly logger: Logger,
+    private readonly proxy: ClientProxy) {
   }
 
   dispatch<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions): Promise<TResult> {
     return new Promise<TResult>((resolve, reject) => {
-      const ob = this.proxy.send<TResult, TInput>(pattern, data);
-      this.handleRequest(ob, opts).subscribe({
+      const source = this.proxy.send<TResult, TInput>(pattern, data);
+      this.handleRequest(source, pattern, data, opts).subscribe({
         next: result => resolve(result),
         error: error => reject(error),
       });
@@ -38,26 +42,32 @@ export class MsClient {
   }
 
   send<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions) {
-    const ob = this.proxy.send<TResult, TInput>(pattern, data);
-    return this.handleRequest(ob, opts);
+    const source = this.proxy.send<TResult, TInput>(pattern, data);
+    return this.handleRequest(source, pattern, data, opts);
   }
 
   emit<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions) {
-    const ob = this.proxy.emit<TResult, TInput>(pattern, data);
-    return this.handleRequest(ob, opts);
+    const source = this.proxy.emit<TResult, TInput>(pattern, data);
+    return this.handleRequest(source, pattern, data, opts);
   }
 
-  private handleRequest<T>(source: Observable<T>, opts?: MsClientOptions): Observable<T> {
+  private handleRequest<T>(source: Observable<T>, pattern: any, data: any, opts?: MsClientOptions): Observable<T> {
     return source.pipe(
+      tap(() => {
+        this.logger.debug(`Sending request with pattern: ${inspect(pattern)}`);
+      }),
       timeout(opts?.timeout || TRANSPORT_OPTIONS.timeout),
       catchError(error => {
         if (error?.type === MS_EXCEPTION_ID) {
           const err = error as MsException;
+          this.logger.error(`Microservice exception: ${err.message}`, err.stack);
           throw new HttpException(err.message, err.code);
         }
         if (error.name === "TimeoutError") {
+          this.logger.warn(`Request timeout for pattern: ${inspect(pattern)}}`);
           throw new HttpException("Request Timeout", HttpStatus.REQUEST_TIMEOUT);
         }
+        this.logger.error(`Unknown error for pattern: ${inspect(pattern)}`, error);
         return throwError(error);
       }),
     );

@@ -15,12 +15,12 @@
  */
 
 
-import { BadRequestException, Body, Controller, Post, Req, UseGuards } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Post, Req, UnauthorizedException, UseGuards } from "@nestjs/common";
 import { MsClient } from "@shared/client-proxy/ms-client";
 import { ExchangeTokenPayload, JwtDto, LoginPayload } from "@auth/src/auth.types";
 import { LiteAuthGuard } from "@shared/guards/lite-auth.guard";
 import { AccessToken } from "@shared/decorators/access-token.decorator";
-import { Dto } from "@shared/decorators/dto.decorator";
+import { ResponseDto } from "@shared/decorators/dto.decorator";
 import { Request } from "express";
 
 @Controller("/auth")
@@ -30,7 +30,7 @@ export class AuthenticationController {
     private readonly msClient: MsClient) {
   }
 
-  @Dto(JwtDto)
+  @ResponseDto(JwtDto)
   @Post("/login")
   async login(@Body() payload: LoginPayload, @Req() request: Request) {
     if (request.ip) {
@@ -38,7 +38,7 @@ export class AuthenticationController {
     }
     const dto = await this.msClient.dispatch<JwtDto, LoginPayload>("auth.login", payload);
     if (!dto) {
-      throw new BadRequestException();
+      throw new UnauthorizedException();
     }
     return dto;
   }
@@ -50,7 +50,7 @@ export class AuthenticationController {
     return { result };
   }
 
-  @Dto(JwtDto)
+  @ResponseDto(JwtDto)
   @Post("/exchange-token")
   async exchange(@Body() payload: ExchangeTokenPayload) {
     const dto = await this.msClient.dispatch<JwtDto, string>("auth.token.exchange", payload.token);
