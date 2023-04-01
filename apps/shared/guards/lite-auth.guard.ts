@@ -16,7 +16,7 @@
 
 import { Inject, Injectable, Logger } from "@nestjs/common";
 import { AbstractAuthGuard } from "@shared/guards/abstract-auth.guard";
-import { MsClient } from "@shared/ms-client/ms-client";
+import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { CACHE_SERVICE } from "@shared/modules/cache/cache.constants";
 import { LOGGER } from "@shared/modules/log/log.constants";

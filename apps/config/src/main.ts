@@ -14,22 +14,11 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
-import { UserController } from "./user.controller";
-import { UserService } from "./user.service";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { UserEntity } from "@user/src/entity/user.entity";
-import { DbModule } from "@shared/modules/db/db.module";
+import { NestFactory } from "@nestjs/core";
+import { ConfigModule } from "./config.module";
 
-@Module({
-  imports: [
-    DbModule.forRoot(),
-    TypeOrmModule.forFeature([
-      UserEntity,
-    ]),
-  ],
-  controllers: [UserController],
-  providers: [UserService],
-})
-export class UserModule {
-}
+(async () => {
+  const app = await NestFactory.createApplicationContext(ConfigModule);
+  await app.init();
+  await app.close();
+})();

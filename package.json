@@ -7,6 +7,7 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
+    "build:config": "nest start config",
     "start:composer": "nest start composer",
     "start:composer:dev": "nest start composer --watch",
     "start:composer:debug": "nest start composer --debug --watch",
@@ -92,6 +93,7 @@
   },
   "jest": {
     "moduleNameMapper": {
+      "^@config/(.*)$": "<rootDir>/apps/config/$1",
       "^@shared/(.*)$": "<rootDir>/apps/shared/$1",
       "^@user/(.*)$": "<rootDir>/apps/user/$1",
       "^@media/(.*)$": "<rootDir>/apps/media/$1",

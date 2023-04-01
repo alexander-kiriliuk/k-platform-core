@@ -19,10 +19,10 @@ import { AuthController } from "./auth.controller";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { AuthService } from "@auth/src/auth.service";
-import { JWT } from "@shared/constants";
 import { CacheModule } from "@shared/modules/cache/cache.module";
 import { LogModule } from "@shared/modules/log/log.module";
-import { MsClientModule } from "@shared/ms-client/ms-client.module";
+import { MsClientModule } from "@shared/modules/ms-client/ms-client.module";
+import { AuthConfig } from "@auth/gen-src/auth.config";
 
 @Module({
   controllers: [
@@ -34,8 +34,8 @@ import { MsClientModule } from "@shared/ms-client/ms-client.module";
     LogModule,
     MsClientModule,
     JwtModule.register({
-      secret: JWT.secret,
-      signOptions: { expiresIn: JWT.accessTokenExpiration },
+      secret: AuthConfig.JWT_SECRET,
+      signOptions: { expiresIn: AuthConfig.ACCESS_TOKEN_EXPIRATION },
     }),
   ],
   providers: [

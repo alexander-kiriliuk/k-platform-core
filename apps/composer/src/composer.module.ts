@@ -19,7 +19,7 @@ import { ProfileController } from "./controllers/profile.controller";
 import { AuthenticationController } from "@composer/src/controllers/authentication.controller";
 import { CacheModule } from "@shared/modules/cache/cache.module";
 import { LogModule } from "@shared/modules/log/log.module";
-import { MsClientModule } from "@shared/ms-client/ms-client.module";
+import { MsClientModule } from "@shared/modules/ms-client/ms-client.module";
 
 @Module({
   controllers: [

@@ -27,20 +27,15 @@ import { TypeCategoryEntity } from "@shared/modules/type/entity/type-category.en
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
 import { TypeOrmModuleOptions } from "@nestjs/typeorm/dist/interfaces/typeorm-options.interface";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { DynamicModule } from "@nestjs/common";
 import { LanguageEntity } from "@shared/modules/locale/entity/language.entity";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { LocalizedMediaEntity } from "@shared/modules/locale/entity/localized-media.entity";
 import { RedisClientOptions } from "@liaoliaots/nestjs-redis/dist/redis/interfaces/redis-module-options.interface";
 import { UserSubscriber } from "@user/src/entity/user-subscriber";
+import { DbConfig } from "@shared/modules/db/gen-src/db.config";
 
-export const MS_CLIENT = "MS_CLIENT";
 
-export const API = {
-  prefix: "api/v1",
-  port: 3001,
-};
+export const MS_EXCEPTION_ID = "MsException";
 
 export const TRANSPORT_TYPE = Transport.REDIS;
 
@@ -50,33 +45,16 @@ export const TRANSPORT_OPTIONS = {
   timeout: 10000,
 };
 
+export const API = {
+  prefix: "api/v1",
+  port: 3001,
+};
+
 export const REDIS_OPTIONS: RedisClientOptions = {
   host: "localhost",
   port: 6379,
   db: 0,
 };
-
-export const JWT = {
-  secret: "yourSecretKey",
-  redisPrefix: "jwt",
-  accessTokenPrefix: "access_token",
-  accessTokenExpiration: 600,
-  refreshTokenPrefix: "refresh_token",
-  refreshTokenExpiration: 600 * 6,
-};
-
-export const UNKNOWN_IP = "unknown";
-
-export const MS_EXCEPTION_ID = "MsException";
-
-export const BRUTEFORCE = {
-  enabled: true,
-  redisPrefix: "bruteforce",
-  maxAttempts: 3,
-  blockDuration: 300,
-};
-
-export const PWD_SALT = 10;
 
 export const REQUEST_PROPS = {
   accessToken: "accessToken",
@@ -84,15 +62,15 @@ export const REQUEST_PROPS = {
 };
 
 export const PG_DATA_SOURCE: TypeOrmModuleOptions = {
-  type: "postgres",
-  host: "localhost",
-  schema: "core",
-  port: 5432,
-  synchronize: true,
-  logging: "error" as LoggerOptions,
-  database: "k_platform",
-  username: "root",
-  password: "1111",
+  type: DbConfig.TYPE,
+  host: DbConfig.HOST,
+  schema: DbConfig.SCHEMA,
+  port: DbConfig.PORT,
+  synchronize: DbConfig.SYNCHRONIZE,
+  logging: DbConfig.LOGGING as LoggerOptions,
+  database: DbConfig.DATABASE,
+  username: DbConfig.USERNAME,
+  password: String(DbConfig.PASSWORD),
   entities: [
     UserEntity,
     UserRoleEntity,
@@ -114,13 +92,3 @@ export const PG_DATA_SOURCE: TypeOrmModuleOptions = {
   ],
 };
 
-export class DatabaseModule {
-  static forRoot(): DynamicModule {
-    return {
-      module: DatabaseModule,
-      imports: [
-        TypeOrmModule.forRoot(PG_DATA_SOURCE),
-      ],
-    };
-  }
-}

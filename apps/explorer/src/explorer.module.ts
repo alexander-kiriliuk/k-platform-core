@@ -21,13 +21,13 @@ import { LogModule } from "@shared/modules/log/log.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
-import { DatabaseModule } from "@shared/constants";
 import { LocaleModule } from "@shared/modules/locale/locale.module";
+import { DbModule } from "@shared/modules/db/db.module";
 
 @Module({
   imports: [
     LogModule,
-    DatabaseModule.forRoot(),
+    DbModule.forRoot(),
     TypeOrmModule.forFeature([
       ExplorerTargetEntity,
       ExplorerColumnEntity,

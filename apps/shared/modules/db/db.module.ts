@@ -14,22 +14,17 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
-import { UserController } from "./user.controller";
-import { UserService } from "./user.service";
+import { DynamicModule } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { UserEntity } from "@user/src/entity/user.entity";
-import { DbModule } from "@shared/modules/db/db.module";
+import { PG_DATA_SOURCE } from "@shared/constants";
 
-@Module({
-  imports: [
-    DbModule.forRoot(),
-    TypeOrmModule.forFeature([
-      UserEntity,
-    ]),
-  ],
-  controllers: [UserController],
-  providers: [UserService],
-})
-export class UserModule {
+export class DbModule {
+  static forRoot(): DynamicModule {
+    return {
+      module: DbModule,
+      imports: [
+        TypeOrmModule.forRoot(PG_DATA_SOURCE),
+      ],
+    };
+  }
 }

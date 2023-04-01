@@ -15,21 +15,14 @@
  */
 
 import { Module } from "@nestjs/common";
-import { UserController } from "./user.controller";
-import { UserService } from "./user.service";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { UserEntity } from "@user/src/entity/user.entity";
-import { DbModule } from "@shared/modules/db/db.module";
+import { ConfigService } from "./config.service";
+import { LogModule } from "@shared/modules/log/log.module";
 
 @Module({
   imports: [
-    DbModule.forRoot(),
-    TypeOrmModule.forFeature([
-      UserEntity,
-    ]),
+    LogModule,
   ],
-  controllers: [UserController],
-  providers: [UserService],
+  providers: [ConfigService],
 })
-export class UserModule {
+export class ConfigModule {
 }

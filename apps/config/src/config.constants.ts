@@ -14,22 +14,8 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
-import { UserController } from "./user.controller";
-import { UserService } from "./user.service";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { UserEntity } from "@user/src/entity/user.entity";
-import { DbModule } from "@shared/modules/db/db.module";
-
-@Module({
-  imports: [
-    DbModule.forRoot(),
-    TypeOrmModule.forFeature([
-      UserEntity,
-    ]),
-  ],
-  controllers: [UserController],
-  providers: [UserService],
-})
-export class UserModule {
-}
+export const GEN_SRC_DIR = "gen-src";
+export const CONFIG_FILE_EXT_PATTERN = ".config.ts";
+export const PROPERTIES_FILE_EXT_PATTERN = ".properties";
+export const LOCAL_PROPERTIES_FILE_NAME = "local.properties";
+export const FILES_ENCODING = "utf-8";

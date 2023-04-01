@@ -16,10 +16,11 @@
 
 import { Logger, Module } from "@nestjs/common";
 import { LogModule } from "@shared/modules/log/log.module";
-import { MS_CLIENT, TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
+import { TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
 import { ClientProxy, ClientsModule } from "@nestjs/microservices";
-import { MsClient } from "@shared/ms-client/ms-client";
+import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { LOGGER } from "@shared/modules/log/log.constants";
+import { MS_CLIENT } from "@shared/modules/ms-client/ms-client.constants";
 
 @Module({
   imports: [

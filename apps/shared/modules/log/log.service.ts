@@ -1,30 +1,43 @@
 import { Logger } from "@nestjs/common";
+import { ObjectUtils } from "@shared/utils/object.utils";
+import inspect = ObjectUtils.inspect;
 
 export class LogService extends Logger {
 
-  log(message: string) {
+  log<T = any>(message: string, data: T) {
     const ctx = this.getCallingContext();
-    super.log(`${message}`, ctx.methodName);
+    super.log(this.prepareMessage(message, data), ctx.methodName);
   }
 
   error(message: string, trace?: string) {
     const ctx = this.getCallingContext();
-    super.error(`${message}`, trace, `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
+    super.error(this.prepareMessage(message), trace, `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
   }
 
-  warn(message: string) {
+  warn<T = any>(message: string, data: T) {
     const ctx = this.getCallingContext();
-    super.warn(`${message}`, `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
+    super.warn(this.prepareMessage(message, data), `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
   }
 
-  verbose(message: string) {
+  verbose<T = any>(message: string, data: T) {
     const ctx = this.getCallingContext();
-    super.verbose(`${message}`, `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
+    super.verbose(this.prepareMessage(message, data), `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
   }
 
-  debug(message: string) {
+  debug<T = any>(message: string, data: T) {
     const ctx = this.getCallingContext();
-    super.debug(`${message}`, `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
+    super.debug(this.prepareMessage(message, data), `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
+  }
+
+  private prepareMessage<T = any>(message: string, data?: T) {
+    let m = inspect(message);
+    if ((m.startsWith(`'`) && m.endsWith(`'`)) || m.startsWith(`"`) && m.endsWith(`"`)) {
+      m = m.substring(1, m.length - 1);
+    }
+    if (data) {
+      m += inspect(data);
+    }
+    return m;
   }
 
   private getCallingContext() {
