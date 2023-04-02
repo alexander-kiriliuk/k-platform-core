@@ -41,6 +41,9 @@
       ],
       "@auth/*": [
         "apps/auth/*"
+      ],
+      "@captcha/*": [
+        "apps/captcha/*"
       ]
     }
   }

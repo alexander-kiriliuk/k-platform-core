@@ -31,7 +31,7 @@ export class MsClient {
     private readonly proxy: ClientProxy) {
   }
 
-  dispatch<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions): Promise<TResult> {
+  dispatch<TResult = any, TInput = any>(pattern: any, data: TInput = Object(), opts?: MsClientOptions): Promise<TResult> {
     return new Promise<TResult>((resolve, reject) => {
       const source = this.proxy.send<TResult, TInput>(pattern, data);
       this.handleRequest(source, pattern, data, opts).subscribe({

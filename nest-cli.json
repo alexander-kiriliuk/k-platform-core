@@ -37,6 +37,15 @@
         "tsConfigPath": "apps/auth/tsconfig.app.json"
       }
     },
+    "captcha": {
+      "type": "application",
+      "root": "apps/captcha",
+      "entryFile": "main",
+      "sourceRoot": "apps/captcha/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/captcha/tsconfig.app.json"
+      }
+    },
     "user": {
       "type": "application",
       "root": "apps/user",

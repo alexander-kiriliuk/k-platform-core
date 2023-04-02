@@ -30,7 +30,7 @@ import { CACHE_SERVICE } from "@shared/modules/cache/cache.constants";
   ],
   providers: [
     {
-      provide: CACHE_SERVICE,
+      provide: CACHE_SERVICE, // todo change to abstract class
       useClass: RedisCacheService,
     },
   ],

@@ -11,22 +11,30 @@ export class LogService extends Logger {
 
   error(message: string, trace?: string) {
     const ctx = this.getCallingContext();
-    super.error(this.prepareMessage(message), trace, `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
+    super.error(this.prepareMessage(message), trace, this.patchFromCtx(ctx));
   }
 
   warn<T = any>(message: string, data: T) {
     const ctx = this.getCallingContext();
-    super.warn(this.prepareMessage(message, data), `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
+    super.warn(this.prepareMessage(message, data), this.patchFromCtx(ctx));
   }
 
   verbose<T = any>(message: string, data: T) {
     const ctx = this.getCallingContext();
-    super.verbose(this.prepareMessage(message, data), `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
+    super.verbose(this.prepareMessage(message, data), this.patchFromCtx(ctx));
   }
 
   debug<T = any>(message: string, data: T) {
     const ctx = this.getCallingContext();
-    super.debug(this.prepareMessage(message, data), `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`);
+    super.debug(this.prepareMessage(message, data), this.patchFromCtx(ctx));
+  }
+
+  private patchFromCtx(ctx: { filePath: string; methodName: string; lineNumber: string }) {
+    let p = `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`;
+    if (p === "undefined:undefined > undefined") {
+      p = "unknown";
+    }
+    return p;
   }
 
   private prepareMessage<T = any>(message: string, data?: T) {
