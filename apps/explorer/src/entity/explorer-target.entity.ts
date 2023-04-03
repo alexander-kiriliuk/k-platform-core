@@ -21,7 +21,7 @@ import { ExplorerTarget } from "../explorer.types";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 
 
-@Entity("explorer2_targets")
+@Entity("explorer_targets")
 export class ExplorerTargetEntity implements ExplorerTarget {
 
   @PrimaryColumn("varchar")

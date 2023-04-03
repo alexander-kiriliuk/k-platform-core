@@ -14,5 +14,11 @@
  *    limitations under the License.
  */
 
+import { HttpStatus } from "@nestjs/common";
+import { MsException } from "@shared/exceptions/ms.exception";
 
-export const CAPTCHA_SERVICE = Symbol("CAPTCHA_SERVICE");
+export class NotFoundMsException extends MsException {
+  constructor(message?: string) {
+    super(HttpStatus.NOT_FOUND, message || "Not found");
+  }
+}

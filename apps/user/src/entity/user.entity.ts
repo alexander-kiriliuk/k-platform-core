@@ -27,6 +27,7 @@ import {
 import { UserRoleEntity } from "./user-role.entity";
 import { MediaEntity } from "@media/src/entity/media.entity";
 import { User } from "../user.types";
+import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 
 @Entity("users")
 export class UserEntity implements User {
@@ -49,11 +50,13 @@ export class UserEntity implements User {
   @Column("varchar", { nullable: true })
   phone: string;
 
-  @Column("varchar", { name: "first_name", nullable: true })
-  firstName: string;
+  @ManyToMany(() => LocalizedStringEntity)
+  @JoinTable()
+  firstName: LocalizedStringEntity[];
 
-  @Column("varchar", { name: "last_name", nullable: true })
-  lastName: string;
+  @ManyToMany(() => LocalizedStringEntity)
+  @JoinTable()
+  lastName: LocalizedStringEntity[];
 
   @Index()
   @Column("boolean", { default: false })

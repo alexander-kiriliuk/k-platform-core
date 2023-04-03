@@ -22,8 +22,6 @@ import { MediaEntity } from "@media/src/entity/media.entity";
 import { MediaFileEntity } from "@media/src/entity/media-file.entity";
 import { MediaSizeEntity } from "@media/src/entity/media-size.entity";
 import { MediaTypeEntity } from "@media/src/entity/media-type.entity";
-import { TypeEntity } from "@shared/modules/type/entity/type.entity";
-import { TypeCategoryEntity } from "@shared/modules/type/entity/type-category.entity";
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
 import { TypeOrmModuleOptions } from "@nestjs/typeorm/dist/interfaces/typeorm-options.interface";
@@ -33,6 +31,7 @@ import { LocalizedMediaEntity } from "@shared/modules/locale/entity/localized-me
 import { RedisClientOptions } from "@liaoliaots/nestjs-redis/dist/redis/interfaces/redis-module-options.interface";
 import { UserSubscriber } from "@user/src/entity/user-subscriber";
 import { DbConfig } from "@shared/modules/db/gen-src/db.config";
+import { MediaExtEntity } from "@media/src/entity/media-ext.entity";
 
 
 export const MS_EXCEPTION_ID = "MsException";
@@ -75,11 +74,10 @@ export const PG_DATA_SOURCE: TypeOrmModuleOptions = {
     UserEntity,
     UserRoleEntity,
     MediaEntity,
+    MediaExtEntity,
     MediaFileEntity,
     MediaSizeEntity,
     MediaTypeEntity,
-    TypeEntity,
-    TypeCategoryEntity,
     ExplorerTargetEntity,
     ExplorerColumnEntity,
     LanguageEntity,

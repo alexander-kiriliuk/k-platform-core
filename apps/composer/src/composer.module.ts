@@ -16,17 +16,19 @@
 
 import { Module } from "@nestjs/common";
 import { ProfileController } from "./controllers/profile.controller";
-import { AuthenticationController } from "./controllers/authentication.controller";
+import { AuthController } from "./controllers/auth.controller";
 import { CacheModule } from "@shared/modules/cache/cache.module";
 import { LogModule } from "@shared/modules/log/log.module";
 import { MsClientModule } from "@shared/modules/ms-client/ms-client.module";
 import { CaptchaController } from "./controllers/captcha.controller";
+import { ExplorerController } from "@composer/src/controllers/explorer.controller";
 
 @Module({
   controllers: [
-    AuthenticationController,
+    AuthController,
     CaptchaController,
     ProfileController,
+    ExplorerController,
   ],
   imports: [
     CacheModule,

@@ -17,6 +17,7 @@
 import { MediaEntity } from "@media/src/entity/media.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
+import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 
 export type ColumnDataType = "string" | "number" | "boolean" | "date" | "reference" | "unknown";
 
@@ -43,3 +44,17 @@ export interface ExplorerColumn {
   referencedEntityName: string;
 }
 
+export interface ExplorerEntityRequest {
+  id: string;
+  target: string;
+}
+
+export interface TargetData {
+  primaryColumn: ExplorerColumnEntity;
+  entity: ExplorerTargetEntity;
+}
+
+export interface EntityData<T = any> {
+  data: T;
+  entity: ExplorerTargetEntity;
+}

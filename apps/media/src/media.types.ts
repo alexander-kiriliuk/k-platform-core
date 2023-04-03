@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 
-import { Type } from "@shared/modules/type/type.types";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 
 export interface Media {
@@ -30,7 +29,7 @@ export interface MediaType {
   code: string;
   name: string;
   vp6: boolean;
-  ext: Type;
+  ext: MediaExt;
   sizes: MediaSize[];
 }
 
@@ -51,4 +50,10 @@ export interface MediaFile {
   format: string;
   size: number;
   media: Media;
+}
+
+export interface MediaExt {
+  id: number;
+  code: string;
+  name: string;
 }

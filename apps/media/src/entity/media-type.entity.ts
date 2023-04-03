@@ -1,7 +1,7 @@
 import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { MediaSizeEntity } from "./media-size.entity";
-import { TypeEntity } from "@shared/modules/type/entity/type.entity";
 import { MediaType } from "@media/src/media.types";
+import { MediaExtEntity } from "@media/src/entity/media-ext.entity";
 
 @Entity("medias_types")
 export class MediaTypeEntity implements MediaType {
@@ -20,8 +20,8 @@ export class MediaTypeEntity implements MediaType {
   @Column("boolean", { default: false })
   vp6: boolean;
 
-  @ManyToOne(t => TypeEntity, type => type.code)
-  ext: TypeEntity;
+  @ManyToOne(t => MediaExtEntity, e => e.code)
+  ext: MediaExtEntity;
 
   @ManyToMany(a => MediaSizeEntity)
   @JoinTable()

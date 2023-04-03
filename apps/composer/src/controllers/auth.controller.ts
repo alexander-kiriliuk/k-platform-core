@@ -24,7 +24,7 @@ import { ResponseDto } from "@shared/decorators/dto.decorator";
 import { Request } from "express";
 
 @Controller("/auth")
-export class AuthenticationController {
+export class AuthController {
 
   constructor(
     private readonly msClient: MsClient) {

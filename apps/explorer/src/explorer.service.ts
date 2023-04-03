@@ -18,12 +18,13 @@ import { Inject, Injectable, Logger } from "@nestjs/common";
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
-import { DataSource, EntityMetadata, Repository } from "typeorm";
-import { ColumnDataType } from "@explorer/src/explorer.types";
+import { DataSource, EntityMetadata, In, Repository } from "typeorm";
+import { ColumnDataType, EntityData, TargetData } from "@explorer/src/explorer.types";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
 import { LocaleService } from "@shared/modules/locale/locale.service";
 import { LOGGER } from "@shared/modules/log/log.constants";
+import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
 
 @Injectable()
 export class ExplorerService {
@@ -44,6 +45,7 @@ export class ExplorerService {
   }
 
   async analyzeDatabase() {
+    this.logger.log(`Starting database analysis`);
     for (const md of this.connection.entityMetadatas) {
       if (md.tableType !== "regular") {
         continue;
@@ -82,32 +84,133 @@ export class ExplorerService {
         await this.saveColumn(c);
       }
     }
-    this.logger.log(`Entities was analyzed`);
+    this.logger.log(`Database was analyzed`);
+  }
+
+  async getEntityData(target: string, rowId: string | number): Promise<EntityData> {
+    const targetData = await this.getTargetData(target);
+    if (!targetData) {
+      throw new NotFoundMsException(`Target entity not found: ${target}`);
+    }
+    const repository = this.connection.getRepository(targetData.entity.target);
+    let queryBuilder = repository.createQueryBuilder(targetData.entity.target);
+    queryBuilder.where(`${targetData.entity.target}.${targetData.primaryColumn.property} = :rowId`, { rowId });
+    for (const column of targetData.entity.columns) {
+      if (column.type === "reference" && column.multiple) {
+        queryBuilder.leftJoinAndSelect(`${targetData.entity.target}.${column.property}`, column.property);
+      }
+    }
+    const row = await queryBuilder.getOne();
+    if (!row) {
+      throw new NotFoundMsException(`Row with ID ${rowId} not found in table ${target}`);
+    }
+    const rowWithRelations = await this.includeRelations(row, targetData.entity.columns, []);
+    return { entity: targetData.entity, data: rowWithRelations };
+  }
+
+  private async includeRelations<T = any>(row: T, columns: ExplorerColumnEntity[], visitedEntities: string[]): Promise<T> {
+    const rowData = { ...row };
+    for (const column of columns) {
+      if (column.type === "reference") {
+        const relTargetData = await this.getTargetData(column.referencedEntityName);
+        const relRepository = this.connection.getRepository(column.referencedEntityName);
+        const idProperty = relTargetData.primaryColumn.property;
+        if (column.multiple) {
+          const ids = [];
+          for (let rowElementKey in row[column.property]) {
+            ids.push(row[column.property][rowElementKey][relTargetData.primaryColumn.property]);
+          }
+          const referenceColumns = relTargetData.entity.columns.filter(col => col.type === "reference").map(col => col.property);
+          const relatedEntities = await relRepository.find({
+            where: { [idProperty]: In(ids) },
+            relations: referenceColumns || [],
+          });
+          if (!relatedEntities || relatedEntities.length === 0) {
+            rowData[column.property] = null;
+            continue;
+          }
+          rowData[column.property] = [];
+          for (const relatedEntity of relatedEntities) {
+            if (visitedEntities.includes(column.referencedEntityName)) {
+              rowData[column.property].push(relatedEntity);
+            } else {
+              const relatedTargetEntity = await this.targetRep.findOne({
+                where: { target: column.referencedEntityName },
+                relations: ["columns"],
+              });
+              if (relatedTargetEntity) {
+                visitedEntities.push(column.referencedEntityName);
+                const withRel = await this.includeRelations(relatedEntity, relatedTargetEntity.columns, visitedEntities);
+                rowData[column.property].push(withRel);
+                visitedEntities.pop();
+              } else {
+                rowData[column.property].push(relatedEntity);
+              }
+            }
+          }
+        } else {
+          const idVal = rowData[column.property];
+          const relatedEntity = await relRepository.findOne({ where: { [idProperty]: idVal } });
+          if (!relatedEntity) {
+            rowData[column.property] = rowData[column.property];
+            continue;
+          }
+          if (visitedEntities.includes(column.referencedEntityName)) {
+            rowData[column.property] = relatedEntity;
+          } else {
+            const relatedTargetEntity = await this.targetRep.findOne({
+              where: { target: column.referencedEntityName },
+              relations: ["columns"],
+            });
+            if (relatedTargetEntity) {
+              visitedEntities.push(column.referencedEntityName);
+              /*const referenceColumns = relatedTargetEntity.columns.filter(col => col.type === "reference").map(col => col.property);
+              const idProp = relatedEntity[relTargetData.primaryColumn.property];
+              const withRel = await relRepository.findOne({ where: { [idProp]: relatedEntity[idProp] }, relations: referenceColumns });*/
+              rowData[column.property] = await this.includeRelations(relatedEntity, relatedTargetEntity.columns, visitedEntities);
+              visitedEntities.pop();
+            } else {
+              rowData[column.property] = relatedEntity;
+            }
+          }
+        }
+      }
+    }
+    return rowData;
+  }
+
+  private async getTargetData(target: string): Promise<TargetData> {
+    const entity = await this.targetRep.findOne({ where: { target }, relations: ["columns"] });
+    if (!entity) {
+      return null;
+    }
+    const primaryColumn = entity.columns.find(c => c.primary === true);
+    return { entity, primaryColumn };
   }
 
   private async saveTarget(target: ExplorerTargetEntity) {
     const t = await this.targetRep.findOne({ where: { target: target.target } });
     if (t) {
-      this.logger.log(`Entity ${target.target} was exist, skip`);
+      this.logger.verbose(`Entity ${target.target} already exists, skipping`);
       return;
     }
     await this.targetRep.save(target);
-    this.logger.log(`Entity ${target.target} was created`);
+    this.logger.verbose(`Entity ${target.target} was created`);
   }
 
   private async saveColumn(column: ExplorerColumnEntity) {
     const c = await this.columnRep.findOne({ where: { id: column.id } });
     if (c) {
-      this.logger.log(`Column ${column.name} was exist, skip`);
+      this.logger.verbose(`Column ${column.id} already exists, skipping`);
       return;
     }
     await this.columnRep.save(column);
-    this.logger.log(`Column ${column.name} was created`);
+    this.logger.verbose(`Column ${column.id} was created`);
   }
 
   private async setColumnProperties(c: ExplorerColumnEntity, relation: RelationMetadata, target: ExplorerTargetEntity) {
     c.target = target;
-    c.id = relation.propertyPath;
+    c.id = `${target.tableName}.${relation.propertyPath}`;
     c.name = await this.localeService.createLocalizedStrings(relation.propertyName);
     c.property = relation.propertyName;
     c.type = "reference";

@@ -14,21 +14,24 @@
  *    limitations under the License.
  */
 
-import { Controller } from "@nestjs/common";
-import { ExplorerService } from "./explorer.service";
-import { MessagePattern } from "@nestjs/microservices";
-import { ExplorerEntityRequest } from "@explorer/src/explorer.types";
+import { Controller, Get, Query, UseGuards } from "@nestjs/common";
+import { AuthGuard } from "@shared/guards/auth.guard";
+import { MsClient } from "@shared/modules/ms-client/ms-client";
+import { EntityData, ExplorerEntityRequest } from "@explorer/src/explorer.types";
 
-@Controller()
+@Controller("/explorer")
 export class ExplorerController {
 
   constructor(
-    private readonly explorerService: ExplorerService) {
+    private readonly msClient: MsClient) {
   }
 
-  @MessagePattern("explorer.entity")
-  async entity(payload: ExplorerEntityRequest) {
-    return await this.explorerService.getEntityData(payload.target, payload.id);
+  @UseGuards(AuthGuard)
+  @Get("/entity")
+  async entity(@Query("target") target: string, @Query("id") id: string) {
+    return await this.msClient.dispatch<EntityData, ExplorerEntityRequest>("explorer.entity", {
+      id, target,
+    });
   }
 
 }
