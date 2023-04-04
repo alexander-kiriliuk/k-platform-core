@@ -25,16 +25,14 @@ export interface Media {
 }
 
 export interface MediaType {
-  id: number;
   code: string;
   name: string;
   vp6: boolean;
   ext: MediaExt;
-  sizes: MediaSize[];
+  formats: MediaFormat[];
 }
 
-export interface MediaSize {
-  id: number;
+export interface MediaFormat {
   code: string;
   name: string;
   width: string;
@@ -47,13 +45,12 @@ export interface MediaFile {
   name: string;
   width: number;
   height: number;
-  format: string;
   size: number;
+  format: MediaFormat;
   media: Media;
 }
 
 export interface MediaExt {
-  id: number;
   code: string;
   name: string;
 }

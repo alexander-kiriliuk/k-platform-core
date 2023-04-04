@@ -14,21 +14,33 @@
  *    limitations under the License.
  */
 
-import { Inject, Injectable, Logger } from "@nestjs/common";
+import { HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
-import { DataSource, EntityMetadata, In, Repository } from "typeorm";
+import { DataSource, EntityMetadata, Repository } from "typeorm";
 import { ColumnDataType, EntityData, TargetData } from "@explorer/src/explorer.types";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
 import { LocaleService } from "@shared/modules/locale/locale.service";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
+import { MsException } from "@shared/exceptions/ms.exception";
 
+/**
+ * Service for exploring and analyzing the database schema and relationships.
+ */
 @Injectable()
 export class ExplorerService {
 
+  /**
+   * Constructs an instance of the ExplorerService.
+   * @param dataSource The data source to work with.
+   * @param targetRep Repository for the ExplorerTargetEntity.
+   * @param columnRep Repository for the ExplorerColumnEntity.
+   * @param logger The logger instance for logging actions.
+   * @param localeService The service for handling localized strings.
+   */
   constructor(
     @InjectDataSource()
     private readonly dataSource: DataSource,
@@ -44,6 +56,9 @@ export class ExplorerService {
     return this.dataSource.manager.connection;
   }
 
+  /**
+   * Analyzes the database and saves the results to the corresponding entities.
+   */
   async analyzeDatabase() {
     this.logger.log(`Starting database analysis`);
     for (const md of this.connection.entityMetadatas) {
@@ -87,98 +102,73 @@ export class ExplorerService {
     this.logger.log(`Database was analyzed`);
   }
 
-  async getEntityData(target: string, rowId: string | number): Promise<EntityData> {
+  /**
+   * Retrieves entity data for the given target and rowId, with relations attached up to the specified depth.
+   * @param target The target entity name.
+   * @param rowId The ID of the row to fetch.
+   * @param maxDepth The maximum depth of relations to fetch. Defaults to Infinity.
+   * @returns A Promise that resolves to the EntityData object.
+   */
+  async getEntityData(target: string, rowId: string | number, maxDepth: number = Infinity): Promise<EntityData> {
     const targetData = await this.getTargetData(target);
     if (!targetData) {
       throw new NotFoundMsException(`Target entity not found: ${target}`);
     }
     const repository = this.connection.getRepository(targetData.entity.target);
-    let queryBuilder = repository.createQueryBuilder(targetData.entity.target);
-    queryBuilder.where(`${targetData.entity.target}.${targetData.primaryColumn.property} = :rowId`, { rowId });
-    for (const column of targetData.entity.columns) {
-      if (column.type === "reference" && column.multiple) {
-        queryBuilder.leftJoinAndSelect(`${targetData.entity.target}.${column.property}`, column.property);
-      }
-    }
-    const row = await queryBuilder.getOne();
+    const row = await repository.findOne({ where: { [targetData.primaryColumn.property]: rowId } });
     if (!row) {
       throw new NotFoundMsException(`Row with ID ${rowId} not found in table ${target}`);
     }
-    const rowWithRelations = await this.includeRelations(row, targetData.entity.columns, []);
-    return { entity: targetData.entity, data: rowWithRelations };
+    const withRelations = await this.attachRelations(row, targetData, [], maxDepth);
+    return { entity: targetData.entity, data: withRelations };
   }
 
-  private async includeRelations<T = any>(row: T, columns: ExplorerColumnEntity[], visitedEntities: string[]): Promise<T> {
-    const rowData = { ...row };
-    for (const column of columns) {
-      if (column.type === "reference") {
-        const relTargetData = await this.getTargetData(column.referencedEntityName);
-        const relRepository = this.connection.getRepository(column.referencedEntityName);
-        const idProperty = relTargetData.primaryColumn.property;
-        if (column.multiple) {
-          const ids = [];
-          for (let rowElementKey in row[column.property]) {
-            ids.push(row[column.property][rowElementKey][relTargetData.primaryColumn.property]);
-          }
-          const referenceColumns = relTargetData.entity.columns.filter(col => col.type === "reference").map(col => col.property);
-          const relatedEntities = await relRepository.find({
-            where: { [idProperty]: In(ids) },
-            relations: referenceColumns || [],
-          });
-          if (!relatedEntities || relatedEntities.length === 0) {
-            rowData[column.property] = null;
-            continue;
-          }
-          rowData[column.property] = [];
-          for (const relatedEntity of relatedEntities) {
-            if (visitedEntities.includes(column.referencedEntityName)) {
-              rowData[column.property].push(relatedEntity);
-            } else {
-              const relatedTargetEntity = await this.targetRep.findOne({
-                where: { target: column.referencedEntityName },
-                relations: ["columns"],
-              });
-              if (relatedTargetEntity) {
-                visitedEntities.push(column.referencedEntityName);
-                const withRel = await this.includeRelations(relatedEntity, relatedTargetEntity.columns, visitedEntities);
-                rowData[column.property].push(withRel);
-                visitedEntities.pop();
-              } else {
-                rowData[column.property].push(relatedEntity);
-              }
-            }
-          }
-        } else {
-          const idVal = rowData[column.property];
-          const relatedEntity = await relRepository.findOne({ where: { [idProperty]: idVal } });
-          if (!relatedEntity) {
-            rowData[column.property] = rowData[column.property];
-            continue;
-          }
-          if (visitedEntities.includes(column.referencedEntityName)) {
-            rowData[column.property] = relatedEntity;
-          } else {
-            const relatedTargetEntity = await this.targetRep.findOne({
-              where: { target: column.referencedEntityName },
-              relations: ["columns"],
-            });
-            if (relatedTargetEntity) {
-              visitedEntities.push(column.referencedEntityName);
-              /*const referenceColumns = relatedTargetEntity.columns.filter(col => col.type === "reference").map(col => col.property);
-              const idProp = relatedEntity[relTargetData.primaryColumn.property];
-              const withRel = await relRepository.findOne({ where: { [idProp]: relatedEntity[idProp] }, relations: referenceColumns });*/
-              rowData[column.property] = await this.includeRelations(relatedEntity, relatedTargetEntity.columns, visitedEntities);
-              visitedEntities.pop();
-            } else {
-              rowData[column.property] = relatedEntity;
-            }
-          }
+  /**
+   * Attaches relations to the given row recursively up to the specified depth.
+   * @param row The row to attach relations to.
+   * @param targetData The target data of the current row.
+   * @param visitedEntities The array of visited entity names.
+   * @param maxDepth The maximum depth of relations to fetch. Defaults to Infinity.
+   * @returns The row with attached relations.
+   */
+  private async attachRelations<T = any>(row: T, targetData: TargetData, visitedEntities: string[] = [], maxDepth: number = Infinity) {
+    if (maxDepth < 0) {
+      throw new MsException(HttpStatus.INTERNAL_SERVER_ERROR, "maxDepth should be non-negative");
+    }
+    const referencedCols = targetData.entity.columns.filter(c => c.type === "reference");
+    const relations = referencedCols.map(c => c.property);
+    if (!row || !relations.length || maxDepth <= 0) {
+      return row;
+    }
+    const repository = this.connection.getRepository(targetData.entity.target);
+    const idProp = targetData.primaryColumn.property;
+    visitedEntities.push(targetData.entity.target);
+    const withRelations = await repository.findOne({ where: { [idProp]: row[idProp] }, relations });
+    for (let k in withRelations) {
+      if (relations.indexOf(k) === -1) {
+        continue;
+      }
+      const colData = targetData.entity.columns.find(c => c.property === k);
+      const currTargetData = await this.getTargetData(colData.referencedEntityName);
+      if (visitedEntities.includes(currTargetData.entity.target)) {
+        continue;
+      }
+      if (Array.isArray(withRelations[k]) && colData.multiple) {
+        for (let key in withRelations[k]) {
+          withRelations[k][key] = await this.attachRelations(withRelations[k][key], currTargetData, visitedEntities.slice(), maxDepth - 1);
         }
+      } else {
+        withRelations[k] = await this.attachRelations(withRelations[k], currTargetData, visitedEntities.slice(), maxDepth - 1);
       }
     }
-    return rowData;
+    return withRelations;
   }
 
+  /**
+   * Retrieves target data for the specified target entity name.
+   * @param target The target entity name.
+   * @returns A Promise that resolves to the TargetData object, or null if not found.
+   */
   private async getTargetData(target: string): Promise<TargetData> {
     const entity = await this.targetRep.findOne({ where: { target }, relations: ["columns"] });
     if (!entity) {
@@ -188,6 +178,10 @@ export class ExplorerService {
     return { entity, primaryColumn };
   }
 
+  /**
+   * Saves the target entity to the repository, if it does not exist.
+   * @param target The target entity to save.
+   */
   private async saveTarget(target: ExplorerTargetEntity) {
     const t = await this.targetRep.findOne({ where: { target: target.target } });
     if (t) {
@@ -198,6 +192,10 @@ export class ExplorerService {
     this.logger.verbose(`Entity ${target.target} was created`);
   }
 
+  /**
+   * Saves the column entity to the repository, if it does not exist.
+   * @param column The column entity to save.
+   */
   private async saveColumn(column: ExplorerColumnEntity) {
     const c = await this.columnRep.findOne({ where: { id: column.id } });
     if (c) {
@@ -208,6 +206,12 @@ export class ExplorerService {
     this.logger.verbose(`Column ${column.id} was created`);
   }
 
+  /**
+   * Sets the properties of a column entity based on the given relation and target.
+   * @param c The column entity to set properties for.
+   * @param relation The relation metadata used to set properties.
+   * @param target The target entity to associate the column with.
+   */
   private async setColumnProperties(c: ExplorerColumnEntity, relation: RelationMetadata, target: ExplorerTargetEntity) {
     c.target = target;
     c.id = `${target.tableName}.${relation.propertyPath}`;
@@ -220,6 +224,12 @@ export class ExplorerService {
     c.unique = false;
   }
 
+  /**
+   * Checks if the given column is unique within the entity metadata.
+   * @param md The entity metadata to check.
+   * @param column The column metadata to check for uniqueness.
+   * @returns True if the column is unique, false otherwise.
+   */
   private isColumnUnique(md: EntityMetadata, column: ColumnMetadata) {
     for (const uniq of md.uniques) {
       if (uniq.columns.find(col => col.propertyName === column.propertyName) !== undefined) {
@@ -229,6 +239,11 @@ export class ExplorerService {
     return false;
   }
 
+  /**
+   * Converts a string type name to a corresponding ColumnDataType.
+   * @param type The string type name.
+   * @returns The corresponding ColumnDataType.
+   */
   private getColumnType(type: string): ColumnDataType {
     switch (type) {
       case "string":

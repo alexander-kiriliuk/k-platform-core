@@ -1,6 +1,7 @@
 import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { MediaEntity } from "./media.entity";
 import { MediaFile } from "@media/src/media.types";
+import { MediaFormatEntity } from "@media/src/entity/media-format.entity";
 
 @Entity("medias_files")
 export class MediaFileEntity implements MediaFile {
@@ -22,11 +23,11 @@ export class MediaFileEntity implements MediaFile {
   @Column("smallint", { nullable: true })
   height: number;
 
-  @Column("varchar", { nullable: true })
-  format: string;
-
   @Column("int", { nullable: true })
   size: number;
+
+  @ManyToOne(t => MediaFormatEntity, type => type.code)
+  format: MediaFormatEntity;
 
   @ManyToOne(type => MediaEntity)
   media: MediaEntity;

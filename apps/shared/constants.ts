@@ -20,7 +20,7 @@ import { UserEntity } from "@user/src/entity/user.entity";
 import { UserRoleEntity } from "@user/src/entity/user-role.entity";
 import { MediaEntity } from "@media/src/entity/media.entity";
 import { MediaFileEntity } from "@media/src/entity/media-file.entity";
-import { MediaSizeEntity } from "@media/src/entity/media-size.entity";
+import { MediaFormatEntity } from "@media/src/entity/media-format.entity";
 import { MediaTypeEntity } from "@media/src/entity/media-type.entity";
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
@@ -76,7 +76,7 @@ export const PG_DATA_SOURCE: TypeOrmModuleOptions = {
     MediaEntity,
     MediaExtEntity,
     MediaFileEntity,
-    MediaSizeEntity,
+    MediaFormatEntity,
     MediaTypeEntity,
     ExplorerTargetEntity,
     ExplorerColumnEntity,
