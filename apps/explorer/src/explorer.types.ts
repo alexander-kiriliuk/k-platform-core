@@ -18,6 +18,7 @@ import { MediaEntity } from "@media/src/entity/media.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
+import { PageableParams } from "@shared/modules/pageable/pageable.types";
 
 export type ColumnDataType = "string" | "number" | "boolean" | "date" | "reference" | "unknown";
 
@@ -46,6 +47,11 @@ export interface ExplorerColumn {
 
 export interface ExplorerEntityRequest {
   id: string;
+  target: string;
+}
+
+export interface ExplorerPagedEntityRequest {
+  params?: PageableParams;
   target: string;
 }
 

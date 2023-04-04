@@ -17,7 +17,7 @@
 import { Controller } from "@nestjs/common";
 import { ExplorerService } from "./explorer.service";
 import { MessagePattern } from "@nestjs/microservices";
-import { ExplorerEntityRequest } from "@explorer/src/explorer.types";
+import { ExplorerEntityRequest, ExplorerPagedEntityRequest } from "@explorer/src/explorer.types";
 
 @Controller()
 export class ExplorerController {
@@ -26,9 +26,24 @@ export class ExplorerController {
     private readonly explorerService: ExplorerService) {
   }
 
-  @MessagePattern("explorer.entity")
+  @MessagePattern("explorer.entity.pageable")
+  async pagedEntity(payload: ExplorerPagedEntityRequest) {
+    return await this.explorerService.getPageableEntityData(payload.target, payload.params);
+  }
+
+  @MessagePattern("explorer.entity.get")
   async entity(payload: ExplorerEntityRequest) {
     return await this.explorerService.getEntityData(payload.target, payload.id);
+  }
+
+  @MessagePattern("explorer.entity.save")
+  async saveEntity() {
+    // todo
+  }
+
+  @MessagePattern("explorer.entity.remove")
+  async removeEntity() {
+    // todo
   }
 
 }

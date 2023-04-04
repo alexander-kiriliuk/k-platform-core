@@ -14,10 +14,11 @@
  *    limitations under the License.
  */
 
-import { Controller, Get, Query, UseGuards } from "@nestjs/common";
+import { Controller, Delete, Get, Post, Query, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { MsClient } from "@shared/modules/ms-client/ms-client";
-import { EntityData, ExplorerEntityRequest } from "@explorer/src/explorer.types";
+import { EntityData, ExplorerEntityRequest, ExplorerPagedEntityRequest } from "@explorer/src/explorer.types";
+import { PageableParams } from "@shared/modules/pageable/pageable.types";
 
 @Controller("/explorer")
 export class ExplorerController {
@@ -27,11 +28,31 @@ export class ExplorerController {
   }
 
   @UseGuards(AuthGuard)
+  @Get("/pageable")
+  async list(@Query("target") target: string, @Query() params: PageableParams) {
+    return await this.msClient.dispatch<EntityData, ExplorerPagedEntityRequest>("explorer.entity.pageable", {
+      target, params,
+    });
+  }
+
+  @UseGuards(AuthGuard)
   @Get("/entity")
-  async entity(@Query("target") target: string, @Query("id") id: string) {
-    return await this.msClient.dispatch<EntityData, ExplorerEntityRequest>("explorer.entity", {
+  async getEntity(@Query("target") target: string, @Query("id") id: string) {
+    return await this.msClient.dispatch<EntityData, ExplorerEntityRequest>("explorer.entity.get", {
       id, target,
     });
+  }
+
+  @UseGuards(AuthGuard)
+  @Post("/entity")
+  async saveEntity() {
+    // todo
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete("/entity")
+  async removeEntity() {
+    // todo
   }
 
 }

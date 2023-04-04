@@ -26,6 +26,7 @@ import { LocaleService } from "@shared/modules/locale/locale.service";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
 import { MsException } from "@shared/exceptions/ms.exception";
+import { PageableData, PageableParams, SortOrder } from "@shared/modules/pageable/pageable.types";
 
 /**
  * Service for exploring and analyzing the database schema and relationships.
@@ -101,6 +102,37 @@ export class ExplorerService {
     }
     this.logger.log(`Database was analyzed`);
   }
+
+  /**
+   * Retrieves paginated entity data with relations up to a depth of 2.
+   *
+   * @param target - The name of the target entity or table.
+   * @param params - An optional object containing pageable parameters.
+   * @returns A Promise that resolves to a PageableData object containing the paginated results.
+   * @throws NotFoundMsException if the target entity is not found.
+   */
+  async getPageableEntityData(target: string, params?: PageableParams): Promise<PageableData> {
+    const targetData = await this.getTargetData(target);
+    if (!targetData) {
+      throw new NotFoundMsException(`Target entity not found: ${target}`);
+    }
+    const repository = this.connection.getRepository(targetData.entity.target);
+    const primaryColumnProperty = targetData.primaryColumn.property;
+    const limit = params?.limit || 20;
+    const page = params?.page || 1;
+    const sort = params?.sort || primaryColumnProperty;
+    const order = params?.order || SortOrder.DESC;
+    const [items, totalCount] = await repository.createQueryBuilder("entity")
+      .skip((page - 1) * limit)
+      .take(limit)
+      .orderBy(`entity.${sort}`, order)
+      .getManyAndCount();
+    const itemsWithRelations = await Promise.all(
+      items.map(async item => await this.attachRelations(item, targetData, [], 2)),
+    );
+    return new PageableData(itemsWithRelations, totalCount, page, limit);
+  }
+
 
   /**
    * Retrieves entity data for the given target and rowId, with relations attached up to the specified depth.
