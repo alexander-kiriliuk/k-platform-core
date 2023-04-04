@@ -17,7 +17,12 @@
 import { Controller } from "@nestjs/common";
 import { ExplorerService } from "./explorer.service";
 import { MessagePattern } from "@nestjs/microservices";
-import { ExplorerEntityRequest, ExplorerPagedEntityRequest } from "@explorer/src/explorer.types";
+import {
+  ExplorerEntityRequest,
+  ExplorerPagedEntityRequest,
+  ExplorerRemoveEntityRequest,
+  ExplorerSaveEntityRequest,
+} from "@explorer/src/explorer.types";
 
 @Controller()
 export class ExplorerController {
@@ -37,13 +42,13 @@ export class ExplorerController {
   }
 
   @MessagePattern("explorer.entity.save")
-  async saveEntity() {
-    // todo
+  async saveEntity(payload: ExplorerSaveEntityRequest) {
+    return await this.explorerService.saveEntityData(payload.target, payload.data);
   }
 
   @MessagePattern("explorer.entity.remove")
-  async removeEntity() {
-    // todo
+  async removeEntity(payload: ExplorerRemoveEntityRequest) {
+    return await this.explorerService.removeEntity(payload.target, payload.id);
   }
 
 }

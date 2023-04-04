@@ -37,6 +37,9 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
 
   private async hashPasswordIfNeeded(event: InsertEvent<UserEntity> | UpdateEvent<UserEntity>) {
     const { entity: user, manager } = event;
+    if (typeof user.password === "number") {
+      user.password = user.password.toString();
+    }
     if (!user.password?.length) {
       return;
     }

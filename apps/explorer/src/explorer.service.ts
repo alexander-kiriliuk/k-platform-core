@@ -133,6 +133,76 @@ export class ExplorerService {
     return new PageableData(itemsWithRelations, totalCount, page, limit);
   }
 
+  /**
+   * Save or update an entity including its nested entities.
+   * @param target - The name of the target entity.
+   * @param entity - The entity object to be saved or updated.
+   * @returns The saved or updated entity.
+   * @throws {NotFoundMsException} If the target entity is not found.
+   */
+  async saveEntityData<T = any>(target: string, entity: T): Promise<T> {
+    const targetData = await this.getTargetData(target);
+    if (!targetData) {
+      throw new NotFoundMsException(`Target entity not found: ${target}`);
+    }
+    const repository = this.connection.getRepository(targetData.entity.target);
+    if (!entity[targetData.primaryColumn.property]) {
+      entity = repository.create(entity) as T;
+    }
+    return await this.saveNestedEntities(entity, targetData, repository);
+  }
+
+  /**
+   * Recursively save or update nested entities.
+   * @param entity - The entity containing nested entities to be saved or updated.
+   * @param targetData - Metadata of the target entity.
+   * @param repository - The repository associated with the target entity.
+   * @returns The saved or updated entity with its nested entities.
+   */
+  private async saveNestedEntities<T = any>(entity: T, targetData: TargetData, repository: Repository<any>): Promise<T> {
+    const referencedCols = targetData.entity.columns.filter(c => c.type === "reference");
+    for (const col of referencedCols) {
+      const relationProp = col.property;
+      const relatedEntityData = entity[relationProp];
+      if (relatedEntityData) {
+        const currTargetData = await this.getTargetData(col.referencedEntityName);
+        if (!currTargetData) {
+          entity[relationProp] = repository.create();
+        } else {
+          const relatedRepository = this.connection.getRepository(currTargetData.entity.target);
+
+          if (Array.isArray(relatedEntityData) && col.multiple) {
+            for (let i = 0; i < relatedEntityData.length; i++) {
+              entity[relationProp][i] = await this.saveNestedEntities(relatedEntityData[i], currTargetData, relatedRepository);
+            }
+          } else {
+            entity[relationProp] = await this.saveNestedEntities(relatedEntityData, currTargetData, relatedRepository);
+          }
+        }
+      }
+    }
+    return await repository.save(entity);
+  }
+
+  /**
+   * Remove an entity by its ID.
+   * @param target - The name of the target entity.
+   * @param id - The ID of the entity to be removed.
+   * @returns The removed entity.
+   * @throws {NotFoundMsException} If the target entity or the entity with the specified ID is not found.
+   */
+  async removeEntity(target: string, id: string | number) {
+    const targetData = await this.getTargetData(target);
+    if (!targetData) {
+      throw new NotFoundMsException(`Target entity not found: ${target}`);
+    }
+    const repository = this.connection.getRepository(targetData.entity.target);
+    const entity = await repository.findOne({ where: { [targetData.primaryColumn.property]: id } });
+    if (!entity) {
+      throw new NotFoundMsException(`Entity with ID ${id} not found in table ${target}`);
+    }
+    return await repository.remove(entity);
+  }
 
   /**
    * Retrieves entity data for the given target and rowId, with relations attached up to the specified depth.

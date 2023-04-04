@@ -14,11 +14,17 @@
  *    limitations under the License.
  */
 
-import { Controller, Delete, Get, Post, Query, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { MsClient } from "@shared/modules/ms-client/ms-client";
-import { EntityData, ExplorerEntityRequest, ExplorerPagedEntityRequest } from "@explorer/src/explorer.types";
-import { PageableParams } from "@shared/modules/pageable/pageable.types";
+import {
+  EntityData,
+  ExplorerEntityRequest,
+  ExplorerPagedEntityRequest,
+  ExplorerRemoveEntityRequest,
+  ExplorerSaveEntityRequest,
+} from "@explorer/src/explorer.types";
+import { PageableData, PageableParams } from "@shared/modules/pageable/pageable.types";
 
 @Controller("/explorer")
 export class ExplorerController {
@@ -28,31 +34,35 @@ export class ExplorerController {
   }
 
   @UseGuards(AuthGuard)
-  @Get("/pageable")
-  async list(@Query("target") target: string, @Query() params: PageableParams) {
-    return await this.msClient.dispatch<EntityData, ExplorerPagedEntityRequest>("explorer.entity.pageable", {
+  @Get("/pageable/:target")
+  async list(@Param("target") target: string, @Query() params: PageableParams) {
+    return await this.msClient.dispatch<PageableData, ExplorerPagedEntityRequest>("explorer.entity.pageable", {
       target, params,
     });
   }
 
   @UseGuards(AuthGuard)
-  @Get("/entity")
-  async getEntity(@Query("target") target: string, @Query("id") id: string) {
+  @Get("/entity/:target")
+  async getEntity(@Param("target") target: string, @Query("id") id: string) {
     return await this.msClient.dispatch<EntityData, ExplorerEntityRequest>("explorer.entity.get", {
       id, target,
     });
   }
 
   @UseGuards(AuthGuard)
-  @Post("/entity")
-  async saveEntity() {
-    // todo
+  @Post("/entity/:target")
+  async saveEntity<T>(@Param("target") target: string, @Body() data: T) {
+    return await this.msClient.dispatch<EntityData, ExplorerSaveEntityRequest>("explorer.entity.save", {
+      data, target,
+    });
   }
 
   @UseGuards(AuthGuard)
-  @Delete("/entity")
-  async removeEntity() {
-    // todo
+  @Delete("/entity/:target/:id")
+  async removeEntity(@Param("target") target: string, @Param("id") id: string) {
+    await this.msClient.dispatch<void, ExplorerRemoveEntityRequest>("explorer.entity.remove", {
+      id, target,
+    });
   }
 
 }

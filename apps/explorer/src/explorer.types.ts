@@ -55,6 +55,16 @@ export interface ExplorerPagedEntityRequest {
   target: string;
 }
 
+export interface ExplorerSaveEntityRequest<T = any> {
+  target: string;
+  data: T;
+}
+
+export interface ExplorerRemoveEntityRequest {
+  target: string;
+  id: string | number;
+}
+
 export interface TargetData {
   primaryColumn: ExplorerColumnEntity;
   entity: ExplorerTargetEntity;
