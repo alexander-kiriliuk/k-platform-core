@@ -54,6 +54,7 @@ export abstract class AbstractAuthGuard implements CanActivate {
   }
 
   private async validateToken(token: string) {
+    // todo validate with msClient.dispatch?
     return this.cacheService.get(`${AuthConfig.JWT_CACHE_PREFIX}:${AuthConfig.ACCESS_TOKEN_PREFIX}:${token}`);
   }
 

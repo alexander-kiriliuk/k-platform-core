@@ -17,7 +17,8 @@
 import { Controller } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { MessagePattern } from "@nestjs/microservices";
-import { User } from "@user/src/user.types";
+import { User, UserUpdateRequest } from "@user/src/user.types";
+
 
 @Controller()
 export class UserController {
@@ -26,14 +27,29 @@ export class UserController {
     private readonly userService: UserService) {
   }
 
+  @MessagePattern("user.find.by.login")
+  async findUserByLogin(login: string) {
+    return await this.userService.findByLogin(login);
+  }
+
+  @MessagePattern("user.find.by.id")
+  async findUserById(id: string) {
+    return await this.userService.findById(id);
+  }
+
+  @MessagePattern("user.update")
+  async updateUser(request: UserUpdateRequest) {
+    return await this.userService.updateById(request.id, request.user);
+  }
+
   @MessagePattern("user.create")
-  async create(user: User) {
+  async createUser(user: User) {
     return await this.userService.create(user);
   }
 
-  @MessagePattern("user.find.by.login")
-  async findByLogin(login: string) {
-    return await this.userService.findByLogin(login);
+  @MessagePattern("user.remove.by.id")
+  async removeUser(id: string) {
+    return await this.userService.removeById(id);
   }
 
 }

@@ -23,7 +23,6 @@ import helmet from "helmet";
 (async () => {
   const app = await NestFactory.create(ComposerModule, { cors: false });
   app.use(helmet());
-  // app.use(csurf());  // todo configure and import * as csurf from "csurf";
   app.useGlobalPipes(
     new ValidationPipe({ transform: true }),
   );

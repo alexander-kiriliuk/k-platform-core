@@ -93,3 +93,8 @@ export class UserDto implements User {
   tsCreated: Date;
 
 }
+
+export interface UserUpdateRequest {
+  id: string;
+  user: User;
+}

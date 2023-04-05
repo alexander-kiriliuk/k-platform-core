@@ -28,12 +28,28 @@ export class UserService {
     private readonly userRep: Repository<UserEntity>) {
   }
 
-  async create(user: User) {
-    return await this.userRep.save(user);
-  }
-
   async findByLogin(login: string) {
     return await this.userRep.findOne({ where: { login } });
+  }
+
+  async findById(id: string) {
+    // TODO
+    return Promise.resolve(1);
+  }
+
+  async updateById(id: string, user: User) {
+    // TODO
+    return Promise.resolve(1);
+  }
+
+  async create(user: User) {
+    // TODO
+    return Promise.resolve(1);
+  }
+
+  async removeById(id: string) {
+    // TODO
+    return Promise.resolve(1);
   }
 
 }

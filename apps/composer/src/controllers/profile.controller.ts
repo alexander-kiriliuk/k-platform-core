@@ -14,19 +14,55 @@
  *    limitations under the License.
  */
 
-import { Controller, Get, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { CurrentUser } from "@shared/decorators/current-user.decorator";
-import { User, UserDto } from "@user/src/user.types";
+import { User, UserDto, UserUpdateRequest } from "@user/src/user.types";
 import { ResponseDto } from "@shared/decorators/dto.decorator";
+import { MsClient } from "@shared/modules/ms-client/ms-client";
+
 
 @Controller("/profile")
 export class ProfileController {
 
+  constructor(
+    private readonly msClient: MsClient) {
+  }
+
   @ResponseDto(UserDto)
   @UseGuards(AuthGuard)
-  @Get("/current")
-  async profile(@CurrentUser() user: User) {
+  @Get("/:id")
+  async getUserProfile(@Param("id") id: string, @CurrentUser() user: User) {
+    return await this.msClient.dispatch<User, string>("user.find.by.id", id);
+  }
+
+  @ResponseDto(UserDto)
+  @UseGuards(AuthGuard)
+  @Patch("/:id")
+  async updateUserProfile(@Param("id") id: string, @Body() profile: User) {
+    return await this.msClient.dispatch<User, UserUpdateRequest>("user.update", {
+      user: profile, id,
+    });
+  }
+
+  @ResponseDto(UserDto)
+  @UseGuards(AuthGuard)
+  @Delete("/:id")
+  async removeUserProfile(@Param("id") id: string) {
+    return await this.msClient.dispatch<User, string>("user.remove.by.id", id);
+  }
+
+  @ResponseDto(UserDto)
+  @UseGuards(AuthGuard)
+  @Post("/")
+  async createUserProfile(@Body() profile: User) {
+    return await this.msClient.dispatch<User, User>("user.create", profile);
+  }
+
+  @ResponseDto(UserDto)
+  @UseGuards(AuthGuard)
+  @Get("/")
+  async getCurrentUserProfile(@CurrentUser() user: User) {
     return user;
   }
 
