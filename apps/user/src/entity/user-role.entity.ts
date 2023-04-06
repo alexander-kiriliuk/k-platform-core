@@ -27,7 +27,7 @@ export class UserRoleEntity implements UserRole {
   @Column("varchar", { nullable: false, unique: true })
   code: string;
 
-  @ManyToMany(() => LocalizedStringEntity)
+  @ManyToMany(() => LocalizedStringEntity, { cascade: true })
   @JoinTable()
   name: LocalizedStringEntity[];
 

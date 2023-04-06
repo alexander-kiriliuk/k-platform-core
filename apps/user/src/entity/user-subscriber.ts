@@ -19,6 +19,7 @@ import { UserEntity } from "./user.entity";
 import * as bcrypt from "bcrypt";
 import { InsertEvent } from "typeorm/subscriber/event/InsertEvent";
 import { AuthConfig } from "@auth/gen-src/auth.config";
+import { BadRequestException } from "@nestjs/common";
 
 @EventSubscriber()
 export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
@@ -28,11 +29,22 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
   }
 
   async beforeInsert(event: InsertEvent<UserEntity>) {
+    await this.validateLogin(event.entity.login);
     await this.hashPasswordIfNeeded(event);
   }
 
   async beforeUpdate(event: UpdateEvent<UserEntity>) {
+    if (event.entity.login) {
+      await this.validateLogin(event.entity.login);
+    }
     await this.hashPasswordIfNeeded(event);
+  }
+
+  private async validateLogin(login: string) {
+    const loginRegex = /^[A-Za-z0-9_]+$/;
+    if (!loginRegex.test(login)) {
+      throw new BadRequestException("Login must contain only Latin letters, numbers, and underscores.");
+    }
   }
 
   private async hashPasswordIfNeeded(event: InsertEvent<UserEntity> | UpdateEvent<UserEntity>) {

@@ -14,7 +14,7 @@ export class MediaEntity implements Media {
   @Column("varchar", { nullable: true })
   code: string;
 
-  @ManyToMany(() => LocalizedStringEntity)
+  @ManyToMany(() => LocalizedStringEntity, { cascade: true })
   @JoinTable()
   name: LocalizedStringEntity[];
 

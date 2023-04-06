@@ -31,11 +31,11 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   @Column("varchar", { nullable: false })
   property: string;
 
-  @ManyToMany(() => LocalizedStringEntity)
+  @ManyToMany(() => LocalizedStringEntity, { cascade: true })
   @JoinTable()
   name: LocalizedStringEntity[];
 
-  @ManyToMany(() => LocalizedStringEntity)
+  @ManyToMany(() => LocalizedStringEntity, { cascade: true })
   @JoinTable()
   description: LocalizedStringEntity[];
 

@@ -19,6 +19,8 @@ import { User } from "@user/src/user.types";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { UserEntity } from "@user/src/entity/user.entity";
+import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
+import { USER_RELATIONS } from "@user/src/user.constants";
 
 @Injectable()
 export class UserService {
@@ -28,28 +30,32 @@ export class UserService {
     private readonly userRep: Repository<UserEntity>) {
   }
 
+
   async findByLogin(login: string) {
-    return await this.userRep.findOne({ where: { login } });
+    return await this.userRep.findOne({ where: { login }, relations: USER_RELATIONS });
   }
 
   async findById(id: string) {
-    // TODO
-    return Promise.resolve(1);
+    return await this.userRep.findOne({ where: { id }, relations: USER_RELATIONS });
   }
 
   async updateById(id: string, user: User) {
-    // TODO
-    return Promise.resolve(1);
+    await this.userRep.update(id, user);
+    return await this.findById(id);
   }
 
   async create(user: User) {
-    // TODO
-    return Promise.resolve(1);
+    const newUser = this.userRep.create(user);
+    return await this.userRep.save(newUser);
   }
 
   async removeById(id: string) {
-    // TODO
-    return Promise.resolve(1);
+    const user = await this.findById(id);
+    if (!user) {
+      throw new NotFoundMsException(`User with ID ${id} not found`);
+    }
+    await this.userRep.remove(user);
+    return user;
   }
 
 }

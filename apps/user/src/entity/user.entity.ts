@@ -50,11 +50,11 @@ export class UserEntity implements User {
   @Column("varchar", { nullable: true })
   phone: string;
 
-  @ManyToMany(() => LocalizedStringEntity)
+  @ManyToMany(() => LocalizedStringEntity, { cascade: true })
   @JoinTable()
   firstName: LocalizedStringEntity[];
 
-  @ManyToMany(() => LocalizedStringEntity)
+  @ManyToMany(() => LocalizedStringEntity, { cascade: true })
   @JoinTable()
   lastName: LocalizedStringEntity[];
 
