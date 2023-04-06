@@ -38,6 +38,11 @@ export const MS_EXCEPTION_ID = "MsException";
 
 export const TRANSPORT_TYPE = Transport.REDIS;
 
+export enum Role {
+  ROOT = "root",
+  ADMIN = "admin",
+}
+
 export const TRANSPORT_OPTIONS = {
   host: "localhost",
   port: 6379,

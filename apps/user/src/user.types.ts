@@ -34,16 +34,12 @@ export interface User {
 }
 
 export interface UserRole {
-  id: string;
   code: string;
   name: LocalizedString[];
   tsCreated: Date;
 }
 
 export class UserRoleDto implements UserRole {
-
-  @Exclude()
-  id: string;
 
   @Expose()
   code: string;

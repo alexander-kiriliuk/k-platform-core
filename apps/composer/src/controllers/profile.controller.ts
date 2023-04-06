@@ -20,9 +20,11 @@ import { CurrentUser } from "@shared/decorators/current-user.decorator";
 import { User, UserDto, UserUpdateRequest } from "@user/src/user.types";
 import { ResponseDto } from "@shared/decorators/dto.decorator";
 import { MsClient } from "@shared/modules/ms-client/ms-client";
+import { RolesGuard } from "@shared/guards/roles.guard";
 
 
 @Controller("/profile")
+@UseGuards(AuthGuard, RolesGuard)
 export class ProfileController {
 
   constructor(
@@ -30,14 +32,12 @@ export class ProfileController {
   }
 
   @ResponseDto(UserDto)
-  @UseGuards(AuthGuard)
   @Get("/:id")
   async getUserProfile(@Param("id") id: string, @CurrentUser() user: User) {
     return await this.msClient.dispatch<User, string>("user.find.by.id", id);
   }
 
   @ResponseDto(UserDto)
-  @UseGuards(AuthGuard)
   @Patch("/:id")
   async updateUserProfile(@Param("id") id: string, @Body() profile: User) {
     return await this.msClient.dispatch<User, UserUpdateRequest>("user.update", {
@@ -46,21 +46,18 @@ export class ProfileController {
   }
 
   @ResponseDto(UserDto)
-  @UseGuards(AuthGuard)
   @Delete("/:id")
   async removeUserProfile(@Param("id") id: string) {
     return await this.msClient.dispatch<User, string>("user.remove.by.id", id);
   }
 
   @ResponseDto(UserDto)
-  @UseGuards(AuthGuard)
   @Post("/")
   async createUserProfile(@Body() profile: User) {
     return await this.msClient.dispatch<User, User>("user.create", profile);
   }
 
   @ResponseDto(UserDto)
-  @UseGuards(AuthGuard)
   @Get("/")
   async getCurrentUserProfile(@CurrentUser() user: User) {
     return user;

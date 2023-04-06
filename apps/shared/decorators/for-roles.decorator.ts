@@ -14,23 +14,10 @@
  *    limitations under the License.
  */
 
-import { CreateDateColumn, Entity, Index, JoinTable, ManyToMany, PrimaryColumn } from "typeorm";
-import { UserRole } from "@user/src/user.types";
-import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 
-@Entity("users_roles")
-export class UserRoleEntity implements UserRole {
+import { SetMetadata } from "@nestjs/common";
+import { Role } from "@shared/constants";
 
-  @Index({ unique: true })
-  @PrimaryColumn("varchar")
-  code: string;
+export const AllowedForMetadataKey = "for_role";
 
-  @ManyToMany(() => LocalizedStringEntity, { cascade: true })
-  @JoinTable()
-  name: LocalizedStringEntity[];
-
-  @Index()
-  @CreateDateColumn({ name: "ts_created", type: "timestamp" })
-  tsCreated: Date;
-
-}
+export const ForRoles = (...roles: Role[]) => SetMetadata(AllowedForMetadataKey, roles);
