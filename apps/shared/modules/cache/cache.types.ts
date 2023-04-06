@@ -14,16 +14,18 @@
  *    limitations under the License.
  */
 
-export interface CacheService {
-  get(key: string): Promise<string>;
+export abstract class CacheService {
 
-  set(key: string, value: string | number, expiration: number): Promise<boolean>;
+  abstract get(key: string): Promise<string>;
 
-  del(...keys: string[]): Promise<boolean>;
+  abstract set(key: string, value: string | number, expiration: number): Promise<boolean>;
 
-  incr(key: string): Promise<number>;
+  abstract del(...keys: string[]): Promise<boolean>;
 
-  expire(key: string, expiresIn: number): Promise<boolean>;
+  abstract incr(key: string): Promise<number>;
 
-  getFromPattern(pattern: string): Promise<string[]>;
+  abstract expire(key: string, expiresIn: number): Promise<boolean>;
+
+  abstract getFromPattern(pattern: string): Promise<string[]>;
+
 }

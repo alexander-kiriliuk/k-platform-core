@@ -18,7 +18,6 @@ import { Inject, Injectable, Logger } from "@nestjs/common";
 import { AbstractAuthGuard } from "@shared/guards/abstract-auth.guard";
 import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { CacheService } from "@shared/modules/cache/cache.types";
-import { CACHE_SERVICE } from "@shared/modules/cache/cache.constants";
 import { LOGGER } from "@shared/modules/log/log.constants";
 
 @Injectable()
@@ -26,7 +25,7 @@ export class AuthGuard extends AbstractAuthGuard {
 
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
-    @Inject(CACHE_SERVICE) protected readonly cacheService: CacheService,
+    protected readonly cacheService: CacheService,
     protected readonly msClient: MsClient) {
     super();
   }

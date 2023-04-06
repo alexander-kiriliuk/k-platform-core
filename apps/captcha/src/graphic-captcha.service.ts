@@ -17,7 +17,6 @@
 import { CaptchaRequest, CaptchaService, GraphicCaptchaResponse } from "./captcha.types";
 import { v4 as uuidv4 } from "uuid";
 import { Inject, Logger } from "@nestjs/common";
-import { CACHE_SERVICE } from "@shared/modules/cache/cache.constants";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { StringUtils } from "@shared/utils/string.utils";
 import { CaptchaConfig } from "@captcha/gen-src/captcha.config";
@@ -34,7 +33,7 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
 
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
-    @Inject(CACHE_SERVICE) private readonly cacheService: CacheService) {
+    private readonly cacheService: CacheService) {
     super();
   }
 

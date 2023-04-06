@@ -19,7 +19,7 @@ import { RedisModule } from "@liaoliaots/nestjs-redis";
 import { REDIS_OPTIONS } from "@shared/constants";
 import { RedisCacheService } from "@shared/modules/cache/redis-cache.service";
 import { LogModule } from "@shared/modules/log/log.module";
-import { CACHE_SERVICE } from "@shared/modules/cache/cache.constants";
+import { CacheService } from "@shared/modules/cache/cache.types";
 
 @Module({
   imports: [
@@ -30,12 +30,12 @@ import { CACHE_SERVICE } from "@shared/modules/cache/cache.constants";
   ],
   providers: [
     {
-      provide: CACHE_SERVICE, // todo change to abstract class
+      provide: CacheService,
       useClass: RedisCacheService,
     },
   ],
   exports: [
-    CACHE_SERVICE,
+    CacheService,
   ],
 })
 export class CacheModule {

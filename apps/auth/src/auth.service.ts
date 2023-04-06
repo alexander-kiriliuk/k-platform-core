@@ -30,7 +30,6 @@ import {
   UNKNOWN_IP,
 } from "@auth/src/auth.constants";
 import { CacheService } from "@shared/modules/cache/cache.types";
-import { CACHE_SERVICE } from "@shared/modules/cache/cache.constants";
 import { InvalidTokenMsException } from "@shared/exceptions/invalid-token-ms.exception";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { AuthConfig } from "@auth/gen-src/auth.config";
@@ -41,7 +40,7 @@ export class AuthService {
 
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
-    @Inject(CACHE_SERVICE) private readonly cacheService: CacheService,
+    private readonly cacheService: CacheService,
     private readonly msClient: MsClient,
     private readonly jwtService: JwtService) {
   }
