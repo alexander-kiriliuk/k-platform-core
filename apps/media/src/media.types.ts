@@ -16,6 +16,13 @@
 
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 
+export const DEFAULT_MEDIA_TYPE = "default";
+
+export enum ReservedMediaFormat {
+  ORIGINAL = "original",
+  THUMB = "thumb",
+}
+
 export interface Media {
   id: number;
   code: string;
@@ -28,6 +35,7 @@ export interface MediaType {
   code: string;
   name: string;
   vp6: boolean;
+  private: boolean;
   ext: MediaExt;
   formats: MediaFormat[];
 }
@@ -54,3 +62,21 @@ export interface MediaExt {
   code: string;
   name: string;
 }
+
+export interface SerializedFile {
+  size: number;
+  originalname: string;
+  mimetype: string;
+  buffer: string;
+  encoding: string;
+}
+
+export interface DeSerializedFile extends Omit<SerializedFile, "buffer"> {
+  buffer: Buffer;
+}
+
+export interface UploadMediaRequest {
+  type: string;
+  files: SerializedFile[];
+}
+

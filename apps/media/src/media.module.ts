@@ -22,6 +22,7 @@ import { MediaService } from "./media.service";
   imports: [],
   controllers: [MediaController],
   providers: [MediaService],
+  exports: [MediaService],
 })
 export class MediaModule {
 }

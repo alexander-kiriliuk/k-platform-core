@@ -14,16 +14,35 @@
  *    limitations under the License.
  */
 
-import { Controller, Get } from "@nestjs/common";
+import { Controller } from "@nestjs/common";
 import { MediaService } from "./media.service";
+import { MessagePattern } from "@nestjs/microservices";
+import { DeSerializedFile, UploadMediaRequest } from "@media/src/media.types";
+import { FileUtils } from "@shared/utils/file.utils";
+import deSerializeFile = FileUtils.deSerializeFile;
+
 
 @Controller()
 export class MediaController {
-  constructor(private readonly mediaService: MediaService) {
+
+  constructor(
+    private readonly mediaService: MediaService) {
   }
 
-  @Get()
-  getHello(): string {
-    return this.mediaService.getHello();
+  @MessagePattern("media.upload")
+  async uploadMedia(payload: UploadMediaRequest) {
+    const deserializedFiles: DeSerializedFile[] = payload.files.map(file => deSerializeFile(file));
+    return await this.mediaService.upload(deserializedFiles, payload.type);
   }
+
+  @MessagePattern("media.get.by.id")
+  async findMediaById(id: string) {
+    return await this.mediaService.findById(id);
+  }
+
+  @MessagePattern("media.remove")
+  async removeMedia(id: string) {
+    return await this.mediaService.remove(id);
+  }
+
 }

@@ -14,26 +14,13 @@
  *    limitations under the License.
  */
 
-import { Injectable } from "@nestjs/common";
-import { DeSerializedFile } from "@media/src/media.types";
+import { MulterModuleOptions, MulterOptionsFactory } from "@nestjs/platform-express";
+import { memoryStorage } from "multer";
 
-@Injectable()
-export class MediaService {
-
-  async upload(deserializedFiles: DeSerializedFile[], type: string) {
-    console.log(deserializedFiles);
-    // TODO
-    return Promise.resolve(1);
+export class MulterConfig implements MulterOptionsFactory {
+  createMulterOptions(): MulterModuleOptions {
+    return {
+      storage: memoryStorage(),
+    };
   }
-
-  async findById(id: string) {
-    // TODO
-    return Promise.resolve(1);
-  }
-
-  async remove(id: string) {
-    // TODO
-    return Promise.resolve(1);
-  }
-
 }

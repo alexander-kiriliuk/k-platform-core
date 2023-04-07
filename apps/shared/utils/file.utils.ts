@@ -14,26 +14,27 @@
  *    limitations under the License.
  */
 
-import { Injectable } from "@nestjs/common";
-import { DeSerializedFile } from "@media/src/media.types";
+import { DeSerializedFile, SerializedFile } from "@media/src/media.types";
+import { File } from "multer";
 
-@Injectable()
-export class MediaService {
 
-  async upload(deserializedFiles: DeSerializedFile[], type: string) {
-    console.log(deserializedFiles);
-    // TODO
-    return Promise.resolve(1);
+export namespace FileUtils {
+
+  export function deSerializeFile(serialized: SerializedFile) {
+    return {
+      ...serialized,
+      buffer: Buffer.from(serialized.buffer, "base64"),
+    } as DeSerializedFile;
   }
 
-  async findById(id: string) {
-    // TODO
-    return Promise.resolve(1);
-  }
-
-  async remove(id: string) {
-    // TODO
-    return Promise.resolve(1);
+  export function serializeFile(file: File) {
+    return {
+      originalname: file.originalname,
+      encoding: file.encoding,
+      mimetype: file.mimetype,
+      buffer: file.buffer.toString("base64"),
+      size: file.size,
+    } as SerializedFile;
   }
 
 }

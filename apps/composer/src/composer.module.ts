@@ -22,6 +22,9 @@ import { LogModule } from "@shared/modules/log/log.module";
 import { MsClientModule } from "@shared/modules/ms-client/ms-client.module";
 import { CaptchaController } from "./controllers/captcha.controller";
 import { ExplorerController } from "@composer/src/controllers/explorer.controller";
+import { MediaController } from "@composer/src/controllers/media.controller";
+import { MulterConfig } from "@composer/src/multer.config";
+import { MulterModule } from "@nestjs/platform-express";
 
 @Module({
   controllers: [
@@ -29,11 +32,15 @@ import { ExplorerController } from "@composer/src/controllers/explorer.controlle
     CaptchaController,
     ProfileController,
     ExplorerController,
+    MediaController,
   ],
   imports: [
     CacheModule,
     LogModule,
     MsClientModule,
+    MulterModule.registerAsync({
+      useClass: MulterConfig,
+    }),
   ],
 })
 export class ComposerModule {
