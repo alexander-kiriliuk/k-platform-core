@@ -16,6 +16,7 @@
 
 import { DeSerializedFile, SerializedFile } from "@media/src/media.types";
 import { File } from "multer";
+import * as fs from "fs";
 
 
 export namespace FileUtils {
@@ -35,6 +36,14 @@ export namespace FileUtils {
       buffer: file.buffer.toString("base64"),
       size: file.size,
     } as SerializedFile;
+  }
+
+  export async function createDirectoriesIfNotExist(directoryPath: string) {
+    try {
+      await fs.promises.access(directoryPath);
+    } catch (error) {
+      await fs.promises.mkdir(directoryPath, { recursive: true });
+    }
   }
 
 }

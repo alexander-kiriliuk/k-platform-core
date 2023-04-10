@@ -17,8 +17,9 @@
 import { Controller } from "@nestjs/common";
 import { MediaService } from "./media.service";
 import { MessagePattern } from "@nestjs/microservices";
-import { DeSerializedFile, UploadMediaRequest } from "@media/src/media.types";
+import { MediaDto, UploadMediaRequest } from "@media/src/media.types";
 import { FileUtils } from "@shared/utils/file.utils";
+import { ResponseDto } from "@shared/decorators/dto.decorator";
 import deSerializeFile = FileUtils.deSerializeFile;
 
 
@@ -29,10 +30,11 @@ export class MediaController {
     private readonly mediaService: MediaService) {
   }
 
+  @ResponseDto(MediaDto)
   @MessagePattern("media.upload")
   async uploadMedia(payload: UploadMediaRequest) {
-    const deserializedFiles: DeSerializedFile[] = payload.files.map(file => deSerializeFile(file));
-    return await this.mediaService.upload(deserializedFiles, payload.type);
+    const deserializedFile = deSerializeFile(payload.file);
+    return await this.mediaService.upload(deserializedFile, payload.type);
   }
 
   @MessagePattern("media.get.by.id")

@@ -21,7 +21,7 @@ export class MediaEntity implements Media {
   @ManyToOne(t => MediaTypeEntity, type => type.code)
   type: MediaTypeEntity;
 
-  @OneToMany(a => MediaFileEntity, f => f.media)
+  @OneToMany(a => MediaFileEntity, f => f.media, { cascade: true })
   files: MediaFileEntity[];
 
 }

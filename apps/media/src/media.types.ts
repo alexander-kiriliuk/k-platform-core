@@ -15,13 +15,7 @@
  */
 
 import { LocalizedString } from "@shared/modules/locale/locale.types";
-
-export const DEFAULT_MEDIA_TYPE = "default";
-
-export enum ReservedMediaFormat {
-  ORIGINAL = "original",
-  THUMB = "thumb",
-}
+import { Exclude, Expose, Type } from "class-transformer";
 
 export interface Media {
   id: number;
@@ -77,6 +71,94 @@ export interface DeSerializedFile extends Omit<SerializedFile, "buffer"> {
 
 export interface UploadMediaRequest {
   type: string;
-  files: SerializedFile[];
+  file: SerializedFile;
 }
 
+export class MediaTypeDto implements MediaType {
+
+  @Expose()
+  code: string;
+
+  @Expose()
+  ext: MediaExt;
+
+  @Expose()
+  @Type(() => MediaFormatDto)
+  formats: MediaFormatDto[];
+
+  @Expose()
+  name: string;
+
+  @Expose()
+  private: boolean;
+
+  @Expose()
+  vp6: boolean;
+
+}
+
+export class MediaFormatDto implements MediaFormat {
+
+  @Expose()
+  code: string;
+
+  @Expose()
+  height: string;
+
+  @Expose()
+  name: string;
+
+  @Expose()
+  width: string;
+
+}
+
+export class MediaDto implements Media {
+
+  @Expose()
+  id: number;
+
+  @Expose()
+  code: string;
+
+  @Expose()
+  name: LocalizedString[];
+
+  @Expose()
+  @Type(() => MediaTypeDto)
+  type: MediaType;
+
+  @Expose()
+  @Type(() => MediaFileDto)
+  files: MediaFile[];
+
+}
+
+export class MediaFileDto implements MediaFile {
+
+  @Expose()
+  id: number;
+
+  @Expose()
+  code: string;
+
+  @Expose()
+  @Type(() => MediaFormatDto)
+  format: MediaFormatDto;
+
+  @Expose()
+  height: number;
+
+  @Exclude()
+  media: Media;
+
+  @Expose()
+  name: string;
+
+  @Expose()
+  size: number;
+
+  @Expose()
+  width: number;
+
+}

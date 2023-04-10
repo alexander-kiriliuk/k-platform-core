@@ -17,12 +17,24 @@
 import { Module } from "@nestjs/common";
 import { MediaController } from "./media.controller";
 import { MediaService } from "./media.service";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { MediaEntity } from "@media/src/entity/media.entity";
+import { MediaTypeEntity } from "@media/src/entity/media-type.entity";
+import { MediaFileEntity } from "@media/src/entity/media-file.entity";
+import { DbModule } from "@shared/modules/db/db.module";
+import { MediaFormatEntity } from "@media/src/entity/media-format.entity";
+import { LogModule } from "@shared/modules/log/log.module";
 
 @Module({
-  imports: [],
+  imports: [
+    DbModule.forRoot(),
+    TypeOrmModule.forFeature([
+      MediaEntity, MediaTypeEntity, MediaFileEntity, MediaFormatEntity,
+    ]),
+    LogModule,
+  ],
   controllers: [MediaController],
   providers: [MediaService],
-  exports: [MediaService],
 })
 export class MediaModule {
 }
