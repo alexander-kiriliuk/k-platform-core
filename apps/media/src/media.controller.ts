@@ -39,7 +39,7 @@ export class MediaController {
 
   @MessagePattern("media.get.by.id")
   async findMediaById(id: number) {
-    return await this.mediaService.findById(id);
+    return await this.mediaService.findPublicById(id);
   }
 
   @MessagePattern("media.get.private.by.id")

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { HttpStatus, Inject, Injectable, Logger, OnModuleInit } from "@nestjs/common";
+import { HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
 import { DeSerializedFile, MediaFormat } from "@media/src/media.types";
 import { MediaFileEntity } from "@media/src/entity/media-file.entity";
 import { Repository } from "typeorm";
@@ -48,7 +48,7 @@ import ORIGINAL = ReservedMediaFormat.ORIGINAL;
  * uploading, resizing, optimizing, and removing images.
  */
 @Injectable()
-export class MediaService implements OnModuleInit {
+export class MediaService {
 
   private originalFormat: MediaFormat;
   private thumbFormat: MediaFormat;
@@ -63,16 +63,15 @@ export class MediaService implements OnModuleInit {
     private readonly mediaFormatRep: Repository<MediaFormatEntity>,
     @InjectRepository(MediaFileEntity)
     private readonly mediaFileRep: Repository<MediaFileEntity>) {
+    this.logger.log("Initializing MediaService");
+    this.mediaFormatRep.findOne({ where: { code: ORIGINAL } }).then(v => {
+      this.originalFormat = v;
+    });
+    this.mediaFormatRep.findOne({ where: { code: THUMB } }).then(v => {
+      this.thumbFormat = v;
+    });
   }
 
-  /**
-   * Initializes the media service, loading the necessary media formats.
-   */
-  async onModuleInit() {
-    this.logger.log("Initializing MediaService");
-    this.originalFormat = await this.mediaFormatRep.findOne({ where: { code: ORIGINAL } });
-    this.thumbFormat = await this.mediaFormatRep.findOne({ where: { code: THUMB } });
-  }
 
   /**
    * Finds a media entity by ID with public access.
@@ -80,15 +79,8 @@ export class MediaService implements OnModuleInit {
    * @returns The found media entity.
    * @throws NotFoundMsException if the media entity is not found.
    */
-  async findById(id: number): Promise<MediaEntity> {
-    const mediaEntity = await this.createBasicFindQb()
-      .where("media.id = :id", { id })
-      .andWhere("type.private = false")
-      .getOne();
-    if (!mediaEntity) {
-      throw new NotFoundMsException(`Media with ID ${id} not found`);
-    }
-    return mediaEntity;
+  async findPublicById(id: number): Promise<MediaEntity> {
+    return this.findMediaById(id);
   }
 
   /**
@@ -98,14 +90,7 @@ export class MediaService implements OnModuleInit {
    * @throws NotFoundMsException if the private media entity is not found.
    */
   async findPrivateById(id: number): Promise<MediaEntity> {
-    const mediaEntity = await this.createBasicFindQb()
-      .where("media.id = :id", { id })
-      .andWhere("type.private = true")
-      .getOne();
-    if (!mediaEntity) {
-      throw new NotFoundMsException(`Private media with ID ${id} not found`);
-    }
-    return mediaEntity;
+    return this.findMediaById(id, true);
   }
 
   /**
@@ -114,7 +99,7 @@ export class MediaService implements OnModuleInit {
    * @returns The removed media entity.
    */
   async remove(id: number) {
-    const media = await this.findById(id);
+    const media = await this.findPublicById(id);
     const dir = path.join(
       media.type.private ? PRIVATE_DIR : PUBLIC_DIR,
       media.id.toString(),
@@ -220,8 +205,7 @@ export class MediaService implements OnModuleInit {
     mediaEntity: MediaEntity,
     outputPath: string,
   ): Promise<MediaFileEntity[]> {
-    const savedMediaFiles: MediaFileEntity[] = [];
-    for (const format of formats) {
+    const processingPromises = formats.map(async (format) => {
       const quality = mediaType.quality || DEFAULT_MEDIA_QUALITY;
       let imgBuffer = file.buffer;
       if (format.code !== ORIGINAL) {
@@ -233,16 +217,18 @@ export class MediaService implements OnModuleInit {
       const resizedImagePath = `${outputPath}/${fileNameWithSuffix}.${mediaType.ext.code}`;
       await fs.promises.writeFile(resizedImagePath, imgBuffer);
       const resizedMediaFile = await this.createMediaFileEntity(imgBuffer, format, mediaEntity, fileNameWithSuffix);
-      savedMediaFiles.push(await this.mediaFileRep.save(resizedMediaFile));
       if (mediaType.vp6) {
         const webpImage = await sharp(imgBuffer).webp({ quality }).toBuffer();
         const webpImagePath = `${outputPath}/${fileNameWithSuffix}.webp`;
         await fs.promises.writeFile(webpImagePath, webpImage);
         const webpMediaFile = await this.createMediaFileEntity(webpImage, format, mediaEntity, fileNameWithSuffix);
-        savedMediaFiles.push(await this.mediaFileRep.save(webpMediaFile));
+        return [await this.mediaFileRep.save(resizedMediaFile), await this.mediaFileRep.save(webpMediaFile)];
+      } else {
+        return [await this.mediaFileRep.save(resizedMediaFile)];
       }
-    }
-    return savedMediaFiles;
+    });
+    const savedMediaFiles = await Promise.all(processingPromises);
+    return savedMediaFiles.flat();
   }
 
   /**
@@ -342,6 +328,24 @@ export class MediaService implements OnModuleInit {
     mediaFile.height = metadata.height;
     mediaFile.size = image.length;
     return mediaFile;
+  }
+
+  /**
+   * Finds a media entity by ID with the specified access level (public or private).
+   * @param id - The ID of the media entity.
+   * @param privateMedia - A boolean flag indicating whether to search for private media entities (default: false).
+   * @returns The found media entity.
+   * @throws NotFoundMsException if the media entity is not found.
+   */
+  private async findMediaById(id: number, privateMedia = false): Promise<MediaEntity> {
+    const mediaEntity = await this.createBasicFindQb()
+      .where("media.id = :id", { id })
+      .andWhere(`type.private = ${privateMedia}`)
+      .getOne();
+    if (!mediaEntity) {
+      throw new NotFoundMsException(`Media with ID ${id} not found`);
+    }
+    return mediaEntity;
   }
 
   /**
