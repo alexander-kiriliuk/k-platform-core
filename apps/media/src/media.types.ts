@@ -30,6 +30,7 @@ export interface MediaType {
   name: string;
   vp6: boolean;
   private: boolean;
+  quality: number;
   ext: MediaExt;
   formats: MediaFormat[];
 }
@@ -94,6 +95,9 @@ export class MediaTypeDto implements MediaType {
 
   @Expose()
   vp6: boolean;
+
+  @Expose()
+  quality: number;
 
 }
 

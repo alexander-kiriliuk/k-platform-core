@@ -16,11 +16,19 @@
 
 export const DEFAULT_MEDIA_TYPE = "default";
 
-export enum ReservedMediaFormat {
-  ORIGINAL = "original",
-  THUMB = "thumb",
+export const DEFAULT_MEDIA_QUALITY = 78;
+
+export namespace ReservedMediaFormat {
+  export const ORIGINAL = "original";
+  export const THUMB = "thumb";
 }
 
 export const MEDIA_TYPE_RELATIONS = [
   "ext", "formats",
+];
+
+export const MEDIA_RELATIONS = [
+  "name", "name.lang",
+  "type", "type.formats", "type.ext",
+  "files", "files.format",
 ];

@@ -14,7 +14,18 @@
  *    limitations under the License.
  */
 
-import { Controller, Delete, Get, Param, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
+import {
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+  Res,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from "@nestjs/common";
 import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { File } from "multer";
@@ -23,7 +34,11 @@ import { AuthGuard } from "@shared/guards/auth.guard";
 import { FileUtils } from "@shared/utils/file.utils";
 import { NotEmptyPipe } from "@shared/pipes/not-empty.pipe";
 import { DEFAULT_MEDIA_TYPE } from "@media/src/media.constants";
+import { Response } from "express";
+import { MediaUtils } from "@media/src/media.utils";
+import * as path from "path";
 import serializeFile = FileUtils.serializeFile;
+import getMediaPath = MediaUtils.getMediaPath;
 
 @Controller("/media")
 export class MediaController {
@@ -44,6 +59,18 @@ export class MediaController {
   }
 
   @UseGuards(AuthGuard)
+  @Get("/private/:id")
+  async getPrivateMedia(
+    @Res() res: Response,
+    @Param("id") id: string,
+    @Query("format") format: string,
+    @Query("webp") webp: boolean) {
+    const media = await this.msClient.dispatch<Media, string>("media.get.private.by.id", id);
+    let mediaPath = getMediaPath(media, format, webp);
+    res.sendFile(path.join(process.cwd(), mediaPath));
+  }
+
+  @UseGuards(AuthGuard)
   @Get("/:id")
   async getMedia(@Param("id") id: string) {
     return await this.msClient.dispatch<Media, string>("media.get.by.id", id);
@@ -52,7 +79,7 @@ export class MediaController {
   @UseGuards(AuthGuard)
   @Delete("/:id")
   async removeMedia(@Param("id") id: string) {
-    return await this.msClient.dispatch<void, string>("media.remove", id);
+    return await this.msClient.dispatch<Media, string>("media.remove", id);
   }
 
 }

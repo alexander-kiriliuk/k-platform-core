@@ -20,6 +20,9 @@ export class MediaTypeEntity implements MediaType {
   @Column("boolean", { default: false })
   private: boolean;
 
+  @Column("int", { nullable: true })
+  quality: number;
+
   @ManyToOne(t => MediaExtEntity, e => e.code)
   ext: MediaExtEntity;
 

@@ -38,12 +38,17 @@ export class MediaController {
   }
 
   @MessagePattern("media.get.by.id")
-  async findMediaById(id: string) {
+  async findMediaById(id: number) {
     return await this.mediaService.findById(id);
   }
 
+  @MessagePattern("media.get.private.by.id")
+  async findPrivateMediaById(id: number) {
+    return await this.mediaService.findPrivateById(id);
+  }
+
   @MessagePattern("media.remove")
-  async removeMedia(id: string) {
+  async removeMedia(id: number) {
     return await this.mediaService.remove(id);
   }
 
