@@ -18,4 +18,5 @@ export const GEN_SRC_DIR = "gen-src";
 export const CONFIG_FILE_EXT_PATTERN = ".config.ts";
 export const PROPERTIES_FILE_EXT_PATTERN = ".properties";
 export const LOCAL_PROPERTIES_FILE_NAME = "local.properties";
+export const KP_PROPERTIES_FILE_NAME = "kp.properties";
 export const FILES_ENCODING = "utf-8";
