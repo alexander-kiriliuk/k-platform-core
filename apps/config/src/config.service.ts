@@ -14,11 +14,12 @@
  *    limitations under the License.
  */
 
-import { Inject, Injectable, Logger, OnModuleInit } from "@nestjs/common";
+import { Inject, Injectable, Logger } from "@nestjs/common";
 import * as fs from "fs";
 import * as path from "path";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import {
+  CONFIG_CACHE_PREFIX,
   CONFIG_FILE_EXT_PATTERN,
   FILES_ENCODING,
   GEN_SRC_DIR,
@@ -26,6 +27,7 @@ import {
   LOCAL_PROPERTIES_FILE_NAME,
   PROPERTIES_FILE_EXT_PATTERN,
 } from "./config.constants";
+import { CacheService } from "@shared/modules/cache/cache.types";
 
 
 /**
@@ -33,35 +35,29 @@ import {
  * configuration files based on the properties files found in the project.
  */
 @Injectable()
-export class ConfigService implements OnModuleInit {
+export class ConfigService {
 
   private readonly propertiesFiles: { [path: string]: { [key: string]: any } } = {};
+  private readonly valuesOfProperties: { [key: string]: any } = {};
 
   constructor(
-    @Inject(LOGGER) private readonly logger: Logger) {
+    @Inject(LOGGER) private readonly logger: Logger,
+    private readonly cacheService: CacheService) {
   }
 
-  /**
-   * Executes the process of scanning, cleaning, and generating configuration files.
-   */
-  async onModuleInit() {
+  async initWithPropertiesFiles() {
     this.logger.log(`Scan project`);
     await this.scanForPropertiesFiles(process.cwd());
     this.logger.log(`Clean generated source dirs`);
     await this.deleteExistingConfigTsFiles(process.cwd());
     this.logger.log(`Generate config files`);
     await this.generateConfigTsFiles();
-    this.logger.log(`Generation process was finish`);
+    for (let key in this.valuesOfProperties) {
+      await this.cacheService.set(`${key}`, this.valuesOfProperties[key]);
+    }
+    this.logger.log(`Config files was synchronize`);
   }
 
-  /**
-   * Scans the specified directory and its subdirectories for .properties files
-   * and processes their content, considering the precedence rules for
-   * kp.properties and local.properties files.
-   *
-   * @param {string} directory - The path of the directory to scan for .properties files.
-   * @param {string | null} globalKpContent - The content of the global kp.properties file, if any.
-   */
   private async scanForPropertiesFiles(directory: string, globalKpContent: string | null = null) {
     const files = await fs.promises.readdir(directory, { withFileTypes: true });
     if (directory === process.cwd()) {
@@ -69,6 +65,11 @@ export class ConfigService implements OnModuleInit {
         if (file.isFile() && file.name === KP_PROPERTIES_FILE_NAME) {
           const kpPath = path.join(directory, file.name);
           globalKpContent = await fs.promises.readFile(kpPath, FILES_ENCODING);
+          const localPropertiesPath = path.join(directory, LOCAL_PROPERTIES_FILE_NAME);
+          if (fs.existsSync(localPropertiesPath)) {
+            const localPropertiesContent = await fs.promises.readFile(localPropertiesPath, FILES_ENCODING);
+            globalKpContent = this.mergePropertiesContent(globalKpContent, localPropertiesContent);
+          }
           break;
         }
       }
@@ -93,15 +94,6 @@ export class ConfigService implements OnModuleInit {
     }
   }
 
-  /**
-   * Processes the content of a .properties file, validates its content,
-   * and converts it into an object with key-value pairs.
-   *
-   * @param {string} filePath - The path of the .properties file.
-   * @param {string} content - The content of the .properties file.
-   * @param {string} fileNamePrefix - The prefix derived from the file name (without extension).
-   * @returns {Promise<{ [key: string]: any }>} - An object containing the processed key-value pairs.
-   */
   private async processAndValidatePropertiesContent(filePath: string, content: string, fileNamePrefix: string) {
     const lines = content.split("\n");
     const processedData: { [key: string]: any } = {};
@@ -122,16 +114,15 @@ export class ConfigService implements OnModuleInit {
         this.logger.error(`Invalid line found: "${line}" in file ${filePath}`);
         throw new Error(`Invalid content in file: "${filePath}"`);
       }
-      processedData[variableName] = this.parseValue(value.trim());
+      const propertyKey = `${CONFIG_CACHE_PREFIX}:${fileNamePrefix}.${keyWithoutPrefix}`;
+      processedData[variableName] = `"${propertyKey}"`;
+      if (!propertyKey.startsWith("kp.") && !propertyKey.startsWith("local.")) {
+        this.valuesOfProperties[propertyKey] = this.parseValue(value.trim());
+      }
     }
     return processedData;
   }
 
-  /**
-   * Parses a string value into its appropriate JavaScript representation.
-   * @param value - The string value to parse.
-   * @returns The parsed value as a JavaScript representation.
-   */
   private parseValue(value: string) {
     let processedValue = value.trim();
     if (processedValue === "true" || processedValue === "false") {
@@ -142,34 +133,22 @@ export class ConfigService implements OnModuleInit {
       try {
         processedValue = eval(processedValue);
       } catch (e) {
-        processedValue = `"${processedValue}"`;
+        return processedValue;
       }
-    } else {
-      processedValue = `"${processedValue}"`;
     }
     return processedValue;
   }
 
-  /**
-   Generates a namespace with variables based on the processed data.
-   @param namespaceName - The name of the namespace to generate.
-   @param processedData - The processed key-value pairs.
-   @returns A string containing the generated namespace with variables.
-   */
   private generateNamespaceWithVariables(namespaceName: string, processedData: { [key: string]: string }) {
     let generatedContent = `export namespace ${namespaceName} {\n`;
     for (const variableName in processedData) {
       const processedValue = processedData[variableName];
-      generatedContent += `  export const ${variableName} = ${processedValue};\n`;
+      generatedContent += `  export const ${variableName} = ${processedValue};\n`;  // initial value: ${this.valuesOfProperties[processedValue.substring(1,processedValue.length-1)]}
     }
     generatedContent += "}\n";
     return generatedContent;
   }
 
-  /**
-   Deletes existing config .ts files in the "gen-src" directory.
-   @param directory - The directory to start searching for "gen-src" directories.
-   */
   private async deleteExistingConfigTsFiles(directory: string) {
     const files = await fs.promises.readdir(directory, { withFileTypes: true });
     for (const file of files) {
@@ -191,9 +170,6 @@ export class ConfigService implements OnModuleInit {
     }
   }
 
-  /**
-   Generates config .ts files based on the properties files found.
-   */
   private async generateConfigTsFiles() {
     for (const filePath in this.propertiesFiles) {
       if (path.basename(filePath) === LOCAL_PROPERTIES_FILE_NAME) {
@@ -217,12 +193,6 @@ export class ConfigService implements OnModuleInit {
     }
   }
 
-  /**
-   Merges the content of main and local properties files.
-   @param mainContent - The content of the main properties file.
-   @param localContent - The content of the local properties file.
-   @returns A string containing the merged content of both files.
-   */
   private mergePropertiesContent(mainContent: string, localContent: string): string {
     const mainContentLines = mainContent.split("\n");
     const localContentLines = localContent.split("\n");

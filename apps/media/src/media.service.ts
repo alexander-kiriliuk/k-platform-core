@@ -36,8 +36,7 @@ import * as imageminMozjpeg from "imagemin-mozjpeg";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
 import { MsException } from "@shared/exceptions/ms.exception";
-import PRIVATE_DIR = MediaConfig.PRIVATE_DIR;
-import PUBLIC_DIR = MediaConfig.PUBLIC_DIR;
+import { CacheService } from "@shared/modules/cache/cache.types";
 import createDirectoriesIfNotExist = FileUtils.createDirectoriesIfNotExist;
 import generateRandomInt = NumberUtils.generateRandomInt;
 import THUMB = ReservedMediaFormat.THUMB;
@@ -52,6 +51,8 @@ export class MediaService {
 
   private originalFormat: MediaFormat;
   private thumbFormat: MediaFormat;
+  private privateDir: string;
+  private publicDir: string;
 
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
@@ -62,14 +63,17 @@ export class MediaService {
     @InjectRepository(MediaFormatEntity)
     private readonly mediaFormatRep: Repository<MediaFormatEntity>,
     @InjectRepository(MediaFileEntity)
-    private readonly mediaFileRep: Repository<MediaFileEntity>) {
+    private readonly mediaFileRep: Repository<MediaFileEntity>,
+    private readonly cacheService: CacheService) {
+    this.init();
+  }
+
+  private async init() {
     this.logger.log("Initializing MediaService");
-    this.mediaFormatRep.findOne({ where: { code: ORIGINAL } }).then(v => {
-      this.originalFormat = v;
-    });
-    this.mediaFormatRep.findOne({ where: { code: THUMB } }).then(v => {
-      this.thumbFormat = v;
-    });
+    this.originalFormat = await this.mediaFormatRep.findOne({ where: { code: ORIGINAL } });
+    this.thumbFormat = await this.mediaFormatRep.findOne({ where: { code: THUMB } });
+    this.privateDir = await this.cacheService.get(MediaConfig.PRIVATE_DIR);
+    this.publicDir = await this.cacheService.get(MediaConfig.PUBLIC_DIR);
   }
 
 
@@ -101,7 +105,7 @@ export class MediaService {
   async remove(id: number) {
     const media = await this.findPublicById(id);
     const dir = path.join(
-      media.type.private ? PRIVATE_DIR : PUBLIC_DIR,
+      media.type.private ? this.privateDir : this.publicDir,
       media.id.toString(),
     );
     await this.mediaRep.manager.transaction(async transactionManager => {
@@ -172,7 +176,7 @@ export class MediaService {
    * @returns The path to the created media directory.
    */
   private async createMediaDirectory(mediaType: MediaTypeEntity, mediaEntityId: string): Promise<string> {
-    const mediaDirectory = path.join(mediaType.private ? PRIVATE_DIR : PUBLIC_DIR, mediaEntityId);
+    const mediaDirectory = path.join(mediaType.private ? this.privateDir : this.publicDir, mediaEntityId);
     await createDirectoriesIfNotExist(mediaDirectory);
     return mediaDirectory;
   }

@@ -18,7 +18,6 @@ import { EntitySubscriberInterface, EventSubscriber, UpdateEvent } from "typeorm
 import { UserEntity } from "./user.entity";
 import * as bcrypt from "bcrypt";
 import { InsertEvent } from "typeorm/subscriber/event/InsertEvent";
-import { AuthConfig } from "@auth/gen-src/auth.config";
 import { BadRequestException } from "@nestjs/common";
 
 @EventSubscriber()
@@ -68,7 +67,7 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
   }
 
   private async hashPassword(password: string) {
-    return await bcrypt.hash(password, AuthConfig.PWD_SALT_RANGE);
+    return await bcrypt.hash(password, 10);
   }
 
 }

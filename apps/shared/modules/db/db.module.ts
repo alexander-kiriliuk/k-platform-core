@@ -15,15 +15,67 @@
  */
 
 import { DynamicModule } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { PG_DATA_SOURCE } from "@shared/constants";
+import { TypeOrmModule, TypeOrmModuleOptions } from "@nestjs/typeorm";
+import { CacheModule } from "@shared/modules/cache/cache.module";
+import { CacheService } from "@shared/modules/cache/cache.types";
+import { DbConfig } from "@shared/modules/db/gen-src/db.config";
+import { LoggerOptions } from "typeorm";
+import { UserEntity } from "@user/src/entity/user.entity";
+import { UserRoleEntity } from "@user/src/entity/user-role.entity";
+import { MediaEntity } from "@media/src/entity/media.entity";
+import { MediaExtEntity } from "@media/src/entity/media-ext.entity";
+import { MediaFileEntity } from "@media/src/entity/media-file.entity";
+import { MediaFormatEntity } from "@media/src/entity/media-format.entity";
+import { MediaTypeEntity } from "@media/src/entity/media-type.entity";
+import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
+import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
+import { LanguageEntity } from "@shared/modules/locale/entity/language.entity";
+import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { LocalizedMediaEntity } from "@shared/modules/locale/entity/localized-media.entity";
+import { UserSubscriber } from "@user/src/entity/user-subscriber";
+
 
 export class DbModule {
   static forRoot(): DynamicModule {
     return {
       module: DbModule,
       imports: [
-        TypeOrmModule.forRoot(PG_DATA_SOURCE),
+        TypeOrmModule.forRootAsync({
+          imports: [CacheModule],
+          inject: [CacheService],
+          useFactory: async (cs: CacheService) => {
+            const opts: TypeOrmModuleOptions = {
+              type: await cs.get(DbConfig.TYPE) as any,
+              host: await cs.get(DbConfig.HOST),
+              schema: await cs.get(DbConfig.SCHEMA),
+              port: await cs.getNumber(DbConfig.PORT),
+              synchronize: await cs.getBoolean(DbConfig.SYNCHRONIZE),
+              logging: await cs.get(DbConfig.LOGGING) as LoggerOptions,
+              database: await cs.get(DbConfig.DATABASE),
+              username: await cs.get(DbConfig.USERNAME),
+              password: await cs.get(DbConfig.PASSWORD),
+              entities: [
+                UserEntity,
+                UserRoleEntity,
+                MediaEntity,
+                MediaExtEntity,
+                MediaFileEntity,
+                MediaFormatEntity,
+                MediaTypeEntity,
+                ExplorerTargetEntity,
+                ExplorerColumnEntity,
+                LanguageEntity,
+                LocalizedStringEntity,
+                LocalizedMediaEntity,
+              ],
+              migrations: [],
+              subscribers: [
+                UserSubscriber,
+              ],
+            };
+            return opts;
+          },
+        }),
       ],
     };
   }

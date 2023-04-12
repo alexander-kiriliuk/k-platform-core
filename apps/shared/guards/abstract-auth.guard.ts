@@ -19,7 +19,7 @@ import { REQUEST_PROPS } from "@shared/constants";
 import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { User } from "@user/src/user.types";
 import { CacheService } from "@shared/modules/cache/cache.types";
-import { AuthConfig } from "@auth/gen-src/auth.config";
+import { AUTH_ACCESS_TOKEN_PREFIX, AUTH_JWT_CACHE_PREFIX } from "@auth/src/auth.constants";
 
 export abstract class AbstractAuthGuard implements CanActivate {
 
@@ -54,7 +54,7 @@ export abstract class AbstractAuthGuard implements CanActivate {
   }
 
   private async validateToken(token: string) {
-    return this.cacheService.get(`${AuthConfig.JWT_CACHE_PREFIX}:${AuthConfig.ACCESS_TOKEN_PREFIX}:${token}`);
+    return this.cacheService.get(`${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${token}`);
   }
 
 }

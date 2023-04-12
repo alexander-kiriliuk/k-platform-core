@@ -14,19 +14,20 @@
  *    limitations under the License.
  */
 
-import { AuthConfig } from "../gen-src/auth.config";
-import { BruteforceConfig } from "@auth/gen-src/bruteforce.config";
-
 export const UNKNOWN_IP = "unknown";
+export const AUTH_JWT_CACHE_PREFIX = "jwt";
+export const AUTH_ACCESS_TOKEN_PREFIX = "access_token";
+export const AUTH_REFRESH_TOKEN_PREFIX = "refresh_token";
+export const BRUTEFORCE_JWT_CACHE_PREFIX = "bruteforce";
 
 export const jwtAccessTokenKey = (accessToken: string) => {
-  return `${AuthConfig.JWT_CACHE_PREFIX}:${AuthConfig.ACCESS_TOKEN_PREFIX}:${accessToken}`;
+  return `${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${accessToken}`;
 };
 
 export const jwtRefreshTokenKey = (accessToken: string, refreshToken: string) => {
-  return `${AuthConfig.JWT_CACHE_PREFIX}:${AuthConfig.REFRESH_TOKEN_PREFIX}:${accessToken}:${refreshToken}`;
+  return `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${accessToken}:${refreshToken}`;
 };
 
-export const bruteForceLoginKey = (login: string) => `${BruteforceConfig.BRUTEFORCE_CACHE_PREFIX}:login:${login}`;
+export const bruteForceLoginKey = (login: string) => `${BRUTEFORCE_JWT_CACHE_PREFIX}:login:${login}`;
 
-export const bruteForceIPKey = (ipAddress: string) => `${BruteforceConfig.BRUTEFORCE_CACHE_PREFIX}:ip:${ipAddress}`;
+export const bruteForceIPKey = (ipAddress: string) => `${BRUTEFORCE_JWT_CACHE_PREFIX}:ip:${ipAddress}`;

@@ -23,6 +23,7 @@ import { CacheModule } from "@shared/modules/cache/cache.module";
 import { LogModule } from "@shared/modules/log/log.module";
 import { MsClientModule } from "@shared/modules/ms-client/ms-client.module";
 import { AuthConfig } from "@auth/gen-src/auth.config";
+import { CacheService } from "@shared/modules/cache/cache.types";
 
 @Module({
   controllers: [
@@ -33,9 +34,15 @@ import { AuthConfig } from "@auth/gen-src/auth.config";
     CacheModule,
     LogModule,
     MsClientModule,
-    JwtModule.register({
-      secret: AuthConfig.JWT_SECRET,
-      signOptions: { expiresIn: AuthConfig.ACCESS_TOKEN_EXPIRATION },
+    JwtModule.registerAsync({
+      imports: [CacheModule],
+      inject: [CacheService],
+      useFactory: async (cs: CacheService) => {
+        return {
+          secret: await cs.get(AuthConfig.JWT_SECRET),
+          signOptions: { expiresIn: await cs.getNumber(AuthConfig.ACCESS_TOKEN_EXPIRATION) },
+        };
+      },
     }),
   ],
   providers: [

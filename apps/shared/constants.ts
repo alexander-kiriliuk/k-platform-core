@@ -15,33 +15,26 @@
  */
 
 import { Transport } from "@nestjs/microservices";
-import { LoggerOptions } from "typeorm";
-import { UserEntity } from "@user/src/entity/user.entity";
-import { UserRoleEntity } from "@user/src/entity/user-role.entity";
-import { MediaEntity } from "@media/src/entity/media.entity";
-import { MediaFileEntity } from "@media/src/entity/media-file.entity";
-import { MediaFormatEntity } from "@media/src/entity/media-format.entity";
-import { MediaTypeEntity } from "@media/src/entity/media-type.entity";
-import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
-import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
-import { TypeOrmModuleOptions } from "@nestjs/typeorm/dist/interfaces/typeorm-options.interface";
-import { LanguageEntity } from "@shared/modules/locale/entity/language.entity";
-import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
-import { LocalizedMediaEntity } from "@shared/modules/locale/entity/localized-media.entity";
 import { RedisClientOptions } from "@liaoliaots/nestjs-redis/dist/redis/interfaces/redis-module-options.interface";
-import { UserSubscriber } from "@user/src/entity/user-subscriber";
-import { DbConfig } from "@shared/modules/db/gen-src/db.config";
-import { MediaExtEntity } from "@media/src/entity/media-ext.entity";
-
-
-export const MS_EXCEPTION_ID = "MsException";
-
-export const TRANSPORT_TYPE = Transport.REDIS;
 
 export enum Role {
   ROOT = "root",
   ADMIN = "admin",
 }
+
+export const REQUEST_PROPS = {
+  accessToken: "accessToken",
+  currentUser: "currentUser",
+};
+
+export const MS_EXCEPTION_ID = "MsException";
+
+export const API = {
+  prefix: "api/v1",
+  port: 3001,
+};
+
+export const TRANSPORT_TYPE = Transport.REDIS;
 
 export const TRANSPORT_OPTIONS = {
   host: "localhost",
@@ -49,49 +42,9 @@ export const TRANSPORT_OPTIONS = {
   timeout: 10000,
 };
 
-export const API = {
-  prefix: "api/v1",
-  port: 3001,
-};
-
 export const REDIS_OPTIONS: RedisClientOptions = {
   host: "localhost",
   port: 6379,
   db: 0,
-};
-
-export const REQUEST_PROPS = {
-  accessToken: "accessToken",
-  currentUser: "currentUser",
-};
-
-export const PG_DATA_SOURCE: TypeOrmModuleOptions = {
-  type: DbConfig.TYPE,
-  host: DbConfig.HOST,
-  schema: DbConfig.SCHEMA,
-  port: DbConfig.PORT,
-  synchronize: DbConfig.SYNCHRONIZE,
-  logging: DbConfig.LOGGING as LoggerOptions,
-  database: DbConfig.DATABASE,
-  username: DbConfig.USERNAME,
-  password: String(DbConfig.PASSWORD),
-  entities: [
-    UserEntity,
-    UserRoleEntity,
-    MediaEntity,
-    MediaExtEntity,
-    MediaFileEntity,
-    MediaFormatEntity,
-    MediaTypeEntity,
-    ExplorerTargetEntity,
-    ExplorerColumnEntity,
-    LanguageEntity,
-    LocalizedStringEntity,
-    LocalizedMediaEntity,
-  ],
-  migrations: [],
-  subscribers: [
-    UserSubscriber,
-  ],
 };
 

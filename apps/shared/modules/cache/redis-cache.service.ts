@@ -40,6 +40,16 @@ export class RedisCacheService implements CacheService {
     }
   }
 
+  async getBoolean(key: string) {
+    const val = await this.get(key);
+    return Boolean(val);
+  }
+
+  async getNumber(key: string) {
+    const val = await this.get(key);
+    return +val;
+  }
+
   async set(key: string, value: string | number, expiresIn?: number): Promise<boolean> {
     try {
       if (expiresIn) {

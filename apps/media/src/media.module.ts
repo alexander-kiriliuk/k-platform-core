@@ -24,6 +24,7 @@ import { MediaFileEntity } from "@media/src/entity/media-file.entity";
 import { DbModule } from "@shared/modules/db/db.module";
 import { MediaFormatEntity } from "@media/src/entity/media-format.entity";
 import { LogModule } from "@shared/modules/log/log.module";
+import { CacheModule } from "@shared/modules/cache/cache.module";
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { LogModule } from "@shared/modules/log/log.module";
       MediaEntity, MediaTypeEntity, MediaFileEntity, MediaFormatEntity,
     ]),
     LogModule,
+    CacheModule,
   ],
   controllers: [MediaController],
   providers: [MediaService],

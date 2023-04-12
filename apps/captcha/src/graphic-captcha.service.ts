@@ -26,28 +26,34 @@ import { createCanvas, registerFont } from "canvas";
 import { NumberUtils } from "@shared/utils/number.utils";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import * as process from "process";
+import { CAPTCHA_CACHE_PREFIX } from "@captcha/src/captcha.constants";
 import generateRandomString = StringUtils.generateRandomString;
 import generateRandomInt = NumberUtils.generateRandomInt;
 
 export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse> {
 
+  private captchaExp: number;
+  private captchaFontFamily: string;
+  private captchaFontPath: string;
+
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
     private readonly cacheService: CacheService) {
     super();
+    this.initOptions();
   }
 
   async generateCaptcha(): Promise<GraphicCaptchaResponse> {
     const id = uuidv4();
     const val = generateRandomString(5, 7);
     const image = await this.makeImageFromText(val);
-    await this.cacheService.set(`${CaptchaConfig.CACHE_PREFIX}:${id}`, val, CaptchaConfig.EXPIRATION);
+    await this.cacheService.set(`${CAPTCHA_CACHE_PREFIX}:${id}`, val, this.captchaExp);
     this.logger.debug(`Generated captcha with id: ${id} and value: ${val}`);
     return { id, image };
   }
 
   async validateCaptcha(request: CaptchaRequest): Promise<boolean> {
-    const key = `${CaptchaConfig.CACHE_PREFIX}:${request.id}`;
+    const key = `${CAPTCHA_CACHE_PREFIX}:${request.id}`;
     const val = await this.cacheService.get(key);
     if (!val) {
       this.logger.warn(`Invalid captcha id: ${request.id}`);
@@ -61,13 +67,19 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
     return true;
   }
 
+  private async initOptions() {
+    this.captchaExp = await this.cacheService.getNumber(CaptchaConfig.EXPIRATION);
+    this.captchaFontFamily = await this.cacheService.get(CaptchaConfig.FONT_FAMILY);
+    this.captchaFontPath = await this.cacheService.get(CaptchaConfig.FONT_PATH);
+  }
+
   private async makeImageFromText(text: string) {
     const canvas = createCanvas(200, 50);
     const ctx = canvas.getContext("2d");
-    registerFont(process.cwd() + CaptchaConfig.FONT_PATH, { family: CaptchaConfig.FONT_FAMILY });
+    registerFont(process.cwd() + this.captchaFontPath, { family: this.captchaFontFamily });
     ctx.fillStyle = this.generateColor();
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.font = `30px ${CaptchaConfig.FONT_FAMILY}`;
+    ctx.font = `30px ${this.captchaFontFamily}`;
     ctx.textBaseline = "middle";
     for (let i = 0; i < text.length; i++) {
       const char = text[i];

@@ -14,22 +14,4 @@
  *    limitations under the License.
  */
 
-export abstract class CacheService {
-
-  abstract get(key: string): Promise<string>;
-
-  abstract getNumber(key: string): Promise<number>;
-
-  abstract getBoolean(key: string): Promise<boolean>;
-
-  abstract set(key: string, value: string | number, expiration?: number): Promise<boolean>;
-
-  abstract del(...keys: string[]): Promise<boolean>;
-
-  abstract incr(key: string): Promise<number>;
-
-  abstract expire(key: string, expiresIn: number): Promise<boolean>;
-
-  abstract getFromPattern(pattern: string): Promise<string[]>;
-
-}
+export const CAPTCHA_CACHE_PREFIX = "captcha";

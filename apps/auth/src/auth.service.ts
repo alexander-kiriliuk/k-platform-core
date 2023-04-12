@@ -23,6 +23,8 @@ import { JwtService } from "@nestjs/jwt";
 import { v4 as uuidv4 } from "uuid";
 import { TooManyRequestsMsException } from "@shared/exceptions/too-many-requests-ms.exception";
 import {
+  AUTH_JWT_CACHE_PREFIX,
+  AUTH_REFRESH_TOKEN_PREFIX,
   bruteForceIPKey,
   bruteForceLoginKey,
   jwtAccessTokenKey,
@@ -38,11 +40,18 @@ import { BruteforceConfig } from "@auth/gen-src/bruteforce.config";
 @Injectable()
 export class AuthService {
 
+  private accessTokenExp: number;
+  private refreshTokenExp: number;
+  private bruteForceMaxAttempts: number;
+  private bruteForceBlockDuration: number;
+  private bruteForceEnabled: boolean;
+
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
     private readonly cacheService: CacheService,
     private readonly msClient: MsClient,
     private readonly jwtService: JwtService) {
+    this.initOptions();
   }
 
   async authenticate(data: LoginPayload): Promise<JwtDto> {
@@ -62,9 +71,9 @@ export class AuthService {
     }
     await this.resetFailedAttempts(data.login, data.ipAddress);
     const accessToken = this.jwtService.sign({ login: user.login });
-    await this.cacheService.set(jwtAccessTokenKey(accessToken), user.login, AuthConfig.ACCESS_TOKEN_EXPIRATION);
+    await this.cacheService.set(jwtAccessTokenKey(accessToken), user.login, this.accessTokenExp);
     const refreshToken = uuidv4();
-    await this.cacheService.set(jwtRefreshTokenKey(accessToken, refreshToken), user.login, AuthConfig.REFRESH_TOKEN_EXPIRATION);
+    await this.cacheService.set(jwtRefreshTokenKey(accessToken, refreshToken), user.login, this.refreshTokenExp);
     return { user, accessToken, refreshToken };
   }
 
@@ -94,12 +103,12 @@ export class AuthService {
       return null;
     }
     const accessToken = this.jwtService.sign({ login: userLogin });
-    await this.cacheService.set(jwtAccessTokenKey(accessToken), userLogin, AuthConfig.ACCESS_TOKEN_EXPIRATION);
+    await this.cacheService.set(jwtAccessTokenKey(accessToken), userLogin, this.accessTokenExp);
     const newRefreshToken = uuidv4();
     await this.cacheService.set(
-      `${AuthConfig.JWT_CACHE_PREFIX}:${AuthConfig.REFRESH_TOKEN_PREFIX}:${accessToken}:${newRefreshToken}`,
+      `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${accessToken}:${newRefreshToken}`,
       userLogin,
-      AuthConfig.REFRESH_TOKEN_EXPIRATION,
+      this.refreshTokenExp,
     );
     // extract related access token for delete
     const oldAccessToken = this.extractAccessTokenFromRefreshTokenKey(refreshTokenKey);
@@ -108,8 +117,17 @@ export class AuthService {
     return { accessToken, refreshToken: newRefreshToken };
   }
 
+  private async initOptions() {
+    this.logger.verbose(`Init auth configuration`);
+    this.accessTokenExp = await this.cacheService.getNumber(AuthConfig.ACCESS_TOKEN_EXPIRATION);
+    this.refreshTokenExp = await this.cacheService.getNumber(AuthConfig.REFRESH_TOKEN_EXPIRATION);
+    this.bruteForceMaxAttempts = await this.cacheService.getNumber(BruteforceConfig.MAX_ATTEMPTS);
+    this.bruteForceBlockDuration = await this.cacheService.getNumber(BruteforceConfig.BLOCK_DURATION);
+    this.bruteForceEnabled = await this.cacheService.getBoolean(BruteforceConfig.ENABLED);
+  }
+
   private async isBlocked(login: string, ipAddress: string): Promise<boolean> {
-    if (!BruteforceConfig.ENABLED) {
+    if (!this.bruteForceEnabled) {
       return false;
     }
     const loginKey = bruteForceLoginKey(login);
@@ -118,12 +136,12 @@ export class AuthService {
       this.cacheService.get(loginKey),
       this.cacheService.get(ipKey),
     ]);
-    return (loginAttempts && parseInt(loginAttempts, 10) >= BruteforceConfig.MAX_ATTEMPTS) ||
-      (ipAttempts && parseInt(ipAttempts, 10) >= BruteforceConfig.MAX_ATTEMPTS);
+    return (loginAttempts && parseInt(loginAttempts, 10) >= this.bruteForceMaxAttempts) ||
+      (ipAttempts && parseInt(ipAttempts, 10) >= this.bruteForceMaxAttempts);
   }
 
   private async registerFailedAttempt(login: string, ipAddress: string): Promise<void> {
-    if (!BruteforceConfig.ENABLED) {
+    if (!this.bruteForceEnabled) {
       return;
     }
     this.logger.debug(`Registering failed login attempt for ${login} from ${ipAddress}`);
@@ -135,15 +153,15 @@ export class AuthService {
     ]);
     const loginUpdate = loginAttempts
       ? this.cacheService.incr(loginKey)
-      : this.cacheService.set(loginKey, 1, BruteforceConfig.BLOCK_DURATION);
+      : this.cacheService.set(loginKey, 1, this.bruteForceBlockDuration);
     const ipUpdate = ipAttempts
       ? this.cacheService.incr(ipKey)
-      : this.cacheService.set(ipKey, 1, BruteforceConfig.BLOCK_DURATION);
+      : this.cacheService.set(ipKey, 1, this.bruteForceBlockDuration);
     await Promise.all([loginUpdate, ipUpdate]);
   }
 
   private async resetFailedAttempts(login: string, ipAddress: string): Promise<void> {
-    if (!BruteforceConfig.ENABLED) {
+    if (!this.bruteForceEnabled) {
       return;
     }
     this.logger.debug(`Resetting failed login attempts for ${login} from ${ipAddress}`);
@@ -166,7 +184,7 @@ export class AuthService {
   }
 
   private extractAccessTokenFromRefreshTokenKey(refreshTokenKey: string) {
-    const regex = new RegExp(`${AuthConfig.JWT_CACHE_PREFIX}:${AuthConfig.REFRESH_TOKEN_EXPIRATION}:(.*):[^:]*$`);
+    const regex = new RegExp(`${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:(.*):[^:]*$`);
     const parts = refreshTokenKey.match(regex);
     if (parts?.length) {
       return parts[1];

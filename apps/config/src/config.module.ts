@@ -14,15 +14,26 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
+import { Module, OnModuleInit } from "@nestjs/common";
 import { ConfigService } from "./config.service";
 import { LogModule } from "@shared/modules/log/log.module";
+import { CacheModule } from "@shared/modules/cache/cache.module";
 
 @Module({
   imports: [
     LogModule,
+    CacheModule,
   ],
   providers: [ConfigService],
 })
-export class ConfigModule {
+export class ConfigModule implements OnModuleInit {
+
+  constructor(
+    private readonly configService: ConfigService) {
+  }
+
+  async onModuleInit() {
+    await this.configService.initWithPropertiesFiles();
+  }
+
 }

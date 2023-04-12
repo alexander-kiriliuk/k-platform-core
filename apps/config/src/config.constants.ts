@@ -14,6 +14,7 @@
  *    limitations under the License.
  */
 
+export const CONFIG_CACHE_PREFIX = "config";
 export const GEN_SRC_DIR = "gen-src";
 export const CONFIG_FILE_EXT_PATTERN = ".config.ts";
 export const PROPERTIES_FILE_EXT_PATTERN = ".properties";
