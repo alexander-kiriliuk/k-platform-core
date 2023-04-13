@@ -16,17 +16,32 @@
 
 import { Logger, Module } from "@nestjs/common";
 import { LogModule } from "@shared/modules/log/log.module";
-import { TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
 import { ClientProxy, ClientsModule } from "@nestjs/microservices";
 import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { MS_CLIENT } from "@shared/modules/ms-client/ms-client.constants";
+import { EnvLoader } from "@shared/utils/env.loader";
 
 @Module({
   imports: [
     LogModule,
-    ClientsModule.register([
-      { name: MS_CLIENT, transport: TRANSPORT_TYPE, options: TRANSPORT_OPTIONS },
+    ClientsModule.registerAsync([
+      {
+        imports: [LogModule],
+        inject: [LOGGER],
+        name: MS_CLIENT,
+        useFactory: (logger: Logger) => {
+          EnvLoader.loadEnvironment(logger);
+          return {
+            transport: parseInt(process.env.TRANSPORT_TYPE),
+            options: {
+              host: process.env.TRANSPORT_HOST,
+              port: parseInt(process.env.TRANSPORT_PORT),
+              timeout: parseInt(process.env.TRANSPORT_TIMEOUT),
+            },
+          };
+        },
+      },
     ]),
   ],
   providers: [

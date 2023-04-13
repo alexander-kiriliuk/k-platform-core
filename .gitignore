@@ -1,6 +1,7 @@
 # generated files
 gen-src
 local.properties
+local.env
 # compiled output
 /dist
 /node_modules

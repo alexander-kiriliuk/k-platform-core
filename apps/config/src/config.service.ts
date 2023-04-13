@@ -30,10 +30,6 @@ import {
 import { CacheService } from "@shared/modules/cache/cache.types";
 
 
-/**
- * ConfigService is responsible for scanning, processing, and generating
- * configuration files based on the properties files found in the project.
- */
 @Injectable()
 export class ConfigService {
 

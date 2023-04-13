@@ -14,12 +14,9 @@
  *    limitations under the License.
  */
 
-import { Transport } from "@nestjs/microservices";
-import { RedisClientOptions } from "@liaoliaots/nestjs-redis/dist/redis/interfaces/redis-module-options.interface";
-
-export enum Role {
-  ROOT = "root",
-  ADMIN = "admin",
+export class Roles {
+  static readonly ROOT = "root";
+  static readonly ADMIN = "admin";
 }
 
 export const REQUEST_PROPS = {
@@ -28,23 +25,4 @@ export const REQUEST_PROPS = {
 };
 
 export const MS_EXCEPTION_ID = "MsException";
-
-export const API = {
-  prefix: "api/v1",
-  port: 3001,
-};
-
-export const TRANSPORT_TYPE = Transport.REDIS;
-
-export const TRANSPORT_OPTIONS = {
-  host: "localhost",
-  port: 6379,
-  timeout: 10000,
-};
-
-export const REDIS_OPTIONS: RedisClientOptions = {
-  host: "localhost",
-  port: 6379,
-  db: 0,
-};
 

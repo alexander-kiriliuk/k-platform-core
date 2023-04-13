@@ -63,7 +63,11 @@ export class LogService extends Logger {
         }
       }
     }
-    return null;
+    return {
+      filePath: "Unknown path",
+      methodName: "Anonymous context",
+      lineNumber: "Unknown line",
+    };
   }
 
 }

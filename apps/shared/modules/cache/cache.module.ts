@@ -14,17 +14,32 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
+import { Logger, Module } from "@nestjs/common";
 import { RedisModule } from "@liaoliaots/nestjs-redis";
-import { REDIS_OPTIONS } from "@shared/constants";
 import { RedisCacheService } from "@shared/modules/cache/redis-cache.service";
 import { LogModule } from "@shared/modules/log/log.module";
 import { CacheService } from "@shared/modules/cache/cache.types";
+import * as process from "process";
+import { LOGGER } from "@shared/modules/log/log.constants";
+import { EnvLoader } from "@shared/utils/env.loader";
 
 @Module({
   imports: [
-    RedisModule.forRoot({
-      config: REDIS_OPTIONS,
+    RedisModule.forRootAsync({
+      imports: [LogModule],
+      inject: [LOGGER],
+      useFactory: (logger: Logger) => {
+        EnvLoader.loadEnvironment(logger);
+        return {
+          config: {
+            host: process.env.REDIS_HOST,
+            port: parseInt(process.env.REDIS_PORT),
+            db: parseInt(process.env.REDIS_DB),
+            username: process.env.REDIS_USER,
+            password: process.env.REDIS_PASSWORD,
+          },
+        };
+      },
     }),
     LogModule,
   ],

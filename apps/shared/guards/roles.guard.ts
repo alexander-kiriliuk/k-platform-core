@@ -17,7 +17,7 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import { UserRole } from "@user/src/user.types";
-import { REQUEST_PROPS, Role } from "@shared/constants";
+import { REQUEST_PROPS, Roles } from "@shared/constants";
 import { AllowedForMetadataKey } from "@shared/decorators/for-roles.decorator";
 
 @Injectable()
@@ -34,7 +34,7 @@ export class RolesGuard implements CanActivate {
     }
     const request = context.switchToHttp().getRequest();
     const userRoles: UserRole[] = request[REQUEST_PROPS.currentUser]?.roles || [];
-    if (this.hasSomeRole(userRoles, Role.ROOT)) {
+    if (this.hasSomeRole(userRoles, Roles.ROOT)) {
       return true;
     }
     for (const role of userRoles) {

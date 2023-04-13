@@ -16,7 +16,7 @@
 
 import { ClientProxy } from "@nestjs/microservices";
 import { catchError, Observable, throwError, timeout } from "rxjs";
-import { MS_EXCEPTION_ID, TRANSPORT_OPTIONS } from "@shared/constants";
+import { MS_EXCEPTION_ID } from "@shared/constants";
 import { HttpException, HttpStatus, Inject, Logger } from "@nestjs/common";
 import { MsClientOptions } from "@shared/modules/ms-client/ms-client.types";
 import { MsException } from "@shared/exceptions/ms.exception";
@@ -54,7 +54,7 @@ export class MsClient {
   private handleRequest<T>(source: Observable<T>, pattern: any, data: any, opts?: MsClientOptions): Observable<T> {
     this.logger.debug(`Sending request with pattern: ${inspect(pattern)}`);
     return source.pipe(
-      timeout(opts?.timeout || TRANSPORT_OPTIONS.timeout),
+      timeout(opts?.timeout || parseInt(process.env.TRANSPORT_TIMEOUT)),
       catchError(error => {
         if (error?.type === MS_EXCEPTION_ID) {
           const err = error as MsException;

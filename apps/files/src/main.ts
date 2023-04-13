@@ -16,14 +16,20 @@
 
 import { NestFactory } from "@nestjs/core";
 import { FilesModule } from "./files.module";
-import { TRANSPORT_OPTIONS, TRANSPORT_TYPE } from "@shared/constants";
+import { EnvLoader } from "@shared/utils/env.loader";
+
+EnvLoader.loadEnvironment();
 
 (async () => {
   const app = await NestFactory.createMicroservice(
     FilesModule,
     {
-      transport: TRANSPORT_TYPE,
-      options: TRANSPORT_OPTIONS,
+      transport: parseInt(process.env.TRANSPORT_TYPE),
+      options: {
+        host: process.env.TRANSPORT_HOST,
+        port: parseInt(process.env.TRANSPORT_PORT),
+        timeout: parseInt(process.env.TRANSPORT_TIMEOUT),
+      },
     });
   await app.listen();
 })();

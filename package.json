@@ -59,6 +59,7 @@
     "canvas": "2.11.0",
     "class-transformer": "0.5.1",
     "class-validator": "0.14.0",
+    "dotenv": "16.0.3",
     "helmet": "6.0.1",
     "imagemin": "7.0.1",
     "imagemin-pngquant": "8.0.0",
