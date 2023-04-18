@@ -26,10 +26,10 @@ export class MediaFileEntity implements MediaFile {
   @Column("int", { nullable: true })
   size: number;
 
-  @ManyToOne(t => MediaFormatEntity, type => type.code)
+  @ManyToOne(() => MediaFormatEntity, type => type.code)
   format: MediaFormatEntity;
 
-  @ManyToOne(type => MediaEntity)
+  @ManyToOne(() => MediaEntity)
   media: MediaEntity;
 
 }

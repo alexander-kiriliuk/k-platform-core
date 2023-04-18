@@ -25,7 +25,7 @@ import {
   GEN_SRC_DIR,
   KP_PROPERTIES_FILE_NAME,
   LOCAL_PROPERTIES_FILE_NAME,
-  PROPERTIES_FILE_EXT_PATTERN,
+  PROPERTIES_FILE_EXT_PATTERN
 } from "./config.constants";
 import { CacheService } from "@shared/modules/cache/cache.types";
 
@@ -48,7 +48,7 @@ export class ConfigService {
     await this.deleteExistingConfigTsFiles(process.cwd());
     this.logger.log(`Generate config files`);
     await this.generateConfigTsFiles();
-    for (let key in this.valuesOfProperties) {
+    for (const key in this.valuesOfProperties) {
       await this.cacheService.set(`${key}`, this.valuesOfProperties[key]);
     }
     this.logger.log(`Config files was synchronize`);
@@ -198,12 +198,10 @@ export class ConfigService {
         continue;
       }
       const [localKey] = localLine.split("=");
-      let found = false;
       for (let i = 0; i < mainContentLines.length; i++) {
         const mainLine = mainContentLines[i];
         if (mainLine.trim().startsWith(localKey + "=")) {
           mergedContent[i] = localLine;
-          found = true;
           break;
         }
       }

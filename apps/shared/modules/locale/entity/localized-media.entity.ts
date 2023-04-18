@@ -29,10 +29,10 @@ export class LocalizedMediaEntity implements LocalizedMedia {
   @Column("varchar", { nullable: false })
   code: string;
 
-  @ManyToOne(t => LanguageEntity, t => t.id)
+  @ManyToOne(() => LanguageEntity, t => t.id)
   lang: LanguageEntity;
 
-  @ManyToOne(t => MediaEntity, t => t.code)
+  @ManyToOne(() => MediaEntity, t => t.code)
   value: MediaEntity;
 
 }

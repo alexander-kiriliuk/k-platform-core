@@ -211,7 +211,7 @@ export class ExplorerService {
    * @param maxDepth The maximum depth of relations to fetch. Defaults to Infinity.
    * @returns A Promise that resolves to the EntityData object.
    */
-  async getEntityData(target: string, rowId: string | number, maxDepth: number = Infinity): Promise<EntityData> {
+  async getEntityData(target: string, rowId: string | number, maxDepth = Infinity): Promise<EntityData> {
     const targetData = await this.getTargetData(target);
     if (!targetData) {
       throw new NotFoundMsException(`Target entity not found: ${target}`);
@@ -233,7 +233,7 @@ export class ExplorerService {
    * @param maxDepth The maximum depth of relations to fetch. Defaults to Infinity.
    * @returns The row with attached relations.
    */
-  private async attachRelations<T = any>(row: T, targetData: TargetData, visitedEntities: string[] = [], maxDepth: number = Infinity) {
+  private async attachRelations<T = any>(row: T, targetData: TargetData, visitedEntities: string[] = [], maxDepth = Infinity) {
     if (maxDepth < 0) {
       throw new MsException(HttpStatus.INTERNAL_SERVER_ERROR, "maxDepth should be non-negative");
     }
@@ -246,7 +246,7 @@ export class ExplorerService {
     const idProp = targetData.primaryColumn.property;
     visitedEntities.push(targetData.entity.target);
     const withRelations = await repository.findOne({ where: { [idProp]: row[idProp] }, relations });
-    for (let k in withRelations) {
+    for (const k in withRelations) {
       if (relations.indexOf(k) === -1) {
         continue;
       }
@@ -256,7 +256,7 @@ export class ExplorerService {
         continue;
       }
       if (Array.isArray(withRelations[k]) && colData.multiple) {
-        for (let key in withRelations[k]) {
+        for (const key in withRelations[k]) {
           withRelations[k][key] = await this.attachRelations(withRelations[k][key], currTargetData, visitedEntities.slice(), maxDepth - 1);
         }
       } else {

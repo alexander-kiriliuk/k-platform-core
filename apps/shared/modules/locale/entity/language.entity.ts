@@ -33,7 +33,7 @@ export class LanguageEntity implements Language {
   @Column("varchar", { nullable: false })
   name: string;
 
-  @ManyToOne(t => MediaEntity, t => t.code)
+  @ManyToOne(() => MediaEntity, t => t.code)
   icon: MediaEntity;
 
 }

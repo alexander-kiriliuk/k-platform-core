@@ -24,7 +24,7 @@ import {
   Res,
   UploadedFile,
   UseGuards,
-  UseInterceptors,
+  UseInterceptors
 } from "@nestjs/common";
 import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { FileInterceptor } from "@nestjs/platform-express";
@@ -66,7 +66,7 @@ export class MediaController {
     @Query("format") format: string,
     @Query("webp") webp: boolean) {
     const media = await this.msClient.dispatch<Media, string>("media.get.private.by.id", id);
-    let mediaPath = getMediaPath(media, format, webp);
+    const mediaPath = getMediaPath(media, format, webp);
     res.sendFile(path.join(process.cwd(), mediaPath));
   }
 

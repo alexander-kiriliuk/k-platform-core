@@ -22,7 +22,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from "typeorm";
 import { UserRoleEntity } from "./user-role.entity";
 import { MediaEntity } from "@media/src/entity/media.entity";
@@ -35,7 +35,7 @@ export class UserEntity implements User {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @ManyToOne(t => MediaEntity, t => t.code)
+  @ManyToOne(() => MediaEntity, t => t.code)
   avatar: MediaEntity;
 
   @Column("varchar", { nullable: false })
@@ -62,7 +62,7 @@ export class UserEntity implements User {
   @Column("boolean", { default: false })
   active: boolean;
 
-  @ManyToMany(t => UserRoleEntity)
+  @ManyToMany(() => UserRoleEntity)
   @JoinTable()
   roles: UserRoleEntity[];
 

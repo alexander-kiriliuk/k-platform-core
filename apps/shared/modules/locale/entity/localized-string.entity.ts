@@ -28,7 +28,7 @@ export class LocalizedStringEntity implements LocalizedString {
   @Column("varchar", { nullable: true })
   code: string;
 
-  @ManyToOne(t => LanguageEntity, t => t.id)
+  @ManyToOne(() => LanguageEntity, t => t.id)
   lang: LanguageEntity;
 
   @Column("text", { nullable: false })

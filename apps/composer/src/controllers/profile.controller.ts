@@ -33,7 +33,7 @@ export class ProfileController {
 
   @ResponseDto(UserDto)
   @Get("/:id")
-  async getUserProfile(@Param("id") id: string, @CurrentUser() user: User) {
+  async getUserProfile(@Param("id") id: string) {
     return await this.msClient.dispatch<User, string>("user.find.by.id", id);
   }
 

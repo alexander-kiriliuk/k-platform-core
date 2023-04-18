@@ -18,10 +18,10 @@ export class MediaEntity implements Media {
   @JoinTable()
   name: LocalizedStringEntity[];
 
-  @ManyToOne(t => MediaTypeEntity, type => type.code)
+  @ManyToOne(() => MediaTypeEntity, type => type.code)
   type: MediaTypeEntity;
 
-  @OneToMany(a => MediaFileEntity, f => f.media, { cascade: true })
+  @OneToMany(() => MediaFileEntity, f => f.media, { cascade: true })
   files: MediaFileEntity[];
 
 }

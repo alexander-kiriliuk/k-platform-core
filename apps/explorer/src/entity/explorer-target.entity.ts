@@ -39,10 +39,10 @@ export class ExplorerTargetEntity implements ExplorerTarget {
   @JoinTable()
   description: LocalizedStringEntity[];
 
-  @ManyToOne(t => MediaEntity, t => t.code)
+  @ManyToOne(() => MediaEntity, t => t.code)
   icon: MediaEntity;
 
-  @OneToMany(c => ExplorerColumnEntity, c => c.target, { cascade: true })
+  @OneToMany(() => ExplorerColumnEntity, c => c.target, { cascade: true })
   columns: ExplorerColumnEntity[];
 
 }

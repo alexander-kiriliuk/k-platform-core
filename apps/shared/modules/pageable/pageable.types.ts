@@ -6,11 +6,11 @@ export class PageableParams {
   @Min(1)
   @Max(1000)
   @Type(() => Number)
-  limit: number = 20;
+  limit = 20;
 
   @Min(1)
   @Type(() => Number)
-  page: number = 1;
+  page = 1;
 
   @Type(() => String)
   sort?: string;

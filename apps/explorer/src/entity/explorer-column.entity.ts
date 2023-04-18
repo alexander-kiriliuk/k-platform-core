@@ -39,7 +39,7 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   @JoinTable()
   description: LocalizedStringEntity[];
 
-  @ManyToOne(t => ExplorerTargetEntity, t => t.target)
+  @ManyToOne(() => ExplorerTargetEntity, t => t.target)
   target: ExplorerTargetEntity;
 
   @Column("text", { nullable: false })

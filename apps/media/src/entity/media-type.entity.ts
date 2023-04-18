@@ -23,10 +23,10 @@ export class MediaTypeEntity implements MediaType {
   @Column("int", { nullable: true })
   quality: number;
 
-  @ManyToOne(t => MediaExtEntity, e => e.code)
+  @ManyToOne(() => MediaExtEntity, e => e.code)
   ext: MediaExtEntity;
 
-  @ManyToMany(a => MediaFormatEntity)
+  @ManyToMany(() => MediaFormatEntity)
   @JoinTable()
   formats: MediaFormatEntity[];
 
