@@ -68,7 +68,7 @@ export class ExplorerService {
       }
       const t = new ExplorerTargetEntity();
       t.target = md.targetName;
-      t.name = await this.localeService.createLocalizedStrings(md.targetName);
+      t.name = await this.localeService.createLocalizedStrings(md.targetName, `ex_target_${t.target}`);
       t.tableName = md.tableName;
       await this.saveTarget(t);
       t.columns = [];
@@ -76,7 +76,7 @@ export class ExplorerService {
         const c = new ExplorerColumnEntity();
         c.target = t;
         c.id = `${t.tableName}.${column.databasePath}`;
-        c.name = await this.localeService.createLocalizedStrings(column.propertyName);
+        c.name = await this.localeService.createLocalizedStrings(column.propertyName, `ex_col_${c.id}`);
         c.property = column.propertyName;
         c.type = this.getColumnType(column.type as string);
         c.primary = md.primaryColumns.find(pc => pc.propertyName === column.propertyName) !== undefined;
@@ -317,7 +317,7 @@ export class ExplorerService {
   private async setColumnProperties(c: ExplorerColumnEntity, relation: RelationMetadata, target: ExplorerTargetEntity) {
     c.target = target;
     c.id = `${target.tableName}.${relation.propertyPath}`;
-    c.name = await this.localeService.createLocalizedStrings(relation.propertyName);
+    c.name = await this.localeService.createLocalizedStrings(relation.propertyName, `ex_col_prop_${c.id}`);
     c.property = relation.propertyName;
     c.type = "reference";
     c.referencedTableName = relation.inverseEntityMetadata.tableName;
