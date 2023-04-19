@@ -25,6 +25,7 @@ import { ExplorerController } from "@composer/src/controllers/explorer.controlle
 import { MediaController } from "@composer/src/controllers/media.controller";
 import { MulterConfig } from "@composer/src/multer.config";
 import { MulterModule } from "@nestjs/platform-express";
+import { ConfigController } from "@composer/src/controllers/config.controller";
 
 @Module({
   controllers: [
@@ -33,15 +34,16 @@ import { MulterModule } from "@nestjs/platform-express";
     ProfileController,
     ExplorerController,
     MediaController,
+    ConfigController
   ],
   imports: [
     CacheModule,
     LogModule,
     MsClientModule,
     MulterModule.registerAsync({
-      useClass: MulterConfig,
-    }),
-  ],
+      useClass: MulterConfig
+    })
+  ]
 })
 export class ComposerModule {
 }

@@ -7,7 +7,10 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
-    "build:config": "nest start config",
+    "init:config": "nest start init-config",
+    "start:config": "nest start config",
+    "start:config:dev": "nest start config --watch",
+    "start:config:debug": "nest start config --debug --watch",
     "start:composer": "nest start composer",
     "start:composer:dev": "nest start composer --watch",
     "start:composer:debug": "nest start composer --debug --watch",

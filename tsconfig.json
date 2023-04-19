@@ -39,6 +39,9 @@
       "@composer/*": [
         "apps/composer/*"
       ],
+      "@config/*": [
+        "apps/config/*"
+      ],
       "@auth/*": [
         "apps/auth/*"
       ],

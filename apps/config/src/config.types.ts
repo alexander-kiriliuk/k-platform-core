@@ -14,21 +14,7 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
-import { ConfigService } from "./config.service";
-import { LogModule } from "@shared/modules/log/log.module";
-import { CacheModule } from "@shared/modules/cache/cache.module";
-import { ConfigController } from "./config.controller";
-
-@Module({
-  controllers: [
-    ConfigController
-  ],
-  imports: [
-    LogModule,
-    CacheModule
-  ],
-  providers: [ConfigService]
-})
-export class ConfigModule {
+export interface ConfigItem {
+  key: string;
+  value: string;
 }

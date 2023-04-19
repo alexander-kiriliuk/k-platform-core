@@ -10,6 +10,15 @@
   "monorepo": true,
   "root": "apps",
   "projects": {
+    "init-config": {
+      "type": "application",
+      "root": "apps/config",
+      "entryFile": "init",
+      "sourceRoot": "apps/config/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/config/tsconfig.app.json"
+      }
+    },
     "config": {
       "type": "application",
       "root": "apps/config",

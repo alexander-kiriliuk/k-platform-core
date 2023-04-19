@@ -16,9 +16,19 @@
 
 import { NestFactory } from "@nestjs/core";
 import { ConfigModule } from "./config.module";
+import { EnvLoader } from "@shared/utils/env.loader";
+
+EnvLoader.loadEnvironment();
 
 (async () => {
-  const app = await NestFactory.createApplicationContext(ConfigModule);
-  await app.init();
-  await app.close();
+  const app = await NestFactory.createMicroservice(ConfigModule,
+    {
+      transport: parseInt(process.env.TRANSPORT_TYPE),
+      options: {
+        host: process.env.TRANSPORT_HOST,
+        port: parseInt(process.env.TRANSPORT_PORT),
+        timeout: parseInt(process.env.TRANSPORT_TIMEOUT)
+      }
+    });
+  await app.listen();
 })();

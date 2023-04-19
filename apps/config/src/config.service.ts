@@ -28,6 +28,8 @@ import {
   PROPERTIES_FILE_EXT_PATTERN
 } from "./config.constants";
 import { CacheService } from "@shared/modules/cache/cache.types";
+import { PageableData, PageableParams } from "@shared/modules/pageable/pageable.types";
+import { ConfigItem } from "./config.types";
 
 
 @Injectable()
@@ -52,6 +54,40 @@ export class ConfigService {
       await this.cacheService.set(`${key}`, this.valuesOfProperties[key]);
     }
     this.logger.log(`Config files was synchronize`);
+  }
+
+  async getPropertiesPage(params: PageableParams): Promise<PageableData<ConfigItem>> {
+    const { limit, page, sort, order } = params;
+    const propertyKeys = await this.cacheService.getFromPattern(`${CONFIG_CACHE_PREFIX}:*`);
+    const sortedKeys = propertyKeys.sort((a, b) => {
+      if (sort && order) {
+        const aValue = a[sort] || "";
+        const bValue = b[sort] || "";
+        return order === "ASC" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+      }
+      return a.localeCompare(b);
+    });
+    const totalCount = sortedKeys.length;
+    const start = (page - 1) * limit;
+    const end = start + limit;
+    const keysToRetrieve = sortedKeys.slice(start, end);
+    const propertiesWithValues: ConfigItem[] = await Promise.all(
+      keysToRetrieve.map(async (key) => {
+        const value = await this.cacheService.get(key);
+        return { key: key.replace(`${CONFIG_CACHE_PREFIX}:`, ``), value };
+      })
+    );
+    return new PageableData(propertiesWithValues, totalCount, page, limit);
+  }
+
+  async setProperty(item: ConfigItem): Promise<boolean> {
+    const fullKey = `${CONFIG_CACHE_PREFIX}:${item.key}`;
+    return await this.cacheService.set(fullKey, item.value);
+  }
+
+  async removeProperty(key: string): Promise<boolean> {
+    const fullKey = `${CONFIG_CACHE_PREFIX}:${key}`;
+    return await this.cacheService.del(fullKey);
   }
 
   private async scanForPropertiesFiles(directory: string, globalKpContent: string | null = null) {

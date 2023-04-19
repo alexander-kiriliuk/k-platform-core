@@ -14,21 +14,15 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
+import { ConfigModule } from "./config.module";
 import { ConfigService } from "./config.service";
-import { LogModule } from "@shared/modules/log/log.module";
-import { CacheModule } from "@shared/modules/cache/cache.module";
-import { ConfigController } from "./config.controller";
 
-@Module({
-  controllers: [
-    ConfigController
-  ],
-  imports: [
-    LogModule,
-    CacheModule
-  ],
-  providers: [ConfigService]
-})
-export class ConfigModule {
-}
+
+(async () => {
+  const app = await NestFactory.createApplicationContext(ConfigModule);
+  await app.init();
+  const configService = app.select(ConfigModule).get(ConfigService);
+  await configService.initWithPropertiesFiles();
+  await app.close();
+})();
