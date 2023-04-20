@@ -19,6 +19,12 @@ import { config } from "dotenv";
 import { Logger } from "@nestjs/common";
 
 export namespace EnvLoader {
+
+  /**
+   * Loads environment variables from a .env file based on the current NODE_ENV.
+   * Falls back to the "default.env" file if the target .env file is not found.
+   * @param logger - Optional logger instance to use for logging messages.
+   */
   export function loadEnvironment(logger?: Logger) {
     let envFile = `${process.cwd()}/${process.env.NODE_ENV || "local"}.env`;
     const msg = `Try to load .env file ${envFile}`;
@@ -34,4 +40,5 @@ export namespace EnvLoader {
     const resMsg = `.env file ${envFile} was loaded`;
     logger ? logger.verbose(resMsg) : console.log(resMsg);
   }
+
 }

@@ -2,6 +2,9 @@ import { Logger } from "@nestjs/common";
 import { ObjectUtils } from "@shared/utils/object.utils";
 import inspect = ObjectUtils.inspect;
 
+/**
+ * Log service that extends the built-in Nest Logger.
+ */
 export class LogService extends Logger {
 
   log<T = any>(message: string, data: T) {

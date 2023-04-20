@@ -18,6 +18,11 @@ import * as util from "util";
 
 export namespace ObjectUtils {
 
+  /**
+   * Inspects an object and returns a string representation of it.
+   * @param obj - The object to inspect.
+   * @returns A string representation of the object.
+   */
   export function inspect<T = any>(obj: T) {
     return util.inspect(obj, { showHidden: false, depth: null });
   }

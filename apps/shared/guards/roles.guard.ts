@@ -20,6 +20,10 @@ import { UserRole } from "@user/src/user.types";
 import { REQUEST_PROPS, Roles } from "@shared/constants";
 import { AllowedForMetadataKey } from "@shared/decorators/for-roles.decorator";
 
+/**
+ * @class RolesGuard
+ * A guard for role-based access control.
+ */
 @Injectable()
 export class RolesGuard implements CanActivate {
 

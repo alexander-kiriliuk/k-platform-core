@@ -29,7 +29,7 @@ import {
   bruteForceLoginKey,
   jwtAccessTokenKey,
   jwtRefreshTokenKey,
-  UNKNOWN_IP,
+  UNKNOWN_IP
 } from "@auth/src/auth.constants";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { InvalidTokenMsException } from "@shared/exceptions/invalid-token-ms.exception";
@@ -37,6 +37,11 @@ import { LOGGER } from "@shared/modules/log/log.constants";
 import { AuthConfig } from "@auth/gen-src/auth.config";
 import { BruteforceConfig } from "@auth/gen-src/bruteforce.config";
 
+/**
+ * @class AuthService
+ * A service for authentication and authorization using JSON Web Tokens (JWT) and handling brute force protection.
+ * This service provides methods to authenticate users, invalidate tokens, exchange tokens, and manage failed attempts.
+ */
 @Injectable()
 export class AuthService {
 
@@ -46,6 +51,13 @@ export class AuthService {
   private bruteForceBlockDuration: number;
   private bruteForceEnabled: boolean;
 
+  /**
+   * @constructor
+   * @param logger - Logger instance.
+   * @param cacheService - CacheService instance.
+   * @param msClient - MsClient instance.
+   * @param jwtService - JwtService instance.
+   */
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
     private readonly cacheService: CacheService,
@@ -54,6 +66,11 @@ export class AuthService {
     this.initOptions();
   }
 
+  /**
+   * Authenticate the user with the provided login payload.
+   * @param data - LoginPayload object with user login information.
+   * @returns A Promise that resolves to a JwtDto containing access and refresh tokens, or null if authentication fails.
+   */
   async authenticate(data: LoginPayload): Promise<JwtDto> {
     if (!data.ipAddress?.length) {
       data.ipAddress = UNKNOWN_IP;
@@ -77,6 +94,11 @@ export class AuthService {
     return { user, accessToken, refreshToken };
   }
 
+  /**
+   * Invalidate the specified access token.
+   * @param accessToken - The access token to invalidate.
+   * @returns A Promise that resolves to true if the token was invalidated successfully, or throws an error.
+   */
   async invalidateToken(accessToken: string) {
     const userLogin = await this.cacheService.get(jwtAccessTokenKey(accessToken));
     if (userLogin) {
@@ -90,6 +112,11 @@ export class AuthService {
     return true;
   }
 
+  /**
+   * Exchange the provided refresh token for a new access token.
+   * @param refreshToken - The refresh token to exchange.
+   * @returns A Promise that resolves to a Partial<JwtDto> containing a new access and refresh tokens, or null if the exchange fails.
+   */
   async exchangeToken(refreshToken: string): Promise<Partial<JwtDto>> {
     const refreshTokenKeyPattern = jwtRefreshTokenKey("*", refreshToken);
     const refreshTokenKeys = await this.cacheService.getFromPattern(refreshTokenKeyPattern);

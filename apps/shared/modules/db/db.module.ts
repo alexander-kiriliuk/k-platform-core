@@ -36,7 +36,9 @@ import { UserSubscriber } from "@user/src/entity/user-subscriber";
 import { LogModule } from "@shared/modules/log/log.module";
 import { LocaleSubscriber } from "@shared/modules/locale/entity/locale-subscriber";
 
-
+/**
+ * A class representing a database module with static methods to configure and register the database.
+ */
 export class DbModule {
   static forRoot(): DynamicModule {
     return {

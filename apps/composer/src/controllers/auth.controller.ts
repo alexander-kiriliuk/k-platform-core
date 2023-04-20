@@ -20,7 +20,7 @@ import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { ExchangeTokenPayload, JwtDto, LoginPayload } from "@auth/src/auth.types";
 import { LiteAuthGuard } from "@shared/guards/lite-auth.guard";
 import { AccessToken } from "@shared/decorators/access-token.decorator";
-import { ResponseDto } from "@shared/decorators/dto.decorator";
+import { ResponseDto } from "@shared/decorators/response-dto.decorator";
 import { Request } from "express";
 
 @Controller("/auth")

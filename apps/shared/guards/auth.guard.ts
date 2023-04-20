@@ -20,6 +20,10 @@ import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { LOGGER } from "@shared/modules/log/log.constants";
 
+/**
+ * @class AuthGuard
+ * An authentication guard that extends AbstractAuthGuard, used for full authentication including user fetching.
+ */
 @Injectable()
 export class AuthGuard extends AbstractAuthGuard {
 

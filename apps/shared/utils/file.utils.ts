@@ -21,23 +21,37 @@ import * as fs from "fs";
 
 export namespace FileUtils {
 
+  /**
+   * Deserializes a serialized file into a file object.
+   * @param serialized - The serialized file object.
+   * @returns The deserialized file object.
+   */
   export function deSerializeFile(serialized: SerializedFile) {
     return {
       ...serialized,
-      buffer: Buffer.from(serialized.buffer, "base64"),
+      buffer: Buffer.from(serialized.buffer, "base64")
     } as DeSerializedFile;
   }
 
+  /**
+   * Serializes a file object into a serialized file.
+   * @param file - The file object to serialize.
+   * @returns The serialized file object.
+   */
   export function serializeFile(file: File) {
     return {
       originalname: file.originalname,
       encoding: file.encoding,
       mimetype: file.mimetype,
       buffer: file.buffer.toString("base64"),
-      size: file.size,
+      size: file.size
     } as SerializedFile;
   }
 
+  /**
+   * Creates directories if they do not exist.
+   * @param directoryPath - The path of the directory to create.
+   */
   export async function createDirectoriesIfNotExist(directoryPath: string) {
     try {
       await fs.promises.access(directoryPath);

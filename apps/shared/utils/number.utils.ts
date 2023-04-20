@@ -16,6 +16,12 @@
 
 export namespace NumberUtils {
 
+  /**
+   * Generates a random integer between the given minimum and maximum values (inclusive).
+   * @param max - The maximum value of the random integer (default: Number.MAX_SAFE_INTEGER).
+   * @param min - The minimum value of the random integer (default: 0).
+   * @returns A random integer between the specified min and max values.
+   */
   export function generateRandomInt(max = Number.MAX_SAFE_INTEGER, min = 0) {
     min = Math.ceil(min);
     max = Math.floor(max);

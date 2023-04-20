@@ -21,6 +21,11 @@ import { User } from "@user/src/user.types";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { AUTH_ACCESS_TOKEN_PREFIX, AUTH_JWT_CACHE_PREFIX } from "@auth/src/auth.constants";
 
+/**
+ * @abstract
+ * @class AbstractAuthGuard
+ * An abstract class for creating authentication guards.
+ */
 export abstract class AbstractAuthGuard implements CanActivate {
 
   protected abstract readonly logger: Logger;

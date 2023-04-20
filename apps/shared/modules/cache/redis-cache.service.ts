@@ -19,6 +19,9 @@ import { RedisService } from "@liaoliaots/nestjs-redis";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { LOGGER } from "@shared/modules/log/log.constants";
 
+/**
+ * A service class that provides cache storage functionality implementing the CacheService interface.
+ */
 @Injectable()
 export class RedisCacheService implements CacheService {
 
@@ -27,10 +30,21 @@ export class RedisCacheService implements CacheService {
     private readonly redis: RedisService) {
   }
 
+  /**
+   * Gets the Redis client.
+   *
+   * @returns The Redis client instance.
+   */
   private get client() {
     return this.redis.getClient();
   }
 
+  /**
+   * Retrieves the value of the specified key from the cache storage.
+   *
+   * @param key - The key to retrieve from the cache.
+   * @returns A Promise that resolves to the value of the key or null if an error occurs.
+   */
   async get(key: string): Promise<string | null> {
     try {
       return await this.client.get(key);
@@ -40,16 +54,36 @@ export class RedisCacheService implements CacheService {
     }
   }
 
+  /**
+   * Retrieves the boolean value of the specified key from the cache storage.
+   *
+   * @param key - The key to retrieve from the cache.
+   * @returns A Promise that resolves to the boolean value of the key.
+   */
   async getBoolean(key: string) {
     const val = await this.get(key);
     return Boolean(val);
   }
 
+  /**
+   * Retrieves the numeric value of the specified key from the cache storage.
+   *
+   * @param key - The key to retrieve from the cache.
+   * @returns A Promise that resolves to the numeric value of the key.
+   */
   async getNumber(key: string) {
     const val = await this.get(key);
     return +val;
   }
 
+  /**
+   * Sets the value of the specified key in the cache storage with an optional expiration time.
+   *
+   * @param key - The key to set in the cache.
+   * @param value - The value to set for the key.
+   * @param expiresIn - Optional expiration time in seconds.
+   * @returns A Promise that resolves to true if the operation is successful, false otherwise.
+   */
   async set(key: string, value: string | number, expiresIn?: number): Promise<boolean> {
     try {
       if (expiresIn) {
@@ -64,6 +98,12 @@ export class RedisCacheService implements CacheService {
     }
   }
 
+  /**
+   * Deletes the specified keys from the cache storage.
+   *
+   * @param keys - The keys to delete from the cache.
+   * @returns A Promise that resolves to true if the operation is successful, false otherwise.
+   */
   async del(...keys: string[]): Promise<boolean> {
     try {
       await this.client.del(...keys);
@@ -74,6 +114,12 @@ export class RedisCacheService implements CacheService {
     }
   }
 
+  /**
+   * Increments the value of the specified key in the cache storage.
+   *
+   * @param key - The key to increment.
+   * @returns A Promise that resolves to the new value of the key or null if an error occurs.
+   */
   async incr(key: string): Promise<number | null> {
     try {
       return await this.client.incr(key);
@@ -83,6 +129,12 @@ export class RedisCacheService implements CacheService {
     }
   }
 
+  /**
+   * Sets the expiration time for the given key in the Redis cache.
+   * @param key - The key to set the expiration time for.
+   * @param expiresIn - The expiration time in seconds.
+   * @returns True if the operation succeeded, false otherwise.
+   */
   async expire(key: string, expiresIn: number): Promise<boolean> {
     try {
       await this.client.expire(key, expiresIn);
@@ -93,6 +145,11 @@ export class RedisCacheService implements CacheService {
     }
   }
 
+  /**
+   * Retrieves keys that match a given pattern from the Redis cache.
+   * @param pattern - The pattern to match keys against.
+   * @returns An array of matching keys.
+   */
   getFromPattern(pattern: string): Promise<string[]> {
     return new Promise((resolve, reject) => {
       const keys: string[] = [];

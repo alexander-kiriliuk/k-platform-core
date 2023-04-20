@@ -19,7 +19,7 @@ import { MediaService } from "./media.service";
 import { MessagePattern } from "@nestjs/microservices";
 import { MediaDto, UploadMediaRequest } from "@media/src/media.types";
 import { FileUtils } from "@shared/utils/file.utils";
-import { ResponseDto } from "@shared/decorators/dto.decorator";
+import { ResponseDto } from "@shared/decorators/response-dto.decorator";
 import deSerializeFile = FileUtils.deSerializeFile;
 
 

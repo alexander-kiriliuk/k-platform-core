@@ -24,6 +24,9 @@ import { ObjectUtils } from "@shared/utils/object.utils";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import inspect = ObjectUtils.inspect;
 
+/**
+ * Microservices client for dispatching, sending, and emitting messages.
+ */
 export class MsClient {
 
   constructor(
@@ -31,21 +34,42 @@ export class MsClient {
     private readonly proxy: ClientProxy) {
   }
 
+  /**
+   * Dispatches a message with the given pattern and data.
+   * @param pattern - The message pattern.
+   * @param data - The message data.
+   * @param opts - Optional configuration options for the client.
+   * @returns A promise resolving to the result of the dispatched message.
+   */
   dispatch<TResult = any, TInput = any>(pattern: any, data: TInput = Object(), opts?: MsClientOptions): Promise<TResult> {
     return new Promise<TResult>((resolve, reject) => {
       const source = this.proxy.send<TResult, TInput>(pattern, data);
       this.handleRequest(source, pattern, data, opts).subscribe({
         next: result => resolve(result),
-        error: error => reject(error),
+        error: error => reject(error)
       });
     });
   }
 
+  /**
+   * Sends a message with the given pattern and data.
+   * @param pattern - The message pattern.
+   * @param data - The message data.
+   * @param opts - Optional configuration options for the client.
+   * @returns An observable of the result of the sent message.
+   */
   send<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions) {
     const source = this.proxy.send<TResult, TInput>(pattern, data);
     return this.handleRequest(source, pattern, data, opts);
   }
 
+  /**
+   * Emits a message with the given pattern and data.
+   * @param pattern - The message pattern.
+   * @param data - The message data.
+   * @param opts - Optional configuration options for the client.
+   * @returns An observable of the result of the emitted message.
+   */
   emit<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions) {
     const source = this.proxy.emit<TResult, TInput>(pattern, data);
     return this.handleRequest(source, pattern, data, opts);

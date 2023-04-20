@@ -18,7 +18,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@n
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { CurrentUser } from "@shared/decorators/current-user.decorator";
 import { User, UserDto, UserUpdateRequest } from "@user/src/user.types";
-import { ResponseDto } from "@shared/decorators/dto.decorator";
+import { ResponseDto } from "@shared/decorators/response-dto.decorator";
 import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { RolesGuard } from "@shared/guards/roles.guard";
 

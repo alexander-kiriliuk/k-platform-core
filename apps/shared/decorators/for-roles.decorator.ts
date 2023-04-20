@@ -20,4 +20,8 @@ import { Roles } from "@shared/constants";
 
 export const AllowedForMetadataKey = "for_role";
 
+/**
+ * ForRoles custom decorator for defining roles allowed to access a route.
+ * @param roles - An array of roles allowed for access.
+ */
 export const ForRoles = (...roles: Roles[]) => SetMetadata(AllowedForMetadataKey, roles);

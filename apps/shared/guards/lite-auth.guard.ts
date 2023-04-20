@@ -20,6 +20,10 @@ import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { LOGGER } from "@shared/modules/log/log.constants";
 
+/**
+ * @class LiteAuthGuard
+ * An authentication guard that extends AbstractAuthGuard, used for lightweight authentication without user fetching.
+ */
 @Injectable()
 export class LiteAuthGuard extends AbstractAuthGuard {
 

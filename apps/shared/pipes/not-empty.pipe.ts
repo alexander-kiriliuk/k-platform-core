@@ -16,6 +16,9 @@
 
 import { BadRequestException, Injectable, PipeTransform } from "@nestjs/common";
 
+/**
+ * Pipe to ensure a value is not empty.
+ */
 @Injectable()
 export class NotEmptyPipe implements PipeTransform {
   constructor(private readonly fieldName: string) {
