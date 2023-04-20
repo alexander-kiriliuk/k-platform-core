@@ -31,7 +31,11 @@ import { CacheService } from "@shared/modules/cache/cache.types";
 import { PageableData, PageableParams } from "@shared/modules/pageable/pageable.types";
 import { ConfigItem } from "./config.types";
 
-
+/**
+ * ConfigService is a service responsible for managing configurations in your application.
+ * It reads configuration properties from .properties files and stores the values in a cache for fast retrieval.
+ * The service provides methods to get, set, and remove configuration properties.
+ */
 @Injectable()
 export class ConfigService {
 
@@ -43,6 +47,9 @@ export class ConfigService {
     private readonly cacheService: CacheService) {
   }
 
+  /**
+   * Initializes the service by scanning for properties files, generating config files, and synchronizing the cache.
+   */
   async initWithPropertiesFiles() {
     this.logger.log(`Scan project`);
     await this.scanForPropertiesFiles(process.cwd());
@@ -56,6 +63,11 @@ export class ConfigService {
     this.logger.log(`Config files was synchronize`);
   }
 
+  /**
+   * Retrieves a page of configuration properties based on the provided pageable parameters.
+   * @param params - Pageable parameters for sorting, filtering, and pagination.
+   * @returns A promise that resolves to an object containing the pageable data.
+   */
   async getPropertiesPage(params: PageableParams): Promise<PageableData<ConfigItem>> {
     const { limit, page, sort, order } = params;
     const propertyKeys = await this.cacheService.getFromPattern(`${CONFIG_CACHE_PREFIX}:*`);
@@ -80,11 +92,21 @@ export class ConfigService {
     return new PageableData(propertiesWithValues, totalCount, page, limit);
   }
 
+  /**
+   * Sets a configuration property.
+   * @param item - An object containing the key and value of the configuration property.
+   * @returns A promise that resolves to a boolean indicating whether the operation was successful.
+   */
   async setProperty(item: ConfigItem): Promise<boolean> {
     const fullKey = `${CONFIG_CACHE_PREFIX}:${item.key}`;
     return await this.cacheService.set(fullKey, item.value);
   }
 
+  /**
+   * Removes a configuration property.
+   * @param key - The key of the configuration property to remove.
+   * @returns A promise that resolves to a boolean indicating whether the operation was successful.
+   */
   async removeProperty(key: string): Promise<boolean> {
     const fullKey = `${CONFIG_CACHE_PREFIX}:${key}`;
     return await this.cacheService.del(fullKey);

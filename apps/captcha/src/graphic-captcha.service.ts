@@ -30,12 +30,20 @@ import { CAPTCHA_CACHE_PREFIX } from "@captcha/src/captcha.constants";
 import generateRandomString = StringUtils.generateRandomString;
 import generateRandomInt = NumberUtils.generateRandomInt;
 
+/**
+ * The GraphicCaptchaService class extends the CaptchaService class with a specialization for graphical captchas.
+ * It manages the generation and validation of graphic captchas.
+ */
 export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse> {
 
   private captchaExp: number;
   private captchaFontFamily: string;
   private captchaFontPath: string;
 
+  /**
+   * @param {Logger} logger - An instance of Logger.
+   * @param {CacheService} cacheService - An instance of CacheService.
+   */
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
     private readonly cacheService: CacheService) {
@@ -43,6 +51,10 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
     this.initOptions();
   }
 
+  /**
+   * Generates a new graphical captcha and stores it in the cache.
+   * @returns {Promise<GraphicCaptchaResponse>} - A promise resolving to a GraphicCaptchaResponse object containing the captcha id and image.
+   */
   async generateCaptcha(): Promise<GraphicCaptchaResponse> {
     const id = uuidv4();
     const val = generateRandomString(5, 7);
@@ -52,6 +64,13 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
     return { id, image };
   }
 
+  /**
+   * Validates the provided captcha request against the cached value.
+   * @param {CaptchaRequest} request - The captcha request to be validated.
+   * @returns {Promise<boolean>} - A promise resolving to a boolean indicating whether the captcha is valid or not.
+   * @throws {BadRequestMsException} - Thrown when the captcha id is invalid.
+   * @throws {ForbiddenMsException} - Thrown when the captcha value is incorrect.
+   */
   async validateCaptcha(request: CaptchaRequest): Promise<boolean> {
     const key = `${CAPTCHA_CACHE_PREFIX}:${request.id}`;
     const val = await this.cacheService.get(key);
@@ -67,12 +86,22 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
     return true;
   }
 
+  /**
+   * Initializes captcha options from the CacheService.
+   * @private
+   */
   private async initOptions() {
     this.captchaExp = await this.cacheService.getNumber(CaptchaConfig.EXPIRATION);
     this.captchaFontFamily = await this.cacheService.get(CaptchaConfig.FONT_FAMILY);
     this.captchaFontPath = await this.cacheService.get(CaptchaConfig.FONT_PATH);
   }
 
+  /**
+   * Generates an image from the provided text.
+   * @param {string} text - The text to be drawn on the image.
+   * @returns {Promise<string>} - A promise resolving to a base64 encoded image.
+   * @private
+   */
   private async makeImageFromText(text: string) {
     const canvas = createCanvas(200, 50);
     const ctx = canvas.getContext("2d");
@@ -87,7 +116,7 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
       ctx.fillText(
         char,
         (i * canvas.width) / text.length + Math.random() * 10 - 5,
-        canvas.height / 2 + Math.random() * 10 - 5,
+        canvas.height / 2 + Math.random() * 10 - 5
       );
     }
     for (let i = 0; i < 5; i++) {
@@ -100,6 +129,11 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
     return canvas.toBuffer().toString("base64");
   }
 
+  /**
+   * Generates a random RGB color.
+   * @returns {string} - An RGB color string.
+   * @private
+   */
   private generateColor() {
     return `rgb(${generateRandomInt(255)},${generateRandomInt(255)},${generateRandomInt(255)})`;
   }

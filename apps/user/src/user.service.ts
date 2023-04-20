@@ -22,33 +22,73 @@ import { UserEntity } from "@user/src/entity/user.entity";
 import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
 import { USER_RELATIONS } from "@user/src/user.constants";
 
+/**
+ * @class UserService
+ * Provides methods to interact with the UserEntity repository.
+ */
 @Injectable()
 export class UserService {
 
+  /**
+   * @constructor
+   * Creates a new UserService instance.
+   * @param {Repository<UserEntity>} userRep - The repository for UserEntity.
+   */
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRep: Repository<UserEntity>) {
   }
 
-
+  /**
+   * Find a user by their login.
+   * @async
+   * @param {string} login - The user's login.
+   * @returns {Promise<UserEntity | undefined>} The user found or undefined if not found.
+   */
   async findByLogin(login: string) {
     return await this.userRep.findOne({ where: { login }, relations: USER_RELATIONS });
   }
 
+  /**
+   * Find a user by their ID.
+   * @async
+   * @param {string} id - The user's ID.
+   * @returns {Promise<UserEntity | undefined>} The user found or undefined if not found.
+   */
   async findById(id: string) {
     return await this.userRep.findOne({ where: { id }, relations: USER_RELATIONS });
   }
 
+  /**
+   * Update a user by their ID.
+   * @async
+   * @param {string} id - The user's ID.
+   * @param {User} user - The user object with updated properties.
+   * @returns {Promise<UserEntity>} The updated user.
+   */
   async updateById(id: string, user: User) {
     await this.userRep.update(id, user);
     return await this.findById(id);
   }
 
+  /**
+   * Create a new user.
+   * @async
+   * @param {User} user - The user object to create.
+   * @returns {Promise<UserEntity>} The created user.
+   */
   async create(user: User) {
     const newUser = this.userRep.create(user);
     return await this.userRep.save(newUser);
   }
 
+  /**
+   * Remove a user by their ID.
+   * @async
+   * @param {string} id - The user's ID.
+   * @returns {Promise<UserEntity>} The removed user.
+   * @throws {NotFoundMsException} If the user with the specified ID is not found.
+   */
   async removeById(id: string) {
     const user = await this.findById(id);
     if (!user) {

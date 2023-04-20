@@ -20,15 +20,46 @@ import { Inject, Injectable, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { InjectDataSource } from "@nestjs/typeorm";
 
+/**
+ * LocaleSubscriber is an EntitySubscriber that listens to removal events
+ * for entities that have relationships with LocalizedStringEntity.
+ * When such an entity is removed, LocaleSubscriber will also remove
+ * the associated LocalizedStringEntity instances.
+ *
+ * @example
+ * class MyEntity {
+ *   @ManyToMany(() => LocalizedStringEntity, { cascade: true })
+ *   @JoinTable()
+ *   firstName: LocalizedStringEntity[];
+ * }
+ *
+ * const myEntity = new MyEntity();
+ * entityManager.remove(myEntity); // will trigger LocaleSubscriber to remove related LocalizedStringEntity instances
+ */
 @Injectable()
 @EventSubscriber()
 export class LocaleSubscriber implements EntitySubscriberInterface {
+
+  /**
+   * Constructs a new LocaleSubscriber instance.
+   *
+   * @param logger - The Logger instance used for logging messages.
+   * @param dataSource - The DataSource instance used to access the connection and its subscribers.
+   */
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
     @InjectDataSource() private readonly dataSource: DataSource) {
     dataSource.manager.connection.subscribers.push(this);
   }
 
+  /**
+   * The afterRemove event is triggered when an entity is removed.
+   * If the removed entity has relationships with LocalizedStringEntity instances,
+   * the related LocalizedStringEntity instances will also be removed.
+   *
+   * @param event - The RemoveEvent instance containing information about the removed entity.
+   * @returns A Promise that resolves when the removal of related LocalizedStringEntity instances is complete.
+   */
   async afterRemove(event: RemoveEvent<any>): Promise<void> {
     const entity = event.entity;
     if (!entity) {
