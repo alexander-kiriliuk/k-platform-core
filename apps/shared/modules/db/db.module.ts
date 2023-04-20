@@ -33,13 +33,19 @@ import { LanguageEntity } from "@shared/modules/locale/entity/language.entity";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { LocalizedMediaEntity } from "@shared/modules/locale/entity/localized-media.entity";
 import { UserSubscriber } from "@user/src/entity/user-subscriber";
+import { LogModule } from "@shared/modules/log/log.module";
+import { LocaleSubscriber } from "@shared/modules/locale/entity/locale-subscriber";
 
 
 export class DbModule {
   static forRoot(): DynamicModule {
     return {
       module: DbModule,
+      providers: [
+        LocaleSubscriber
+      ],
       imports: [
+        LogModule,
         TypeOrmModule.forRootAsync({
           imports: [CacheModule],
           inject: [CacheService],
@@ -66,17 +72,17 @@ export class DbModule {
                 ExplorerColumnEntity,
                 LanguageEntity,
                 LocalizedStringEntity,
-                LocalizedMediaEntity,
+                LocalizedMediaEntity
               ],
               migrations: [],
               subscribers: [
-                UserSubscriber,
-              ],
+                UserSubscriber
+              ]
             };
             return opts;
-          },
-        }),
-      ],
+          }
+        })
+      ]
     };
   }
 }
