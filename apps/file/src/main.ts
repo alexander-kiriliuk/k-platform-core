@@ -14,16 +14,22 @@
  *    limitations under the License.
  */
 
-import { Controller, Get } from "@nestjs/common";
-import { FilesService } from "./files.service";
+import { NestFactory } from "@nestjs/core";
+import { FileModule } from "./file.module";
+import { EnvLoader } from "@shared/utils/env.loader";
 
-@Controller()
-export class FilesController {
-  constructor(private readonly filesService: FilesService) {
-  }
+EnvLoader.loadEnvironment();
 
-  @Get()
-  getHello(): string {
-    return this.filesService.getHello();
-  }
-}
+(async () => {
+  const app = await NestFactory.createMicroservice(
+    FileModule,
+    {
+      transport: parseInt(process.env.TRANSPORT_TYPE),
+      options: {
+        host: process.env.TRANSPORT_HOST,
+        port: parseInt(process.env.TRANSPORT_PORT),
+        timeout: parseInt(process.env.TRANSPORT_TIMEOUT)
+      }
+    });
+  await app.listen();
+})();

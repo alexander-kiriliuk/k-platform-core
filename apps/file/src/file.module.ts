@@ -15,13 +15,24 @@
  */
 
 import { Module } from "@nestjs/common";
-import { FilesController } from "./files.controller";
-import { FilesService } from "./files.service";
+import { FileController } from "./file.controller";
+import { FileService } from "./file.service";
+import { DbModule } from "@shared/modules/db/db.module";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { FileEntity } from "@files/src/entity/file.entity";
+import { LogModule } from "@shared/modules/log/log.module";
+import { CacheModule } from "@shared/modules/cache/cache.module";
 
 @Module({
-  imports: [],
-  controllers: [FilesController],
-  providers: [FilesService],
+  imports: [
+    DbModule.forRoot(),
+    TypeOrmModule.forFeature([FileEntity]),
+    LogModule,
+    CacheModule
+  ],
+  controllers: [FileController],
+  providers: [FileService],
+  exports: [FileService]
 })
-export class FilesModule {
+export class FileModule {
 }

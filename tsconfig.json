@@ -28,7 +28,7 @@
         "apps/media/*"
       ],
       "@files/*": [
-        "apps/files/*"
+        "apps/file/*"
       ],
       "@db-script-evaluator/*": [
         "apps/db-script-evaluator/*"

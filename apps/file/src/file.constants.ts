@@ -14,22 +14,9 @@
  *    limitations under the License.
  */
 
-import { NestFactory } from "@nestjs/core";
-import { FilesModule } from "./files.module";
-import { EnvLoader } from "@shared/utils/env.loader";
 
-EnvLoader.loadEnvironment();
-
-(async () => {
-  const app = await NestFactory.createMicroservice(
-    FilesModule,
-    {
-      transport: parseInt(process.env.TRANSPORT_TYPE),
-      options: {
-        host: process.env.TRANSPORT_HOST,
-        port: parseInt(process.env.TRANSPORT_PORT),
-        timeout: parseInt(process.env.TRANSPORT_TIMEOUT),
-      },
-    });
-  await app.listen();
-})();
+export const FILE_RELATIONS = [
+  "name", "name.lang",
+  "icon", "icon.files", "icon.files.format", "icon.type", "icon.type.ext",
+  "preview", "preview.files", "preview.files.format", "preview.type", "preview.type.ext"
+];

@@ -14,11 +14,21 @@
  *    limitations under the License.
  */
 
-import { Injectable } from "@nestjs/common";
+import { Media, SerializedFile } from "@media/src/media.types";
+import { LocalizedString } from "@shared/modules/locale/locale.types";
 
-@Injectable()
-export class FilesService {
-  getHello(): string {
-    return "Hello World! Files";
-  }
+export interface File {
+  id: number;
+  code: string;
+  name: LocalizedString[];
+  path: string;
+  public: boolean;
+  size: number;
+  icon: Media;
+  preview: Media;
+}
+
+export interface UploadFileRequest {
+  public: boolean;
+  file: SerializedFile;
 }

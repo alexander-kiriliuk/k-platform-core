@@ -28,58 +28,54 @@ import {
 } from "@nestjs/common";
 import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { File } from "multer";
-import { Media, UploadMediaRequest } from "@media/src/media.types";
+import { File as MulterFile } from "multer";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { FilesUtils } from "@shared/utils/files.utils";
 import { NotEmptyPipe } from "@shared/pipes/not-empty.pipe";
-import { DEFAULT_MEDIA_TYPE } from "@media/src/media.constants";
 import { Response } from "express";
 import * as path from "path";
-import { MediaService } from "@media/src/media.service";
+import { File, UploadFileRequest } from "@files/src/file.types";
+import { FileService } from "@files/src/file.service";
 import serializeFile = FilesUtils.serializeFile;
 
-@Controller("/media")
-export class MediaController {
+@Controller("/file")
+export class FileController {
 
   constructor(
-    private readonly mediaService: MediaService,
+    private readonly fileService: FileService,
     private readonly msClient: MsClient) {
   }
 
-  @Post("/upload/:type?")
+  @Post("/upload")
   @UseInterceptors(FileInterceptor("file"))
-  async createMedia(@UploadedFile("file", new NotEmptyPipe("file")) file: File,
-                    @Param("type") type = DEFAULT_MEDIA_TYPE) {
+  async createFile(
+    @UploadedFile("file", new NotEmptyPipe("file")) file: MulterFile,
+    @Query("public") isPublic = "true") {
     const serializedFile = serializeFile(file);
-    return await this.msClient.dispatch<Media, UploadMediaRequest>("media.upload", {
-      type: type,
+    return await this.msClient.dispatch<File, UploadFileRequest>("file.upload", {
       file: serializedFile,
+      public: isPublic === "true"
     }, { timeout: 30000 });
   }
 
   @UseGuards(AuthGuard)
   @Get("/private/:id")
-  async getPrivateMedia(
-    @Res() res: Response,
-    @Param("id") id: string,
-    @Query("format") format: string,
-    @Query("webp") webp: boolean) {
-    const media = await this.msClient.dispatch<Media, string>("media.get.private.by.id", id);
-    const mediaPath = this.mediaService.getMediaPath(media, format, webp);
-    res.sendFile(path.join(process.cwd(), mediaPath));
+  async getPrivateFile(@Res() res: Response, @Param("id") id: string) {
+    const file = await this.msClient.dispatch<File, string>("file.get.private.by.id", id);
+    const filePath = this.fileService.getFilePath(file);
+    res.sendFile(path.join(process.cwd(), filePath));
   }
 
   @UseGuards(AuthGuard)
   @Get("/:id")
-  async getMedia(@Param("id") id: string) {
-    return await this.msClient.dispatch<Media, string>("media.get.by.id", id);
+  async getFile(@Param("id") id: string) {
+    return await this.msClient.dispatch<File, string>("file.get.by.id", id);
   }
 
   @UseGuards(AuthGuard)
   @Delete("/:id")
-  async removeMedia(@Param("id") id: string) {
-    return await this.msClient.dispatch<Media, string>("media.remove", id);
+  async removeFile(@Param("id") id: string) {
+    return await this.msClient.dispatch<File, string>("file.remove", id);
   }
 
 }

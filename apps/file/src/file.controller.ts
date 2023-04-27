@@ -15,41 +15,38 @@
  */
 
 import { Controller } from "@nestjs/common";
-import { MediaService } from "./media.service";
+import { FileService } from "./file.service";
 import { MessagePattern } from "@nestjs/microservices";
-import { MediaDto, UploadMediaRequest } from "@media/src/media.types";
 import { FilesUtils } from "@shared/utils/files.utils";
-import { ResponseDto } from "@shared/decorators/response-dto.decorator";
+import { UploadFileRequest } from "@files/src/file.types";
 import deSerializeFile = FilesUtils.deSerializeFile;
 
-
 @Controller()
-export class MediaController {
+export class FileController {
 
   constructor(
-    private readonly mediaService: MediaService) {
+    private readonly filesService: FileService) {
   }
 
-  @ResponseDto(MediaDto)
-  @MessagePattern("media.upload")
-  async uploadMedia(payload: UploadMediaRequest) {
+  @MessagePattern("file.upload")
+  async uploadMedia(payload: UploadFileRequest) {
     const deserializedFile = deSerializeFile(payload.file);
-    return await this.mediaService.upload(deserializedFile, payload.type);
+    return await this.filesService.upload(deserializedFile, payload.public);
   }
 
-  @MessagePattern("media.get.by.id")
+  @MessagePattern("file.get.by.id")
   async findMediaById(id: number) {
-    return await this.mediaService.findPublicById(id);
+    return await this.filesService.findPublicById(id);
   }
 
-  @MessagePattern("media.get.private.by.id")
+  @MessagePattern("file.get.private.by.id")
   async findPrivateMediaById(id: number) {
-    return await this.mediaService.findPrivateById(id);
+    return await this.filesService.findPrivateById(id);
   }
 
-  @MessagePattern("media.remove")
+  @MessagePattern("file.remove")
   async removeMedia(id: number) {
-    return await this.mediaService.remove(id);
+    return await this.filesService.remove(id);
   }
 
 }

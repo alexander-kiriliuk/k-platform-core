@@ -19,7 +19,7 @@ import { File } from "multer";
 import * as fs from "fs";
 
 
-export namespace FileUtils {
+export namespace FilesUtils {
 
   /**
    * Deserializes a serialized file into a file object.

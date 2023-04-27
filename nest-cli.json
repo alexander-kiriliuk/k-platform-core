@@ -91,13 +91,13 @@
         "tsConfigPath": "apps/db-script-evaluator/tsconfig.app.json"
       }
     },
-    "files": {
+    "file": {
       "type": "application",
-      "root": "apps/files",
+      "root": "apps/file",
       "entryFile": "main",
-      "sourceRoot": "apps/files/src",
+      "sourceRoot": "apps/file/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/files/tsconfig.app.json"
+        "tsConfigPath": "apps/file/tsconfig.app.json"
       }
     }
   }

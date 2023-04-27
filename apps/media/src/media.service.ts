@@ -15,7 +15,7 @@
  */
 
 import { HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
-import { DeSerializedFile, MediaFormat } from "@media/src/media.types";
+import { DeSerializedFile, Media, MediaFormat } from "@media/src/media.types";
 import { MediaFileEntity } from "@media/src/entity/media-file.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -25,7 +25,7 @@ import { MediaConfig } from "@media/gen-src/media.config";
 import { DEFAULT_MEDIA_QUALITY, MEDIA_TYPE_RELATIONS, ReservedMediaFormat } from "@media/src/media.constants";
 import { MediaFormatEntity } from "@media/src/entity/media-format.entity";
 import { BadRequestMsException } from "@shared/exceptions/bad-request-ms.exception";
-import { FileUtils } from "@shared/utils/file.utils";
+import { FilesUtils } from "@shared/utils/files.utils";
 import { NumberUtils } from "@shared/utils/number.utils";
 import * as sharp from "sharp";
 import * as imagemin from "imagemin";
@@ -37,10 +37,12 @@ import { LOGGER } from "@shared/modules/log/log.constants";
 import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
 import { MsException } from "@shared/exceptions/ms.exception";
 import { CacheService } from "@shared/modules/cache/cache.types";
-import createDirectoriesIfNotExist = FileUtils.createDirectoriesIfNotExist;
+import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
 import generateRandomInt = NumberUtils.generateRandomInt;
 import THUMB = ReservedMediaFormat.THUMB;
 import ORIGINAL = ReservedMediaFormat.ORIGINAL;
+import PRIVATE_DIR = MediaConfig.PRIVATE_DIR;
+import PUBLIC_DIR = MediaConfig.PUBLIC_DIR;
 
 /**
  * `MediaService` is a service responsible for managing media files, including
@@ -72,8 +74,8 @@ export class MediaService {
     this.logger.log("Initializing MediaService");
     this.originalFormat = await this.mediaFormatRep.findOne({ where: { code: ORIGINAL } });
     this.thumbFormat = await this.mediaFormatRep.findOne({ where: { code: THUMB } });
-    this.privateDir = await this.cacheService.get(MediaConfig.PRIVATE_DIR);
-    this.publicDir = await this.cacheService.get(MediaConfig.PUBLIC_DIR);
+    this.privateDir = await this.cacheService.get(PRIVATE_DIR);
+    this.publicDir = await this.cacheService.get(PUBLIC_DIR);
   }
 
 
@@ -127,17 +129,37 @@ export class MediaService {
    */
   async upload(file: DeSerializedFile, type: string): Promise<MediaEntity> {
     const mediaType = await this.getMediaType(type);
-    const savedMediaEntity = await this.createMediaEntity(mediaType);
-    const outputPath = await this.createMediaDirectory(mediaType, savedMediaEntity.id.toString());
-    const formatsToProcess = this.getFormatsToProcess(mediaType);
+    let entity: MediaEntity = undefined;
     await this.mediaRep.manager.transaction(async transactionManager => {
-      savedMediaEntity.files = await this.processFormats(
-        file, formatsToProcess, mediaType, savedMediaEntity, outputPath,
+      entity = await this.createMediaEntity(mediaType);
+      const outputPath = await this.createMediaDirectory(mediaType, entity.id.toString());
+      const formatsToProcess = this.getFormatsToProcess(mediaType);
+      entity.files = await this.processFormats(
+        file, formatsToProcess, mediaType, entity, outputPath
       );
-      await transactionManager.save(savedMediaEntity);
+      await transactionManager.save(entity);
     });
-    this.logger.log(`Uploaded media with ID ${savedMediaEntity.id}`);
-    return savedMediaEntity;
+    this.logger.log(`Uploaded media with ID ${entity.id}`);
+    return entity;
+  }
+
+  /**
+   * Get the media file path based on the media object, format, and WebP support.
+   * @param media - The media object to get the file path for.
+   * @param format - The format of the media file (default is 'ORIGINAL').
+   * @param webpSupport - A boolean indicating whether the client supports WebP format (default is false).
+   * @returns The full path to the media file including the file extension.
+   */
+  getMediaPath(media: Media, format: string = ORIGINAL, webpSupport = false) {
+    let mediaPath = `${media.type.private ? this.privateDir : this.publicDir}/${media.id}/`;
+    const file = media.files.find(v => v.format.code === format);
+    mediaPath += file.name;
+    if (webpSupport && media.type.vp6) {
+      mediaPath += ".webp";
+    } else {
+      mediaPath += `.${media.type.ext.code}`;
+    }
+    return mediaPath;
   }
 
   /**
@@ -163,10 +185,10 @@ export class MediaService {
    * @returns The created MediaEntity instance.
    */
   private async createMediaEntity(mediaType: MediaTypeEntity): Promise<MediaEntity> {
-    const mediaEntity = new MediaEntity();
-    mediaEntity.type = mediaType;
-    mediaEntity.name = [];
-    return this.mediaRep.save(mediaEntity);
+    const entity = new MediaEntity();
+    entity.type = mediaType;
+    entity.name = [];
+    return this.mediaRep.save(entity);
   }
 
   /**
@@ -176,9 +198,9 @@ export class MediaService {
    * @returns The path to the created media directory.
    */
   private async createMediaDirectory(mediaType: MediaTypeEntity, mediaEntityId: string): Promise<string> {
-    const mediaDirectory = path.join(mediaType.private ? this.privateDir : this.publicDir, mediaEntityId);
-    await createDirectoriesIfNotExist(mediaDirectory);
-    return mediaDirectory;
+    const dir = path.join(mediaType.private ? this.privateDir : this.publicDir, mediaEntityId);
+    await createDirectoriesIfNotExist(dir);
+    return dir;
   }
 
   /**
@@ -342,14 +364,14 @@ export class MediaService {
    * @throws NotFoundMsException if the media entity is not found.
    */
   private async findMediaById(id: number, privateMedia = false): Promise<MediaEntity> {
-    const mediaEntity = await this.createBasicFindQb()
+    const entity = await this.createBasicFindQb()
       .where("media.id = :id", { id })
       .andWhere(`type.private = ${privateMedia}`)
       .getOne();
-    if (!mediaEntity) {
+    if (!entity) {
       throw new NotFoundMsException(`Media with ID ${id} not found`);
     }
-    return mediaEntity;
+    return entity;
   }
 
   /**

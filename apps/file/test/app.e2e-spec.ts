@@ -17,14 +17,14 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { INestApplication } from "@nestjs/common";
 import * as request from "supertest";
-import { FilesModule } from "../src/files.module";
+import { FileModule } from "../src/file.module";
 
-describe("FilesController (e2e)", () => {
+describe("FileController (e2e)", () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [FilesModule],
+      imports: [FileModule]
     }).compile();
 
     app = moduleFixture.createNestApplication();

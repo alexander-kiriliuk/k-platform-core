@@ -30,13 +30,14 @@ import { CacheModule } from "@shared/modules/cache/cache.module";
   imports: [
     DbModule.forRoot(),
     TypeOrmModule.forFeature([
-      MediaEntity, MediaTypeEntity, MediaFileEntity, MediaFormatEntity,
+      MediaEntity, MediaTypeEntity, MediaFileEntity, MediaFormatEntity
     ]),
     LogModule,
-    CacheModule,
+    CacheModule
   ],
   controllers: [MediaController],
   providers: [MediaService],
+  exports: [MediaService]
 })
 export class MediaModule {
 }
