@@ -30,8 +30,8 @@
       "@files/*": [
         "apps/file/*"
       ],
-      "@db-script-evaluator/*": [
-        "apps/db-script-evaluator/*"
+      "@xml-data-bridge/*": [
+        "apps/xml-data-bridge/*"
       ],
       "@explorer/*": [
         "apps/explorer/*"

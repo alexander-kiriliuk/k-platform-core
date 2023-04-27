@@ -14,22 +14,19 @@
  *    limitations under the License.
  */
 
-import { NestFactory } from "@nestjs/core";
-import { DbScriptEvaluatorModule } from "./db-script-evaluator.module";
-import { EnvLoader } from "@shared/utils/env.loader";
+import { Module } from "@nestjs/common";
+import { DbModule } from "@shared/modules/db/db.module";
+import { XmlDataBridgeController } from "@xml-data-bridge/src/xml-data-bridge.controller";
+import { XmlDataBridgeService } from "@xml-data-bridge/src/xml-data-bridge.service";
+import { LogModule } from "@shared/modules/log/log.module";
 
-EnvLoader.loadEnvironment();
-
-(async () => {
-  const app = await NestFactory.createMicroservice(
-    DbScriptEvaluatorModule,
-    {
-      transport: parseInt(process.env.TRANSPORT_TYPE),
-      options: {
-        host: process.env.TRANSPORT_HOST,
-        port: parseInt(process.env.TRANSPORT_PORT),
-        timeout: parseInt(process.env.TRANSPORT_TIMEOUT),
-      },
-    });
-  await app.listen();
-})();
+@Module({
+  imports: [
+    DbModule.forRoot(),
+    LogModule
+  ],
+  controllers: [XmlDataBridgeController],
+  providers: [XmlDataBridgeService]
+})
+export class XmlDataBridgeModule {
+}

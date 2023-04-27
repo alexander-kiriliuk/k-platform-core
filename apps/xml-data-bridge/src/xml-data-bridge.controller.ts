@@ -14,16 +14,26 @@
  *    limitations under the License.
  */
 
-import { Controller, Get } from "@nestjs/common";
-import { DbScriptEvaluatorService } from "./db-script-evaluator.service";
+import { Controller } from "@nestjs/common";
+import { XmlDataBridgeService } from "@xml-data-bridge/src/xml-data-bridge.service";
+import { MessagePattern } from "@nestjs/microservices";
+import { XdbObject, XdbRequest } from "@xml-data-bridge/src/xml-data-bridge.types";
 
 @Controller()
-export class DbScriptEvaluatorController {
-  constructor(private readonly dbScriptEvaluatorService: DbScriptEvaluatorService) {
+export class XmlDataBridgeController {
+
+  constructor(
+    private readonly xmlDbService: XmlDataBridgeService) {
   }
 
-  @Get()
-  getHello(): string {
-    return this.dbScriptEvaluatorService.getHello();
+  @MessagePattern("xdb.import")
+  importXml(payload: XdbObject) {
+    return this.xmlDbService.importXml(payload);
   }
+
+  @MessagePattern("xdb.export")
+  exportXml(payload: XdbRequest) {
+    return this.xmlDbService.exportXml(payload.target, payload.id);
+  }
+
 }

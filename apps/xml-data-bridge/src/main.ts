@@ -14,11 +14,22 @@
  *    limitations under the License.
  */
 
-import { Injectable } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
+import { EnvLoader } from "@shared/utils/env.loader";
+import { XmlDataBridgeModule } from "@xml-data-bridge/src/xml-data-bridge.module";
 
-@Injectable()
-export class DbScriptEvaluatorService {
-  getHello(): string {
-    return "Hello World! DbScriptEvaluator";
-  }
-}
+EnvLoader.loadEnvironment();
+
+(async () => {
+  const app = await NestFactory.createMicroservice(
+    XmlDataBridgeModule,
+    {
+      transport: parseInt(process.env.TRANSPORT_TYPE),
+      options: {
+        host: process.env.TRANSPORT_HOST,
+        port: parseInt(process.env.TRANSPORT_PORT),
+        timeout: parseInt(process.env.TRANSPORT_TIMEOUT)
+      }
+    });
+  await app.listen();
+})();

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { ProfileController } from "./controllers/profile.controller";
 import { AuthController } from "./controllers/auth.controller";
 import { CacheModule } from "@shared/modules/cache/cache.module";
@@ -29,6 +29,8 @@ import { ConfigController } from "@composer/src/controllers/config.controller";
 import { FileController } from "@composer/src/controllers/file.controller";
 import { FileModule } from "@files/src/file.module";
 import { MediaModule } from "@media/src/media.module";
+import { XmlDataBridgeController } from "@composer/src/controllers/xml-data-bridge.controller";
+import { XmlDataBridgeMiddleware } from "@xml-data-bridge/src/xml-data-bridge.middleware";
 
 @Module({
   controllers: [
@@ -38,7 +40,8 @@ import { MediaModule } from "@media/src/media.module";
     ExplorerController,
     MediaController,
     FileController,
-    ConfigController
+    ConfigController,
+    XmlDataBridgeController
   ],
   imports: [
     CacheModule,
@@ -51,5 +54,12 @@ import { MediaModule } from "@media/src/media.module";
     })
   ]
 })
-export class ComposerModule {
+export class ComposerModule implements NestModule {
+
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(XmlDataBridgeMiddleware)
+      .forRoutes(XmlDataBridgeController);
+  }
+
 }

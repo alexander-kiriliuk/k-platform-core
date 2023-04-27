@@ -82,13 +82,13 @@
         "tsConfigPath": "apps/explorer/tsconfig.app.json"
       }
     },
-    "db-script-evaluator": {
+    "xml-data-bridge": {
       "type": "application",
-      "root": "apps/db-script-evaluator",
+      "root": "apps/xml-data-bridge",
       "entryFile": "main",
-      "sourceRoot": "apps/db-script-evaluator/src",
+      "sourceRoot": "apps/xml-data-bridge/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/db-script-evaluator/tsconfig.app.json"
+        "tsConfigPath": "apps/xml-data-bridge/tsconfig.app.json"
       }
     },
     "file": {

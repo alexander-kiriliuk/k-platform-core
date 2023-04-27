@@ -17,7 +17,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { INestApplication } from "@nestjs/common";
 import * as request from "supertest";
-import { DbScriptEvaluatorModule } from "../src/db-script-evaluator.module";
+import { DbScriptEvaluatorModule } from "../src/xml-data-bridge.module";
 
 describe("DbScriptEvaluatorController (e2e)", () => {
   let app: INestApplication;

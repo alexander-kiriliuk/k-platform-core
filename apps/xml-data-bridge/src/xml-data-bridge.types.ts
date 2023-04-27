@@ -14,14 +14,31 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
-import { DbScriptEvaluatorController } from "./db-script-evaluator.controller";
-import { DbScriptEvaluatorService } from "./db-script-evaluator.service";
 
-@Module({
-  imports: [],
-  controllers: [DbScriptEvaluatorController],
-  providers: [DbScriptEvaluatorService],
-})
-export class DbScriptEvaluatorModule {
+export interface XdbRequest {
+  target: string;
+  id: string;
 }
+
+export type XdbRowData = {
+  [key: string]: {
+    attrs?: {
+      rel?: string;
+      key?: string;
+    };
+    value?: string;
+    values?: string[];
+  };
+};
+
+export type XdbActions = {
+  action: string;
+  attrs: {
+    entity: string;
+  };
+  rows: Array<XdbRowData>;
+};
+
+export type XdbObject = {
+  schema: XdbActions[];
+};
