@@ -34,7 +34,7 @@ export type XdbRowData = {
 export type XdbActions = {
   action: string;
   attrs: {
-    entity: string;
+    target: string;
   };
   rows: Array<XdbRowData>;
 };

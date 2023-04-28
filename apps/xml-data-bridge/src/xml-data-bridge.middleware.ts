@@ -37,11 +37,11 @@ export class XmlDataBridgeMiddleware implements NestMiddleware {
       };
       for (const action of actions) {
         const tagName = action["#name"];
-        const entity = action.$.entity;
+        const target = action.$.target;
         const rows = action.$$;
         const obj: XdbActions = {
           action: tagName,
-          attrs: { entity },
+          attrs: { target },
           rows: []
         };
         for (const row of rows) {
