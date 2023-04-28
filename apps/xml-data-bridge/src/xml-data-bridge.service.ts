@@ -16,7 +16,7 @@
 
 import { HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
-import { XdbActions, XdbObject } from "@xml-data-bridge/src/xml-data-bridge.types";
+import { XdbActions, XdbObject, XdbRowData } from "@xml-data-bridge/src/xml-data-bridge.types";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource, EntityMetadata, In, Repository } from "typeorm";
 import { MsException } from "@shared/exceptions/ms.exception";
@@ -71,8 +71,45 @@ export class XmlDataBridgeService {
   }
 
   private async processRemoveNodes(item: XdbActions) {
-    // todo implement
-    return;
+    const repository = this.connection.getRepository(item.attrs.target);
+    for (const rowData of item.rows) {
+      const whereConditions = this.getRowDataWhereConditions(rowData);
+      if (Object.keys(whereConditions).length > 0) {
+        const entityToRemove = await repository.findOne({ where: whereConditions });
+        if (entityToRemove) {
+          await repository.remove(entityToRemove);
+          this.logEntityRemoved(repository, entityToRemove, whereConditions);
+        } else {
+          this.logger.warn(
+            `Entity [${item.attrs.target}] with ${JSON.stringify(whereConditions)} not found, no removal performed`
+          );
+        }
+      } else {
+        this.logger.warn(
+          `Invalid row data for [${item.attrs.target}], no removal performed`
+        );
+      }
+    }
+  }
+
+  private getRowDataWhereConditions(rowData: XdbRowData): object {
+    const whereConditions = {};
+    for (const key in rowData) {
+      if (rowData[key].value) {
+        whereConditions[key] = rowData[key].value;
+      } else {
+        whereConditions[key] = rowData[key];
+      }
+    }
+    return whereConditions;
+  }
+
+  private logEntityRemoved(repository: Repository<any>, entity: any, whereConditions: object) {
+    const metadata = repository.metadata;
+    const keyValuePairs = Object.entries(whereConditions)
+      .map(([key, value]) => `${key}=${value}`)
+      .join("; ");
+    this.logger.log(`Removed [${metadata.targetName}] with ${keyValuePairs}`);
   }
 
   private async processInsertUpdateNodes(item: XdbActions) {
