@@ -28,7 +28,10 @@ export interface File {
   preview: Media;
 }
 
-export interface UploadFileRequest {
-  public: boolean;
+export interface UpsertFileRequest {
   file: SerializedFile;
+  public: boolean;
+  code?: string;
+  entityIdForPatch?: number;
+  entityName?: LocalizedString[];
 }

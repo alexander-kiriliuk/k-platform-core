@@ -22,8 +22,8 @@ export interface XdbRequest {
 
 export type XdbRowDataValue = {
   attrs?: {
-    rel?: string;
     key?: string;
+    uri?: string;
   };
   value?: string;
   values?: string[];
@@ -40,8 +40,15 @@ export type MediaRow = {
   file: string;
 }
 
+export type FileRow = {
+  name: XdbRowDataValue;
+  code: string;
+  public: boolean;
+  file: string;
+}
+
 export type XdbActions = {
-  action: string;
+  action: "InsertUpdate" | "Media" | "File" | "Remove";
   attrs: {
     target: string;
   };

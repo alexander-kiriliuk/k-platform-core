@@ -24,15 +24,16 @@ import { CacheService } from "@shared/modules/cache/cache.types";
 import { FileConfig } from "@files/gen-src/file.config";
 import * as path from "path";
 import { FilesUtils } from "@shared/utils/files.utils";
-import { NumberUtils } from "@shared/utils/number.utils";
 import * as fs from "fs";
 import { MsException } from "@shared/exceptions/ms.exception";
 import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
 import { File } from "@files/src/file.types";
+import { LocalizedString } from "@shared/modules/locale/locale.types";
+import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { BadRequestMsException } from "@shared/exceptions/bad-request-ms.exception";
 import PRIVATE_DIR = FileConfig.PRIVATE_DIR;
 import PUBLIC_DIR = FileConfig.PUBLIC_DIR;
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
-import generateRandomInt = NumberUtils.generateRandomInt;
 
 /**
  * Injectable service for managing files, including uploading, finding, and removing files.
@@ -61,24 +62,59 @@ export class FileService {
    * Also creates a FileEntity and saves the file's metadata in the database.
    * @param file - A deserialized file object containing file details and content.
    * @param isPublic - A boolean flag indicating if the file should be saved to the public directory (true) or private directory (false).
+   * @param code - Specific identification code for file entity.
+   * @param existedEntityId - ID of file entity for patch.
+   * @param name - localized name for file entity.
    * @returns A promise that resolves to the created FileEntity.
    */
-  async upload(file: DeSerializedFile, isPublic = true) {
+  async createOrUpdateFile(
+    file: DeSerializedFile,
+    isPublic = true,
+    code?: string,
+    existedEntityId?: number,
+    name?: LocalizedString[]) {
     let entity: FileEntity = undefined;
     await this.fileRep.manager.transaction(async transactionManager => {
-      entity = await this.createFileEntity(isPublic);
+      if (existedEntityId) {
+        entity = await this.findFileById(existedEntityId, isPublic);
+        if (!entity) {
+          throw new BadRequestMsException(`Cannot patch file with ID ${existedEntityId}, because than not exists`);
+        }
+        const dir = path.join(
+          !entity.public ? this.privateDir : this.publicDir,
+          entity.id.toString()
+        );
+        await fs.promises.rm(dir, { recursive: true }).catch(err => {
+          throw new MsException(HttpStatus.INTERNAL_SERVER_ERROR, `Failed to delete directory: ${dir}`, err);
+        });
+      } else {
+        entity = await this.createFileEntity(isPublic);
+      }
       const outputPath = await this.createFileDirectory(entity.public, entity.id.toString());
-      let fileName = generateRandomInt().toString();
+      let fileName = entity.id.toString();
       if (file.originalname.indexOf(".") !== -1) {
         fileName += `${path.extname(file.originalname)}`;
       }
       entity.size = file.size;
       entity.path = fileName;
+      entity.name = name as LocalizedStringEntity[];
+      entity.code = code;
       await fs.promises.writeFile(`${outputPath}/${fileName}`, file.buffer);
       await transactionManager.save(entity);
     });
-    this.logger.log(`Uploaded file with ID ${entity.id}`);
+    this.logger.log(`${!existedEntityId ? `Created` : `Updated`} file with ID ${entity.id}`);
     return entity;
+  }
+
+  /**
+   * Finds a file entity by code.
+   * @param code - The code of the file entity.
+   * @returns The found file entity.
+   */
+  async findByCode(code: string) {
+    return await this.createBasicFindQb()
+      .where("file.code = :code", { code })
+      .getOne();
   }
 
   /**
@@ -136,11 +172,13 @@ export class FileService {
    * @param isPublic - A boolean flag indicating if the file is public (true) or private (false).
    * @returns A promise that resolves to the found FileEntity.
    */
-  private async findFileById(id: number, isPublic = false) {
-    const entity = await this.createBasicFindQb()
-      .where("file.id = :id", { id })
-      .andWhere(`file.public = :isPublic`, { isPublic })
-      .getOne();
+  private async findFileById(id: number, isPublic: boolean = undefined) {
+    const qb = this.createBasicFindQb()
+      .where("file.id = :id", { id });
+    if (isPublic !== undefined) {
+      qb.andWhere(`file.public = :isPublic`, { isPublic });
+    }
+    const entity = await qb.getOne();
     if (!entity) {
       throw new NotFoundMsException(`File with ID ${id} not found`);
     }

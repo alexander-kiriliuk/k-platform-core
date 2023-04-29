@@ -16,7 +16,7 @@
 
 import { HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
-import { MediaRow, XdbActions, XdbObject, XdbRowData } from "@xml-data-bridge/src/xml-data-bridge.types";
+import { FileRow, MediaRow, XdbActions, XdbObject, XdbRowData } from "@xml-data-bridge/src/xml-data-bridge.types";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource, EntityMetadata, In, Repository } from "typeorm";
 import { MsException } from "@shared/exceptions/ms.exception";
@@ -28,9 +28,13 @@ import { FilesUtils } from "@shared/utils/files.utils";
 import * as process from "process";
 import * as path from "path";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { File, UpsertFileRequest } from "@files/src/file.types";
 import readFile = FilesUtils.readFile;
 import serializeFile = FilesUtils.serializeFile;
 
+/**
+ * XmlDataBridgeService is responsible for importing and exporting data through XML.
+ */
 @Injectable()
 export class XmlDataBridgeService {
 
@@ -45,6 +49,12 @@ export class XmlDataBridgeService {
     return this.dataSource.manager.connection;
   }
 
+  /**
+   * Import XML data from an XdbObject.
+   * @param xml - The XdbObject containing the XML data.
+   * @returns A promise that resolves to a boolean indicating whether the import was successful.
+   * @throws MsException if an error occurs during the import.
+   */
   async importXml(xml: XdbObject): Promise<boolean> {
     try {
       for (const item of xml.schema) {
@@ -72,49 +82,90 @@ export class XmlDataBridgeService {
     }
   }
 
+  /**
+   * Export XML data to a specified target.
+   * @param target - class-name of exporting entity
+   * @param id - ID of the entity to export.
+   * @returns A promise that resolves to true if the export is successful.
+   * @todo Implement the exportXml method.
+   */
   async exportXml(target: string, id: string) {
     // todo implement
     return true;
   }
 
+  /**
+   * Process "file" nodes by creating or updating a file.
+   * @param item - An XdbActions object containing rows of file data.
+   * @returns A promise that resolves when all file nodes are processed.
+   */
   private async processFileNodes(item: XdbActions) {
-    // todo implement
-    return true;
-  }
-
-  private async processMediaNodes(item: XdbActions) {
-    const mediaRows = item.rows as MediaRow[];
-    for (const row of mediaRows) {
-      const existedMedia = await this.msClient.dispatch<Media, string>("media.get.any.by.code", row.code);
-      const localizedStrings: LocalizedStringEntity[] = [];
-      if (row.name) {
-        const rep = this.connection.getRepository(LocalizedStringEntity);
-        for (const value of row.name.values) {
-          const v = await rep.findOne({ where: { [row.name.attrs.key]: value } });
-          localizedStrings.push(v);
-        }
+    const rows = item.rows as FileRow[];
+    for (const row of rows) {
+      let existedEntity: File;
+      if (row.code) {
+        existedEntity = await this.msClient.dispatch<File, string>("file.get.any.by.code", row.code);
       }
+      const localizedStrings = await this.getLocalizedStrings(row);
       const buf = await this.readFileData(row.file);
-      const media = await this.msClient.dispatch<Media, UpsertMediaRequest>("media.upsert", {
-        type: row.type,
+      const file = await this.msClient.dispatch<File, UpsertFileRequest>("file.upsert", {
+        public: row.public,
         code: row.code,
         entityName: localizedStrings as LocalizedString[],
-        entityIdForPatch: existedMedia?.id,
+        entityIdForPatch: existedEntity?.id,
         file: serializeFile({
           originalname: path.basename(row.file),
           buffer: buf,
           size: Buffer.byteLength(buf.toString())
         })
       }, { timeout: 30000 });
-      this.logger.log(`${existedMedia ? `Update` : `Create`} media with ID ${media.id}`);
+      this.logger.log(`${existedEntity ? `Update` : `Create`} file with ID ${file.id}`);
     }
-    return;
   }
 
+  /**
+   * Process "media" nodes by creating or updating a media object.
+   * @param item - An XdbActions object containing rows of media data.
+   * @returns A promise that resolves when all media nodes are processed.
+   */
+  private async processMediaNodes(item: XdbActions) {
+    const rows = item.rows as MediaRow[];
+    for (const row of rows) {
+      let existedEntity: Media;
+      if (row.code) {
+        existedEntity = await this.msClient.dispatch<Media, string>("media.get.any.by.code", row.code);
+      }
+      const localizedStrings = await this.getLocalizedStrings(row);
+      const buf = await this.readFileData(row.file);
+      const media = await this.msClient.dispatch<Media, UpsertMediaRequest>("media.upsert", {
+        type: row.type,
+        code: row.code,
+        entityName: localizedStrings as LocalizedString[],
+        entityIdForPatch: existedEntity?.id,
+        file: serializeFile({
+          originalname: path.basename(row.file),
+          buffer: buf,
+          size: Buffer.byteLength(buf.toString())
+        })
+      }, { timeout: 30000 });
+      this.logger.log(`${existedEntity ? `Update` : `Create`} media with ID ${media.id}`);
+    }
+  }
+
+  /**
+   * Read file data from the specified path.
+   * @param path - A string representing the path of the file to read
+   * @returns A promise that resolves to a Buffer containing the file data.
+   */
   private async readFileData(path: string) {
     return await readFile(process.cwd() + path);
   }
 
+  /**
+   * Process "remove" nodes by removing the specified entities.
+   * @param item - An XdbActions object containing rows of entity data to remove.
+   * @returns A promise that resolves when all remove nodes are processed.
+   */
   private async processRemoveNodes(item: XdbActions) {
     const repository = this.connection.getRepository(item.attrs.target);
     for (const rowData of item.rows) {
@@ -137,6 +188,11 @@ export class XmlDataBridgeService {
     }
   }
 
+  /**
+   * Get the WHERE conditions for a row data object.
+   * @param rowData - An XdbRowData object containing data for a row.
+   * @returns An object containing WHERE conditions.
+   */
   private getRowDataWhereConditions(rowData: XdbRowData): object {
     const whereConditions = {};
     for (const key in rowData) {
@@ -149,6 +205,11 @@ export class XmlDataBridgeService {
     return whereConditions;
   }
 
+  /**
+   * Log that an entity has been removed.
+   * @param repository - A TypeORM Repository instance for the entity.
+   * @param whereConditions - An object containing WHERE conditions.
+   */
   private logEntityRemoved(repository: Repository<any>, whereConditions: object) {
     const metadata = repository.metadata;
     const keyValuePairs = Object.entries(whereConditions)
@@ -157,6 +218,11 @@ export class XmlDataBridgeService {
     this.logger.log(`Removed [${metadata.targetName}] with ${keyValuePairs}`);
   }
 
+  /**
+   * Process "InsertUpdate" nodes by creating or updating entities.
+   * @param item - An XdbActions object containing rows of entity data.
+   * @returns A promise that resolves when all InsertUpdate nodes are processed.
+   */
   private async processInsertUpdateNodes(item: XdbActions) {
     const repository = this.connection.getRepository(item.attrs.target);
     for (const rowData of item.rows) {
@@ -176,6 +242,13 @@ export class XmlDataBridgeService {
     }
   }
 
+  /**
+   Log that an entity has been saved (created or updated).
+   @param repository - A TypeORM Repository instance for the entity.
+   @param entity - The saved entity.
+   @param uniqueKeyFields - An object containing unique key fields.
+   @param existingEntity - An existing entity, if any.
+   */
   private logEntitySaved(repository: Repository<any>, entity: any, uniqueKeyFields: object, existingEntity: any) {
     const metadata = repository.metadata;
     const primaryKey = metadata.primaryColumns[0].propertyName;
@@ -185,6 +258,12 @@ export class XmlDataBridgeService {
     this.logger.log(`${existingEntity ? `Update` : `Create`} [${metadata.targetName}] with ${keyValuePairs}`);
   }
 
+  /**
+   Get the unique key fields for an entity based on the provided row data.
+   @param repository - A TypeORM Repository instance for the entity.
+   @param rowData - An object containing row data.
+   @returns An object containing unique key fields.
+   */
   private getUniqueKeyFields(repository: Repository<any>, rowData: { [key: string]: any }): object {
     const entityMetadata = repository.metadata;
     const uniqueColumns = entityMetadata.columns.filter(column => {
@@ -204,6 +283,13 @@ export class XmlDataBridgeService {
     return uniqueKeyFields;
   }
 
+  /**
+   Set entity properties from the provided row data.
+   @param entity - The entity to set properties for.
+   @param repository - A TypeORM Repository instance for the entity.
+   @param rowData - An object containing row data.
+   @returns The entity with properties set from rowData.
+   */
   private async setEntityPropertiesFromRowData(
     entity: any,
     repository: Repository<any>,
@@ -239,6 +325,13 @@ export class XmlDataBridgeService {
     return entity;
   }
 
+  /**
+   Update an existing entity with properties from the provided row data.
+   @param existingEntity - The existing entity to update.
+   @param repository - A TypeORM Repository instance for the entity.
+   @param rowData - An object containing row data.
+   @returns The updated entity.
+   */
   private async updateEntityFromRowData(
     existingEntity: any,
     repository: Repository<any>,
@@ -246,6 +339,12 @@ export class XmlDataBridgeService {
     return this.setEntityPropertiesFromRowData(existingEntity, repository, rowData);
   }
 
+  /**
+   Create a new entity with properties from the provided row data.
+   @param repository - A TypeORM Repository instance for the entity.
+   @param rowData - An object containing row data.
+   @returns The created entity.
+   */
   private async createEntityFromRowData(
     repository: Repository<any>,
     rowData: { [key: string]: any }) {
@@ -253,13 +352,36 @@ export class XmlDataBridgeService {
     return this.setEntityPropertiesFromRowData(entity, repository, rowData);
   }
 
-  private isColumnUnique(md: EntityMetadata, column: ColumnMetadata) {
-    for (const uniq of md.uniques) {
+  /**
+   Determine if a column is unique.
+   @param metadata - EntityMetadata for the entity.
+   @param column - ColumnMetadata for the column.
+   @returns A boolean indicating whether the column is unique.
+   */
+  private isColumnUnique(metadata: EntityMetadata, column: ColumnMetadata) {
+    for (const uniq of metadata.uniques) {
       if (uniq.columns.find(col => col.propertyName === column.propertyName) !== undefined) {
         return true;
       }
     }
     return false;
+  }
+
+  /**
+   Build localized strings object from xml-row
+   @param row - A xml-row object containing the name property.
+   @returns A promise that resolves to an array of LocalizedStringEntity objects.
+   */
+  private async getLocalizedStrings(row: { name: any }): Promise<LocalizedStringEntity[]> {
+    const localizedStrings: LocalizedStringEntity[] = [];
+    if (row.name) {
+      const rep = this.connection.getRepository(LocalizedStringEntity);
+      for (const value of row.name.values) {
+        const v = await rep.findOne({ where: { [row.name.attrs.key]: value } });
+        localizedStrings.push(v);
+      }
+    }
+    return localizedStrings;
   }
 
 }

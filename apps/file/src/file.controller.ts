@@ -18,7 +18,7 @@ import { Controller } from "@nestjs/common";
 import { FileService } from "./file.service";
 import { MessagePattern } from "@nestjs/microservices";
 import { FilesUtils } from "@shared/utils/files.utils";
-import { UploadFileRequest } from "@files/src/file.types";
+import { UpsertFileRequest } from "@files/src/file.types";
 import deSerializeFile = FilesUtils.deSerializeFile;
 
 @Controller()
@@ -28,10 +28,21 @@ export class FileController {
     private readonly filesService: FileService) {
   }
 
-  @MessagePattern("file.upload")
-  async uploadMedia(payload: UploadFileRequest) {
+  @MessagePattern("file.upsert")
+  async upsertFile(payload: UpsertFileRequest) {
     const deserializedFile = deSerializeFile(payload.file);
-    return await this.filesService.upload(deserializedFile, payload.public);
+    return await this.filesService.createOrUpdateFile(
+      deserializedFile,
+      payload.public,
+      payload.code,
+      payload.entityIdForPatch,
+      payload.entityName
+    );
+  }
+
+  @MessagePattern("file.get.any.by.code")
+  async findMediaByCode(code: string) {
+    return await this.filesService.findByCode(code);
   }
 
   @MessagePattern("file.get.by.id")

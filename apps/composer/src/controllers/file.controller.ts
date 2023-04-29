@@ -34,7 +34,7 @@ import { FilesUtils } from "@shared/utils/files.utils";
 import { NotEmptyPipe } from "@shared/pipes/not-empty.pipe";
 import { Response } from "express";
 import * as path from "path";
-import { File, UploadFileRequest } from "@files/src/file.types";
+import { File, UpsertFileRequest } from "@files/src/file.types";
 import { FileService } from "@files/src/file.service";
 import serializeFile = FilesUtils.serializeFile;
 
@@ -52,7 +52,7 @@ export class FileController {
     @UploadedFile("file", new NotEmptyPipe("file")) file: MulterFile,
     @Query("public") isPublic = "true") {
     const serializedFile = serializeFile(file);
-    return await this.msClient.dispatch<File, UploadFileRequest>("file.upload", {
+    return await this.msClient.dispatch<File, UpsertFileRequest>("file.upsert", {
       file: serializedFile,
       public: isPublic === "true"
     }, { timeout: 30000 });
