@@ -16,12 +16,20 @@
 
 import { HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
-import { XdbActions, XdbObject, XdbRowData } from "@xml-data-bridge/src/xml-data-bridge.types";
+import { MediaRow, XdbActions, XdbObject, XdbRowData } from "@xml-data-bridge/src/xml-data-bridge.types";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource, EntityMetadata, In, Repository } from "typeorm";
 import { MsException } from "@shared/exceptions/ms.exception";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
-
+import { MsClient } from "@shared/modules/ms-client/ms-client";
+import { Media, UpsertMediaRequest } from "@media/src/media.types";
+import { LocalizedString } from "@shared/modules/locale/locale.types";
+import { FilesUtils } from "@shared/utils/files.utils";
+import * as process from "process";
+import * as path from "path";
+import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import readFile = FilesUtils.readFile;
+import serializeFile = FilesUtils.serializeFile;
 
 @Injectable()
 export class XmlDataBridgeService {
@@ -29,7 +37,8 @@ export class XmlDataBridgeService {
   constructor(
     @InjectDataSource()
     private readonly dataSource: DataSource,
-    @Inject(LOGGER) private readonly logger: Logger) {
+    @Inject(LOGGER) private readonly logger: Logger,
+    private readonly msClient: MsClient) {
   }
 
   private get connection() {
@@ -45,6 +54,9 @@ export class XmlDataBridgeService {
             break;
           case "Media":
             await this.processMediaNodes(item);
+            break;
+          case "File":
+            await this.processFileNodes(item);
             break;
           case "Remove":
             await this.processRemoveNodes(item);
@@ -65,9 +77,42 @@ export class XmlDataBridgeService {
     return true;
   }
 
-  private async processMediaNodes(item: XdbActions) {
+  private async processFileNodes(item: XdbActions) {
     // todo implement
+    return true;
+  }
+
+  private async processMediaNodes(item: XdbActions) {
+    const mediaRows = item.rows as MediaRow[];
+    for (const row of mediaRows) {
+      const existedMedia = await this.msClient.dispatch<Media, string>("media.get.any.by.code", row.code);
+      const localizedStrings: LocalizedStringEntity[] = [];
+      if (row.name) {
+        const rep = this.connection.getRepository(LocalizedStringEntity);
+        for (const value of row.name.values) {
+          const v = await rep.findOne({ where: { [row.name.attrs.key]: value } });
+          localizedStrings.push(v);
+        }
+      }
+      const buf = await this.readFileData(row.file);
+      const media = await this.msClient.dispatch<Media, UpsertMediaRequest>("media.upsert", {
+        type: row.type,
+        code: row.code,
+        entityName: localizedStrings as LocalizedString[],
+        entityIdForPatch: existedMedia?.id,
+        file: serializeFile({
+          originalname: path.basename(row.file),
+          buffer: buf,
+          size: Buffer.byteLength(buf.toString())
+        })
+      }, { timeout: 30000 });
+      this.logger.log(`${existedMedia ? `Update` : `Create`} media with ID ${media.id}`);
+    }
     return;
+  }
+
+  private async readFileData(path: string) {
+    return await readFile(process.cwd() + path);
   }
 
   private async processRemoveNodes(item: XdbActions) {
@@ -78,7 +123,7 @@ export class XmlDataBridgeService {
         const entityToRemove = await repository.findOne({ where: whereConditions });
         if (entityToRemove) {
           await repository.remove(entityToRemove);
-          this.logEntityRemoved(repository, entityToRemove, whereConditions);
+          this.logEntityRemoved(repository, whereConditions);
         } else {
           this.logger.warn(
             `Entity [${item.attrs.target}] with ${JSON.stringify(whereConditions)} not found, no removal performed`
@@ -104,7 +149,7 @@ export class XmlDataBridgeService {
     return whereConditions;
   }
 
-  private logEntityRemoved(repository: Repository<any>, entity: any, whereConditions: object) {
+  private logEntityRemoved(repository: Repository<any>, whereConditions: object) {
     const metadata = repository.metadata;
     const keyValuePairs = Object.entries(whereConditions)
       .map(([key, value]) => `${key}=${value}`)
@@ -116,7 +161,10 @@ export class XmlDataBridgeService {
     const repository = this.connection.getRepository(item.attrs.target);
     for (const rowData of item.rows) {
       const uniqueKeyFields = this.getUniqueKeyFields(repository, rowData);
-      const existingEntity = await repository.findOne({ where: uniqueKeyFields });
+      let existingEntity = null;
+      if (Object.keys(uniqueKeyFields).length) {
+        existingEntity = await repository.findOne({ where: uniqueKeyFields });
+      }
       let entity;
       if (existingEntity) {
         entity = await this.updateEntityFromRowData(existingEntity, repository, rowData);
@@ -139,7 +187,13 @@ export class XmlDataBridgeService {
 
   private getUniqueKeyFields(repository: Repository<any>, rowData: { [key: string]: any }): object {
     const entityMetadata = repository.metadata;
-    const uniqueColumns = entityMetadata.columns.filter(column => this.isColumnUnique(entityMetadata, column));
+    const uniqueColumns = entityMetadata.columns.filter(column => {
+      if (this.isColumnUnique(entityMetadata, column)) {
+        return true;
+      }
+      const uniqIndices = repository.metadata.indices.find(idc => idc.isUnique);
+      return !!uniqIndices?.columns?.find(col => col.propertyName === column.propertyName);
+    });
     const uniqueKeyFields = {};
     for (const uniqueColumn of uniqueColumns) {
       const propertyName = uniqueColumn.propertyName;

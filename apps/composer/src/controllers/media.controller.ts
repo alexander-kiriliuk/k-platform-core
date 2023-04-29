@@ -29,7 +29,7 @@ import {
 import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { File } from "multer";
-import { Media, UploadMediaRequest } from "@media/src/media.types";
+import { Media, UpsertMediaRequest } from "@media/src/media.types";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { FilesUtils } from "@shared/utils/files.utils";
 import { NotEmptyPipe } from "@shared/pipes/not-empty.pipe";
@@ -52,9 +52,9 @@ export class MediaController {
   async createMedia(@UploadedFile("file", new NotEmptyPipe("file")) file: File,
                     @Param("type") type = DEFAULT_MEDIA_TYPE) {
     const serializedFile = serializeFile(file);
-    return await this.msClient.dispatch<Media, UploadMediaRequest>("media.upload", {
+    return await this.msClient.dispatch<Media, UpsertMediaRequest>("media.upsert", {
       type: type,
-      file: serializedFile,
+      file: serializedFile
     }, { timeout: 30000 });
   }
 

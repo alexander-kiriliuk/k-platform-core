@@ -19,11 +19,13 @@ import { DbModule } from "@shared/modules/db/db.module";
 import { XmlDataBridgeController } from "@xml-data-bridge/src/xml-data-bridge.controller";
 import { XmlDataBridgeService } from "@xml-data-bridge/src/xml-data-bridge.service";
 import { LogModule } from "@shared/modules/log/log.module";
+import { MsClientModule } from "@shared/modules/ms-client/ms-client.module";
 
 @Module({
   imports: [
     DbModule.forRoot(),
-    LogModule
+    LogModule,
+    MsClientModule
   ],
   controllers: [XmlDataBridgeController],
   providers: [XmlDataBridgeService]

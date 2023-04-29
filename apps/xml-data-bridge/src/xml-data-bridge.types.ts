@@ -20,16 +20,25 @@ export interface XdbRequest {
   id: string;
 }
 
-export type XdbRowData = {
-  [key: string]: {
-    attrs?: {
-      rel?: string;
-      key?: string;
-    };
-    value?: string;
-    values?: string[];
+export type XdbRowDataValue = {
+  attrs?: {
+    rel?: string;
+    key?: string;
   };
+  value?: string;
+  values?: string[];
+}
+
+export type XdbRowData = {
+  [key: string]: XdbRowDataValue;
 };
+
+export type MediaRow = {
+  name: XdbRowDataValue;
+  code: string;
+  type: string;
+  file: string;
+}
 
 export type XdbActions = {
   action: string;

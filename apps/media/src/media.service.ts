@@ -26,7 +26,6 @@ import { DEFAULT_MEDIA_QUALITY, MEDIA_TYPE_RELATIONS, ReservedMediaFormat } from
 import { MediaFormatEntity } from "@media/src/entity/media-format.entity";
 import { BadRequestMsException } from "@shared/exceptions/bad-request-ms.exception";
 import { FilesUtils } from "@shared/utils/files.utils";
-import { NumberUtils } from "@shared/utils/number.utils";
 import * as sharp from "sharp";
 import * as imagemin from "imagemin";
 import * as fs from "fs";
@@ -37,8 +36,9 @@ import { LOGGER } from "@shared/modules/log/log.constants";
 import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
 import { MsException } from "@shared/exceptions/ms.exception";
 import { CacheService } from "@shared/modules/cache/cache.types";
+import { LocalizedString } from "@shared/modules/locale/locale.types";
+import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
-import generateRandomInt = NumberUtils.generateRandomInt;
 import THUMB = ReservedMediaFormat.THUMB;
 import ORIGINAL = ReservedMediaFormat.ORIGINAL;
 import PRIVATE_DIR = MediaConfig.PRIVATE_DIR;
@@ -78,6 +78,16 @@ export class MediaService {
     this.publicDir = await this.cacheService.get(PUBLIC_DIR);
   }
 
+  /**
+   * Finds a media entity by code.
+   * @param code - The code of the media entity.
+   * @returns The found media entity.
+   */
+  async findByCode(code: string) {
+    return await this.createBasicFindQb()
+      .where("media.code = :code", { code })
+      .getOne();
+  }
 
   /**
    * Finds a media entity by ID with public access.
@@ -86,7 +96,7 @@ export class MediaService {
    * @throws NotFoundMsException if the media entity is not found.
    */
   async findPublicById(id: number): Promise<MediaEntity> {
-    return this.findMediaById(id);
+    return this.findMediaById(id, false);
   }
 
   /**
@@ -105,10 +115,10 @@ export class MediaService {
    * @returns The removed media entity.
    */
   async remove(id: number) {
-    const media = await this.findPublicById(id);
+    const media = await this.findMediaById(id);
     const dir = path.join(
       media.type.private ? this.privateDir : this.publicDir,
-      media.id.toString(),
+      media.id.toString()
     );
     await this.mediaRep.manager.transaction(async transactionManager => {
       await transactionManager.remove(media.files);
@@ -122,16 +132,40 @@ export class MediaService {
   }
 
   /**
-   * Uploads and processes a media file.
+   * Uploads and processes a media file, create or update related entity.
    * @param file - The deserialized media file.
    * @param type - The media type.
+   * @param code - Specific identification code for media entity.
+   * @param existedEntityId - ID of media entity for patch.
+   * @param name - localized name for media entity.
    * @returns The uploaded and processed media entity.
    */
-  async upload(file: DeSerializedFile, type: string): Promise<MediaEntity> {
+  async createOrUpdateMedia(
+    file: DeSerializedFile,
+    type: string,
+    code?: string,
+    existedEntityId?: number,
+    name?: LocalizedString[]): Promise<MediaEntity> {
     const mediaType = await this.getMediaType(type);
     let entity: MediaEntity = undefined;
     await this.mediaRep.manager.transaction(async transactionManager => {
-      entity = await this.createMediaEntity(mediaType);
+      if (existedEntityId) {
+        entity = await this.findMediaById(existedEntityId);
+        if (!entity) {
+          throw new BadRequestMsException(`Cannot patch media with ID ${existedEntityId}, because than not exists`);
+        }
+        const dir = path.join(
+          entity.type.private ? this.privateDir : this.publicDir,
+          entity.id.toString()
+        );
+        await fs.promises.rm(dir, { recursive: true }).catch(err => {
+          throw new MsException(HttpStatus.INTERNAL_SERVER_ERROR, `Failed to delete directory: ${dir}`, err);
+        });
+      } else {
+        entity = await this.createMediaEntity(mediaType);
+      }
+      entity.name = name as LocalizedStringEntity[];
+      entity.code = code;
       const outputPath = await this.createMediaDirectory(mediaType, entity.id.toString());
       const formatsToProcess = this.getFormatsToProcess(mediaType);
       entity.files = await this.processFormats(
@@ -139,7 +173,7 @@ export class MediaService {
       );
       await transactionManager.save(entity);
     });
-    this.logger.log(`Uploaded media with ID ${entity.id}`);
+    this.logger.log(`${!existedEntityId ? `Created` : `Updated`} media with ID ${entity.id}`);
     return entity;
   }
 
@@ -171,7 +205,7 @@ export class MediaService {
   private async getMediaType(type: string): Promise<MediaTypeEntity> {
     const mediaType = await this.mediaTypeRep.findOne({
       where: { code: type },
-      relations: MEDIA_TYPE_RELATIONS,
+      relations: MEDIA_TYPE_RELATIONS
     });
     if (!mediaType) {
       throw new BadRequestMsException("Media type not found");
@@ -210,7 +244,7 @@ export class MediaService {
    */
   private getFormatsToProcess(mediaType: MediaTypeEntity): MediaFormatEntity[] {
     mediaType.formats = mediaType.formats.filter(
-      f => f.code !== ORIGINAL && f.code !== THUMB,
+      f => f.code !== ORIGINAL && f.code !== THUMB
     );
     return [this.thumbFormat, this.originalFormat, ...mediaType.formats];
   }
@@ -229,7 +263,7 @@ export class MediaService {
     formats: MediaFormatEntity[],
     mediaType: MediaTypeEntity,
     mediaEntity: MediaEntity,
-    outputPath: string,
+    outputPath: string
   ): Promise<MediaFileEntity[]> {
     const processingPromises = formats.map(async (format) => {
       const quality = mediaType.quality || DEFAULT_MEDIA_QUALITY;
@@ -238,7 +272,7 @@ export class MediaService {
         imgBuffer = await this.resizeImage(file.buffer, format);
         imgBuffer = await this.optimizeImage(imgBuffer, mediaType.ext.code, quality);
       }
-      const fileName = generateRandomInt();
+      const fileName = `${mediaEntity.id}`;
       const fileNameWithSuffix = `${fileName}_${format.code}`;
       const resizedImagePath = `${outputPath}/${fileNameWithSuffix}.${mediaType.ext.code}`;
       await fs.promises.writeFile(resizedImagePath, imgBuffer);
@@ -269,12 +303,12 @@ export class MediaService {
       switch (fileExt) {
         case "png":
           return await imagemin.buffer(buffer, {
-            plugins: [imageminPngquant({ quality: this.getPngQualityRange(quality) })],
+            plugins: [imageminPngquant({ quality: this.getPngQualityRange(quality) })]
           });
         case "jpg":
         case "jpeg":
           return await imagemin.buffer(buffer, {
-            plugins: [imageminMozjpeg({ quality })],
+            plugins: [imageminMozjpeg({ quality })]
           });
       }
     } catch (e) {
@@ -343,7 +377,7 @@ export class MediaService {
     image: Buffer,
     format: MediaFormatEntity,
     mediaEntity: MediaEntity,
-    fileName: string,
+    fileName: string
   ): Promise<MediaFileEntity> {
     const metadata = await sharp(image).metadata();
     const mediaFile = new MediaFileEntity();
@@ -363,11 +397,13 @@ export class MediaService {
    * @returns The found media entity.
    * @throws NotFoundMsException if the media entity is not found.
    */
-  private async findMediaById(id: number, privateMedia = false): Promise<MediaEntity> {
-    const entity = await this.createBasicFindQb()
-      .where("media.id = :id", { id })
-      .andWhere(`type.private = ${privateMedia}`)
-      .getOne();
+  private async findMediaById(id: number, privateMedia: boolean = undefined): Promise<MediaEntity> {
+    const qb = this.createBasicFindQb()
+      .where("media.id = :id", { id });
+    if (privateMedia !== undefined) {
+      qb.andWhere(`type.private = ${privateMedia}`);
+    }
+    const entity = await qb.getOne();
     if (!entity) {
       throw new NotFoundMsException(`Media with ID ${id} not found`);
     }

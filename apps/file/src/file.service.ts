@@ -115,7 +115,7 @@ export class FileService {
    * @returns A promise that resolves to the removed FileEntity.
    */
   async remove(id: number) {
-    const file = await this.findPublicById(id);
+    const file = await this.findFileById(id);
     const dir = path.join(
       !file.public ? this.privateDir : this.publicDir,
       file.id.toString()

@@ -37,7 +37,7 @@ export class XmlDataBridgeMiddleware implements NestMiddleware {
       };
       for (const action of actions) {
         const tagName = action["#name"];
-        const target = action.$.target;
+        const target = action?.$?.target;
         const rows = action.$$;
         const obj: XdbActions = {
           action: tagName,
@@ -54,7 +54,7 @@ export class XmlDataBridgeMiddleware implements NestMiddleware {
                 value: item._
               };
 
-              if (itemName === "roles") {
+              if (item.$.key && item.$$) {
                 rowObj[itemName].values = item.$$.map(r => r._);
               }
             } else {

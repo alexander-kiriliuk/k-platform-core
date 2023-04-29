@@ -17,6 +17,8 @@
 import { DeSerializedFile, SerializedFile } from "@media/src/media.types";
 import { File } from "multer";
 import * as fs from "fs";
+import { OpenMode } from "node:fs";
+import { Abortable } from "node:events";
 
 
 export namespace FilesUtils {
@@ -58,6 +60,13 @@ export namespace FilesUtils {
     } catch (error) {
       await fs.promises.mkdir(directoryPath, { recursive: true });
     }
+  }
+
+  export async function readFile(path: string, options?: | ({
+    encoding?: null | undefined;
+    flag?: OpenMode | undefined;
+  } & Abortable) | null) {
+    return await fs.promises.readFile(path);
   }
 
 }

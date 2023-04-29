@@ -70,9 +70,12 @@ export interface DeSerializedFile extends Omit<SerializedFile, "buffer"> {
   buffer: Buffer;
 }
 
-export interface UploadMediaRequest {
-  type: string;
+export interface UpsertMediaRequest {
   file: SerializedFile;
+  type: string;
+  code?: string;
+  entityIdForPatch?: number;
+  entityName?: LocalizedString[];
 }
 
 export class MediaTypeDto implements MediaType {
