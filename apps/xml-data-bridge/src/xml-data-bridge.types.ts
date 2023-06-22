@@ -52,7 +52,7 @@ export type XdbActions = {
   attrs: {
     target: string;
   };
-  rows: Array<XdbRowData>;
+  rows: Array<XdbRowData | FileRow>;
 };
 
 export type XdbObject = {

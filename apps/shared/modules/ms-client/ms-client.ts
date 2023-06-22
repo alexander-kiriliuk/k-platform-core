@@ -25,7 +25,7 @@ import { LOGGER } from "@shared/modules/log/log.constants";
 import inspect = ObjectUtils.inspect;
 
 /**
- * Microservices client for dispatching, sending, and emitting messages.
+ * Microservices client for dispatching messages.
  */
 export class MsClient {
 

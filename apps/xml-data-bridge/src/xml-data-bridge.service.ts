@@ -193,7 +193,7 @@ export class XmlDataBridgeService {
    * @param rowData - An XdbRowData object containing data for a row.
    * @returns An object containing WHERE conditions.
    */
-  private getRowDataWhereConditions(rowData: XdbRowData): object {
+  private getRowDataWhereConditions(rowData: XdbRowData | FileRow): object {
     const whereConditions = {};
     for (const key in rowData) {
       if (rowData[key].value) {
