@@ -49,7 +49,7 @@ describe("UserService", () => {
     userRep = module.get<Repository<UserEntity>>(getRepositoryToken(UserEntity));
   });
 
-  it("should call finding user by login", async () => {
+  it("call finding user by login", async () => {
     const login = "test";
     jest.spyOn(userRep, "findOne").mockResolvedValue(testUser);
     const result = await userService.findByLogin(login);
@@ -60,7 +60,7 @@ describe("UserService", () => {
     expect(result).toBe(testUser);
   });
 
-  it("should call finding user by ID", async () => {
+  it("call finding user by ID", async () => {
     const id = "12345";
     jest.spyOn(userRep, "findOne").mockResolvedValue(testUser);
     const result = await userService.findById(id);
@@ -71,7 +71,7 @@ describe("UserService", () => {
     expect(result).toBe(testUser);
   });
 
-  it("should call update user", async () => {
+  it("call update user", async () => {
     const id = "12345";
     jest.spyOn(userRep, "update").mockResolvedValue(undefined);
     jest.spyOn(userService, "findById").mockResolvedValue(testUser);
@@ -81,7 +81,7 @@ describe("UserService", () => {
     expect(result).toBe(testUser);
   });
 
-  it("should call create user", async () => {
+  it("call create user", async () => {
     jest.spyOn(userRep, "create").mockImplementation(() => testUser);
     jest.spyOn(userRep, "save").mockResolvedValue(testUser);
     const result = await userService.create(testUser);
@@ -89,7 +89,7 @@ describe("UserService", () => {
     expect(result).toBe(testUser);
   });
 
-  it("should remove a user by id", async () => {
+  it("remove a user by id", async () => {
     const id = "12345";
     jest.spyOn(userRep, "findOne").mockResolvedValue(testUser);
     jest.spyOn(userRep, "remove").mockResolvedValue(testUser);
@@ -98,7 +98,7 @@ describe("UserService", () => {
     expect(userRep.remove).toHaveBeenCalledWith(testUser);
   });
 
-  it("should throw an error if the user is not found", async () => {
+  it("throw an error if the user is not found", async () => {
     const id = "12345";
     jest.spyOn(userRep, "findOne").mockResolvedValue(undefined);
     await expect(userService.removeById(id)).rejects.toThrow(NotFoundMsException);

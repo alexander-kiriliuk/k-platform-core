@@ -16,10 +16,10 @@
 
 import { CanActivate, ExecutionContext, Logger } from "@nestjs/common";
 import { REQUEST_PROPS } from "@shared/constants";
-import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { User } from "@user/src/user.types";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { AUTH_ACCESS_TOKEN_PREFIX, AUTH_JWT_CACHE_PREFIX } from "@auth/src/auth.constants";
+import { MessageBus } from "@shared/modules/ms-client/ms-client.types";
 
 /**
  * @abstract
@@ -30,7 +30,7 @@ export abstract class AbstractAuthGuard implements CanActivate {
 
   protected abstract readonly logger: Logger;
   protected abstract readonly cacheService: CacheService;
-  protected abstract readonly msClient: MsClient;
+  protected abstract readonly bus: MessageBus;
   protected fetchUser = true;
 
   async canActivate(context: ExecutionContext) {
@@ -53,7 +53,7 @@ export abstract class AbstractAuthGuard implements CanActivate {
       return false;
     }
     if (this.fetchUser) {
-      req[REQUEST_PROPS.currentUser] = await this.msClient.dispatch<User, string>("user.find.by.login", userIdentity);
+      req[REQUEST_PROPS.currentUser] = await this.bus.dispatch<User, string>("user.find.by.login", userIdentity);
     }
     return true;
   }

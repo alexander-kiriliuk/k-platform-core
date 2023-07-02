@@ -18,6 +18,7 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   Param,
   Post,
   Query,
@@ -26,7 +27,6 @@ import {
   UseGuards,
   UseInterceptors
 } from "@nestjs/common";
-import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { File } from "multer";
 import { Media, UpsertMediaRequest } from "@media/src/media.types";
@@ -37,14 +37,16 @@ import { DEFAULT_MEDIA_TYPE } from "@media/src/media.constants";
 import { Response } from "express";
 import * as path from "path";
 import { MediaService } from "@media/src/media.service";
+import { MSG_BUS } from "@shared/modules/ms-client/ms-client.constants";
+import { MessageBus } from "@shared/modules/ms-client/ms-client.types";
 import serializeFile = FilesUtils.serializeFile;
 
 @Controller("/media")
 export class MediaController {
 
   constructor(
-    private readonly mediaService: MediaService,
-    private readonly msClient: MsClient) {
+    @Inject(MSG_BUS) private readonly bus: MessageBus,
+    private readonly mediaService: MediaService) {
   }
 
   @Post("/upload/:type?")
@@ -52,7 +54,7 @@ export class MediaController {
   async createMedia(@UploadedFile("file", new NotEmptyPipe("file")) file: File,
                     @Param("type") type = DEFAULT_MEDIA_TYPE) {
     const serializedFile = serializeFile(file);
-    return await this.msClient.dispatch<Media, UpsertMediaRequest>("media.upsert", {
+    return await this.bus.dispatch<Media, UpsertMediaRequest>("media.upsert", {
       type: type,
       file: serializedFile
     }, { timeout: 30000 });
@@ -65,7 +67,7 @@ export class MediaController {
     @Param("id") id: string,
     @Query("format") format: string,
     @Query("webp") webp: boolean) {
-    const media = await this.msClient.dispatch<Media, string>("media.get.private.by.id", id);
+    const media = await this.bus.dispatch<Media, string>("media.get.private.by.id", id);
     const mediaPath = this.mediaService.getMediaPath(media, format, webp);
     res.sendFile(path.join(process.cwd(), mediaPath));
   }
@@ -73,13 +75,13 @@ export class MediaController {
   @UseGuards(AuthGuard)
   @Get("/:id")
   async getMedia(@Param("id") id: string) {
-    return await this.msClient.dispatch<Media, string>("media.get.by.id", id);
+    return await this.bus.dispatch<Media, string>("media.get.by.id", id);
   }
 
   @UseGuards(AuthGuard)
   @Delete("/:id")
   async removeMedia(@Param("id") id: string) {
-    return await this.msClient.dispatch<Media, string>("media.remove", id);
+    return await this.bus.dispatch<Media, string>("media.remove", id);
   }
 
 }

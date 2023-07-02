@@ -14,4 +14,5 @@
  *    limitations under the License.
  */
 
-export const MS_CLIENT = "MS_CLIENT";
+export const MS_CLIENT = Symbol("MS_CLIENT");
+export const MSG_BUS = Symbol("MSG_BUS");

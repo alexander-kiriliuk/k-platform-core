@@ -15,19 +15,20 @@
  */
 
 
-import { BadRequestException, Body, Controller, Post, Req, UnauthorizedException, UseGuards } from "@nestjs/common";
-import { MsClient } from "@shared/modules/ms-client/ms-client";
+import { Body, Controller, Inject, Post, Req, UseGuards } from "@nestjs/common";
 import { ExchangeTokenPayload, JwtDto, LoginPayload } from "@auth/src/auth.types";
 import { LiteAuthGuard } from "@shared/guards/lite-auth.guard";
 import { AccessToken } from "@shared/decorators/access-token.decorator";
 import { ResponseDto } from "@shared/decorators/response-dto.decorator";
 import { Request } from "express";
+import { MSG_BUS } from "@shared/modules/ms-client/ms-client.constants";
+import { MessageBus } from "@shared/modules/ms-client/ms-client.types";
 
 @Controller("/auth")
 export class AuthController {
 
   constructor(
-    private readonly msClient: MsClient) {
+    @Inject(MSG_BUS) private readonly bus: MessageBus) {
   }
 
   @ResponseDto(JwtDto)
@@ -36,28 +37,20 @@ export class AuthController {
     if (request.ip) {
       payload.ipAddress = request.ip;
     }
-    const dto = await this.msClient.dispatch<JwtDto, LoginPayload>("auth.login", payload);
-    if (!dto) {
-      throw new UnauthorizedException();
-    }
-    return dto;
+    return await this.bus.dispatch<JwtDto, LoginPayload>("auth.login", payload);
   }
 
   @UseGuards(LiteAuthGuard)
   @Post("/logout")
   async logout(@AccessToken() token: string) {
-    const result = await this.msClient.dispatch<boolean, string>("auth.logout", token);
+    const result = await this.bus.dispatch<boolean, string>("auth.logout", token);
     return { result };
   }
 
   @ResponseDto(JwtDto)
   @Post("/exchange-token")
   async exchange(@Body() payload: ExchangeTokenPayload) {
-    const dto = await this.msClient.dispatch<JwtDto, string>("auth.token.exchange", payload.token);
-    if (!dto) {
-      throw new BadRequestException();
-    }
-    return dto;
+    return await this.bus.dispatch<JwtDto, string>("auth.token.exchange", payload.token);
   }
 
 }

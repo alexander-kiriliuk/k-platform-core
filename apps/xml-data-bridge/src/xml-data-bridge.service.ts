@@ -21,7 +21,6 @@ import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource, EntityMetadata, In, Repository } from "typeorm";
 import { MsException } from "@shared/exceptions/ms.exception";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
-import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { Media, UpsertMediaRequest } from "@media/src/media.types";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { FilesUtils } from "@shared/utils/files.utils";
@@ -29,6 +28,8 @@ import * as process from "process";
 import * as path from "path";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { File, UpsertFileRequest } from "@files/src/file.types";
+import { MSG_BUS } from "@shared/modules/ms-client/ms-client.constants";
+import { MessageBus } from "@shared/modules/ms-client/ms-client.types";
 import readFile = FilesUtils.readFile;
 import serializeFile = FilesUtils.serializeFile;
 
@@ -41,8 +42,8 @@ export class XmlDataBridgeService {
   constructor(
     @InjectDataSource()
     private readonly dataSource: DataSource,
-    @Inject(LOGGER) private readonly logger: Logger,
-    private readonly msClient: MsClient) {
+    @Inject(MSG_BUS) private readonly bus: MessageBus,
+    @Inject(LOGGER) private readonly logger: Logger) {
   }
 
   private get connection() {
@@ -104,11 +105,11 @@ export class XmlDataBridgeService {
     for (const row of rows) {
       let existedEntity: File;
       if (row.code) {
-        existedEntity = await this.msClient.dispatch<File, string>("file.get.any.by.code", row.code);
+        existedEntity = await this.bus.dispatch<File, string>("file.get.any.by.code", row.code);
       }
       const localizedStrings = await this.getLocalizedStrings(row);
       const buf = await this.readFileData(row.file);
-      const file = await this.msClient.dispatch<File, UpsertFileRequest>("file.upsert", {
+      const file = await this.bus.dispatch<File, UpsertFileRequest>("file.upsert", {
         public: row.public,
         code: row.code,
         entityName: localizedStrings as LocalizedString[],
@@ -133,11 +134,11 @@ export class XmlDataBridgeService {
     for (const row of rows) {
       let existedEntity: Media;
       if (row.code) {
-        existedEntity = await this.msClient.dispatch<Media, string>("media.get.any.by.code", row.code);
+        existedEntity = await this.bus.dispatch<Media, string>("media.get.any.by.code", row.code);
       }
       const localizedStrings = await this.getLocalizedStrings(row);
       const buf = await this.readFileData(row.file);
-      const media = await this.msClient.dispatch<Media, UpsertMediaRequest>("media.upsert", {
+      const media = await this.bus.dispatch<Media, UpsertMediaRequest>("media.upsert", {
         type: row.type,
         code: row.code,
         entityName: localizedStrings as LocalizedString[],

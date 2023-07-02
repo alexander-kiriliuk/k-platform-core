@@ -14,18 +14,11 @@
  *    limitations under the License.
  */
 
-import { Observable } from "rxjs";
+import { HttpStatus } from "@nestjs/common";
+import { MsException } from "@shared/exceptions/ms.exception";
 
-export type MsClientOptions = {
-  timeout: number;
-}
-
-export interface MessageBus {
-
-  dispatch<TResult = any, TInput = any>(pattern: any, data?: TInput, opts?: MsClientOptions): Promise<TResult>;
-
-  send<TResult = any, TInput = any>(pattern: any, data?: TInput, opts?: MsClientOptions): Observable<TResult>;
-
-  emit<TResult = any, TInput = any>(pattern: any, data?: TInput, opts?: MsClientOptions): Observable<TResult>;
-
+export class UnauthorizedMsException extends MsException {
+  constructor(message?: string) {
+    super(HttpStatus.UNAUTHORIZED, message || "Unauthorized request");
+  }
 }

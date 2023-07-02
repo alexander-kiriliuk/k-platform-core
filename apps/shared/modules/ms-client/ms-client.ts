@@ -18,16 +18,16 @@ import { ClientProxy } from "@nestjs/microservices";
 import { catchError, Observable, throwError, timeout } from "rxjs";
 import { MS_EXCEPTION_ID } from "@shared/constants";
 import { HttpException, HttpStatus, Inject, Logger } from "@nestjs/common";
-import { MsClientOptions } from "@shared/modules/ms-client/ms-client.types";
+import { MessageBus, MsClientOptions } from "@shared/modules/ms-client/ms-client.types";
 import { MsException } from "@shared/exceptions/ms.exception";
 import { ObjectUtils } from "@shared/utils/object.utils";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import inspect = ObjectUtils.inspect;
 
 /**
- * Microservices client for dispatching messages.
+ * Microservices client for dispatching messages between microservices.
  */
-export class MsClient {
+export class MsClient implements MessageBus {
 
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
@@ -56,7 +56,7 @@ export class MsClient {
    * @param pattern - The message pattern.
    * @param data - The message data.
    * @param opts - Optional configuration options for the client.
-   * @returns An observable of the result of the sent message.
+   * @returns An observable of the result of the send message.
    */
   send<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions) {
     const source = this.proxy.send<TResult, TInput>(pattern, data);

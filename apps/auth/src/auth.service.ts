@@ -18,7 +18,6 @@ import { Inject, Injectable, Logger } from "@nestjs/common";
 import * as bcrypt from "bcrypt";
 import { JwtDto, LoginPayload } from "@auth/src/auth.types";
 import { User } from "@user/src/user.types";
-import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { JwtService } from "@nestjs/jwt";
 import { v4 as uuidv4 } from "uuid";
 import { TooManyRequestsMsException } from "@shared/exceptions/too-many-requests-ms.exception";
@@ -36,6 +35,9 @@ import { InvalidTokenMsException } from "@shared/exceptions/invalid-token-ms.exc
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { AuthConfig } from "@auth/gen-src/auth.config";
 import { BruteforceConfig } from "@auth/gen-src/bruteforce.config";
+import { UnauthorizedMsException } from "@shared/exceptions/unauthorized-ms.exception";
+import { MSG_BUS } from "@shared/modules/ms-client/ms-client.constants";
+import { MessageBus } from "@shared/modules/ms-client/ms-client.types";
 
 /**
  * @class AuthService
@@ -45,31 +47,25 @@ import { BruteforceConfig } from "@auth/gen-src/bruteforce.config";
 @Injectable()
 export class AuthService {
 
-  private accessTokenExp: number;
-  private refreshTokenExp: number;
-  private bruteForceMaxAttempts: number;
-  private bruteForceBlockDuration: number;
-  private bruteForceEnabled: boolean;
-
   /**
    * @constructor
    * @param logger - Logger instance.
    * @param cacheService - CacheService instance.
-   * @param msClient - MsClient instance.
+   * @param bus - MsClient instance.
    * @param jwtService - JwtService instance.
    */
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
+    @Inject(MSG_BUS) private readonly bus: MessageBus,
     private readonly cacheService: CacheService,
-    private readonly msClient: MsClient,
     private readonly jwtService: JwtService) {
-    this.initOptions();
   }
 
   /**
    * Authenticate the user with the provided login payload.
    * @param data - LoginPayload object with user login information.
-   * @returns A Promise that resolves to a JwtDto containing access and refresh tokens, or null if authentication fails.
+   * @returns A Promise that resolves to a JwtDto containing access and refresh tokens.
+   * @throws UnauthorizedMsException unauthorized exception if authentication fails.
    */
   async authenticate(data: LoginPayload): Promise<JwtDto> {
     if (!data.ipAddress?.length) {
@@ -84,13 +80,15 @@ export class AuthService {
     if (!user) {
       this.logger.debug(`Invalid credentials for user ${data.login}`);
       await this.registerFailedAttempt(data.login, data.ipAddress);
-      return null;
+      throw new UnauthorizedMsException();
     }
     await this.resetFailedAttempts(data.login, data.ipAddress);
     const accessToken = this.jwtService.sign({ login: user.login });
-    await this.cacheService.set(jwtAccessTokenKey(accessToken), user.login, this.accessTokenExp);
+    const atExp = await this.getAccessTokenExp();
+    await this.cacheService.set(jwtAccessTokenKey(accessToken), user.login, atExp);
     const refreshToken = uuidv4();
-    await this.cacheService.set(jwtRefreshTokenKey(accessToken, refreshToken), user.login, this.refreshTokenExp);
+    const rtExp = await this.getRefreshTokenExp();
+    await this.cacheService.set(jwtRefreshTokenKey(accessToken, refreshToken), user.login, rtExp);
     return { user, accessToken, refreshToken };
   }
 
@@ -98,6 +96,7 @@ export class AuthService {
    * Invalidate the specified access token.
    * @param accessToken - The access token to invalidate.
    * @returns A Promise that resolves to true if the token was invalidated successfully, or throws an error.
+   * @throws InvalidTokenMsException if related user for access token not exists.
    */
   async invalidateToken(accessToken: string) {
     const userLogin = await this.cacheService.get(jwtAccessTokenKey(accessToken));
@@ -115,27 +114,28 @@ export class AuthService {
   /**
    * Exchange the provided refresh token for a new access token.
    * @param refreshToken - The refresh token to exchange.
-   * @returns A Promise that resolves to a Partial<JwtDto> containing a new access and refresh tokens, or null if the exchange fails.
+   * @returns A Promise that resolves to a Partial<JwtDto> containing a new access and refresh tokens.
+   * @throws InvalidTokenMsException unauthorized exception if exchange fails.
    */
   async exchangeToken(refreshToken: string): Promise<Partial<JwtDto>> {
     const refreshTokenKeyPattern = jwtRefreshTokenKey("*", refreshToken);
     const refreshTokenKeys = await this.cacheService.getFromPattern(refreshTokenKeyPattern);
     if (refreshTokenKeys.length === 0) {
       this.logger.warn(`Attempt to exchange an invalid refresh token: ${refreshToken}`);
-      return null;
+      throw new InvalidTokenMsException();
     }
     const refreshTokenKey = refreshTokenKeys[0];
     const userLogin = await this.cacheService.get(refreshTokenKey);
     if (!userLogin) {
-      return null;
+      throw new InvalidTokenMsException();
     }
     const accessToken = this.jwtService.sign({ login: userLogin });
-    await this.cacheService.set(jwtAccessTokenKey(accessToken), userLogin, this.accessTokenExp);
+    const atExp = await this.getAccessTokenExp();
+    await this.cacheService.set(jwtAccessTokenKey(accessToken), userLogin, atExp);
     const newRefreshToken = uuidv4();
+    const rtExp = await this.getRefreshTokenExp();
     await this.cacheService.set(
-      `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${accessToken}:${newRefreshToken}`,
-      userLogin,
-      this.refreshTokenExp,
+      `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${accessToken}:${newRefreshToken}`, userLogin, rtExp
     );
     // extract related access token for delete
     const oldAccessToken = this.extractAccessTokenFromRefreshTokenKey(refreshTokenKey);
@@ -144,31 +144,25 @@ export class AuthService {
     return { accessToken, refreshToken: newRefreshToken };
   }
 
-  private async initOptions() {
-    this.logger.verbose(`Init auth configuration`);
-    this.accessTokenExp = await this.cacheService.getNumber(AuthConfig.ACCESS_TOKEN_EXPIRATION);
-    this.refreshTokenExp = await this.cacheService.getNumber(AuthConfig.REFRESH_TOKEN_EXPIRATION);
-    this.bruteForceMaxAttempts = await this.cacheService.getNumber(BruteforceConfig.MAX_ATTEMPTS);
-    this.bruteForceBlockDuration = await this.cacheService.getNumber(BruteforceConfig.BLOCK_DURATION);
-    this.bruteForceEnabled = await this.cacheService.getBoolean(BruteforceConfig.ENABLED);
-  }
-
   private async isBlocked(login: string, ipAddress: string): Promise<boolean> {
-    if (!this.bruteForceEnabled) {
+    const bfEnabled = await this.getBruteForceEnabled();
+    if (!bfEnabled) {
       return false;
     }
     const loginKey = bruteForceLoginKey(login);
     const ipKey = bruteForceIPKey(ipAddress);
     const [loginAttempts, ipAttempts] = await Promise.all([
       this.cacheService.get(loginKey),
-      this.cacheService.get(ipKey),
+      this.cacheService.get(ipKey)
     ]);
-    return (loginAttempts && parseInt(loginAttempts, 10) >= this.bruteForceMaxAttempts) ||
-      (ipAttempts && parseInt(ipAttempts, 10) >= this.bruteForceMaxAttempts);
+    const bfMaxAt = await this.getBruteForceMaxAttempts();
+    return (loginAttempts && parseInt(loginAttempts, 10) >= bfMaxAt)
+      || (ipAttempts && parseInt(ipAttempts, 10) >= bfMaxAt);
   }
 
   private async registerFailedAttempt(login: string, ipAddress: string): Promise<void> {
-    if (!this.bruteForceEnabled) {
+    const bfEnabled = await this.getBruteForceEnabled();
+    if (!bfEnabled) {
       return;
     }
     this.logger.debug(`Registering failed login attempt for ${login} from ${ipAddress}`);
@@ -176,19 +170,21 @@ export class AuthService {
     const ipKey = bruteForceIPKey(ipAddress);
     const [loginAttempts, ipAttempts] = await Promise.all([
       this.cacheService.get(loginKey),
-      this.cacheService.get(ipKey),
+      this.cacheService.get(ipKey)
     ]);
+    const blockDuration = await this.getBruteForceBlockDuration();
     const loginUpdate = loginAttempts
       ? this.cacheService.incr(loginKey)
-      : this.cacheService.set(loginKey, 1, this.bruteForceBlockDuration);
+      : this.cacheService.set(loginKey, 1, blockDuration);
     const ipUpdate = ipAttempts
       ? this.cacheService.incr(ipKey)
-      : this.cacheService.set(ipKey, 1, this.bruteForceBlockDuration);
+      : this.cacheService.set(ipKey, 1, blockDuration);
     await Promise.all([loginUpdate, ipUpdate]);
   }
 
   private async resetFailedAttempts(login: string, ipAddress: string): Promise<void> {
-    if (!this.bruteForceEnabled) {
+    const bfEnabled = await this.getBruteForceEnabled();
+    if (!bfEnabled) {
       return;
     }
     this.logger.debug(`Resetting failed login attempts for ${login} from ${ipAddress}`);
@@ -198,7 +194,7 @@ export class AuthService {
   }
 
   private async validateUser(payload: LoginPayload): Promise<User> {
-    const user = await this.msClient.dispatch<User, string>("user.find.by.login", payload.login);
+    const user = await this.bus.dispatch<User, string>("user.find.by.login", payload.login);
     if (!user) {
       this.logger.debug(`User not found: ${payload.login}`);
       return null;
@@ -230,6 +226,26 @@ export class AuthService {
     if (refreshTokenKeys.length > 0) {
       await this.cacheService.del(...refreshTokenKeys);
     }
+  }
+
+  private async getAccessTokenExp() {
+    return await this.cacheService.getNumber(AuthConfig.ACCESS_TOKEN_EXPIRATION);
+  }
+
+  private async getRefreshTokenExp() {
+    return await this.cacheService.getNumber(AuthConfig.REFRESH_TOKEN_EXPIRATION);
+  }
+
+  private async getBruteForceMaxAttempts() {
+    return await this.cacheService.getNumber(BruteforceConfig.MAX_ATTEMPTS);
+  }
+
+  private async getBruteForceEnabled() {
+    return await this.cacheService.getBoolean(BruteforceConfig.ENABLED);
+  }
+
+  private async getBruteForceBlockDuration() {
+    return await this.cacheService.getNumber(BruteforceConfig.BLOCK_DURATION);
   }
 
 }

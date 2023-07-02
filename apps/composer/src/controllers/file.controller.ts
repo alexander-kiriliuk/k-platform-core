@@ -18,6 +18,7 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   Param,
   Post,
   Query,
@@ -26,7 +27,6 @@ import {
   UseGuards,
   UseInterceptors
 } from "@nestjs/common";
-import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { File as MulterFile } from "multer";
 import { AuthGuard } from "@shared/guards/auth.guard";
@@ -36,14 +36,16 @@ import { Response } from "express";
 import * as path from "path";
 import { File, UpsertFileRequest } from "@files/src/file.types";
 import { FileService } from "@files/src/file.service";
+import { MSG_BUS } from "@shared/modules/ms-client/ms-client.constants";
+import { MessageBus } from "@shared/modules/ms-client/ms-client.types";
 import serializeFile = FilesUtils.serializeFile;
 
 @Controller("/file")
 export class FileController {
 
   constructor(
-    private readonly fileService: FileService,
-    private readonly msClient: MsClient) {
+    @Inject(MSG_BUS) private readonly bus: MessageBus,
+    private readonly fileService: FileService) {
   }
 
   @Post("/upload")
@@ -52,7 +54,7 @@ export class FileController {
     @UploadedFile("file", new NotEmptyPipe("file")) file: MulterFile,
     @Query("public") isPublic = "true") {
     const serializedFile = serializeFile(file);
-    return await this.msClient.dispatch<File, UpsertFileRequest>("file.upsert", {
+    return await this.bus.dispatch<File, UpsertFileRequest>("file.upsert", {
       file: serializedFile,
       public: isPublic === "true"
     }, { timeout: 30000 });
@@ -61,7 +63,7 @@ export class FileController {
   @UseGuards(AuthGuard)
   @Get("/private/:id")
   async getPrivateFile(@Res() res: Response, @Param("id") id: string) {
-    const file = await this.msClient.dispatch<File, string>("file.get.private.by.id", id);
+    const file = await this.bus.dispatch<File, string>("file.get.private.by.id", id);
     const filePath = this.fileService.getFilePath(file);
     res.sendFile(path.join(process.cwd(), filePath));
   }
@@ -69,13 +71,13 @@ export class FileController {
   @UseGuards(AuthGuard)
   @Get("/:id")
   async getFile(@Param("id") id: string) {
-    return await this.msClient.dispatch<File, string>("file.get.by.id", id);
+    return await this.bus.dispatch<File, string>("file.get.by.id", id);
   }
 
   @UseGuards(AuthGuard)
   @Delete("/:id")
   async removeFile(@Param("id") id: string) {
-    return await this.msClient.dispatch<File, string>("file.remove", id);
+    return await this.bus.dispatch<File, string>("file.remove", id);
   }
 
 }

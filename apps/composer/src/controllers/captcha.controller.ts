@@ -14,29 +14,30 @@
  *    limitations under the License.
  */
 
-import { Body, Controller, Get, Post } from "@nestjs/common";
-import { MsClient } from "@shared/modules/ms-client/ms-client";
+import { Body, Controller, Get, Inject, Post } from "@nestjs/common";
 import { CaptchaRequest, GraphicCaptchaResponse } from "@captcha/src/captcha.types";
+import { MSG_BUS } from "@shared/modules/ms-client/ms-client.constants";
+import { MessageBus } from "@shared/modules/ms-client/ms-client.types";
 
 @Controller("/captcha")
 export class CaptchaController {
 
   constructor(
-    private readonly msClient: MsClient) {
+    @Inject(MSG_BUS) private readonly bus: MessageBus) {
   }
 
   @Post("/validate")
   async validateCaptcha(@Body() payload: CaptchaRequest) {
-    const result = await this.msClient.dispatch<boolean, CaptchaRequest>("captcha.validate", payload);
+    const result = await this.bus.dispatch<boolean, CaptchaRequest>("captcha.validate", payload);
     return { result };
   }
 
   @Get("/")
   async getCaptcha() {
-    const captcha: GraphicCaptchaResponse = await this.msClient.dispatch<GraphicCaptchaResponse>("captcha.generate");
+    const captcha: GraphicCaptchaResponse = await this.bus.dispatch<GraphicCaptchaResponse>("captcha.generate");
     return {
       id: captcha.id,
-      image: `data:image/png;base64,${captcha.image}`,
+      image: `data:image/png;base64,${captcha.image}`
     };
   }
 

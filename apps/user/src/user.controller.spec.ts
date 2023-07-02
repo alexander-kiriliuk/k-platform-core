@@ -40,32 +40,32 @@ describe("UserController", () => {
     userService = module.get<UserService>(UserService);
   });
 
-  it("should find user by login", async () => {
+  it("find user by login", async () => {
     const user = new UserEntity();
     jest.spyOn(userService, "findByLogin").mockImplementation(async () => user);
     expect(await userController.findUserByLogin("test")).toBe(user);
   });
 
-  it("should find user by id", async () => {
+  it("find user by id", async () => {
     const user = new UserEntity();
     jest.spyOn(userService, "findById").mockImplementation(async () => user);
     expect(await userController.findUserById("123")).toBe(user);
   });
 
-  it("should update user by id", async () => {
+  it("update user by id", async () => {
     const user = new UserEntity();
     const request: UserUpdateRequest = { id: "123", user };
     jest.spyOn(userService, "updateById").mockImplementation(async () => user);
     expect(await userController.updateUser(request)).toBe(user);
   });
 
-  it("should create user", async () => {
+  it("create user", async () => {
     const user = new UserEntity();
     jest.spyOn(userService, "create").mockImplementation(async () => user);
     expect(await userController.createUser(user)).toBe(user);
   });
 
-  it("should remove user", async () => {
+  it("remove user", async () => {
     const user = new UserEntity();
     jest.spyOn(userService, "removeById").mockImplementation(async () => user);
     expect(await userController.removeUser("123")).toBe(user);

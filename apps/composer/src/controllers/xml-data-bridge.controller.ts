@@ -14,28 +14,29 @@
  *    limitations under the License.
  */
 
-import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
-import { MsClient } from "@shared/modules/ms-client/ms-client";
+import { Body, Controller, Get, Inject, Param, Post, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { XdbObject, XdbRequest } from "@xml-data-bridge/src/xml-data-bridge.types";
+import { MSG_BUS } from "@shared/modules/ms-client/ms-client.constants";
+import { MessageBus } from "@shared/modules/ms-client/ms-client.types";
 
 @Controller("xdb")
 export class XmlDataBridgeController {
 
   constructor(
-    private readonly msClient: MsClient) {
+    @Inject(MSG_BUS) private readonly bus: MessageBus) {
   }
 
   @UseGuards(AuthGuard)
   @Post("/import")
   async import(@Body() body: XdbObject) {
-    return await this.msClient.dispatch<boolean, XdbObject>("xdb.import", body);
+    return await this.bus.dispatch<boolean, XdbObject>("xdb.import", body);
   }
 
   @UseGuards(AuthGuard)
   @Get("/export/:target/:id")
   async export(@Param("target") target: string, @Param("id") id: string) {
-    return await this.msClient.dispatch<boolean, XdbRequest>("xdb.export", {
+    return await this.bus.dispatch<boolean, XdbRequest>("xdb.export", {
       target, id
     });
   }

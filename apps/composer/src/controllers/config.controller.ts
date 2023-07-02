@@ -14,36 +14,37 @@
  *    limitations under the License.
  */
 
-import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Inject, Param, Post, Query, UseGuards } from "@nestjs/common";
 import { PageableData, PageableParams } from "@shared/modules/pageable/pageable.types";
-import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { ConfigItem } from "@config/src/config.types";
+import { MSG_BUS } from "@shared/modules/ms-client/ms-client.constants";
+import { MessageBus } from "@shared/modules/ms-client/ms-client.types";
 
 
 @Controller("config")
 export class ConfigController {
 
   constructor(
-    private readonly msClient: MsClient) {
+    @Inject(MSG_BUS) private readonly bus: MessageBus) {
   }
 
   @UseGuards(AuthGuard)
   @Get("/")
   async list(@Query() params: PageableParams) {
-    return await this.msClient.dispatch<PageableData<ConfigItem>, PageableParams>("config.properties.get", params);
+    return await this.bus.dispatch<PageableData<ConfigItem>, PageableParams>("config.properties.get", params);
   }
 
   @UseGuards(AuthGuard)
   @Post("/")
   async setProperty(@Body() body: ConfigItem) {
-    return await this.msClient.dispatch<boolean, ConfigItem>("config.properties.set", body);
+    return await this.bus.dispatch<boolean, ConfigItem>("config.properties.set", body);
   }
 
   @UseGuards(AuthGuard)
   @Delete("/:key")
   async removeProperty(@Param("key") key: string) {
-    return await this.msClient.dispatch<boolean, string>("config.properties.remove", key);
+    return await this.bus.dispatch<boolean, string>("config.properties.remove", key);
   }
 
 }

@@ -19,7 +19,7 @@ import { LogModule } from "@shared/modules/log/log.module";
 import { ClientProxy, ClientsModule } from "@nestjs/microservices";
 import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { LOGGER } from "@shared/modules/log/log.constants";
-import { MS_CLIENT } from "@shared/modules/ms-client/ms-client.constants";
+import { MS_CLIENT, MSG_BUS } from "@shared/modules/ms-client/ms-client.constants";
 import { EnvLoader } from "@shared/utils/env.loader";
 
 @Module({
@@ -46,13 +46,13 @@ import { EnvLoader } from "@shared/utils/env.loader";
   ],
   providers: [
     {
-      provide: MsClient,
+      provide: MSG_BUS,
       useFactory: (logger: Logger, client: ClientProxy) => new MsClient(logger, client),
-      inject: [LOGGER, MS_CLIENT],
-    },
+      inject: [LOGGER, MS_CLIENT]
+    }
   ],
   exports: [
-    MsClient,
+    MSG_BUS
   ],
 })
 export class MsClientModule {

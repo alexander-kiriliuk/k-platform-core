@@ -14,13 +14,14 @@
  *    limitations under the License.
  */
 
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Inject, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { CurrentUser } from "@shared/decorators/current-user.decorator";
 import { User, UserDto, UserUpdateRequest } from "@user/src/user.types";
 import { ResponseDto } from "@shared/decorators/response-dto.decorator";
-import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { RolesGuard } from "@shared/guards/roles.guard";
+import { MSG_BUS } from "@shared/modules/ms-client/ms-client.constants";
+import { MessageBus } from "@shared/modules/ms-client/ms-client.types";
 
 
 @Controller("/profile")
@@ -28,33 +29,33 @@ import { RolesGuard } from "@shared/guards/roles.guard";
 export class ProfileController {
 
   constructor(
-    private readonly msClient: MsClient) {
+    @Inject(MSG_BUS) private readonly bus: MessageBus) {
   }
 
   @ResponseDto(UserDto)
   @Get("/:id")
   async getUserProfile(@Param("id") id: string) {
-    return await this.msClient.dispatch<User, string>("user.find.by.id", id);
+    return await this.bus.dispatch<User, string>("user.find.by.id", id);
   }
 
   @ResponseDto(UserDto)
   @Patch("/:id")
   async updateUserProfile(@Param("id") id: string, @Body() profile: User) {
-    return await this.msClient.dispatch<User, UserUpdateRequest>("user.update", {
-      user: profile, id,
+    return await this.bus.dispatch<User, UserUpdateRequest>("user.update", {
+      user: profile, id
     });
   }
 
   @ResponseDto(UserDto)
   @Delete("/:id")
   async removeUserProfile(@Param("id") id: string) {
-    return await this.msClient.dispatch<User, string>("user.remove.by.id", id);
+    return await this.bus.dispatch<User, string>("user.remove.by.id", id);
   }
 
   @ResponseDto(UserDto)
   @Post("/")
   async createUserProfile(@Body() profile: User) {
-    return await this.msClient.dispatch<User, User>("user.create", profile);
+    return await this.bus.dispatch<User, User>("user.create", profile);
   }
 
   @ResponseDto(UserDto)
