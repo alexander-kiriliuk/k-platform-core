@@ -16,7 +16,7 @@
 
 import { Injectable } from "@nestjs/common";
 import { CacheService } from "@shared/modules/cache/cache.types";
-import { MockStorage } from "@shared/utils/mock.storage";
+import { MockStorage } from "@shared/modules/mock/mock.storage";
 
 /**
  * A mock service class that provides cache storage functionality implementing the CacheService interface

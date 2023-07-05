@@ -16,30 +16,26 @@
 
 
 import { AuthService } from "@auth/src/auth.service";
-import { JwtService } from "@nestjs/jwt";
 import { MockCacheService } from "@shared/modules/cache/mock/mock-cache.service";
 import { TooManyRequestsMsException } from "@shared/exceptions/too-many-requests-ms.exception";
 import { AuthMock } from "@auth/src/mock/auth.mock";
 import { UnauthorizedMsException } from "@shared/exceptions/unauthorized-ms.exception";
 import { MockMsClient } from "@shared/modules/ms-client/mock/mock-ms-client";
 import { MessageBus } from "@shared/modules/ms-client/ms-client.types";
-import { v4 as uuidv4 } from "uuid";
 import { bruteForceIPKey } from "@auth/src/auth.constants";
 import { InvalidTokenMsException } from "@shared/exceptions/invalid-token-ms.exception";
+import { LoggerMock } from "@shared/modules/mock/logger.mock";
 
 describe("AuthService", () => {
 
   let authService: AuthService;
-  let jwtService: jest.Mocked<JwtService>;
   let cacheService: MockCacheService;
   let bus: MessageBus;
 
   beforeEach(async () => {
-    const logger = { warn: jest.fn(), debug: jest.fn(), verbose: jest.fn() };
     cacheService = new MockCacheService(AuthMock.Storage);
     bus = new MockMsClient(AuthMock.Storage);
-    jwtService = { sign: () => uuidv4() } as any;
-    authService = new AuthService(logger as any, bus, cacheService, jwtService);
+    authService = new AuthService(LoggerMock, bus, cacheService, AuthMock.jwtService);
   });
 
   describe("authenticate", () => {

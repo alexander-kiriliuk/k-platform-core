@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { MockStorage } from "@shared/utils/mock.storage";
+import { MockStorage } from "@shared/modules/mock/mock.storage";
 import { BruteforceConfig } from "@auth/gen-src/bruteforce.config";
 import {
   AUTH_ACCESS_TOKEN_PREFIX,
@@ -24,9 +24,12 @@ import {
 } from "@auth/src/auth.constants";
 import { LoginPayload } from "@auth/src/auth.types";
 import { User } from "@user/src/user.types";
+import { v4 as uuidv4 } from "uuid";
+import { JwtService } from "@nestjs/jwt";
 
 export namespace AuthMock {
 
+  export const jwtService: jest.Mocked<JwtService> = { sign: () => uuidv4() } as any;
   export const blockedUsrLoginPayload: LoginPayload = {
     login: "blockedUserByLogin",
     password: "1111",

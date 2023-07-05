@@ -16,7 +16,7 @@
 
 import { Observable, of } from "rxjs";
 import { MessageBus, MsClientOptions } from "@shared/modules/ms-client/ms-client.types";
-import { MockStorage } from "@shared/utils/mock.storage";
+import { MockStorage } from "@shared/modules/mock/mock.storage";
 
 /**
  * A mock service client for dispatching messages between microservices.
