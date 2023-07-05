@@ -120,14 +120,14 @@ export class AuthService {
   async exchangeToken(refreshToken: string): Promise<Partial<JwtDto>> {
     const refreshTokenKeyPattern = jwtRefreshTokenKey("*", refreshToken);
     const refreshTokenKeys = await this.cacheService.getFromPattern(refreshTokenKeyPattern);
-    if (refreshTokenKeys.length === 0) {
+    if (!refreshTokenKeys?.length) {
       this.logger.warn(`Attempt to exchange an invalid refresh token: ${refreshToken}`);
       throw new InvalidTokenMsException();
     }
     const refreshTokenKey = refreshTokenKeys[0];
     const userLogin = await this.cacheService.get(refreshTokenKey);
     if (!userLogin) {
-      throw new InvalidTokenMsException();
+      throw new UnauthorizedMsException();
     }
     const accessToken = this.jwtService.sign({ login: userLogin });
     const atExp = await this.getAccessTokenExp();
@@ -223,7 +223,7 @@ export class AuthService {
   private async deleteRefreshTokens(accessToken: string, pattern: string): Promise<void> {
     this.logger.debug(`Deleting refresh tokens for access token: ${accessToken}`);
     const refreshTokenKeys = await this.cacheService.getFromPattern(pattern);
-    if (refreshTokenKeys.length > 0) {
+    if (refreshTokenKeys?.length > 0) {
       await this.cacheService.del(...refreshTokenKeys);
     }
   }

@@ -16,7 +16,12 @@
 
 import { MockStorage } from "@shared/utils/mock.storage";
 import { BruteforceConfig } from "@auth/gen-src/bruteforce.config";
-import { BRUTEFORCE_JWT_CACHE_PREFIX } from "@auth/src/auth.constants";
+import {
+  AUTH_ACCESS_TOKEN_PREFIX,
+  AUTH_JWT_CACHE_PREFIX,
+  AUTH_REFRESH_TOKEN_PREFIX,
+  BRUTEFORCE_JWT_CACHE_PREFIX
+} from "@auth/src/auth.constants";
 import { LoginPayload } from "@auth/src/auth.types";
 import { User } from "@user/src/user.types";
 
@@ -52,6 +57,10 @@ export namespace AuthMock {
     password: "$2b$10$pLGG/FWq1krOgl8wg05.DeoC5WlNEYOhuX7zYbtJlYQ0aZjKaMmIe"  // encrypted string "1111"
   } as User;
 
+  export const validAccessToken = "valid-access-token";
+  export const validRefreshToken = "valid-refresh-token";
+  export const refreshTokenWithoutRelatedUser = "no-user-refresh-token";
+
   export const Storage = new MockStorage([
     {
       key: BruteforceConfig.ENABLED, data: "true"
@@ -70,6 +79,25 @@ export namespace AuthMock {
     },
     {
       key: "user.find.by.login", data: testUser, params: validCredentialsUsrPayload.login
+    },
+    {
+      key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${validAccessToken}`, data: testUser
+    },
+    {
+      key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${validAccessToken}:*`, data: testUser
+    },
+    {
+      key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:*:${refreshTokenWithoutRelatedUser}`, data: [
+        "fake-token-1", "fake-token-2"
+      ]
+    },
+    {
+      key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:*:${validRefreshToken}`, data: [
+        validRefreshToken
+      ]
+    },
+    {
+      key: validRefreshToken, data: testUser.login
     }
   ]);
 }

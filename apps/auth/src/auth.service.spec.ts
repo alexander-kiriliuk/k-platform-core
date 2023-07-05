@@ -25,6 +25,7 @@ import { MockMsClient } from "@shared/modules/ms-client/mock/mock-ms-client";
 import { MessageBus } from "@shared/modules/ms-client/ms-client.types";
 import { v4 as uuidv4 } from "uuid";
 import { bruteForceIPKey } from "@auth/src/auth.constants";
+import { InvalidTokenMsException } from "@shared/exceptions/invalid-token-ms.exception";
 
 describe("AuthService", () => {
 
@@ -63,18 +64,18 @@ describe("AuthService", () => {
       await cacheService.del(ipKey);
       await expect(authService.authenticate(AuthMock.wrongCredentialsUsrPayload))
         .rejects.toThrow(UnauthorizedMsException);
-      let tries = await cacheService.getNumber(ipKey);
-      expect(tries).toBe(1);
+      let attempts = await cacheService.getNumber(ipKey);
+      expect(attempts).toBe(1);
       await expect(authService.authenticate(AuthMock.wrongCredentialsUsrPayload))
         .rejects.toThrow(UnauthorizedMsException);
-      tries = await cacheService.getNumber(ipKey);
-      expect(tries).toBe(2);
+      attempts = await cacheService.getNumber(ipKey);
+      expect(attempts).toBe(2);
       await authService.authenticate(AuthMock.validCredentialsUsrPayload);
-      tries = await cacheService.getNumber(ipKey);
-      if (isNaN(tries) || typeof tries !== "number") {
-        tries = 0;
+      attempts = await cacheService.getNumber(ipKey);
+      if (isNaN(attempts) || typeof attempts !== "number") {
+        attempts = 0;
       }
-      expect(tries).toBe(0);
+      expect(attempts).toBe(0);
     });
 
     it("return JWT if credentials are valid", async () => {
@@ -91,30 +92,38 @@ describe("AuthService", () => {
 
   });
 
-  describe("exchangeToken", () => {
+  describe("invalidateToken", () => {
 
-    it("throw error if refresh token not exists in db", async () => {
-      // todo test
+    it("success invalidate if token exists in db", async () => {
+      const result = await authService.invalidateToken(AuthMock.validAccessToken);
+      expect(result).toBeDefined();
+      expect(result).toBe(true);
     });
 
-    it("throw error if related user for refresh token not exists in db", async () => {
-      // todo test
-    });
-
-    it("return JWT if tokens success exchanged", async () => {
-      // todo test
+    it("fail invalidate if token not exists in db", async () => {
+      await expect(authService.invalidateToken("fake-token")).rejects.toThrow(InvalidTokenMsException);
     });
 
   });
 
-  describe("invalidateToken", () => {
+  describe("exchangeToken", () => {
 
-    it("success invalidate if token exists in db", async () => {
-      // todo test
+    it("throw error if refresh token not exists in db", async () => {
+      await expect(authService.exchangeToken("fake-token")).rejects.toThrow(InvalidTokenMsException);
     });
 
-    it("fail invalidate if token not exists in db", async () => {
-      // todo test
+    it("throw error if related user for refresh token not exists in db", async () => {
+      await expect(authService.exchangeToken(AuthMock.refreshTokenWithoutRelatedUser))
+        .rejects.toThrow(UnauthorizedMsException);
+    });
+
+    it("return JWT if tokens success exchanged", async () => {
+      const result = await authService.exchangeToken(AuthMock.validRefreshToken);
+      expect(result).toBeDefined();
+      expect(result).toHaveProperty("accessToken");
+      expect(result).toHaveProperty("refreshToken");
+      expect(typeof result.accessToken).toBe("string");
+      expect(typeof result.refreshToken).toBe("string");
     });
 
   });
