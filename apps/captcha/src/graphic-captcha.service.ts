@@ -36,10 +36,6 @@ import generateRandomInt = NumberUtils.generateRandomInt;
  */
 export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse> {
 
-  private captchaExp: number;
-  private captchaFontFamily: string;
-  private captchaFontPath: string;
-
   /**
    * @param {Logger} logger - An instance of Logger.
    * @param {CacheService} cacheService - An instance of CacheService.
@@ -48,7 +44,6 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
     @Inject(LOGGER) private readonly logger: Logger,
     private readonly cacheService: CacheService) {
     super();
-    this.initOptions();
   }
 
   /**
@@ -59,7 +54,8 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
     const id = uuidv4();
     const val = generateRandomString(5, 7);
     const image = await this.makeImageFromText(val);
-    await this.cacheService.set(`${CAPTCHA_CACHE_PREFIX}:${id}`, val, this.captchaExp);
+    const capEx = await this.getCaptchaExp();
+    await this.cacheService.set(`${CAPTCHA_CACHE_PREFIX}:${id}`, val, capEx);
     this.logger.debug(`Generated captcha with id: ${id} and value: ${val}`);
     return { id, image };
   }
@@ -87,16 +83,6 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
   }
 
   /**
-   * Initializes captcha options from the CacheService.
-   * @private
-   */
-  private async initOptions() {
-    this.captchaExp = await this.cacheService.getNumber(CaptchaConfig.EXPIRATION);
-    this.captchaFontFamily = await this.cacheService.get(CaptchaConfig.FONT_FAMILY);
-    this.captchaFontPath = await this.cacheService.get(CaptchaConfig.FONT_PATH);
-  }
-
-  /**
    * Generates an image from the provided text.
    * @param {string} text - The text to be drawn on the image.
    * @returns {Promise<string>} - A promise resolving to a base64 encoded image.
@@ -105,10 +91,12 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
   private async makeImageFromText(text: string) {
     const canvas = createCanvas(200, 50);
     const ctx = canvas.getContext("2d");
-    registerFont(process.cwd() + this.captchaFontPath, { family: this.captchaFontFamily });
+    const capFontFamily = await this.getCaptchaFontFamily();
+    const capFontPath = await this.getCaptchaFontPath();
+    registerFont(process.cwd() + capFontPath, { family: capFontFamily });
     ctx.fillStyle = this.generateColor();
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.font = `30px ${this.captchaFontFamily}`;
+    ctx.font = `30px ${capFontFamily}`;
     ctx.textBaseline = "middle";
     for (let i = 0; i < text.length; i++) {
       const char = text[i];
@@ -136,6 +124,18 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
    */
   private generateColor() {
     return `rgb(${generateRandomInt(255)},${generateRandomInt(255)},${generateRandomInt(255)})`;
+  }
+
+  private async getCaptchaExp() {
+    return await this.cacheService.getNumber(CaptchaConfig.EXPIRATION);
+  }
+
+  private async getCaptchaFontFamily() {
+    return await this.cacheService.get(CaptchaConfig.FONT_FAMILY);
+  }
+
+  private async getCaptchaFontPath() {
+    return await this.cacheService.get(CaptchaConfig.FONT_PATH);
   }
 
 }

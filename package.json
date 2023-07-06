@@ -127,6 +127,14 @@
     ],
     "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
+    "coveragePathIgnorePatterns": [
+      ".mock.ts",
+      ".e2e-spec.ts",
+      ".module.ts",
+      ".entity.ts",
+      ".subscriber.ts",
+      "main.ts"
+    ],
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },

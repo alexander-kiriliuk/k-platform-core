@@ -63,7 +63,7 @@ describe("AuthController", () => {
     const jwtDto = { user: {}, accessToken: "accessToken", refreshToken: "refreshToken" } as JwtDto;
     jest.spyOn(authService, "authenticate").mockImplementation(async () => jwtDto);
     const res = await authController.login(AuthMock.validCredentialsUsrPayload);
-    await expect(res).toBe(jwtDto);
+    expect(res).toBe(jwtDto);
   });
 
   it("authenticate user: many wrong attempts", async () => {

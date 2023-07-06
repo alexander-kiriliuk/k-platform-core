@@ -32,7 +32,7 @@ import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entit
 import { LanguageEntity } from "@shared/modules/locale/entity/language.entity";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { LocalizedMediaEntity } from "@shared/modules/locale/entity/localized-media.entity";
-import { UserSubscriber } from "@user/src/entity/user-subscriber";
+import { UserSubscriber } from "@user/src/entity/user.subscriber";
 import { LogModule } from "@shared/modules/log/log.module";
 import { LocaleSubscriber } from "@shared/modules/locale/entity/locale-subscriber";
 import { FileEntity } from "@files/src/entity/file.entity";
