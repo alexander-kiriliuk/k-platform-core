@@ -41,6 +41,12 @@ export class MockStorage {
     return null;
   }
 
+  filter(key: string) {
+    const regexPattern = key.split("*").join(".+");
+    const regex = new RegExp(`^${regexPattern}$`);
+    return this.data.filter(v => regex.test(v.key));
+  }
+
   set(key: string, data: string | number) {
     this.data = this.data.filter(v => v.key !== key);
     this.data.push({ key, data });

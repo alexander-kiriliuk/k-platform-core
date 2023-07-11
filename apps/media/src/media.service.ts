@@ -152,7 +152,7 @@ export class MediaService {
       if (existedEntityId) {
         entity = await this.findMediaById(existedEntityId);
         if (!entity) {
-          throw new BadRequestMsException(`Cannot patch media with ID ${existedEntityId}, because than not exists`);
+          throw new BadRequestMsException(`Cannot patch media with ID ${existedEntityId}, because that not exists`);
         }
         const dir = path.join(
           entity.type.private ? this.privateDir : this.publicDir,

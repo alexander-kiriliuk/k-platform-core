@@ -153,38 +153,6 @@ export class ExplorerService {
   }
 
   /**
-   * Recursively save or update nested entities.
-   * @param entity - The entity containing nested entities to be saved or updated.
-   * @param targetData - Metadata of the target entity.
-   * @param repository - The repository associated with the target entity.
-   * @returns The saved or updated entity with its nested entities.
-   */
-  private async saveNestedEntities<T = any>(entity: T, targetData: TargetData, repository: Repository<any>): Promise<T> {
-    const referencedCols = targetData.entity.columns.filter(c => c.type === "reference");
-    for (const col of referencedCols) {
-      const relationProp = col.property;
-      const relatedEntityData = entity[relationProp];
-      if (relatedEntityData) {
-        const currTargetData = await this.getTargetData(col.referencedEntityName);
-        if (!currTargetData) {
-          entity[relationProp] = repository.create();
-        } else {
-          const relatedRepository = this.connection.getRepository(currTargetData.entity.target);
-
-          if (Array.isArray(relatedEntityData) && col.multiple) {
-            for (let i = 0; i < relatedEntityData.length; i++) {
-              entity[relationProp][i] = await this.saveNestedEntities(relatedEntityData[i], currTargetData, relatedRepository);
-            }
-          } else {
-            entity[relationProp] = await this.saveNestedEntities(relatedEntityData, currTargetData, relatedRepository);
-          }
-        }
-      }
-    }
-    return await repository.save(entity);
-  }
-
-  /**
    * Remove an entity by its ID.
    * @param target - The name of the target entity.
    * @param id - The ID of the entity to be removed.
@@ -223,6 +191,38 @@ export class ExplorerService {
     }
     const withRelations = await this.attachRelations(row, targetData, [], maxDepth);
     return { entity: targetData.entity, data: withRelations };
+  }
+
+  /**
+   * Recursively save or update nested entities.
+   * @param entity - The entity containing nested entities to be saved or updated.
+   * @param targetData - Metadata of the target entity.
+   * @param repository - The repository associated with the target entity.
+   * @returns The saved or updated entity with its nested entities.
+   */
+  private async saveNestedEntities<T = any>(entity: T, targetData: TargetData, repository: Repository<any>): Promise<T> {
+    const referencedCols = targetData.entity.columns.filter(c => c.type === "reference");
+    for (const col of referencedCols) {
+      const relationProp = col.property;
+      const relatedEntityData = entity[relationProp];
+      if (relatedEntityData) {
+        const currTargetData = await this.getTargetData(col.referencedEntityName);
+        if (!currTargetData) {
+          entity[relationProp] = repository.create();
+        } else {
+          const relatedRepository = this.connection.getRepository(currTargetData.entity.target);
+
+          if (Array.isArray(relatedEntityData) && col.multiple) {
+            for (let i = 0; i < relatedEntityData.length; i++) {
+              entity[relationProp][i] = await this.saveNestedEntities(relatedEntityData[i], currTargetData, relatedRepository);
+            }
+          } else {
+            entity[relationProp] = await this.saveNestedEntities(relatedEntityData, currTargetData, relatedRepository);
+          }
+        }
+      }
+    }
+    return await repository.save(entity);
   }
 
   /**

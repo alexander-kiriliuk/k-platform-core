@@ -121,15 +121,17 @@ export class MockCacheService implements CacheService {
   }
 
   /**
-   * Retrieves the value of the specified key from the mock storage,
+   * Retrieves the value of the specified key-pattern from the mock storage,
    * it is assumed that an array of strings will be mocked as data
-   * @param key - The key to retrieve from the mock storage.
+   * @param key - The key-pattern to retrieve from the mock storage.
    * @returns An array of data.
    */
   getFromPattern(key: string): Promise<string[]> {
     return new Promise(resolve => {
-      const res = this.storage.find(key);
-      return resolve(res?.data as string[]);
+      const res = this.storage.filter(key);
+      const result = [];
+      res.forEach(v => result.push(v.key));
+      return resolve(result.length ? result : undefined);
     });
   }
 

@@ -17,4 +17,9 @@
 
 import { Logger } from "@nestjs/common";
 
-export const LoggerMock: jest.Mocked<Logger> = { warn: jest.fn(), debug: jest.fn(), verbose: jest.fn() } as any;
+export const LoggerMock: jest.Mocked<Logger> = {
+  warn: jest.fn(),
+  debug: jest.fn(),
+  verbose: jest.fn(),
+  log: jest.fn()
+} as any;

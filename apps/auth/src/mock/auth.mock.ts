@@ -90,9 +90,7 @@ export namespace AuthMock {
       key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${validAccessToken}:*`, data: testUser
     },
     {
-      key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:*:${refreshTokenWithoutRelatedUser}`, data: [
-        "fake-token-1", "fake-token-2"
-      ]
+      key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:*:${refreshTokenWithoutRelatedUser}`, data: undefined
     },
     {
       key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:*:${validRefreshToken}`, data: [
