@@ -64,7 +64,7 @@ export class FileController {
   @Get("/private/:id")
   async getPrivateFile(@Res() res: Response, @Param("id") id: string) {
     const file = await this.bus.dispatch<File, string>("file.get.private.by.id", id);
-    const filePath = this.fileService.getFilePath(file);
+    const filePath = await this.fileService.getFilePath(file);
     res.sendFile(path.join(process.cwd(), filePath));
   }
 

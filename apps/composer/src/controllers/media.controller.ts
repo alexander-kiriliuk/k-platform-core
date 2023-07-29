@@ -68,7 +68,7 @@ export class MediaController {
     @Query("format") format: string,
     @Query("webp") webp: boolean) {
     const media = await this.bus.dispatch<Media, string>("media.get.private.by.id", id);
-    const mediaPath = this.mediaService.getMediaPath(media, format, webp);
+    const mediaPath = await this.mediaService.getMediaPath(media, format, webp);
     res.sendFile(path.join(process.cwd(), mediaPath));
   }
 

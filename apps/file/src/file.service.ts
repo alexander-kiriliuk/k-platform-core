@@ -41,20 +41,11 @@ import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
 @Injectable()
 export class FileService {
 
-  private privateDir: string;
-  private publicDir: string;
-
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
     @InjectRepository(FileEntity)
     private readonly fileRep: Repository<FileEntity>,
     private readonly cacheService: CacheService) {
-    this.init();
-  }
-
-  async init() {
-    this.privateDir = await this.cacheService.get(PRIVATE_DIR);
-    this.publicDir = await this.cacheService.get(PUBLIC_DIR);
   }
 
   /**
@@ -81,7 +72,7 @@ export class FileService {
           throw new BadRequestMsException(`Cannot patch file with ID ${existedEntityId}, because than not exists`);
         }
         const dir = path.join(
-          !entity.public ? this.privateDir : this.publicDir,
+          !entity.public ? await this.getPrivateDir() : await this.getPublicDir(),
           entity.id.toString()
         );
         await fs.promises.rm(dir, { recursive: true }).catch(err => {
@@ -140,8 +131,8 @@ export class FileService {
    * @param file - A File object containing the file's metadata.
    * @returns The full file path as a string.
    */
-  getFilePath(file: File) {
-    const filePath = `${!file.public ? this.privateDir : this.publicDir}/${file.id}/`;
+  async getFilePath(file: File) {
+    const filePath = `${!file.public ? await this.getPrivateDir() : await this.getPublicDir()}/${file.id}/`;
     return filePath + file.path;
   }
 
@@ -153,7 +144,7 @@ export class FileService {
   async remove(id: number) {
     const file = await this.findFileById(id);
     const dir = path.join(
-      !file.public ? this.privateDir : this.publicDir,
+      !file.public ? await this.getPrivateDir() : await this.getPublicDir(),
       file.id.toString()
     );
     await this.fileRep.manager.transaction(async transactionManager => {
@@ -216,7 +207,7 @@ export class FileService {
    * @returns A promise that resolves to the created directory path as a string.
    */
   private async createFileDirectory(isPublic: boolean, entityId: string): Promise<string> {
-    const dir = path.join(!isPublic ? this.privateDir : this.publicDir, entityId);
+    const dir = path.join(!isPublic ? await this.getPrivateDir() : await this.getPublicDir(), entityId);
     await createDirectoriesIfNotExist(dir);
     return dir;
   }
@@ -230,6 +221,14 @@ export class FileService {
     const entity = new FileEntity();
     entity.public = isPublic;
     return this.fileRep.save(entity);
+  }
+
+  private async getPublicDir() {
+    return await this.cacheService.get(PUBLIC_DIR);
+  }
+
+  private async getPrivateDir() {
+    return await this.cacheService.get(PRIVATE_DIR);
   }
 
 }

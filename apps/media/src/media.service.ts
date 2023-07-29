@@ -15,7 +15,7 @@
  */
 
 import { HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
-import { DeSerializedFile, Media, MediaFormat } from "@media/src/media.types";
+import { DeSerializedFile, Media } from "@media/src/media.types";
 import { MediaFileEntity } from "@media/src/entity/media-file.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -51,11 +51,6 @@ import PUBLIC_DIR = MediaConfig.PUBLIC_DIR;
 @Injectable()
 export class MediaService {
 
-  private originalFormat: MediaFormat;
-  private thumbFormat: MediaFormat;
-  private privateDir: string;
-  private publicDir: string;
-
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
     @InjectRepository(MediaEntity)
@@ -67,15 +62,6 @@ export class MediaService {
     @InjectRepository(MediaFileEntity)
     private readonly mediaFileRep: Repository<MediaFileEntity>,
     private readonly cacheService: CacheService) {
-    this.init();
-  }
-
-  private async init() {
-    this.logger.log("Initializing MediaService");
-    this.originalFormat = await this.mediaFormatRep.findOne({ where: { code: ORIGINAL } });
-    this.thumbFormat = await this.mediaFormatRep.findOne({ where: { code: THUMB } });
-    this.privateDir = await this.cacheService.get(PRIVATE_DIR);
-    this.publicDir = await this.cacheService.get(PUBLIC_DIR);
   }
 
   /**
@@ -117,7 +103,7 @@ export class MediaService {
   async remove(id: number) {
     const media = await this.findMediaById(id);
     const dir = path.join(
-      media.type.private ? this.privateDir : this.publicDir,
+      media.type.private ? await this.getPrivateDir() : await this.getPublicDir(),
       media.id.toString()
     );
     await this.mediaRep.manager.transaction(async transactionManager => {
@@ -155,7 +141,7 @@ export class MediaService {
           throw new BadRequestMsException(`Cannot patch media with ID ${existedEntityId}, because that not exists`);
         }
         const dir = path.join(
-          entity.type.private ? this.privateDir : this.publicDir,
+          entity.type.private ? await this.getPrivateDir() : await this.getPublicDir(),
           entity.id.toString()
         );
         await fs.promises.rm(dir, { recursive: true }).catch(err => {
@@ -167,7 +153,7 @@ export class MediaService {
       entity.name = name as LocalizedStringEntity[];
       entity.code = code;
       const outputPath = await this.createMediaDirectory(mediaType, entity.id.toString());
-      const formatsToProcess = this.getFormatsToProcess(mediaType);
+      const formatsToProcess = await this.getFormatsToProcess(mediaType);
       entity.files = await this.processFormats(
         file, formatsToProcess, mediaType, entity, outputPath
       );
@@ -184,8 +170,8 @@ export class MediaService {
    * @param webpSupport - A boolean indicating whether the client supports WebP format (default is false).
    * @returns The full path to the media file including the file extension.
    */
-  getMediaPath(media: Media, format: string = ORIGINAL, webpSupport = false) {
-    let mediaPath = `${media.type.private ? this.privateDir : this.publicDir}/${media.id}/`;
+  async getMediaPath(media: Media, format: string = ORIGINAL, webpSupport = false) {
+    let mediaPath = `${media.type.private ? await this.getPrivateDir() : await this.getPublicDir()}/${media.id}/`;
     const file = media.files.find(v => v.format.code === format);
     mediaPath += file.name;
     if (webpSupport && media.type.vp6) {
@@ -232,7 +218,7 @@ export class MediaService {
    * @returns The path to the created media directory.
    */
   private async createMediaDirectory(mediaType: MediaTypeEntity, mediaEntityId: string): Promise<string> {
-    const dir = path.join(mediaType.private ? this.privateDir : this.publicDir, mediaEntityId);
+    const dir = path.join(mediaType.private ? await this.getPrivateDir() : await this.getPublicDir(), mediaEntityId);
     await createDirectoriesIfNotExist(dir);
     return dir;
   }
@@ -242,11 +228,13 @@ export class MediaService {
    * @param mediaType - The MediaTypeEntity instance.
    * @returns An array of MediaFormatEntity instances to be processed.
    */
-  private getFormatsToProcess(mediaType: MediaTypeEntity): MediaFormatEntity[] {
+  private async getFormatsToProcess(mediaType: MediaTypeEntity): Promise<MediaFormatEntity[]> {
     mediaType.formats = mediaType.formats.filter(
       f => f.code !== ORIGINAL && f.code !== THUMB
     );
-    return [this.thumbFormat, this.originalFormat, ...mediaType.formats];
+    const thumbFormat = await this.getThumbFormat();
+    const originalFormat = await this.getOriginalFormat();
+    return [thumbFormat, originalFormat, ...mediaType.formats];
   }
 
   /**
@@ -423,6 +411,22 @@ export class MediaService {
       .innerJoinAndSelect("files.format", "format")
       .leftJoinAndSelect("media.name", "name")
       .leftJoinAndSelect("name.lang", "lang");
+  }
+
+  private async getPublicDir() {
+    return await this.cacheService.get(PUBLIC_DIR);
+  }
+
+  private async getPrivateDir() {
+    return await this.cacheService.get(PRIVATE_DIR);
+  }
+
+  private async getOriginalFormat() {
+    return await this.mediaFormatRep.findOne({ where: { code: ORIGINAL } });
+  }
+
+  private async getThumbFormat() {
+    return await this.mediaFormatRep.findOne({ where: { code: THUMB } });
   }
 
 }
