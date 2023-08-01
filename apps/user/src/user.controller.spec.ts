@@ -19,7 +19,7 @@ import { UserService } from "@user/src/user.service";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { UserEntity } from "@user/src/entity/user.entity";
-import { UserUpdateRequest } from "@user/src/user.types";
+import { User, UserUpdateRequest } from "@user/src/user.types";
 
 describe("UserController", () => {
   let userController: UserController;
@@ -41,19 +41,19 @@ describe("UserController", () => {
   });
 
   it("find user by login", async () => {
-    const user = new UserEntity();
+    const user = {} as User;
     jest.spyOn(userService, "findByLogin").mockImplementation(async () => user);
     expect(await userController.findUserByLogin("test")).toBe(user);
   });
 
   it("find user by id", async () => {
-    const user = new UserEntity();
+    const user = {} as User;
     jest.spyOn(userService, "findById").mockImplementation(async () => user);
     expect(await userController.findUserById("123")).toBe(user);
   });
 
   it("update user by id", async () => {
-    const user = new UserEntity();
+    const user = {} as User;
     const request: UserUpdateRequest = { id: "123", user };
     jest.spyOn(userService, "updateById").mockImplementation(async () => user);
     expect(await userController.updateUser(request)).toBe(user);
@@ -62,11 +62,11 @@ describe("UserController", () => {
   it("create user", async () => {
     const user = new UserEntity();
     jest.spyOn(userService, "create").mockImplementation(async () => user);
-    expect(await userController.createUser(user)).toBe(user);
+    expect(await userController.createUser({} as User)).toBe(user);
   });
 
   it("remove user", async () => {
-    const user = new UserEntity();
+    const user = {} as User;
     jest.spyOn(userService, "removeById").mockImplementation(async () => user);
     expect(await userController.removeUser("123")).toBe(user);
   });

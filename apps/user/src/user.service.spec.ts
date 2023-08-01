@@ -21,11 +21,12 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { USER_RELATIONS } from "@user/src/user.constants";
 import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
+import { User } from "@user/src/user.types";
 
 describe("UserService", () => {
   let userService: UserService;
   let userRep: Repository<UserEntity>;
-  const testUser = new UserEntity();
+  const testUser = {} as User;
   testUser.id = "123";
   testUser.login = "test";
 
@@ -51,7 +52,7 @@ describe("UserService", () => {
 
   it("call finding user by login", async () => {
     const login = "test";
-    jest.spyOn(userRep, "findOne").mockResolvedValue(testUser);
+    jest.spyOn(userRep, "findOne").mockResolvedValue(new UserEntity());
     const result = await userService.findByLogin(login);
     expect(userRep.findOne).toHaveBeenCalledWith({
       where: { login },
@@ -62,7 +63,7 @@ describe("UserService", () => {
 
   it("call finding user by ID", async () => {
     const id = "12345";
-    jest.spyOn(userRep, "findOne").mockResolvedValue(testUser);
+    jest.spyOn(userRep, "findOne").mockResolvedValue(new UserEntity());
     const result = await userService.findById(id);
     expect(userRep.findOne).toHaveBeenCalledWith({
       where: { id },
@@ -82,8 +83,8 @@ describe("UserService", () => {
   });
 
   it("call create user", async () => {
-    jest.spyOn(userRep, "create").mockImplementation(() => testUser);
-    jest.spyOn(userRep, "save").mockResolvedValue(testUser);
+    jest.spyOn(userRep, "create").mockImplementation(() => new UserEntity());
+    jest.spyOn(userRep, "save").mockResolvedValue(new UserEntity());
     const result = await userService.create(testUser);
     expect(userRep.save).toHaveBeenCalledWith(testUser);
     expect(result).toBe(testUser);
@@ -91,8 +92,8 @@ describe("UserService", () => {
 
   it("remove a user by id", async () => {
     const id = "12345";
-    jest.spyOn(userRep, "findOne").mockResolvedValue(testUser);
-    jest.spyOn(userRep, "remove").mockResolvedValue(testUser);
+    jest.spyOn(userRep, "findOne").mockResolvedValue(new UserEntity());
+    jest.spyOn(userRep, "remove").mockResolvedValue(new UserEntity());
     expect(await userService.removeById(id)).toEqual(testUser);
     expect(userRep.findOne).toHaveBeenCalledWith({ where: { id }, relations: USER_RELATIONS });
     expect(userRep.remove).toHaveBeenCalledWith(testUser);

@@ -14,29 +14,37 @@
  *    limitations under the License.
  */
 
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  Index,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  PrimaryGeneratedColumn
-} from "typeorm";
+import { Column, CreateDateColumn, Entity, Index, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { UserRoleEntity } from "./user-role.entity";
-import { MediaEntity } from "@media/src/entity/media.entity";
-import { User } from "../user.types";
-import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { IUserEntity } from "../user.types";
+import { MsDependencies } from "@shared/modules/ms-client/ms-dependencies.decorator";
 
+@MsDependencies<UserEntity>({
+  avatar: {
+    read: "media.get.by.id",
+    delete: "media.remove"
+  },
+  firstName: {
+    read: "locale.string.list.get",
+    create: "locale.string.list.create",
+    update: "locale.string.list.update",
+    delete: "locale.string.list.delete"
+  },
+  lastName: {
+    read: "locale.string.list.get",
+    create: "locale.string.list.create",
+    update: "locale.string.list.update",
+    delete: "locale.string.list.delete"
+  }
+})
 @Entity("users")
-export class UserEntity implements User {
+export class UserEntity implements IUserEntity {
 
   @PrimaryGeneratedColumn()
   id: string;
 
-  @ManyToOne(() => MediaEntity, t => t.code)
-  avatar: MediaEntity;
+  @Column("varchar", { nullable: true })
+  avatar: string;
 
   @Column("varchar", { nullable: false })
   password: string;
@@ -50,13 +58,15 @@ export class UserEntity implements User {
   @Column("varchar", { nullable: true })
   phone: string;
 
-  @ManyToMany(() => LocalizedStringEntity, { cascade: true })
-  @JoinTable()
-  firstName: LocalizedStringEntity[];
+  /*  @ManyToMany(() => LocalizedStringEntity, { cascade: true })
+    @JoinTable()*/
+  @Column("int", { array: true, nullable: true })
+  firstName: number[];
 
-  @ManyToMany(() => LocalizedStringEntity, { cascade: true })
-  @JoinTable()
-  lastName: LocalizedStringEntity[];
+  /*@ManyToMany(() => LocalizedStringEntity, { cascade: true })
+  @JoinTable()*/
+  @Column("int", { array: true, nullable: true })
+  lastName: number[];
 
   @Index()
   @Column("boolean", { default: false })

@@ -39,6 +39,22 @@ export interface UserRole {
   tsCreated: Date;
 }
 
+export interface UserUpdateRequest {
+  id: string;
+  user: User;
+}
+
+export interface IUserEntity extends Omit<User, "avatar" | "firstName" | "lastName" | "roles"> {
+  avatar: string;
+  firstName: number[];
+  lastName: number[];
+  roles: IUserRoleEntity[];
+}
+
+export interface IUserRoleEntity extends Omit<UserRole, "name"> {
+  name: number[];
+}
+
 export class UserRoleDto implements UserRole {
 
   @Expose()
@@ -88,9 +104,4 @@ export class UserDto implements User {
   @Exclude()
   tsCreated: Date;
 
-}
-
-export interface UserUpdateRequest {
-  id: string;
-  user: User;
 }

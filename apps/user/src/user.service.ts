@@ -14,13 +14,12 @@
  *    limitations under the License.
  */
 
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { User } from "@user/src/user.types";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
 import { UserEntity } from "@user/src/entity/user.entity";
 import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
-import { USER_RELATIONS } from "@user/src/user.constants";
+import { USER_RELATIONS, USER_REPOSITORY } from "@user/src/user.constants";
+import { MsRepository } from "@shared/modules/ms-client/ms-repository";
 
 /**
  * @class UserService
@@ -29,14 +28,8 @@ import { USER_RELATIONS } from "@user/src/user.constants";
 @Injectable()
 export class UserService {
 
-  /**
-   * @constructor
-   * Creates a new UserService instance.
-   * @param {Repository<UserEntity>} userRep - The repository for UserEntity.
-   */
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRep: Repository<UserEntity>) {
+    @Inject(USER_REPOSITORY) private readonly userRep: MsRepository<UserEntity, User>) {
   }
 
   /**
@@ -78,8 +71,7 @@ export class UserService {
    * @returns {Promise<UserEntity>} The created user.
    */
   async create(user: User) {
-    const newUser = this.userRep.create(user);
-    return await this.userRep.save(newUser);
+    return await this.userRep.create(user);
   }
 
   /**

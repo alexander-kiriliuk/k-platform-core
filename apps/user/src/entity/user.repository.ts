@@ -14,23 +14,3 @@
  *    limitations under the License.
  */
 
-import { Column, CreateDateColumn, Entity, Index, PrimaryColumn } from "typeorm";
-import { IUserRoleEntity } from "@user/src/user.types";
-
-@Entity("users_roles")
-export class UserRoleEntity implements IUserRoleEntity {
-
-  @Index({ unique: true })
-  @PrimaryColumn("varchar")
-  code: string;
-
-  /*@ManyToMany(() => LocalizedStringEntity, { cascade: true })
-  @JoinTable()*/
-  @Column("int", { array: true, nullable: true })
-  name: number[];
-
-  @Index()
-  @CreateDateColumn({ name: "ts_created", type: "timestamp" })
-  tsCreated: Date;
-
-}

@@ -14,5 +14,9 @@
  *    limitations under the License.
  */
 
-export const MS_CLIENT = Symbol("MS_CLIENT");
-export const MSG_BUS = Symbol("MSG_BUS");
+export const MS_CLIENT = Symbol("Messages bus client");
+export const MSG_BUS = Symbol("Messages bus");
+export const MS_REPOSITORY_FACTORY = Symbol("Factory for creating ms-repository instance");
+export const MsDependencyMetadataKey = "ms_dependencies";
+export const DEFAULT_MSD_PARAM_TIMEOUT = 50;
+export const DEFAULT_MSD_PARAM_KEY = "id";

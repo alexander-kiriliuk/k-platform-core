@@ -15,6 +15,8 @@
  */
 
 import { Observable } from "rxjs";
+import { Repository } from "typeorm";
+import { MsRepository } from "@shared/modules/ms-client/ms-repository";
 
 export type MsClientOptions = {
   timeout: number;
@@ -29,3 +31,16 @@ export interface MessageBus {
   emit<TResult = any, TInput = any>(pattern: any, data?: TInput, opts?: MsClientOptions): Observable<TResult>;
 
 }
+
+export type MsRepositoryFactory = { create: <T>(rep: Repository<T>) => MsRepository<T, unknown> };
+
+export type MsDependencyParams = {
+  key?: string;
+  create?: string;
+  read?: string;
+  update?: string;
+  delete?: string;
+  timeout?: number;
+};
+
+export type MsDependencyOptions<T> = Partial<Record<keyof T, MsDependencyParams>>;

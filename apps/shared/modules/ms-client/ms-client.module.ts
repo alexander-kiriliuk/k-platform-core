@@ -19,8 +19,11 @@ import { LogModule } from "@shared/modules/log/log.module";
 import { ClientProxy, ClientsModule } from "@nestjs/microservices";
 import { MsClient } from "@shared/modules/ms-client/ms-client";
 import { LOGGER } from "@shared/modules/log/log.constants";
-import { MS_CLIENT, MSG_BUS } from "@shared/modules/ms-client/ms-client.constants";
+import { MS_CLIENT, MS_REPOSITORY_FACTORY, MSG_BUS } from "@shared/modules/ms-client/ms-client.constants";
 import { EnvLoader } from "@shared/utils/env.loader";
+import { MsRepository } from "@shared/modules/ms-client/ms-repository";
+import { Repository } from "typeorm";
+import { MessageBus } from "@shared/modules/ms-client/ms-client.types";
 
 @Module({
   imports: [
@@ -37,23 +40,34 @@ import { EnvLoader } from "@shared/utils/env.loader";
             options: {
               host: process.env.TRANSPORT_HOST,
               port: parseInt(process.env.TRANSPORT_PORT),
-              timeout: parseInt(process.env.TRANSPORT_TIMEOUT),
-            },
+              timeout: parseInt(process.env.TRANSPORT_TIMEOUT)
+            }
           };
-        },
-      },
-    ]),
+        }
+      }
+    ])
   ],
   providers: [
     {
       provide: MSG_BUS,
-      useFactory: (logger: Logger, client: ClientProxy) => new MsClient(logger, client),
-      inject: [LOGGER, MS_CLIENT]
+      inject: [LOGGER, MS_CLIENT],
+      useFactory: (logger: Logger, client: ClientProxy) => new MsClient(logger, client)
+    },
+    {
+      provide: MS_REPOSITORY_FACTORY,
+      inject: [LOGGER, MSG_BUS],
+      useFactory: (logger: Logger, bus: MessageBus) => {
+        return {
+          create: <T>(rep: Repository<T>) => {
+            return new MsRepository(rep, logger, bus);
+          }
+        };
+      }
     }
   ],
   exports: [
-    MSG_BUS
-  ],
+    MSG_BUS, MS_REPOSITORY_FACTORY
+  ]
 })
 export class MsClientModule {
 }
