@@ -27,11 +27,11 @@ import { MediaFormatEntity } from "@media/src/entity/media-format.entity";
 import { MediaTypeEntity } from "@media/src/entity/media-type.entity";
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
-import { LanguageEntity } from "@shared/modules/locale/entity/language.entity";
-import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
-import { LocalizedMediaEntity } from "@shared/modules/locale/entity/localized-media.entity";
+import { LanguageEntity } from "@locale/src/entity/language.entity";
+import { LocalizedStringEntity } from "@locale/src/entity/localized-string.entity";
+import { LocalizedMediaEntity } from "@locale/src/entity/localized-media.entity";
 import { LogModule } from "@shared/modules/log/log.module";
-import { LocaleSubscriber } from "@shared/modules/locale/entity/locale-subscriber";
+import { LocaleSubscriber } from "@locale/src/entity/locale-subscriber";
 import { FileEntity } from "@files/src/entity/file.entity";
 
 /**

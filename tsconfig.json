@@ -47,6 +47,9 @@
       ],
       "@captcha/*": [
         "apps/captcha/*"
+      ],
+      "@locale/*": [
+        "apps/locale/*"
       ]
     }
   }

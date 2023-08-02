@@ -21,7 +21,7 @@ import { LogModule } from "@shared/modules/log/log.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
-import { LocaleModule } from "@shared/modules/locale/locale.module";
+import { LocaleModule } from "@locale/src/locale.module";
 import { DbModule } from "@shared/modules/db/db.module";
 
 @Module({

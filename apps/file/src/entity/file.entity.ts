@@ -1,6 +1,6 @@
 import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { MediaEntity } from "@media/src/entity/media.entity";
-import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { LocalizedStringEntity } from "@locale/src/entity/localized-string.entity";
 import { File } from "@files/src/file.types";
 
 @Entity("files")

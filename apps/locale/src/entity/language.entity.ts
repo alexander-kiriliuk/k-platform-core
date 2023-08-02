@@ -14,25 +14,33 @@
  *    limitations under the License.
  */
 
-import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { LanguageEntity } from "@shared/modules/locale/entity/language.entity";
-import { LocalizedMedia } from "@shared/modules/locale/locale.types";
-import { MediaEntity } from "@media/src/entity/media.entity";
+import { Column, Entity, Index, PrimaryColumn } from "typeorm";
+import { ILanguageEntity } from "../locale.types";
+import { MsDependencies } from "@shared/modules/ms-client/ms-dependencies.decorator";
 
-@Entity("localized_medias")
-export class LocalizedMediaEntity implements LocalizedMedia {
 
-  @PrimaryGeneratedColumn({ zerofill: true })
-  id: number;
+@MsDependencies<LanguageEntity>({
+  icon: {
+    read: "media.get.by.id",
+    delete: "media.remove"
+  }
+})
+@Entity("languages")
+export class LanguageEntity implements ILanguageEntity {
 
   @Index({ unique: true })
-  @Column("varchar", { nullable: false })
+  @PrimaryColumn("varchar")
+  id: string;
+
+  @Index({ unique: true })
+  @Column("varchar", { nullable: true })
   code: string;
 
-  @ManyToOne(() => LanguageEntity, t => t.id)
-  lang: LanguageEntity;
+  @Index()
+  @Column("varchar", { nullable: false })
+  name: string;
 
-  @ManyToOne(() => MediaEntity, t => t.code)
-  value: MediaEntity;
+  @Column("varchar", { nullable: true })
+  icon: string;
 
 }

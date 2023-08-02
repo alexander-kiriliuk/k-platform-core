@@ -43,6 +43,10 @@
     "start:xml-data-bridge:dev": "nest start xml-data-bridge --watch",
     "start:xml-data-bridge:debug": "nest start xml-data-bridge --debug --watch",
     "start:xml-data-bridge:prod": "node dist/apps/xml-data-bridge/src/main",
+    "start:locale": "nest start locale",
+    "start:locale:dev": "nest start locale --watch",
+    "start:locale:debug": "nest start locale --debug --watch",
+    "start:locale:prod": "node dist/apps/locale/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
@@ -118,7 +122,8 @@
       "^@explorer/(.*)$": "<rootDir>/apps/explorer/$1",
       "^@composer/(.*)$": "<rootDir>/apps/composer/$1",
       "^@auth/(.*)$": "<rootDir>/apps/auth/$1",
-      "^@captcha/(.*)$": "<rootDir>/apps/captcha/$1"
+      "^@captcha/(.*)$": "<rootDir>/apps/captcha/$1",
+      "^@locale/(.*)$": "<rootDir>/apps/locale/$1"
     },
     "moduleFileExtensions": [
       "js",

@@ -14,24 +14,24 @@
  *    limitations under the License.
  */
 
-import { Media, SerializedFile } from "@media/src/media.types";
-import { LocalizedString } from "@locale/src/locale.types";
+import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { LanguageEntity } from "./language.entity";
+import { ILocalizedStringEntity } from "../locale.types";
 
-export interface File {
+@Entity("localized_strings")
+export class LocalizedStringEntity implements ILocalizedStringEntity {
+
+  @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
-  code: string;
-  name: LocalizedString[];
-  path: string;
-  public: boolean;
-  size: number;
-  icon: Media;
-  preview: Media;
-}
 
-export interface UpsertFileRequest {
-  file: SerializedFile;
-  public: boolean;
-  code?: string;
-  entityIdForPatch?: number;
-  entityName?: LocalizedString[];
+  @Index({ unique: true })
+  @Column("varchar", { nullable: true })
+  code: string;
+
+  @ManyToOne(() => LanguageEntity, t => t.id)
+  lang: LanguageEntity;
+
+  @Column("text", { nullable: false })
+  value: string;
+
 }

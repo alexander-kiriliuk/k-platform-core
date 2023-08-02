@@ -15,9 +15,9 @@
  */
 
 import { Media } from "@media/src/media.types";
-import { LocalizedString } from "@shared/modules/locale/locale.types";
+import { LocalizedString } from "@locale/src/locale.types";
 import { Exclude, Expose, Type } from "class-transformer";
-import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { LocalizedStringEntity } from "@locale/src/entity/localized-string.entity";
 
 export interface User {
   id: string;

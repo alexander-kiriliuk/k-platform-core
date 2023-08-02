@@ -14,26 +14,22 @@
  *    limitations under the License.
  */
 
-import { Column, Entity, Index, ManyToOne, PrimaryColumn } from "typeorm";
-import { MediaEntity } from "@media/src/entity/media.entity";
-import { Language } from "@shared/modules/locale/locale.types";
+import { NestFactory } from "@nestjs/core";
+import { EnvLoader } from "@shared/utils/env.loader";
+import { LocaleModule } from "./locale.module";
 
-@Entity("languages")
-export class LanguageEntity implements Language {
+EnvLoader.loadEnvironment();
 
-  @Index({ unique: true })
-  @PrimaryColumn("varchar")
-  id: string;
-
-  @Index({ unique: true })
-  @Column("varchar", { nullable: true })
-  code: string;
-
-  @Index()
-  @Column("varchar", { nullable: false })
-  name: string;
-
-  @ManyToOne(() => MediaEntity, t => t.code)
-  icon: MediaEntity;
-
-}
+(async () => {
+  const app = await NestFactory.createMicroservice(
+    LocaleModule,
+    {
+      transport: parseInt(process.env.TRANSPORT_TYPE),
+      options: {
+        host: process.env.TRANSPORT_HOST,
+        port: parseInt(process.env.TRANSPORT_PORT),
+        timeout: parseInt(process.env.TRANSPORT_TIMEOUT)
+      }
+    });
+  await app.listen();
+})();

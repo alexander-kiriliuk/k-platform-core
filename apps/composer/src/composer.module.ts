@@ -21,16 +21,17 @@ import { CacheModule } from "@shared/modules/cache/cache.module";
 import { LogModule } from "@shared/modules/log/log.module";
 import { MsClientModule } from "@shared/modules/ms-client/ms-client.module";
 import { CaptchaController } from "./controllers/captcha.controller";
-import { ExplorerController } from "@composer/src/controllers/explorer.controller";
-import { MediaController } from "@composer/src/controllers/media.controller";
-import { MulterConfig } from "@composer/src/multer.config";
+import { ExplorerController } from "./controllers/explorer.controller";
+import { MediaController } from "./controllers/media.controller";
+import { MulterConfig } from "./multer.config";
 import { MulterModule } from "@nestjs/platform-express";
-import { ConfigController } from "@composer/src/controllers/config.controller";
-import { FileController } from "@composer/src/controllers/file.controller";
+import { ConfigController } from "./controllers/config.controller";
+import { FileController } from "./controllers/file.controller";
 import { FileModule } from "@files/src/file.module";
 import { MediaModule } from "@media/src/media.module";
-import { XmlDataBridgeController } from "@composer/src/controllers/xml-data-bridge.controller";
+import { XmlDataBridgeController } from "./controllers/xml-data-bridge.controller";
 import { XmlDataBridgeMiddleware } from "@xml-data-bridge/src/xml-data-bridge.middleware";
+import { LocaleController } from "./controllers/locale.controller";
 
 @Module({
   controllers: [
@@ -41,7 +42,8 @@ import { XmlDataBridgeMiddleware } from "@xml-data-bridge/src/xml-data-bridge.mi
     MediaController,
     FileController,
     ConfigController,
-    XmlDataBridgeController
+    XmlDataBridgeController,
+    LocaleController
   ],
   imports: [
     CacheModule,

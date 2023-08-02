@@ -16,7 +16,7 @@
 
 import { MediaEntity } from "@media/src/entity/media.entity";
 import { ExplorerColumnEntity } from "@explorer/src/entity/explorer-column.entity";
-import { LocalizedString } from "@shared/modules/locale/locale.types";
+import { LocalizedString } from "@locale/src/locale.types";
 import { ExplorerTargetEntity } from "@explorer/src/entity/explorer-target.entity";
 import { PageableParams } from "@shared/modules/pageable/pageable.types";
 

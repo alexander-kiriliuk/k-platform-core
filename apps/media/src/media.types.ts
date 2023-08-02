@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { LocalizedString } from "@shared/modules/locale/locale.types";
+import { LocalizedString } from "@locale/src/locale.types";
 import { Exclude, Expose, Type } from "class-transformer";
 
 export interface Media {

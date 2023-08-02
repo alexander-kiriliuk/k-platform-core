@@ -99,6 +99,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/file/tsconfig.app.json"
       }
+    },
+    "locale": {
+      "type": "application",
+      "root": "apps/locale",
+      "entryFile": "main",
+      "sourceRoot": "apps/locale/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/locale/tsconfig.app.json"
+      }
     }
   }
 }

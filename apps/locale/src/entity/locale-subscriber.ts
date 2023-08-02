@@ -15,7 +15,7 @@
  */
 
 import { DataSource, EntitySubscriberInterface, EventSubscriber, RemoveEvent } from "typeorm";
-import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { LocalizedStringEntity } from "./localized-string.entity";
 import { Inject, Injectable, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { InjectDataSource } from "@nestjs/typeorm";

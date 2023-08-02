@@ -14,24 +14,8 @@
  *    limitations under the License.
  */
 
-import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { LanguageEntity } from "@shared/modules/locale/entity/language.entity";
-import { LocalizedString } from "@shared/modules/locale/locale.types";
 
-@Entity("localized_strings")
-export class LocalizedStringEntity implements LocalizedString {
-
-  @PrimaryGeneratedColumn({ zerofill: true })
-  id: number;
-
-  @Index({ unique: true })
-  @Column("varchar", { nullable: true })
-  code: string;
-
-  @ManyToOne(() => LanguageEntity, t => t.id)
-  lang: LanguageEntity;
-
-  @Column("text", { nullable: false })
-  value: string;
-
-}
+export const LOCALE_DATA_SRC = Symbol("Locale data source");
+export const LOCALIZED_MEDIA_REPOSITORY = Symbol("Localized media repository");
+export const LOCALIZED_STRING_REPOSITORY = Symbol("Localized string repository");
+export const LANG_REPOSITORY = Symbol("Language repository");

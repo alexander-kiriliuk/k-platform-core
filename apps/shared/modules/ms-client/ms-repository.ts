@@ -14,11 +14,12 @@
  *    limitations under the License.
  */
 
-import { FindOneOptions, Repository } from "typeorm";
+import { FindOneOptions, FindOptionsWhere, Repository } from "typeorm";
 import { MessageBus, MsDependencyOptions, MsDependencyParams } from "@shared/modules/ms-client/ms-client.types";
 import { Logger } from "@nestjs/common";
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
 import { MsDependencyMetadataKey } from "@shared/modules/ms-client/ms-client.constants";
+import { FindManyOptions } from "typeorm/find-options/FindManyOptions";
 
 export class MsRepository<Entity, EnrichEntity> {
 
@@ -37,8 +38,16 @@ export class MsRepository<Entity, EnrichEntity> {
     return output.length ? output[0] : null;
   }
 
-  async find(options: FindOneOptions<Entity>): Promise<EnrichEntity[]> {
+  async find(options?: FindManyOptions<Entity>): Promise<EnrichEntity[]> {
     const data = await this.originalRep.find(options);
+    if (!data) {
+      return null;
+    }
+    return this.enrichEntitiesWithDependencies(data);
+  }
+
+  async findBy(options: FindOptionsWhere<Entity> | FindOptionsWhere<Entity>[]): Promise<EnrichEntity[]> {
+    const data = await this.originalRep.findBy(options);
     if (!data) {
       return null;
     }
@@ -102,19 +111,22 @@ export class MsRepository<Entity, EnrichEntity> {
     const options: MsDependencyOptions<Entity> = Reflect.getMetadata(MsDependencyMetadataKey, this.originalRep.target);
     await Promise.all(
       entities.map(async (entity) => {
-        const enrichEntity: EnrichEntity = { ...entity } as unknown as EnrichEntity;  // todo clone?
-        const enrichmentPromises = Object.keys(options).map(async (key) => {
-          const params = options[key] as MsDependencyParams;
-          const value = enrichEntity[key];
-          const command = params.read;
-          try {
-            enrichEntity[key] = value ? await this.bus.dispatch(command, value, { timeout: params.timeout }) : null;
-          } catch (e) {
-            this.logger.warn(e);
-            enrichEntity[key] = null;
-          }
-        });
-        await Promise.all(enrichmentPromises);
+        const enrichEntity = {} as EnrichEntity;
+        Object.assign(enrichEntity, entity);
+        if (options) {
+          const enrichmentPromises = Object.keys(options).map(async (key) => {
+            const params = options[key] as MsDependencyParams;
+            const value = enrichEntity[key];
+            const command = params.read;
+            try {
+              enrichEntity[key] = value ? await this.bus.dispatch(command, value, { timeout: params.timeout }) : null;
+            } catch (e) {
+              this.logger.warn(e);
+              enrichEntity[key] = null;
+            }
+          });
+          await Promise.all(enrichmentPromises);
+        }
         output.push(enrichEntity);
       })
     );

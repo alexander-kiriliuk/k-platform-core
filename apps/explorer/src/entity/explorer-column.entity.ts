@@ -17,7 +17,7 @@
 import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, PrimaryColumn } from "typeorm";
 import { ExplorerTargetEntity } from "./explorer-target.entity";
 import { ExplorerColumn } from "../explorer.types";
-import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { LocalizedStringEntity } from "@locale/src/entity/localized-string.entity";
 
 
 @Entity("explorer_columns")

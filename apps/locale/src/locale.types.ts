@@ -14,24 +14,37 @@
  *    limitations under the License.
  */
 
-import { Media, SerializedFile } from "@media/src/media.types";
-import { LocalizedString } from "@locale/src/locale.types";
+import { Media } from "@media/src/media.types";
 
-export interface File {
-  id: number;
-  code: string;
-  name: LocalizedString[];
-  path: string;
-  public: boolean;
-  size: number;
+export interface Language {
+  id: string;
+  name: string;
   icon: Media;
-  preview: Media;
 }
 
-export interface UpsertFileRequest {
-  file: SerializedFile;
-  public: boolean;
-  code?: string;
-  entityIdForPatch?: number;
-  entityName?: LocalizedString[];
+export interface LocalizedString {
+  id: number;
+  code: string;
+  lang: Language;
+  value: string;
+}
+
+export interface LocalizedMedia {
+  id: number;
+  code: string;
+  lang: Language;
+  value: Media;
+}
+
+export interface ILanguageEntity extends Omit<Language, "icon"> {
+  icon: string;
+}
+
+export interface ILocalizedMediaEntity extends Omit<LocalizedMedia, "value" | "lang"> {
+  lang: ILanguageEntity;
+  value: string;
+}
+
+export interface ILocalizedStringEntity extends Omit<LocalizedString, "lang"> {
+  lang: ILanguageEntity;
 }

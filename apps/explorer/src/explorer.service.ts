@@ -22,7 +22,7 @@ import { DataSource, EntityMetadata, Repository } from "typeorm";
 import { ColumnDataType, EntityData, TargetData } from "@explorer/src/explorer.types";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
-import { LocaleService } from "@shared/modules/locale/locale.service";
+import { LocaleService } from "@locale/src/locale.service";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
 import { MsException } from "@shared/exceptions/ms.exception";
