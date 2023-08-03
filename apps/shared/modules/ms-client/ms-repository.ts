@@ -34,7 +34,7 @@ export class MsRepository<Entity, EnrichEntity> {
     if (!data) {
       return null;
     }
-    const output = await this.enrichEntitiesWithDependencies([data]);
+    const output = await this.enrichEntities([data]);
     return output.length ? output[0] : null;
   }
 
@@ -43,7 +43,7 @@ export class MsRepository<Entity, EnrichEntity> {
     if (!data) {
       return null;
     }
-    return this.enrichEntitiesWithDependencies(data);
+    return this.enrichEntities(data);
   }
 
   async findBy(options: FindOptionsWhere<Entity> | FindOptionsWhere<Entity>[]): Promise<EnrichEntity[]> {
@@ -51,7 +51,7 @@ export class MsRepository<Entity, EnrichEntity> {
     if (!data) {
       return null;
     }
-    return this.enrichEntitiesWithDependencies(data);
+    return this.enrichEntities(data);
   }
 
   async create(data: EnrichEntity) {
@@ -106,42 +106,49 @@ export class MsRepository<Entity, EnrichEntity> {
     await this.originalRep.remove(entity);
   }
 
-  private async enrichEntitiesWithDependencies(entities: Entity[]): Promise<EnrichEntity[]> {
+  private async enrichEntities(entities: Entity[], target = this.originalRep.target) {
     const output: EnrichEntity[] = [];
-    const options: MsDependencyOptions<Entity> = Reflect.getMetadata(MsDependencyMetadataKey, this.originalRep.target);
-    await Promise.all(
-      entities.map(async (entity) => {
-        const enrichEntity = {} as EnrichEntity;
-        Object.assign(enrichEntity, entity);
-        if (options) {
-          const enrichmentPromises = Object.keys(options).map(async (key) => {
-            const params = options[key] as MsDependencyParams;
-            const value = enrichEntity[key];
-            const command = params.read;
-            try {
-              enrichEntity[key] = value ? await this.bus.dispatch(command, value, { timeout: params.timeout }) : null;
-            } catch (e) {
-              this.logger.warn(e);
-              enrichEntity[key] = null;
-            }
-          });
-          await Promise.all(enrichmentPromises);
-        }
-        output.push(enrichEntity);
-      })
-    );
+    for (const entity of entities) {
+      const enrichedEntity = await this.enrichEntity(entity, target);
+      output.push(enrichedEntity);
+    }
     return output;
   }
 
-}
-
-/*async getManyAndCount(options?: FindManyOptions<T>): Promise<[T[], number]> {
-  const [entities, count] = await super.getManyAndCount(options);
-
-  if (entities.length === 0) {
-    return [entities, count];
+  private async enrichEntity(entity: Entity, target = this.originalRep.target): Promise<EnrichEntity> {
+    const options: MsDependencyOptions<Entity> = Reflect.getMetadata(MsDependencyMetadataKey, target);
+    const enrichEntity = {} as EnrichEntity;
+    Object.assign(enrichEntity, entity);
+    if (options) {
+      const enrichmentPromises = Object.keys(options).map(async (key) => {
+        const params = options[key] as MsDependencyParams;
+        const value = enrichEntity[key];
+        const command = params.read;
+        try {
+          enrichEntity[key] = value ? await this.bus.dispatch(command, value, { timeout: params.timeout }) : null;
+        } catch (e) {
+          this.logger.warn(e);
+          enrichEntity[key] = null;
+        }
+      });
+      await Promise.all(enrichmentPromises);
+    }
+    const promises = Object.keys(enrichEntity).map(async (key) => {
+      const field: Entity | Entity[] = enrichEntity[key];
+      if (field) {
+        if (typeof field === "object") {
+          if (Array.isArray(field)) {
+            if (field.length > 0) {
+              enrichEntity[key] = await this.enrichEntities(field, field[0].constructor);
+            }
+          } else {
+            enrichEntity[key] = await this.enrichEntity(field, field.constructor);
+          }
+        }
+      }
+    });
+    await Promise.all(promises);
+    return enrichEntity;
   }
 
-  await this.enrichEntitiesWithDependencies(entities);
-  return [entities, count];
-}*/
+}

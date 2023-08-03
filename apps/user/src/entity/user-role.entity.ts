@@ -16,7 +16,16 @@
 
 import { Column, CreateDateColumn, Entity, Index, PrimaryColumn } from "typeorm";
 import { IUserRoleEntity } from "@user/src/user.types";
+import { MsDependencies } from "@shared/modules/ms-client/ms-dependencies.decorator";
 
+@MsDependencies<UserRoleEntity>({
+  name: {
+    read: "locale.string.list.get",
+    create: "locale.string.list.create",
+    update: "locale.string.list.update",
+    delete: "locale.string.list.delete"
+  }
+})
 @Entity("users_roles")
 export class UserRoleEntity implements IUserRoleEntity {
 
@@ -24,8 +33,6 @@ export class UserRoleEntity implements IUserRoleEntity {
   @PrimaryColumn("varchar")
   code: string;
 
-  /*@ManyToMany(() => LocalizedStringEntity, { cascade: true })
-  @JoinTable()*/
   @Column("int", { array: true, nullable: true })
   name: number[];
 

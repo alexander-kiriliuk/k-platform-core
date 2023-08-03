@@ -58,13 +58,9 @@ export class UserEntity implements IUserEntity {
   @Column("varchar", { nullable: true })
   phone: string;
 
-  /*  @ManyToMany(() => LocalizedStringEntity, { cascade: true })
-    @JoinTable()*/
   @Column("int", { array: true, nullable: true })
   firstName: number[];
 
-  /*@ManyToMany(() => LocalizedStringEntity, { cascade: true })
-  @JoinTable()*/
   @Column("int", { array: true, nullable: true })
   lastName: number[];
 
