@@ -41,8 +41,13 @@ export class LocaleService {
   }
 
   async getStringLocaleList(ids: string[]) {
-    const data = await this.localizedStringRep.find({ where: { id: In(ids) }, relations: ["lang"] });
-    return data;
+    return await this.localizedStringRep.find({ where: { id: In(ids) }, relations: ["lang"] });
+  }
+
+  async upsertStringLocaleList(payload: LocalizedString[]) {
+    // todo
+    console.log("upsertStringLocaleList", payload);
+    return Promise.resolve([{ id: 11 }, { id: 12 }]);
   }
 
   async createLocalizedStrings(value: string, code?: string): Promise<LocalizedStringEntity[]> {

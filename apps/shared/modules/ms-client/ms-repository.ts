@@ -78,9 +78,19 @@ export class MsRepository<Entity, EnrichEntity> {
     for (const key of Object.keys(data)) {
       if (options[key]) {
         const params = options[key] as MsDependencyParams;
-        entity[key] = data[key][params.key];
         if (params.update) {
-          await this.bus.dispatch(params.update, data[key], { timeout: params.timeout });
+          const res = await this.bus.dispatch(params.update, data[key], { timeout: params.timeout });
+          if (!res) {
+            this.logger.warn(`Can't save ref to object, because MS returned empty response for command: ${params.update}`);
+          } else {
+            if (Array.isArray(res)) {
+              const result = [];
+              res.forEach(v => result.push(v[params.key]));
+              entity[key] = result;
+            } else {
+              entity[key] = res[params.key];
+            }
+          }
         }
       } else {
         entity[key] = data[key];

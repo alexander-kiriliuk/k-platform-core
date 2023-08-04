@@ -33,14 +33,12 @@ export class LocaleController {
 
   @MessagePattern("locale.string.list.create")
   async createStringLocaleList(payload: LocalizedString[]) {
-    // todo
-    console.log(payload);
+    return await this.localeService.upsertStringLocaleList(payload);
   }
 
   @MessagePattern("locale.string.list.update")
   async updateStringLocaleList(payload: LocalizedString[]) {
-    // todo
-    console.log(payload);
+    return await this.localeService.upsertStringLocaleList(payload);
   }
 
   @MessagePattern("locale.string.list.delete")
