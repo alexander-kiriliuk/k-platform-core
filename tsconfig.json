@@ -19,34 +19,34 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@shared/*": [
-        "apps/shared/*"
+        "shared/*"
       ],
       "@user/*": [
-        "apps/user/*"
+        "modules/user/*"
       ],
       "@media/*": [
-        "apps/media/*"
+        "modules/media/*"
       ],
       "@files/*": [
-        "apps/file/*"
+        "modules/file/*"
       ],
       "@xml-data-bridge/*": [
-        "apps/xml-data-bridge/*"
+        "modules/xml-data-bridge/*"
       ],
       "@explorer/*": [
-        "apps/explorer/*"
+        "modules/explorer/*"
       ],
       "@composer/*": [
-        "apps/composer/*"
+        "modules/composer/*"
       ],
       "@config/*": [
-        "apps/config/*"
+        "modules/config/*"
       ],
       "@auth/*": [
-        "apps/auth/*"
+        "modules/auth/*"
       ],
       "@captcha/*": [
-        "apps/captcha/*"
+        "modules/captcha/*"
       ]
     }
   }
