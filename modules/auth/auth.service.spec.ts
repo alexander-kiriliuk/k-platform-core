@@ -17,53 +17,49 @@
 
 import { AuthService } from "./auth.service";
 import { MockCacheService } from "@shared/modules/cache/mock/mock-cache.service";
-import { TooManyRequestsMsException } from "@shared/exceptions/too-many-requests-ms.exception";
 import { AuthMock } from "./mock/auth.mock";
-import { UnauthorizedMsException } from "@shared/exceptions/unauthorized-ms.exception";
-import { MockMsClient } from "@shared/modules/ms-client/mock/mock-ms-client";
-import { MessageBus } from "@shared/modules/ms-client/ms-client.types";
 import { bruteForceIPKey } from "./auth.constants";
-import { InvalidTokenMsException } from "@shared/exceptions/invalid-token-ms.exception";
 import { LoggerMock } from "@shared/modules/mock/logger.mock";
+import { InternalServerErrorException, UnauthorizedException } from "@nestjs/common";
+import { UserService } from "@user/user.service";
 
 describe("AuthService", () => {
 
   let authService: AuthService;
   let cacheService: MockCacheService;
-  let bus: MessageBus;
+  let userService: UserService;
 
   beforeEach(async () => {
     cacheService = new MockCacheService(AuthMock.Storage);
-    bus = new MockMsClient(AuthMock.Storage);
-    authService = new AuthService(LoggerMock, bus, cacheService, AuthMock.jwtService);
+    authService = new AuthService(LoggerMock, userService, cacheService, AuthMock.jwtService);
   });
 
   describe("authenticate", () => {
 
     it("throw error if user is blocked by login", async () => {
       await expect(authService.authenticate(AuthMock.blockedUsrLoginPayload))
-        .rejects.toThrow(TooManyRequestsMsException);
+        .rejects.toThrow(InternalServerErrorException);
     });
 
     it("throw error if user is blocked by ip address", async () => {
       await expect(authService.authenticate(AuthMock.blockedUsrIpPayload))
-        .rejects.toThrow(TooManyRequestsMsException);
+        .rejects.toThrow(InternalServerErrorException);
     });
 
     it("throw error if credentials are invalid", async () => {
       await expect(authService.authenticate(AuthMock.wrongCredentialsUsrPayload))
-        .rejects.toThrow(UnauthorizedMsException);
+        .rejects.toThrow(UnauthorizedException);
     });
 
     it("write and clean failed auth attempt", async () => {
       const ipKey = bruteForceIPKey(AuthMock.wrongCredentialsUsrPayload.ipAddress);
       await cacheService.del(ipKey);
       await expect(authService.authenticate(AuthMock.wrongCredentialsUsrPayload))
-        .rejects.toThrow(UnauthorizedMsException);
+        .rejects.toThrow(UnauthorizedException);
       let attempts = await cacheService.getNumber(ipKey);
       expect(attempts).toBe(1);
       await expect(authService.authenticate(AuthMock.wrongCredentialsUsrPayload))
-        .rejects.toThrow(UnauthorizedMsException);
+        .rejects.toThrow(UnauthorizedException);
       attempts = await cacheService.getNumber(ipKey);
       expect(attempts).toBe(2);
       await authService.authenticate(AuthMock.validCredentialsUsrPayload);
@@ -97,7 +93,7 @@ describe("AuthService", () => {
     });
 
     it("fail invalidate if token not exists in db", async () => {
-      await expect(authService.invalidateToken("fake-token")).rejects.toThrow(InvalidTokenMsException);
+      await expect(authService.invalidateToken("fake-token")).rejects.toThrow(UnauthorizedException);
     });
 
   });
@@ -105,12 +101,12 @@ describe("AuthService", () => {
   describe("exchangeToken", () => {
 
     it("throw error if refresh token not exists in db", async () => {
-      await expect(authService.exchangeToken("fake-token")).rejects.toThrow(InvalidTokenMsException);
+      await expect(authService.exchangeToken("fake-token")).rejects.toThrow(UnauthorizedException);
     });
 
     it("throw error if related user for refresh token not exists in db", async () => {
       await expect(authService.exchangeToken(AuthMock.refreshTokenWithoutRelatedUser))
-        .rejects.toThrow(UnauthorizedMsException);
+        .rejects.toThrow(UnauthorizedException);
     });
 
     it("return JWT if tokens success exchanged", async () => {

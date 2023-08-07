@@ -14,13 +14,19 @@
  *    limitations under the License.
  */
 
-import { Inject, Injectable, Logger } from "@nestjs/common";
+import {
+  HttpStatus,
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  UnauthorizedException
+} from "@nestjs/common";
 import * as bcrypt from "bcrypt";
 import { JwtDto, LoginPayload } from "./auth.types";
 import { User } from "@user/user.types";
 import { JwtService } from "@nestjs/jwt";
 import { v4 as uuidv4 } from "uuid";
-import { TooManyRequestsMsException } from "@shared/exceptions/too-many-requests-ms.exception";
 import {
   AUTH_JWT_CACHE_PREFIX,
   AUTH_REFRESH_TOKEN_PREFIX,
@@ -31,11 +37,9 @@ import {
   UNKNOWN_IP
 } from "./auth.constants";
 import { CacheService } from "@shared/modules/cache/cache.types";
-import { InvalidTokenMsException } from "@shared/exceptions/invalid-token-ms.exception";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { AuthConfig } from "@auth/gen-src/auth.config";
 import { BruteforceConfig } from "@auth/gen-src/bruteforce.config";
-import { UnauthorizedMsException } from "@shared/exceptions/unauthorized-ms.exception";
 import { UserService } from "@user/user.service";
 
 /**
@@ -57,7 +61,7 @@ export class AuthService {
    * Authenticate the user with the provided login payload.
    * @param data - LoginPayload object with user login information.
    * @returns A Promise that resolves to a JwtDto containing access and refresh tokens.
-   * @throws UnauthorizedMsException unauthorized exception if authentication fails.
+   * @throws UnauthorizedException unauthorized exception if authentication fails.
    */
   async authenticate(data: LoginPayload): Promise<JwtDto> {
     if (!data.ipAddress?.length) {
@@ -66,13 +70,13 @@ export class AuthService {
     const isBlocked = await this.isBlocked(data.login, data.ipAddress);
     if (isBlocked) {
       this.logger.warn(`Too many login attempts for ${data.login} from ${data.ipAddress}`);
-      throw new TooManyRequestsMsException();
+      throw new InternalServerErrorException(HttpStatus.TOO_MANY_REQUESTS);
     }
     const user = await this.validateUser(data);
     if (!user) {
       this.logger.debug(`Invalid credentials for user ${data.login}`);
       await this.registerFailedAttempt(data.login, data.ipAddress);
-      throw new UnauthorizedMsException();
+      throw new UnauthorizedException();
     }
     await this.resetFailedAttempts(data.login, data.ipAddress);
     const accessToken = this.jwtService.sign({ login: user.login });
@@ -88,7 +92,7 @@ export class AuthService {
    * Invalidate the specified access token.
    * @param accessToken - The access token to invalidate.
    * @returns A Promise that resolves to true if the token was invalidated successfully, or throws an error.
-   * @throws InvalidTokenMsException if related user for access token not exists.
+   * @throws UnauthorizedException if related user for access token not exists.
    */
   async invalidateToken(accessToken: string) {
     const userLogin = await this.cacheService.get(jwtAccessTokenKey(accessToken));
@@ -98,7 +102,7 @@ export class AuthService {
       await this.deleteRefreshTokens(accessToken, jwtRefreshTokenKey(accessToken, "*"));
     } else {
       this.logger.warn(`Attempt to invalidate an invalid token: ${accessToken}`);
-      throw new InvalidTokenMsException();
+      throw new UnauthorizedException();
     }
     return true;
   }
@@ -107,19 +111,19 @@ export class AuthService {
    * Exchange the provided refresh token for a new access token.
    * @param refreshToken - The refresh token to exchange.
    * @returns A Promise that resolves to a Partial<JwtDto> containing a new access and refresh tokens.
-   * @throws InvalidTokenMsException unauthorized exception if exchange fails.
+   * @throws UnauthorizedException unauthorized exception if exchange fails.
    */
   async exchangeToken(refreshToken: string): Promise<Partial<JwtDto>> {
     const refreshTokenKeyPattern = jwtRefreshTokenKey("*", refreshToken);
     const refreshTokenKeys = await this.cacheService.getFromPattern(refreshTokenKeyPattern);
     if (!refreshTokenKeys?.length) {
       this.logger.warn(`Attempt to exchange an invalid refresh token: ${refreshToken}`);
-      throw new InvalidTokenMsException();
+      throw new UnauthorizedException();
     }
     const refreshTokenKey = refreshTokenKeys[0];
     const userLogin = await this.cacheService.get(refreshTokenKey);
     if (!userLogin) {
-      throw new UnauthorizedMsException();
+      throw new UnauthorizedException();
     }
     const accessToken = this.jwtService.sign({ login: userLogin });
     const atExp = await this.getAccessTokenExp();

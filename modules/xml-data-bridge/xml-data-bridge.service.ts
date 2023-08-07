@@ -14,12 +14,11 @@
  *    limitations under the License.
  */
 
-import { HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
+import { Inject, Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { FileRow, MediaRow, XdbActions, XdbObject, XdbRowData } from "@xml-data-bridge/xml-data-bridge.types";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource, EntityMetadata, In, Repository } from "typeorm";
-import { MsException } from "@shared/exceptions/ms.exception";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { FilesUtils } from "@shared/utils/files.utils";
 import * as process from "process";
@@ -52,7 +51,6 @@ export class XmlDataBridgeService {
    * Import XML data from an XdbObject.
    * @param xml - The XdbObject containing the XML data.
    * @returns A promise that resolves to a boolean indicating whether the import was successful.
-   * @throws MsException if an error occurs during the import.
    */
   async importXml(xml: XdbObject): Promise<boolean> {
     try {
@@ -74,10 +72,7 @@ export class XmlDataBridgeService {
       }
       return true;
     } catch (error) {
-      throw new MsException(
-        HttpStatus.INTERNAL_SERVER_ERROR,
-        `Error importing XML: ${error.message}`
-      );
+      throw new InternalServerErrorException(`Error importing XML: ${error.message}`);
     }
   }
 

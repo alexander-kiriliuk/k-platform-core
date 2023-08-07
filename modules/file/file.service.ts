@@ -14,7 +14,14 @@
  *    limitations under the License.
  */
 
-import { HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  NotFoundException
+} from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
@@ -24,12 +31,9 @@ import { FileConfig } from "./gen-src/file.config";
 import * as path from "path";
 import { FilesUtils } from "@shared/utils/files.utils";
 import * as fs from "fs";
-import { MsException } from "@shared/exceptions/ms.exception";
-import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
 import { File } from "./file.types";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
-import { BadRequestMsException } from "@shared/exceptions/bad-request-ms.exception";
 import PRIVATE_DIR = FileConfig.PRIVATE_DIR;
 import PUBLIC_DIR = FileConfig.PUBLIC_DIR;
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
@@ -70,14 +74,14 @@ export class FileService {
       if (existedEntityId) {
         entity = await this.findFileById(existedEntityId, isPublic);
         if (!entity) {
-          throw new BadRequestMsException(`Cannot patch file with ID ${existedEntityId}, because than not exists`);
+          throw new BadRequestException(`Cannot patch file with ID ${existedEntityId}, because than not exists`);
         }
         const dir = path.join(
           !entity.public ? await this.getPrivateDir() : await this.getPublicDir(),
           entity.id.toString()
         );
         await fs.promises.rm(dir, { recursive: true }).catch(err => {
-          throw new MsException(HttpStatus.INTERNAL_SERVER_ERROR, `Failed to delete directory: ${dir}`, err);
+          throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
         });
       } else {
         entity = await this.createFileEntity(isPublic);
@@ -148,7 +152,7 @@ export class FileService {
     await this.fileRep.manager.transaction(async transactionManager => {
       await transactionManager.remove(file);
       await fs.promises.rm(dir, { recursive: true }).catch(err => {
-        throw new MsException(HttpStatus.INTERNAL_SERVER_ERROR, `Failed to delete directory: ${dir}`, err);
+        throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
       });
     });
     this.logger.log(`File with ID ${id} removed`);
@@ -169,7 +173,7 @@ export class FileService {
     }
     const entity = await qb.getOne();
     if (!entity) {
-      throw new NotFoundMsException(`File with ID ${id} not found`);
+      throw new NotFoundException(`File with ID ${id} not found`);
     }
     return entity;
   }

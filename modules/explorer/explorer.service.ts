@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
+import { Inject, Injectable, InternalServerErrorException, Logger, NotFoundException } from "@nestjs/common";
 import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
@@ -24,8 +24,6 @@ import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
 import { LocaleService } from "@shared/modules/locale/locale.service";
 import { LOGGER } from "@shared/modules/log/log.constants";
-import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
-import { MsException } from "@shared/exceptions/ms.exception";
 import { PageableData, PageableParams, SortOrder } from "@shared/modules/pageable/pageable.types";
 
 /**
@@ -109,12 +107,12 @@ export class ExplorerService {
    * @param target - The name of the target entity or table.
    * @param params - An optional object containing pageable parameters.
    * @returns A Promise that resolves to a PageableData object containing the paginated results.
-   * @throws NotFoundMsException if the target entity is not found.
+   * @throws NotFoundException if the target entity is not found.
    */
   async getPageableEntityData(target: string, params?: PageableParams): Promise<PageableData> {
     const targetData = await this.getTargetData(target);
     if (!targetData) {
-      throw new NotFoundMsException(`Target entity not found: ${target}`);
+      throw new NotFoundException(`Target entity not found: ${target}`);
     }
     const repository = this.connection.getRepository(targetData.entity.target);
     const primaryColumnProperty = targetData.primaryColumn.property;
@@ -138,12 +136,12 @@ export class ExplorerService {
    * @param target - The name of the target entity.
    * @param entity - The entity object to be saved or updated.
    * @returns The saved or updated entity.
-   * @throws {NotFoundMsException} If the target entity is not found.
+   * @throws {NotFoundException} If the target entity is not found.
    */
   async saveEntityData<T = any>(target: string, entity: T): Promise<T> {
     const targetData = await this.getTargetData(target);
     if (!targetData) {
-      throw new NotFoundMsException(`Target entity not found: ${target}`);
+      throw new NotFoundException(`Target entity not found: ${target}`);
     }
     const repository = this.connection.getRepository(targetData.entity.target);
     if (!entity[targetData.primaryColumn.property]) {
@@ -157,17 +155,17 @@ export class ExplorerService {
    * @param target - The name of the target entity.
    * @param id - The ID of the entity to be removed.
    * @returns The removed entity.
-   * @throws {NotFoundMsException} If the target entity or the entity with the specified ID is not found.
+   * @throws {NotFoundException} If the target entity or the entity with the specified ID is not found.
    */
   async removeEntity(target: string, id: string | number) {
     const targetData = await this.getTargetData(target);
     if (!targetData) {
-      throw new NotFoundMsException(`Target entity not found: ${target}`);
+      throw new NotFoundException(`Target entity not found: ${target}`);
     }
     const repository = this.connection.getRepository(targetData.entity.target);
     const entity = await repository.findOne({ where: { [targetData.primaryColumn.property]: id } });
     if (!entity) {
-      throw new NotFoundMsException(`Entity with ID ${id} not found in table ${target}`);
+      throw new NotFoundException(`Entity with ID ${id} not found in table ${target}`);
     }
     return await repository.remove(entity);
   }
@@ -182,12 +180,12 @@ export class ExplorerService {
   async getEntityData(target: string, rowId: string | number, maxDepth = Infinity): Promise<EntityData> {
     const targetData = await this.getTargetData(target);
     if (!targetData) {
-      throw new NotFoundMsException(`Target entity not found: ${target}`);
+      throw new NotFoundException(`Target entity not found: ${target}`);
     }
     const repository = this.connection.getRepository(targetData.entity.target);
     const row = await repository.findOne({ where: { [targetData.primaryColumn.property]: rowId } });
     if (!row) {
-      throw new NotFoundMsException(`Row with ID ${rowId} not found in table ${target}`);
+      throw new NotFoundException(`Row with ID ${rowId} not found in table ${target}`);
     }
     const withRelations = await this.attachRelations(row, targetData, [], maxDepth);
     return { entity: targetData.entity, data: withRelations };
@@ -211,7 +209,6 @@ export class ExplorerService {
           entity[relationProp] = repository.create();
         } else {
           const relatedRepository = this.connection.getRepository(currTargetData.entity.target);
-
           if (Array.isArray(relatedEntityData) && col.multiple) {
             for (let i = 0; i < relatedEntityData.length; i++) {
               entity[relationProp][i] = await this.saveNestedEntities(relatedEntityData[i], currTargetData, relatedRepository);
@@ -235,7 +232,7 @@ export class ExplorerService {
    */
   private async attachRelations<T = any>(row: T, targetData: TargetData, visitedEntities: string[] = [], maxDepth = Infinity) {
     if (maxDepth < 0) {
-      throw new MsException(HttpStatus.INTERNAL_SERVER_ERROR, "maxDepth should be non-negative");
+      throw new InternalServerErrorException("maxDepth should be non-negative");
     }
     const referencedCols = targetData.entity.columns.filter(c => c.type === "reference");
     const relations = referencedCols.map(c => c.property);

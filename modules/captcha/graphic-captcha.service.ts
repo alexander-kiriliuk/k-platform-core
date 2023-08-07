@@ -16,12 +16,10 @@
 
 import { CaptchaRequest, CaptchaService, GraphicCaptchaResponse } from "./captcha.types";
 import { v4 as uuidv4 } from "uuid";
-import { Inject, Logger } from "@nestjs/common";
+import { BadRequestException, ForbiddenException, Inject, Logger } from "@nestjs/common";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { StringUtils } from "@shared/utils/string.utils";
 import { CaptchaConfig } from "@captcha/gen-src/captcha.config";
-import { BadRequestMsException } from "@shared/exceptions/bad-request-ms.exception";
-import { ForbiddenMsException } from "@shared/exceptions/forbidden-ms.exception";
 import { createCanvas, registerFont } from "canvas";
 import { NumberUtils } from "@shared/utils/number.utils";
 import { LOGGER } from "@shared/modules/log/log.constants";
@@ -64,19 +62,19 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
    * Validates the provided captcha request against the cached value.
    * @param {CaptchaRequest} request - The captcha request to be validated.
    * @returns {Promise<boolean>} - A promise resolving to a boolean indicating whether the captcha is valid or not.
-   * @throws {BadRequestMsException} - Thrown when the captcha id is invalid.
-   * @throws {ForbiddenMsException} - Thrown when the captcha value is incorrect.
+   * @throws {BadRequestException} - Thrown when the captcha id is invalid.
+   * @throws {ForbiddenException} - Thrown when the captcha value is incorrect.
    */
   async validateCaptcha(request: CaptchaRequest): Promise<boolean> {
     const key = `${CAPTCHA_CACHE_PREFIX}:${request.id}`;
     const val = await this.cacheService.get(key);
     if (!val) {
       this.logger.warn(`Invalid captcha id: ${request.id}`);
-      throw new BadRequestMsException();
+      throw new BadRequestException();
     }
     if (val !== request.data) {
       this.logger.warn(`Incorrect captcha value for id: ${request.id}`);
-      throw new ForbiddenMsException();
+      throw new ForbiddenException();
     }
     this.cacheService.del(key);
     return true;

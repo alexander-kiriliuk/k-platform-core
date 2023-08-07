@@ -14,13 +14,13 @@
  *    limitations under the License.
  */
 
-import { UserService } from "@user/src/user.service";
+import { UserService } from "@user/user.service";
 import { Repository } from "typeorm";
-import { UserEntity } from "@user/src/entity/user.entity";
+import { UserEntity } from "@user/entity/user.entity";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
-import { USER_RELATIONS } from "@user/src/user.constants";
-import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
+import { USER_RELATIONS } from "@user/user.constants";
+import { NotFoundException } from "@nestjs/common";
 
 describe("UserService", () => {
   let userService: UserService;
@@ -101,7 +101,7 @@ describe("UserService", () => {
   it("throw an error if the user is not found", async () => {
     const id = "12345";
     jest.spyOn(userRep, "findOne").mockResolvedValue(undefined);
-    await expect(userService.removeById(id)).rejects.toThrow(NotFoundMsException);
+    await expect(userService.removeById(id)).rejects.toThrow(NotFoundException);
     expect(userRep.findOne).toHaveBeenCalledWith({ where: { id }, relations: USER_RELATIONS });
   });
 

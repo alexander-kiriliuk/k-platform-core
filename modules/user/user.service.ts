@@ -14,12 +14,11 @@
  *    limitations under the License.
  */
 
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { User } from "./user.types";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { UserEntity } from "./entity/user.entity";
-import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
 import { USER_RELATIONS } from "./user.constants";
 
 /**
@@ -87,12 +86,12 @@ export class UserService {
    * @async
    * @param {string} id - The user's ID.
    * @returns {Promise<UserEntity>} The removed user.
-   * @throws {NotFoundMsException} If the user with the specified ID is not found.
+   * @throws {NotFoundException} If the user with the specified ID is not found.
    */
   async removeById(id: string) {
     const user = await this.findById(id);
     if (!user) {
-      throw new NotFoundMsException(`User with ID ${id} not found`);
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
     await this.userRep.remove(user);
     return user;

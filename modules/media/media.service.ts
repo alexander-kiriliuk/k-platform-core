@@ -14,14 +14,18 @@
  *    limitations under the License.
  */
 
-import { HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  NotFoundException
+} from "@nestjs/common";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { BadRequestMsException } from "@shared/exceptions/bad-request-ms.exception";
 import { FilesUtils } from "@shared/utils/files.utils";
 import { LOGGER } from "@shared/modules/log/log.constants";
-import { NotFoundMsException } from "@shared/exceptions/not-found-ms.exception";
-import { MsException } from "@shared/exceptions/ms.exception";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
@@ -75,7 +79,6 @@ export class MediaService {
    * Finds a media entity by ID with public access.
    * @param id - The ID of the media entity.
    * @returns The found media entity.
-   * @throws NotFoundMsException if the media entity is not found.
    */
   async findPublicById(id: number): Promise<MediaEntity> {
     return this.findMediaById(id, false);
@@ -85,7 +88,6 @@ export class MediaService {
    * Finds a media entity by ID with private access.
    * @param id - The ID of the media entity.
    * @returns The found private media entity.
-   * @throws NotFoundMsException if the private media entity is not found.
    */
   async findPrivateById(id: number): Promise<MediaEntity> {
     return this.findMediaById(id, true);
@@ -106,7 +108,7 @@ export class MediaService {
       await transactionManager.remove(media.files);
       await transactionManager.remove(media);
       await fs.promises.rm(dir, { recursive: true }).catch(err => {
-        throw new MsException(HttpStatus.INTERNAL_SERVER_ERROR, `Failed to delete directory: ${dir}`, err);
+        throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
       });
     });
     this.logger.log(`Media with ID ${id} removed`);
@@ -134,14 +136,14 @@ export class MediaService {
       if (existedEntityId) {
         entity = await this.findMediaById(existedEntityId);
         if (!entity) {
-          throw new BadRequestMsException(`Cannot patch media with ID ${existedEntityId}, because that not exists`);
+          throw new BadRequestException(`Cannot patch media with ID ${existedEntityId}, because that not exists`);
         }
         const dir = path.join(
           entity.type.private ? await this.getPrivateDir() : await this.getPublicDir(),
           entity.id.toString()
         );
         await fs.promises.rm(dir, { recursive: true }).catch(err => {
-          throw new MsException(HttpStatus.INTERNAL_SERVER_ERROR, `Failed to delete directory: ${dir}`, err);
+          throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
         });
       } else {
         entity = await this.createMediaEntity(mediaType);
@@ -182,7 +184,7 @@ export class MediaService {
    * Retrieves the media type based on the given type code.
    * @param type - The media type code.
    * @returns The MediaTypeEntity instance.
-   * @throws BadRequestMsException if the media type is not found.
+   * @throws BadRequestException if the media type is not found.
    */
   private async getMediaType(type: string): Promise<MediaTypeEntity> {
     const mediaType = await this.mediaTypeRep.findOne({
@@ -190,7 +192,7 @@ export class MediaService {
       relations: MEDIA_TYPE_RELATIONS
     });
     if (!mediaType) {
-      throw new BadRequestMsException("Media type not found");
+      throw new BadRequestException("Media type not found");
     }
     return mediaType;
   }
@@ -379,7 +381,7 @@ export class MediaService {
    * @param id - The ID of the media entity.
    * @param privateMedia - A boolean flag indicating whether to search for private media entities (default: false).
    * @returns The found media entity.
-   * @throws NotFoundMsException if the media entity is not found.
+   * @throws NotFoundException if the media entity is not found.
    */
   private async findMediaById(id: number, privateMedia: boolean = undefined): Promise<MediaEntity> {
     const qb = this.createBasicFindQb()
@@ -389,7 +391,7 @@ export class MediaService {
     }
     const entity = await qb.getOne();
     if (!entity) {
-      throw new NotFoundMsException(`Media with ID ${id} not found`);
+      throw new NotFoundException(`Media with ID ${id} not found`);
     }
     return entity;
   }

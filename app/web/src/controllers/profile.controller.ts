@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { CurrentUser } from "@shared/decorators/current-user.decorator";
 import { User, UserDto } from "@user/user.types";
@@ -34,7 +34,11 @@ export class ProfileController {
   @ResponseDto(UserDto)
   @Get("/:id")
   async getUserProfile(@Param("id") id: string) {
-    return await this.userService.findById(id);
+    const data = await this.userService.findById(id);
+    if (!data) {
+      throw new NotFoundException();
+    }
+    return data;
   }
 
   @ResponseDto(UserDto)

@@ -35,7 +35,7 @@ export class ExplorerController {
   @UseGuards(AuthGuard)
   @Get("/entity/:target")
   async getEntity(@Param("target") target: string, @Query("id") id: string) {
-    return await this.explorerService.getEntityData(id, target);
+    return await this.explorerService.getEntityData(target, id);
   }
 
   @UseGuards(AuthGuard)

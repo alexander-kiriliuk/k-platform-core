@@ -16,11 +16,10 @@
 
 
 import { MockCacheService } from "@shared/modules/cache/mock/mock-cache.service";
-import { CaptchaMock } from "@captcha/src/mock/captcha.mock";
-import { GraphicCaptchaService } from "@captcha/src/graphic-captcha.service";
+import { CaptchaMock } from "@captcha/mock/captcha.mock";
+import { GraphicCaptchaService } from "@captcha/graphic-captcha.service";
 import { LoggerMock } from "@shared/modules/mock/logger.mock";
-import { BadRequestMsException } from "@shared/exceptions/bad-request-ms.exception";
-import { ForbiddenMsException } from "@shared/exceptions/forbidden-ms.exception";
+import { BadRequestException, ForbiddenException } from "@nestjs/common";
 
 describe("GraphicCaptchaService", () => {
 
@@ -43,12 +42,12 @@ describe("GraphicCaptchaService", () => {
 
   it("failed validate captcha with wrong id", async () => {
     await expect(captchaService.validateCaptcha(CaptchaMock.captchaRequestWithInvalidId))
-      .rejects.toThrow(BadRequestMsException);
+      .rejects.toThrow(BadRequestException);
   });
 
   it("failed validate captcha with wrong data value", async () => {
     await expect(captchaService.validateCaptcha(CaptchaMock.captchaRequestWithInvalidData))
-      .rejects.toThrow(ForbiddenMsException);
+      .rejects.toThrow(ForbiddenException);
   });
 
   it("success validate captcha", async () => {
