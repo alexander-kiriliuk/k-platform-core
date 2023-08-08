@@ -17,10 +17,9 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { CurrentUser } from "@shared/decorators/current-user.decorator";
-import { User, UserDto } from "@user/user.types";
+import { User, UserDto, UserService } from "@user/user.types";
 import { ResponseDto } from "@shared/decorators/response-dto.decorator";
 import { RolesGuard } from "@shared/guards/roles.guard";
-import { UserService } from "@user/user.service";
 
 
 @Controller("/profile")

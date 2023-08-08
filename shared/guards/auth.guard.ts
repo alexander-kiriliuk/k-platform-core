@@ -18,7 +18,7 @@ import { Inject, Injectable, Logger } from "@nestjs/common";
 import { AbstractAuthGuard } from "./abstract-auth.guard";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { LOGGER } from "@shared/modules/log/log.constants";
-import { UserService } from "@user/user.service";
+import { UserService } from "@user/user.types";
 
 /**
  * @class AuthGuard

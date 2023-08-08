@@ -34,6 +34,7 @@ import * as fs from "fs";
 import { File } from "./file.types";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { FileManager } from "@files/file.constants";
 import PRIVATE_DIR = FileConfig.PRIVATE_DIR;
 import PUBLIC_DIR = FileConfig.PUBLIC_DIR;
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
@@ -42,13 +43,14 @@ import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
  * Injectable service for managing files, including uploading, finding, and removing files.
  */
 @Injectable()
-export class FileService {
+export class FileService extends FileManager {
 
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
     @InjectRepository(FileEntity)
     private readonly fileRep: Repository<FileEntity>,
     private readonly cacheService: CacheService) {
+    super();
   }
 
   /**
@@ -68,7 +70,7 @@ export class FileService {
     isPublic = true,
     code?: string,
     existedEntityId?: number,
-    name?: LocalizedString[]) {
+    name?: LocalizedString[]): Promise<FileEntity> {
     let entity: FileEntity = undefined;
     await this.fileRep.manager.transaction(async transactionManager => {
       if (existedEntityId) {
@@ -104,7 +106,7 @@ export class FileService {
    * @param code - The code of the file entity.
    * @returns The found file entity.
    */
-  async findByCode(code: string) {
+  async findByCode(code: string): Promise<FileEntity> {
     return await this.createBasicFindQb()
       .where("file.code = :code", { code })
       .getOne();
@@ -115,7 +117,7 @@ export class FileService {
    * @param id - The ID of the file to find.
    * @returns A promise that resolves to the found FileEntity.
    */
-  async findPublicById(id: number) {
+  async findPublicById(id: number): Promise<FileEntity> {
     return this.findFileById(id, true);
   }
 
@@ -124,7 +126,7 @@ export class FileService {
    * @param id - The ID of the file to find.
    * @returns A promise that resolves to the found FileEntity.
    */
-  async findPrivateById(id: number) {
+  async findPrivateById(id: number): Promise<FileEntity> {
     return this.findFileById(id);
   }
 
@@ -133,7 +135,7 @@ export class FileService {
    * @param file - A File object containing the file's metadata.
    * @returns The full file path as a string.
    */
-  async getFilePath(file: File) {
+  async getFilePath(file: File): Promise<string> {
     const filePath = `${!file.public ? await this.getPrivateDir() : await this.getPublicDir()}/${file.id}/`;
     return filePath + file.path;
   }
@@ -143,7 +145,7 @@ export class FileService {
    * @param id - The ID of the file to remove.
    * @returns A promise that resolves to the removed FileEntity.
    */
-  async remove(id: number) {
+  async remove(id: number): Promise<FileEntity> {
     const file = await this.findFileById(id);
     const dir = path.join(
       !file.public ? await this.getPrivateDir() : await this.getPublicDir(),

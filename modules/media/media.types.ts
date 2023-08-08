@@ -16,6 +16,9 @@
 
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { Exclude, Expose, Type } from "class-transformer";
+import { MediaEntity } from "@media/entity/media.entity";
+import { Type as Class } from "@nestjs/common/interfaces/type.interface";
+import { EntityClassOrSchema } from "@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type";
 
 export interface Media {
   id: number;
@@ -157,3 +160,30 @@ export class MediaFileDto implements MediaFile {
   width: number;
 
 }
+
+export abstract class MediaManager {
+
+  abstract findByCode(code: string): Promise<MediaEntity>;
+
+  abstract findPublicById(id: number): Promise<MediaEntity>;
+
+  abstract findPrivateById(id: number): Promise<MediaEntity>;
+
+  abstract remove(id: number): Promise<MediaEntity>;
+
+  abstract createOrUpdateMedia(
+    file: Buffer,
+    type: string,
+    code?: string,
+    existedEntityId?: number,
+    name?: LocalizedString[]
+  ): Promise<MediaEntity>;
+
+  abstract getMediaPath(media: Media, format?: string, webpSupport?: boolean): Promise<string>;
+
+}
+
+export type MediaModuleOptions = {
+  service: Class<MediaManager>;
+  entities: EntityClassOrSchema[];
+};

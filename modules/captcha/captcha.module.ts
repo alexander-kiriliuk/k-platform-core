@@ -14,27 +14,30 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
+import { DynamicModule, Module } from "@nestjs/common";
 import { GraphicCaptchaService } from "./graphic-captcha.service";
-import { CaptchaService } from "./captcha.types";
+import { CaptchaModuleOptions, CaptchaService } from "./captcha.types";
 import { CacheModule } from "@shared/modules/cache/cache.module";
 import { LogModule } from "@shared/modules/log/log.module";
 
-@Module({
-  imports: [
-    CacheModule,
-    LogModule
-  ],
-  controllers: [],
-  providers: [
-    {
-      provide: CaptchaService,
-      useClass: GraphicCaptchaService
-    }
-  ],
-  exports: [
-    CaptchaService
-  ]
-})
+@Module({})
 export class CaptchaModule {
+
+  static forRoot(options: CaptchaModuleOptions = { service: GraphicCaptchaService }): DynamicModule {
+    return {
+      module: CaptchaModule,
+      imports: [
+        CacheModule,
+        LogModule
+      ],
+      providers: [
+        {
+          provide: CaptchaService,
+          useClass: options.service
+        }
+      ],
+      exports: [CaptchaService]
+    };
+  }
+
 }

@@ -15,23 +15,23 @@
  */
 
 
-import { AuthService } from "./auth.service";
+import { AuthorizationService } from "./authorization.service";
 import { MockCacheService } from "@shared/modules/cache/mock/mock-cache.service";
 import { AuthMock } from "./mock/auth.mock";
 import { bruteForceIPKey } from "./auth.constants";
 import { LoggerMock } from "@shared/modules/mock/logger.mock";
 import { InternalServerErrorException, UnauthorizedException } from "@nestjs/common";
-import { UserService } from "@user/user.service";
+import { BasicUserService } from "@user/user-service-basic.service";
 
 describe("AuthService", () => {
 
-  let authService: AuthService;
+  let authService: AuthorizationService;
   let cacheService: MockCacheService;
-  let userService: UserService;
+  let userService: BasicUserService;
 
   beforeEach(async () => {
     cacheService = new MockCacheService(AuthMock.Storage);
-    authService = new AuthService(LoggerMock, userService, cacheService, AuthMock.jwtService);
+    authService = new AuthorizationService(LoggerMock, userService, cacheService, AuthMock.jwtService);
   });
 
   describe("authenticate", () => {

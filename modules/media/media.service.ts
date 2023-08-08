@@ -34,7 +34,7 @@ import { MediaEntity } from "@media/entity/media.entity";
 import { MediaTypeEntity } from "@media/entity/media-type.entity";
 import { MediaFormatEntity } from "@media/entity/media-format.entity";
 import { MediaFileEntity } from "@media/entity/media-file.entity";
-import { Media } from "@media/media.types";
+import { Media, MediaManager } from "@media/media.types";
 import { MediaConfig } from "./gen-src/media.config";
 import * as imageminMozjpeg from "imagemin-mozjpeg";
 import * as sharp from "sharp";
@@ -49,7 +49,7 @@ import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
  * uploading, resizing, optimizing, and removing images.
  */
 @Injectable()
-export class MediaService {
+export class MediaService extends MediaManager {
 
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
@@ -62,6 +62,7 @@ export class MediaService {
     @InjectRepository(MediaFileEntity)
     private readonly mediaFileRep: Repository<MediaFileEntity>,
     private readonly cacheService: CacheService) {
+    super();
   }
 
   /**
@@ -69,7 +70,7 @@ export class MediaService {
    * @param code - The code of the media entity.
    * @returns The found media entity.
    */
-  async findByCode(code: string) {
+  async findByCode(code: string): Promise<MediaEntity> {
     return await this.createBasicFindQb()
       .where("media.code = :code", { code })
       .getOne();
@@ -98,7 +99,7 @@ export class MediaService {
    * @param id - The ID of the media entity.
    * @returns The removed media entity.
    */
-  async remove(id: number) {
+  async remove(id: number): Promise<MediaEntity> {
     const media = await this.findMediaById(id);
     const dir = path.join(
       media.type.private ? await this.getPrivateDir() : await this.getPublicDir(),
@@ -168,7 +169,7 @@ export class MediaService {
    * @param webpSupport - A boolean indicating whether the client supports WebP format (default is false).
    * @returns The full path to the media file including the file extension.
    */
-  async getMediaPath(media: Media, format: string = ReservedMediaFormat.ORIGINAL, webpSupport = false) {
+  async getMediaPath(media: Media, format = ReservedMediaFormat.ORIGINAL, webpSupport = false) {
     let mediaPath = `${media.type.private ? await this.getPrivateDir() : await this.getPublicDir()}/${media.id}/`;
     const file = media.files.find(v => v.format.code === format);
     mediaPath += file.name;

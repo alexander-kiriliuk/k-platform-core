@@ -18,7 +18,7 @@ import { CanActivate, ExecutionContext, Logger } from "@nestjs/common";
 import { REQUEST_PROPS } from "@shared/constants";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { AUTH_ACCESS_TOKEN_PREFIX, AUTH_JWT_CACHE_PREFIX } from "@auth/auth.constants";
-import { UserService } from "@user/user.service";
+import { UserService } from "@user/user.types";
 
 /**
  * @abstract

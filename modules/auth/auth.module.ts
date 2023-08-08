@@ -14,40 +14,48 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
+import { DynamicModule, Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
-import { AuthService } from "./auth.service";
+import { AuthorizationService } from "./authorization.service";
 import { CacheModule } from "@shared/modules/cache/cache.module";
 import { LogModule } from "@shared/modules/log/log.module";
 import { AuthConfig } from "@auth/gen-src/auth.config";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { UserModule } from "@user/user.module";
+import { AuthService } from "@auth/auth.constants";
+import { AuthModuleOptions } from "@auth/auth.types";
 
-@Module({
-  controllers: [],
-  imports: [
-    PassportModule,
-    CacheModule,
-    LogModule,
-    UserModule,
-    JwtModule.registerAsync({
-      imports: [CacheModule],
-      inject: [CacheService],
-      useFactory: async (cs: CacheService) => {
-        return {
-          secret: await cs.get(AuthConfig.JWT_SECRET),
-          signOptions: { expiresIn: await cs.getNumber(AuthConfig.ACCESS_TOKEN_EXPIRATION) }
-        };
-      }
-    })
-  ],
-  providers: [
-    AuthService
-  ],
-  exports: [
-    AuthService
-  ]
-})
+@Module({})
 export class AuthModule {
+
+  static forRoot(options: AuthModuleOptions = { service: AuthorizationService }): DynamicModule {
+    return {
+      module: AuthModule,
+      imports: [
+        PassportModule,
+        CacheModule,
+        LogModule,
+        UserModule.forRoot(),
+        JwtModule.registerAsync({
+          imports: [CacheModule],
+          inject: [CacheService],
+          useFactory: async (cs: CacheService) => {
+            return {
+              secret: await cs.get(AuthConfig.JWT_SECRET),
+              signOptions: { expiresIn: await cs.getNumber(AuthConfig.ACCESS_TOKEN_EXPIRATION) }
+            };
+          }
+        })
+      ],
+      providers: [
+        {
+          provide: AuthService,
+          useClass: options.service
+        }
+      ],
+      exports: [AuthService]
+    };
+  }
+
 }

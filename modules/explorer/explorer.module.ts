@@ -14,28 +14,41 @@
  *    limitations under the License.
  */
 
-import { Module, OnModuleInit } from "@nestjs/common";
-import { ExplorerService } from "./explorer.service";
+import { DynamicModule, Module, OnModuleInit } from "@nestjs/common";
+import { BasicExplorerService } from "./basic-explorer.service";
 import { LogModule } from "@shared/modules/log/log.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
 import { LocaleModule } from "@shared/modules/locale/locale.module";
+import { ExplorerModuleOptions, ExplorerService } from "@explorer/explorer.types";
 
-@Module({
-  imports: [
-    TypeOrmModule.forFeature([
+@Module({})
+export class ExplorerModule implements OnModuleInit {
+
+  static forRoot(options: ExplorerModuleOptions = {
+    service: BasicExplorerService,
+    entities: [
       ExplorerTargetEntity,
       ExplorerColumnEntity
-    ]),
-    LogModule,
-    LocaleModule
-  ],
-  controllers: [],
-  providers: [ExplorerService],
-  exports: [ExplorerService]
-})
-export class ExplorerModule implements OnModuleInit {
+    ]
+  }): DynamicModule {
+    return {
+      module: ExplorerModule,
+      imports: [
+        TypeOrmModule.forFeature(options.entities),
+        LogModule,
+        LocaleModule
+      ],
+      providers: [
+        {
+          provide: ExplorerService,
+          useClass: options.service
+        }
+      ],
+      exports: [ExplorerService]
+    };
+  }
 
   constructor(
     private readonly service: ExplorerService) {

@@ -14,20 +14,32 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
-import { UserService } from "./user.service";
+import { DynamicModule, Module } from "@nestjs/common";
+import { BasicUserService } from "./user-service-basic.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserEntity } from "./entity/user.entity";
+import { UserModuleOptions, UserService } from "@user/user.types";
 
-@Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      UserEntity
-    ])
-  ],
-  controllers: [],
-  providers: [UserService],
-  exports: [UserService]
-})
+@Module({})
 export class UserModule {
+
+  static forRoot(options: UserModuleOptions = {
+    service: BasicUserService,
+    entities: [UserEntity]
+  }): DynamicModule {
+    return {
+      module: UserModule,
+      imports: [
+        TypeOrmModule.forFeature(options.entities)
+      ],
+      providers: [
+        {
+          provide: UserService,
+          useClass: options.service
+        }
+      ],
+      exports: [UserService]
+    };
+  }
+
 }

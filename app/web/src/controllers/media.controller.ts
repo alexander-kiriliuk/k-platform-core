@@ -32,13 +32,13 @@ import { NotEmptyPipe } from "@shared/pipes/not-empty.pipe";
 import { DEFAULT_MEDIA_TYPE } from "@media/media.constants";
 import { Response } from "express";
 import * as path from "path";
-import { MediaService } from "@media/media.service";
+import { MediaManager } from "@media/media.types";
 
 @Controller("/media")
 export class MediaController {
 
   constructor(
-    private readonly mediaService: MediaService) {
+    private readonly mediaService: MediaManager) {
   }
 
   @Post("/upload/:type?")

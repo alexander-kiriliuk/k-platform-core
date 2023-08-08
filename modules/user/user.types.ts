@@ -18,6 +18,9 @@ import { Media } from "@media/media.types";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { Exclude, Expose, Type } from "class-transformer";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { Type as Class } from "@nestjs/common/interfaces/type.interface";
+import { EntityClassOrSchema } from "@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type";
+import { UserEntity } from "@user/entity/user.entity";
 
 export interface User {
   id: string;
@@ -94,3 +97,22 @@ export interface UserUpdateRequest {
   id: string;
   user: User;
 }
+
+export abstract class UserService {
+
+  abstract findByLogin(login: string): Promise<UserEntity>;
+
+  abstract findById(id: string): Promise<UserEntity>;
+
+  abstract updateById(id: string, user: User): Promise<UserEntity>;
+
+  abstract create(user: User): Promise<UserEntity>;
+
+  abstract removeById(id: string): Promise<UserEntity>;
+
+}
+
+export type UserModuleOptions = {
+  service: Class<UserService>;
+  entities: EntityClassOrSchema[];
+};

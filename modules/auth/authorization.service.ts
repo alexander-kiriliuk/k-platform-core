@@ -24,12 +24,13 @@ import {
 } from "@nestjs/common";
 import * as bcrypt from "bcrypt";
 import { JwtDto, LoginPayload } from "./auth.types";
-import { User } from "@user/user.types";
+import { User, UserService } from "@user/user.types";
 import { JwtService } from "@nestjs/jwt";
 import { v4 as uuidv4 } from "uuid";
 import {
   AUTH_JWT_CACHE_PREFIX,
   AUTH_REFRESH_TOKEN_PREFIX,
+  AuthService,
   bruteForceIPKey,
   bruteForceLoginKey,
   jwtAccessTokenKey,
@@ -40,21 +41,21 @@ import { CacheService } from "@shared/modules/cache/cache.types";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { AuthConfig } from "@auth/gen-src/auth.config";
 import { BruteforceConfig } from "@auth/gen-src/bruteforce.config";
-import { UserService } from "@user/user.service";
 
 /**
- * @class AuthService
+ * @class AuthorizationService
  * A service for authentication and authorization using JSON Web Tokens (JWT) and handling brute force protection.
  * This service provides methods to authenticate users, invalidate tokens, exchange tokens, and manage failed attempts.
  */
 @Injectable()
-export class AuthService {
+export class AuthorizationService extends AuthService {
 
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
     private readonly userService: UserService,
     private readonly cacheService: CacheService,
     private readonly jwtService: JwtService) {
+    super();
   }
 
   /**

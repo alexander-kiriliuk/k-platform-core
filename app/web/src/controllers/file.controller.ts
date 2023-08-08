@@ -31,14 +31,14 @@ import { AuthGuard } from "@shared/guards/auth.guard";
 import { NotEmptyPipe } from "@shared/pipes/not-empty.pipe";
 import { Response } from "express";
 import * as path from "path";
-import { FileService } from "@files/file.service";
+import { FileManager } from "@files/file.constants";
 
 
 @Controller("/file")
 export class FileController {
 
   constructor(
-    private readonly fileService: FileService) {
+    private readonly fileService: FileManager) {
   }
 
   @Post("/upload")
@@ -46,7 +46,9 @@ export class FileController {
   async createFile(
     @UploadedFile("file", new NotEmptyPipe("file")) file: Express.Multer.File,
     @Query("public") isPublic = "true") {
-    return this.fileService.createOrUpdateFile(file.buffer, file.originalname.split(".").pop(), isPublic === "true");
+    return this.fileService.createOrUpdateFile(
+      file.buffer, file.originalname.split(".").pop(), isPublic === "true"
+    );
   }
 
   @UseGuards(AuthGuard)

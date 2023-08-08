@@ -15,6 +15,9 @@
  */
 
 
+import { Type as Class } from "@nestjs/common/interfaces/type.interface";
+import { XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
+
 export interface XdbRequest {
   target: string;
   id: string;
@@ -57,4 +60,8 @@ export type XdbActions = {
 
 export type XdbObject = {
   schema: XdbActions[];
+};
+
+export type XdbModuleOptions = {
+  service: Class<XdbService>
 };

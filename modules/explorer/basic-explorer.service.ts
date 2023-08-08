@@ -18,8 +18,8 @@ import { Inject, Injectable, InternalServerErrorException, Logger, NotFoundExcep
 import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
-import { DataSource, EntityMetadata, Repository } from "typeorm";
-import { ColumnDataType, EntityData, TargetData } from "./explorer.types";
+import { DataSource, EntityMetadata, ObjectLiteral, Repository } from "typeorm";
+import { ColumnDataType, EntityData, ExplorerService, TargetData } from "./explorer.types";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
 import { LocaleService } from "@shared/modules/locale/locale.service";
@@ -30,16 +30,8 @@ import { PageableData, PageableParams, SortOrder } from "@shared/modules/pageabl
  * Service for exploring and analyzing the database schema and relationships.
  */
 @Injectable()
-export class ExplorerService {
+export class BasicExplorerService extends ExplorerService {
 
-  /**
-   * Constructs an instance of the ExplorerService.
-   * @param dataSource The data source to work with.
-   * @param targetRep Repository for the ExplorerTargetEntity.
-   * @param columnRep Repository for the ExplorerColumnEntity.
-   * @param logger The logger instance for logging actions.
-   * @param localeService The service for handling localized strings.
-   */
   constructor(
     @InjectDataSource()
     private readonly dataSource: DataSource,
@@ -49,6 +41,7 @@ export class ExplorerService {
     private readonly columnRep: Repository<ExplorerColumnEntity>,
     @Inject(LOGGER) private readonly logger: Logger,
     private readonly localeService: LocaleService) {
+    super();
   }
 
   private get connection() {
@@ -58,7 +51,7 @@ export class ExplorerService {
   /**
    * Analyzes the database and saves the results to the corresponding entities.
    */
-  async analyzeDatabase() {
+  async analyzeDatabase(): Promise<void> {
     this.logger.log(`Starting database analysis`);
     for (const md of this.connection.entityMetadatas) {
       if (md.tableType !== "regular") {
@@ -157,7 +150,7 @@ export class ExplorerService {
    * @returns The removed entity.
    * @throws {NotFoundException} If the target entity or the entity with the specified ID is not found.
    */
-  async removeEntity(target: string, id: string | number) {
+  async removeEntity(target: string, id: string | number): Promise<ObjectLiteral> {
     const targetData = await this.getTargetData(target);
     if (!targetData) {
       throw new NotFoundException(`Target entity not found: ${target}`);

@@ -21,7 +21,7 @@ import { LiteAuthGuard } from "@shared/guards/lite-auth.guard";
 import { AccessToken } from "@shared/decorators/access-token.decorator";
 import { ResponseDto } from "@shared/decorators/response-dto.decorator";
 import { Request } from "express";
-import { AuthService } from "@auth/auth.service";
+import { AuthService } from "@auth/auth.constants";
 
 @Controller("/auth")
 export class AuthController {

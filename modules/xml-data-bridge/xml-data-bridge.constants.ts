@@ -14,28 +14,12 @@
  *    limitations under the License.
  */
 
-import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
-import { AuthGuard } from "@shared/guards/auth.guard";
 import { XdbObject } from "@xml-data-bridge/xml-data-bridge.types";
-import { XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
 
-@Controller("xdb")
-export class XmlDataBridgeController {
+export abstract class XdbService {
 
-  constructor(
-    private readonly xdbService: XdbService) {
-  }
+  abstract importXml(xml: XdbObject): Promise<boolean>;
 
-  @UseGuards(AuthGuard)
-  @Post("/import")
-  async import(@Body() body: XdbObject) {
-    return await this.xdbService.importXml(body);
-  }
-
-  @UseGuards(AuthGuard)
-  @Get("/export/:target/:id")
-  async export(@Param("target") target: string, @Param("id") id: string) {
-    return await this.xdbService.exportXml(target, id);
-  }
+  abstract exportXml(target: string, id: string);
 
 }

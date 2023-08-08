@@ -14,22 +14,37 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
+import { DynamicModule, Module } from "@nestjs/common";
 import { FileService } from "./file.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { FileEntity } from "./entity/file.entity";
 import { LogModule } from "@shared/modules/log/log.module";
 import { CacheModule } from "@shared/modules/cache/cache.module";
+import { FileManager } from "@files/file.constants";
+import { FileModuleOptions } from "@files/file.types";
 
-@Module({
-  imports: [
-    TypeOrmModule.forFeature([FileEntity]),
-    LogModule,
-    CacheModule
-  ],
-  controllers: [],
-  providers: [FileService],
-  exports: [FileService]
-})
+@Module({})
 export class FileModule {
+
+  static forRoot(options: FileModuleOptions = {
+    service: FileService,
+    entities: [FileEntity]
+  }): DynamicModule {
+    return {
+      module: FileModule,
+      imports: [
+        TypeOrmModule.forFeature(options.entities),
+        LogModule,
+        CacheModule
+      ],
+      providers: [
+        {
+          provide: FileManager,
+          useClass: options.service
+        }
+      ],
+      exports: [FileManager]
+    };
+  }
+
 }

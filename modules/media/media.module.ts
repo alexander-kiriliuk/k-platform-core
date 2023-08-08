@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
+import { DynamicModule, Module } from "@nestjs/common";
 import { MediaService } from "./media.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { LogModule } from "@shared/modules/log/log.module";
@@ -23,17 +23,30 @@ import { MediaEntity } from "./entity/media.entity";
 import { MediaTypeEntity } from "./entity/media-type.entity";
 import { MediaFileEntity } from "./entity/media-file.entity";
 import { MediaFormatEntity } from "./entity/media-format.entity";
+import { MediaManager, MediaModuleOptions } from "@media/media.types";
 
-@Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      MediaEntity, MediaTypeEntity, MediaFileEntity, MediaFormatEntity
-    ]),
-    LogModule,
-    CacheModule
-  ],
-  providers: [MediaService],
-  exports: [MediaService]
-})
+@Module({})
 export class MediaModule {
+
+  static forRoot(options: MediaModuleOptions = {
+    service: MediaService,
+    entities: [MediaEntity, MediaTypeEntity, MediaFileEntity, MediaFormatEntity]
+  }): DynamicModule {
+    return {
+      module: MediaModule,
+      imports: [
+        TypeOrmModule.forFeature(options.entities),
+        LogModule,
+        CacheModule
+      ],
+      providers: [
+        {
+          provide: MediaManager,
+          useValue: options.service
+        }
+      ],
+      exports: [MediaManager]
+    };
+  }
+
 }

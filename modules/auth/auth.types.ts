@@ -17,6 +17,8 @@
 import { UserDto } from "@user/user.types";
 import { IsIP, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { Expose, Type } from "class-transformer";
+import { Type as Class } from "@nestjs/common";
+import { AuthService } from "@auth/auth.constants";
 
 export class LoginPayload {
 
@@ -55,3 +57,7 @@ export class JwtDto {
   refreshToken: string;
 
 }
+
+export type AuthModuleOptions = {
+  service: Class<AuthService>
+};

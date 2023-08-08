@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { UserService } from "@user/user.service";
+import { BasicUserService } from "@user/user-service-basic.service";
 import { Repository } from "typeorm";
 import { UserEntity } from "@user/entity/user.entity";
 import { Test, TestingModule } from "@nestjs/testing";
@@ -23,7 +23,7 @@ import { USER_RELATIONS } from "@user/user.constants";
 import { NotFoundException } from "@nestjs/common";
 
 describe("UserService", () => {
-  let userService: UserService;
+  let userService: BasicUserService;
   let userRep: Repository<UserEntity>;
   const testUser = new UserEntity();
   testUser.id = "123";
@@ -32,7 +32,7 @@ describe("UserService", () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        UserService,
+        BasicUserService,
         {
           provide: getRepositoryToken(UserEntity),
           useValue: {
@@ -45,7 +45,7 @@ describe("UserService", () => {
         }
       ]
     }).compile();
-    userService = module.get<UserService>(UserService);
+    userService = module.get<BasicUserService>(BasicUserService);
     userRep = module.get<Repository<UserEntity>>(getRepositoryToken(UserEntity));
   });
 

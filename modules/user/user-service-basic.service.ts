@@ -15,27 +15,23 @@
  */
 
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { User } from "./user.types";
+import { User, UserService } from "./user.types";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { UserEntity } from "./entity/user.entity";
 import { USER_RELATIONS } from "./user.constants";
 
 /**
- * @class UserService
+ * @class BasicUserService
  * Provides methods to interact with the UserEntity repository.
  */
 @Injectable()
-export class UserService {
+export class BasicUserService extends UserService {
 
-  /**
-   * @constructor
-   * Creates a new UserService instance.
-   * @param {Repository<UserEntity>} userRep - The repository for UserEntity.
-   */
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRep: Repository<UserEntity>) {
+    super();
   }
 
   /**
@@ -44,7 +40,7 @@ export class UserService {
    * @param {string} login - The user's login.
    * @returns {Promise<UserEntity | undefined>} The user found or undefined if not found.
    */
-  async findByLogin(login: string) {
+  async findByLogin(login: string): Promise<UserEntity> {
     return await this.userRep.findOne({ where: { login }, relations: USER_RELATIONS });
   }
 
@@ -54,7 +50,7 @@ export class UserService {
    * @param {string} id - The user's ID.
    * @returns {Promise<UserEntity | undefined>} The user found or undefined if not found.
    */
-  async findById(id: string) {
+  async findById(id: string): Promise<UserEntity> {
     return await this.userRep.findOne({ where: { id }, relations: USER_RELATIONS });
   }
 
@@ -65,7 +61,7 @@ export class UserService {
    * @param {User} user - The user object with updated properties.
    * @returns {Promise<UserEntity>} The updated user.
    */
-  async updateById(id: string, user: User) {
+  async updateById(id: string, user: User): Promise<UserEntity> {
     await this.userRep.update(id, user);
     return await this.findById(id);
   }
@@ -76,7 +72,7 @@ export class UserService {
    * @param {User} user - The user object to create.
    * @returns {Promise<UserEntity>} The created user.
    */
-  async create(user: User) {
+  async create(user: User): Promise<UserEntity> {
     const newUser = this.userRep.create(user);
     return await this.userRep.save(newUser);
   }
@@ -88,7 +84,7 @@ export class UserService {
    * @returns {Promise<UserEntity>} The removed user.
    * @throws {NotFoundException} If the user with the specified ID is not found.
    */
-  async removeById(id: string) {
+  async removeById(id: string): Promise<UserEntity> {
     const user = await this.findById(id);
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);

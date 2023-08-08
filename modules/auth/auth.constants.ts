@@ -14,6 +14,8 @@
  *    limitations under the License.
  */
 
+import { JwtDto, LoginPayload } from "@auth/auth.types";
+
 export const UNKNOWN_IP = "unknown";
 export const AUTH_JWT_CACHE_PREFIX = "jwt";
 export const AUTH_ACCESS_TOKEN_PREFIX = "access_token";
@@ -31,3 +33,13 @@ export const jwtRefreshTokenKey = (accessToken: string, refreshToken: string) =>
 export const bruteForceLoginKey = (login: string) => `${BRUTEFORCE_JWT_CACHE_PREFIX}:login:${login}`;
 
 export const bruteForceIPKey = (ipAddress: string) => `${BRUTEFORCE_JWT_CACHE_PREFIX}:ip:${ipAddress}`;
+
+export abstract class AuthService {
+
+  abstract authenticate(data: LoginPayload): Promise<JwtDto>;
+
+  abstract invalidateToken(accessToken: string);
+
+  abstract exchangeToken(refreshToken: string): Promise<Partial<JwtDto>>;
+
+}

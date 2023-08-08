@@ -17,7 +17,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { PageableParams } from "@shared/modules/pageable/pageable.types";
-import { ExplorerService } from "@explorer/explorer.service";
+import { ExplorerService } from "@explorer/explorer.types";
 
 @Controller("/explorer")
 export class ExplorerController {

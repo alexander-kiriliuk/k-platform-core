@@ -14,21 +14,34 @@
  *    limitations under the License.
  */
 
-import { Module } from "@nestjs/common";
-import { XmlDataBridgeService } from "./xml-data-bridge.service";
+import { DynamicModule, Module } from "@nestjs/common";
 import { LogModule } from "@shared/modules/log/log.module";
 import { FileModule } from "@files/file.module";
 import { MediaModule } from "@media/media.module";
 
-@Module({
-  imports: [
-    LogModule,
-    FileModule,
-    MediaModule
-  ],
-  controllers: [],
-  providers: [XmlDataBridgeService],
-  exports: [XmlDataBridgeService]
-})
+import { XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
+import { XdbModuleOptions } from "@xml-data-bridge/xml-data-bridge.types";
+import { XmlDataBridgeService } from "@xml-data-bridge/xml-data-bridge.service";
+
+@Module({})
 export class XmlDataBridgeModule {
+
+  static forRoot(options: XdbModuleOptions = { service: XmlDataBridgeService }): DynamicModule {
+    return {
+      module: XmlDataBridgeModule,
+      imports: [
+        LogModule,
+        FileModule.forRoot(),
+        MediaModule.forRoot()
+      ],
+      providers: [
+        {
+          provide: XdbService,
+          useClass: options.service
+        }
+      ],
+      exports: [XdbService]
+    };
+  }
+
 }

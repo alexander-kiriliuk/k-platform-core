@@ -18,7 +18,10 @@ import { MediaEntity } from "@media/entity/media.entity";
 import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
-import { PageableParams } from "@shared/modules/pageable/pageable.types";
+import { PageableData, PageableParams } from "@shared/modules/pageable/pageable.types";
+import { ObjectLiteral } from "typeorm";
+import { Type as Class } from "@nestjs/common/interfaces/type.interface";
+import { EntityClassOrSchema } from "@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type";
 
 export type ColumnDataType = "string" | "number" | "boolean" | "date" | "reference" | "unknown";
 
@@ -74,3 +77,22 @@ export interface EntityData<T = any> {
   data: T;
   entity: ExplorerTargetEntity;
 }
+
+export abstract class ExplorerService {
+
+  abstract analyzeDatabase(): Promise<void>;
+
+  abstract getPageableEntityData(target: string, params?: PageableParams): Promise<PageableData>;
+
+  abstract saveEntityData<T = any>(target: string, entity: T): Promise<T>;
+
+  abstract removeEntity(target: string, id: string | number): Promise<ObjectLiteral>;
+
+  abstract getEntityData(target: string, rowId: string | number, maxDepth?: number): Promise<EntityData>;
+
+}
+
+export type ExplorerModuleOptions = {
+  service: Class<ExplorerService>;
+  entities: EntityClassOrSchema[];
+};

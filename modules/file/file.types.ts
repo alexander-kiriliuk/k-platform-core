@@ -16,6 +16,9 @@
 
 import { Media } from "@media/media.types";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
+import { Type as Class } from "@nestjs/common/interfaces/type.interface";
+import { EntityClassOrSchema } from "@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type";
+import { FileManager } from "@files/file.constants";
 
 export interface File {
   id: number;
@@ -35,3 +38,8 @@ export interface UpsertFileRequest {
   entityIdForPatch?: number;
   entityName?: LocalizedString[];
 }
+
+export type FileModuleOptions = {
+  service: Class<FileManager>;
+  entities: EntityClassOrSchema[];
+};

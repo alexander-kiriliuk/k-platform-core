@@ -21,26 +21,27 @@ import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource, EntityMetadata, In, Repository } from "typeorm";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { FilesUtils } from "@shared/utils/files.utils";
-import * as process from "process";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
-import { FileService } from "@files/file.service";
 import { File } from "@files/file.types";
-import { Media } from "@media/media.types";
-import { MediaService } from "@media/media.service";
+import { Media, MediaManager } from "@media/media.types";
+import { XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
+import { FileManager } from "@files/file.constants";
+import * as process from "process";
 import readFile = FilesUtils.readFile;
 
 /**
  * XmlDataBridgeService is responsible for importing and exporting data through XML.
  */
 @Injectable()
-export class XmlDataBridgeService {
+export class XmlDataBridgeService extends XdbService {
 
   constructor(
     @InjectDataSource()
     private readonly dataSource: DataSource,
     @Inject(LOGGER) private readonly logger: Logger,
-    private readonly filesService: FileService,
-    private readonly mediaService: MediaService) {
+    private readonly filesService: FileManager,
+    private readonly mediaService: MediaManager) {
+    super();
   }
 
   private get connection() {

@@ -15,6 +15,7 @@
  */
 
 import { IsNotEmpty, IsString } from "class-validator";
+import { Type as Class } from "@nestjs/common/interfaces/type.interface";
 
 export abstract class CaptchaService<CaptchaBody = any> {
 
@@ -39,3 +40,8 @@ export type GraphicCaptchaResponse = {
   image: string;
   id: string;
 }
+
+
+export type CaptchaModuleOptions = {
+  service: Class<CaptchaService>
+};
