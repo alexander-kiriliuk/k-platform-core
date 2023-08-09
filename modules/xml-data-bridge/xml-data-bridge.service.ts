@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Inject, Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
+import { Inject, Injectable, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { FileRow, MediaRow, XdbActions, XdbObject, XdbRowData } from "@xml-data-bridge/xml-data-bridge.types";
 import { InjectDataSource } from "@nestjs/typeorm";
@@ -54,27 +54,23 @@ export class XmlDataBridgeService extends XdbService {
    * @returns A promise that resolves to a boolean indicating whether the import was successful.
    */
   async importXml(xml: XdbObject): Promise<boolean> {
-    try {
-      for (const item of xml.schema) {
-        switch (item.action) {
-          case "InsertUpdate":
-            await this.processInsertUpdateNodes(item);
-            break;
-          case "Media":
-            await this.processMediaNodes(item);
-            break;
-          case "File":
-            await this.processFileNodes(item);
-            break;
-          case "Remove":
-            await this.processRemoveNodes(item);
-            break;
-        }
+    for (const item of xml.schema) {
+      switch (item.action) {
+        case "InsertUpdate":
+          await this.processInsertUpdateNodes(item);
+          break;
+        case "Media":
+          await this.processMediaNodes(item);
+          break;
+        case "File":
+          await this.processFileNodes(item);
+          break;
+        case "Remove":
+          await this.processRemoveNodes(item);
+          break;
       }
-      return true;
-    } catch (error) {
-      throw new InternalServerErrorException(`Error importing XML: ${error.message}`);
     }
+    return true;
   }
 
   /**

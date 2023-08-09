@@ -23,7 +23,7 @@ describe("AppController (e2e)", () => {
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      // imports: [ComposerModule],
+      // imports: [WebAppModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();

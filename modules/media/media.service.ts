@@ -29,7 +29,12 @@ import { LOGGER } from "@shared/modules/log/log.constants";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
-import { DEFAULT_MEDIA_QUALITY, MEDIA_TYPE_RELATIONS, ReservedMediaFormat } from "@media/media.constants";
+import {
+  DEFAULT_MEDIA_QUALITY,
+  MEDIA_TYPE_RELATIONS,
+  ReservedMediaExt,
+  ReservedMediaFormat
+} from "@media/media.constants";
 import { MediaEntity } from "@media/entity/media.entity";
 import { MediaTypeEntity } from "@media/entity/media-type.entity";
 import { MediaFormatEntity } from "@media/entity/media-format.entity";
@@ -233,6 +238,9 @@ export class MediaService extends MediaManager {
     );
     const thumbFormat = await this.getThumbFormat();
     const originalFormat = await this.getOriginalFormat();
+    if (mediaType.ext.code === ReservedMediaExt.SVG) {
+      return [originalFormat, ...mediaType.formats];
+    }
     return [thumbFormat, originalFormat, ...mediaType.formats];
   }
 
@@ -255,7 +263,7 @@ export class MediaService extends MediaManager {
     const processingPromises = formats.map(async (format) => {
       const quality = mediaType.quality || DEFAULT_MEDIA_QUALITY;
       let imgBuffer = file;
-      if (format.code !== ReservedMediaFormat.ORIGINAL) {
+      if (format.code !== ReservedMediaFormat.ORIGINAL && mediaType.ext.code !== ReservedMediaExt.SVG) {
         imgBuffer = await this.resizeImage(file, format);
         imgBuffer = await this.optimizeImage(imgBuffer, mediaType.ext.code, quality);
       }

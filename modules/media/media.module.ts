@@ -42,7 +42,7 @@ export class MediaModule {
       providers: [
         {
           provide: MediaManager,
-          useValue: options.service
+          useClass: options.service
         }
       ],
       exports: [MediaManager]

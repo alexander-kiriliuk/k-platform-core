@@ -89,7 +89,6 @@
       "^@file/(.*)$": "<rootDir>/modules/file/$1",
       "^@xml-data-bridge/(.*)$": "<rootDir>/modules/xml-data-bridge/$1",
       "^@explorer/(.*)$": "<rootDir>/modules/explorer/$1",
-      "^@composer/(.*)$": "<rootDir>/modules/composer/$1",
       "^@auth/(.*)$": "<rootDir>/modules/auth/$1",
       "^@captcha/(.*)$": "<rootDir>/modules/captcha/$1"
     },

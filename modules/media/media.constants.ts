@@ -23,6 +23,10 @@ export namespace ReservedMediaFormat {
   export const THUMB = "thumb";
 }
 
+export namespace ReservedMediaExt {
+  export const SVG = "svg";
+}
+
 export const MEDIA_TYPE_RELATIONS = [
   "ext", "formats"
 ];

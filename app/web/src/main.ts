@@ -41,5 +41,5 @@ import { JsonUtils } from "@shared/utils/json.utils";
   );
   app.setGlobalPrefix(process.env.WEB_APP_API_PREFIX);
   await app.listen(parseInt(process.env.WEB_APP_API_PORT));
-  logger.log(`Composer app listen port: ${process.env.WEB_APP_API_PORT}`);
+  logger.log(`Web-app listen port: ${process.env.WEB_APP_API_PORT}`);
 })();

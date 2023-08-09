@@ -36,9 +36,6 @@
       "@explorer/*": [
         "modules/explorer/*"
       ],
-      "@composer/*": [
-        "modules/composer/*"
-      ],
       "@config/*": [
         "modules/config/*"
       ],
