@@ -82,7 +82,7 @@ export class FileService extends FileManager {
           !entity.public ? await this.getPrivateDir() : await this.getPublicDir(),
           entity.id.toString()
         );
-        await fs.promises.rm(dir, { recursive: true }).catch(err => {
+        await fs.promises.rm(dir, { recursive: true, force: true }).catch(err => {
           throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
         });
       } else {
@@ -153,7 +153,7 @@ export class FileService extends FileManager {
     );
     await this.fileRep.manager.transaction(async transactionManager => {
       await transactionManager.remove(file);
-      await fs.promises.rm(dir, { recursive: true }).catch(err => {
+      await fs.promises.rm(dir, { recursive: true, force: true }).catch(err => {
         throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
       });
     });

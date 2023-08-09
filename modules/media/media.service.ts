@@ -113,7 +113,7 @@ export class MediaService extends MediaManager {
     await this.mediaRep.manager.transaction(async transactionManager => {
       await transactionManager.remove(media.files);
       await transactionManager.remove(media);
-      await fs.promises.rm(dir, { recursive: true }).catch(err => {
+      await fs.promises.rm(dir, { recursive: true, force: true }).catch(err => {
         throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
       });
     });
@@ -148,7 +148,7 @@ export class MediaService extends MediaManager {
           entity.type.private ? await this.getPrivateDir() : await this.getPublicDir(),
           entity.id.toString()
         );
-        await fs.promises.rm(dir, { recursive: true }).catch(err => {
+        await fs.promises.rm(dir, { recursive: true, force: true }).catch(err => {
           throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
         });
       } else {
@@ -411,11 +411,11 @@ export class MediaService extends MediaManager {
    */
   private createBasicFindQb() {
     return this.mediaRep.createQueryBuilder("media")
-      .innerJoinAndSelect("media.type", "type")
-      .innerJoinAndSelect("type.formats", "formats")
-      .innerJoinAndSelect("type.ext", "ext")
-      .innerJoinAndSelect("media.files", "files")
-      .innerJoinAndSelect("files.format", "format")
+      .leftJoinAndSelect("media.type", "type")
+      .leftJoinAndSelect("type.formats", "formats")
+      .leftJoinAndSelect("type.ext", "ext")
+      .leftJoinAndSelect("media.files", "files")
+      .leftJoinAndSelect("files.format", "format")
       .leftJoinAndSelect("media.name", "name")
       .leftJoinAndSelect("name.lang", "lang");
   }

@@ -78,7 +78,6 @@ import { XmlDataBridgeModule } from "@xml-data-bridge/xml-data-bridge.module";
         const opts: TypeOrmModuleOptions = {
           type: await cs.get(DbConfig.TYPE) as any,
           host: await cs.get(DbConfig.HOST),
-          schema: await cs.get(DbConfig.SCHEMA),
           port: await cs.getNumber(DbConfig.PORT),
           synchronize: await cs.getBoolean(DbConfig.SYNCHRONIZE),
           logging: await cs.get(DbConfig.LOGGING) as LoggerOptions,

@@ -295,6 +295,17 @@ export class XmlDataBridgeService extends XdbService {
         entity[key] = rowData[key].values;
       } else {
         entity[key] = rowData[key];
+        switch (entity[key]) {
+          case "true":
+            entity[key] = true;
+            break;
+          case "false":
+            entity[key] = false;
+            break;
+          case "null":
+            entity[key] = null;
+            break;
+        }
       }
     }
     return entity;
