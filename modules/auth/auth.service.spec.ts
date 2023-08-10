@@ -22,6 +22,9 @@ import { bruteForceIPKey } from "./auth.constants";
 import { LoggerMock } from "@shared/modules/mock/logger.mock";
 import { InternalServerErrorException, UnauthorizedException } from "@nestjs/common";
 import { BasicUserService } from "@user/user-service-basic.service";
+import { Test, TestingModule } from "@nestjs/testing";
+import { getRepositoryToken } from "@nestjs/typeorm";
+import { UserEntity } from "@user/entity/user.entity";
 
 describe("AuthService", () => {
 
@@ -30,6 +33,22 @@ describe("AuthService", () => {
   let userService: BasicUserService;
 
   beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        BasicUserService,
+        {
+          provide: getRepositoryToken(UserEntity),
+          useValue: {
+            findOne: jest.fn(),
+            update: jest.fn(),
+            remove: jest.fn(),
+            save: jest.fn(),
+            create: jest.fn()
+          }
+        }
+      ]
+    }).compile();
+    userService = module.get<BasicUserService>(BasicUserService);
     cacheService = new MockCacheService(AuthMock.Storage);
     authService = new AuthorizationService(LoggerMock, userService, cacheService, AuthMock.jwtService);
   });
@@ -62,6 +81,7 @@ describe("AuthService", () => {
         .rejects.toThrow(UnauthorizedException);
       attempts = await cacheService.getNumber(ipKey);
       expect(attempts).toBe(2);
+      jest.spyOn(userService, "findByLogin").mockResolvedValue(AuthMock.testUser as UserEntity);
       await authService.authenticate(AuthMock.validCredentialsUsrPayload);
       attempts = await cacheService.getNumber(ipKey);
       if (isNaN(attempts) || typeof attempts !== "number") {
@@ -71,6 +91,7 @@ describe("AuthService", () => {
     });
 
     it("return JWT if credentials are valid", async () => {
+      jest.spyOn(userService, "findByLogin").mockResolvedValue(AuthMock.testUser as UserEntity);
       const result = await authService.authenticate(AuthMock.validCredentialsUsrPayload);
       expect(result).toBeDefined();
       expect(result).toHaveProperty("user");

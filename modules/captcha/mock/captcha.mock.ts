@@ -27,7 +27,7 @@ export namespace CaptchaMock {
 
   export const Storage = new MockStorage([
     {
-      key: CaptchaConfig.FONT_PATH, data: "/apps/captcha/montserrat.ttf"
+      key: CaptchaConfig.FONT_PATH, data: "/modules/captcha/montserrat.ttf"
     },
     {
       key: CaptchaConfig.FONT_FAMILY, data: "Montserrat"
