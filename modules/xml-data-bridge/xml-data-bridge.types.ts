@@ -15,8 +15,10 @@
  */
 
 
-import { Type as Class } from "@nestjs/common/interfaces/type.interface";
+import { Type, Type as Class } from "@nestjs/common/interfaces/type.interface";
 import { XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
+import { DynamicModule } from "@nestjs/common/interfaces/modules/dynamic-module.interface";
+import { ForwardReference } from "@nestjs/common/interfaces/modules/forward-reference.interface";
 
 export interface XdbRequest {
   target: string;
@@ -63,5 +65,6 @@ export type XdbObject = {
 };
 
 export type XdbModuleOptions = {
-  service: Class<XdbService>
+  service: Class<XdbService>,
+  imports: Array<Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference>;
 };

@@ -19,6 +19,15 @@
         "tsConfigPath": "modules/config/tsconfig.app.json"
       }
     },
+    "init-web-app": {
+      "type": "application",
+      "root": "app/web",
+      "entryFile": "init",
+      "sourceRoot": "app/web/src",
+      "compilerOptions": {
+        "tsConfigPath": "app/web/tsconfig.app.json"
+      }
+    },
     "web-app": {
       "type": "application",
       "root": "app/web",

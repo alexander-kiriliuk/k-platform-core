@@ -26,14 +26,17 @@ import { XmlDataBridgeService } from "@xml-data-bridge/xml-data-bridge.service";
 @Module({})
 export class XmlDataBridgeModule {
 
-  static forRoot(options: XdbModuleOptions = { service: XmlDataBridgeService }): DynamicModule {
+  static forRoot(options: XdbModuleOptions = {
+    service: XmlDataBridgeService,
+    imports: [
+      LogModule,
+      FileModule.forRoot(),
+      MediaModule.forRoot()
+    ]
+  }): DynamicModule {
     return {
       module: XmlDataBridgeModule,
-      imports: [
-        LogModule,
-        FileModule.forRoot(),
-        MediaModule.forRoot()
-      ],
+      imports: options.imports,
       providers: [
         {
           provide: XdbService,

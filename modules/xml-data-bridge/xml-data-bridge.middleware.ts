@@ -16,68 +16,29 @@
 
 import { Injectable, NestMiddleware } from "@nestjs/common";
 import { NextFunction, Request, Response } from "express";
-import * as xml2js from "xml2js";
-import { XdbActions, XdbObject, XdbRowData } from "./xml-data-bridge.types";
+import { Xdb } from "@xml-data-bridge/xml-data-bridge.constants";
 
 @Injectable()
 export class XmlDataBridgeMiddleware implements NestMiddleware {
 
+  private readonly parser = Xdb.getXmlParser();
+
   async use(req: Request, res: Response, next: NextFunction) {
     if (req.headers["content-type"] === "application/xml") {
-      const parser = new xml2js.Parser({
-        explicitArray: false,
-        preserveChildrenOrder: true,
-        explicitChildren: true
-      });
-      req.body = await this.parseXML(parser, req);
-      const schema = req.body.schema;
-      const actions = schema.$$;
-      const result: XdbObject = {
-        schema: []
-      };
-      for (const action of actions) {
-        const tagName = action["#name"];
-        const target = action?.$?.target;
-        const rows = action.$$;
-        const obj: XdbActions = {
-          action: tagName,
-          attrs: { target },
-          rows: []
-        };
-        for (const row of rows) {
-          const rowObj: XdbRowData = {};
-          for (const item of row.$$) {
-            const itemName = item["#name"];
-            if (item.$) {
-              rowObj[itemName] = {
-                attrs: item.$,
-                value: item._
-              };
-
-              if (item.$.key && item.$$) {
-                rowObj[itemName].values = item.$$.map(r => r._);
-              }
-            } else {
-              rowObj[itemName] = item._;
-            }
-          }
-          obj.rows.push(rowObj);
-        }
-        result.schema.push(obj);
-      }
-      req.body = result;
+      req.body = await this.parseXMLFromRequest(req);
+      req.body = Xdb.parseXmlBody(req.body);
     }
     next();
   }
 
-  private parseXML(parser, req): Promise<object> {
+  private parseXMLFromRequest(req): Promise<object> {
     return new Promise((resolve, reject) => {
       let xmlData = "";
       req.on("data", (chunk) => {
         xmlData += chunk;
       });
       req.on("end", () => {
-        parser.parseString(xmlData, (err, result) => {
+        this.parser.parseString(xmlData, (err, result) => {
           if (err) {
             reject(err);
           } else {

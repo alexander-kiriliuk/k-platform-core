@@ -99,8 +99,9 @@ export class XmlDataBridgeService extends XdbService {
       }
       const localizedStrings = await this.getLocalizedStrings(row);
       const buf = await this.readFileData(row.file);
+      const isPublic = String(row.public) === "true";
       const file = await this.filesService.createOrUpdateFile(
-        buf, row.file.split(".").pop(), row.public, row.code, existedEntity?.id, localizedStrings
+        buf, row.file.split(".").pop(), isPublic, row.code, existedEntity?.id, localizedStrings
       );
       this.logger.log(`${existedEntity ? `Update` : `Create`} file with ID ${file.id}`);
     }

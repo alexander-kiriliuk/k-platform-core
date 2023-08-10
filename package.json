@@ -8,6 +8,7 @@
     "build": "nest build",
     "format": "prettier --write \"modules/**/*.ts\" \"app/**/*.ts\" \"libs/**/*.ts\"",
     "init:config": "nest start init-config",
+    "init:web-app": "nest start init-web-app",
     "start:config": "nest start config",
     "start:config:dev": "nest start config --watch",
     "start:config:debug": "nest start config --debug --watch",
