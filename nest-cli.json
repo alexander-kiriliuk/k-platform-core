@@ -1,103 +1,40 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps",
+  "sourceRoot": "",
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
     "tsConfigPath": "./tsconfig.json"
   },
   "monorepo": true,
-  "root": "apps",
+  "root": "",
   "projects": {
     "init-config": {
       "type": "application",
-      "root": "apps/config",
+      "root": "modules/config",
       "entryFile": "init",
-      "sourceRoot": "apps/config/src",
+      "sourceRoot": "modules/config",
       "compilerOptions": {
-        "tsConfigPath": "apps/config/tsconfig.app.json"
+        "tsConfigPath": "modules/config/tsconfig.app.json"
       }
     },
-    "config": {
+    "init-web-app": {
       "type": "application",
-      "root": "apps/config",
-      "entryFile": "main",
-      "sourceRoot": "apps/config/src",
+      "root": "app/web",
+      "entryFile": "init",
+      "sourceRoot": "app/web/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/config/tsconfig.app.json"
+        "tsConfigPath": "app/web/tsconfig.app.json"
       }
     },
-    "composer": {
+    "web-app": {
       "type": "application",
-      "root": "apps/composer",
+      "root": "app/web",
       "entryFile": "main",
-      "sourceRoot": "apps/composer/src",
+      "sourceRoot": "app/web/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/composer/tsconfig.app.json"
-      }
-    },
-    "auth": {
-      "type": "application",
-      "root": "apps/auth",
-      "entryFile": "main",
-      "sourceRoot": "apps/auth/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/auth/tsconfig.app.json"
-      }
-    },
-    "captcha": {
-      "type": "application",
-      "root": "apps/captcha",
-      "entryFile": "main",
-      "sourceRoot": "apps/captcha/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/captcha/tsconfig.app.json"
-      }
-    },
-    "user": {
-      "type": "application",
-      "root": "apps/user",
-      "entryFile": "main",
-      "sourceRoot": "apps/user/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/user/tsconfig.app.json"
-      }
-    },
-    "media": {
-      "type": "application",
-      "root": "apps/media",
-      "entryFile": "main",
-      "sourceRoot": "apps/media/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/media/tsconfig.app.json"
-      }
-    },
-    "explorer": {
-      "type": "application",
-      "root": "apps/explorer",
-      "entryFile": "main",
-      "sourceRoot": "apps/explorer/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/explorer/tsconfig.app.json"
-      }
-    },
-    "xml-data-bridge": {
-      "type": "application",
-      "root": "apps/xml-data-bridge",
-      "entryFile": "main",
-      "sourceRoot": "apps/xml-data-bridge/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/xml-data-bridge/tsconfig.app.json"
-      }
-    },
-    "file": {
-      "type": "application",
-      "root": "apps/file",
-      "entryFile": "main",
-      "sourceRoot": "apps/file/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/file/tsconfig.app.json"
+        "tsConfigPath": "app/web/tsconfig.app.json"
       }
     }
   }

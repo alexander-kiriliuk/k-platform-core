@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2023 Alexander Kiriliuk
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<schema>
+
+    <InsertUpdate target="MediaExtEntity">
+        <row>
+            <code>png</code>
+            <name>PNG</name>
+        </row>
+        <row>
+            <code>svg</code>
+            <name>SVG</name>
+        </row>
+        <row>
+            <code>jpg</code>
+            <name>JPEG</name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="MediaFormatEntity">
+        <row>
+            <code>original</code>
+            <name>Original</name>
+        </row>
+        <row>
+            <code>thumb</code>
+            <name>Thumb</name>
+        </row>
+        <row>
+            <code>xs</code>
+            <name>XS</name>
+            <width>320</width>
+        </row>
+        <row>
+            <code>sm</code>
+            <name>SM</name>
+            <width>640</width>
+        </row>
+        <row>
+            <code>md</code>
+            <name>MD</name>
+            <width>768</width>
+        </row>
+        <row>
+            <code>lg</code>
+            <name>LG</name>
+            <width>1024</width>
+        </row>
+        <row>
+            <code>xl</code>
+            <name>XL</name>
+            <width>1280</width>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="MediaTypeEntity">
+        <row>
+            <code>default</code>
+            <name>Default</name>
+            <vp6>true</vp6>
+            <private>false</private>
+            <quality>85</quality>
+            <ext key="code">png</ext>
+        </row>
+        <row>
+            <code>default-private</code>
+            <name>Default private</name>
+            <vp6>true</vp6>
+            <private>true</private>
+            <quality>85</quality>
+            <ext key="code">png</ext>
+        </row>
+        <row>
+            <code>vector</code>
+            <name>Vector SVG</name>
+            <private>false</private>
+            <ext key="code">svg</ext>
+        </row>
+        <row>
+            <code>responsive</code>
+            <name>Responsive</name>
+            <vp6>true</vp6>
+            <private>false</private>
+            <quality>85</quality>
+            <ext key="code">png</ext>
+            <formats key="code">
+                <row>xs</row>
+                <row>sm</row>
+                <row>md</row>
+                <row>lg</row>
+                <row>xl</row>
+            </formats>
+        </row>
+    </InsertUpdate>
+
+    <Media>
+        <row>
+            <code>flag-ru</code>
+            <type>vector</type>
+            <file>/app/web/res/images/icons/ru.svg</file>
+        </row>
+        <row>
+            <code>flag-en</code>
+            <type>vector</type>
+            <file>/app/web/res/images/icons/us.svg</file>
+        </row>
+    </Media>
+
+    <InsertUpdate target="LanguageEntity">
+        <row>
+            <id>ru</id>
+            <code>ru_RU</code>
+            <name>RU</name>
+            <icon key="code">flag-ru</icon>
+        </row>
+        <row>
+            <id>en</id>
+            <code>en_US</code>
+            <name>EN</name>
+            <icon key="code">flag-en</icon>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <lang key="id">ru</lang>
+            <code>role-root-ru</code>
+            <value>Root-доступ</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>role-root-en</code>
+            <value>Root-access</value>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="UserRoleEntity">
+        <row>
+            <code>root</code>
+            <name key="code">
+                <row>role-root-ru</row>
+                <row>role-root-en</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <Media>
+        <row>
+            <code>admin-avatar</code>
+            <type>default</type>
+            <file>/app/web/res/images/admin-avatar.png</file>
+        </row>
+    </Media>
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <lang key="id">ru</lang>
+            <code>usr-admin-first-name-ru</code>
+            <value>Иван</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>usr-admin-first-name-en</code>
+            <value>John</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>usr-admin-last-name-ru</code>
+            <value>Иванов</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>usr-admin-last-name-en</code>
+            <value>Doe</value>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="UserEntity">
+        <row>
+            <login>admin</login>
+            <password>1111</password>
+            <avatar key="code">admin-avatar</avatar>
+            <email>admin@domain.xyz</email>
+            <active>true</active>
+            <roles key="code">
+                <row>root</row>
+            </roles>
+            <firstName key="code">
+                <row>usr-admin-first-name-ru</row>
+                <row>usr-admin-first-name-en</row>
+            </firstName>
+            <lastName key="code">
+                <row>usr-admin-last-name-ru</row>
+                <row>usr-admin-last-name-en</row>
+            </lastName>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <lang key="id">ru</lang>
+            <code>test-text-file-name-ru</code>
+            <value>Тестовый текстовый файл</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>test-text-file-name-en</code>
+            <value>Test text file</value>
+        </row>
+    </InsertUpdate>
+
+    <File>
+        <row>
+            <code>test-text-file</code>
+            <public>true</public>
+            <file>/app/web/res/files/test.txt</file>
+            <name key="code">
+                <row>test_file_name_1_ru</row>
+                <row>test_file_name_1_en</row>
+            </name>
+        </row>
+    </File>
+
+</schema>
