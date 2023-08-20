@@ -16,9 +16,10 @@
 
 import { UserDto } from "@user/user.types";
 import { IsIP, IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { Expose, Type } from "class-transformer";
+import { Expose, Transform, Type } from "class-transformer";
 import { Type as Class } from "@nestjs/common";
 import { AuthService } from "@auth/auth.constants";
+import { TransformUtils } from "@shared/utils/transform.utils";
 
 export class LoginPayload {
 
@@ -55,6 +56,12 @@ export class JwtDto {
 
   @Expose()
   refreshToken: string;
+
+  @Transform(TransformUtils.dateToTime)
+  atExp: Date;
+
+  @Transform(TransformUtils.dateToTime)
+  rtExp: Date;
 
 }
 

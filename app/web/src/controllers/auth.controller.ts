@@ -15,12 +15,12 @@
  */
 
 
-import { Body, Controller, Post, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Post, Req, Res, UseGuards } from "@nestjs/common";
 import { ExchangeTokenPayload, JwtDto, LoginPayload } from "@auth/auth.types";
 import { LiteAuthGuard } from "@shared/guards/lite-auth.guard";
 import { AccessToken } from "@shared/decorators/access-token.decorator";
 import { ResponseDto } from "@shared/decorators/response-dto.decorator";
-import { Request } from "express";
+import { Request, Response } from "express";
 import { AuthService } from "@auth/auth.constants";
 
 @Controller("/auth")
@@ -32,11 +32,18 @@ export class AuthController {
 
   @ResponseDto(JwtDto)
   @Post("/login")
-  async login(@Body() payload: LoginPayload, @Req() request: Request) {
+  async login(
+    @Body() payload: LoginPayload,
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response
+  ) {
     if (request.ip) {
       payload.ipAddress = request.ip;
     }
-    return await this.authService.authenticate(payload);
+    const data = await this.authService.authenticate(payload);
+    response.cookie("accessToken", data.accessToken, { sameSite: true, httpOnly: true, expires: data.atExp });
+    response.cookie("refreshToken", data.refreshToken, { sameSite: true, httpOnly: true, expires: data.rtExp });
+    return data;
   }
 
   @UseGuards(LiteAuthGuard)

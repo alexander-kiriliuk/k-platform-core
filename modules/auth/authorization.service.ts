@@ -86,7 +86,11 @@ export class AuthorizationService extends AuthService {
     const refreshToken = uuidv4();
     const rtExp = await this.getRefreshTokenExp();
     await this.cacheService.set(jwtRefreshTokenKey(accessToken, refreshToken), user.login, rtExp);
-    return { user, accessToken, refreshToken };
+    const atExpDate = new Date();
+    atExpDate.setTime(atExpDate.getTime() + (atExp * 1000));
+    const rtExpDate = new Date();
+    rtExpDate.setTime(rtExpDate.getTime() + (rtExp * 1000));
+    return { user, accessToken, refreshToken, atExp: atExpDate, rtExp: rtExpDate };
   }
 
   /**

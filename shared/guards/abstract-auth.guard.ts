@@ -19,6 +19,7 @@ import { REQUEST_PROPS } from "@shared/constants";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { AUTH_ACCESS_TOKEN_PREFIX, AUTH_JWT_CACHE_PREFIX } from "@auth/auth.constants";
 import { UserService } from "@user/user.types";
+import { Request } from "express";
 
 /**
  * @abstract
@@ -34,15 +35,7 @@ export abstract class AbstractAuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest();
-    if (!req.headers?.authorization) {
-      return false;
-    }
-    const authorizationHeader = req.headers.authorization;
-    const parts = authorizationHeader.match(/Bearer\s+(\S+)\s*(.+)?/);
-    if (!parts.length) {
-      return false;
-    }
-    const token = parts[1];
+    const token = this.getAccessTokenFromRequest(req);
     const userIdentity = await this.validateToken(token);
     if (userIdentity) {
       this.logger.debug(`Valid token for user ${userIdentity}`);
@@ -59,6 +52,21 @@ export abstract class AbstractAuthGuard implements CanActivate {
 
   private async validateToken(token: string) {
     return this.cacheService.get(`${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${token}`);
+  }
+
+  private getAccessTokenFromRequest(req: Request) {
+    if (req.cookies?.accessToken) {
+      return req.cookies.accessToken;
+    }
+    if (req.headers?.authorization) {
+      const authorizationHeader = req.headers.authorization;
+      const parts = authorizationHeader.match(/Bearer\s+(\S+)\s*(.+)?/);
+      if (!parts.length) {
+        return null;
+      }
+      return parts[1];
+    }
+    return null;
   }
 
 }

@@ -14,21 +14,22 @@
  *    limitations under the License.
  */
 
-import { NestFactory } from "@nestjs/core";
+import { NestFactory, Reflector } from "@nestjs/core";
 import { WebAppModule } from "./web-app.module";
-import { Logger, ValidationPipe } from "@nestjs/common";
+import { ClassSerializerInterceptor, Logger, ValidationPipe } from "@nestjs/common";
 import { LogModule } from "@shared/modules/log/log.module";
 import { EnvLoader } from "@shared/utils/env.loader";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { ExpressAdapter } from "@nestjs/platform-express";
-import * as express from "express";
-import helmet from "helmet";
 import { JsonUtils } from "@shared/utils/json.utils";
 import { CacheModule } from "@shared/modules/cache/cache.module";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { CorsConfig } from "../gen-src/cors.config";
 import { CorsOptions } from "@nestjs/common/interfaces/external/cors-options.interface";
 import { ServerConfig } from "../gen-src/server.config";
+import helmet from "helmet";
+import * as express from "express";
+import * as cookieParser from "cookie-parser";
 
 (async () => {
   const server = express();
@@ -38,8 +39,17 @@ import { ServerConfig } from "../gen-src/server.config";
   expressAdapter.set("json replacer", JsonUtils.jsonFilter);
 
   const app = await NestFactory.create(WebAppModule, expressAdapter);
+  const logger: Logger = app.select(LogModule).get(LOGGER);
+  EnvLoader.loadEnvironment(logger);
+  app.use(helmet());
+  app.use(cookieParser());
+  app.useGlobalPipes(
+    new ValidationPipe({ transform: true })
+  );
+  app.useGlobalInterceptors(
+    new ClassSerializerInterceptor(app.get(Reflector))
+  );
   const cacheService: CacheService = app.select(CacheModule).get(CacheService);
-
   const corsOptions: CorsOptions = {
     allowedHeaders: await cacheService.get(CorsConfig.HEADERS),
     methods: await cacheService.get(CorsConfig.METHODS),
@@ -47,13 +57,6 @@ import { ServerConfig } from "../gen-src/server.config";
     credentials: await cacheService.getBoolean(CorsConfig.CREDENTIALS)
   };
   app.enableCors(corsOptions);
-
-  const logger: Logger = app.select(LogModule).get(LOGGER);
-  EnvLoader.loadEnvironment(logger);
-  app.use(helmet());
-  app.useGlobalPipes(
-    new ValidationPipe({ transform: true })
-  );
   const apiPrefix = await cacheService.get(ServerConfig.PREFIX);
   const apiPort = await cacheService.getNumber(ServerConfig.PORT);
   app.setGlobalPrefix(apiPrefix);
