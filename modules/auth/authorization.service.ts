@@ -123,12 +123,12 @@ export class AuthorizationService extends AuthService {
     const refreshTokenKeys = await this.cacheService.getFromPattern(refreshTokenKeyPattern);
     if (!refreshTokenKeys?.length) {
       this.logger.warn(`Attempt to exchange an invalid refresh token: ${refreshToken}`);
-      throw new UnauthorizedException();
+      throw new UnauthorizedException("ERR_R_TOKEN");
     }
     const refreshTokenKey = refreshTokenKeys[0];
     const userLogin = await this.cacheService.get(refreshTokenKey);
     if (!userLogin) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException("ERR_R_TOKEN");
     }
     const accessToken = this.jwtService.sign({ login: userLogin });
     const atExp = await this.getAccessTokenExp();
