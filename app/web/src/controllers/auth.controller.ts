@@ -48,15 +48,26 @@ export class AuthController {
 
   @UseGuards(LiteAuthGuard)
   @Post("/logout")
-  async logout(@AccessToken() token: string) {
+  async logout(
+    @AccessToken() token: string,
+    @Res({ passthrough: true }) response: Response
+  ) {
     const result = await this.authService.invalidateToken(token);
+    response.clearCookie("accessToken");
+    response.clearCookie("refreshToken");
     return { result };
   }
 
   @ResponseDto(JwtDto)
   @Post("/exchange-token")
-  async exchange(@Body() payload: ExchangeTokenPayload) {
-    return await this.authService.exchangeToken(payload.token);
+  async exchange(
+    @Body() payload: ExchangeTokenPayload,
+    @Res({ passthrough: true }) response: Response
+  ) {
+    const data = await this.authService.exchangeToken(payload.token);
+    response.cookie("accessToken", data.accessToken, { sameSite: true, httpOnly: true, expires: data.atExp });
+    response.cookie("refreshToken", data.refreshToken, { sameSite: true, httpOnly: true, expires: data.rtExp });
+    return data;
   }
 
 }
