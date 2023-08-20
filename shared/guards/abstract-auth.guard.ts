@@ -17,7 +17,7 @@
 import { CanActivate, ExecutionContext, ForbiddenException, Logger } from "@nestjs/common";
 import { REQUEST_PROPS } from "@shared/constants";
 import { CacheService } from "@shared/modules/cache/cache.types";
-import { AUTH_ACCESS_TOKEN_PREFIX, AUTH_JWT_CACHE_PREFIX } from "@auth/auth.constants";
+import { ACCESS_TOKEN_ERROR_MSG, AUTH_ACCESS_TOKEN_PREFIX, AUTH_JWT_CACHE_PREFIX } from "@auth/auth.constants";
 import { UserService } from "@user/user.types";
 import { Request } from "express";
 
@@ -42,7 +42,7 @@ export abstract class AbstractAuthGuard implements CanActivate {
       req[REQUEST_PROPS.accessToken] = token;
     } else {
       this.logger.warn(`Invalid token: ${token}`);
-      throw new ForbiddenException("ERR_A_TOKEN");
+      throw new ForbiddenException(ACCESS_TOKEN_ERROR_MSG);
     }
     if (this.fetchUser) {
       req[REQUEST_PROPS.currentUser] = await this.userService.findByLogin(userIdentity);

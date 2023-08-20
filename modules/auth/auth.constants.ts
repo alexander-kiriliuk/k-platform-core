@@ -16,6 +16,8 @@
 
 import { JwtDto, LoginPayload } from "@auth/auth.types";
 
+export const ACCESS_TOKEN_ERROR_MSG = "ERR_TOKEN_A";
+export const REFRESH_TOKEN_ERROR_MSG = "ERR_TOKEN_R";
 export const UNKNOWN_IP = "unknown";
 export const AUTH_JWT_CACHE_PREFIX = "jwt";
 export const AUTH_ACCESS_TOKEN_PREFIX = "access_token";

@@ -35,6 +35,7 @@ import {
   bruteForceLoginKey,
   jwtAccessTokenKey,
   jwtRefreshTokenKey,
+  REFRESH_TOKEN_ERROR_MSG,
   UNKNOWN_IP
 } from "./auth.constants";
 import { CacheService } from "@shared/modules/cache/cache.types";
@@ -123,12 +124,12 @@ export class AuthorizationService extends AuthService {
     const refreshTokenKeys = await this.cacheService.getFromPattern(refreshTokenKeyPattern);
     if (!refreshTokenKeys?.length) {
       this.logger.warn(`Attempt to exchange an invalid refresh token: ${refreshToken}`);
-      throw new UnauthorizedException("ERR_R_TOKEN");
+      throw new UnauthorizedException(REFRESH_TOKEN_ERROR_MSG);
     }
     const refreshTokenKey = refreshTokenKeys[0];
     const userLogin = await this.cacheService.get(refreshTokenKey);
     if (!userLogin) {
-      throw new UnauthorizedException("ERR_R_TOKEN");
+      throw new UnauthorizedException(REFRESH_TOKEN_ERROR_MSG);
     }
     const accessToken = this.jwtService.sign({ login: userLogin });
     const atExp = await this.getAccessTokenExp();
