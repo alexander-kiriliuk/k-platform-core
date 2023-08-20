@@ -62,9 +62,11 @@ export class AuthController {
   @Post("/exchange-token")
   async exchange(
     @Body() payload: ExchangeTokenPayload,
+    @Req() request: Request,
     @Res({ passthrough: true }) response: Response
   ) {
-    const data = await this.authService.exchangeToken(payload.token);
+    const token = payload?.token ?? request.cookies?.refreshToken;
+    const data = await this.authService.exchangeToken(token);
     response.cookie("accessToken", data.accessToken, { sameSite: true, httpOnly: true, expires: data.atExp });
     response.cookie("refreshToken", data.refreshToken, { sameSite: true, httpOnly: true, expires: data.rtExp });
     return data;

@@ -40,7 +40,6 @@ export class LoginPayload {
 export class ExchangeTokenPayload {
 
   @IsString()
-  @IsNotEmpty()
   token: string;
 
 }
