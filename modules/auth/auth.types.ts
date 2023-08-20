@@ -40,6 +40,8 @@ export class LoginPayload {
 export class ExchangeTokenPayload {
 
   @IsString()
+  @IsNotEmpty()
+  @IsOptional()
   token: string;
 
 }
