@@ -43,6 +43,8 @@ import { ServeStaticModule } from "@nestjs/serve-static";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { ServerConfig } from "../gen-src/server.config";
 import { ServeStaticModuleOptions } from "@nestjs/serve-static/dist/interfaces/serve-static-options.interface";
+import { AppController } from "./controllers/app.controller";
+import { WebAppService } from "./web-app.service";
 
 @Module({
   imports: [
@@ -71,6 +73,7 @@ import { ServeStaticModuleOptions } from "@nestjs/serve-static/dist/interfaces/s
     })
   ],
   controllers: [
+    AppController,
     AuthController,
     CaptchaController,
     ProfileController,
@@ -81,7 +84,8 @@ import { ServeStaticModuleOptions } from "@nestjs/serve-static/dist/interfaces/s
     XmlDataBridgeController
   ],
   providers: [
-    LocaleSubscriber
+    LocaleSubscriber,
+    WebAppService
   ]
 })
 export class WebAppModule implements NestModule {
