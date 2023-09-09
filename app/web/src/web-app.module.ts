@@ -39,6 +39,10 @@ import { ExplorerModule } from "@explorer/explorer.module";
 import { ConfigModule } from "@config/config.module";
 import { XmlDataBridgeModule } from "@xml-data-bridge/xml-data-bridge.module";
 import { Orm } from "./orm.config";
+import { ServeStaticModule } from "@nestjs/serve-static";
+import { CacheService } from "@shared/modules/cache/cache.types";
+import { ServerConfig } from "../gen-src/server.config";
+import { ServeStaticModuleOptions } from "@nestjs/serve-static/dist/interfaces/serve-static-options.interface";
 
 @Module({
   imports: [
@@ -53,7 +57,18 @@ import { Orm } from "./orm.config";
     ExplorerModule.forRoot(),
     XmlDataBridgeModule.forRoot(),
     TypeOrmModule.forRootAsync(Orm.getOptions()),
-    MulterModule.registerAsync({ useClass: MulterConfig })
+    MulterModule.registerAsync({ useClass: MulterConfig }),
+    ServeStaticModule.forRootAsync({
+      imports: [CacheModule],
+      inject: [CacheService],
+      useFactory: async (cs: CacheService): Promise<ServeStaticModuleOptions[]> => {
+        return [
+          {
+            rootPath: process.cwd() + await cs.get(ServerConfig.STATIC_FILES)
+          }
+        ];
+      }
+    })
   ],
   controllers: [
     AuthController,

@@ -16,7 +16,7 @@
 
 import { NestFactory, Reflector } from "@nestjs/core";
 import { WebAppModule } from "./web-app.module";
-import { ClassSerializerInterceptor, Logger, ValidationPipe } from "@nestjs/common";
+import { ClassSerializerInterceptor, ForbiddenException, Logger, ValidationPipe } from "@nestjs/common";
 import { LogModule } from "@shared/modules/log/log.module";
 import { EnvLoader } from "@shared/utils/env.loader";
 import { LOGGER } from "@shared/modules/log/log.constants";
@@ -29,6 +29,7 @@ import { CorsOptions } from "@nestjs/common/interfaces/external/cors-options.int
 import { ServerConfig } from "../gen-src/server.config";
 import helmet from "helmet";
 import * as express from "express";
+import { NextFunction, Request, Response } from "express";
 import * as cookieParser from "cookie-parser";
 
 (async () => {
@@ -41,7 +42,6 @@ import * as cookieParser from "cookie-parser";
   const app = await NestFactory.create(WebAppModule, expressAdapter);
   const logger: Logger = app.select(LogModule).get(LOGGER);
   EnvLoader.loadEnvironment(logger);
-  app.use(helmet());
   app.use(cookieParser());
   app.useGlobalPipes(
     new ValidationPipe({ transform: true })
@@ -50,6 +50,12 @@ import * as cookieParser from "cookie-parser";
     new ClassSerializerInterceptor(app.get(Reflector))
   );
   const cacheService: CacheService = app.select(CacheModule).get(CacheService);
+  const crossOriginResourcePolicy = await cacheService.get(CorsConfig.RESOURCE_POLICY);
+  app.use(helmet({
+    crossOriginResourcePolicy: {
+      policy: crossOriginResourcePolicy as "same-origin" | "same-site" | "cross-origin"
+    }
+  }));
   const corsOptions: CorsOptions = {
     allowedHeaders: await cacheService.get(CorsConfig.HEADERS),
     methods: await cacheService.get(CorsConfig.METHODS),
@@ -57,6 +63,18 @@ import * as cookieParser from "cookie-parser";
     credentials: await cacheService.getBoolean(CorsConfig.CREDENTIALS)
   };
   app.enableCors(corsOptions);
+  const result = await cacheService.get(ServerConfig.EXCLUDE_URLS);
+  const excludeUrls = result.length ? result.split(" ") : [];
+  if (excludeUrls.length) {
+    app.use((req: Request, res: Response, next: NextFunction) => {
+      for (const reContent of excludeUrls) {
+        if (new RegExp(reContent, "g").test(req.url)) {
+          throw new ForbiddenException();
+        }
+      }
+      next();
+    });
+  }
   const apiPrefix = await cacheService.get(ServerConfig.PREFIX);
   const apiPort = await cacheService.getNumber(ServerConfig.PORT);
   app.setGlobalPrefix(apiPrefix);
