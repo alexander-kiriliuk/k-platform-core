@@ -41,6 +41,7 @@
         <row>
             <code>thumb</code>
             <name>Thumb</name>
+            <width>50</width>
         </row>
         <row>
             <code>xs</code>

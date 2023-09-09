@@ -164,6 +164,7 @@ export class MediaService extends MediaManager {
       await transactionManager.save(entity);
     });
     this.logger.log(`${!existedEntityId ? `Created` : `Updated`} media with ID ${entity.id}`);
+    entity.files.forEach(f => delete f.media);  // remove inverse side ref
     return entity;
   }
 
