@@ -52,6 +52,7 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
       user.password = user.password.toString();
     }
     if (!user.password?.length) {
+      delete user.password;
       return;
     }
     const foundUser: UserEntity = await manager.findOne(UserEntity, { where: { id: user.id } });

@@ -62,7 +62,8 @@ export class BasicUserService extends UserService {
    * @returns {Promise<UserEntity>} The updated user.
    */
   async updateById(id: string, user: User): Promise<UserEntity> {
-    await this.userRep.update(id, user);
+    user.id = id;
+    await this.userRep.save(user);
     return await this.findById(id);
   }
 

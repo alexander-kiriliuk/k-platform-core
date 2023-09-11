@@ -31,8 +31,11 @@ export class ProfileController {
   }
 
   @ResponseDto(UserDto)
-  @Get("/:id")
-  async getUserProfile(@Param("id") id: string) {
+  @Get("/:id?")
+  async getUserProfile(@Param("id") id: string, @CurrentUser() user: User) {
+    if (!id) {
+      return user;
+    }
     const data = await this.userService.findById(id);
     if (!data) {
       throw new NotFoundException();
@@ -41,9 +44,9 @@ export class ProfileController {
   }
 
   @ResponseDto(UserDto)
-  @Patch("/:id")
-  async updateUserProfile(@Param("id") id: string, @Body() profile: User) {
-    return await this.userService.updateById(id, profile);
+  @Patch("/:id?")
+  async updateUserProfile(@Param("id") id: string, @Body() profile: User, @CurrentUser() user: User) {
+    return await this.userService.updateById(id ?? user.id, profile);
   }
 
   @ResponseDto(UserDto)
@@ -56,12 +59,6 @@ export class ProfileController {
   @Post("/")
   async createUserProfile(@Body() profile: User) {
     return await this.userService.create(profile);
-  }
-
-  @ResponseDto(UserDto)
-  @Get("/")
-  async getCurrentUserProfile(@CurrentUser() user: User) {
-    return user;
   }
 
 }
