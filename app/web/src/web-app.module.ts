@@ -45,12 +45,14 @@ import { ServerConfig } from "../gen-src/server.config";
 import { ServeStaticModuleOptions } from "@nestjs/serve-static/dist/interfaces/serve-static-options.interface";
 import { AppController } from "./controllers/app.controller";
 import { WebAppService } from "./web-app.service";
+import { CategoryModule } from "@shared/modules/category/category.module";
 
 @Module({
   imports: [
     CacheModule,
     LogModule,
     ConfigModule,
+    CategoryModule,
     AuthModule.forRoot(),
     FileModule.forRoot(),
     MediaModule.forRoot(),

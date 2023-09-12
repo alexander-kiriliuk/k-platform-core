@@ -34,6 +34,7 @@ import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-s
 import { LocalizedMediaEntity } from "@shared/modules/locale/entity/localized-media.entity";
 import { UserSubscriber } from "@user/entity/user.subscriber";
 import { TypeOrmModuleAsyncOptions } from "@nestjs/typeorm/dist/interfaces/typeorm-options.interface";
+import { CategoryEntity } from "@shared/modules/category/entity/category.entity";
 
 export namespace Orm {
 
@@ -46,7 +47,7 @@ export namespace Orm {
           type: await cs.get(DbConfig.TYPE) as any,
           host: await cs.get(DbConfig.HOST),
           port: await cs.getNumber(DbConfig.PORT),
-          synchronize: synchronize ?? await cs.getBoolean(DbConfig.SYNCHRONIZE),
+          synchronize: synchronize === true ? synchronize : await cs.getBoolean(DbConfig.SYNCHRONIZE),
           logging: await cs.get(DbConfig.LOGGING) as LoggerOptions,
           database: await cs.get(DbConfig.DATABASE),
           username: await cs.get(DbConfig.USERNAME),
@@ -64,7 +65,8 @@ export namespace Orm {
             ExplorerColumnEntity,
             LanguageEntity,
             LocalizedStringEntity,
-            LocalizedMediaEntity
+            LocalizedMediaEntity,
+            CategoryEntity
           ],
           migrations: [],
           subscribers: [

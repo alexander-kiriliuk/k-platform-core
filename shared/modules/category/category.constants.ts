@@ -14,25 +14,7 @@
  *    limitations under the License.
  */
 
-import { Controller, Get } from "@nestjs/common";
-import { WebAppService } from "../web-app.service";
-import { CategoryService } from "@shared/modules/category/category.service";
-
-
-@Controller("app")
-export class AppController {
-
-  constructor(
-    private readonly categoryService: CategoryService,
-    private readonly webAppService: WebAppService) {
-  }
-
-  @Get("/options")
-  async options() {
-    return {
-      langs: await this.webAppService.getAvailableLangs(),
-      menu: await this.categoryService.getDescendantsByCodeOfRoot("a-menu-root")
-    };
-  }
-
-}
+export const CATEGORY_RELATIONS = [
+  "icon", "icon.name", "icon.name.lang", "icon.files", "icon.files.format", "icon.type", "icon.type.ext",
+  "name", "name.lang"
+];

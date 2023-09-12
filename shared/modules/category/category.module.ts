@@ -14,25 +14,20 @@
  *    limitations under the License.
  */
 
-import { Controller, Get } from "@nestjs/common";
-import { WebAppService } from "../web-app.service";
-import { CategoryService } from "@shared/modules/category/category.service";
 
+import { Module } from "@nestjs/common";
+import { LogModule } from "@shared/modules/log/log.module";
+import { CategoryService } from "./category.service";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { CategoryEntity } from "./entity/category.entity";
 
-@Controller("app")
-export class AppController {
-
-  constructor(
-    private readonly categoryService: CategoryService,
-    private readonly webAppService: WebAppService) {
-  }
-
-  @Get("/options")
-  async options() {
-    return {
-      langs: await this.webAppService.getAvailableLangs(),
-      menu: await this.categoryService.getDescendantsByCodeOfRoot("a-menu-root")
-    };
-  }
-
+@Module({
+  imports: [
+    LogModule,
+    TypeOrmModule.forFeature([CategoryEntity])
+  ],
+  providers: [CategoryService],
+  exports: [CategoryService]
+})
+export class CategoryModule {
 }
