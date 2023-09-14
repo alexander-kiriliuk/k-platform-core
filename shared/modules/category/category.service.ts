@@ -20,6 +20,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { TreeRepository } from "typeorm";
 import { CategoryEntity } from "./entity/category.entity";
 import { CATEGORY_RELATIONS } from "@shared/modules/category/category.constants";
+import { ObjectUtils } from "@shared/utils/object.utils";
 
 /**
  * Service for working with tree-categories.
@@ -41,10 +42,17 @@ export class CategoryService {
    */
   async getDescendantsByCodeOfRoot(code: string, depth?: number) {
     const cat = await this.catRep.findOne({ where: { code }, relations: CATEGORY_RELATIONS });
-    return this.catRep.findDescendantsTree(cat, {
+    const res = await this.catRep.findDescendantsTree(cat, {
       depth,
       relations: CATEGORY_RELATIONS
     });
+    res.children?.forEach(cat => this.sort(cat));
+    this.sort(res);
+    return res;
+  }
+
+  private sort(cat: CategoryEntity) {
+    ObjectUtils.sort<CategoryEntity>(cat.children, "priority", false);
   }
 
 }

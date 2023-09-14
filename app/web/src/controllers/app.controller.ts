@@ -14,9 +14,10 @@
  *    limitations under the License.
  */
 
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, UseGuards } from "@nestjs/common";
 import { WebAppService } from "../web-app.service";
 import { CategoryService } from "@shared/modules/category/category.service";
+import { AuthGuard } from "@shared/guards/auth.guard";
 
 
 @Controller("app")
@@ -28,11 +29,16 @@ export class AppController {
   }
 
   @Get("/options")
-  async options() {
+  async getOptions() {
     return {
-      langs: await this.webAppService.getAvailableLangs(),
-      menu: await this.categoryService.getDescendantsByCodeOfRoot("a-menu-root")
+      langs: await this.webAppService.getAvailableLangs()
     };
+  }
+
+  @UseGuards(AuthGuard)
+  @Get("/menu")
+  async getMenu() {
+    return this.categoryService.getDescendantsByCodeOfRoot("a-menu-root");
   }
 
 }

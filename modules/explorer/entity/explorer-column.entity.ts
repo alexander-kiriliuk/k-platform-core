@@ -56,12 +56,20 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   multiple: boolean;
 
   @Index()
-  @Column("varchar", { nullable: true })
+  @Column("varchar", { name: "referenced_entity_name", nullable: true })
   referencedEntityName: string;
 
   @Index()
-  @Column("varchar", { nullable: true })
+  @Column("varchar", { name: "referenced_table_name", nullable: true })
   referencedTableName: string;
+
+  @Index()
+  @Column("int", { name: "section_priority", default: 0, unsigned: true })
+  sectionPriority: number;
+
+  @Index()
+  @Column("int", { name: "object_priority", default: 0, unsigned: true })
+  objectPriority: number;
 
 }
 

@@ -54,6 +54,10 @@ export class CategoryEntity {
   @ManyToOne(() => MediaEntity, t => t.code)
   icon: MediaEntity;
 
+  @Index()
+  @Column("int", { default: 0, unsigned: true })
+  priority: number;
+
   @TreeParent()
   parent: CategoryEntity;
 

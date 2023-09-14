@@ -27,4 +27,27 @@ export namespace ObjectUtils {
     return util.inspect(obj, { showHidden: false, depth: null });
   }
 
+
+  export function sort<T = any>(obj: Array<T>, property: string, vector = true) {
+    obj?.sort((a: T, b: T) => {
+      if (!vector) {
+        if (a[property] < b[property]) {
+          return -1;
+        }
+        if (a[property] > b[property]) {
+          return 1;
+        }
+      } else {
+
+        if (a[property] > b[property]) {
+          return -1;
+        }
+        if (a[property] < b[property]) {
+          return 1;
+        }
+      }
+      return 0;
+    });
+  }
+
 }
