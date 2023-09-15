@@ -88,7 +88,9 @@ export abstract class ExplorerService {
 
   abstract removeEntity(target: string, id: string | number): Promise<ObjectLiteral>;
 
-  abstract getEntityData(target: string, rowId: string | number, maxDepth?: number): Promise<EntityData>;
+  abstract getEntityData(target: string, rowId: string | number, maxDepth?: number): Promise<ObjectLiteral>;
+
+  abstract getTargetData(target: string): Promise<TargetData>;
 
 }
 

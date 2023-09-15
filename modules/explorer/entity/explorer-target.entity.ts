@@ -31,6 +31,10 @@ export class ExplorerTargetEntity implements ExplorerTarget {
   @Column("varchar", { name: "table_name", nullable: false })
   tableName: string;
 
+  @Index({ unique: true })
+  @Column("varchar", { nullable: true })
+  alias: string;
+
   @ManyToMany(() => LocalizedStringEntity, { cascade: true })
   @JoinTable()
   name: LocalizedStringEntity[];

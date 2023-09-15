@@ -19,7 +19,7 @@ import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 import { DataSource, EntityMetadata, ObjectLiteral, Repository } from "typeorm";
-import { ColumnDataType, EntityData, ExplorerService, TargetData } from "./explorer.types";
+import { ColumnDataType, ExplorerService, TargetData } from "./explorer.types";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
 import { LocaleService } from "@shared/modules/locale/locale.service";
@@ -168,9 +168,9 @@ export class BasicExplorerService extends ExplorerService {
    * @param target The target entity name.
    * @param rowId The ID of the row to fetch.
    * @param maxDepth The maximum depth of relations to fetch. Defaults to Infinity.
-   * @returns A Promise that resolves to the EntityData object.
+   * @returns A Promise that resolves to the entity object.
    */
-  async getEntityData(target: string, rowId: string | number, maxDepth = Infinity): Promise<EntityData> {
+  async getEntityData(target: string, rowId: string | number, maxDepth = Infinity) {
     const targetData = await this.getTargetData(target);
     if (!targetData) {
       throw new NotFoundException(`Target entity not found: ${target}`);
@@ -180,8 +180,27 @@ export class BasicExplorerService extends ExplorerService {
     if (!row) {
       throw new NotFoundException(`Row with ID ${rowId} not found in table ${target}`);
     }
-    const withRelations = await this.attachRelations(row, targetData, [], maxDepth);
-    return { entity: targetData.entity, data: withRelations };
+    return await this.attachRelations(row, targetData, [], maxDepth);
+  }
+
+  /**
+   * Retrieves target data for the specified target entity name.
+   * @param target The target entity name.
+   * @returns A Promise that resolves to the TargetData object, or null if not found.
+   */
+  async getTargetData(target: string): Promise<TargetData> {
+    const entity = await this.targetRep.findOne({
+      where: [
+        { target },
+        { tableName: target },
+        { alias: target }
+      ], relations: ["columns"]
+    });
+    if (!entity) {
+      return null;
+    }
+    const primaryColumn = entity.columns.find(c => c.primary === true);
+    return { entity, primaryColumn };
   }
 
   /**
@@ -254,20 +273,6 @@ export class BasicExplorerService extends ExplorerService {
       }
     }
     return withRelations;
-  }
-
-  /**
-   * Retrieves target data for the specified target entity name.
-   * @param target The target entity name.
-   * @returns A Promise that resolves to the TargetData object, or null if not found.
-   */
-  private async getTargetData(target: string): Promise<TargetData> {
-    const entity = await this.targetRep.findOne({ where: { target }, relations: ["columns"] });
-    if (!entity) {
-      return null;
-    }
-    const primaryColumn = entity.columns.find(c => c.primary === true);
-    return { entity, primaryColumn };
   }
 
   /**
