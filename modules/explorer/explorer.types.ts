@@ -48,33 +48,8 @@ export interface ExplorerColumn {
   referencedEntityName: string;
 }
 
-export interface ExplorerEntityRequest {
-  id: string;
-  target: string;
-}
-
-export interface ExplorerPagedEntityRequest {
-  params?: PageableParams;
-  target: string;
-}
-
-export interface ExplorerSaveEntityRequest<T = any> {
-  target: string;
-  data: T;
-}
-
-export interface ExplorerRemoveEntityRequest {
-  target: string;
-  id: string | number;
-}
-
 export interface TargetData {
   primaryColumn: ExplorerColumnEntity;
-  entity: ExplorerTargetEntity;
-}
-
-export interface EntityData<T = any> {
-  data: T;
   entity: ExplorerTargetEntity;
 }
 
@@ -90,7 +65,7 @@ export abstract class ExplorerService {
 
   abstract getEntityData(target: string, rowId: string | number, maxDepth?: number): Promise<ObjectLiteral>;
 
-  abstract getTargetData(target: string): Promise<TargetData>;
+  abstract getTargetData(target: string, fullRelations?: boolean): Promise<TargetData>;
 
 }
 

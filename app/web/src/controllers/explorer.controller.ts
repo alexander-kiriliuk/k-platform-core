@@ -35,7 +35,7 @@ export class ExplorerController {
   @UseGuards(AuthGuard)
   @Get("/target/:target")
   async getTarget(@Param("target") target: string) {
-    const res = await this.explorerService.getTargetData(target);
+    const res = await this.explorerService.getTargetData(target, true);
     if (!res) {
       throw new NotFoundException();
     }

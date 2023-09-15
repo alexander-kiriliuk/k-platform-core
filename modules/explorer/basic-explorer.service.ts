@@ -186,15 +186,13 @@ export class BasicExplorerService extends ExplorerService {
   /**
    * Retrieves target data for the specified target entity name.
    * @param target The target entity name.
+   * @param fullRelations Adjusts the completeness of column data
    * @returns A Promise that resolves to the TargetData object, or null if not found.
    */
-  async getTargetData(target: string): Promise<TargetData> {
+  async getTargetData(target: string, fullRelations = false): Promise<TargetData> {
+    const relations = fullRelations ? ["columns", "columns.name", "columns.name.lang"] : ["columns"];
     const entity = await this.targetRep.findOne({
-      where: [
-        { target },
-        { tableName: target },
-        { alias: target }
-      ], relations: ["columns"]
+      where: [{ target }, { tableName: target }, { alias: target }], relations
     });
     if (!entity) {
       return null;
