@@ -26,6 +26,7 @@ export interface Media {
   name: LocalizedString[];
   type: MediaType;
   files: MediaFile[];
+  tsCreated: Date;
 }
 
 export interface MediaType {
@@ -129,6 +130,9 @@ export class MediaDto implements Media {
   @Expose()
   @Type(() => MediaFileDto)
   files: MediaFile[];
+
+  @Expose()
+  tsCreated: Date;
 
 }
 

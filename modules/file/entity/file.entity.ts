@@ -1,4 +1,13 @@
-import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn
+} from "typeorm";
 import { MediaEntity } from "@media/entity/media.entity";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { File } from "../file.types";
@@ -31,5 +40,9 @@ export class FileEntity implements File {
 
   @ManyToOne(() => MediaEntity, t => t.code)
   preview: MediaEntity;
+
+  @Index()
+  @CreateDateColumn({ name: "ts_created", type: "timestamp" })
+  tsCreated: Date;
 
 }

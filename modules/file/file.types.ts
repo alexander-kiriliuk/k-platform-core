@@ -29,6 +29,7 @@ export interface File {
   size: number;
   icon: Media;
   preview: Media;
+  tsCreated: Date;
 }
 
 export interface UpsertFileRequest {

@@ -1,4 +1,14 @@
-import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn
+} from "typeorm";
 import { MediaTypeEntity } from "./media-type.entity";
 import { MediaFileEntity } from "./media-file.entity";
 import { Media } from "../media.types";
@@ -23,5 +33,9 @@ export class MediaEntity implements Media {
 
   @OneToMany(() => MediaFileEntity, f => f.media, { cascade: true })
   files: MediaFileEntity[];
+
+  @Index()
+  @CreateDateColumn({ name: "ts_created", type: "timestamp" })
+  tsCreated: Date;
 
 }

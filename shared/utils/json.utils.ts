@@ -24,7 +24,7 @@ export namespace JsonUtils {
   }
 
   function removeCircularReferences(value, cache = new Set()) {
-    if (typeof value === "object" && value !== null) {
+    if (!(value instanceof Date) && typeof value === "object" && value !== null) {
       if (cache.has(value)) {
         return null;
       }
