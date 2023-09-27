@@ -19,7 +19,7 @@ import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 import { Brackets, DataSource, EntityMetadata, ObjectLiteral, Repository, SelectQueryBuilder } from "typeorm";
-import { ColumnDataType, ExplorerService, TargetData } from "./explorer.types";
+import { ColumnDataType, ExplorerColumn, ExplorerService, TargetData } from "./explorer.types";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
 import { LocaleService } from "@shared/modules/locale/locale.service";
@@ -235,13 +235,13 @@ export class BasicExplorerService extends ExplorerService {
         if (refColumn.type === "date") {
           this.applyDateFilter(qb, alias, colName, clearValue);
         } else {
-          this.applyColumnFilter(qb, `${alias}.${colName}`, clearValue);
+          this.applyColumnFilter(qb, refColumn, `${alias}.${colName}`, clearValue);
         }
       } else {
         if (column.type === "date") {
           this.applyDateFilter(qb, `entity`, prop, value);
         } else {
-          this.applyColumnFilter(qb, `entity.${prop}`, value);
+          this.applyColumnFilter(qb, column, `entity.${prop}`, value);
         }
       }
     }
@@ -271,12 +271,16 @@ export class BasicExplorerService extends ExplorerService {
    * Applies a column filter to a SelectQueryBuilder.
    *
    * @param qb - The SelectQueryBuilder to apply the column filter to.
-   * @param column - The column name to filter.
+   * @param exCol - The ExplorerColumn data
+   * @param path - The column name to filter.
    * @param value - The column filter value.
    */
-  private applyColumnFilter(qb: SelectQueryBuilder<any>, column: string, value: string) {
+  private applyColumnFilter<T = any>(qb: SelectQueryBuilder<T>, exCol: ExplorerColumn, path: string, value: string) {
+    if (exCol.type === "boolean") {
+      value = value === "true" ? "1" : "0";
+    }
     const exactMatch = !(value.startsWith("%") && value.endsWith("%"));
-    qb.andWhere(`${column} ${exactMatch ? "=" : "LIKE"} :${column}`, { [column]: value });
+    qb.andWhere(`${path} ${exactMatch ? "=" : "LIKE"} :${path}`, { [path]: value });
   }
 
   /**
