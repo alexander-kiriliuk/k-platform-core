@@ -239,7 +239,7 @@ export class BasicExplorerService extends ExplorerService {
         }
       } else {
         if (column.type === "date") {
-          this.applyDateFilter(qb, `entity.${prop}`, prop, value);
+          this.applyDateFilter(qb, `entity`, prop, value);
         } else {
           this.applyColumnFilter(qb, `entity.${prop}`, value);
         }
@@ -255,7 +255,7 @@ export class BasicExplorerService extends ExplorerService {
    * @param column - The column name to filter.
    * @param value - The date filter value.
    */
-  private applyDateFilter(qb: SelectQueryBuilder<any>, aliasOrEntity: string, column: string, value: string) {
+  private applyDateFilter<T = any>(qb: SelectQueryBuilder<T>, aliasOrEntity: string, column: string, value: string) {
     const match = value.match(/FROM(\d+)TO(\d+)/);
     const fromTimestamp = match[1];
     const toTimestamp = match[2];
