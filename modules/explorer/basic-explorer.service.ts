@@ -18,13 +18,15 @@ import { Inject, Injectable, InternalServerErrorException, Logger, NotFoundExcep
 import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
-import { DataSource, EntityMetadata, ObjectLiteral, Repository } from "typeorm";
+import { Brackets, DataSource, EntityMetadata, ObjectLiteral, Repository, SelectQueryBuilder } from "typeorm";
 import { ColumnDataType, ExplorerService, TargetData } from "./explorer.types";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
 import { LocaleService } from "@shared/modules/locale/locale.service";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { PageableData, PageableParams, SortOrder } from "@shared/modules/pageable/pageable.types";
+import { TransformUtils } from "@shared/utils/transform.utils";
+import parseParamsString = TransformUtils.parseParamsString;
 
 /**
  * Service for exploring and analyzing the database schema and relationships.
@@ -92,36 +94,6 @@ export class BasicExplorerService extends ExplorerService {
       }
     }
     this.logger.log(`Database was analyzed`);
-  }
-
-  /**
-   * Retrieves paginated entity data with relations up to a depth of 2.
-   *
-   * @param target - The name of the target entity or table.
-   * @param params - An optional object containing pageable parameters.
-   * @returns A Promise that resolves to a PageableData object containing the paginated results.
-   * @throws NotFoundException if the target entity is not found.
-   */
-  async getPageableEntityData(target: string, params?: PageableParams): Promise<PageableData> {
-    const targetData = await this.getTargetData(target);
-    if (!targetData) {
-      throw new NotFoundException(`Target entity not found: ${target}`);
-    }
-    const repository = this.connection.getRepository(targetData.entity.target);
-    const primaryColumnProperty = targetData.primaryColumn.property;
-    const limit = params?.limit || 20;
-    const page = params?.page || 1;
-    const sort = params?.sort || primaryColumnProperty;
-    const order = params?.order || SortOrder.DESC;
-    const [items, totalCount] = await repository.createQueryBuilder("entity")
-      .skip((page - 1) * limit)
-      .take(limit)
-      .orderBy(`entity.${sort}`, order)
-      .getManyAndCount();
-    const itemsWithRelations = await Promise.all(
-      items.map(async item => await this.attachRelations(item, targetData, [], 2))
-    );
-    return new PageableData(itemsWithRelations, totalCount, page, limit);
   }
 
   /**
@@ -199,6 +171,112 @@ export class BasicExplorerService extends ExplorerService {
     }
     const primaryColumn = entity.columns.find(c => c.primary === true);
     return { entity, primaryColumn };
+  }
+
+  /**
+   * Retrieves paginated entity data with relations up to a depth of 2.
+   *
+   * @param target - The name of the target entity or table.
+   * @param params - An optional object containing pageable parameters.
+   * @returns A Promise that resolves to a PageableData object containing the paginated results.
+   * @throws NotFoundException if the target entity is not found.
+   */
+  async getPageableEntityData(target: string, params?: PageableParams): Promise<PageableData> {
+    const targetData = await this.getTargetData(target);
+    if (!targetData) {
+      throw new NotFoundException(`Target entity not found: ${target}`);
+    }
+    const repository = this.connection.getRepository(targetData.entity.target);
+    const primaryColumnProperty = targetData.primaryColumn.property;
+    const limit = params?.limit || 20;
+    const page = params?.page || 1;
+    const sort = params?.sort || primaryColumnProperty;
+    const order = params?.order || SortOrder.DESC;
+    const qb = repository.createQueryBuilder("entity");
+    if (params?.filter) {
+      const filterParams = parseParamsString(params.filter);
+      await this.applyFilterParams(qb, targetData, filterParams);
+    }
+    const [items, totalCount] = await qb.skip((page - 1) * limit)
+      .take(limit)
+      .orderBy(`entity.${sort}`, order)
+      .getManyAndCount();
+    const itemsWithRelations = await Promise.all(
+      items.map(async item => await this.attachRelations(item, targetData, [], 2))
+    );
+    return new PageableData(itemsWithRelations, totalCount, page, limit);
+  }
+
+  /**
+   * Applies filter parameters to a SelectQueryBuilder for a specific entity.
+   *
+   * @param qb - The SelectQueryBuilder to apply filters to.
+   * @param targetData - Information about the target entity.
+   * @param filterParams - The filter parameters to apply.
+   */
+  async applyFilterParams<T = any>(qb: SelectQueryBuilder<T>, targetData: TargetData, filterParams: Record<string, string>) {
+    for (const key in filterParams) {
+      const value = filterParams[key];
+      const column = targetData.entity.columns.find(c => c.property === key);
+      if (!column) {
+        continue;
+      }
+      const prop = column.property;
+      if (column.type === "reference") {
+        const match = value.match(/\{([^}]*)}/);
+        const parts = match[1].split(".");
+        const targetName = parts[0];
+        const colName = parts[1];
+        const clearValue = value.replace(/\{[^}]*}/g, "");
+        const refTarget = await this.getTargetData(targetName);
+        const refColumn = refTarget.entity.columns.find(c => c.property === colName);
+        const alias = colName + targetName;
+        qb.innerJoinAndSelect(`entity.${prop}`, alias);
+        if (refColumn.type === "date") {
+          this.applyDateFilter(qb, alias, colName, clearValue);
+        } else {
+          this.applyColumnFilter(qb, `${alias}.${colName}`, clearValue);
+        }
+      } else {
+        if (column.type === "date") {
+          this.applyDateFilter(qb, `entity.${prop}`, prop, value);
+        } else {
+          this.applyColumnFilter(qb, `entity.${prop}`, value);
+        }
+      }
+    }
+  }
+
+  /**
+   * Applies a date filter to a SelectQueryBuilder.
+   *
+   * @param qb - The SelectQueryBuilder to apply the date filter to.
+   * @param aliasOrEntity - The alias or entity to apply the filter on.
+   * @param column - The column name to filter.
+   * @param value - The date filter value.
+   */
+  private applyDateFilter(qb: SelectQueryBuilder<any>, aliasOrEntity: string, column: string, value: string) {
+    const match = value.match(/FROM(\d+)TO(\d+)/);
+    const fromTimestamp = match[1];
+    const toTimestamp = match[2];
+    const fromDate = new Date(parseInt(fromTimestamp, 10));
+    const toDate = new Date(parseInt(toTimestamp, 10));
+    qb.andWhere(new Brackets(sqb => {
+      sqb.andWhere(`${aliasOrEntity}.${column} >= :from${column}`, { [`from${column}`]: fromDate.toJSON() });
+      sqb.andWhere(`${aliasOrEntity}.${column} <= :to${column}`, { [`to${column}`]: toDate.toJSON() });
+    }));
+  }
+
+  /**
+   * Applies a column filter to a SelectQueryBuilder.
+   *
+   * @param qb - The SelectQueryBuilder to apply the column filter to.
+   * @param column - The column name to filter.
+   * @param value - The column filter value.
+   */
+  private applyColumnFilter(qb: SelectQueryBuilder<any>, column: string, value: string) {
+    const exactMatch = !(value.startsWith("%") && value.endsWith("%"));
+    qb.andWhere(`${column} ${exactMatch ? "=" : "LIKE"} :${column}`, { [column]: value });
   }
 
   /**

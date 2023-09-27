@@ -18,6 +18,9 @@ export class PageableParams {
   @Type(() => String)
   order?: SortOrder;
 
+  @Type(() => String)
+  filter?: string;
+
 }
 
 export class PageableData<T = any> {

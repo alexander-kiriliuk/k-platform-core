@@ -91,6 +91,7 @@ export class AuthorizationService extends AuthService {
     atExpDate.setTime(atExpDate.getTime() + (atExp * 1000));
     const rtExpDate = new Date();
     rtExpDate.setTime(rtExpDate.getTime() + (rtExp * 1000));
+    this.logger.debug(`Create token pair for user ${data.login}`);
     return { user, accessToken, refreshToken, atExp: atExpDate, rtExp: rtExpDate };
   }
 
@@ -143,6 +144,7 @@ export class AuthorizationService extends AuthService {
     const oldAccessToken = this.extractAccessTokenFromRefreshTokenKey(refreshTokenKey);
     await this.deleteAccessToken(oldAccessToken);
     await this.deleteRefreshTokens(oldAccessToken, refreshTokenKey);
+    this.logger.debug(`Exchange token pair for user: ${userLogin}`);
     return { accessToken, refreshToken: newRefreshToken };
   }
 

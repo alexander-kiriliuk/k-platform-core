@@ -38,7 +38,6 @@ export abstract class AbstractAuthGuard implements CanActivate {
     const token = this.getAccessTokenFromRequest(req);
     const userIdentity = await this.validateToken(token);
     if (userIdentity) {
-      this.logger.debug(`Valid token for user ${userIdentity}`);
       req[REQUEST_PROPS.accessToken] = token;
     } else {
       this.logger.warn(`Invalid token: ${token}`);

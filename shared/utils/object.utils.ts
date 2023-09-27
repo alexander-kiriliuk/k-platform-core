@@ -38,7 +38,6 @@ export namespace ObjectUtils {
           return 1;
         }
       } else {
-
         if (a[property] > b[property]) {
           return -1;
         }

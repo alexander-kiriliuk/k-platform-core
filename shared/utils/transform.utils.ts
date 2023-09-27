@@ -23,4 +23,27 @@ export namespace TransformUtils {
     return value;
   }
 
+  export function parseParamsString(filterString: string): { [key: string]: string } {
+    const filterObject: { [key: string]: string } = {};
+    const filterParts = filterString.split("::");
+    if (filterString.startsWith("::")) {
+      filterParts.shift();
+    }
+    for (const part of filterParts) {
+      const [key, value] = part.split(":");
+      filterObject[key] = value;
+    }
+    return filterObject;
+  }
+
+  export function stringifyParamsObject(filterObject: { [key: string]: string }): string {
+    const filterParts = [];
+    for (const key in filterObject) {
+      const encodedValue = filterObject[key];
+      const filterPart = `${key}:${encodedValue}`;
+      filterParts.push(filterPart);
+    }
+    return "::" + filterParts.join("::");
+  }
+
 }
