@@ -19,13 +19,21 @@ import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 import { Brackets, DataSource, EntityMetadata, ObjectLiteral, Repository, SelectQueryBuilder } from "typeorm";
-import { ColumnDataType, ExplorerColumn, ExplorerService, TargetData } from "./explorer.types";
+import {
+  ColumnDataType,
+  ExplorerColumn,
+  ExplorerSelectParams,
+  ExplorerService,
+  ExplorerTargetParams,
+  TargetData
+} from "./explorer.types";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
 import { LocaleService } from "@shared/modules/locale/locale.service";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { PageableData, PageableParams, SortOrder } from "@shared/modules/pageable/pageable.types";
 import { TransformUtils } from "@shared/utils/transform.utils";
+import { ObjectUtils } from "@shared/utils/object.utils";
 import parseParamsString = TransformUtils.parseParamsString;
 
 /**
@@ -143,7 +151,7 @@ export class BasicExplorerService extends ExplorerService {
    * @returns A Promise that resolves to the entity object.
    */
   async getEntityData(target: string, rowId: string | number, maxDepth = Infinity) {
-    const targetData = await this.getTargetData(target);
+    const targetData = await this.getTargetData(target, { object: true });
     if (!targetData) {
       throw new NotFoundException(`Target entity not found: ${target}`);
     }
@@ -152,22 +160,29 @@ export class BasicExplorerService extends ExplorerService {
     if (!row) {
       throw new NotFoundException(`Row with ID ${rowId} not found in table ${target}`);
     }
-    return await this.attachRelations(row, targetData, [], maxDepth);
+    return await this.attachRelations(row, targetData, { object: true }, [], maxDepth);
   }
 
   /**
    * Retrieves target data for the specified target entity name.
    * @param target The target entity name.
-   * @param fullRelations Adjusts the completeness of column data
+   * @param params
    * @returns A Promise that resolves to the TargetData object, or null if not found.
    */
-  async getTargetData(target: string, fullRelations = false): Promise<TargetData> {
-    const relations = fullRelations ? ["columns", "columns.name", "columns.name.lang"] : ["columns"];
+  async getTargetData(target: string, params: ExplorerTargetParams = {}): Promise<TargetData> {
+    const relations = params.fullRelations ? ["columns", "columns.name", "columns.name.lang"] : ["columns"];
     const entity = await this.targetRep.findOne({
       where: [{ target }, { tableName: target }, { alias: target }], relations
     });
     if (!entity) {
       return null;
+    }
+    if (params.section) {
+      entity.columns = entity.columns.filter(c => c.sectionEnabled);
+      ObjectUtils.sort(entity.columns, "sectionPriority");
+    } else if (params.object) {
+      entity.columns = entity.columns.filter(c => c.objectEnabled);
+      ObjectUtils.sort(entity.columns, "objectPriority");
     }
     const primaryColumn = entity.columns.find(c => c.primary === true);
     return { entity, primaryColumn };
@@ -182,7 +197,7 @@ export class BasicExplorerService extends ExplorerService {
    * @throws NotFoundException if the target entity is not found.
    */
   async getPageableEntityData(target: string, params?: PageableParams): Promise<PageableData> {
-    const targetData = await this.getTargetData(target);
+    const targetData = await this.getTargetData(target, { section: true });
     if (!targetData) {
       throw new NotFoundException(`Target entity not found: ${target}`);
     }
@@ -197,12 +212,18 @@ export class BasicExplorerService extends ExplorerService {
       const filterParams = parseParamsString(params.filter);
       await this.applyFilterParams(qb, targetData, filterParams);
     }
+    const colsForSelect = this.getColsForSelect(targetData, { section: true, prefix: "entity." });
+    if (!colsForSelect.referencedCols.length) {
+      qb.select(colsForSelect.colList);
+    }
     const [items, totalCount] = await qb.skip((page - 1) * limit)
       .take(limit)
       .orderBy(`entity.${sort}`, order)
       .getManyAndCount();
     const itemsWithRelations = await Promise.all(
-      items.map(async item => await this.attachRelations(item, targetData, [], 2))
+      items.map(async item =>
+        await this.attachRelations(item, targetData, { section: true }, [], 2)
+      )
     );
     return new PageableData(itemsWithRelations, totalCount, page, limit);
   }
@@ -228,7 +249,7 @@ export class BasicExplorerService extends ExplorerService {
         const targetName = parts[0];
         const colName = parts[1];
         const clearValue = value.replace(/\{[^}]*}/g, "");
-        const refTarget = await this.getTargetData(targetName);
+        const refTarget = await this.getTargetData(targetName, { section: true });
         const refColumn = refTarget.entity.columns.find(c => c.property === colName);
         const alias = colName + targetName;
         qb.innerJoinAndSelect(`entity.${prop}`, alias);
@@ -318,41 +339,80 @@ export class BasicExplorerService extends ExplorerService {
    * Attaches relations to the given row recursively up to the specified depth.
    * @param row The row to attach relations to.
    * @param targetData The target data of the current row.
+   * @param selectParams Parameters regulating sample width
    * @param visitedEntities The array of visited entity names.
    * @param maxDepth The maximum depth of relations to fetch. Defaults to Infinity.
    * @returns The row with attached relations.
    */
-  private async attachRelations<T = any>(row: T, targetData: TargetData, visitedEntities: string[] = [], maxDepth = Infinity) {
+  private async attachRelations<T = any>(
+    row: T, targetData: TargetData, selectParams: ExplorerSelectParams = {},
+    visitedEntities: string[] = [], maxDepth = Infinity) {
     if (maxDepth < 0) {
       throw new InternalServerErrorException("maxDepth should be non-negative");
     }
-    const referencedCols = targetData.entity.columns.filter(c => c.type === "reference");
-    const relations = referencedCols.map(c => c.property);
+    const colsForSelect = this.getColsForSelect(targetData, selectParams);
+    const relations = colsForSelect.referencedCols.map(c => c.property);
     if (!row || !relations.length || maxDepth <= 0) {
       return row;
     }
     const repository = this.connection.getRepository(targetData.entity.target);
     const idProp = targetData.primaryColumn.property;
     visitedEntities.push(targetData.entity.target);
-    const withRelations = await repository.findOne({ where: { [idProp]: row[idProp] }, relations });
+    const withRelations = await repository.findOne({
+      select: colsForSelect.colList,
+      where: { [idProp]: row[idProp] },
+      relations
+    });
     for (const k in withRelations) {
       if (relations.indexOf(k) === -1) {
         continue;
       }
       const colData = targetData.entity.columns.find(c => c.property === k);
-      const currTargetData = await this.getTargetData(colData.referencedEntityName);
+      const currTargetData = await this.getTargetData(colData.referencedEntityName, {
+        section: selectParams.section,
+        object: selectParams.object
+      });
       if (visitedEntities.includes(currTargetData.entity.target)) {
         continue;
       }
       if (Array.isArray(withRelations[k]) && colData.multiple) {
         for (const key in withRelations[k]) {
-          withRelations[k][key] = await this.attachRelations(withRelations[k][key], currTargetData, visitedEntities.slice(), maxDepth - 1);
+          withRelations[k][key] = await this.attachRelations(
+            withRelations[k][key], currTargetData, selectParams, visitedEntities.slice(), maxDepth - 1
+          );
         }
       } else {
-        withRelations[k] = await this.attachRelations(withRelations[k], currTargetData, visitedEntities.slice(), maxDepth - 1);
+        withRelations[k] = await this.attachRelations(
+          withRelations[k], currTargetData, selectParams, visitedEntities.slice(), maxDepth - 1
+        );
       }
     }
     return withRelations;
+  }
+
+
+  /**
+   * Generates a list of columns to extract.
+   * @param targetData The target data of the current row.
+   * @param params Parameters regulating sample width
+   */
+  private getColsForSelect(targetData: TargetData, params: ExplorerSelectParams = {}) {
+    const colList: string[] = [];
+    const referencedCols: ExplorerColumnEntity[] = [];
+    const prefix = params.prefix ? params.prefix : "";
+    for (const col of targetData.entity.columns) {
+      if (params.section && !col.sectionEnabled) {
+        continue;
+      }
+      if (params.object && !col.objectEnabled) {
+        continue;
+      }
+      if (col.type === "reference") {
+        referencedCols.push(col);
+      }
+      colList.push(prefix + col.property);
+    }
+    return { colList, referencedCols };
   }
 
   /**

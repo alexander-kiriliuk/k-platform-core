@@ -33,6 +33,7 @@ import { DataSource } from "typeorm";
 import { DbConfig } from "../gen-src/db.config";
 import { CacheModule } from "@shared/modules/cache/cache.module";
 import { CacheService } from "@shared/modules/cache/cache.types";
+import { ExplorerModule } from "@explorer/explorer.module";
 import readFile = FilesUtils.readFile;
 
 (async () => {
@@ -94,6 +95,7 @@ import readFile = FilesUtils.readFile;
         LogModule,
         FileModule.forRoot(),
         MediaModule.forRoot(),
+        ExplorerModule.forRoot(),
         TypeOrmModule.forRootAsync(Orm.getOptions(true))
       ]
     });

@@ -46,12 +46,33 @@ export interface ExplorerColumn {
   multiple: boolean;
   referencedTableName: string;
   referencedEntityName: string;
+  sectionPriority: number;
+  objectPriority: number;
+  sectionEnabled: boolean;
+  objectEnabled: boolean;
 }
 
 export interface TargetData {
   primaryColumn: ExplorerColumnEntity;
   entity: ExplorerTargetEntity;
 }
+
+export type ExplorerTargetParams = {
+  section?: boolean,
+  object?: boolean,
+  fullRelations?: boolean
+};
+
+export type ExplorerSelectParams = {
+  section?: boolean,
+  object?: boolean,
+  prefix?: string
+};
+
+export type ExplorerModuleOptions = {
+  service: Class<ExplorerService>;
+  entities: EntityClassOrSchema[];
+};
 
 export abstract class ExplorerService {
 
@@ -65,11 +86,6 @@ export abstract class ExplorerService {
 
   abstract getEntityData(target: string, rowId: string | number, maxDepth?: number): Promise<ObjectLiteral>;
 
-  abstract getTargetData(target: string, fullRelations?: boolean): Promise<TargetData>;
+  abstract getTargetData(target: string, params?: ExplorerTargetParams): Promise<TargetData>;
 
 }
-
-export type ExplorerModuleOptions = {
-  service: Class<ExplorerService>;
-  entities: EntityClassOrSchema[];
-};

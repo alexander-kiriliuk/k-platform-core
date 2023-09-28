@@ -71,5 +71,11 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   @Column("int", { name: "object_priority", default: 0, unsigned: true })
   objectPriority: number;
 
+  @Column("boolean", { default: true })
+  sectionEnabled: boolean;
+
+  @Column("boolean", { default: true })
+  objectEnabled: boolean;
+
 }
 

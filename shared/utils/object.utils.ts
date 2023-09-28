@@ -28,6 +28,13 @@ export namespace ObjectUtils {
   }
 
 
+  /**
+   * Sorts array of objects.
+   * @param obj - The object to sort.
+   * @param property - name of property by sorting
+   * @param vector - sorting order
+   * @returns A string representation of the object.
+   */
   export function sort<T = any>(obj: Array<T>, property: string, vector = true) {
     obj?.sort((a: T, b: T) => {
       if (!vector) {

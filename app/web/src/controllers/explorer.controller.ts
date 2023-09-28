@@ -14,10 +14,21 @@
  *    limitations under the License.
  */
 
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Query, UseGuards } from "@nestjs/common";
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+  Query,
+  UseGuards
+} from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { PageableParams } from "@shared/modules/pageable/pageable.types";
-import { ExplorerService } from "@explorer/explorer.types";
+import { ExplorerService, ExplorerTargetParams } from "@explorer/explorer.types";
 
 @Controller("/explorer")
 export class ExplorerController {
@@ -34,8 +45,15 @@ export class ExplorerController {
 
   @UseGuards(AuthGuard)
   @Get("/target/:target")
-  async getTarget(@Param("target") target: string) {
-    const res = await this.explorerService.getTargetData(target, true);
+  async getTarget(@Param("target") target: string, @Query("type") type: "section" | "object") {
+    const params: ExplorerTargetParams = {
+      section: type === "section",
+      object: type === "object"
+    };
+    if (!params.section && !params.object) {
+      throw new BadRequestException();
+    }
+    const res = await this.explorerService.getTargetData(target, params);
     if (!res) {
       throw new NotFoundException();
     }
