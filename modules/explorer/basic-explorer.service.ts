@@ -170,7 +170,9 @@ export class BasicExplorerService extends ExplorerService {
    * @returns A Promise that resolves to the TargetData object, or null if not found.
    */
   async getTargetData(target: string, params: ExplorerTargetParams = {}): Promise<TargetData> {
-    const relations = params.fullRelations ? ["columns", "columns.name", "columns.name.lang"] : ["columns"];
+    const relations = !params.fullRelations ? ["columns"] : [
+      "name", "name.lang", "columns", "columns.name", "columns.name.lang"
+    ];
     const entity = await this.targetRep.findOne({
       where: [{ target }, { tableName: target }, { alias: target }], relations
     });

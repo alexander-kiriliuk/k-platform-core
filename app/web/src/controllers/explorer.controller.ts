@@ -48,7 +48,8 @@ export class ExplorerController {
   async getTarget(@Param("target") target: string, @Query("type") type: "section" | "object") {
     const params: ExplorerTargetParams = {
       section: type === "section",
-      object: type === "object"
+      object: type === "object",
+      fullRelations: true
     };
     if (!params.section && !params.object) {
       throw new BadRequestException();
