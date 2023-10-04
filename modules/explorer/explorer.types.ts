@@ -32,6 +32,7 @@ export interface ExplorerTarget {
   description: LocalizedString[];
   icon: MediaEntity;
   columns: ExplorerColumnEntity[];
+  size?: number;
 }
 
 export interface ExplorerColumn {
@@ -87,5 +88,7 @@ export abstract class ExplorerService {
   abstract getEntityData(target: string, rowId: string | number, maxDepth?: number): Promise<ObjectLiteral>;
 
   abstract getTargetData(target: string, params?: ExplorerTargetParams): Promise<TargetData>;
+
+  abstract getTargetList(): Promise<ExplorerTarget[]>;
 
 }

@@ -38,9 +38,9 @@ export class ExplorerController {
   }
 
   @UseGuards(AuthGuard)
-  @Get("/pageable/:target")
-  async list(@Param("target") target: string, @Query() params: PageableParams) {
-    return await this.explorerService.getPageableEntityData(target, params);
+  @Get("/target-list")
+  async getTargetList() {
+    return await this.explorerService.getTargetList();
   }
 
   @UseGuards(AuthGuard)
@@ -69,6 +69,12 @@ export class ExplorerController {
       throw new NotFoundException();
     }
     return res;
+  }
+
+  @UseGuards(AuthGuard)
+  @Get("/pageable/:target")
+  async getEntityList(@Param("target") target: string, @Query() params: PageableParams) {
+    return await this.explorerService.getPageableEntityData(target, params);
   }
 
   @UseGuards(AuthGuard)

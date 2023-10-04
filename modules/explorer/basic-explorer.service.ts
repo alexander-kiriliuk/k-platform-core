@@ -24,6 +24,7 @@ import {
   ExplorerColumn,
   ExplorerSelectParams,
   ExplorerService,
+  ExplorerTarget,
   ExplorerTargetParams,
   TargetData
 } from "./explorer.types";
@@ -34,6 +35,7 @@ import { LOGGER } from "@shared/modules/log/log.constants";
 import { PageableData, PageableParams, SortOrder } from "@shared/modules/pageable/pageable.types";
 import { TransformUtils } from "@shared/utils/transform.utils";
 import { ObjectUtils } from "@shared/utils/object.utils";
+import { Explorer } from "@explorer/explorer.constants";
 import parseParamsString = TransformUtils.parseParamsString;
 
 /**
@@ -121,6 +123,18 @@ export class BasicExplorerService extends ExplorerService {
       entity = repository.create(entity) as T;
     }
     return await this.saveNestedEntities(entity, targetData, repository);
+  }
+
+  /**
+   * Getting all registered targets with count items inside.
+   */
+  async getTargetList(): Promise<ExplorerTarget[]> {
+    const res: ExplorerTarget[] = await this.targetRep.find({ relations: Explorer.TARGET_RELATIONS });
+    for (const v of res) {
+      const rep = this.connection.getRepository(v.target);
+      v.size = await rep.count();
+    }
+    return res;
   }
 
   /**
