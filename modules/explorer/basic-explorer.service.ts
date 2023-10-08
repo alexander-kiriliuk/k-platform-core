@@ -185,7 +185,9 @@ export class BasicExplorerService extends ExplorerService {
    */
   async getTargetData(target: string, params: ExplorerTargetParams = {}): Promise<TargetData> {
     const relations = !params.fullRelations ? ["columns"] : [
-      "name", "name.lang", "columns", "columns.name", "columns.name.lang"
+      "name", "name.lang",
+      "icon", "icon.name", "icon.name.lang", "icon.files", "icon.files.format", "icon.type", "icon.type.ext",
+      "columns", "columns.name", "columns.name.lang"
     ];
     const entity = await this.targetRep.findOne({
       where: [{ target }, { tableName: target }, { alias: target }], relations
