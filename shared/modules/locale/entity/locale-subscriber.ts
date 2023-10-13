@@ -19,12 +19,13 @@ import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-s
 import { Inject, Injectable, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { InjectDataSource } from "@nestjs/typeorm";
+import { LocalizedMediaEntity } from "@shared/modules/locale/entity/localized-media.entity";
 
 /**
  * LocaleSubscriber is an EntitySubscriber that listens to removal events
- * for entities that have relationships with LocalizedStringEntity.
+ * for entities that have relationships with LocalizedStringEntity or LocalizedMediaEntity.
  * When such an entity is removed, LocaleSubscriber will also remove
- * the associated LocalizedStringEntity instances.
+ * the associated LocalizedStringEntity or LocalizedMediaEntity instances.
  *
  * @example
  * class MyEntity {
@@ -82,5 +83,24 @@ export class LocaleSubscriber implements EntitySubscriberInterface {
         }
       }
     }
+
+    const localizedMediaProperties = Object.values(entity).filter(value => {
+      return (
+        Array.isArray(value) &&
+        value.length > 0 &&
+        value[0] instanceof LocalizedMediaEntity
+      );
+    });
+    if (localizedMediaProperties.length > 0) {
+      this.logger.verbose(`Removing related LocalizedMediaEntity entities for ${entity.constructor.name} with ID ${event.entityId}`);
+      for (const relatedEntities of localizedMediaProperties as LocalizedMediaEntity[][]) {
+        for (const relatedEntity of relatedEntities) {
+          this.logger.verbose(`Removing LocalizedMediaEntity with ID ${relatedEntity.id}`);
+          await event.manager.remove(relatedEntity);
+          this.logger.verbose(`LocalizedMediaEntity with ID ${relatedEntity.id} removed`);
+        }
+      }
+    }
   }
+
 }
