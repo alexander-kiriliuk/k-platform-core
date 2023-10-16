@@ -28,7 +28,7 @@ import {
 } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { PageableParams } from "@shared/modules/pageable/pageable.types";
-import { ExplorerService, ExplorerTargetParams } from "@explorer/explorer.types";
+import { ExplorerService, ExplorerTarget, ExplorerTargetParams } from "@explorer/explorer.types";
 
 @Controller("/explorer")
 export class ExplorerController {
@@ -41,6 +41,12 @@ export class ExplorerController {
   @Get("/target-list")
   async getTargetList() {
     return await this.explorerService.getTargetList();
+  }
+
+  @UseGuards(AuthGuard)
+  @Post("/target")
+  async saveTarget(@Body() target: ExplorerTarget) {
+    return await this.explorerService.changeTarget(target);
   }
 
   @UseGuards(AuthGuard)

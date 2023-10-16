@@ -91,4 +91,6 @@ export abstract class ExplorerService {
 
   abstract getTargetList(): Promise<ExplorerTarget[]>;
 
+  abstract changeTarget(target: ExplorerTarget): Promise<ExplorerTarget>;
+
 }

@@ -126,6 +126,14 @@ export class BasicExplorerService extends ExplorerService {
   }
 
   /**
+   * Change target data
+   * @param target - data of the target entity.
+   */
+  async changeTarget(target: ExplorerTarget) {
+    return await this.targetRep.save(target);
+  }
+
+  /**
    * Getting all registered targets with count items inside.
    */
   async getTargetList(): Promise<ExplorerTarget[]> {
