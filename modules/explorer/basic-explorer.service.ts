@@ -37,6 +37,7 @@ import { TransformUtils } from "@shared/utils/transform.utils";
 import { ObjectUtils } from "@shared/utils/object.utils";
 import { Explorer } from "@explorer/explorer.constants";
 import parseParamsString = TransformUtils.parseParamsString;
+import TARGET_RELATIONS_FULL = Explorer.TARGET_RELATIONS_FULL;
 
 /**
  * Service for exploring and analyzing the database schema and relationships.
@@ -192,11 +193,7 @@ export class BasicExplorerService extends ExplorerService {
    * @returns A Promise that resolves to the TargetData object, or null if not found.
    */
   async getTargetData(target: string, params: ExplorerTargetParams = {}): Promise<TargetData> {
-    const relations = !params.fullRelations ? ["columns"] : [
-      "name", "name.lang",
-      "icon", "icon.name", "icon.name.lang", "icon.files", "icon.files.format", "icon.type", "icon.type.ext",
-      "columns", "columns.name", "columns.name.lang"
-    ];
+    const relations = !params.fullRelations ? ["columns"] : TARGET_RELATIONS_FULL;
     const entity = await this.targetRep.findOne({
       where: [{ target }, { tableName: target }, { alias: target }], relations
     });
@@ -512,9 +509,10 @@ export class BasicExplorerService extends ExplorerService {
       case "string":
       case "text":
       case "uuid":
-      case "simple-array":
       case "varchar":
       case "char":
+      case "simple-array":
+      case "simple-json":
       case "json":
       case "jsonb":
         return "string";

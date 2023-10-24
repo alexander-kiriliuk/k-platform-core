@@ -18,6 +18,7 @@ import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, PrimaryColumn 
 import { ExplorerTargetEntity } from "./explorer-target.entity";
 import { ExplorerColumn } from "../explorer.types";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { ExplorerColumnRendererEntity } from "@explorer/entity/explorer-column-renderer.entity";
 
 
 @Entity("explorer_columns")
@@ -71,11 +72,21 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   @Column("int", { name: "object_priority", default: 0, unsigned: true })
   objectPriority: number;
 
+  @Index()
   @Column("boolean", { default: true })
   sectionEnabled: boolean;
 
+  @Index()
   @Column("boolean", { default: true })
   objectEnabled: boolean;
+
+  @Index()
+  @ManyToOne(() => ExplorerColumnRendererEntity, t => t.code)
+  sectionRenderer: ExplorerColumnRendererEntity;
+
+  @Index()
+  @ManyToOne(() => ExplorerColumnRendererEntity, t => t.code)
+  objectRenderer: ExplorerColumnRendererEntity;
 
 }
 

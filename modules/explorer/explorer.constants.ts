@@ -22,4 +22,16 @@ export namespace Explorer {
     "icon", "icon.name", "icon.name.lang", "icon.files", "icon.files.format", "icon.type", "icon.type.ext"
   ];
 
+  export const TARGET_RELATIONS_FULL = [
+    "name", "name.lang",
+    "icon", "icon.name", "icon.name.lang", "icon.files", "icon.files.format", "icon.type", "icon.type.ext",
+    "columns", "columns.name", "columns.name.lang",
+    "columns.sectionRenderer", "columns.sectionRenderer.name", "columns.sectionRenderer.name.lang",
+    "columns.sectionRenderer.description", "columns.sectionRenderer.description.lang",
+    "columns.objectRenderer", "columns.objectRenderer.name", "columns.objectRenderer.name.lang",
+    "columns.objectRenderer.description", "columns.objectRenderer.description.lang"
+  ];
+
+  export type RendererType = "section" | "object";
+
 }

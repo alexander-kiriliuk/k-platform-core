@@ -35,6 +35,7 @@ import { LocalizedMediaEntity } from "@shared/modules/locale/entity/localized-me
 import { UserSubscriber } from "@user/entity/user.subscriber";
 import { TypeOrmModuleAsyncOptions } from "@nestjs/typeorm/dist/interfaces/typeorm-options.interface";
 import { CategoryEntity } from "@shared/modules/category/entity/category.entity";
+import { ExplorerColumnRendererEntity } from "@explorer/entity/explorer-column-renderer.entity";
 
 export namespace Orm {
 
@@ -63,6 +64,7 @@ export namespace Orm {
             FileEntity,
             ExplorerTargetEntity,
             ExplorerColumnEntity,
+            ExplorerColumnRendererEntity,
             LanguageEntity,
             LocalizedStringEntity,
             LocalizedMediaEntity,

@@ -22,6 +22,7 @@ import { PageableData, PageableParams } from "@shared/modules/pageable/pageable.
 import { ObjectLiteral } from "typeorm";
 import { Type as Class } from "@nestjs/common/interfaces/type.interface";
 import { EntityClassOrSchema } from "@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type";
+import { Explorer } from "@explorer/explorer.constants";
 
 export type ColumnDataType = "string" | "number" | "boolean" | "date" | "reference" | "unknown";
 
@@ -51,6 +52,16 @@ export interface ExplorerColumn {
   objectPriority: number;
   sectionEnabled: boolean;
   objectEnabled: boolean;
+  sectionRenderer: ExplorerColumnRenderer;
+  objectRenderer: ExplorerColumnRenderer;
+}
+
+export class ExplorerColumnRenderer {
+  code: string;
+  name: LocalizedString[];
+  description: LocalizedString[];
+  type: Explorer.RendererType;
+  params: object;
 }
 
 export interface TargetData {
