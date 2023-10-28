@@ -36,6 +36,7 @@ import { PageableData, PageableParams, SortOrder } from "@shared/modules/pageabl
 import { TransformUtils } from "@shared/utils/transform.utils";
 import { ObjectUtils } from "@shared/utils/object.utils";
 import { Explorer } from "@explorer/explorer.constants";
+import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import parseParamsString = TransformUtils.parseParamsString;
 import TARGET_RELATIONS_FULL = Explorer.TARGET_RELATIONS_FULL;
 
@@ -103,8 +104,29 @@ export class BasicExplorerService extends ExplorerService {
         t.columns.push(c);
         await this.saveColumn(c);
       }
+      await this.detectAndMarkNamedColumn(t);
     }
     this.logger.log(`Database was analyzed`);
+  }
+
+  /**
+   * Defines a suitable column that can be used for naming.
+   * @param target The target entity with columns
+   */
+  private async detectAndMarkNamedColumn(target: ExplorerTargetEntity) {
+    let namedCol = target.columns.find(c => c.named);
+    if (namedCol) {
+      return;
+    }
+    namedCol = target.columns.find(c => c.referencedEntityName === LocalizedStringEntity.name);
+    if (!namedCol) {
+      namedCol = target.columns.find(c => c.unique && c.type === "string");
+    }
+    if (!namedCol) {
+      namedCol = target.columns.find(c => c.primary);
+    }
+    namedCol.named = true;
+    await this.columnRep.save(namedCol);
   }
 
   /**
@@ -208,7 +230,8 @@ export class BasicExplorerService extends ExplorerService {
       ObjectUtils.sort(entity.columns, "objectPriority");
     }
     const primaryColumn = entity.columns.find(c => c.primary === true);
-    return { entity, primaryColumn };
+    const namedColumn = entity.columns.find(c => c.named === true);
+    return { entity, primaryColumn, namedColumn };
   }
 
   /**

@@ -46,6 +46,7 @@ export interface ExplorerColumn {
   unique: boolean;
   type: ColumnDataType | string;
   multiple: boolean;
+  named: boolean;
   referencedTableName: string;
   referencedEntityName: string;
   sectionPriority: number;
@@ -66,6 +67,7 @@ export class ExplorerColumnRenderer {
 
 export interface TargetData {
   primaryColumn: ExplorerColumnEntity;
+  namedColumn: ExplorerColumnEntity;
   entity: ExplorerTargetEntity;
 }
 

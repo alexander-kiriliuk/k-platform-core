@@ -46,6 +46,7 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   @Column("text", { nullable: false })
   type: string;
 
+  @Index()
   @Column("boolean", { default: false })
   primary: boolean;
 
@@ -53,8 +54,13 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   @Column("boolean", { default: false })
   unique: boolean;
 
+  @Index()
   @Column("boolean", { default: false })
   multiple: boolean;
+
+  @Index()
+  @Column("boolean", { default: false })
+  named: boolean;
 
   @Index()
   @Column("varchar", { name: "referenced_entity_name", nullable: true })
