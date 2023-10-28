@@ -110,26 +110,6 @@ export class BasicExplorerService extends ExplorerService {
   }
 
   /**
-   * Defines a suitable column that can be used for naming.
-   * @param target The target entity with columns
-   */
-  private async detectAndMarkNamedColumn(target: ExplorerTargetEntity) {
-    let namedCol = target.columns.find(c => c.named);
-    if (namedCol) {
-      return;
-    }
-    namedCol = target.columns.find(c => c.referencedEntityName === LocalizedStringEntity.name);
-    if (!namedCol) {
-      namedCol = target.columns.find(c => c.unique && c.type === "string");
-    }
-    if (!namedCol) {
-      namedCol = target.columns.find(c => c.primary);
-    }
-    namedCol.named = true;
-    await this.columnRep.save(namedCol);
-  }
-
-  /**
    * Save or update an entity including its nested entities.
    * @param target - The name of the target entity.
    * @param entity - The entity object to be saved or updated.
@@ -312,6 +292,26 @@ export class BasicExplorerService extends ExplorerService {
         }
       }
     }
+  }
+
+  /**
+   * Defines a suitable column that can be used for naming.
+   * @param target The target entity with columns
+   */
+  private async detectAndMarkNamedColumn(target: ExplorerTargetEntity) {
+    let namedCol = target.columns.find(c => c.named);
+    if (namedCol) {
+      return;
+    }
+    namedCol = target.columns.find(c => c.referencedEntityName === LocalizedStringEntity.name);
+    if (!namedCol) {
+      namedCol = target.columns.find(c => c.unique && c.type === "string");
+    }
+    if (!namedCol) {
+      namedCol = target.columns.find(c => c.primary);
+    }
+    namedCol.named = true;
+    await this.columnRep.save(namedCol);
   }
 
   /**
