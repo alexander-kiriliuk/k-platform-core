@@ -483,7 +483,7 @@
         </row>
         <row>
             <code>a-menu-category</code>
-            <url>/system/category</url>
+            <url>/section/categories</url>
             <attrs>pi pi-sitemap</attrs>
             <parent key="code">a-menu-system</parent>
             <priority>302</priority>
