@@ -84,7 +84,7 @@ export class AuthorizationService extends AuthService {
     const accessToken = this.jwtService.sign({ login: user.login });
     const atExp = await this.getAccessTokenExp();
     await this.cacheService.set(jwtAccessTokenKey(accessToken), user.login, atExp);
-    const refreshToken = uuidv4();
+    const refreshToken = this.jwtService.sign({ rt: uuidv4() });
     const rtExp = await this.getRefreshTokenExp();
     await this.cacheService.set(jwtRefreshTokenKey(accessToken, refreshToken), user.login, rtExp);
     const atExpDate = new Date();
@@ -135,7 +135,7 @@ export class AuthorizationService extends AuthService {
     const accessToken = this.jwtService.sign({ login: userLogin });
     const atExp = await this.getAccessTokenExp();
     await this.cacheService.set(jwtAccessTokenKey(accessToken), userLogin, atExp);
-    const newRefreshToken = uuidv4();
+    const newRefreshToken = this.jwtService.sign({ rt: uuidv4() });
     const rtExp = await this.getRefreshTokenExp();
     await this.cacheService.set(
       `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${accessToken}:${newRefreshToken}`, userLogin, rtExp
