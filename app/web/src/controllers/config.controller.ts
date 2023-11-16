@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Post, Query, UseGuards } from "@nestjs/common";
 import { PageableParams } from "@shared/modules/pageable/pageable.types";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { ConfigItem } from "@config/config.types";
@@ -41,8 +41,8 @@ export class ConfigController {
   }
 
   @UseGuards(AuthGuard)
-  @Delete("/:key")
-  async removeProperty(@Param("key") key: string) {
+  @Delete("/")
+  async removeProperty(@Query("key") key: string) {
     return await this.configService.removeProperty(key);
   }
 
