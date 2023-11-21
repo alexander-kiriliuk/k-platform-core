@@ -248,7 +248,7 @@ export class BasicExplorerService extends ExplorerService {
       .getManyAndCount();
     const itemsWithRelations = await Promise.all(
       items.map(async item =>
-        await this.attachRelations(item, targetData, { section: true }, [], 2)
+        await this.attachRelations(item, targetData, { section: true }, [], 3)
       )
     );
     return new PageableData(itemsWithRelations, totalCount, page, limit);
