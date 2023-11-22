@@ -657,6 +657,106 @@
             <code>ex-localized-string-name-en</code>
             <value>Localized strings</value>
         </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-string-section-renderer-name-ru</code>
+            <value>String-section рендерер</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-string-section-renderer-name-en</code>
+            <value>String-section renderer</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-boolean-section-renderer-name-ru</code>
+            <value>Boolean-section рендерер</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-boolean-section-renderer-name-en</code>
+            <value>Boolean-section renderer</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-date-section-renderer-name-en</code>
+            <value>Date-section renderer</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-date-section-renderer-name-ru</code>
+            <value>Date-section рендерер</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-media-section-renderer-name-en</code>
+            <value>Media-section renderer</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-media-section-renderer-name-ru</code>
+            <value>Media-section рендерер</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-reference-section-renderer-name-en</code>
+            <value>Reference-section renderer</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-reference-section-renderer-name-ru</code>
+            <value>Reference-section рендерер</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-string-object-renderer-name-ru</code>
+            <value>String-object рендерер</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-string-object-renderer-name-en</code>
+            <value>String-object renderer</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-boolean-object-renderer-name-ru</code>
+            <value>Boolean-object рендерер</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-boolean-object-renderer-name-en</code>
+            <value>Boolean-object renderer</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-date-object-renderer-name-en</code>
+            <value>Date-object renderer</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-date-object-renderer-name-ru</code>
+            <value>Date-object рендерер</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-media-object-renderer-name-en</code>
+            <value>Media-object renderer</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-media-object-renderer-name-ru</code>
+            <value>Media-object рендерер</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-reference-object-renderer-name-en</code>
+            <value>Reference-object renderer</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-reference-object-renderer-name-ru</code>
+            <value>Reference-object рендерер</value>
+        </row>
     </InsertUpdate>
 
     <InsertUpdate target="ExplorerTargetEntity">
@@ -771,6 +871,89 @@
             <id>users.password</id>
             <sectionEnabled>false</sectionEnabled>
             <objectEnabled>false</objectEnabled>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnRendererEntity">
+        <row>
+            <code>string-section-renderer</code>
+            <type>section</type>
+            <name key="code">
+                <row>ex-string-section-renderer-name-ru</row>
+                <row>ex-string-section-renderer-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>boolean-section-renderer</code>
+            <type>section</type>
+            <name key="code">
+                <row>ex-boolean-section-renderer-name-ru</row>
+                <row>ex-boolean-section-renderer-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>date-section-renderer</code>
+            <type>section</type>
+            <name key="code">
+                <row>ex-date-section-renderer-name-ru</row>
+                <row>ex-date-section-renderer-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>media-section-renderer</code>
+            <type>section</type>
+            <name key="code">
+                <row>ex-media-section-renderer-name-ru</row>
+                <row>ex-media-section-renderer-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>reference-section-renderer</code>
+            <type>section</type>
+            <name key="code">
+                <row>ex-reference-section-renderer-name-ru</row>
+                <row>ex-reference-section-renderer-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>string-object-renderer</code>
+            <type>object</type>
+            <name key="code">
+                <row>ex-string-object-renderer-name-ru</row>
+                <row>ex-string-object-renderer-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>boolean-object-renderer</code>
+            <type>object</type>
+            <name key="code">
+                <row>ex-boolean-object-renderer-name-ru</row>
+                <row>ex-boolean-object-renderer-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>date-object-renderer</code>
+            <type>object</type>
+            <name key="code">
+                <row>ex-date-object-renderer-name-ru</row>
+                <row>ex-date-object-renderer-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>media-object-renderer</code>
+            <type>object</type>
+            <name key="code">
+                <row>ex-media-object-renderer-name-ru</row>
+                <row>ex-media-object-renderer-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>reference-object-renderer</code>
+            <type>object</type>
+            <name key="code">
+                <row>ex-reference-object-renderer-name-ru</row>
+                <row>ex-reference-object-renderer-name-en</row>
+            </name>
         </row>
     </InsertUpdate>
 
