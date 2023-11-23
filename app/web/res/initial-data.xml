@@ -866,14 +866,6 @@
         </row>
     </InsertUpdate>
 
-    <InsertUpdate target="ExplorerColumnEntity">
-        <row>
-            <id>users.password</id>
-            <sectionEnabled>false</sectionEnabled>
-            <objectEnabled>false</objectEnabled>
-        </row>
-    </InsertUpdate>
-
     <InsertUpdate target="ExplorerColumnRendererEntity">
         <row>
             <code>string-section-renderer</code>
@@ -954,6 +946,48 @@
                 <row>ex-reference-object-renderer-name-ru</row>
                 <row>ex-reference-object-renderer-name-en</row>
             </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-virtual-media-column-renderer-name-en</code>
+            <value>Virtual column media renderer</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-virtual-media-column-renderer-name-ru</code>
+            <value>Виртуальная колонка медиа рендерер</value>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnRendererEntity">
+        <row>
+            <code>virtual-media-column-section-renderer</code>
+            <type>section</type>
+            <name key="code">
+                <row>ex-virtual-media-column-renderer-name-en</row>
+                <row>ex-virtual-media-column-renderer-name-ru</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>users.password</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>false</objectEnabled>
+        </row>
+        <row>
+            <target>MediaEntity</target>
+            <id>medias.preview_virtual</id>
+            <sectionPriority>150</sectionPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <sectionRenderer key="code">virtual-media-column-section-renderer</sectionRenderer>
+            <virtual>true</virtual>
+            <type>unknown</type>
+            <property>previewVirtual</property>
         </row>
     </InsertUpdate>
 
