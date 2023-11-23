@@ -447,6 +447,9 @@ export class BasicExplorerService extends ExplorerService {
     const referencedCols: ExplorerColumnEntity[] = [];
     const prefix = params.prefix ? params.prefix : "";
     for (const col of targetData.entity.columns) {
+      if (col.virtual) {
+        continue;
+      }
       if (params.section && !col.sectionEnabled) {
         continue;
       }

@@ -45,6 +45,7 @@ export interface ExplorerColumn {
   primary: boolean;
   unique: boolean;
   type: ColumnDataType | string;
+  virtual: boolean;
   multiple: boolean;
   named: boolean;
   referencedTableName: string;

@@ -48,6 +48,10 @@ export class ExplorerColumnEntity implements ExplorerColumn {
 
   @Index()
   @Column("boolean", { default: false })
+  virtual: boolean;
+
+  @Index()
+  @Column("boolean", { default: false })
   primary: boolean;
 
   @Index()

@@ -14,18 +14,7 @@
  *    limitations under the License.
  */
 
-import {
-  BadRequestException,
-  Body,
-  Controller,
-  Delete,
-  Get,
-  NotFoundException,
-  Param,
-  Post,
-  Query,
-  UseGuards
-} from "@nestjs/common";
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Query, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { PageableParams } from "@shared/modules/pageable/pageable.types";
 import { ExplorerService, ExplorerTarget, ExplorerTargetParams } from "@explorer/explorer.types";
@@ -57,9 +46,6 @@ export class ExplorerController {
       object: type === "object",
       fullRelations: true
     };
-    if (!params.section && !params.object) {
-      throw new BadRequestException();
-    }
     const res = await this.explorerService.getTargetData(target, params);
     if (!res) {
       throw new NotFoundException();
