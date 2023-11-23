@@ -98,5 +98,11 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   @ManyToOne(() => ExplorerColumnRendererEntity, t => t.code)
   objectRenderer: ExplorerColumnRendererEntity;
 
+  @Column("simple-json", { name: "section_renderer_params", nullable: true, default: null })
+  sectionRendererParams: object;
+
+  @Column("simple-json", { name: "object_renderer_params", nullable: true, default: null })
+  objectRendererParams: object;
+
 }
 
