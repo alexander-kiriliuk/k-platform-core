@@ -18,6 +18,7 @@ import { Column, Entity, Index, JoinTable, ManyToMany, PrimaryColumn } from "typ
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { Explorer } from "@explorer/explorer.constants";
 import { ExplorerColumnRenderer } from "@explorer/explorer.types";
+import { SimpleJsonTransformer } from "@shared/transformer/simple-json.transformer";
 
 @Entity("explorer_column_renderer")
 export class ExplorerColumnRendererEntity implements ExplorerColumnRenderer {
@@ -42,7 +43,7 @@ export class ExplorerColumnRendererEntity implements ExplorerColumnRenderer {
   })
   type: Explorer.RendererType;
 
-  @Column("simple-json", { nullable: true, default: null })
+  @Column("simple-json", { transformer: SimpleJsonTransformer, nullable: true, default: null })
   params: object;
 
 }

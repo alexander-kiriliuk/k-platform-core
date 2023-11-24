@@ -19,6 +19,7 @@ import { ExplorerTargetEntity } from "./explorer-target.entity";
 import { ExplorerColumn } from "../explorer.types";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { ExplorerColumnRendererEntity } from "@explorer/entity/explorer-column-renderer.entity";
+import { SimpleJsonTransformer } from "@shared/transformer/simple-json.transformer";
 
 
 @Entity("explorer_columns")
@@ -98,10 +99,20 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   @ManyToOne(() => ExplorerColumnRendererEntity, t => t.code)
   objectRenderer: ExplorerColumnRendererEntity;
 
-  @Column("simple-json", { name: "section_renderer_params", nullable: true, default: null })
+  @Column("simple-json", {
+    transformer: SimpleJsonTransformer,
+    name: "section_renderer_params",
+    nullable: true,
+    default: null
+  })
   sectionRendererParams: object;
 
-  @Column("simple-json", { name: "object_renderer_params", nullable: true, default: null })
+  @Column("simple-json", {
+    transformer: SimpleJsonTransformer,
+    name: "object_renderer_params",
+    nullable: true,
+    default: null
+  })
   objectRendererParams: object;
 
 }
