@@ -56,6 +56,14 @@ export interface ExplorerColumn {
   objectEnabled: boolean;
   sectionRenderer: ExplorerColumnRenderer;
   objectRenderer: ExplorerColumnRenderer;
+  tab: ExplorerTab;
+}
+
+export interface ExplorerTab {
+  id: string;
+  name: LocalizedString[];
+  priority: number;
+  size: object;
 }
 
 export class ExplorerColumnRenderer {

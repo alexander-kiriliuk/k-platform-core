@@ -16,20 +16,27 @@
 
 export namespace Explorer {
 
-  export const TARGET_RELATIONS = [
+  export const TARGET_RELATIONS_BASIC = [
     "name", "name.lang",
     "description", "description.lang",
     "icon", "icon.name", "icon.name.lang", "icon.files", "icon.files.format", "icon.type", "icon.type.ext"
   ];
 
-  export const TARGET_RELATIONS_FULL = [
+  export const TARGET_RELATIONS_OBJECT = [
+    "name", "name.lang",
+    "icon", "icon.name", "icon.name.lang", "icon.files", "icon.files.format", "icon.type", "icon.type.ext",
+    "columns", "columns.name", "columns.name.lang",
+    "columns.objectRenderer", "columns.objectRenderer.name", "columns.objectRenderer.name.lang",
+    "columns.objectRenderer.description", "columns.objectRenderer.description.lang",
+    "columns.tab"
+  ];
+
+  export const TARGET_RELATIONS_SECTION = [
     "name", "name.lang",
     "icon", "icon.name", "icon.name.lang", "icon.files", "icon.files.format", "icon.type", "icon.type.ext",
     "columns", "columns.name", "columns.name.lang",
     "columns.sectionRenderer", "columns.sectionRenderer.name", "columns.sectionRenderer.name.lang",
-    "columns.sectionRenderer.description", "columns.sectionRenderer.description.lang",
-    "columns.objectRenderer", "columns.objectRenderer.name", "columns.objectRenderer.name.lang",
-    "columns.objectRenderer.description", "columns.objectRenderer.description.lang"
+    "columns.sectionRenderer.description", "columns.sectionRenderer.description.lang"
   ];
 
   export type RendererType = "section" | "object";

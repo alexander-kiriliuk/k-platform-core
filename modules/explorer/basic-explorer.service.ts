@@ -38,7 +38,8 @@ import { ObjectUtils } from "@shared/utils/object.utils";
 import { Explorer } from "@explorer/explorer.constants";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import parseParamsString = TransformUtils.parseParamsString;
-import TARGET_RELATIONS_FULL = Explorer.TARGET_RELATIONS_FULL;
+import TARGET_RELATIONS_OBJECT = Explorer.TARGET_RELATIONS_OBJECT;
+import TARGET_RELATIONS_SECTION = Explorer.TARGET_RELATIONS_SECTION;
 
 /**
  * Service for exploring and analyzing the database schema and relationships.
@@ -140,7 +141,7 @@ export class BasicExplorerService extends ExplorerService {
    * Getting all registered targets with count items inside.
    */
   async getTargetList(): Promise<ExplorerTarget[]> {
-    const res: ExplorerTarget[] = await this.targetRep.find({ relations: Explorer.TARGET_RELATIONS });
+    const res: ExplorerTarget[] = await this.targetRep.find({ relations: Explorer.TARGET_RELATIONS_BASIC });
     for (const v of res) {
       const rep = this.connection.getRepository(v.target);
       v.size = await rep.count();
@@ -195,7 +196,7 @@ export class BasicExplorerService extends ExplorerService {
    * @returns A Promise that resolves to the TargetData object, or null if not found.
    */
   async getTargetData(target: string, params: ExplorerTargetParams = {}): Promise<TargetData> {
-    const relations = !params.fullRelations ? ["columns"] : TARGET_RELATIONS_FULL;
+    const relations = !params.fullRelations ? ["columns"] : params.section ? TARGET_RELATIONS_SECTION : TARGET_RELATIONS_OBJECT;
     const entity = await this.targetRep.findOne({
       where: [{ target }, { tableName: target }, { alias: target }], relations
     });
@@ -215,7 +216,7 @@ export class BasicExplorerService extends ExplorerService {
   }
 
   /**
-   * Retrieves paginated entity data with relations up to a depth of 2.
+   * Retrieves paginated entity data with relations.
    *
    * @param target - The name of the target entity or table.
    * @param params - An optional object containing pageable parameters.

@@ -20,6 +20,7 @@ import { ExplorerColumn } from "../explorer.types";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { ExplorerColumnRendererEntity } from "@explorer/entity/explorer-column-renderer.entity";
 import { SimpleJsonTransformer } from "@shared/transformer/simple-json.transformer";
+import { ExplorerTabEntity } from "@explorer/entity/explorer-tab.entity";
 
 
 @Entity("explorer_columns")
@@ -114,6 +115,9 @@ export class ExplorerColumnEntity implements ExplorerColumn {
     default: null
   })
   objectRendererParams: object;
+
+  @ManyToOne(() => ExplorerTabEntity, t => t.id)
+  tab: ExplorerTabEntity;
 
 }
 
