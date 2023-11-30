@@ -40,6 +40,7 @@ import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-s
 import parseParamsString = TransformUtils.parseParamsString;
 import TARGET_RELATIONS_OBJECT = Explorer.TARGET_RELATIONS_OBJECT;
 import TARGET_RELATIONS_SECTION = Explorer.TARGET_RELATIONS_SECTION;
+import TARGET_RELATIONS_FULL = Explorer.TARGET_RELATIONS_FULL;
 
 /**
  * Service for exploring and analyzing the database schema and relationships.
@@ -196,7 +197,14 @@ export class BasicExplorerService extends ExplorerService {
    * @returns A Promise that resolves to the TargetData object, or null if not found.
    */
   async getTargetData(target: string, params: ExplorerTargetParams = {}): Promise<TargetData> {
-    const relations = !params.fullRelations ? ["columns"] : params.section ? TARGET_RELATIONS_SECTION : TARGET_RELATIONS_OBJECT;
+    let relations = ["columns"];
+    if (params.fullRelations) {
+      if (!params.section || !params.object) {
+        relations = TARGET_RELATIONS_FULL;
+      } else {
+        relations = params.section ? TARGET_RELATIONS_SECTION : TARGET_RELATIONS_OBJECT;
+      }
+    }
     const entity = await this.targetRep.findOne({
       where: [{ target }, { tableName: target }, { alias: target }], relations
     });

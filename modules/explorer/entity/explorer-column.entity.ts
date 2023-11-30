@@ -85,12 +85,20 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   objectPriority: number;
 
   @Index()
-  @Column("boolean", { default: true })
+  @Column("boolean", { name: "section_enabled", default: true })
   sectionEnabled: boolean;
 
   @Index()
-  @Column("boolean", { default: true })
+  @Column("boolean", { name: "object_enabled", default: true })
   objectEnabled: boolean;
+
+  @Index()
+  @Column("boolean", { name: "section_visibility", default: true })
+  sectionVisibility: boolean;
+
+  @Index()
+  @Column("boolean", { name: "object_visibility", default: true })
+  objectVisibility: boolean;
 
   @Index()
   @ManyToOne(() => ExplorerColumnRendererEntity, t => t.code)
