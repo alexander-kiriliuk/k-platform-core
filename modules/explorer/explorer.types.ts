@@ -14,15 +14,13 @@
  *    limitations under the License.
  */
 
-import { MediaEntity } from "@media/entity/media.entity";
-import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
-import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
 import { PageableData, PageableParams } from "@shared/modules/pageable/pageable.types";
 import { ObjectLiteral } from "typeorm";
 import { Type as Class } from "@nestjs/common/interfaces/type.interface";
 import { EntityClassOrSchema } from "@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type";
 import { Explorer } from "@explorer/explorer.constants";
+import { Media } from "@media/media.types";
 
 export type ColumnDataType = "string" | "number" | "boolean" | "date" | "reference" | "unknown";
 
@@ -31,8 +29,8 @@ export interface ExplorerTarget {
   tableName: string;
   name: LocalizedString[];
   description: LocalizedString[];
-  icon: MediaEntity;
-  columns: ExplorerColumnEntity[];
+  icon: Media;
+  columns: ExplorerColumn[];
   size?: number;
 }
 
@@ -66,6 +64,7 @@ export interface ExplorerTab {
   name: LocalizedString[];
   priority: number;
   size: object;
+  target: ExplorerTarget;
 }
 
 export class ExplorerColumnRenderer {
@@ -77,9 +76,9 @@ export class ExplorerColumnRenderer {
 }
 
 export interface TargetData {
-  primaryColumn: ExplorerColumnEntity;
-  namedColumn: ExplorerColumnEntity;
-  entity: ExplorerTargetEntity;
+  primaryColumn: ExplorerColumn;
+  namedColumn: ExplorerColumn;
+  entity: ExplorerTarget;
 }
 
 export type ExplorerTargetParams = {
