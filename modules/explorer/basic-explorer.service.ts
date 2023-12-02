@@ -453,7 +453,7 @@ export class BasicExplorerService extends ExplorerService {
    */
   private getColsForSelect(targetData: TargetData, params: ExplorerSelectParams = {}) {
     const colList: string[] = [];
-    const referencedCols: ExplorerColumnEntity[] = [];
+    const referencedCols: ExplorerColumn[] = [];
     const prefix = params.prefix ? params.prefix : "";
     for (const col of targetData.entity.columns) {
       if (col.virtual) {
