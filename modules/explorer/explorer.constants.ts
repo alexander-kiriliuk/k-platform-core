@@ -30,7 +30,7 @@ export namespace Explorer {
     "columns.objectRenderer.description", "columns.objectRenderer.description.lang",
     "columns.sectionRenderer", "columns.sectionRenderer.name", "columns.sectionRenderer.name.lang",
     "columns.sectionRenderer.description", "columns.sectionRenderer.description.lang",
-    "columns.tab"
+    "columns.tab", "columns.tab.name", "columns.tab.name.lang"
   ];
 
   export const TARGET_RELATIONS_OBJECT = [
@@ -39,7 +39,7 @@ export namespace Explorer {
     "columns", "columns.name", "columns.name.lang",
     "columns.objectRenderer", "columns.objectRenderer.name", "columns.objectRenderer.name.lang",
     "columns.objectRenderer.description", "columns.objectRenderer.description.lang",
-    "columns.tab"
+    "columns.tab", "columns.tab.name", "columns.tab.name.lang"
   ];
 
   export const TARGET_RELATIONS_SECTION = [
