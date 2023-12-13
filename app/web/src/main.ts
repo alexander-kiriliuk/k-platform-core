@@ -31,6 +31,7 @@ import helmet from "helmet";
 import * as express from "express";
 import { NextFunction, Request, Response } from "express";
 import * as cookieParser from "cookie-parser";
+import { DbExceptionFilter } from "@shared/filter/db-exception-filter";
 
 (async () => {
   const server = express();
@@ -49,6 +50,7 @@ import * as cookieParser from "cookie-parser";
   app.useGlobalInterceptors(
     new ClassSerializerInterceptor(app.get(Reflector))
   );
+  app.useGlobalFilters(new DbExceptionFilter());
   const cacheService: CacheService = app.select(CacheModule).get(CacheService);
   const crossOriginResourcePolicy = await cacheService.get(CorsConfig.RESOURCE_POLICY);
   app.use(helmet({
