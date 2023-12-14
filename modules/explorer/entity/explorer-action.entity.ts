@@ -17,11 +17,11 @@
 import { Column, Entity, Index, JoinTable, ManyToMany, PrimaryColumn } from "typeorm";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { Explorer } from "@explorer/explorer.constants";
-import { ExplorerColumnRenderer } from "@explorer/explorer.types";
+import { ExplorerAction } from "@explorer/explorer.types";
 import { SimpleJsonTransformer } from "@shared/transformer/simple-json.transformer";
 
-@Entity("explorer_column_renderers")
-export class ExplorerColumnRendererEntity implements ExplorerColumnRenderer {
+@Entity("explorer_actions")
+export class ExplorerActionEntity implements ExplorerAction {
 
   @PrimaryColumn("varchar")
   code: string;

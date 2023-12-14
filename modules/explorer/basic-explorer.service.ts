@@ -214,9 +214,11 @@ export class BasicExplorerService extends ExplorerService {
     if (params.section) {
       entity.columns = entity.columns.filter(c => c.sectionEnabled);
       ObjectUtils.sort(entity.columns, "sectionPriority");
+      entity.actions = entity.actions?.filter(a => a.type === "section");
     } else if (params.object) {
       entity.columns = entity.columns.filter(c => c.objectEnabled);
       ObjectUtils.sort(entity.columns, "objectPriority");
+      entity.actions = entity.actions?.filter(a => a.type === "object");
     }
     const primaryColumn = entity.columns.find(c => c.primary === true);
     const namedColumn = entity.columns.find(c => c.named === true);

@@ -17,8 +17,9 @@
 import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 import { ExplorerColumnEntity } from "./explorer-column.entity";
 import { MediaEntity } from "@media/entity/media.entity";
-import { ExplorerTarget } from "../explorer.types";
+import { ExplorerAction, ExplorerTarget } from "../explorer.types";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { ExplorerActionEntity } from "@explorer/entity/explorer-action.entity";
 
 
 @Entity("explorer_targets")
@@ -48,6 +49,10 @@ export class ExplorerTargetEntity implements ExplorerTarget {
 
   @OneToMany(() => ExplorerColumnEntity, c => c.target, { cascade: true })
   columns: ExplorerColumnEntity[];
+
+  @ManyToMany(() => ExplorerActionEntity)
+  @JoinTable()
+  actions: ExplorerAction[];
 
 }
 

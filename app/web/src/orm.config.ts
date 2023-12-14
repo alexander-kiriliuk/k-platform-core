@@ -37,6 +37,7 @@ import { TypeOrmModuleAsyncOptions } from "@nestjs/typeorm/dist/interfaces/typeo
 import { CategoryEntity } from "@shared/modules/category/entity/category.entity";
 import { ExplorerColumnRendererEntity } from "@explorer/entity/explorer-column-renderer.entity";
 import { ExplorerTabEntity } from "@explorer/entity/explorer-tab.entity";
+import { ExplorerActionEntity } from "@explorer/entity/explorer-action.entity";
 
 export namespace Orm {
 
@@ -67,6 +68,7 @@ export namespace Orm {
             ExplorerColumnEntity,
             ExplorerTabEntity,
             ExplorerColumnRendererEntity,
+            ExplorerActionEntity,
             LanguageEntity,
             LocalizedStringEntity,
             LocalizedMediaEntity,

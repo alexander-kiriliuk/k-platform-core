@@ -31,6 +31,7 @@ export interface ExplorerTarget {
   description: LocalizedString[];
   icon: Media;
   columns: ExplorerColumn[];
+  actions: ExplorerAction[];
   size?: number;
 }
 
@@ -71,7 +72,15 @@ export class ExplorerColumnRenderer {
   code: string;
   name: LocalizedString[];
   description: LocalizedString[];
-  type: Explorer.RendererType;
+  type: Explorer.Variation;
+  params: object;
+}
+
+export class ExplorerAction {
+  code: string;
+  name: LocalizedString[];
+  description: LocalizedString[];
+  type: Explorer.Variation;
   params: object;
 }
 

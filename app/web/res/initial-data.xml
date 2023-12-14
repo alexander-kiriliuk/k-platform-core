@@ -1027,4 +1027,56 @@
         </row>
     </InsertUpdate>
 
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-recreate-media-files-object-action-name-ru</code>
+            <value>Пересоздать миниатюры</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-recreate-media-files-object-action-name-en</code>
+            <value>Recreate thumbs</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-create-media-files-section-action-name-ru</code>
+            <value>Новый медиа</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-create-media-files-section-action-name-en</code>
+            <value>New media</value>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerActionEntity">
+        <row>
+            <code>recreate-media-files-object-action</code>
+            <type>object</type>
+            <name key="code">
+                <row>ex-recreate-media-files-object-action-name-en</row>
+                <row>ex-recreate-media-files-object-action-name-ru</row>
+            </name>
+        </row>
+        <row>
+            <code>create-media-files-section-action</code>
+            <type>section</type>
+            <name key="code">
+                <row>ex-create-media-files-section-action-name-en</row>
+                <row>ex-create-media-files-section-action-name-ru</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTargetEntity">
+        <row>
+            <target>MediaEntity</target>
+            <actions key="code">
+                <row>recreate-media-files-object-action</row>
+                <row>create-media-files-section-action</row>
+            </actions>
+        </row>
+    </InsertUpdate>
+
 </schema>
