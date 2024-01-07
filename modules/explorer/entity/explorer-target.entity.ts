@@ -54,5 +54,17 @@ export class ExplorerTargetEntity implements ExplorerTarget {
   @JoinTable()
   actions: ExplorerAction[];
 
+  @Index()
+  @Column("boolean", { name: "default_action_create", default: true, nullable: true })
+  defaultActionCreate: boolean;
+
+  @Index()
+  @Column("boolean", { name: "default_action_save", default: true, nullable: true })
+  defaultActionSave: boolean;
+
+  @Index()
+  @Column("boolean", { name: "default_action_delete", default: true, nullable: true })
+  defaultActionDelete: boolean;
+
 }
 

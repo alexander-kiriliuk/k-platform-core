@@ -220,6 +220,7 @@ export class BasicExplorerService extends ExplorerService {
       ObjectUtils.sort(entity.columns, "objectPriority");
       entity.actions = entity.actions?.filter(a => a.type === "object");
     }
+    ObjectUtils.sort(entity.actions, "priority");
     const primaryColumn = entity.columns.find(c => c.primary === true);
     const namedColumn = entity.columns.find(c => c.named === true);
     return { entity, primaryColumn, namedColumn };

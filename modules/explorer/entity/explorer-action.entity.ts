@@ -45,6 +45,10 @@ export class ExplorerActionEntity implements ExplorerAction {
 
   @Column("simple-json", { transformer: SimpleJsonTransformer, nullable: true, default: null })
   params: object;
+  @Index()
+
+  @Column("int", { default: 0, unsigned: true })
+  priority: number;
 
 }
 

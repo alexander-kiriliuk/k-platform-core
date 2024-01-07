@@ -996,6 +996,16 @@
             <code>ex-virtual-media-column-renderer-name-ru</code>
             <value>Виртуальная колонка медиа рендерер</value>
         </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-images-stats-media-object-renderer-name-en</code>
+            <value>Media contents</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-images-stats-media-object-renderer-name-ru</code>
+            <value>Набор изображений</value>
+        </row>
     </InsertUpdate>
 
     <InsertUpdate target="ExplorerColumnRendererEntity">
@@ -1007,6 +1017,14 @@
                 <row>ex-virtual-media-column-renderer-name-ru</row>
             </name>
         </row>
+        <row>
+            <code>images-stats-media-object-renderer</code>
+            <type>object</type>
+            <name key="code">
+                <row>ex-images-stats-media-object-renderer-name-en</row>
+                <row>ex-images-stats-media-object-renderer-name-ru</row>
+            </name>
+        </row>
     </InsertUpdate>
 
     <InsertUpdate target="ExplorerColumnEntity">
@@ -1016,14 +1034,54 @@
             <objectEnabled>false</objectEnabled>
         </row>
         <row>
+            <id>medias.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+        </row>
+        <row>
+            <id>medias.type</id>
+            <sectionPriority>90</sectionPriority>
+            <objectPriority>90</objectPriority>
+        </row>
+        <row>
+            <id>medias.code</id>
+            <sectionPriority>80</sectionPriority>
+            <objectPriority>95</objectPriority>
+        </row>
+        <row>
+            <id>medias.files</id>
+            <sectionVisibility>false</sectionVisibility>
+            <objectEnabled>false</objectEnabled>
+        </row>
+        <row>
+            <id>medias.ts_created</id>
+            <sectionVisibility>false</sectionVisibility>
+            <objectEnabled>false</objectEnabled>
+        </row>
+        <row>
+            <id>medias.images_stats</id>
+            <sectionEnabled>false</sectionEnabled>
+        </row>
+        <row>
             <target>MediaEntity</target>
             <id>medias.preview_virtual</id>
             <sectionPriority>150</sectionPriority>
             <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>false</objectEnabled>
             <sectionRenderer key="code">virtual-media-column-section-renderer</sectionRenderer>
             <virtual>true</virtual>
             <type>unknown</type>
             <property>previewVirtual</property>
+        </row>
+        <row>
+            <target>MediaEntity</target>
+            <id>medias.images_stats</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <objectRenderer key="code">images-stats-media-object-renderer</objectRenderer>
+            <virtual>true</virtual>
+            <type>unknown</type>
+            <property>imagesStats</property>
         </row>
     </InsertUpdate>
 
@@ -1037,6 +1095,16 @@
             <lang key="id">en</lang>
             <code>ex-recreate-media-files-object-action-name-en</code>
             <value>Recreate thumbs</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-delete-media-files-object-action-name-ru</code>
+            <value>Удалить объект</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-delete-media-files-object-action-name-en</code>
+            <value>Remove object</value>
         </row>
         <row>
             <lang key="id">ru</lang>
@@ -1060,6 +1128,14 @@
             </name>
         </row>
         <row>
+            <code>delete-media-files-object-action</code>
+            <type>object</type>
+            <name key="code">
+                <row>ex-delete-media-files-object-action-name-en</row>
+                <row>ex-delete-media-files-object-action-name-ru</row>
+            </name>
+        </row>
+        <row>
             <code>create-media-files-section-action</code>
             <type>section</type>
             <name key="code">
@@ -1072,9 +1148,12 @@
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>MediaEntity</target>
+            <defaultActionCreate>false</defaultActionCreate>
+            <defaultActionDelete>false</defaultActionDelete>
             <actions key="code">
                 <row>recreate-media-files-object-action</row>
                 <row>create-media-files-section-action</row>
+                <row>delete-media-files-object-action</row>
             </actions>
         </row>
     </InsertUpdate>

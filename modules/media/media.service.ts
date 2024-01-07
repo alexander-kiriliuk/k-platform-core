@@ -42,13 +42,14 @@ import { MediaFileEntity } from "@media/entity/media-file.entity";
 import { Media, MediaManager } from "@media/media.types";
 import { MediaConfig } from "./gen-src/media.config";
 import * as imageminMozjpeg from "imagemin-mozjpeg";
-import {createCanvas} from "canvas";  // fix canvas compatibility with windows OS
-createCanvas(0,0);
+import { createCanvas } from "canvas"; // fix canvas compatibility with Windows OS
 import * as sharp from "sharp";
 import * as imagemin from "imagemin";
 import * as fs from "fs";
 import * as path from "path";
 import imageminPngquant from "imagemin-pngquant";
+
+createCanvas(0, 0);
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
 
 /**
