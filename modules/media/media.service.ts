@@ -125,6 +125,40 @@ export class MediaService extends MediaManager {
   }
 
   /**
+   * Recreate a media entity, generate new files and data.
+   * @param id - The ID of the media entity.
+   * @returns The recreated media entity.
+   * @throws NotFoundException if the media entity is not found.
+   * @throws BadRequestException if the related media is not found.
+   */
+  async recreate(id: number): Promise<MediaEntity> {
+    const media = await this.findMediaById(id);
+    if (!media) {
+      throw new NotFoundException(`Media with ID ${id} not found`);
+    }
+    const dir = path.join(
+      media.type.private ? await this.getPrivateDir() : await this.getPublicDir(),
+      media.id.toString()
+    );
+    this.logger.log(`Try to recreate media with ID ${id}`);
+    for (const file of media.files) {
+      if (file.format.code !== ReservedMediaFormat.ORIGINAL) {
+        continue;
+      }
+      const oldFilePath = path.normalize(`${process.cwd()}/${dir}/${file.name}.${media.type.ext.code}`);
+      if (!fs.existsSync(oldFilePath)) {
+        throw new BadRequestException(`Related file was not found`);
+      }
+      const oldFile = await fs.promises.readFile(oldFilePath);
+      const newMedia = await this.createOrUpdateMedia(oldFile, media.type.code, media.code, media.id);
+      this.logger.log(`Media with ID ${id} recreated`);
+      return newMedia;
+    }
+    this.logger.error(`Media with ID ${id} not recreated`);
+    return media;
+  }
+
+  /**
    * Uploads and processes a media file, create or update related entity.
    * @param file - Buffer of media file.
    * @param type - The media type.

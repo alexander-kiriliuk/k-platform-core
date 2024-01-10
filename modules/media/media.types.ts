@@ -175,6 +175,8 @@ export abstract class MediaManager {
 
   abstract remove(id: number): Promise<MediaEntity>;
 
+  abstract recreate(id: number): Promise<MediaEntity>;
+
   abstract createOrUpdateMedia(
     file: Buffer,
     type: string,

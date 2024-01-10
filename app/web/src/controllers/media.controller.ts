@@ -72,4 +72,10 @@ export class MediaController {
     return await this.mediaService.remove(id);
   }
 
+  @UseGuards(AuthGuard)
+  @Post("/recreate/:id")
+  async recreateMedia(@Param("id") id: number) {
+    return await this.mediaService.recreate(id);
+  }
+
 }

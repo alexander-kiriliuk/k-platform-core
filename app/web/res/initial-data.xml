@@ -1006,6 +1006,16 @@
             <code>ex-images-stats-media-object-renderer-name-ru</code>
             <value>Набор изображений</value>
         </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-new-password-object-renderer-name-en</code>
+            <value>New password</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-new-password-object-renderer-name-ru</code>
+            <value>Новый пароль</value>
+        </row>
     </InsertUpdate>
 
     <InsertUpdate target="ExplorerColumnRendererEntity">
@@ -1025,6 +1035,14 @@
                 <row>ex-images-stats-media-object-renderer-name-ru</row>
             </name>
         </row>
+        <row>
+            <code>new-password-object-renderer</code>
+            <type>object</type>
+            <name key="code">
+                <row>ex-new-password-object-renderer-name-en</row>
+                <row>ex-new-password-object-renderer-name-ru</row>
+            </name>
+        </row>
     </InsertUpdate>
 
     <InsertUpdate target="ExplorerColumnEntity">
@@ -1032,6 +1050,17 @@
             <id>users.password</id>
             <sectionEnabled>false</sectionEnabled>
             <objectEnabled>false</objectEnabled>
+        </row>
+        <row>
+            <target>UserEntity</target>
+            <id>users.new_password</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <objectPriority>50</objectPriority>
+            <objectRenderer key="code">new-password-object-renderer</objectRenderer>
+            <virtual>true</virtual>
+            <type>unknown</type>
+            <property>password</property>
         </row>
         <row>
             <id>medias.id</id>
@@ -1051,7 +1080,7 @@
         <row>
             <id>medias.files</id>
             <sectionVisibility>false</sectionVisibility>
-            <objectEnabled>false</objectEnabled>
+            <objectVisibility>false</objectVisibility>
         </row>
         <row>
             <id>medias.ts_created</id>
