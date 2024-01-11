@@ -15,13 +15,13 @@
  */
 
 import { Logger, Module } from "@nestjs/common";
-import { RedisModule } from "@liaoliaots/nestjs-redis";
 import { RedisCacheService } from "@shared/modules/cache/redis-cache.service";
 import { LogModule } from "@shared/modules/log/log.module";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import * as process from "process";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { EnvLoader } from "@shared/utils/env.loader";
+import { RedisModule } from "@shared/modules/cache/redis.module";
 
 @Module({
   imports: [

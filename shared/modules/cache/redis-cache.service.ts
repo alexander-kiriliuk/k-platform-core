@@ -15,9 +15,10 @@
  */
 
 import { Inject, Injectable, Logger } from "@nestjs/common";
-import { RedisService } from "@liaoliaots/nestjs-redis";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { LOGGER } from "@shared/modules/log/log.constants";
+import Redis from "ioredis";
+import { REDIS_CLIENT } from "@shared/modules/cache/cache.constants";
 
 /**
  * A service class that provides cache storage functionality implementing the CacheService interface.
@@ -25,18 +26,10 @@ import { LOGGER } from "@shared/modules/log/log.constants";
 @Injectable()
 export class RedisCacheService implements CacheService {
 
+
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
-    private readonly redis: RedisService) {
-  }
-
-  /**
-   * Gets the Redis client.
-   *
-   * @returns The Redis client instance.
-   */
-  private get client() {
-    return this.redis.getClient();
+    @Inject(REDIS_CLIENT) private readonly client: Redis) {
   }
 
   /**
