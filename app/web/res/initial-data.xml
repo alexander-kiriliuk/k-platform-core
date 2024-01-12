@@ -169,29 +169,6 @@
         </row>
     </Media>
 
-    <InsertUpdate target="LocalizedStringEntity">
-        <row>
-            <lang key="id">ru</lang>
-            <code>usr-admin-first-name-ru</code>
-            <value>Иван</value>
-        </row>
-        <row>
-            <lang key="id">en</lang>
-            <code>usr-admin-first-name-en</code>
-            <value>John</value>
-        </row>
-        <row>
-            <lang key="id">ru</lang>
-            <code>usr-admin-last-name-ru</code>
-            <value>Иванов</value>
-        </row>
-        <row>
-            <lang key="id">en</lang>
-            <code>usr-admin-last-name-en</code>
-            <value>Doe</value>
-        </row>
-    </InsertUpdate>
-
     <InsertUpdate target="UserEntity">
         <row>
             <login>admin</login>
@@ -202,14 +179,8 @@
             <roles key="code">
                 <row>root</row>
             </roles>
-            <firstName key="code">
-                <row>usr-admin-first-name-ru</row>
-                <row>usr-admin-first-name-en</row>
-            </firstName>
-            <lastName key="code">
-                <row>usr-admin-last-name-ru</row>
-                <row>usr-admin-last-name-en</row>
-            </lastName>
+            <firstName>John</firstName>
+            <lastName key="code">Doe</lastName>
         </row>
     </InsertUpdate>
 
@@ -1205,6 +1176,7 @@
             <id>users-common-tab</id>
             <priority>10</priority>
             <target key="target">UserEntity</target>
+            <size>{"desktop":2}</size>
             <name key="code">
                 <row>ex-users-common-tab-name-ru</row>
                 <row>ex-users-common-tab-name-en</row>
@@ -1226,12 +1198,12 @@
             <objectRendererParams>{"readonly": true}</objectRendererParams>
         </row>
         <row>
-            <id>users.firstName</id>
+            <id>users.first_name</id>
             <tab key="id">users-common-tab</tab>
             <objectPriority>80</objectPriority>
         </row>
         <row>
-            <id>users.lastName</id>
+            <id>users.last_name</id>
             <tab key="id">users-common-tab</tab>
             <objectPriority>70</objectPriority>
         </row>
