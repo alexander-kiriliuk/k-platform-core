@@ -48,6 +48,7 @@ import * as imagemin from "imagemin";
 import * as fs from "fs";
 import * as path from "path";
 import imageminPngquant from "imagemin-pngquant";
+import { NumberUtils } from "@shared/utils/number.utils";
 
 createCanvas(0, 0);
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
@@ -305,16 +306,15 @@ export class MediaService extends MediaManager {
         imgBuffer = await this.resizeImage(file, format);
         imgBuffer = await this.optimizeImage(imgBuffer, mediaType.ext.code, quality);
       }
-      const fileName = `${mediaEntity.id}`;
-      const fileNameWithSuffix = `${fileName}_${format.code}`;
-      const resizedImagePath = `${outputPath}/${fileNameWithSuffix}.${mediaType.ext.code}`;
+      const fileName = `${NumberUtils.generateRandomInt()}-${format.code}`;
+      const resizedImagePath = `${outputPath}/${fileName}.${mediaType.ext.code}`;
       await fs.promises.writeFile(resizedImagePath, imgBuffer);
-      const resizedMediaFile = await this.createMediaFileEntity(imgBuffer, format, mediaEntity, fileNameWithSuffix);
+      const resizedMediaFile = await this.createMediaFileEntity(imgBuffer, format, mediaEntity, fileName);
       if (mediaType.vp6) {
         const webpImage = await sharp(imgBuffer).webp({ quality }).toBuffer();
-        const webpImagePath = `${outputPath}/${fileNameWithSuffix}.webp`;
+        const webpImagePath = `${outputPath}/${fileName}.webp`;
         await fs.promises.writeFile(webpImagePath, webpImage);
-        const webpMediaFile = await this.createMediaFileEntity(webpImage, format, mediaEntity, fileNameWithSuffix);
+        const webpMediaFile = await this.createMediaFileEntity(webpImage, format, mediaEntity, fileName);
         return [await this.mediaFileRep.save(resizedMediaFile), await this.mediaFileRep.save(webpMediaFile)];
       } else {
         return [await this.mediaFileRep.save(resizedMediaFile)];

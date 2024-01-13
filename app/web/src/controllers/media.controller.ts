@@ -43,9 +43,11 @@ export class MediaController {
 
   @Post("/upload/:type?")
   @UseInterceptors(FileInterceptor("file"))
-  async createMedia(@UploadedFile("file", new NotEmptyPipe("file")) file: Express.Multer.File,
-                    @Param("type") type = DEFAULT_MEDIA_TYPE) {
-    return await this.mediaService.createOrUpdateMedia(file.buffer, type);
+  async createMedia(
+    @UploadedFile("file", new NotEmptyPipe("file")) file: Express.Multer.File,
+    @Param("type") type = DEFAULT_MEDIA_TYPE,
+    @Query("id") id: number) {
+    return await this.mediaService.createOrUpdateMedia(file.buffer, type, undefined, id);
   }
 
   @UseGuards(AuthGuard)

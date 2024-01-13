@@ -27,7 +27,6 @@ import {
 import { UserRoleEntity } from "./user-role.entity";
 import { MediaEntity } from "@media/entity/media.entity";
 import { User } from "../user.types";
-import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 
 @Entity("users")
 export class UserEntity implements User {
@@ -44,19 +43,20 @@ export class UserEntity implements User {
   @Column("varchar", { nullable: false, unique: true })
   login: string;
 
+  @Index()
   @Column("varchar", { nullable: true, unique: true })
   email: string;
 
   @Column("varchar", { nullable: true })
   phone: string;
 
-  @ManyToMany(() => LocalizedStringEntity, { cascade: true })
-  @JoinTable()
-  firstName: LocalizedStringEntity[];
+  @Index()
+  @Column("varchar", { name: "first_name", nullable: true })
+  firstName: string;
 
-  @ManyToMany(() => LocalizedStringEntity, { cascade: true })
-  @JoinTable()
-  lastName: LocalizedStringEntity[];
+  @Index()
+  @Column("varchar", { name: "last_name", nullable: true })
+  lastName: string;
 
   @Index()
   @Column("boolean", { default: false })

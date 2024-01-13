@@ -17,7 +17,6 @@
 import { Media } from "@media/media.types";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { Exclude, Expose, Type } from "class-transformer";
-import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { Type as Class } from "@nestjs/common/interfaces/type.interface";
 import { EntityClassOrSchema } from "@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type";
 import { UserEntity } from "@user/entity/user.entity";
@@ -29,8 +28,8 @@ export interface User {
   login: string;
   email: string;
   phone: string;
-  firstName: LocalizedStringEntity[];
-  lastName: LocalizedStringEntity[];
+  firstName: string;
+  lastName: string;
   active: boolean;
   roles: UserRole[];
   tsCreated: Date;
@@ -67,10 +66,10 @@ export class UserDto implements User {
   email: string;
 
   @Expose()
-  firstName: LocalizedStringEntity[];
+  firstName: string;
 
   @Expose()
-  lastName: LocalizedStringEntity[];
+  lastName: string;
 
   @Exclude()
   password: string;

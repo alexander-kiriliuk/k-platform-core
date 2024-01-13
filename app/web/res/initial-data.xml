@@ -1018,22 +1018,6 @@
 
     <InsertUpdate target="ExplorerColumnEntity">
         <row>
-            <id>users.password</id>
-            <sectionEnabled>false</sectionEnabled>
-            <objectEnabled>false</objectEnabled>
-        </row>
-        <row>
-            <target>UserEntity</target>
-            <id>users.new_password</id>
-            <sectionEnabled>false</sectionEnabled>
-            <objectEnabled>true</objectEnabled>
-            <objectPriority>50</objectPriority>
-            <objectRenderer key="code">new-password-object-renderer</objectRenderer>
-            <virtual>true</virtual>
-            <type>unknown</type>
-            <property>password</property>
-        </row>
-        <row>
             <id>medias.id</id>
             <sectionPriority>100</sectionPriority>
             <objectPriority>100</objectPriority>
@@ -1052,6 +1036,10 @@
             <id>medias.files</id>
             <sectionVisibility>false</sectionVisibility>
             <objectVisibility>false</objectVisibility>
+        </row>
+        <row>
+            <id>medias.name</id>
+            <objectPriority>95</objectPriority>
         </row>
         <row>
             <id>medias.ts_created</id>
@@ -1116,9 +1104,27 @@
             <code>ex-create-media-files-section-action-name-en</code>
             <value>New media</value>
         </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-update-media-file-object-action-name-ru</code>
+            <value>Обновить медиа-файл</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-update-media-file-object-action-name-en</code>
+            <value>Update media-file</value>
+        </row>
     </InsertUpdate>
 
     <InsertUpdate target="ExplorerActionEntity">
+        <row>
+            <code>update-media-file-object-action</code>
+            <type>object</type>
+            <name key="code">
+                <row>ex-update-media-file-object-action-name-en</row>
+                <row>ex-update-media-file-object-action-name-ru</row>
+            </name>
+        </row>
         <row>
             <code>recreate-media-files-object-action</code>
             <type>object</type>
@@ -1151,6 +1157,7 @@
             <defaultActionCreate>false</defaultActionCreate>
             <defaultActionDelete>false</defaultActionDelete>
             <actions key="code">
+                <row>update-media-file-object-action</row>
                 <row>recreate-media-files-object-action</row>
                 <row>create-media-files-section-action</row>
                 <row>delete-media-files-object-action</row>
@@ -1185,6 +1192,22 @@
     </InsertUpdate>
 
     <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>users.password</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>false</objectEnabled>
+        </row>
+        <row>
+            <target>UserEntity</target>
+            <id>users.new_password</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <objectPriority>50</objectPriority>
+            <objectRenderer key="code">new-password-object-renderer</objectRenderer>
+            <virtual>true</virtual>
+            <type>unknown</type>
+            <property>password</property>
+        </row>
         <row>
             <id>users.id</id>
             <tab key="id">users-common-tab</tab>
@@ -1238,6 +1261,14 @@
         <row>
             <id>users.roles</id>
             <objectPriority>80</objectPriority>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>users_roles.ts_created</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>false</objectEnabled>
         </row>
     </InsertUpdate>
 
