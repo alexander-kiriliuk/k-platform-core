@@ -28,6 +28,7 @@ import {
 } from "typeorm";
 import { MediaEntity } from "@media/entity/media.entity";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { SimpleJsonTransformer } from "@shared/transformer/simple-json.transformer";
 
 
 @Entity("categories")
@@ -48,8 +49,8 @@ export class CategoryEntity {
   @JoinTable()
   name: LocalizedStringEntity[];
 
-  @Column("varchar", { nullable: true })
-  attrs: string;
+  @Column("simple-json", { transformer: SimpleJsonTransformer, nullable: true, default: null })
+  params: object;
 
   @ManyToOne(() => MediaEntity, t => t.code)
   icon: MediaEntity;

@@ -347,7 +347,7 @@
         </row>
         <row>
             <code>a-menu-users</code>
-            <attrs>pi pi-user</attrs>
+            <params>{"iconClass": "pi pi-user"}</params>
             <parent key="code">a-menu-root</parent>
             <priority>1</priority>
             <name key="code">
@@ -358,7 +358,7 @@
         <row>
             <code>a-menu-users-all</code>
             <url>/section/users</url>
-            <attrs>pi pi-users</attrs>
+            <params>{"iconClass": "pi pi-users"}</params>
             <parent key="code">a-menu-users</parent>
             <priority>2</priority>
             <name key="code">
@@ -369,7 +369,7 @@
         <row>
             <code>a-menu-users-roles</code>
             <url>/section/user-roles</url>
-            <attrs>pi pi-box</attrs>
+            <params>{"iconClass": "pi pi-box"}</params>
             <parent key="code">a-menu-users</parent>
             <priority>3</priority>
             <name key="code">
@@ -379,7 +379,7 @@
         </row>
         <row>
             <code>a-menu-media</code>
-            <attrs>pi pi-images</attrs>
+            <params>{"iconClass": "pi pi-images"}</params>
             <parent key="code">a-menu-root</parent>
             <priority>4</priority>
             <name key="code">
@@ -390,7 +390,7 @@
         <row>
             <code>a-menu-media-gallery</code>
             <url>/section/media</url>
-            <attrs>pi pi-images</attrs>
+            <params>{"iconClass": "pi pi-images"}</params>
             <parent key="code">a-menu-media</parent>
             <priority>5</priority>
             <name key="code">
@@ -401,7 +401,7 @@
         <row>
             <code>a-menu-media-format</code>
             <url>/section/media-format</url>
-            <attrs>pi pi-clone</attrs>
+            <params>{"iconClass": "pi pi-clone"}</params>
             <parent key="code">a-menu-media</parent>
             <priority>6</priority>
             <name key="code">
@@ -412,7 +412,7 @@
         <row>
             <code>a-menu-media-type</code>
             <url>/section/media-type</url>
-            <attrs>pi pi-clone</attrs>
+            <params>{"iconClass": "pi pi-clone"}</params>
             <parent key="code">a-menu-media</parent>
             <priority>7</priority>
             <name key="code">
@@ -423,7 +423,7 @@
         <row>
             <code>a-menu-files</code>
             <url>/section/files</url>
-            <attrs>pi pi-file</attrs>
+            <params>{"iconClass": "pi pi-file"}</params>
             <parent key="code">a-menu-root</parent>
             <priority>8</priority>
             <name key="code">
@@ -433,7 +433,7 @@
         </row>
         <row>
             <code>a-menu-system</code>
-            <attrs>pi pi-desktop</attrs>
+            <params>{"iconClass": "pi pi-desktop"}</params>
             <priority>300</priority>
             <parent key="code">a-menu-root</parent>
             <name key="code">
@@ -444,7 +444,7 @@
         <row>
             <code>a-menu-import-data</code>
             <url>/system/import-data</url>
-            <attrs>pi pi-file-import</attrs>
+            <params>{"iconClass": "pi pi-file-import"}</params>
             <parent key="code">a-menu-system</parent>
             <priority>301</priority>
             <name key="code">
@@ -455,7 +455,7 @@
         <row>
             <code>a-menu-category</code>
             <url>/section/categories</url>
-            <attrs>pi pi-sitemap</attrs>
+            <params>{"iconClass": "pi pi-sitemap"}</params>
             <parent key="code">a-menu-system</parent>
             <priority>302</priority>
             <name key="code">
@@ -466,7 +466,7 @@
         <row>
             <code>a-menu-objects</code>
             <url>/system/objects</url>
-            <attrs>pi pi-box</attrs>
+            <params>{"iconClass": "pi pi-box"}</params>
             <parent key="code">a-menu-system</parent>
             <priority>303</priority>
             <name key="code">
@@ -477,7 +477,7 @@
         <row>
             <code>a-menu-config</code>
             <url>/system/config</url>
-            <attrs>pi pi-cog</attrs>
+            <params>{"iconClass": "pi pi-cog"}</params>
             <parent key="code">a-menu-system</parent>
             <priority>304</priority>
             <name key="code">

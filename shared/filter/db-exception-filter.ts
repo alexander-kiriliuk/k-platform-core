@@ -16,8 +16,9 @@
 
 import { ArgumentsHost, Catch } from "@nestjs/common";
 import { QueryFailedError } from "typeorm";
+import { TypeORMError } from "typeorm/error/TypeORMError";
 
-@Catch(QueryFailedError)
+@Catch(TypeORMError)
 export class DbExceptionFilter implements DbExceptionFilter {
   catch(exception: QueryFailedError, host: ArgumentsHost) {
     const response = host.switchToHttp().getResponse();
