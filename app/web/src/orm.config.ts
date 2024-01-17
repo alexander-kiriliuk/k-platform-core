@@ -38,6 +38,7 @@ import { CategoryEntity } from "@shared/modules/category/entity/category.entity"
 import { ExplorerColumnRendererEntity } from "@explorer/entity/explorer-column-renderer.entity";
 import { ExplorerTabEntity } from "@explorer/entity/explorer-tab.entity";
 import { ExplorerActionEntity } from "@explorer/entity/explorer-action.entity";
+import { WebAppMenuRestrictionEntity } from "./entity/web-app-menu-restriction.entity";
 
 export namespace Orm {
 
@@ -72,7 +73,8 @@ export namespace Orm {
             LanguageEntity,
             LocalizedStringEntity,
             LocalizedMediaEntity,
-            CategoryEntity
+            CategoryEntity,
+            WebAppMenuRestrictionEntity
           ],
           migrations: [],
           subscribers: [

@@ -17,6 +17,7 @@
 export class Roles {
   static readonly ROOT = "root";
   static readonly ADMIN = "admin";
+  static readonly MANAGER = "manager";
 }
 
 export const REQUEST_PROPS = {

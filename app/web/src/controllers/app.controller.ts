@@ -16,15 +16,15 @@
 
 import { Controller, Get, UseGuards } from "@nestjs/common";
 import { WebAppService } from "../web-app.service";
-import { CategoryService } from "@shared/modules/category/category.service";
 import { AuthGuard } from "@shared/guards/auth.guard";
+import { CurrentUser } from "@shared/decorators/current-user.decorator";
+import { User } from "@user/user.types";
 
 
 @Controller("app")
 export class AppController {
 
   constructor(
-    private readonly categoryService: CategoryService,
     private readonly webAppService: WebAppService) {
   }
 
@@ -37,8 +37,8 @@ export class AppController {
 
   @UseGuards(AuthGuard)
   @Get("/menu")
-  async getMenu() {
-    return this.categoryService.getDescendantsByCodeOfRoot("a-menu-root");
+  async getMenu(@CurrentUser() user: User) {
+    return await this.webAppService.getMainMenu(user);
   }
 
 }
