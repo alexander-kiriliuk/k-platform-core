@@ -20,6 +20,7 @@ import { MediaEntity } from "@media/entity/media.entity";
 import { ExplorerAction, ExplorerTarget } from "../explorer.types";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { ExplorerActionEntity } from "@explorer/entity/explorer-action.entity";
+import { UserRoleEntity } from "@user/entity/user-role.entity";
 
 
 @Entity("explorer_targets")
@@ -65,6 +66,14 @@ export class ExplorerTargetEntity implements ExplorerTarget {
   @Index()
   @Column("boolean", { name: "default_action_delete", default: true, nullable: true })
   defaultActionDelete: boolean;
+
+  @ManyToMany(() => UserRoleEntity)
+  @JoinTable()
+  canRead: UserRoleEntity[];
+
+  @ManyToMany(() => UserRoleEntity)
+  @JoinTable()
+  canWrite: UserRoleEntity[];
 
 }
 

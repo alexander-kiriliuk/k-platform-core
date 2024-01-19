@@ -44,7 +44,11 @@ export abstract class AbstractAuthGuard implements CanActivate {
       throw new ForbiddenException(ACCESS_TOKEN_ERROR_MSG);
     }
     if (this.fetchUser) {
-      req[REQUEST_PROPS.currentUser] = await this.userService.findByLogin(userIdentity);
+      const user = await this.userService.findByLogin(userIdentity);
+      if (!user) {
+        throw new ForbiddenException(ACCESS_TOKEN_ERROR_MSG);
+      }
+      req[REQUEST_PROPS.currentUser] = user;
     }
     return true;
   }

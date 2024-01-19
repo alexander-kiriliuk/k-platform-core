@@ -23,6 +23,8 @@ import { CategoryEntity } from "@shared/modules/category/entity/category.entity"
 import { CategoryService } from "@shared/modules/category/category.service";
 import { WebAppMenuRestrictionEntity } from "./entity/web-app-menu-restriction.entity";
 import { User, UserRole } from "@user/user.types";
+import { UserUtils } from "@shared/utils/user.utils";
+import hasAccessForRoles = UserUtils.hasAccessForRoles;
 
 @Injectable()
 export class WebAppService {
@@ -49,7 +51,7 @@ export class WebAppService {
   async getMainMenu(user: User) {
     const restrictions = await this.menuRestrictionRep.find({ relations: ["category", "allowFor"] });
     const menuTree = await this.categoryService.getDescendantsByCodeOfRoot("a-menu-root");
-    this.validateMenu(menuTree, restrictions, user.roles);
+    this.validateMenu(menuTree, restrictions, user?.roles);
     return menuTree;
   }
 
@@ -58,15 +60,7 @@ export class WebAppService {
       const node = menuTree.children[i];
       const res = restrictions.find(v => v.category.code === node.code);
       if (res) {
-        let allowed = false;
-        for (const role of res.allowFor) {
-          const existedRole = roles.find(v => v.code === role.code);
-          if (existedRole) {
-            allowed = true;
-            break;
-          }
-        }
-        if (!allowed) {
+        if (!hasAccessForRoles(roles, res.allowFor)) {
           menuTree.children.splice(i, 1);
           continue;
         }

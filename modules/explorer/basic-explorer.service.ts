@@ -14,7 +14,14 @@
  *    limitations under the License.
  */
 
-import { Inject, Injectable, InternalServerErrorException, Logger, NotFoundException } from "@nestjs/common";
+import {
+  ForbiddenException,
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  NotFoundException
+} from "@nestjs/common";
 import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
@@ -37,10 +44,12 @@ import { TransformUtils } from "@shared/utils/transform.utils";
 import { ObjectUtils } from "@shared/utils/object.utils";
 import { Explorer } from "@explorer/explorer.constants";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { UserUtils } from "@shared/utils/user.utils";
 import parseParamsString = TransformUtils.parseParamsString;
 import TARGET_RELATIONS_OBJECT = Explorer.TARGET_RELATIONS_OBJECT;
 import TARGET_RELATIONS_SECTION = Explorer.TARGET_RELATIONS_SECTION;
 import TARGET_RELATIONS_FULL = Explorer.TARGET_RELATIONS_FULL;
+import hasAccessForRoles = UserUtils.hasAccessForRoles;
 
 /**
  * Service for exploring and analyzing the database schema and relationships.
@@ -115,14 +124,12 @@ export class BasicExplorerService extends ExplorerService {
    * Save or update an entity including its nested entities.
    * @param target - The name of the target entity.
    * @param entity - The entity object to be saved or updated.
+   * @param targetParams - Fetch and check entity access params
    * @returns The saved or updated entity.
    * @throws {NotFoundException} If the target entity is not found.
    */
-  async saveEntityData<T = any>(target: string, entity: T): Promise<T> {
-    const targetData = await this.getTargetData(target);
-    if (!targetData) {
-      throw new NotFoundException(`Target entity not found: ${target}`);
-    }
+  async saveEntityData<T = any>(target: string, entity: T, targetParams?: ExplorerTargetParams): Promise<T> {
+    const targetData = await this.getTargetData(target, targetParams);
     const repository = this.connection.getRepository(targetData.entity.target);
     if (!entity[targetData.primaryColumn.property]) {
       entity = repository.create(entity) as T;
@@ -154,13 +161,14 @@ export class BasicExplorerService extends ExplorerService {
    * Remove an entity by its ID.
    * @param target - The name of the target entity.
    * @param id - The ID of the entity to be removed.
+   * @param targetParams - Fetch and check entity access params
    * @returns The removed entity.
    * @throws {NotFoundException} If the target entity or the entity with the specified ID is not found.
    */
-  async removeEntity(target: string, id: string | number): Promise<ObjectLiteral> {
-    const targetData = await this.getTargetData(target);
-    if (!targetData) {
-      throw new NotFoundException(`Target entity not found: ${target}`);
+  async removeEntity(target: string, id: string | number, targetParams?: ExplorerTargetParams): Promise<ObjectLiteral> {
+    const targetData = await this.getTargetData(target, targetParams);
+    if (targetParams.checkUserAccess && !this.checkEntityAccess(targetData, targetParams)) {
+      throw new ForbiddenException(`Can't get access to target: ${target}`);
     }
     const repository = this.connection.getRepository(targetData.entity.target);
     const entity = await repository.findOne({ where: { [targetData.primaryColumn.property]: id } });
@@ -175,12 +183,18 @@ export class BasicExplorerService extends ExplorerService {
    * @param target The target entity name.
    * @param rowId The ID of the row to fetch.
    * @param maxDepth The maximum depth of relations to fetch. Defaults to Infinity.
+   * @param targetParams - Fetch and check entity access params
    * @returns A Promise that resolves to the entity object.
    */
-  async getEntityData(target: string, rowId: string | number, maxDepth = Infinity) {
-    const targetData = await this.getTargetData(target, { object: true });
+  async getEntityData(target: string, rowId: string | number, maxDepth = Infinity, targetParams?: ExplorerTargetParams) {
+    const tParams = targetParams ?? {};
+    tParams.object = true;
+    const targetData = await this.getTargetData(target, tParams);
     if (!targetData) {
       throw new NotFoundException(`Target entity not found: ${target}`);
+    }
+    if (targetParams.checkUserAccess && !this.checkEntityAccess(targetData, targetParams)) {
+      throw new ForbiddenException(`Can't get access to target: ${target}`);
     }
     const repository = this.connection.getRepository(targetData.entity.target);
     const row = await repository.findOne({ where: { [targetData.primaryColumn.property]: rowId } });
@@ -191,51 +205,18 @@ export class BasicExplorerService extends ExplorerService {
   }
 
   /**
-   * Retrieves target data for the specified target entity name.
-   * @param target The target entity name.
-   * @param params
-   * @returns A Promise that resolves to the TargetData object, or null if not found.
-   */
-  async getTargetData(target: string, params: ExplorerTargetParams = {}): Promise<TargetData> {
-    let relations = ["columns"];
-    if (params.fullRelations) {
-      if (!params.section || !params.object) {
-        relations = TARGET_RELATIONS_FULL;
-      } else {
-        relations = params.section ? TARGET_RELATIONS_SECTION : TARGET_RELATIONS_OBJECT;
-      }
-    }
-    const entity = await this.targetRep.findOne({
-      where: [{ target }, { tableName: target }, { alias: target }], relations
-    });
-    if (!entity) {
-      return null;
-    }
-    if (params.section) {
-      entity.columns = entity.columns.filter(c => c.sectionEnabled);
-      ObjectUtils.sort(entity.columns, "sectionPriority");
-      entity.actions = entity.actions?.filter(a => a.type === "section");
-    } else if (params.object) {
-      entity.columns = entity.columns.filter(c => c.objectEnabled);
-      ObjectUtils.sort(entity.columns, "objectPriority");
-      entity.actions = entity.actions?.filter(a => a.type === "object");
-    }
-    ObjectUtils.sort(entity.actions, "priority");
-    const primaryColumn = entity.columns.find(c => c.primary === true);
-    const namedColumn = entity.columns.find(c => c.named === true);
-    return { entity, primaryColumn, namedColumn };
-  }
-
-  /**
    * Retrieves paginated entity data with relations.
    *
    * @param target - The name of the target entity or table.
    * @param params - An optional object containing pageable parameters.
+   * @param targetParams - Fetch and check entity access params
    * @returns A Promise that resolves to a PageableData object containing the paginated results.
    * @throws NotFoundException if the target entity is not found.
    */
-  async getPageableEntityData(target: string, params?: PageableParams): Promise<PageableData> {
-    const targetData = await this.getTargetData(target, { section: true });
+  async getPageableEntityData(target: string, params?: PageableParams, targetParams?: ExplorerTargetParams): Promise<PageableData> {
+    const tParams = targetParams ?? {};
+    tParams.section = true;
+    const targetData = await this.getTargetData(target, tParams);
     if (!targetData) {
       throw new NotFoundException(`Target entity not found: ${target}`);
     }
@@ -267,13 +248,56 @@ export class BasicExplorerService extends ExplorerService {
   }
 
   /**
+   * Retrieves target data for the specified target entity name.
+   * @param target The target entity name.
+   * @param targetParams - Fetch and check entity access params
+   * @returns A Promise that resolves to the TargetData object, or null if not found.
+   */
+  async getTargetData(target: string, targetParams: ExplorerTargetParams = {}): Promise<TargetData> {
+    let relations = ["columns", "canRead", "canWrite"];
+    if (targetParams.fullRelations) {
+      if (!targetParams.section || !targetParams.object) {
+        relations = TARGET_RELATIONS_FULL;
+      } else {
+        relations = targetParams.section ? TARGET_RELATIONS_SECTION : TARGET_RELATIONS_OBJECT;
+      }
+    }
+    const entity = await this.targetRep.findOne({
+      where: [{ target }, { tableName: target }, { alias: target }], relations
+    });
+    if (!entity) {
+      return null;
+    }
+    if (targetParams.section) {
+      entity.columns = entity.columns.filter(c => c.sectionEnabled);
+      ObjectUtils.sort(entity.columns, "sectionPriority");
+      entity.actions = entity.actions?.filter(a => a.type === "section");
+    } else if (targetParams.object) {
+      entity.columns = entity.columns.filter(c => c.objectEnabled);
+      ObjectUtils.sort(entity.columns, "objectPriority");
+      entity.actions = entity.actions?.filter(a => a.type === "object");
+    }
+    ObjectUtils.sort(entity.actions, "priority");
+    const primaryColumn = entity.columns.find(c => c.primary === true);
+    const namedColumn = entity.columns.find(c => c.named === true);
+    const targetData = { entity, primaryColumn, namedColumn };
+    if (!targetData) {
+      throw new NotFoundException(`Target entity not found: ${target}`);
+    }
+    if (targetParams.checkUserAccess && !this.checkEntityAccess(targetData, targetParams)) {
+      throw new ForbiddenException(`Can't get access to target: ${target}`);
+    }
+    return targetData;
+  }
+
+  /**
    * Applies filter parameters to a SelectQueryBuilder for a specific entity.
    *
    * @param qb - The SelectQueryBuilder to apply filters to.
    * @param targetData - Information about the target entity.
    * @param filterParams - The filter parameters to apply.
    */
-  async applyFilterParams<T = any>(qb: SelectQueryBuilder<T>, targetData: TargetData, filterParams: Record<string, string>) {
+  private async applyFilterParams<T = any>(qb: SelectQueryBuilder<T>, targetData: TargetData, filterParams: Record<string, string>) {
     for (const key in filterParams) {
       const value = filterParams[key];
       const column = targetData.entity.columns.find(c => c.property === key);
@@ -535,6 +559,22 @@ export class BasicExplorerService extends ExplorerService {
       }
     }
     return false;
+  }
+
+  /**
+   * Checks requested user access to entity.
+   * @param targetData The target data of the current row.
+   * @param targetParams - Fetch and check entity access params
+   */
+  private checkEntityAccess(targetData: TargetData, targetParams: ExplorerTargetParams) {
+    if (targetParams.readRequest) {
+      return hasAccessForRoles(targetParams.checkUserAccess.roles, targetData.entity.canRead);
+    }
+    if (targetParams.writeRequest) {
+      return hasAccessForRoles(targetParams.checkUserAccess.roles, targetData.entity.canWrite);
+    }
+    return hasAccessForRoles(targetParams.checkUserAccess.roles, targetData.entity.canWrite) &&
+      hasAccessForRoles(targetParams.checkUserAccess.roles, targetData.entity.canRead);
   }
 
   /**

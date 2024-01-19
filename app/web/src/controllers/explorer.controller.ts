@@ -18,67 +18,101 @@ import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Query, U
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { PageableParams } from "@shared/modules/pageable/pageable.types";
 import { ExplorerService, ExplorerTarget, ExplorerTargetParams } from "@explorer/explorer.types";
+import { RolesGuard } from "@shared/guards/roles.guard";
+import { ForRoles } from "@shared/decorators/for-roles.decorator";
+import { Roles } from "@shared/constants";
+import { CurrentUser } from "@shared/decorators/current-user.decorator";
+import { User } from "@user/user.types";
 
 @Controller("/explorer")
+@UseGuards(AuthGuard, RolesGuard)
 export class ExplorerController {
 
   constructor(
     private readonly explorerService: ExplorerService) {
   }
 
-  @UseGuards(AuthGuard)
   @Get("/target-list")
+  @ForRoles(Roles.ADMIN)
   async getTargetList() {
     return await this.explorerService.getTargetList();
   }
 
-  @UseGuards(AuthGuard)
   @Post("/target")
+  @ForRoles(Roles.ADMIN)
   async saveTarget(@Body() target: ExplorerTarget) {
     return await this.explorerService.changeTarget(target);
   }
 
-  @UseGuards(AuthGuard)
   @Get("/target/:target")
-  async getTarget(@Param("target") target: string, @Query("type") type: "section" | "object") {
-    const params: ExplorerTargetParams = {
+  async getTarget(
+    @Param("target") target: string,
+    @Query("type") type: "section" | "object",
+    @CurrentUser() user: User) {
+    const targetParams: ExplorerTargetParams = {
       section: type === "section",
       object: type === "object",
-      fullRelations: true
+      fullRelations: true,
+      readRequest: true,
+      checkUserAccess: user
     };
-    const res = await this.explorerService.getTargetData(target, params);
+    const res = await this.explorerService.getTargetData(target, targetParams);
     if (!res) {
       throw new NotFoundException();
     }
     return res;
   }
 
-  @UseGuards(AuthGuard)
   @Get("/entity/:target")
-  async getEntity(@Param("target") target: string, @Query("id") id: string) {
-    const res = await this.explorerService.getEntityData(target, id);
+  async getEntity(
+    @Param("target") target: string,
+    @Query("id") id: string,
+    @CurrentUser() user: User) {
+    const targetParams: ExplorerTargetParams = {
+      readRequest: true,
+      checkUserAccess: user
+    };
+    const res = await this.explorerService.getEntityData(target, id, undefined, targetParams);
     if (!res) {
       throw new NotFoundException();
     }
     return res;
   }
 
-  @UseGuards(AuthGuard)
   @Get("/pageable/:target")
-  async getEntityList(@Param("target") target: string, @Query() params: PageableParams) {
-    return await this.explorerService.getPageableEntityData(target, params);
+  async getEntityList(
+    @Param("target") target: string,
+    @Query() params: PageableParams,
+    @CurrentUser() user: User) {
+    const targetParams: ExplorerTargetParams = {
+      readRequest: true,
+      checkUserAccess: user
+    };
+    return await this.explorerService.getPageableEntityData(target, params, targetParams);
   }
 
-  @UseGuards(AuthGuard)
   @Post("/entity/:target")
-  async saveEntity<T>(@Param("target") target: string, @Body() data: T) {
-    return await this.explorerService.saveEntityData(target, data);
+  async saveEntity<T>(
+    @Param("target") target: string,
+    @Body() data: T,
+    @CurrentUser() user: User) {
+    const targetParams: ExplorerTargetParams = {
+      writeRequest: true,
+      checkUserAccess: user
+    };
+    return await this.explorerService.saveEntityData(target, data, targetParams);
   }
 
-  @UseGuards(AuthGuard)
   @Delete("/entity/:target/:id")
-  async removeEntity(@Param("target") target: string, @Param("id") id: string) {
-    return await this.explorerService.removeEntity(target, id);
+  async removeEntity(
+    @Param("target") target: string,
+    @Param("id") id: string,
+    @CurrentUser() user: User) {
+    const targetParams: ExplorerTargetParams = {
+      writeRequest: true,
+      checkUserAccess: user
+    };
+    return await this.explorerService.removeEntity(target, id, targetParams);
   }
 
 }

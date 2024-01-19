@@ -31,7 +31,9 @@ export namespace Explorer {
     "columns.sectionRenderer", "columns.sectionRenderer.name", "columns.sectionRenderer.name.lang",
     "columns.sectionRenderer.description", "columns.sectionRenderer.description.lang",
     "columns.tab", "columns.tab.name", "columns.tab.name.lang",
-    "actions", "actions.name", "actions.name.lang", "actions.description", "actions.description.lang"
+    "actions", "actions.name", "actions.name.lang", "actions.description", "actions.description.lang",
+    "canRead", "canRead.name", "canRead.name.lang",
+    "canWrite", "canWrite.name", "canWrite.name.lang"
   ];
 
   export const TARGET_RELATIONS_OBJECT = [

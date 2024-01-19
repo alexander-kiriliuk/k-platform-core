@@ -21,6 +21,8 @@ import { Type as Class } from "@nestjs/common/interfaces/type.interface";
 import { EntityClassOrSchema } from "@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type";
 import { Explorer } from "@explorer/explorer.constants";
 import { Media } from "@media/media.types";
+import { User } from "@user/user.types";
+import { UserRoleEntity } from "@user/entity/user-role.entity";
 
 export type ColumnDataType = "string" | "number" | "boolean" | "date" | "reference" | "unknown";
 
@@ -35,6 +37,8 @@ export interface ExplorerTarget {
   defaultActionCreate: boolean;
   defaultActionSave: boolean;
   defaultActionDelete: boolean;
+  canRead: UserRoleEntity[];
+  canWrite: UserRoleEntity[];
   size?: number;
 }
 
@@ -97,7 +101,10 @@ export interface TargetData {
 export type ExplorerTargetParams = {
   section?: boolean,
   object?: boolean,
-  fullRelations?: boolean
+  fullRelations?: boolean,
+  readRequest?: boolean,
+  writeRequest?: boolean,
+  checkUserAccess?: User
 };
 
 export type ExplorerSelectParams = {
@@ -115,15 +122,15 @@ export abstract class ExplorerService {
 
   abstract analyzeDatabase(): Promise<void>;
 
-  abstract getPageableEntityData(target: string, params?: PageableParams): Promise<PageableData>;
+  abstract getPageableEntityData(target: string, params?: PageableParams, targetParams?: ExplorerTargetParams): Promise<PageableData>;
 
-  abstract saveEntityData<T = any>(target: string, entity: T): Promise<T>;
+  abstract saveEntityData<T = any>(target: string, entity: T, targetParams?: ExplorerTargetParams): Promise<T>;
 
-  abstract removeEntity(target: string, id: string | number): Promise<ObjectLiteral>;
+  abstract removeEntity(target: string, id: string | number, targetParams?: ExplorerTargetParams): Promise<ObjectLiteral>;
 
-  abstract getEntityData(target: string, rowId: string | number, maxDepth?: number): Promise<ObjectLiteral>;
+  abstract getEntityData(target: string, rowId: string | number, maxDepth?: number, targetParams?: ExplorerTargetParams): Promise<ObjectLiteral>;
 
-  abstract getTargetData(target: string, params?: ExplorerTargetParams): Promise<TargetData>;
+  abstract getTargetData(target: string, targetParams?: ExplorerTargetParams): Promise<TargetData>;
 
   abstract getTargetList(): Promise<ExplorerTarget[]>;
 
