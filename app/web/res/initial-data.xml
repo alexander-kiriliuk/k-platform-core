@@ -149,6 +149,26 @@
             <code>role-root-en</code>
             <value>Root-access</value>
         </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>role-admin-ru</code>
+            <value>Администратор</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>role-admin-en</code>
+            <value>Admin</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>role-manager-ru</code>
+            <value>Менеджер</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>role-manager-en</code>
+            <value>Manager</value>
+        </row>
     </InsertUpdate>
 
     <InsertUpdate target="UserRoleEntity">
@@ -157,6 +177,20 @@
             <name key="code">
                 <row>role-root-ru</row>
                 <row>role-root-en</row>
+            </name>
+        </row>
+        <row>
+            <code>admin</code>
+            <name key="code">
+                <row>role-admin-ru</row>
+                <row>role-admin-en</row>
+            </name>
+        </row>
+        <row>
+            <code>manager</code>
+            <name key="code">
+                <row>role-manager-ru</row>
+                <row>role-manager-en</row>
             </name>
         </row>
     </InsertUpdate>
@@ -484,6 +518,77 @@
                 <row>a-menu-config-name-ru</row>
                 <row>a-menu-config-name-en</row>
             </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="WebAppMenuRestrictionEntity">
+        <row>
+            <code>top-users-node</code>
+            <category key="code">a-menu-users</category>
+            <allowFor key="code">
+                <row>admin</row>
+                <row>manager</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>user-roles-node</code>
+            <category key="code">a-menu-users-roles</category>
+            <allowFor key="code">
+                <row>root</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>media-format-node</code>
+            <category key="code">a-menu-media-format</category>
+            <allowFor key="code">
+                <row>admin</row>
+                <row>manager</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>media-type-node</code>
+            <category key="code">a-menu-media-type</category>
+            <allowFor key="code">
+                <row>admin</row>
+                <row>manager</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>system-node</code>
+            <category key="code">a-menu-system</category>
+            <allowFor key="code">
+                <row>admin</row>
+                <row>manager</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>system-import-node</code>
+            <category key="code">a-menu-import-data</category>
+            <allowFor key="code">
+                <row>root</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>category-node</code>
+            <category key="code">a-menu-category</category>
+            <allowFor key="code">
+                <row>admin</row>
+                <row>manager</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>objects-node</code>
+            <category key="code">a-menu-objects</category>
+            <allowFor key="code">
+                <row>admin</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>config-node</code>
+            <category key="code">a-menu-config</category>
+            <allowFor key="code">
+                <row>admin</row>
+            </allowFor>
         </row>
     </InsertUpdate>
 

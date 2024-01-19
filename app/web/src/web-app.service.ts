@@ -56,19 +56,17 @@ export class WebAppService {
   }
 
   private validateMenu(menuTree: CategoryEntity, restrictions: WebAppMenuRestrictionEntity[], roles: UserRole[]) {
-    for (let i = 0; i < menuTree.children.length; i++) {
+    for (let i = menuTree.children.length - 1; i >= 0; i--) {
       const node = menuTree.children[i];
       const res = restrictions.find(v => v.category.code === node.code);
-      if (res) {
-        if (!hasAccessForRoles(roles, res.allowFor)) {
-          menuTree.children.splice(i, 1);
-          continue;
-        }
+      if (res && !hasAccessForRoles(roles, res.allowFor)) {
+        menuTree.children.splice(i, 1);
       }
       if (node.children?.length) {
         this.validateMenu(node, restrictions, roles);
       }
     }
+    menuTree.children = menuTree.children.filter(node => node != null);
   }
 
 }

@@ -15,11 +15,12 @@
  */
 
 import { UserRole } from "@user/user.types";
+import { Roles } from "@shared/constants";
 
 export namespace UserUtils {
 
   export function hasAccessForRoles(userRoles: UserRole[], allowedRoles: UserRole[]) {
-    if (!allowedRoles?.length) {
+    if (!allowedRoles?.length || userRoles.find(v => v.code === Roles.ROOT)) {
       return true;
     }
     let allowed = false;
