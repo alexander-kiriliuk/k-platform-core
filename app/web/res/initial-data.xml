@@ -1377,4 +1377,116 @@
         </row>
     </InsertUpdate>
 
+    <InsertUpdate target="ExplorerTargetEntity">
+        <row>
+            <target>ExplorerTargetEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>MediaTypeEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>MediaExtEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>MediaFormatEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>MediaFileEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>UserRoleEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>LanguageEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>CategoryEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+                <row>manager</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+                <row>manager</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>ExplorerActionEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>ExplorerColumnEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>ExplorerColumnRendererEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>WebAppMenuRestrictionEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>ExplorerTabEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>UserEntity</target>
+            <canRead key="code">
+                <row>manager</row>
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>manager</row>
+                <row>admin</row>
+            </canWrite>
+        </row>
+    </InsertUpdate>
+
 </schema>

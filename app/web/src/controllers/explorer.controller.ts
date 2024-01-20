@@ -14,21 +14,36 @@
  *    limitations under the License.
  */
 
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Query, UseGuards } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Inject,
+  NotFoundException,
+  Optional,
+  Param,
+  Post,
+  Query,
+  UseGuards
+} from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { PageableParams } from "@shared/modules/pageable/pageable.types";
-import { ExplorerService, ExplorerTarget, ExplorerTargetParams } from "@explorer/explorer.types";
+import { EntitySaveHandler, ExplorerService, ExplorerTarget, ExplorerTargetParams } from "@explorer/explorer.types";
 import { RolesGuard } from "@shared/guards/roles.guard";
 import { ForRoles } from "@shared/decorators/for-roles.decorator";
 import { Roles } from "@shared/constants";
 import { CurrentUser } from "@shared/decorators/current-user.decorator";
 import { User } from "@user/user.types";
+import { Explorer } from "@explorer/explorer.constants";
+import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
 
 @Controller("/explorer")
 @UseGuards(AuthGuard, RolesGuard)
 export class ExplorerController {
 
   constructor(
+    @Optional() @Inject(ENTITY_SAVE_HANDLER) private readonly saveHandlers: EntitySaveHandler[] = [],
     private readonly explorerService: ExplorerService) {
   }
 
@@ -94,8 +109,12 @@ export class ExplorerController {
   @Post("/entity/:target")
   async saveEntity<T>(
     @Param("target") target: string,
-    @Body() data: T,
+    @Body() body: T,
     @CurrentUser() user: User) {
+    let data = body;
+    for (const handler of this.saveHandlers) {
+      data = handler.handle(target, data, user);
+    }
     const targetParams: ExplorerTargetParams = {
       writeRequest: true,
       checkUserAccess: user

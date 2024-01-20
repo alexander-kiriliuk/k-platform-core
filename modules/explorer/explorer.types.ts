@@ -118,6 +118,10 @@ export type ExplorerModuleOptions = {
   entities: EntityClassOrSchema[];
 };
 
+export interface EntitySaveHandler<T = any> {
+  handle(target: string, data: T, currentUser: User): T;
+}
+
 export abstract class ExplorerService {
 
   abstract analyzeDatabase(): Promise<void>;

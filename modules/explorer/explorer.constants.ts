@@ -16,6 +16,8 @@
 
 export namespace Explorer {
 
+  export const ENTITY_SAVE_HANDLER = Symbol("ENTITY_SAVE_HANDLER");
+
   export const TARGET_RELATIONS_BASIC = [
     "name", "name.lang",
     "description", "description.lang",

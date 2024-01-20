@@ -46,6 +46,9 @@ import { ServeStaticModuleOptions } from "@nestjs/serve-static/dist/interfaces/s
 import { AppController } from "./controllers/app.controller";
 import { WebAppService } from "./web-app.service";
 import { CategoryModule } from "@shared/modules/category/category.module";
+import { UserEntityPwdAndRolesSaveHandler } from "@explorer/handlers/user-entity-pwd-and-roles.save-handler";
+import { Explorer } from "@explorer/explorer.constants";
+import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
 
 @Module({
   imports: [
@@ -87,7 +90,13 @@ import { CategoryModule } from "@shared/modules/category/category.module";
   ],
   providers: [
     LocaleSubscriber,
-    WebAppService
+    WebAppService,
+    UserEntityPwdAndRolesSaveHandler,
+    {
+      provide: ENTITY_SAVE_HANDLER,
+      useFactory: (h1: UserEntityPwdAndRolesSaveHandler) => [h1],
+      inject: [UserEntityPwdAndRolesSaveHandler]
+    }
   ]
 })
 export class WebAppModule implements NestModule {
