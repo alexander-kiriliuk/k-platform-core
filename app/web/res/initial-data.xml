@@ -542,7 +542,6 @@
             <category key="code">a-menu-media-format</category>
             <allowFor key="code">
                 <row>admin</row>
-                <row>manager</row>
             </allowFor>
         </row>
         <row>
@@ -550,7 +549,6 @@
             <category key="code">a-menu-media-type</category>
             <allowFor key="code">
                 <row>admin</row>
-                <row>manager</row>
             </allowFor>
         </row>
         <row>

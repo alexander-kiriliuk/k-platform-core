@@ -35,6 +35,7 @@ import { FileManager } from "@files/file.constants";
 
 
 @Controller("/file")
+@UseGuards(AuthGuard)
 export class FileController {
 
   constructor(
@@ -51,7 +52,6 @@ export class FileController {
     );
   }
 
-  @UseGuards(AuthGuard)
   @Get("/private/:id")
   async getPrivateFile(@Res() res: Response, @Param("id") id: number) {
     const file = await this.fileService.findPrivateById(id);
@@ -59,13 +59,11 @@ export class FileController {
     res.sendFile(path.join(process.cwd(), filePath));
   }
 
-  @UseGuards(AuthGuard)
   @Get("/:id")
   async getFile(@Param("id") id: number) {
     return await this.fileService.findPublicById(id);
   }
 
-  @UseGuards(AuthGuard)
   @Delete("/:id")
   async removeFile(@Param("id") id: number) {
     return await this.fileService.remove(id);

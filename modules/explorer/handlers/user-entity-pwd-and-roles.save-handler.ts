@@ -24,7 +24,9 @@ export class UserEntityPwdAndRolesSaveHandler implements EntitySaveHandler<User>
 
   handle(target: string, payload: User, currentUser: User) {
     if (!currentUser.roles.find(v => v.code === Roles.ROOT)) {
-      delete payload.password;
+      if (payload.id) {
+        delete payload.password;
+      }
       delete payload.roles;
     }
     return payload;

@@ -19,6 +19,8 @@ import { Reflector } from "@nestjs/core";
 import { UserRole } from "@user/user.types";
 import { REQUEST_PROPS, Roles } from "@shared/constants";
 import { AllowedForMetadataKey } from "@shared/decorators/for-roles.decorator";
+import { UserUtils } from "@shared/utils/user.utils";
+import hasSomeRole = UserUtils.hasSomeRole;
 
 /**
  * @class RolesGuard
@@ -38,23 +40,11 @@ export class RolesGuard implements CanActivate {
     }
     const req = context.switchToHttp().getRequest();
     const userRoles: UserRole[] = req[REQUEST_PROPS.currentUser]?.roles || [];
-    if (this.hasSomeRole(userRoles, Roles.ROOT)) {
+    if (hasSomeRole(userRoles, Roles.ROOT)) {
       return true;
     }
     for (const role of userRoles) {
       if (roles.indexOf(role.code) !== -1) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private hasSomeRole(userRoles: UserRole[], ...roles: string[]) {
-    if (!userRoles?.length) {
-      return false;
-    }
-    for (const role of roles) {
-      if (userRoles.find(v => v.code === role)) {
         return true;
       }
     }

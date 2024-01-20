@@ -35,6 +35,7 @@ import * as path from "path";
 import { MediaManager } from "@media/media.types";
 
 @Controller("/media")
+@UseGuards(AuthGuard)
 export class MediaController {
 
   constructor(
@@ -50,7 +51,6 @@ export class MediaController {
     return await this.mediaService.createOrUpdateMedia(file.buffer, type, undefined, id);
   }
 
-  @UseGuards(AuthGuard)
   @Get("/private/:id")
   async getPrivateMedia(
     @Res() res: Response,
@@ -62,19 +62,16 @@ export class MediaController {
     res.sendFile(path.join(process.cwd(), mediaPath));
   }
 
-  @UseGuards(AuthGuard)
   @Get("/:id")
   async getMedia(@Param("id") id: number) {
     return await this.mediaService.findPublicById(id);
   }
 
-  @UseGuards(AuthGuard)
   @Delete("/:id")
   async removeMedia(@Param("id") id: number) {
     return await this.mediaService.remove(id);
   }
 
-  @UseGuards(AuthGuard)
   @Post("/recreate/:id")
   async recreateMedia(@Param("id") id: number) {
     return await this.mediaService.recreate(id);

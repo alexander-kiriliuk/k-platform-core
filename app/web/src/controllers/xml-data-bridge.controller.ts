@@ -18,22 +18,25 @@ import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { XdbObject } from "@xml-data-bridge/xml-data-bridge.types";
 import { XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
+import { ForRoles } from "@shared/decorators/for-roles.decorator";
+import { Roles } from "@shared/constants";
 
 @Controller("xdb")
+@UseGuards(AuthGuard)
 export class XmlDataBridgeController {
 
   constructor(
     private readonly xdbService: XdbService) {
   }
 
-  @UseGuards(AuthGuard)
   @Post("/import")
+  @ForRoles(Roles.ROOT)
   async import(@Body() body: XdbObject) {
     return await this.xdbService.importXml(body);
   }
 
-  @UseGuards(AuthGuard)
   @Get("/export/:target/:id")
+  @ForRoles(Roles.ADMIN)
   async export(@Param("target") target: string, @Param("id") id: string) {
     return await this.xdbService.exportXml(target, id);
   }

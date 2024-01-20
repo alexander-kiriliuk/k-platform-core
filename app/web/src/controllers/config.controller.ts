@@ -19,9 +19,12 @@ import { PageableParams } from "@shared/modules/pageable/pageable.types";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { ConfigItem } from "@config/config.types";
 import { ConfigService } from "@config/config.service";
+import { ForRoles } from "@shared/decorators/for-roles.decorator";
+import { Roles } from "@shared/constants";
 
 
 @Controller("config")
+@UseGuards(AuthGuard)
 export class ConfigController {
 
   constructor(
@@ -30,18 +33,21 @@ export class ConfigController {
 
   @UseGuards(AuthGuard)
   @Get("/")
+  @ForRoles(Roles.ADMIN)
   async list(@Query() params: PageableParams) {
     return await this.configService.getPropertiesPage(params);
   }
 
   @UseGuards(AuthGuard)
   @Post("/")
+  @ForRoles(Roles.ADMIN)
   async setProperty(@Body() body: ConfigItem) {
     return await this.configService.setProperty(body);
   }
 
   @UseGuards(AuthGuard)
   @Delete("/")
+  @ForRoles(Roles.ADMIN)
   async removeProperty(@Query("key") key: string) {
     return await this.configService.removeProperty(key);
   }

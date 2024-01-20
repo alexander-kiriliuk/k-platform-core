@@ -34,4 +34,16 @@ export namespace UserUtils {
     return allowed;
   }
 
+  export function hasSomeRole(userRoles: UserRole[], ...roles: string[]) {
+    if (!userRoles?.length) {
+      return false;
+    }
+    for (const role of roles) {
+      if (userRoles.find(v => v.code === role)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }
