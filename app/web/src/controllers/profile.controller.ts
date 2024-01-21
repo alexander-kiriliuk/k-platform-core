@@ -64,7 +64,7 @@ export class ProfileController {
   @ResponseDto(UserDto)
   @Patch("/:id?")
   async updateUserProfile(@Param("id") id: string, @Body() profile: User, @CurrentUser() user: User) {
-    if (user.id && !hasSomeRole(user.roles, Roles.ADMIN)) {
+    if (id && !hasSomeRole(user.roles, Roles.ADMIN)) {
       throw new ForbiddenException();
     }
     return await this.userService.updateById(id ?? user.id, profile);

@@ -63,6 +63,9 @@ export class BasicUserService extends UserService {
    */
   async updateById(id: string, user: User): Promise<UserEntity> {
     user.id = id;
+    if (user.login) {
+      delete user.login;
+    }
     await this.userRep.save(user);
     return await this.findById(id);
   }
