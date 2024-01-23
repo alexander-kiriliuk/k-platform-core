@@ -14,25 +14,36 @@
  *    limitations under the License.
  */
 
-import { XdbActions, XdbObject, XdbRowData } from "@xml-data-bridge/xml-data-bridge.types";
+import { XdbAction, XdbObject, XdbRowData } from "@xml-data-bridge/xml-data-bridge.types";
 import * as xml2js from "xml2js";
+import { Parser } from "yargs-parser";
 
 export abstract class XdbService {
 
   abstract importXml(xml: XdbObject): Promise<boolean>;
 
-  abstract exportXml(target: string, id: string);
+  abstract exportXml(target: string, id: string): Promise<boolean>;
+
+  abstract importFromFile(fileData: Buffer): Promise<boolean>;
 
 }
 
 export namespace Xdb {
 
+  let parser: Parser & {
+    parseString: (xmlData: string | Buffer, callback: (err: Error | null, result: unknown) => void) => void
+  };
+
   export function getXmlParser() {
-    return new xml2js.Parser({
+    if (parser) {
+      return parser;
+    }
+    parser = new xml2js.Parser({
       explicitArray: false,
       preserveChildrenOrder: true,
       explicitChildren: true
     });
+    return parser;
   }
 
   export function parseXmlBody(body: { schema }) {
@@ -44,10 +55,11 @@ export namespace Xdb {
     for (const action of actions) {
       const tagName = action["#name"];
       const target = action?.$?.target;
-      const rows = action.$$;
-      const obj: XdbActions = {
+      const read = action?.$?.read;
+      const rows = action.$$ ?? [];
+      const obj: XdbAction = {
         action: tagName,
-        attrs: { target },
+        attrs: { target, read },
         rows: []
       };
       for (const row of rows) {

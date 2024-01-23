@@ -35,6 +35,7 @@ import { File } from "./file.types";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { FileManager } from "@files/file.constants";
+import process from "process";
 import PRIVATE_DIR = FileConfig.PRIVATE_DIR;
 import PUBLIC_DIR = FileConfig.PUBLIC_DIR;
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
@@ -228,11 +229,13 @@ export class FileService extends FileManager {
   }
 
   private async getPublicDir() {
-    return await this.cacheService.get(PUBLIC_DIR);
+    const dir = process.cwd() + await this.cacheService.get(PUBLIC_DIR);
+    return path.normalize(dir);
   }
 
   private async getPrivateDir() {
-    return await this.cacheService.get(PRIVATE_DIR);
+    const dir = process.cwd() + await this.cacheService.get(PRIVATE_DIR);
+    return path.normalize(dir);
   }
 
 }

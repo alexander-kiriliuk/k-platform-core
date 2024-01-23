@@ -52,16 +52,17 @@ export type FileRow = {
   file: string;
 }
 
-export type XdbActions = {
-  action: "InsertUpdate" | "Media" | "File" | "Remove";
+export type XdbAction = {
+  action: "InsertUpdate" | "Media" | "File" | "Remove" | "Include";
   attrs: {
-    target: string;
+    target?: string;
+    read?: string;
   };
   rows: Array<XdbRowData | FileRow>;
 };
 
 export type XdbObject = {
-  schema: XdbActions[];
+  schema: XdbAction[];
 };
 
 export type XdbModuleOptions = {

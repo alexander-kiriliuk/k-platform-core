@@ -22,6 +22,7 @@ import { MediaModule } from "@media/media.module";
 import { XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
 import { XdbModuleOptions } from "@xml-data-bridge/xml-data-bridge.types";
 import { XmlDataBridgeService } from "@xml-data-bridge/xml-data-bridge.service";
+import { CacheModule } from "@shared/modules/cache/cache.module";
 
 @Module({})
 export class XmlDataBridgeModule {
@@ -30,6 +31,7 @@ export class XmlDataBridgeModule {
     service: XmlDataBridgeService,
     imports: [
       LogModule,
+      CacheModule,
       FileModule.forRoot(),
       MediaModule.forRoot()
     ]

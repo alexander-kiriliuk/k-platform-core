@@ -17,7 +17,11 @@
 import * as fs from "fs";
 import { OpenMode } from "node:fs";
 import { Abortable } from "node:events";
+import * as path from "path";
 
+interface DirectoryStructure {
+  [key: string]: string[] | DirectoryStructure;
+}
 
 export namespace FilesUtils {
 
@@ -39,5 +43,32 @@ export namespace FilesUtils {
   } & Abortable) | null) {
     return await fs.promises.readFile(path);
   }
+
+  export async function readDirectoryRecursively(dirPath: string): Promise<DirectoryStructure | string[]> {
+    const result: DirectoryStructure = {};
+
+    async function readDir(currentPath: string, relativePath: string): Promise<DirectoryStructure | string[]> {
+      const files = await fs.promises.readdir(currentPath);
+      const filePromises = files.map(async (file) => {
+        const filePath = path.join(currentPath, file);
+        const stats = await fs.promises.stat(filePath);
+        const newRelativePath = path.join(relativePath, file);
+        if (stats.isDirectory()) {
+          result[newRelativePath] = await readDir(filePath, newRelativePath);
+        } else {
+          if (!result[relativePath]) {
+            result[relativePath] = [];
+          }
+          (result[relativePath] as string[]).push(file);
+        }
+      });
+      await Promise.all(filePromises);
+      return result[relativePath] || [];
+    }
+
+    await readDir(dirPath, "");
+    return result;
+  }
+
 
 }

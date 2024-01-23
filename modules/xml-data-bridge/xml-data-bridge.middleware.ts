@@ -42,7 +42,7 @@ export class XmlDataBridgeMiddleware implements NestMiddleware {
           if (err) {
             reject(err);
           } else {
-            resolve(result);
+            resolve(result as object);
           }
         });
       });

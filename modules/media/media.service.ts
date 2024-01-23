@@ -49,6 +49,7 @@ import * as fs from "fs";
 import * as path from "path";
 import imageminPngquant from "imagemin-pngquant";
 import { NumberUtils } from "@shared/utils/number.utils";
+import * as process from "process";
 
 createCanvas(0, 0);
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
@@ -146,7 +147,7 @@ export class MediaService extends MediaManager {
       if (file.format.code !== ReservedMediaFormat.ORIGINAL) {
         continue;
       }
-      const oldFilePath = path.normalize(`${process.cwd()}/${dir}/${file.name}.${media.type.ext.code}`);
+      const oldFilePath = path.normalize(`${dir}/${file.name}.${media.type.ext.code}`);
       if (!fs.existsSync(oldFilePath)) {
         throw new BadRequestException(`Related file was not found`);
       }
@@ -459,11 +460,13 @@ export class MediaService extends MediaManager {
   }
 
   private async getPublicDir() {
-    return await this.cacheService.get(MediaConfig.PUBLIC_DIR);
+    const dir = process.cwd() + await this.cacheService.get(MediaConfig.PUBLIC_DIR);
+    return path.normalize(dir);
   }
 
   private async getPrivateDir() {
-    return await this.cacheService.get(MediaConfig.PRIVATE_DIR);
+    const dir = process.cwd() + await this.cacheService.get(MediaConfig.PRIVATE_DIR);
+    return path.normalize(dir);
   }
 
   private async getOriginalFormat() {

@@ -25,6 +25,7 @@ import { NumberUtils } from "@shared/utils/number.utils";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import * as process from "process";
 import { CAPTCHA_CACHE_PREFIX } from "./captcha.constants";
+import path from "path";
 import generateRandomString = StringUtils.generateRandomString;
 import generateRandomInt = NumberUtils.generateRandomInt;
 
@@ -133,7 +134,8 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
   }
 
   private async getCaptchaFontPath() {
-    return await this.cacheService.get(CaptchaConfig.FONT_PATH);
+    const dir = process.cwd() + await this.cacheService.get(CaptchaConfig.FONT_PATH);
+    return path.normalize(dir);
   }
 
 }

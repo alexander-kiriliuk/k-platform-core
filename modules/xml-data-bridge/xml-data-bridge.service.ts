@@ -16,7 +16,7 @@
 
 import { Inject, Injectable, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
-import { FileRow, MediaRow, XdbActions, XdbObject, XdbRowData } from "@xml-data-bridge/xml-data-bridge.types";
+import { FileRow, MediaRow, XdbAction, XdbObject, XdbRowData } from "@xml-data-bridge/xml-data-bridge.types";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource, EntityMetadata, In, Repository } from "typeorm";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
@@ -24,10 +24,18 @@ import { FilesUtils } from "@shared/utils/files.utils";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { File } from "@files/file.types";
 import { Media, MediaManager } from "@media/media.types";
-import { XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
+import { Xdb, XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
 import { FileManager } from "@files/file.constants";
+import { CacheService } from "@shared/modules/cache/cache.types";
+import { KpConfig } from "../../gen-src/kp.config";
+import { NumberUtils } from "@shared/utils/number.utils";
+import * as AdmZip from "adm-zip";
+import * as fs from "fs";
 import * as process from "process";
+import * as path from "path";
 import readFile = FilesUtils.readFile;
+import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
+import readDirectoryRecursively = FilesUtils.readDirectoryRecursively;
 
 /**
  * XmlDataBridgeService is responsible for importing and exporting data through XML.
@@ -35,11 +43,14 @@ import readFile = FilesUtils.readFile;
 @Injectable()
 export class XmlDataBridgeService extends XdbService {
 
+  private readonly parser = Xdb.getXmlParser();
+
   constructor(
     @InjectDataSource()
     private readonly dataSource: DataSource,
     @Inject(LOGGER) private readonly logger: Logger,
     private readonly filesService: FileManager,
+    private readonly cacheService: CacheService,
     private readonly mediaService: MediaManager) {
     super();
   }
@@ -68,6 +79,9 @@ export class XmlDataBridgeService extends XdbService {
         case "Remove":
           await this.processRemoveNodes(item);
           break;
+        case "Include":
+          await this.processIncludeNodes(item);
+          break;
       }
     }
     return true;
@@ -82,6 +96,39 @@ export class XmlDataBridgeService extends XdbService {
    */
   async exportXml(target: string, id: string) {
     // todo implement
+    // use that lib https://github.com/archiverjs/node-archiver
+    return true;
+  }
+
+  /**
+   * Import XML data from Zip-fileData.
+   * @param fileData - The XdbObject containing the XML data.
+   * @returns A promise that resolves to a boolean indicating whether the import was successful.
+   */
+  async importFromFile(fileData: Buffer) {
+    // write archive
+    const tmpDir = process.cwd() + await this.cacheService.get(KpConfig.TMP_DIR);
+    await createDirectoriesIfNotExist(tmpDir);
+    const fileName = NumberUtils.generateRandomInt();
+    const filePath = `${tmpDir}/${fileName}.zip`;
+    const operationDir = `${tmpDir}/${fileName}`;
+    await fs.promises.writeFile(filePath, fileData);
+    // work with archive
+    const arch = new AdmZip(filePath);
+    await createDirectoriesIfNotExist(operationDir);
+    arch.extractAllTo(operationDir, true);
+    const fileList = await readDirectoryRecursively(operationDir);
+    for (const dir of Object.keys(fileList)) {
+      if (!fileList[dir]?.length) {
+        continue;
+      }
+      // todo sort files by name
+      for (const file of fileList[dir]) {
+        const extractedFilePath = path.normalize(`${operationDir}/${dir}/${file}`);
+        console.log(extractedFilePath);
+        // todo read files and import data's
+      }
+    }
     return true;
   }
 
@@ -90,7 +137,7 @@ export class XmlDataBridgeService extends XdbService {
    * @param item - An XdbActions object containing rows of file data.
    * @returns A promise that resolves when all file nodes are processed.
    */
-  private async processFileNodes(item: XdbActions) {
+  private async processFileNodes(item: XdbAction) {
     const rows = item.rows as FileRow[];
     for (const row of rows) {
       let existedEntity: File;
@@ -98,7 +145,8 @@ export class XmlDataBridgeService extends XdbService {
         existedEntity = await this.filesService.findByCode(row.code);
       }
       const localizedStrings = await this.getLocalizedStrings(row);
-      const buf = await this.readFileData(row.file);
+      const filePath = process.cwd() + row.file;
+      const buf = await readFile(path.normalize(filePath));
       const isPublic = String(row.public) === "true";
       const file = await this.filesService.createOrUpdateFile(
         buf, row.file.split(".").pop(), isPublic, row.code, existedEntity?.id, localizedStrings
@@ -108,11 +156,24 @@ export class XmlDataBridgeService extends XdbService {
   }
 
   /**
+   * Process "file" nodes by creating or updating a file.
+   * @param item - An XdbActions object containing rows of file data.
+   * @returns A promise that resolves when all file nodes are processed.
+   */
+  private async processIncludeNodes(item: XdbAction) {
+    this.logger.log(item.attrs.read);
+    const filePath = process.cwd() + item.attrs.read;
+    const buf = await readFile(path.normalize(filePath));
+    const xml = await this.parseXmlFile(buf);
+    await this.importXml(xml);
+  }
+
+  /**
    * Process "media" nodes by creating or updating a media object.
    * @param item - An XdbActions object containing rows of media data.
    * @returns A promise that resolves when all media nodes are processed.
    */
-  private async processMediaNodes(item: XdbActions) {
+  private async processMediaNodes(item: XdbAction) {
     const rows = item.rows as MediaRow[];
     for (const row of rows) {
       let existedEntity: Media;
@@ -120,7 +181,8 @@ export class XmlDataBridgeService extends XdbService {
         existedEntity = await this.mediaService.findByCode(row.code);
       }
       const localizedStrings = await this.getLocalizedStrings(row);
-      const buf = await this.readFileData(row.file);
+      const filePath = process.cwd() + row.file;
+      const buf = await readFile(path.normalize(filePath));
       const media = await this.mediaService.createOrUpdateMedia(
         buf, row.type, row.code, existedEntity?.id, localizedStrings
       );
@@ -129,20 +191,11 @@ export class XmlDataBridgeService extends XdbService {
   }
 
   /**
-   * Read file data from the specified path.
-   * @param path - A string representing the path of the file to read
-   * @returns A promise that resolves to a Buffer containing the file data.
-   */
-  private async readFileData(path: string) {
-    return await readFile(process.cwd() + path);
-  }
-
-  /**
    * Process "remove" nodes by removing the specified entities.
    * @param item - An XdbActions object containing rows of entity data to remove.
    * @returns A promise that resolves when all remove nodes are processed.
    */
-  private async processRemoveNodes(item: XdbActions) {
+  private async processRemoveNodes(item: XdbAction) {
     const repository = this.connection.getRepository(item.attrs.target);
     for (const rowData of item.rows) {
       const whereConditions = this.getRowDataWhereConditions(rowData);
@@ -199,7 +252,7 @@ export class XmlDataBridgeService extends XdbService {
    * @param item - An XdbActions object containing rows of entity data.
    * @returns A promise that resolves when all InsertUpdate nodes are processed.
    */
-  private async processInsertUpdateNodes(item: XdbActions) {
+  private async processInsertUpdateNodes(item: XdbAction) {
     const repository = this.connection.getRepository(item.attrs.target);
     for (const rowData of item.rows) {
       const uniqueKeyFields = this.getUniqueKeyFields(repository, rowData);
@@ -369,6 +422,19 @@ export class XmlDataBridgeService extends XdbService {
       }
     }
     return localizedStrings;
+  }
+
+  private async parseXmlFile(xmlData: Buffer): Promise<XdbObject> {
+    return new Promise((resolve, reject) => {
+      this.parser.parseString(xmlData, async (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          const body = Xdb.parseXmlBody(result as { schema });
+          resolve(body);
+        }
+      });
+    });
   }
 
 }

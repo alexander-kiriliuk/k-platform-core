@@ -109,7 +109,7 @@ import readFile = FilesUtils.readFile;
         if (err) {
           reject(err);
         } else {
-          const body = Xdb.parseXmlBody(result);
+          const body = Xdb.parseXmlBody(result as { schema });
           await service.importXml(body);
           resolve(result);
         }
