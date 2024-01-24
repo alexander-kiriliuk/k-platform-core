@@ -43,8 +43,8 @@ export class UserEntity implements User {
   @Column("varchar", { nullable: false, unique: true })
   login: string;
 
-  @Index()
-  @Column("varchar", { nullable: true, unique: true })
+  @Index({ unique: true })
+  @Column("varchar", { nullable: true })
   email: string;
 
   @Column("varchar", { nullable: true })

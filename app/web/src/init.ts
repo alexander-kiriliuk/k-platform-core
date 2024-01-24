@@ -19,7 +19,6 @@ import { ConfigModule } from "@config/config.module";
 import { ConfigService } from "@config/config.service";
 import { XmlDataBridgeModule } from "@xml-data-bridge/xml-data-bridge.module";
 import { Xdb, XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
-import * as process from "process";
 import { FilesUtils } from "@shared/utils/files.utils";
 import { LogModule } from "@shared/modules/log/log.module";
 import { FileModule } from "@files/file.module";
@@ -93,6 +92,7 @@ import readFile = FilesUtils.readFile;
       service: XmlDataBridgeService,
       imports: [
         LogModule,
+        CacheModule,
         FileModule.forRoot(),
         MediaModule.forRoot(),
         ExplorerModule.forRoot(),
@@ -101,21 +101,20 @@ import readFile = FilesUtils.readFile;
     });
     const app = await NestFactory.createApplicationContext(mod);
     await app.init();
+    console.log(`Database was initialized`);
     const service = app.select(mod).get(XdbService);
-    const parser = Xdb.getXmlParser();
-    const xmlData = await readFile(`${process.cwd()}/app/web/res/initial-data.xml`);
-    await new Promise((resolve, reject) => {
-      parser.parseString(xmlData, async (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          const body = Xdb.parseXmlBody(result as { schema });
-          await service.importXml(body);
-          resolve(result);
-        }
-      });
-    });
+    console.log(`Import initial-data`);
+    const initialDataBody = await parseXmlFileData("/app/web/res/initial-data.xml");
+    await service.importXml(initialDataBody);
+    const sampleDataBody = await parseXmlFileData("/app/web/res/sample-data.xml");
+    console.log(`Import sample-data`);
+    await service.importXml(sampleDataBody);
     await app.close();
+  }
+
+  async function parseXmlFileData(filePath: string) {
+    const xmlData = await readFile(`${process.cwd()}${filePath}`);
+    return await Xdb.parseXmlFile(xmlData);
   }
 
   await prepareEnvironment();

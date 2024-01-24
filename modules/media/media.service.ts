@@ -49,7 +49,6 @@ import * as fs from "fs";
 import * as path from "path";
 import imageminPngquant from "imagemin-pngquant";
 import { NumberUtils } from "@shared/utils/number.utils";
-import * as process from "process";
 
 createCanvas(0, 0);
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;

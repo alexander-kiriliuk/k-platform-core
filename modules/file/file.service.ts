@@ -35,7 +35,6 @@ import { File } from "./file.types";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { FileManager } from "@files/file.constants";
-import process from "process";
 import PRIVATE_DIR = FileConfig.PRIVATE_DIR;
 import PUBLIC_DIR = FileConfig.PUBLIC_DIR;
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;

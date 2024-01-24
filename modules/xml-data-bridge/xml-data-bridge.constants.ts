@@ -85,4 +85,17 @@ export namespace Xdb {
     return result;
   }
 
+  export async function parseXmlFile(xmlData: Buffer): Promise<XdbObject> {
+    return new Promise((resolve, reject) => {
+      getXmlParser().parseString(xmlData, async (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          const body = parseXmlBody(result as { schema });
+          resolve(body);
+        }
+      });
+    });
+  }
+
 }

@@ -18,6 +18,21 @@
 
 <schema>
 
+    <InsertUpdate target="UserEntity">
+        <row>
+            <login>admin</login>
+            <password>1111</password>
+            <avatar key="code">admin-avatar</avatar>
+            <email>admin@domain.xyz</email>
+            <active>true</active>
+            <roles key="code">
+                <row>root</row>
+            </roles>
+            <firstName>John</firstName>
+            <lastName key="code">Doe</lastName>
+        </row>
+    </InsertUpdate>
+
     <InsertUpdate target="LocalizedStringEntity">
         <row>
             <lang key="id">ru</lang>

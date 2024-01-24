@@ -23,7 +23,6 @@ import { CaptchaConfig } from "@captcha/gen-src/captcha.config";
 import { createCanvas, registerFont } from "canvas";
 import { NumberUtils } from "@shared/utils/number.utils";
 import { LOGGER } from "@shared/modules/log/log.constants";
-import * as process from "process";
 import { CAPTCHA_CACHE_PREFIX } from "./captcha.constants";
 import path from "path";
 import generateRandomString = StringUtils.generateRandomString;

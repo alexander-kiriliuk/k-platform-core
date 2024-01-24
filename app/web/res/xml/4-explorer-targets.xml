@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2023 Alexander Kiriliuk
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<schema>
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-target-users-name-ru</code>
+            <value>Пользователи</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-target-users-name-en</code>
+            <value>Users</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-target-user-roles-name-ru</code>
+            <value>Роли</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-target-user-roles-name-en</code>
+            <value>User roles</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-target-media-name-ru</code>
+            <value>Медиа</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-target-media-name-en</code>
+            <value>Medias</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-target-media-format-name-ru</code>
+            <value>Форматы медиа</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-target-media-format-name-en</code>
+            <value>Media formats</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-target-media-type-name-ru</code>
+            <value>Типы медиа</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-target-media-type-name-en</code>
+            <value>Media types</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-target-media-ext-name-ru</code>
+            <value>Расширения медиа</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-target-media-ext-name-en</code>
+            <value>Media extensions</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-target-media-file-name-ru</code>
+            <value>Медиа-файлы</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-target-media-file-name-en</code>
+            <value>Media files</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-target-files-name-ru</code>
+            <value>Файлы</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-target-files-name-en</code>
+            <value>Files</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-target-category-name-ru</code>
+            <value>Категории</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-target-category-name-en</code>
+            <value>Category</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-target-column-explorer-name-ru</code>
+            <value>Столбцы проводника</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-target-column-explorer-name-en</code>
+            <value>Explorer columns</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-target-explorer-name-ru</code>
+            <value>Разделы проводника</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-target-explorer-name-en</code>
+            <value>Explorer targets</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-target-lang-name-ru</code>
+            <value>Языки</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-target-lang-name-en</code>
+            <value>Languages</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-target-localized-media-name-ru</code>
+            <value>Локализованные медиа</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-target-localized-media-name-en</code>
+            <value>Localized medias</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-target-localized-string-name-ru</code>
+            <value>Локализованные строки</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-target-localized-string-name-en</code>
+            <value>Localized strings</value>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTargetEntity">
+        <row>
+            <target>UserEntity</target>
+            <alias>users</alias>
+            <name key="code">
+                <row>ex-target-users-name-ru</row>
+                <row>ex-target-users-name-en</row>
+            </name>
+        </row>
+        <row>
+            <target>UserRoleEntity</target>
+            <alias>user-roles</alias>
+            <name key="code">
+                <row>ex-target-user-roles-name-ru</row>
+                <row>ex-target-user-roles-name-en</row>
+            </name>
+        </row>
+        <row>
+            <target>MediaEntity</target>
+            <alias>media</alias>
+            <name key="code">
+                <row>ex-target-media-name-ru</row>
+                <row>ex-target-media-name-en</row>
+            </name>
+        </row>
+        <row>
+            <target>MediaFormatEntity</target>
+            <alias>media-format</alias>
+            <name key="code">
+                <row>ex-target-media-format-name-ru</row>
+                <row>ex-target-media-format-name-en</row>
+            </name>
+        </row>
+        <row>
+            <target>MediaTypeEntity</target>
+            <alias>media-type</alias>
+            <name key="code">
+                <row>ex-target-media-type-name-ru</row>
+                <row>ex-target-media-type-name-en</row>
+            </name>
+        </row>
+        <row>
+            <target>MediaExtEntity</target>
+            <name key="code">
+                <row>ex-target-media-ext-name-ru</row>
+                <row>ex-target-media-ext-name-en</row>
+            </name>
+        </row>
+        <row>
+            <target>MediaFileEntity</target>
+            <name key="code">
+                <row>ex-target-media-file-name-ru</row>
+                <row>ex-target-media-file-name-en</row>
+            </name>
+        </row>
+        <row>
+            <target>FileEntity</target>
+            <alias>files</alias>
+            <name key="code">
+                <row>ex-target-files-name-ru</row>
+                <row>ex-target-files-name-en</row>
+            </name>
+        </row>
+        <row>
+            <target>CategoryEntity</target>
+            <name key="code">
+                <row>ex-target-category-name-ru</row>
+                <row>ex-target-category-name-en</row>
+            </name>
+        </row>
+        <row>
+            <target>ExplorerColumnEntity</target>
+            <name key="code">
+                <row>ex-target-column-explorer-name-ru</row>
+                <row>ex-target-column-explorer-name-en</row>
+            </name>
+        </row>
+        <row>
+            <target>ExplorerTargetEntity</target>
+            <name key="code">
+                <row>ex-target-explorer-name-ru</row>
+                <row>ex-target-explorer-name-en</row>
+            </name>
+        </row>
+        <row>
+            <target>LanguageEntity</target>
+            <name key="code">
+                <row>ex-target-lang-name-ru</row>
+                <row>ex-target-lang-name-en</row>
+            </name>
+        </row>
+        <row>
+            <target>LocalizedMediaEntity</target>
+            <name key="code">
+                <row>ex-target-localized-media-name-ru</row>
+                <row>ex-target-localized-media-name-en</row>
+            </name>
+        </row>
+        <row>
+            <target>LocalizedStringEntity</target>
+            <name key="code">
+                <row>ex-target-localized-string-name-ru</row>
+                <row>ex-target-localized-string-name-en</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <!--Apply restrictions-->
+    <InsertUpdate target="ExplorerTargetEntity">
+        <row>
+            <target>ExplorerTargetEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>MediaTypeEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>MediaExtEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>MediaFormatEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>MediaFileEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>UserRoleEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>LanguageEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>CategoryEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+                <row>manager</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+                <row>manager</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>ExplorerActionEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>ExplorerColumnEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>ExplorerColumnRendererEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>WebAppMenuRestrictionEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>ExplorerTabEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>UserEntity</target>
+            <canRead key="code">
+                <row>manager</row>
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>manager</row>
+                <row>admin</row>
+            </canWrite>
+        </row>
+    </InsertUpdate>
+
+</schema>

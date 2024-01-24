@@ -31,7 +31,6 @@ import { KpConfig } from "../../gen-src/kp.config";
 import { NumberUtils } from "@shared/utils/number.utils";
 import * as AdmZip from "adm-zip";
 import * as fs from "fs";
-import * as process from "process";
 import * as path from "path";
 import readFile = FilesUtils.readFile;
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
@@ -42,8 +41,6 @@ import readDirectoryRecursively = FilesUtils.readDirectoryRecursively;
  */
 @Injectable()
 export class XmlDataBridgeService extends XdbService {
-
-  private readonly parser = Xdb.getXmlParser();
 
   constructor(
     @InjectDataSource()
@@ -118,18 +115,26 @@ export class XmlDataBridgeService extends XdbService {
     await createDirectoriesIfNotExist(operationDir);
     arch.extractAllTo(operationDir, true);
     const fileList = await readDirectoryRecursively(operationDir);
+    const xmlFiles: string [] = [];
     for (const dir of Object.keys(fileList)) {
       if (!fileList[dir]?.length) {
         continue;
       }
-      // todo sort files by name
-      for (const file of fileList[dir]) {
+      for (const file of fileList[dir].sort()) {
         const extractedFilePath = path.normalize(`${operationDir}/${dir}/${file}`);
-        console.log(extractedFilePath);
-        // todo read files and import data's
+        if (!extractedFilePath.endsWith(".xml")) {
+          continue;
+        }
+        const contentBuf = await readFile(extractedFilePath);
+        const zipDir = operationDir.replace(process.cwd(), "");
+        const contentStr = contentBuf.toString().replace(/@zip:/g, zipDir);
+        const modifiedBuf = Buffer.from(contentStr);
+        const xml = await Xdb.parseXmlFile(modifiedBuf);
+        await this.importXml(xml);
+        xmlFiles.push(extractedFilePath);
       }
     }
-    return true;
+    return xmlFiles.length > 0;
   }
 
   /**
@@ -164,7 +169,7 @@ export class XmlDataBridgeService extends XdbService {
     this.logger.log(item.attrs.read);
     const filePath = process.cwd() + item.attrs.read;
     const buf = await readFile(path.normalize(filePath));
-    const xml = await this.parseXmlFile(buf);
+    const xml = await Xdb.parseXmlFile(buf);
     await this.importXml(xml);
   }
 
@@ -422,19 +427,6 @@ export class XmlDataBridgeService extends XdbService {
       }
     }
     return localizedStrings;
-  }
-
-  private async parseXmlFile(xmlData: Buffer): Promise<XdbObject> {
-    return new Promise((resolve, reject) => {
-      this.parser.parseString(xmlData, async (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          const body = Xdb.parseXmlBody(result as { schema });
-          resolve(body);
-        }
-      });
-    });
   }
 
 }

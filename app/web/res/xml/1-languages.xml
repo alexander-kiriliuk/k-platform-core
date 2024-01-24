@@ -17,12 +17,20 @@
   -->
 
 <schema>
-    <Include read="/app/web/res/xml/0-media-data.xml"/>
-    <Include read="/app/web/res/xml/1-languages.xml"/>
-    <Include read="/app/web/res/xml/2-user-roles.xml"/>
-    <Include read="/app/web/res/xml/3-main-menu.xml"/>
-    <Include read="/app/web/res/xml/4-explorer-targets.xml"/>
-    <Include read="/app/web/res/xml/5-explorer-renderers.xml"/>
-    <Include read="/app/web/res/xml/6-explorer-actions.xml"/>
-    <Include read="/app/web/res/xml/7-explorer-columns.xml"/>
+
+    <InsertUpdate target="LanguageEntity">
+        <row>
+            <id>ru</id>
+            <code>ru_RU</code>
+            <name>RU</name>
+            <icon key="code">flag-ru</icon>
+        </row>
+        <row>
+            <id>en</id>
+            <code>en_US</code>
+            <name>EN</name>
+            <icon key="code">flag-en</icon>
+        </row>
+    </InsertUpdate>
+
 </schema>
