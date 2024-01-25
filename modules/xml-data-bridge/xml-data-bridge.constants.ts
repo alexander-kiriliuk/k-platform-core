@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { XdbAction, XdbObject, XdbRowData } from "@xml-data-bridge/xml-data-bridge.types";
+import { XdbAction, XdbExportParams, XdbObject, XdbRowData } from "@xml-data-bridge/xml-data-bridge.types";
 import * as xml2js from "xml2js";
 import { Parser } from "yargs-parser";
 
@@ -22,7 +22,7 @@ export abstract class XdbService {
 
   abstract importXml(xml: XdbObject): Promise<boolean>;
 
-  abstract exportXml(target: string, id: string): Promise<boolean>;
+  abstract exportXml(params: XdbExportParams): Promise<string>;
 
   abstract importFromFile(fileData: Buffer): Promise<boolean>;
 
@@ -33,6 +33,8 @@ export namespace Xdb {
   let parser: Parser & {
     parseString: (xmlData: string | Buffer, callback: (err: Error | null, result: unknown) => void) => void
   };
+
+  export const ReadOperatorRe = /\$\{@read:([^}]*)}/;
 
   export function getXmlParser() {
     if (parser) {

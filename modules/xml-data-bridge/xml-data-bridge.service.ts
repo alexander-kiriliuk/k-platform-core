@@ -16,7 +16,14 @@
 
 import { Inject, Injectable, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
-import { FileRow, MediaRow, XdbAction, XdbObject, XdbRowData } from "@xml-data-bridge/xml-data-bridge.types";
+import {
+  FileRow,
+  MediaRow,
+  XdbAction,
+  XdbExportParams,
+  XdbObject,
+  XdbRowData
+} from "@xml-data-bridge/xml-data-bridge.types";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource, EntityMetadata, In, Repository } from "typeorm";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
@@ -35,6 +42,7 @@ import * as path from "path";
 import readFile = FilesUtils.readFile;
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
 import readDirectoryRecursively = FilesUtils.readDirectoryRecursively;
+import ReadOperatorRe = Xdb.ReadOperatorRe;
 
 /**
  * XmlDataBridgeService is responsible for importing and exporting data through XML.
@@ -63,6 +71,7 @@ export class XmlDataBridgeService extends XdbService {
    */
   async importXml(xml: XdbObject): Promise<boolean> {
     for (const item of xml.schema) {
+      await this.processReadOperators(item.rows);
       switch (item.action) {
         case "InsertUpdate":
           await this.processInsertUpdateNodes(item);
@@ -86,19 +95,18 @@ export class XmlDataBridgeService extends XdbService {
 
   /**
    * Export XML data to a specified target.
-   * @param target - class-name of exporting entity
-   * @param id - ID of the entity to export.
-   * @returns A promise that resolves to true if the export is successful.
+   * @param params - object with export params XdbExportParams
+   * @returns A string if object exported to zip-file
    * @todo Implement the exportXml method.
    */
-  async exportXml(target: string, id: string) {
+  async exportXml(params: XdbExportParams) {
     // todo implement
     // use that lib https://github.com/archiverjs/node-archiver
-    return true;
+    return "true";
   }
 
   /**
-   * Import XML data from Zip-fileData.
+   * Import XML data from Zip-archive.
    * @param fileData - The XdbObject containing the XML data.
    * @returns A promise that resolves to a boolean indicating whether the import was successful.
    */
@@ -427,6 +435,40 @@ export class XmlDataBridgeService extends XdbService {
       }
     }
     return localizedStrings;
+  }
+
+  /**
+   Processes @read operators in attributes and nodes, downloads the file along the path contained
+   in the ${@read:/path} construct, replaces this construct with its contents
+   @param rows - A list of xml-row object containing the name property.
+   */
+  private async processReadOperators(rows: Array<XdbRowData | FileRow>) {
+    for (const row of rows) {
+      for (const val of Object.keys(row)) {
+        let link: string = undefined;
+        if (typeof row[val] === "string") {
+          link = this.findReadOperator(row[val]);
+          if (link) {
+            const buf = await readFile(path.normalize(process.cwd() + link));
+            row[val] = row[val].replace(ReadOperatorRe, buf.toString());
+          }
+        } else {
+          link = this.findReadOperator(row[val].value);
+          if (link) {
+            const buf = await readFile(path.normalize(process.cwd() + link));
+            row[val] = row[val].value.replace(ReadOperatorRe, buf.toString());
+          }
+        }
+      }
+    }
+  }
+
+  private findReadOperator(input: string) {
+    const match = input.match(ReadOperatorRe);
+    if (match?.length > 1) {
+      return match[1];
+    }
+    return undefined;
   }
 
 }

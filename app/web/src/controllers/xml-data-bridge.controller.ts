@@ -14,9 +14,9 @@
  *    limitations under the License.
  */
 
-import { Body, Controller, Get, Param, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
-import { XdbObject } from "@xml-data-bridge/xml-data-bridge.types";
+import { XdbExportParams, XdbObject } from "@xml-data-bridge/xml-data-bridge.types";
 import { XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
 import { ForRoles } from "@shared/decorators/for-roles.decorator";
 import { Roles } from "@shared/constants";
@@ -44,10 +44,10 @@ export class XmlDataBridgeController {
     return await this.xdbService.importFromFile(file.buffer);
   }
 
-  @Get("/export/:target/:id")
+  @Post("/export")
   @ForRoles(Roles.ADMIN)
-  async export(@Param("target") target: string, @Param("id") id: string) {
-    return await this.xdbService.exportXml(target, id);
+  async export(@Body() body: XdbExportParams) {
+    return await this.xdbService.exportXml(body);
   }
 
 }

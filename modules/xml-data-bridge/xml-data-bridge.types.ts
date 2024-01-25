@@ -69,3 +69,10 @@ export type XdbModuleOptions = {
   service: Class<XdbService>,
   imports: Array<Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference>;
 };
+
+export type XdbExportParams = {
+  target: string;
+  id: string;
+  useFiles: boolean;
+  properties: string[];
+}

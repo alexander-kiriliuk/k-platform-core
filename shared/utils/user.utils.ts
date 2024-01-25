@@ -38,6 +38,9 @@ export namespace UserUtils {
     if (!userRoles?.length) {
       return false;
     }
+    if (userRoles.find(v => v.code === Roles.ROOT)) {
+      return true;
+    }
     for (const role of roles) {
       if (userRoles.find(v => v.code === role)) {
         return true;
