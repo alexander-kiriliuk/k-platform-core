@@ -18,12 +18,12 @@ import { NestFactory } from "@nestjs/core";
 import { ConfigModule } from "@config/config.module";
 import { ConfigService } from "@config/config.service";
 import { XmlDataBridgeModule } from "@xml-data-bridge/xml-data-bridge.module";
-import { Xdb, XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
+import { Xdb, XdbImportService } from "@xml-data-bridge/xml-data-bridge.constants";
 import { FilesUtils } from "@shared/utils/files.utils";
 import { LogModule } from "@shared/modules/log/log.module";
 import { FileModule } from "@files/file.module";
 import { MediaModule } from "@media/media.module";
-import { XmlDataBridgeService } from "@xml-data-bridge/xml-data-bridge.service";
+import { XmlDataBridgeImportService } from "@xml-data-bridge/xml-data-bridge-import.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Orm } from "./orm.config";
 import Redis from "ioredis";
@@ -33,6 +33,7 @@ import { DbConfig } from "../gen-src/db.config";
 import { CacheModule } from "@shared/modules/cache/cache.module";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { ExplorerModule } from "@explorer/explorer.module";
+import { XmlDataBridgeExportService } from "@xml-data-bridge/xml-data-bridge-export.service";
 import readFile = FilesUtils.readFile;
 
 (async () => {
@@ -89,7 +90,8 @@ import readFile = FilesUtils.readFile;
 
   async function initDatabase() {
     const mod = XmlDataBridgeModule.forRoot({
-      service: XmlDataBridgeService,
+      importService: XmlDataBridgeImportService,
+      exportService: XmlDataBridgeExportService,
       imports: [
         LogModule,
         CacheModule,
@@ -102,7 +104,7 @@ import readFile = FilesUtils.readFile;
     const app = await NestFactory.createApplicationContext(mod);
     await app.init();
     console.log(`Database was initialized`);
-    const service = app.select(mod).get(XdbService);
+    const service = app.select(mod).get(XdbImportService);
     console.log(`Import initial-data`);
     const initialDataBody = await parseXmlFileData("/app/web/res/initial-data.xml");
     await service.importXml(initialDataBody);

@@ -17,37 +17,44 @@
 import { Body, Controller, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { XdbExportParams, XdbObject } from "@xml-data-bridge/xml-data-bridge.types";
-import { XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
+import { XdbExportService, XdbImportService } from "@xml-data-bridge/xml-data-bridge.constants";
 import { ForRoles } from "@shared/decorators/for-roles.decorator";
 import { Roles } from "@shared/constants";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { NotEmptyPipe } from "@shared/pipes/not-empty.pipe";
+import { CurrentUser } from "@shared/decorators/current-user.decorator";
+import { User } from "@user/user.types";
 
 @Controller("xdb")
 @UseGuards(AuthGuard)
 export class XmlDataBridgeController {
 
   constructor(
-    private readonly xdbService: XdbService) {
+    private readonly xdbImportService: XdbImportService,
+    private readonly xdbExportService: XdbExportService) {
   }
 
   @Post("/import")
   @ForRoles(Roles.ROOT)
   async import(@Body() body: XdbObject) {
-    return await this.xdbService.importXml(body);
+    return await this.xdbImportService.importXml(body);
   }
 
   @Post("/import-file")
   @UseInterceptors(FileInterceptor("file"))
   @ForRoles(Roles.ROOT)
   async importFile(@UploadedFile("file", new NotEmptyPipe("file")) file: Express.Multer.File) {
-    return await this.xdbService.importFromFile(file.buffer);
+    return await this.xdbImportService.importFromFile(file.buffer);
   }
 
   @Post("/export")
   @ForRoles(Roles.ADMIN)
-  async export(@Body() body: XdbExportParams) {
-    return await this.xdbService.exportXml(body);
+  async export(@Body() body: XdbExportParams, @CurrentUser() user: User) {
+    body.user = user;
+    if (!body.depth) {
+      body.depth = undefined;
+    }
+    return await this.xdbExportService.exportXml(body);
   }
 
 }

@@ -16,14 +16,7 @@
 
 import { Inject, Injectable, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
-import {
-  FileRow,
-  MediaRow,
-  XdbAction,
-  XdbExportParams,
-  XdbObject,
-  XdbRowData
-} from "@xml-data-bridge/xml-data-bridge.types";
+import { FileRow, MediaRow, XdbAction, XdbObject, XdbRowData } from "@xml-data-bridge/xml-data-bridge.types";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource, EntityMetadata, In, Repository } from "typeorm";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
@@ -31,7 +24,7 @@ import { FilesUtils } from "@shared/utils/files.utils";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { File } from "@files/file.types";
 import { Media, MediaManager } from "@media/media.types";
-import { Xdb, XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
+import { Xdb, XdbImportService } from "@xml-data-bridge/xml-data-bridge.constants";
 import { FileManager } from "@files/file.constants";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { KpConfig } from "../../gen-src/kp.config";
@@ -43,20 +36,21 @@ import readFile = FilesUtils.readFile;
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
 import readDirectoryRecursively = FilesUtils.readDirectoryRecursively;
 import ReadOperatorRe = Xdb.ReadOperatorRe;
+import generateRandomInt = NumberUtils.generateRandomInt;
 
 /**
  * XmlDataBridgeService is responsible for importing and exporting data through XML.
  */
 @Injectable()
-export class XmlDataBridgeService extends XdbService {
+export class XmlDataBridgeImportService extends XdbImportService {
 
   constructor(
     @InjectDataSource()
     private readonly dataSource: DataSource,
     @Inject(LOGGER) private readonly logger: Logger,
+    private readonly mediaService: MediaManager,
     private readonly filesService: FileManager,
-    private readonly cacheService: CacheService,
-    private readonly mediaService: MediaManager) {
+    private readonly cacheService: CacheService) {
     super();
   }
 
@@ -93,17 +87,6 @@ export class XmlDataBridgeService extends XdbService {
     return true;
   }
 
-  /**
-   * Export XML data to a specified target.
-   * @param params - object with export params XdbExportParams
-   * @returns A string if object exported to zip-file
-   * @todo Implement the exportXml method.
-   */
-  async exportXml(params: XdbExportParams) {
-    // todo implement
-    // use that lib https://github.com/archiverjs/node-archiver
-    return "true";
-  }
 
   /**
    * Import XML data from Zip-archive.
@@ -114,7 +97,7 @@ export class XmlDataBridgeService extends XdbService {
     // write archive
     const tmpDir = process.cwd() + await this.cacheService.get(KpConfig.TMP_DIR);
     await createDirectoriesIfNotExist(tmpDir);
-    const fileName = NumberUtils.generateRandomInt();
+    const fileName = generateRandomInt();
     const filePath = `${tmpDir}/${fileName}.zip`;
     const operationDir = `${tmpDir}/${fileName}`;
     await fs.promises.writeFile(filePath, fileData);

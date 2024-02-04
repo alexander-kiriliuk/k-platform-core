@@ -167,7 +167,7 @@ export class BasicExplorerService extends ExplorerService {
    */
   async removeEntity(target: string, id: string | number, targetParams?: ExplorerTargetParams): Promise<ObjectLiteral> {
     const targetData = await this.getTargetData(target, targetParams);
-    if (targetParams.checkUserAccess && !this.checkEntityAccess(targetData, targetParams)) {
+    if (targetParams?.checkUserAccess && !this.checkEntityAccess(targetData, targetParams)) {
       throw new ForbiddenException(`Can't get access to target: ${target}`);
     }
     const repository = this.connection.getRepository(targetData.entity.target);
@@ -193,7 +193,7 @@ export class BasicExplorerService extends ExplorerService {
     if (!targetData) {
       throw new NotFoundException(`Target entity not found: ${target}`);
     }
-    if (targetParams.checkUserAccess && !this.checkEntityAccess(targetData, targetParams)) {
+    if (targetParams?.checkUserAccess && !this.checkEntityAccess(targetData, targetParams)) {
       throw new ForbiddenException(`Can't get access to target: ${target}`);
     }
     const repository = this.connection.getRepository(targetData.entity.target);
@@ -284,7 +284,7 @@ export class BasicExplorerService extends ExplorerService {
     if (!targetData) {
       throw new NotFoundException(`Target entity not found: ${target}`);
     }
-    if (targetParams.checkUserAccess && !this.checkEntityAccess(targetData, targetParams)) {
+    if (targetParams?.checkUserAccess && !this.checkEntityAccess(targetData, targetParams)) {
       throw new ForbiddenException(`Can't get access to target: ${target}`);
     }
     return targetData;
@@ -558,6 +558,14 @@ export class BasicExplorerService extends ExplorerService {
         return true;
       }
     }
+    for (const ind of md.indices) {
+      if (!ind.isUnique) {
+        continue;
+      }
+      if (ind.columns.find(c => c.propertyName === column.propertyName)) {
+        return true;
+      }
+    }
     return false;
   }
 
@@ -568,13 +576,13 @@ export class BasicExplorerService extends ExplorerService {
    */
   private checkEntityAccess(targetData: TargetData, targetParams: ExplorerTargetParams) {
     if (targetParams.readRequest) {
-      return hasAccessForRoles(targetParams.checkUserAccess.roles, targetData.entity.canRead);
+      return hasAccessForRoles(targetParams?.checkUserAccess.roles, targetData.entity.canRead);
     }
     if (targetParams.writeRequest) {
-      return hasAccessForRoles(targetParams.checkUserAccess.roles, targetData.entity.canWrite);
+      return hasAccessForRoles(targetParams?.checkUserAccess.roles, targetData.entity.canWrite);
     }
-    return hasAccessForRoles(targetParams.checkUserAccess.roles, targetData.entity.canWrite) &&
-      hasAccessForRoles(targetParams.checkUserAccess.roles, targetData.entity.canRead);
+    return hasAccessForRoles(targetParams?.checkUserAccess.roles, targetData.entity.canWrite) &&
+      hasAccessForRoles(targetParams?.checkUserAccess.roles, targetData.entity.canRead);
   }
 
   /**

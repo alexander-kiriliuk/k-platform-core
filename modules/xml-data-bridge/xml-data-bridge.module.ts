@@ -19,19 +19,23 @@ import { LogModule } from "@shared/modules/log/log.module";
 import { FileModule } from "@files/file.module";
 import { MediaModule } from "@media/media.module";
 
-import { XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
+import { XdbExportService, XdbImportService } from "@xml-data-bridge/xml-data-bridge.constants";
 import { XdbModuleOptions } from "@xml-data-bridge/xml-data-bridge.types";
-import { XmlDataBridgeService } from "@xml-data-bridge/xml-data-bridge.service";
+import { XmlDataBridgeImportService } from "@xml-data-bridge/xml-data-bridge-import.service";
 import { CacheModule } from "@shared/modules/cache/cache.module";
+import { ExplorerModule } from "@explorer/explorer.module";
+import { XmlDataBridgeExportService } from "@xml-data-bridge/xml-data-bridge-export.service";
 
 @Module({})
 export class XmlDataBridgeModule {
 
   static forRoot(options: XdbModuleOptions = {
-    service: XmlDataBridgeService,
+    importService: XmlDataBridgeImportService,
+    exportService: XmlDataBridgeExportService,
     imports: [
       LogModule,
       CacheModule,
+      ExplorerModule.forRoot(),
       FileModule.forRoot(),
       MediaModule.forRoot()
     ]
@@ -41,11 +45,15 @@ export class XmlDataBridgeModule {
       imports: options.imports,
       providers: [
         {
-          provide: XdbService,
-          useClass: options.service
+          provide: XdbImportService,
+          useClass: options.importService
+        },
+        {
+          provide: XdbExportService,
+          useClass: options.exportService
         }
       ],
-      exports: [XdbService]
+      exports: [XdbImportService, XdbExportService]
     };
   }
 

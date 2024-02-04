@@ -16,9 +16,11 @@
 
 
 import { Type, Type as Class } from "@nestjs/common/interfaces/type.interface";
-import { XdbService } from "@xml-data-bridge/xml-data-bridge.constants";
+import { XdbExportService, XdbImportService } from "@xml-data-bridge/xml-data-bridge.constants";
 import { DynamicModule } from "@nestjs/common/interfaces/modules/dynamic-module.interface";
 import { ForwardReference } from "@nestjs/common/interfaces/modules/forward-reference.interface";
+import { User } from "@user/user.types";
+import { ObjectLiteral } from "typeorm";
 
 export interface XdbRequest {
   target: string;
@@ -66,13 +68,21 @@ export type XdbObject = {
 };
 
 export type XdbModuleOptions = {
-  service: Class<XdbService>,
+  importService: Class<XdbImportService>,
+  exportService: Class<XdbExportService>,
   imports: Array<Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference>;
 };
 
 export type XdbExportParams = {
   target: string;
   id: string;
+  depth: number;
   useFiles: boolean;
   properties: string[];
+  user: User;
+}
+
+export type XdbDecomposedEntity = {
+  metadata: { type: string, fieldName: string, path: string },
+  data: ObjectLiteral | Array<ObjectLiteral>
 }

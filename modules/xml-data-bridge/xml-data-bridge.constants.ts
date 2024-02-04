@@ -14,17 +14,28 @@
  *    limitations under the License.
  */
 
-import { XdbAction, XdbExportParams, XdbObject, XdbRowData } from "@xml-data-bridge/xml-data-bridge.types";
+import {
+  XdbAction,
+  XdbDecomposedEntity,
+  XdbExportParams,
+  XdbObject,
+  XdbRowData
+} from "@xml-data-bridge/xml-data-bridge.types";
 import * as xml2js from "xml2js";
 import { Parser } from "yargs-parser";
+import { ObjectLiteral } from "typeorm";
 
-export abstract class XdbService {
+export abstract class XdbImportService {
 
   abstract importXml(xml: XdbObject): Promise<boolean>;
 
-  abstract exportXml(params: XdbExportParams): Promise<string>;
-
   abstract importFromFile(fileData: Buffer): Promise<boolean>;
+
+}
+
+export abstract class XdbExportService {
+
+  abstract exportXml(params: XdbExportParams): Promise<string>;
 
 }
 
@@ -98,6 +109,36 @@ export namespace Xdb {
         }
       });
     });
+  }
+
+  export function removeDuplicateObjects(array: XdbDecomposedEntity[]): XdbDecomposedEntity[] {
+    const uniqueObjects: XdbDecomposedEntity[] = [];
+    array.reverse().forEach((obj) => {
+      if (!uniqueObjects.some((uniqueObj) => deepEqual(uniqueObj, obj))) {
+        uniqueObjects.push(obj);
+      }
+    });
+    return uniqueObjects.reverse();
+  }
+
+  function deepEqual(obj1: ObjectLiteral, obj2: ObjectLiteral): boolean {
+    if (obj1 === obj2) {
+      return true;
+    }
+    if (typeof obj1 !== "object" || typeof obj2 !== "object" || obj1 === null || obj2 === null) {
+      return false;
+    }
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+    for (const key of keys1) {
+      if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
+        return false;
+      }
+    }
+    return true;
   }
 
 }
