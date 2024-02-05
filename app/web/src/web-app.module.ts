@@ -41,13 +41,13 @@ import { XmlDataBridgeModule } from "@xml-data-bridge/xml-data-bridge.module";
 import { Orm } from "./orm.config";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { CacheService } from "@shared/modules/cache/cache.types";
-import { ServerConfig } from "../gen-src/server.config";
 import { ServeStaticModuleOptions } from "@nestjs/serve-static/dist/interfaces/serve-static-options.interface";
 import { AppController } from "./controllers/app.controller";
 import { WebAppService } from "./web-app.service";
 import { CategoryModule } from "@shared/modules/category/category.module";
 import { UserEntityPwdAndRolesSaveHandler } from "@explorer/handlers/user-entity-pwd-and-roles.save-handler";
 import { Explorer } from "@explorer/explorer.constants";
+import { KpConfig } from "../../../gen-src/kp.config";
 import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
 
 @Module({
@@ -71,7 +71,7 @@ import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
       useFactory: async (cs: CacheService): Promise<ServeStaticModuleOptions[]> => {
         return [
           {
-            rootPath: process.cwd() + await cs.get(ServerConfig.STATIC_FILES)
+            rootPath: process.cwd() + await cs.get(KpConfig.STATIC_FILES)
           }
         ];
       }

@@ -82,6 +82,10 @@ export type XdbExportParams = {
   user: User;
 }
 
+export type XdbExportDto = {
+  file: string;
+}
+
 export type XdbDecomposedEntity = {
   metadata: { type: string, fieldName: string, path: string },
   data: ObjectLiteral | Array<ObjectLiteral>

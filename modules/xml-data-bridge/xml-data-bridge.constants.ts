@@ -17,6 +17,7 @@
 import {
   XdbAction,
   XdbDecomposedEntity,
+  XdbExportDto,
   XdbExportParams,
   XdbObject,
   XdbRowData
@@ -35,11 +36,14 @@ export abstract class XdbImportService {
 
 export abstract class XdbExportService {
 
-  abstract exportXml(params: XdbExportParams): Promise<string>;
+  abstract exportXml(params: XdbExportParams): Promise<XdbExportDto>;
 
 }
 
 export namespace Xdb {
+
+
+  export const rootToken = "@root";
 
   let parser: Parser & {
     parseString: (xmlData: string | Buffer, callback: (err: Error | null, result: unknown) => void) => void
