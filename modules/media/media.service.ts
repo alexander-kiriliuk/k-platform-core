@@ -226,6 +226,26 @@ export class MediaService extends MediaManager {
   }
 
   /**
+   * Finds a media entity by ID with the specified access level (public or private).
+   * @param id - The ID of the media entity.
+   * @param privateMedia - A boolean flag indicating whether to search for private media entities (default: false).
+   * @returns The found media entity.
+   * @throws NotFoundException if the media entity is not found.
+   */
+  async findMediaById(id: number, privateMedia: boolean = undefined): Promise<MediaEntity> {
+    const qb = this.createBasicFindQb()
+      .where("media.id = :id", { id });
+    if (privateMedia !== undefined) {
+      qb.andWhere(`type.private = ${privateMedia}`);
+    }
+    const entity = await qb.getOne();
+    if (!entity) {
+      throw new NotFoundException(`Media with ID ${id} not found`);
+    }
+    return entity;
+  }
+
+  /**
    * Retrieves the media type based on the given type code.
    * @param type - The media type code.
    * @returns The MediaTypeEntity instance.
@@ -421,26 +441,6 @@ export class MediaService extends MediaManager {
     mediaFile.height = metadata.height;
     mediaFile.size = image.length;
     return mediaFile;
-  }
-
-  /**
-   * Finds a media entity by ID with the specified access level (public or private).
-   * @param id - The ID of the media entity.
-   * @param privateMedia - A boolean flag indicating whether to search for private media entities (default: false).
-   * @returns The found media entity.
-   * @throws NotFoundException if the media entity is not found.
-   */
-  private async findMediaById(id: number, privateMedia: boolean = undefined): Promise<MediaEntity> {
-    const qb = this.createBasicFindQb()
-      .where("media.id = :id", { id });
-    if (privateMedia !== undefined) {
-      qb.andWhere(`type.private = ${privateMedia}`);
-    }
-    const entity = await qb.getOne();
-    if (!entity) {
-      throw new NotFoundException(`Media with ID ${id} not found`);
-    }
-    return entity;
   }
 
   /**

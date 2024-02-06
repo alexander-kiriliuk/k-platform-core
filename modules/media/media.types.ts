@@ -169,6 +169,8 @@ export abstract class MediaManager {
 
   abstract findByCode(code: string): Promise<MediaEntity>;
 
+  abstract findMediaById(id: number, privateMedia?: boolean): Promise<MediaEntity>
+
   abstract findPublicById(id: number): Promise<MediaEntity>;
 
   abstract findPrivateById(id: number): Promise<MediaEntity>;

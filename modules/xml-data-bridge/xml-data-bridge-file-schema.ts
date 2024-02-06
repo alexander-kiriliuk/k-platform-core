@@ -16,6 +16,8 @@
 
 import { XdbDecomposedEntity } from "@xml-data-bridge/xml-data-bridge.types";
 import { Xdb } from "@xml-data-bridge/xml-data-bridge.constants";
+import { Media } from "@media/media.types";
+import { ObjectLiteral } from "typeorm";
 
 export namespace XmlDataBridgeFileSchema {
 
@@ -26,6 +28,18 @@ export namespace XmlDataBridgeFileSchema {
     data += `<schema>\n`;
     data += BODY_TOKEN;
     data += `\n</schema>`;
+    return data;
+  }
+
+  export function xmlMediaNodeTpl(obj: ObjectLiteral) {
+    const media = obj as Media & { file: string, type: string };
+    let data = `\n\t<Media>\n\t\t<row>\n`;
+    if (media.code) {
+      data += `\t\t\t<code>${media.code}</code>\n`;
+    }
+    data += `\t\t\t<type>${media.type.split(":").pop()}</type>\n`;
+    data += `\t\t\t<file>${media.file}</file>\n`;
+    data += `\t\t</row>\n\t</Media>\n`;
     return data;
   }
 

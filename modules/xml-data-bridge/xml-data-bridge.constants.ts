@@ -25,6 +25,7 @@ import {
 import * as xml2js from "xml2js";
 import { Parser } from "yargs-parser";
 import { ObjectLiteral } from "typeorm";
+import { MediaEntity } from "@media/entity/media.entity";
 
 export abstract class XdbImportService {
 
@@ -42,8 +43,9 @@ export abstract class XdbExportService {
 
 export namespace Xdb {
 
-
   export const rootToken = "@root";
+
+  export const mediaEntityToken = MediaEntity.name;
 
   let parser: Parser & {
     parseString: (xmlData: string | Buffer, callback: (err: Error | null, result: unknown) => void) => void
