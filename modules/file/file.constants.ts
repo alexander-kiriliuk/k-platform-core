@@ -33,6 +33,8 @@ export abstract class FileManager {
 
   abstract findByCode(code: string): Promise<FileEntity>;
 
+  abstract findFileById(id: number): Promise<FileEntity>;
+
   abstract findPublicById(id: number): Promise<FileEntity>;
 
   abstract findPrivateById(id: number): Promise<FileEntity>;

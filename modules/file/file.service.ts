@@ -102,6 +102,25 @@ export class FileService extends FileManager {
   }
 
   /**
+   * Private helper method to find a file by its ID and public/private status.
+   * @param id - The ID of the file to find.
+   * @param isPublic - A boolean flag indicating if the file is public (true) or private (false).
+   * @returns A promise that resolves to the found FileEntity.
+   */
+  async findFileById(id: number, isPublic: boolean = undefined) {
+    const qb = this.createBasicFindQb()
+      .where("file.id = :id", { id });
+    if (isPublic !== undefined) {
+      qb.andWhere(`file.public = :isPublic`, { isPublic });
+    }
+    const entity = await qb.getOne();
+    if (!entity) {
+      throw new NotFoundException(`File with ID ${id} not found`);
+    }
+    return entity;
+  }
+
+  /**
    * Finds a file entity by code.
    * @param code - The code of the file entity.
    * @returns The found file entity.
@@ -159,25 +178,6 @@ export class FileService extends FileManager {
     });
     this.logger.log(`File with ID ${id} removed`);
     return file;
-  }
-
-  /**
-   * Private helper method to find a file by its ID and public/private status.
-   * @param id - The ID of the file to find.
-   * @param isPublic - A boolean flag indicating if the file is public (true) or private (false).
-   * @returns A promise that resolves to the found FileEntity.
-   */
-  private async findFileById(id: number, isPublic: boolean = undefined) {
-    const qb = this.createBasicFindQb()
-      .where("file.id = :id", { id });
-    if (isPublic !== undefined) {
-      qb.andWhere(`file.public = :isPublic`, { isPublic });
-    }
-    const entity = await qb.getOne();
-    if (!entity) {
-      throw new NotFoundException(`File with ID ${id} not found`);
-    }
-    return entity;
   }
 
   /**

@@ -33,6 +33,10 @@ import { MediaConfig } from "@media/gen-src/media.config";
 import * as path from "path";
 import { MediaFileEntity } from "@media/entity/media-file.entity";
 import { MediaFormatEntity } from "@media/entity/media-format.entity";
+import { FileEntity } from "@files/entity/file.entity";
+import { FileManager } from "@files/file.constants";
+import { FileConfig } from "@files/gen-src/file.config";
+import { File } from "@files/file.types";
 import xmlFileSchemaTpl = XmlDataBridgeFileSchema.xmlFileSchemaTpl;
 import xmlFileInsertUpdateNodeTpl = XmlDataBridgeFileSchema.xmlFileInsertUpdateNodeTpl;
 import BODY_TOKEN = XmlDataBridgeFileSchema.BODY_TOKEN;
@@ -45,7 +49,7 @@ import THUMB = ReservedMediaFormat.THUMB;
 import ORIGINAL = ReservedMediaFormat.ORIGINAL;
 import xmlMediaNodeTpl = XmlDataBridgeFileSchema.xmlMediaNodeTpl;
 import readFile = FilesUtils.readFile;
-import mediaEntityToken = Xdb.mediaEntityToken;
+import xmlFileNodeTpl = XmlDataBridgeFileSchema.xmlFileNodeTpl;
 
 /**
  * XmlDataBridgeService is responsible for importing and exporting data through XML.
@@ -57,6 +61,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
     private readonly mediaService: MediaManager,
+    private readonly filesService: FileManager,
     private readonly cacheService: CacheService,
     private readonly explorerService: ExplorerService) {
     super();
@@ -73,9 +78,10 @@ export class XmlDataBridgeExportService extends XdbExportService {
     const entity = await this.explorerService.getEntityData(params.target, params.id, params.depth, tParams);
     const decomposedEntityStack = await this.decomposeEntity(entity, target, tParams);
     await this.handleDecomposedMedias(decomposedEntityStack);
+    await this.handleDecomposedFiles(decomposedEntityStack);
     const xmlBody = this.buildXmlBody(decomposedEntityStack);
 
-    // todo special handling file entities
+    // todo test export medias with name
     // todo handle export form params
 
     const tmpDir = process.cwd() + await this.cacheService.get(KpConfig.TMP_DIR);
@@ -106,8 +112,13 @@ export class XmlDataBridgeExportService extends XdbExportService {
   private buildXmlBody(decomposedEntityStack: XdbDecomposedEntity[]) {
     let body = ``;
     for (const entity of decomposedEntityStack) {
-      if (entity.metadata.type === mediaEntityToken) {
+      if (entity.metadata.type === MediaEntity.name) {
         const node = xmlMediaNodeTpl(entity.data);
+        body += node;
+        continue;
+      }
+      if (entity.metadata.type === FileEntity.name) {
+        const node = xmlFileNodeTpl(entity.data);
         body += node;
         continue;
       }
@@ -145,7 +156,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
           continue;
         }
       }
-      if (node.metadata.type === mediaEntityToken) {
+      if (node.metadata.type === MediaEntity.name) {
         const media = node.data as MediaEntity;
         if (!media.files?.length) {
           stack.splice(i, 1);
@@ -334,7 +345,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
     for (const col of uniqColumns) {
       if (node[col.property] && (typeof node[col.property] === "string" || typeof node[col.property] === "number")) {
         if (col.property !== primaryProperty) {
-          if (target.entity.target !== mediaEntityToken) {
+          if (target.entity.target !== MediaEntity.name && target.entity.target !== FileEntity.name) {
             delete node[primaryProperty];
           }
         }
@@ -343,7 +354,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
     }
     const propertyName = uniqColumns[0].property;
     node[propertyName] = `${target.entity.target.toLowerCase()}_${node[primaryProperty]}`;
-    if (target.entity.target !== mediaEntityToken) {
+    if (target.entity.target !== MediaEntity.name && target.entity.target !== FileEntity.name) {
       delete node[primaryProperty];
     }
     return propertyName;
@@ -351,7 +362,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
 
   private async handleDecomposedMedias(stack: XdbDecomposedEntity[]) {
     for (const item of stack) {
-      if (item.metadata.type !== mediaEntityToken) {
+      if (item.metadata.type !== MediaEntity.name) {
         continue;
       }
       const node = item.data as Media & { file: string };
@@ -366,6 +377,27 @@ export class XmlDataBridgeExportService extends XdbExportService {
       const mediaFilePath = path.normalize(process.cwd() + `${loc}/${media.id}/${fileName}`);
       const tmpFilePath = path.normalize(`${tmpDir}/${tmpFileName}`);
       const fileData = await readFile(mediaFilePath);
+      await fs.promises.writeFile(tmpFilePath, fileData);
+      node.file = tmpFileName;
+    }
+  }
+
+  private async handleDecomposedFiles(stack: XdbDecomposedEntity[]) {
+    for (const item of stack) {
+      if (item.metadata.type !== FileEntity.name) {
+        continue;
+      }
+      const node = item.data as File & { file: string };
+      const fileEntity = await this.filesService.findFileById(node.id);
+      const cfgProp = !fileEntity.public ? FileConfig.PRIVATE_DIR : FileConfig.PUBLIC_DIR;
+      const loc = await this.cacheService.get(cfgProp);
+      const fileName = `${fileEntity.path}`;
+      const tmpFileName = `${generateRandomInt()}.${fileName.split(".").pop()}`;
+      const tmpDir = process.cwd() + await this.cacheService.get(KpConfig.TMP_DIR);
+      await createDirectoriesIfNotExist(tmpDir);
+      const filePath = path.normalize(process.cwd() + `${loc}/${fileEntity.id}/${fileName}`);
+      const tmpFilePath = path.normalize(`${tmpDir}/${tmpFileName}`);
+      const fileData = await readFile(filePath);
       await fs.promises.writeFile(tmpFilePath, fileData);
       node.file = tmpFileName;
     }

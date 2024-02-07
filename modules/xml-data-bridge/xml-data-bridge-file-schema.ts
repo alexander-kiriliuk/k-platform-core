@@ -18,6 +18,7 @@ import { XdbDecomposedEntity } from "@xml-data-bridge/xml-data-bridge.types";
 import { Xdb } from "@xml-data-bridge/xml-data-bridge.constants";
 import { Media } from "@media/media.types";
 import { ObjectLiteral } from "typeorm";
+import { File } from "@files/file.types";
 
 export namespace XmlDataBridgeFileSchema {
 
@@ -32,14 +33,46 @@ export namespace XmlDataBridgeFileSchema {
   }
 
   export function xmlMediaNodeTpl(obj: ObjectLiteral) {
-    const media = obj as Media & { file: string, type: string };
+    const media = obj as Media & { file: string, type: string, name: string[] };
     let data = `\n\t<Media>\n\t\t<row>\n`;
     if (media.code) {
       data += `\t\t\t<code>${media.code}</code>\n`;
     }
     data += `\t\t\t<type>${media.type.split(":").pop()}</type>\n`;
     data += `\t\t\t<file>${media.file}</file>\n`;
+    if (media.name?.length) {
+      data += `\t\t\t<name key="code">\n`;
+      for (const row of media.name) {
+        data += `\t\t\t\t<row>${row.split(":").pop()}</row>\n`;
+      }
+      data += `\t\t\t</name>\n`;
+    }
     data += `\t\t</row>\n\t</Media>\n`;
+    return data;
+  }
+
+  export function xmlFileNodeTpl(obj: ObjectLiteral) {
+    const file = obj as File & { file: string, icon: string, preview: string, name: string[] };
+    let data = `\n\t<File>\n\t\t<row>\n`;
+    if (file.code) {
+      data += `\t\t\t<code>${file.code}</code>\n`;
+    }
+    data += `\t\t\t<public>${file.public}</public>\n`;
+    if (file.icon) {
+      data += `\t\t\t<icon>${file.icon.split(":").pop()}</icon>\n`;
+    }
+    if (file.preview) {
+      data += `\t\t\t<preview>${file.preview.split(":").pop()}</preview>\n`;
+    }
+    if (file.name?.length) {
+      data += `\t\t\t<name key="code">\n`;
+      for (const row of file.name) {
+        data += `\t\t\t\t<row>${row.split(":").pop()}</row>\n`;
+      }
+      data += `\t\t\t</name>\n`;
+    }
+    data += `\t\t\t<file>${file.file}</file>\n`;
+    data += `\t\t</row>\n\t</File>\n`;
     return data;
   }
 
