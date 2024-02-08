@@ -78,7 +78,7 @@ export type XdbExportParams = {
   id: string;
   depth: number;
   useFiles: boolean;
-  properties: string[];
+  excludeProperties: string[];
   user: User;
 }
 

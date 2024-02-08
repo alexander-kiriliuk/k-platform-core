@@ -19,12 +19,6 @@ import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { FileEntity } from "@files/entity/file.entity";
 import { File } from "@files/file.types";
 
-export const FILE_RELATIONS = [
-  "name", "name.lang",
-  "icon", "icon.files", "icon.files.format", "icon.type", "icon.type.ext",
-  "preview", "preview.files", "preview.files.format", "preview.type", "preview.type.ext"
-];
-
 export abstract class FileManager {
 
   abstract createOrUpdateFile(

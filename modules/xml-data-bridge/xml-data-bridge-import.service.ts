@@ -39,7 +39,7 @@ import ReadOperatorRe = Xdb.ReadOperatorRe;
 import generateRandomInt = NumberUtils.generateRandomInt;
 
 /**
- * XmlDataBridgeService is responsible for importing and exporting data through XML.
+ * XmlDataBridgeImportService is responsible for importing data through XML.
  */
 @Injectable()
 export class XmlDataBridgeImportService extends XdbImportService {
@@ -253,6 +253,7 @@ export class XmlDataBridgeImportService extends XdbImportService {
     for (const rowData of item.rows) {
       const uniqueKeyFields = this.getUniqueKeyFields(repository, rowData);
       let existingEntity = null;
+      console.log(uniqueKeyFields);
       if (Object.keys(uniqueKeyFields).length) {
         existingEntity = await repository.findOne({ where: uniqueKeyFields });
       }
@@ -295,8 +296,14 @@ export class XmlDataBridgeImportService extends XdbImportService {
       if (this.isColumnUnique(entityMetadata, column)) {
         return true;
       }
-      const uniqIndices = repository.metadata.indices.find(idc => idc.isUnique);
-      return !!uniqIndices?.columns?.find(col => col.propertyName === column.propertyName);
+      const uniqIndices = repository.metadata.indices.filter(idc => idc.isUnique);
+      for (const idc of uniqIndices) {
+        const result = idc?.columns?.find(col => col.propertyName === column.propertyName);
+        if (result) {
+          return true;
+        }
+      }
+      return false;
     });
     const uniqueKeyFields = {};
     for (const uniqueColumn of uniqueColumns) {
@@ -447,7 +454,7 @@ export class XmlDataBridgeImportService extends XdbImportService {
   }
 
   private findReadOperator(input: string) {
-    const match = input.match(ReadOperatorRe);
+    const match = input?.match(ReadOperatorRe);
     if (match?.length > 1) {
       return match[1];
     }

@@ -39,7 +39,7 @@ export namespace XmlDataBridgeFileSchema {
       data += `\t\t\t<code>${media.code}</code>\n`;
     }
     data += `\t\t\t<type>${media.type.split(":").pop()}</type>\n`;
-    data += `\t\t\t<file>${media.file}</file>\n`;
+    data += `\t\t\t<file>@zip:/${media.file}</file>\n`;
     if (media.name?.length) {
       data += `\t\t\t<name key="code">\n`;
       for (const row of media.name) {
@@ -71,7 +71,7 @@ export namespace XmlDataBridgeFileSchema {
       }
       data += `\t\t\t</name>\n`;
     }
-    data += `\t\t\t<file>${file.file}</file>\n`;
+    data += `\t\t\t<file>@zip:/${file.file}</file>\n`;
     data += `\t\t</row>\n\t</File>\n`;
     return data;
   }

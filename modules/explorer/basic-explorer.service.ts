@@ -439,7 +439,11 @@ export class BasicExplorerService extends ExplorerService {
     }
     const repository = this.connection.getRepository(targetData.entity.target);
     const idProp = targetData.primaryColumn.property;
-    visitedEntities.push(targetData.entity.target);
+    const visitedKey = `${targetData.entity.target}_${row[idProp]}`;
+    if (visitedEntities.includes(visitedKey)) {
+      return undefined;
+    }
+    visitedEntities.push(visitedKey);
     const withRelations = await repository.findOne({
       select: colsForSelect.colList,
       where: { [idProp]: row[idProp] },
@@ -454,9 +458,6 @@ export class BasicExplorerService extends ExplorerService {
         section: selectParams.section,
         object: selectParams.object
       });
-      if (visitedEntities.includes(currTargetData.entity.target)) {
-        continue;
-      }
       if (Array.isArray(withRelations[k]) && colData.multiple) {
         for (const key in withRelations[k]) {
           withRelations[k][key] = await this.attachRelations(
