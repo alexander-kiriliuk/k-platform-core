@@ -255,6 +255,10 @@ export class XmlDataBridgeExportService extends XdbExportService {
             if (this.isPrimitiveNode(stackEl.data[sDataElKey])) {
               continue;
             }
+            if (stackEl.data[sDataElKey].constructor.name === "Object") {
+              stackEl.data[sDataElKey] = JSON.stringify(stackEl.data[sDataElKey]);
+              continue;
+            }
             const sdTarget = await this.explorerService.getTargetData(stackEl.data[sDataElKey].constructor.name, tParams);
             if (!sdTarget) {
               continue;

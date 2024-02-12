@@ -25,4 +25,5 @@
     <Include read="/app/web/res/xml/5-explorer-renderers.xml"/>
     <Include read="/app/web/res/xml/6-explorer-actions.xml"/>
     <Include read="/app/web/res/xml/7-explorer-columns.xml"/>
+    <Include read="/app/web/res/xml/8-explorer-files.xml"/>
 </schema>

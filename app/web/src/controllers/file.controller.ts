@@ -30,9 +30,7 @@ import { FileInterceptor } from "@nestjs/platform-express";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { NotEmptyPipe } from "@shared/pipes/not-empty.pipe";
 import { Response } from "express";
-import * as path from "path";
 import { FileManager } from "@files/file.constants";
-
 
 @Controller("/file")
 @UseGuards(AuthGuard)
@@ -56,7 +54,7 @@ export class FileController {
   async getPrivateFile(@Res() res: Response, @Param("id") id: number) {
     const file = await this.fileService.findPrivateById(id);
     const filePath = await this.fileService.getFilePath(file);
-    res.sendFile(path.join(process.cwd(), filePath));
+    res.sendFile(filePath);
   }
 
   @Get("/:id")
