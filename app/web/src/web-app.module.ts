@@ -48,6 +48,9 @@ import { CategoryModule } from "@shared/modules/category/category.module";
 import { UserEntityPwdAndRolesSaveHandler } from "@explorer/handlers/user-entity-pwd-and-roles.save-handler";
 import { Explorer } from "@explorer/explorer.constants";
 import { KpConfig } from "../../../gen-src/kp.config";
+import { ProcessModule } from "../../../modules/process/process.module";
+import { TmpDirCleanerProcess } from "../../../modules/process/default/tmp-dir-cleaner.process";
+import { ProcessController } from "./controllers/process.controller";
 import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
 
 @Module({
@@ -56,6 +59,7 @@ import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
     LogModule,
     ConfigModule,
     CategoryModule,
+    ProcessModule,
     AuthModule.forRoot(),
     FileModule.forRoot(),
     MediaModule.forRoot(),
@@ -86,12 +90,14 @@ import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
     MediaController,
     FileController,
     ConfigController,
-    XmlDataBridgeController
+    XmlDataBridgeController,
+    ProcessController
   ],
   providers: [
     LocaleSubscriber,
     WebAppService,
     UserEntityPwdAndRolesSaveHandler,
+    TmpDirCleanerProcess,
     {
       provide: ENTITY_SAVE_HANDLER,
       useFactory: (h1: UserEntityPwdAndRolesSaveHandler) => [h1],
