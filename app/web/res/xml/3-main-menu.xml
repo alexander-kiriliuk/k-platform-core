@@ -159,6 +159,16 @@
             <code>a-menu-category-name-en</code>
             <value>Categories</value>
         </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-process-name-ru</code>
+            <value>Процессы</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-process-name-en</code>
+            <value>Process</value>
+        </row>
     </InsertUpdate>
 
 
@@ -312,6 +322,17 @@
                 <row>a-menu-config-name-en</row>
             </name>
         </row>
+        <row>
+            <code>a-menu-process</code>
+            <url>/section/process</url>
+            <params>{"iconClass": "pi pi-chart-bar"}</params>
+            <parent key="code">a-menu-system</parent>
+            <priority>304</priority>
+            <name key="code">
+                <row>a-menu-process-name-ru</row>
+                <row>a-menu-process-name-en</row>
+            </name>
+        </row>
     </InsertUpdate>
 
     <InsertUpdate target="WebAppMenuRestrictionEntity">
@@ -377,6 +398,13 @@
         <row>
             <code>config-node</code>
             <category key="code">a-menu-config</category>
+            <allowFor key="code">
+                <row>admin</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>process-node</code>
+            <category key="code">a-menu-process</category>
             <allowFor key="code">
                 <row>admin</row>
             </allowFor>

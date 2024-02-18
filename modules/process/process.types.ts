@@ -16,13 +16,13 @@
 
 
 import { Process } from "./process.constants";
-import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
+import { LocalizedString } from "@shared/modules/locale/locale.types";
 
 export interface ProcessUnit {
   code: string;
   status: Process.Status;
   enabled: boolean;
-  description: LocalizedStringEntity[];
+  description: LocalizedString[];
   cronTab: string;
   execOnStart: boolean;
   tsCreated: Date;

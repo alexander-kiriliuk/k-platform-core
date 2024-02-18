@@ -31,6 +31,8 @@ export class ProcessManagerService {
     @InjectRepository(ProcessUnitEntity)
     private readonly processUnitRep: Repository<ProcessUnitEntity>,
     @Inject(LOGGER) private readonly logger: Logger) {
+    // todo use task scheduling
+    // todo use warlock
   }
 
   async init() {
@@ -50,14 +52,39 @@ export class ProcessManagerService {
       throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
     }
     const process = this.getProcessInstance(code);
+    processData.status = Process.Status.Execute;
+    await this.processUnitRep.save(processData);
     process.start();
   }
-
 
   async stopProcess(code: string) {
     const process = this.getProcessInstance(code);
     process.stop();
+    const processData = await this.getProcessData(code);
+    if (!processData) {
+      throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
+    }
+    processData.status = Process.Status.Ready;
+    await this.processUnitRep.save(processData);
   }
+
+  async toggleProcess(code: string) {
+    const process = this.getProcessInstance(code);
+    if (!process) {
+      throw new InternalServerErrorException(`Process ${code} not exists`);
+    }
+    const processData = await this.processUnitRep.findOne({ where: { code } });
+    if (processData.status === Process.Status.Execute) {
+      throw new InternalServerErrorException(`Process ${code} now execute`);
+    }
+    processData.enabled = !processData.enabled;
+    await this.processUnitRep.save(processData);
+    // todo register or unregister cron
+    if (processData.enabled && processData.execOnStart) {
+      this.startProcess(code);
+    }
+  }
+
 
   private getProcessData(code: string) {
     return this.processUnitRep.findOne({ where: { code, enabled: true } });

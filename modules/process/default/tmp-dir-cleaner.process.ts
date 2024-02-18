@@ -18,14 +18,42 @@
 import { AbstractProcess } from "../abstract-process";
 import { Inject, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
-import { MediaManager } from "@media/media.types";
+import { NumberUtils } from "@shared/utils/number.utils";
+import { ProcessManagerService } from "../process-manager.service";
+import generateRandomInt = NumberUtils.generateRandomInt;
 
 export class TmpDirCleanerProcess extends AbstractProcess {
 
+  private timerId: any; // todo remove
+
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
-    private readonly mediaService: MediaManager) {  // todo MediaManager for test (pass deps for current process) - revert it
+    protected readonly pmService: ProcessManagerService) {
     super();
+  }
+
+  protected async execute() {
+    return new Promise(resolve => {
+      let i = 0;
+      this.timerId = setInterval(() => {
+        i++;
+        this.logger.verbose(generateRandomInt());
+        if (i >= 25) {
+          clearInterval(this.timerId);
+          resolve(true);
+        }
+      }, 1000);
+    });
+  }
+
+  protected onStop(): void {
+    super.onStop();
+    clearInterval(this.timerId);
+  }
+
+  protected onFinish(): void {
+    super.onFinish();
+    clearInterval(this.timerId);
   }
 
 }

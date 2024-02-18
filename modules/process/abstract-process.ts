@@ -16,40 +16,55 @@
 
 import { Process } from "./process.constants";
 import { Logger } from "@nestjs/common";
+import { ProcessManagerService } from "./process-manager.service";
 import registerProcess = Process.registerProcess;
-import Status = Process.Status;
 
 export abstract class AbstractProcess {
 
   protected abstract readonly logger: Logger;
-  currentStatus: Status;
+  protected abstract readonly pmService: ProcessManagerService;
+
+  protected abstract execute(): Promise<unknown>;
 
   protected constructor() {
     registerProcess(this);
   }
 
   async start() {
-    this.logger.debug(`Start process ${this.constructor.name}`);
-    this.currentStatus = Status.Execute;
-    // todo
-  }
-
-  async finish() {
-    this.logger.debug(`Finish process ${this.constructor.name}`);
-    this.currentStatus = Status.Ready;
-    // todo
+    this.logger.log(`Start process ${this.constructor.name}`);
+    try {
+      await this.execute();
+      await this.onFinish();
+    } catch (e) {
+      this.logger.error(`Process ${this.constructor.name} was crashed`);
+      this.onCrash(e);
+    }
   }
 
   async stop() {
-    this.logger.debug(`Stop process ${this.constructor.name}`);
-    this.currentStatus = Status.Ready;
+    this.logger.log(`Try to stop process ${this.constructor.name}`);
+    this.onStop();
+  }
+
+  protected writeLog() {
     // todo
   }
 
-  async crash(error: Error) {
-    this.logger.error(`Crash process ${this.constructor.name}`, error);
-    this.currentStatus = Status.Crashed;
-    // todo
+  protected onFinish() {
+    // todo write status and other
+    this.logger.log(`Process ${this.constructor.name} was finished`);
+    return undefined;
+  }
+
+  protected onStop() {
+    // todo write status and other
+    this.logger.log(`Process ${this.constructor.name} was stopped`);
+    return undefined;
+  }
+
+  protected onCrash(e: Error) {
+    // todo write status and other
+    return undefined;
   }
 
 }

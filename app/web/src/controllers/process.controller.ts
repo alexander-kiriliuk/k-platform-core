@@ -41,4 +41,10 @@ export class ProcessController {
     await this.pmService.stopProcess(code);
   }
 
+  @Get("/toggle/:code")
+  @ForRoles(Roles.ADMIN)
+  async toggleProcess(@Param("code") code: string) {
+    await this.pmService.toggleProcess(code);
+  }
+
 }
