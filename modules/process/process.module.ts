@@ -19,11 +19,13 @@ import { LogModule } from "@shared/modules/log/log.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ProcessUnitEntity } from "./entity/process.unit.entity";
 import { ProcessManagerService } from "./process-manager.service";
+import { ScheduleModule } from "@nestjs/schedule";
 
 @Module({
   imports: [
     LogModule,
-    TypeOrmModule.forFeature([ProcessUnitEntity])
+    TypeOrmModule.forFeature([ProcessUnitEntity]),
+    ScheduleModule.forRoot()
   ],
   providers: [
     ProcessManagerService

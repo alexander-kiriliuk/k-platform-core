@@ -25,6 +25,7 @@ import generateRandomInt = NumberUtils.generateRandomInt;
 export class TmpDirCleanerProcess extends AbstractProcess {
 
   private timerId: any; // todo remove
+  // todo try two process in different modules
 
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
@@ -46,13 +47,13 @@ export class TmpDirCleanerProcess extends AbstractProcess {
     });
   }
 
-  protected onStop(): void {
-    super.onStop();
+  protected async onStop() {
+    this.logger.log("Call child inside onStop");
     clearInterval(this.timerId);
   }
 
-  protected onFinish(): void {
-    super.onFinish();
+  protected async onFinish() {
+    this.logger.log("Call child inside onFinish");
     clearInterval(this.timerId);
   }
 

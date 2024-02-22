@@ -18,6 +18,7 @@ import { Process } from "./process.constants";
 import { Logger } from "@nestjs/common";
 import { ProcessManagerService } from "./process-manager.service";
 import registerProcess = Process.registerProcess;
+import Status = Process.Status;
 
 export abstract class AbstractProcess {
 
@@ -32,10 +33,19 @@ export abstract class AbstractProcess {
 
   async start() {
     this.logger.log(`Start process ${this.constructor.name}`);
+    const status = await this.getStatus();
+    if (status === Status.Execute) {
+      this.logger.warn(`Process ${this.constructor.name} now executed, can't start that`);
+      return;
+    }
+    await this.setStatus(Status.Execute);
     try {
       await this.execute();
+      await this.setStatus(Status.Ready);
+      this.logger.log(`Process ${this.constructor.name} was finished`);
       await this.onFinish();
     } catch (e) {
+      await this.setStatus(Status.Crashed);
       this.logger.error(`Process ${this.constructor.name} was crashed`);
       this.onCrash(e);
     }
@@ -43,6 +53,13 @@ export abstract class AbstractProcess {
 
   async stop() {
     this.logger.log(`Try to stop process ${this.constructor.name}`);
+    const status = await this.getStatus();
+    if (status !== Status.Execute) {
+      this.logger.warn(`Process ${this.constructor.name} not executed now, can't stop that`);
+      return;
+    }
+    await this.setStatus(Status.Ready);
+    this.logger.log(`Process ${this.constructor.name} was stopped`);
     this.onStop();
   }
 
@@ -50,21 +67,24 @@ export abstract class AbstractProcess {
     // todo
   }
 
-  protected onFinish() {
-    // todo write status and other
-    this.logger.log(`Process ${this.constructor.name} was finished`);
-    return undefined;
+  protected async onFinish() {
+    // implement callback in child class if it needs
   }
 
-  protected onStop() {
-    // todo write status and other
-    this.logger.log(`Process ${this.constructor.name} was stopped`);
-    return undefined;
+  protected async onStop() {
+    // implement callback in child class if it needs
   }
 
-  protected onCrash(e: Error) {
-    // todo write status and other
-    return undefined;
+  protected async onCrash(error: Error) {
+    // implement callback in child class if it needs
+  }
+
+  private async getStatus() {
+    return await this.pmService.getProcessUnitStatus(this.constructor.name);
+  }
+
+  private async setStatus(status: Status) {
+    await this.pmService.setProcessUnitStatus(this.constructor.name, status);
   }
 
 }
