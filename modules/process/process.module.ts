@@ -14,18 +14,37 @@
  *    limitations under the License.
  */
 
-import { Module, OnApplicationBootstrap } from "@nestjs/common";
+import { Logger, Module, OnApplicationBootstrap } from "@nestjs/common";
 import { LogModule } from "@shared/modules/log/log.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ProcessUnitEntity } from "./entity/process.unit.entity";
 import { ProcessManagerService } from "./process-manager.service";
 import { ScheduleModule } from "@nestjs/schedule";
+import { RedisModule } from "@shared/modules/cache/redis.module";
+import { LOGGER } from "@shared/modules/log/log.constants";
+import { EnvLoader } from "@shared/utils/env.loader";
 
 @Module({
   imports: [
-    LogModule,
     TypeOrmModule.forFeature([ProcessUnitEntity]),
-    ScheduleModule.forRoot()
+    ScheduleModule.forRoot(),
+    LogModule,
+    RedisModule.forRootAsync({
+      imports: [LogModule],
+      inject: [LOGGER],
+      useFactory: (logger: Logger) => {
+        EnvLoader.loadEnvironment(logger);
+        return {
+          config: {
+            host: process.env.REDIS_HOST,
+            port: parseInt(process.env.REDIS_PORT),
+            db: parseInt(process.env.REDIS_DB),
+            username: process.env.REDIS_USER,
+            password: process.env.REDIS_PASSWORD
+          }
+        };
+      }
+    })
   ],
   providers: [
     ProcessManagerService

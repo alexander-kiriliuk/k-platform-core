@@ -24,6 +24,5 @@ export interface ProcessUnit {
   enabled: boolean;
   description: LocalizedString[];
   cronTab: string;
-  execOnStart: boolean;
   tsCreated: Date;
 }

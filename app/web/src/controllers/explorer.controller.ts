@@ -122,10 +122,10 @@ export class ExplorerController {
     return await this.explorerService.saveEntityData(target, data, targetParams);
   }
 
-  @Delete("/entity/:target/:id")
+  @Delete("/entity/:target")
   async removeEntity(
     @Param("target") target: string,
-    @Param("id") id: string,
+    @Query("id") id: string,
     @CurrentUser() user: User) {
     const targetParams: ExplorerTargetParams = {
       writeRequest: true,

@@ -47,10 +47,6 @@ export class ProcessUnitEntity implements ProcessUnit {
   cronTab: string;
 
   @Index()
-  @Column("boolean", { name: "exec_on_start", default: false })
-  execOnStart: boolean;
-
-  @Index()
   @CreateDateColumn({ name: "ts_created", type: "timestamp" })
   tsCreated: Date;
 

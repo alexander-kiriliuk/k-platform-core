@@ -52,6 +52,16 @@
             <value>Toggle</value>
             <lang key="code">en_US</lang>
         </row>
+        <row>
+            <code>ex-process-stats-object-renderer-name-ru</code>
+            <value>Данные процесса</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>ex-process-stats-object-renderer-name-en</code>
+            <value>Process data</value>
+            <lang key="code">en_US</lang>
+        </row>
     </InsertUpdate>
 
     <InsertUpdate target="ExplorerActionEntity">
@@ -93,6 +103,17 @@
         </row>
     </InsertUpdate>
 
+    <InsertUpdate target="ExplorerColumnRendererEntity">
+        <row>
+            <code>process-stats-object-renderer</code>
+            <type>object</type>
+            <name key="code">
+                <row>ex-process-stats-object-renderer-name-ru</row>
+                <row>ex-process-stats-object-renderer-name-en</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
     <InsertUpdate target="ExplorerColumnEntity">
         <row>
             <id>process_units.ts_created</id>
@@ -105,6 +126,23 @@
         <row>
             <id>process_units.status</id>
             <objectRendererParams>{"disabled": true}</objectRendererParams>
+            <objectVisibility>false</objectVisibility>
+        </row>
+        <row>
+            <id>process_units.enabled</id>
+            <objectVisibility>false</objectVisibility>
+        </row>
+        <row>
+            <target>ProcessUnitEntity</target>
+            <id>process_units.statsVirtual</id>
+            <property>statsVirtual</property>
+            <virtual>true</virtual>
+            <type>unknown</type>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRenderer key="code">process-stats-object-renderer</objectRenderer>
         </row>
     </InsertUpdate>
 
@@ -128,7 +166,6 @@
             <code>TmpDirCleanerProcess</code>
             <enabled>true</enabled>
             <cronTab>*/3 * * * * *</cronTab>
-            <execOnStart>true</execOnStart>
             <description key="code">
                 <row>process-tmp-dir-cleaner-name-en</row>
                 <row>process-tmp-dir-cleaner-name-ru</row>
