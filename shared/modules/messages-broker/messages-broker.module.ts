@@ -15,7 +15,7 @@
  */
 
 import { Logger, Module } from "@nestjs/common";
-import { MSG_BROKER } from "./messages-broker.constants";
+import { MESSAGES_BROKER } from "./messages-broker.constants";
 import { MessagesBrokerService } from "@shared/modules/messages-broker/messages-broker.service";
 import { LogModule } from "@shared/modules/log/log.module";
 import { RedisModule } from "@shared/modules/cache/redis.module";
@@ -43,12 +43,12 @@ import { EnvLoader } from "@shared/utils/env.loader";
   ],
   providers: [
     {
-      provide: MSG_BROKER,
+      provide: MESSAGES_BROKER,
       useClass: MessagesBrokerService
     }
   ],
   exports: [
-    MSG_BROKER
+    MESSAGES_BROKER
   ]
 })
 export class MessagesBrokerModule {

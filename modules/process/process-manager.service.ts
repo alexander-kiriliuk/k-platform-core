@@ -20,10 +20,10 @@ import { Repository } from "typeorm";
 import { ProcessUnitEntity } from "./entity/process.unit.entity";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { Process } from "./process.constants";
-import { MessagesBrokerService } from "@shared/modules/messages-broker/messages-broker.service";
-import { MSG_BROKER } from "@shared/modules/messages-broker/messages-broker.constants";
+import { MESSAGES_BROKER } from "@shared/modules/messages-broker/messages-broker.constants";
 import { WARLOCK } from "@shared/modules/warlock/warlock.constants";
 import { WarlockFn } from "@shared/modules/warlock/warlock.types";
+import { MessagesBroker } from "@shared/modules/messages-broker/messages-broker.types";
 import Status = Process.Status;
 import Command = Process.Command;
 import getProcessInstance = Process.getProcessInstance;
@@ -37,7 +37,7 @@ export class ProcessManagerService {
   constructor(
     @Inject(WARLOCK) private readonly lockExec: WarlockFn,
     @Inject(LOGGER) private readonly logger: Logger,
-    @Inject(MSG_BROKER) private readonly broker: MessagesBrokerService,
+    @Inject(MESSAGES_BROKER) private readonly broker: MessagesBroker,
     @InjectRepository(ProcessUnitEntity)
     private readonly processUnitRep: Repository<ProcessUnitEntity>) {
   }
@@ -61,7 +61,7 @@ export class ProcessManagerService {
   }
 
   async startProcess(code: string) {
-    this.lockExec(code, async () => {
+    this.lockExec(`${code}_start`, async () => {
       const processData = await this.getProcessData(code, true);
       if (!processData) {
         throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
@@ -72,14 +72,12 @@ export class ProcessManagerService {
   }
 
   async stopProcess(code: string) {
-    this.lockExec(code, async () => {
-      const processData = await this.getProcessData(code, true);
-      if (!processData) {
-        throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
-      }
-      const processInstance = getProcessInstance(code);
-      processInstance.stop();
-    });
+    const processData = await this.getProcessData(code, true);
+    if (!processData) {
+      throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
+    }
+    const processInstance = getProcessInstance(code);
+    processInstance.stop();
   }
 
   async toggleProcess(code: string) {

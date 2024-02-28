@@ -20,7 +20,7 @@ import { SchedulerRegistry } from "@nestjs/schedule";
 import { CronJob } from "cron/dist/job";
 import { ProcessManagerService } from "./process-manager.service";
 import { Process } from "./process.constants";
-import { MSG_BROKER } from "@shared/modules/messages-broker/messages-broker.constants";
+import { MESSAGES_BROKER } from "@shared/modules/messages-broker/messages-broker.constants";
 import { MessagesBrokerService } from "@shared/modules/messages-broker/messages-broker.service";
 import { WARLOCK } from "@shared/modules/warlock/warlock.constants";
 import { WarlockFn } from "@shared/modules/warlock/warlock.types";
@@ -36,7 +36,7 @@ export class ProcessRegisterService {
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
     @Inject(WARLOCK) private readonly lockExec: WarlockFn,
-    @Inject(MSG_BROKER) private readonly broker: MessagesBrokerService,
+    @Inject(MESSAGES_BROKER) private readonly broker: MessagesBrokerService,
     private readonly pmService: ProcessManagerService,
     private readonly schedulerRegistry: SchedulerRegistry) {
     broker.subscribe<ProcessUnit>(

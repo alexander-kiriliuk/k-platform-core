@@ -18,9 +18,10 @@
 import { Inject, Injectable } from "@nestjs/common";
 import Redis from "ioredis";
 import { REDIS_CLIENT } from "@shared/modules/cache/cache.constants";
+import { MessagesBroker } from "@shared/modules/messages-broker/messages-broker.types";
 
 @Injectable()
-export class MessagesBrokerService {
+export class MessagesBrokerService implements MessagesBroker {
 
   private readonly subClient: Redis;
   private readonly subscribers: Map<string, (data: unknown) => void> = new Map();

@@ -27,6 +27,8 @@ export abstract class AbstractProcess {
 
   protected abstract execute(): Promise<unknown>;
 
+  private status: Status;
+
   protected constructor() {
     registerProcess(this);
   }
@@ -52,6 +54,9 @@ export abstract class AbstractProcess {
   }
 
   async stop() {
+    if (this.status !== Status.Execute) {
+      return;
+    }
     this.logger.log(`Try to stop process ${this.constructor.name}`);
     await this.setStatus(Status.Ready);
     this.logger.log(`Process ${this.constructor.name} was stopped`);
@@ -79,6 +84,7 @@ export abstract class AbstractProcess {
   }
 
   private async setStatus(status: Status) {
+    this.status = status;
     await this.pmService.setProcessUnitStatus(this.constructor.name, status);
   }
 
