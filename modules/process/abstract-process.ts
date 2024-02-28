@@ -53,11 +53,6 @@ export abstract class AbstractProcess {
 
   async stop() {
     this.logger.log(`Try to stop process ${this.constructor.name}`);
-    const status = await this.getStatus();
-    if (status !== Status.Execute) {
-      this.logger.warn(`Process ${this.constructor.name} not executed now, can't stop that`);
-      return;
-    }
     await this.setStatus(Status.Ready);
     this.logger.log(`Process ${this.constructor.name} was stopped`);
     this.onStop();

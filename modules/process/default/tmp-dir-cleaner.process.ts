@@ -18,9 +18,7 @@
 import { AbstractProcess } from "../abstract-process";
 import { Inject, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
-import { NumberUtils } from "@shared/utils/number.utils";
 import { ProcessManagerService } from "../process-manager.service";
-import generateRandomInt = NumberUtils.generateRandomInt;
 
 export class TmpDirCleanerProcess extends AbstractProcess {
 
@@ -35,10 +33,12 @@ export class TmpDirCleanerProcess extends AbstractProcess {
 
   protected async execute() {
     return new Promise(resolve => {
+      /*this.logger.error("pid: " + process.pid);
+      resolve(true);*/
       let i = 0;
       this.timerId = setInterval(() => {
         i++;
-        this.logger.verbose(generateRandomInt());
+        this.logger.verbose("pid: " + process.pid);
         if (i >= 25) {
           clearInterval(this.timerId);
           resolve(true);

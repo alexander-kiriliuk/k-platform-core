@@ -27,6 +27,11 @@ export namespace Process {
     Crashed = "crashed",
   }
 
+  export enum Command {
+    Register = "process.register",
+    Unregister = "process.unregister"
+  }
+
   export function getRegisteredProcesses() {
     return REGISTERED_PROCESSES;
   }
@@ -37,6 +42,15 @@ export namespace Process {
       throw new InternalServerErrorException(`Process ${processName} already defined`);
     }
     REGISTERED_PROCESSES.set(processName, process);
+  }
+
+  export function getProcessInstance(code: string) {
+    const registeredProcesses = getRegisteredProcesses();
+    const process = registeredProcesses.get(code);
+    if (!process) {
+      throw new InternalServerErrorException(`Process ${code} not registered`);
+    }
+    return process;
   }
 
 }

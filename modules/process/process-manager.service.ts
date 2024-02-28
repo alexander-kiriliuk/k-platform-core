@@ -20,10 +20,14 @@ import { Repository } from "typeorm";
 import { ProcessUnitEntity } from "./entity/process.unit.entity";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { Process } from "./process.constants";
-import { SchedulerRegistry } from "@nestjs/schedule";
-import { CronJob } from "cron/dist/job";
-import getRegisteredProcesses = Process.getRegisteredProcesses;
+import { MessagesBrokerService } from "@shared/modules/messages-broker/messages-broker.service";
+import { MSG_BROKER } from "@shared/modules/messages-broker/messages-broker.constants";
+import { WARLOCK } from "@shared/modules/warlock/warlock.constants";
+import { WarlockFn } from "@shared/modules/warlock/warlock.types";
 import Status = Process.Status;
+import Command = Process.Command;
+import getProcessInstance = Process.getProcessInstance;
+
 
 @Injectable()
 export class ProcessManagerService {
@@ -31,11 +35,11 @@ export class ProcessManagerService {
   private static pmInitStatus: boolean;
 
   constructor(
-    @InjectRepository(ProcessUnitEntity)
-    private readonly processUnitRep: Repository<ProcessUnitEntity>,
+    @Inject(WARLOCK) private readonly lockExec: WarlockFn,
     @Inject(LOGGER) private readonly logger: Logger,
-    private readonly schedulerRegistry: SchedulerRegistry) {
-    // todo use warlock and test cluster
+    @Inject(MSG_BROKER) private readonly broker: MessagesBrokerService,
+    @InjectRepository(ProcessUnitEntity)
+    private readonly processUnitRep: Repository<ProcessUnitEntity>) {
   }
 
   async init() {
@@ -44,60 +48,53 @@ export class ProcessManagerService {
       return;
     }
     await this.resetAllProcessStatuses();
-    this.logger.log("Init process manager, try to exec autostart processes");
+    this.logger.log("Init process manager");
     ProcessManagerService.pmInitStatus = true;
     const processList = await this.processUnitRep.find({ where: { enabled: true } });
     for (const processData of processList) {
-      if (processData.execOnStart) {
-        const processInstance = this.getProcessInstance(processData.code);
-        processInstance.start();
-      }
       if (!processData.cronTab?.length) {
         this.logger.warn(`Process ${processData.code} hasn't cron-tab, skip job registration`);
         continue;
       }
-      this.registerCronJob(processData);
+      this.broker.emit(Command.Register, processData);
     }
   }
 
   async startProcess(code: string) {
-    const processData = await this.getProcessData(code, true);
-    if (!processData) {
-      throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
-    }
-    const process = this.getProcessInstance(code);
-    processData.status = Process.Status.Execute;
-    await this.processUnitRep.save(processData);
-    process.start();
+    this.lockExec(code, async () => {
+      const processData = await this.getProcessData(code, true);
+      if (!processData) {
+        throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
+      }
+      const processInstance = getProcessInstance(code);
+      processInstance.start();
+    });
   }
 
   async stopProcess(code: string) {
-    const process = this.getProcessInstance(code);
-    process.stop();
-    const processData = await this.getProcessData(code, true);
-    if (!processData) {
-      throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
-    }
-    processData.status = Process.Status.Ready;
-    await this.processUnitRep.save(processData);
+    this.lockExec(code, async () => {
+      const processData = await this.getProcessData(code, true);
+      if (!processData) {
+        throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
+      }
+      const processInstance = getProcessInstance(code);
+      processInstance.stop();
+    });
   }
 
   async toggleProcess(code: string) {
-    const process = this.getProcessInstance(code);
-    if (!process) {
+    const processInstance = getProcessInstance(code);
+    if (!processInstance) {
       throw new InternalServerErrorException(`Process ${code} not exists`);
     }
     const processData = await this.processUnitRep.findOne({ where: { code } });
     processData.enabled = !processData.enabled;
     await this.processUnitRep.save(processData);
     if (processData.enabled) {
-      await this.registerCronJob(processData);
+      this.broker.emit(Command.Register, processData);
     } else {
-      await this.unregisterCronJob(processData);
+      this.broker.emit(Command.Unregister, processData);
     }
-    /*if (processData.enabled && processData.execOnStart) {
-      this.startProcess(code);
-    }*/
   }
 
   async setProcessUnitStatus(code: string, status: Process.Status) {
@@ -111,47 +108,9 @@ export class ProcessManagerService {
     return processData.status;
   }
 
-  private async registerCronJob(processData: ProcessUnitEntity) {
-    if (this.schedulerRegistry.doesExist("cron", processData.code)) {
-      this.logger.warn(`Can't register cron job with code ${processData.code}, that already exists`);
-      return;
-    }
-    await this.setProcessUnitStatus(processData.code, Status.Ready);
-    const processInstance = this.getProcessInstance(processData.code);
-    if (!processData.cronTab?.length) {
-      this.logger.warn(`Process ${processData.code} hasn't cron-tab, skip job registration`);
-      return;
-    }
-    const job = new CronJob(processData.cronTab, () => {
-      processInstance.start();
-    });
-    job.start();
-    this.schedulerRegistry.addCronJob(processData.code, job);
-  }
-
-  private async unregisterCronJob(processData: ProcessUnitEntity) {
-    if (!this.schedulerRegistry.doesExist("cron", processData.code)) {
-      this.logger.warn(`Can't unregister cron job with code ${processData.code}`);
-      return;
-    }
-    const job = this.schedulerRegistry.getCronJob(processData.code);
-    job.stop();
-    this.schedulerRegistry.deleteCronJob(processData.code);
-    this.stopProcess(processData.code);
-  }
-
   private getProcessData(code: string, force = false) {
     const params = { code, enabled: true };
     return this.processUnitRep.findOne({ where: force ? { code } : params });
-  }
-
-  private getProcessInstance(code: string) {
-    const registeredProcesses = getRegisteredProcesses();
-    const process = registeredProcesses.get(code);
-    if (!process) {
-      throw new InternalServerErrorException(`Process ${code} not registered`);
-    }
-    return process;
   }
 
   private async resetAllProcessStatuses() {
