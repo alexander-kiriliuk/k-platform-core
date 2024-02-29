@@ -26,7 +26,7 @@ import { WarlockFn } from "@shared/modules/warlock/warlock.types";
 import { MessagesBroker } from "@shared/modules/messages-broker/messages-broker.types";
 import Status = Process.Status;
 import Command = Process.Command;
-import getProcessInstance = Process.getProcessInstance;
+import hasProcessInstance = Process.hasProcessInstance;
 
 
 @Injectable()
@@ -61,28 +61,23 @@ export class ProcessManagerService {
   }
 
   async startProcess(code: string) {
-    this.lockExec(`${code}_start`, async () => {
-      const processData = await this.getProcessData(code, true);
-      if (!processData) {
-        throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
-      }
-      const processInstance = getProcessInstance(code);
-      processInstance.start();
-    });
-  }
-
-  async stopProcess(code: string) {
     const processData = await this.getProcessData(code, true);
     if (!processData) {
       throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
     }
-    const processInstance = getProcessInstance(code);
-    processInstance.stop();
+    this.broker.emit(Command.Start, processData);
+  }
+
+  async stopProcess(code: string) {   // todo not work in cluster mode
+    const processData = await this.getProcessData(code, true);
+    if (!processData) {
+      throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
+    }
+    this.broker.emit(Command.Stop, processData);
   }
 
   async toggleProcess(code: string) {
-    const processInstance = getProcessInstance(code);
-    if (!processInstance) {
+    if (!hasProcessInstance(code)) {
       throw new InternalServerErrorException(`Process ${code} not exists`);
     }
     const processData = await this.processUnitRep.findOne({ where: { code } });

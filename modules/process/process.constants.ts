@@ -28,8 +28,10 @@ export namespace Process {
   }
 
   export enum Command {
-    Register = "process.register",
-    Unregister = "process.unregister"
+    Register = "process:register",
+    Unregister = "process:unregister",
+    Start = "process:start",
+    Stop = "process:stop",
   }
 
   export function getRegisteredProcesses() {
@@ -42,6 +44,10 @@ export namespace Process {
       throw new InternalServerErrorException(`Process ${processName} already defined`);
     }
     REGISTERED_PROCESSES.set(processName, process);
+  }
+
+  export function hasProcessInstance(code: string) {
+    return REGISTERED_PROCESSES.has(code);
   }
 
   export function getProcessInstance(code: string) {

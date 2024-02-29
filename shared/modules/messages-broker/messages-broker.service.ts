@@ -34,12 +34,12 @@ export class MessagesBrokerService implements MessagesBroker {
         return;
       }
       const fun = this.subscribers.get(chanel);
-      fun(JSON.parse(data));
+      fun(this.safeDeSerialize(data));
     });
   }
 
   async emit<T = unknown>(chanel: string, data: T) {
-    await this.pubClient.publish(chanel, JSON.stringify(data));
+    await this.pubClient.publish(chanel, this.safeSerialize(data));
   }
 
   subscribe<T = unknown>(chanel: string, handler: (data: T) => void) {
@@ -50,6 +50,22 @@ export class MessagesBrokerService implements MessagesBroker {
   unsubscribe(chanel: string) {
     this.subClient.unsubscribe(chanel);
     this.subscribers.delete(chanel);
+  }
+
+  private safeSerialize<T = unknown>(data: T) {
+    try {
+      return JSON.stringify(data);
+    } catch (error) {
+      return data.toString();
+    }
+  }
+
+  private safeDeSerialize(data: string) {
+    try {
+      return JSON.parse(data);
+    } catch (error) {
+      return data;
+    }
   }
 
 }

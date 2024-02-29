@@ -45,6 +45,24 @@ export class ProcessRegisterService {
     broker.subscribe<ProcessUnit>(
       Command.Unregister, data => this.unregisterCronJob(data)
     );
+    broker.subscribe<ProcessUnit>(
+      Command.Start, data => this.startProcess(data)
+    );
+    broker.subscribe<ProcessUnit>(
+      Command.Stop, data => this.stopProcess(data)
+    );
+  }
+
+  private startProcess(processData: ProcessUnit) {
+    this.lockExec(`${processData.code}_start`, async () => {
+      const processInstance = getProcessInstance(processData.code);
+      processInstance.start();
+    });
+  }
+
+  private stopProcess(processData: ProcessUnit) {
+    const processInstance = getProcessInstance(processData.code);
+    processInstance.stop();
   }
 
   private async registerCronJob(processData: ProcessUnit) {
