@@ -14,10 +14,11 @@
  *    limitations under the License.
  */
 
-import { Column, CreateDateColumn, Entity, Index, JoinTable, ManyToMany, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, Index, JoinTable, ManyToMany, OneToMany, PrimaryColumn } from "typeorm";
 import { Process } from "../process.constants";
 import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { ProcessUnit } from "../process.types";
+import { ProcessLogEntity } from "./process.log.entity";
 
 @Entity("process_units")
 export class ProcessUnitEntity implements ProcessUnit {
@@ -45,6 +46,9 @@ export class ProcessUnitEntity implements ProcessUnit {
   @Index()
   @Column("varchar", { name: "cron_tab", nullable: true })
   cronTab: string;
+
+  @OneToMany(() => ProcessLogEntity, c => c.process, { cascade: true })
+  logs: ProcessLogEntity[];
 
   @Index()
   @CreateDateColumn({ name: "ts_created", type: "timestamp" })

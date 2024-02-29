@@ -40,6 +40,7 @@ import { ExplorerTabEntity } from "@explorer/entity/explorer-tab.entity";
 import { ExplorerActionEntity } from "@explorer/entity/explorer-action.entity";
 import { WebAppMenuRestrictionEntity } from "./entity/web-app-menu-restriction.entity";
 import { ProcessUnitEntity } from "../../../modules/process/entity/process.unit.entity";
+import { ProcessLogEntity } from "../../../modules/process/entity/process.log.entity";
 
 export namespace Orm {
 
@@ -59,6 +60,7 @@ export namespace Orm {
           password: await cs.get(DbConfig.PASSWORD),
           entities: [
             ProcessUnitEntity,
+            ProcessLogEntity,
             UserEntity,
             UserRoleEntity,
             MediaEntity,

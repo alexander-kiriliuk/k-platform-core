@@ -14,23 +14,24 @@
  *    limitations under the License.
  */
 
+import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { ProcessUnitEntity } from "./process.unit.entity";
+import { ProcessLog } from "../process.types";
 
-import { Process } from "./process.constants";
-import { LocalizedString } from "@shared/modules/locale/locale.types";
+@Entity("process_logs")
+export class ProcessLogEntity implements ProcessLog {
 
-export class ProcessLog {
+  @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
-  content: string;
-  tsCreated: Date;
-  process: ProcessUnit;
-}
 
-export interface ProcessUnit {
-  code: string;
-  status: Process.Status;
-  enabled: boolean;
-  description: LocalizedString[];
-  cronTab: string;
-  logs: ProcessLog[];
+  @Column("longtext", { nullable: true })
+  content: string;
+
+  @Index()
+  @CreateDateColumn({ name: "ts_created", type: "timestamp" })
   tsCreated: Date;
+
+  @ManyToOne(() => ProcessUnitEntity, t => t.code)
+  process: ProcessUnitEntity;
+
 }

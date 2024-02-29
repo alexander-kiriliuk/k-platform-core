@@ -19,6 +19,10 @@ import { AbstractProcess } from "../abstract-process";
 import { Inject, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { ProcessManagerService } from "../process-manager.service";
+import { NumberUtils } from "@shared/utils/number.utils";
+import { Process } from "../process.constants";
+import generateRandomInt = NumberUtils.generateRandomInt;
+import LogLevel = Process.LogLevel;
 
 export class TmpDirCleanerProcess extends AbstractProcess {
 
@@ -36,9 +40,9 @@ export class TmpDirCleanerProcess extends AbstractProcess {
       /*this.logger.error("pid: " + process.pid);
       resolve(true);*/
       let i = 0;
-      this.timerId = setInterval(() => {
+      this.timerId = setInterval(async () => {
         i++;
-        this.logger.verbose("pid: " + process.pid);
+        await this.writeLog(generateRandomInt().toString(), undefined, LogLevel.Verbose);
         if (i >= 25) {
           clearInterval(this.timerId);
           resolve(true);
@@ -48,13 +52,13 @@ export class TmpDirCleanerProcess extends AbstractProcess {
   }
 
   protected async onStop() {
-    this.logger.log("Call child inside onStop");
     clearInterval(this.timerId);
+    await this.writeLog("Call to child class inside onStop");
   }
 
   protected async onFinish() {
-    this.logger.log("Call child inside onFinish");
     clearInterval(this.timerId);
+    await this.writeLog("Call to child class inside onFinish");
   }
 
 }

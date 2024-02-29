@@ -23,10 +23,11 @@ import { ScheduleModule } from "@nestjs/schedule";
 import { ProcessRegisterService } from "./process-register.service";
 import { MessagesBrokerModule } from "@shared/modules/messages-broker/messages-broker.module";
 import { WarlockModule } from "@shared/modules/warlock/warlock.module";
+import { ProcessLogEntity } from "./entity/process.log.entity";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ProcessUnitEntity]),
+    TypeOrmModule.forFeature([ProcessUnitEntity, ProcessLogEntity]),
     ScheduleModule.forRoot(),
     LogModule,
     MessagesBrokerModule,

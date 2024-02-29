@@ -24,6 +24,7 @@ import { MESSAGES_BROKER } from "@shared/modules/messages-broker/messages-broker
 import { WARLOCK } from "@shared/modules/warlock/warlock.constants";
 import { WarlockFn } from "@shared/modules/warlock/warlock.types";
 import { MessagesBroker } from "@shared/modules/messages-broker/messages-broker.types";
+import { ProcessLogEntity } from "./entity/process.log.entity";
 import Status = Process.Status;
 import Command = Process.Command;
 import hasProcessInstance = Process.hasProcessInstance;
@@ -39,7 +40,9 @@ export class ProcessManagerService {
     @Inject(LOGGER) private readonly logger: Logger,
     @Inject(MESSAGES_BROKER) private readonly broker: MessagesBroker,
     @InjectRepository(ProcessUnitEntity)
-    private readonly processUnitRep: Repository<ProcessUnitEntity>) {
+    private readonly processUnitRep: Repository<ProcessUnitEntity>,
+    @InjectRepository(ProcessLogEntity)
+    private readonly processLogRep: Repository<ProcessLogEntity>) {
   }
 
   async init() {
@@ -68,7 +71,7 @@ export class ProcessManagerService {
     this.broker.emit(Command.Start, processData);
   }
 
-  async stopProcess(code: string) {   // todo not work in cluster mode
+  async stopProcess(code: string) {
     const processData = await this.getProcessData(code, true);
     if (!processData) {
       throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
@@ -99,6 +102,15 @@ export class ProcessManagerService {
   async getProcessUnitStatus(code: string) {
     const processData = await this.getProcessData(code, true);
     return processData.status;
+  }
+
+  async createLogInstance(processCode: string) {
+    const process = await this.getProcessData(processCode);
+    return this.processLogRep.save({ process, content: "" } as ProcessLogEntity);
+  }
+
+  async updateLogInstance(logInstance: ProcessLogEntity) {
+    return this.processLogRep.save(logInstance);
   }
 
   private getProcessData(code: string, force = false) {

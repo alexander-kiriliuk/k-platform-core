@@ -34,6 +34,14 @@ export namespace Process {
     Stop = "process:stop",
   }
 
+  export enum LogLevel {
+    Log = "LOG",
+    Error = "ERROR",
+    Warn = "WARN",
+    Verbose = "VERBOSE",
+    Debug = "DEBUG",
+  }
+
   export function getRegisteredProcesses() {
     return REGISTERED_PROCESSES;
   }

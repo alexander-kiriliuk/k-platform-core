@@ -595,6 +595,9 @@ export class BasicExplorerService extends ExplorerService {
     switch (type) {
       case "string":
       case "text":
+      case "longtext":
+      case "tinytext":
+      case "mediumint":
       case "uuid":
       case "varchar":
       case "char":

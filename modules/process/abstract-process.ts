@@ -17,13 +17,18 @@
 import { Process } from "./process.constants";
 import { Logger } from "@nestjs/common";
 import { ProcessManagerService } from "./process-manager.service";
+import { ObjectUtils } from "@shared/utils/object.utils";
+import { ProcessLogEntity } from "./entity/process.log.entity";
 import registerProcess = Process.registerProcess;
 import Status = Process.Status;
+import inspect = ObjectUtils.inspect;
+import LogLevel = Process.LogLevel;
 
 export abstract class AbstractProcess {
 
   protected abstract readonly logger: Logger;
   protected abstract readonly pmService: ProcessManagerService;
+  private logInstance: ProcessLogEntity;
 
   protected abstract execute(): Promise<unknown>;
 
@@ -32,34 +37,67 @@ export abstract class AbstractProcess {
   }
 
   async start() {
-    this.logger.log(`Start process ${this.constructor.name}`);
     const status = await this.getStatus();
     if (status === Status.Execute) {
       this.logger.warn(`Process ${this.constructor.name} now executed, can't start that`);
       return;
     }
+    this.logInstance = await this.pmService.createLogInstance(this.constructor.name);
+    await this.writeLog(`Start process ${this.constructor.name}`);
     await this.setStatus(Status.Execute);
     try {
       await this.execute();
       await this.setStatus(Status.Ready);
-      this.logger.log(`Process ${this.constructor.name} was finished`);
       await this.onFinish();
+      await this.writeLog(`Process ${this.constructor.name} was finished`);
+      this.logInstance = undefined;
     } catch (e) {
       await this.setStatus(Status.Crashed);
-      this.logger.error(`Process ${this.constructor.name} was crashed`);
-      this.onCrash(e);
+      await this.onCrash(e);
+      await this.writeLog(`Process ${this.constructor.name} was crashed`, e, LogLevel.Error);
+      this.logInstance = undefined;
     }
   }
 
   async stop() {
-    this.logger.log(`Try to stop process ${this.constructor.name}`);
+    await this.writeLog(`Try to stop process ${this.constructor.name}`);
     await this.setStatus(Status.Ready);
-    this.logger.log(`Process ${this.constructor.name} was stopped`);
-    this.onStop();
+    await this.onStop();
+    await this.writeLog(`Process ${this.constructor.name} was stopped`);
+    this.logInstance = undefined;
   }
 
-  protected writeLog() {
-    // todo
+  protected async writeLog(message: string, data?: unknown, level = LogLevel.Log) {
+    switch (level) {
+      case LogLevel.Log:
+        this.logger.log(message, data);
+        break;
+      case LogLevel.Error:
+        this.logger.error(message, data);
+        break;
+      case LogLevel.Warn:
+        this.logger.warn(message, data);
+        break;
+      case LogLevel.Debug:
+        this.logger.debug(message, data);
+        break;
+      case LogLevel.Verbose:
+        this.logger.verbose(message, data);
+        break;
+    }
+    if (!this.logInstance) {
+      return;
+    }
+    const date = new Date();
+    let msg = inspect(message);
+    if ((msg.startsWith(`'`) && msg.endsWith(`'`)) || msg.startsWith(`"`) && msg.endsWith(`"`)) {
+      msg = msg.substring(1, msg.length - 1);
+    }
+    if (data) {
+      msg += inspect(data);
+    }
+    this.logInstance.content += `[${process.pid} | ${date.toLocaleString()} | ${level}] ${msg}\n`;
+    await this.pmService.updateLogInstance(this.logInstance);
   }
 
   protected async onFinish() {

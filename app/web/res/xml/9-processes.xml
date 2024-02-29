@@ -133,6 +133,11 @@
             <objectVisibility>false</objectVisibility>
         </row>
         <row>
+            <id>process_units.logs</id>
+            <objectEnabled>false</objectEnabled>
+            <sectionEnabled>false</sectionEnabled>
+        </row>
+        <row>
             <target>ProcessUnitEntity</target>
             <id>process_units.statsVirtual</id>
             <property>statsVirtual</property>
