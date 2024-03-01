@@ -54,14 +54,20 @@ export class ProcessRegisterService {
   }
 
   private startProcess(processData: ProcessUnit) {
-    this.lockExec(`${processData.code}_start`, async () => {
-      const processInstance = getProcessInstance(processData.code);
-      processInstance.start();
-    });
+    const processInstance = getProcessInstance(processData.code);
+    if (!processInstance) {
+      this.logger.error(`Process ${processData.code} not registered`);
+      return;
+    }
+    this.lockExec(`${processData.code}_start`, async () => processInstance.start());
   }
 
   private stopProcess(processData: ProcessUnit) {
     const processInstance = getProcessInstance(processData.code);
+    if (!processInstance) {
+      this.logger.error(`Process ${processData.code} not registered`);
+      return;
+    }
     processInstance.stop();
   }
 
@@ -72,14 +78,16 @@ export class ProcessRegisterService {
     }
     await this.pmService.setProcessUnitStatus(processData.code, Status.Ready);
     const processInstance = getProcessInstance(processData.code);
+    if (!processInstance) {
+      this.logger.error(`Process ${processData.code} not registered`);
+      return;
+    }
     if (!processData.cronTab?.length) {
       this.logger.warn(`Process ${processData.code} hasn't cron-tab, skip job registration`);
       return false;
     }
     const job = new CronJob(processData.cronTab, () => {
-      this.lockExec(processData.code, async () => {
-        await processInstance.start();
-      });
+      this.lockExec(processData.code, async () => await processInstance.start());
     });
     job.start();
     this.schedulerRegistry.addCronJob(processData.code, job);

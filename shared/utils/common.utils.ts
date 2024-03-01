@@ -14,24 +14,12 @@
  *    limitations under the License.
  */
 
+export namespace CommonUtils {
 
-import { Process } from "./process.constants";
-import { LocalizedString } from "@shared/modules/locale/locale.types";
+  export function sleep(delay: number) {
+    return new Promise(resolve => {
+      setTimeout(() => resolve(true), delay);
+    });
+  }
 
-export class ProcessLog {
-  id: number;
-  content: string;
-  tsCreated: Date;
-  tsUpdated: Date;
-  process: ProcessUnit;
-}
-
-export interface ProcessUnit {
-  code: string;
-  status: Process.Status;
-  enabled: boolean;
-  description: LocalizedString[];
-  cronTab: string;
-  logs: ProcessLog[];
-  tsCreated: Date;
 }

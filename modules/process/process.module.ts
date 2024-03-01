@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Module, OnApplicationBootstrap } from "@nestjs/common";
+import { Global, Module, OnApplicationBootstrap } from "@nestjs/common";
 import { LogModule } from "@shared/modules/log/log.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ProcessUnitEntity } from "./entity/process.unit.entity";
@@ -25,6 +25,7 @@ import { MessagesBrokerModule } from "@shared/modules/messages-broker/messages-b
 import { WarlockModule } from "@shared/modules/warlock/warlock.module";
 import { ProcessLogEntity } from "./entity/process.log.entity";
 
+@Global()
 @Module({
   imports: [
     TypeOrmModule.forFeature([ProcessUnitEntity, ProcessLogEntity]),

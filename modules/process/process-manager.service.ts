@@ -109,13 +109,25 @@ export class ProcessManagerService {
     return this.processLogRep.save({ process, content: "" } as ProcessLogEntity);
   }
 
-  async updateLogInstance(logInstance: ProcessLogEntity) {
+  updateLogInstance(logInstance: ProcessLogEntity) {
     return this.processLogRep.save(logInstance);
   }
 
-  private getProcessData(code: string, force = false) {
+  getProcessData(code: string, force = false) {
     const params = { code, enabled: true };
     return this.processUnitRep.findOne({ where: force ? { code } : params });
+  }
+
+  getProcessLogById(id: number) {
+    return this.processLogRep.findOne({ where: { id }, relations: ["process"] });
+  }
+
+  getLastLogsByProcess(processCode: string, limit = 5) {
+    return this.processLogRep.find({
+      where: { process: { code: processCode } },
+      take: limit,
+      order: { tsUpdated: "DESC" }
+    });
   }
 
   private async resetAllProcessStatuses() {

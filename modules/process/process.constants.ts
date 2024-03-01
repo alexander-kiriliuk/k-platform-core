@@ -62,7 +62,7 @@ export namespace Process {
     const registeredProcesses = getRegisteredProcesses();
     const process = registeredProcesses.get(code);
     if (!process) {
-      throw new InternalServerErrorException(`Process ${code} not registered`);
+      return;
     }
     return process;
   }

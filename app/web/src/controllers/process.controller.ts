@@ -14,11 +14,13 @@
  *    limitations under the License.
  */
 
-import { Controller, Get, Param, UseGuards } from "@nestjs/common";
+import { Controller, Get, NotFoundException, Param, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@shared/guards/auth.guard";
 import { ForRoles } from "@shared/decorators/for-roles.decorator";
 import { Roles } from "@shared/constants";
 import { ProcessManagerService } from "../../../../modules/process/process-manager.service";
+import { CommonUtils } from "@shared/utils/common.utils";
+import sleep = CommonUtils.sleep;
 
 
 @Controller("process")
@@ -45,6 +47,33 @@ export class ProcessController {
   @ForRoles(Roles.ADMIN)
   async toggleProcess(@Param("code") code: string) {
     await this.pmService.toggleProcess(code);
+  }
+
+  @Get("/stats/:code")
+  @ForRoles(Roles.ADMIN)
+  async getStats(@Param("code") code: string) {
+    const processData = await this.pmService.getProcessData(code, true);
+    if (!processData) {
+      throw new NotFoundException();
+    }
+    processData.logs = await this.pmService.getLastLogsByProcess(processData.code);
+    return processData;
+  }
+
+  @Get("/log/:id")
+  @ForRoles(Roles.ADMIN)
+  async getLogs(@Param("id") id: number) {
+    const logData = await this.pmService.getProcessLogById(id);
+    if (!logData) {
+      throw new NotFoundException();
+    }
+    for (let i = 0; i < 5; i++) {
+      const currentLog = await this.pmService.getProcessLogById(id);
+      if (currentLog.tsUpdated.getTime() !== logData.tsUpdated.getTime()) {
+        return currentLog;
+      }
+      await sleep(1000);
+    }
   }
 
 }

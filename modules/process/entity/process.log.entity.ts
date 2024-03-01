@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ProcessUnitEntity } from "./process.unit.entity";
 import { ProcessLog } from "../process.types";
 
@@ -30,6 +30,10 @@ export class ProcessLogEntity implements ProcessLog {
   @Index()
   @CreateDateColumn({ name: "ts_created", type: "timestamp" })
   tsCreated: Date;
+
+  @Index()
+  @UpdateDateColumn({ name: "ts_updated", type: "timestamp" })
+  tsUpdated: Date;
 
   @ManyToOne(() => ProcessUnitEntity, t => t.code)
   process: ProcessUnitEntity;

@@ -43,11 +43,11 @@ export class TmpDirCleanerProcess extends AbstractProcess {
       this.timerId = setInterval(async () => {
         i++;
         await this.writeLog(generateRandomInt().toString(), undefined, LogLevel.Verbose);
-        if (i >= 25) {
+        if (i >= 10) {
           clearInterval(this.timerId);
           resolve(true);
         }
-      }, 1000);
+      }, 3000);
     });
   }
 
