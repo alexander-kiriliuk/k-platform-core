@@ -211,6 +211,9 @@ export class XmlDataBridgeExportService extends XdbExportService {
             continue;
           }
           for (const j in stack[i].data[key]) {
+            if (!stack[i].data[key][j]) {
+              continue;
+            }
             const target = await this.explorerService.getTargetData(stack[i].data[key][j].constructor.name, tParams);
             const keyName = this.getKeyPropertyName(target, stack[i].data[key][j]);
             const stackEl = stack.find(
@@ -243,6 +246,9 @@ export class XmlDataBridgeExportService extends XdbExportService {
           continue;
         }
         for (const arrEl of node[key]) {
+          if (!arrEl) {
+            continue;
+          }
           const target = await this.explorerService.getTargetData(arrEl.constructor.name, tParams);
           const p = `${path}/${key}`;
           const stackEl = stack.find(

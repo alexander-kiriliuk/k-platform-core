@@ -108,12 +108,15 @@ export namespace XmlDataBridgeFileSchema {
       const propValue = parts[1];
       const kParts = propValue.split(":");
       let data = `\n\t\t\t<${key} key="${kParts[0]}">`;
-      value.forEach(v => {
+      for (const v of value) {
+        if (!v) {
+          continue;
+        }
         const parts = v.split("#");
         const propValue = parts[1];
         const kParts = propValue.split(":");
         data += `\n\t\t\t\t<row>${kParts[1]}</row>`;
-      });
+      }
       data += `\n\t\t\t</${key}>`;
       return data;
     } else if (typeof val === "string" && val.startsWith(Xdb.rootToken) && val.indexOf("#") !== -1) {
