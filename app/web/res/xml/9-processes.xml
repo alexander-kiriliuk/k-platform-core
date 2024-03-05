@@ -170,7 +170,7 @@
         <row>
             <code>TmpDirCleanerProcess</code>
             <enabled>true</enabled>
-            <cronTab>*/3 * * * * *</cronTab>
+            <cronTab>0 0 0 * * *</cronTab>
             <description key="code">
                 <row>process-tmp-dir-cleaner-name-en</row>
                 <row>process-tmp-dir-cleaner-name-ru</row>

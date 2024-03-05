@@ -122,7 +122,7 @@ export class ProcessManagerService {
     return this.processLogRep.findOne({ where: { id }, relations: ["process"] });
   }
 
-  getLastLogsByProcess(processCode: string, limit = 5) {
+  getLastLogsByProcess(processCode: string, limit = 3) {
     return this.processLogRep.find({
       where: { process: { code: processCode } },
       take: limit,

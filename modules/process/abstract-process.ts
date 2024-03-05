@@ -39,31 +39,31 @@ export abstract class AbstractProcess {
   async start() {
     const status = await this.getStatus();
     if (status === Status.Execute) {
-      this.logger.warn(`Process ${this.constructor.name} now executed, can't start that`);
+      this.logger.warn(`Process with id ${this.constructor.name} now executed, can't start that`);
       return;
     }
     this.logInstance = await this.pmService.createLogInstance(this.constructor.name);
-    await this.writeLog(`Start process ${this.constructor.name}`);
+    await this.writeLog(`Start process with id ${this.constructor.name}`);
     await this.setStatus(Status.Execute);
     try {
       await this.execute();
       await this.setStatus(Status.Ready);
       await this.onFinish();
-      await this.writeLog(`Process ${this.constructor.name} was finished`);
+      await this.writeLog(`Process with id ${this.constructor.name} was finished`);
       this.logInstance = undefined;
     } catch (e) {
       await this.setStatus(Status.Crashed);
       await this.onCrash(e);
-      await this.writeLog(`Process ${this.constructor.name} was crashed`, e, LogLevel.Error);
+      await this.writeLog(`Process with id ${this.constructor.name} was crashed`, e, LogLevel.Error);
       this.logInstance = undefined;
     }
   }
 
   async stop() {
-    await this.writeLog(`Try to stop process ${this.constructor.name}`);
+    await this.writeLog(`Try to stop process with id ${this.constructor.name}`);
     await this.setStatus(Status.Ready);
     await this.onStop();
-    await this.writeLog(`Process ${this.constructor.name} was stopped`);
+    await this.writeLog(`Process with id ${this.constructor.name} was stopped`);
     this.logInstance = undefined;
   }
 
@@ -96,7 +96,9 @@ export abstract class AbstractProcess {
     if (data) {
       msg += inspect(data);
     }
-    this.logInstance.content += `[${process.pid} | ${date.toLocaleString()} | ${level}] ${msg}\n`;
+    msg = msg.replace(/\[/g, "{");
+    msg = msg.replace(/]/g, "}");
+    this.logInstance.content += `[${process.pid} | ${date.toLocaleString()} | ${level}] ${msg} >>>\n`;
     await this.pmService.updateLogInstance(this.logInstance);
   }
 

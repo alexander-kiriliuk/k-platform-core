@@ -19,46 +19,46 @@ import { AbstractProcess } from "../abstract-process";
 import { Inject, Logger } from "@nestjs/common";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { ProcessManagerService } from "../process-manager.service";
-import { NumberUtils } from "@shared/utils/number.utils";
-import { Process } from "../process.constants";
-import generateRandomInt = NumberUtils.generateRandomInt;
-import LogLevel = Process.LogLevel;
+import { KpConfig } from "../../../gen-src/kp.config";
+import { CacheService } from "@shared/modules/cache/cache.types";
+import { FilesUtils } from "@shared/utils/files.utils";
+import * as fs from "fs";
+import readDirectoryRecursively = FilesUtils.readDirectoryRecursively;
 
 export class TmpDirCleanerProcess extends AbstractProcess {
 
-  private timerId: any; // todo remove
-  // todo try two process in different modules
-
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
-    protected readonly pmService: ProcessManagerService) {
+    protected readonly pmService: ProcessManagerService,
+    private readonly cacheService: CacheService) {
     super();
   }
 
   protected async execute() {
-    return new Promise(resolve => {
-      /*this.logger.error("pid: " + process.pid);
-      resolve(true);*/
-      let i = 0;
-      this.timerId = setInterval(async () => {
-        i++;
-        await this.writeLog(generateRandomInt().toString(), undefined, LogLevel.Verbose);
-        if (i >= 10) {
-          clearInterval(this.timerId);
-          resolve(true);
-        }
-      }, 3000);
-    });
+    const tmpDir = process.cwd() + await this.cacheService.get(KpConfig.TMP_DIR);
+    if (!fs.existsSync(tmpDir)) {
+      await this.writeLog(`Nothing to delete`);
+      return;
+    }
+    const dirStruct = await readDirectoryRecursively(tmpDir);
+    const stats = this.getDeleteStats(dirStruct as { [k: string]: string[] });
+    await this.writeLog(`Try to delete ${stats.filesCount} files and ${stats.foldersCount} folders...`);
+    await fs.promises.rm(tmpDir, { recursive: true, force: true });
+    await this.writeLog(`Tmp dir was cleaned`);
   }
 
-  protected async onStop() {
-    clearInterval(this.timerId);
-    await this.writeLog("Call to child class inside onStop");
+  private getDeleteStats(dirStruct: { [k: string]: string[] }) {
+    let filesCount = 0;
+    let foldersCount = 0;
+    for (const key in dirStruct) {
+      filesCount += dirStruct[key].length;
+      if (!key.length) {
+        continue;
+      }
+      foldersCount++;
+    }
+    return { filesCount, foldersCount };
   }
 
-  protected async onFinish() {
-    clearInterval(this.timerId);
-    await this.writeLog("Call to child class inside onFinish");
-  }
 
 }
