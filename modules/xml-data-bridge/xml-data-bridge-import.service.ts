@@ -32,6 +32,7 @@ import * as AdmZip from "adm-zip";
 import * as fs from "fs";
 import * as path from "path";
 import { KpConfig } from "../../gen-src/kp.config";
+import { ExplorerService } from "@explorer/explorer.types";
 import readFile = FilesUtils.readFile;
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
 import readDirectoryRecursively = FilesUtils.readDirectoryRecursively;
@@ -50,7 +51,8 @@ export class XmlDataBridgeImportService extends XdbImportService {
     @Inject(LOGGER) private readonly logger: Logger,
     private readonly mediaService: MediaManager,
     private readonly filesService: FileManager,
-    private readonly cacheService: CacheService) {
+    private readonly cacheService: CacheService,
+    private readonly explorerService: ExplorerService) {
     super();
   }
 
@@ -199,7 +201,7 @@ export class XmlDataBridgeImportService extends XdbImportService {
         const entityToRemove = await repository.findOne({ where: whereConditions });
         if (entityToRemove) {
           await repository.remove(entityToRemove);
-          this.logEntityRemoved(repository, whereConditions);
+          this.logRemovedEntity(repository, whereConditions);
         } else {
           this.logger.warn(
             `Entity [${item.attrs.target}] with ${JSON.stringify(whereConditions)} not found, no removal performed`
@@ -235,7 +237,7 @@ export class XmlDataBridgeImportService extends XdbImportService {
    * @param repository - A TypeORM Repository instance for the entity.
    * @param whereConditions - An object containing WHERE conditions.
    */
-  private logEntityRemoved(repository: Repository<any>, whereConditions: object) {
+  private logRemovedEntity(repository: Repository<any>, whereConditions: object) {
     const metadata = repository.metadata;
     const keyValuePairs = Object.entries(whereConditions)
       .map(([key, value]) => `${key}=${value}`)
@@ -253,18 +255,21 @@ export class XmlDataBridgeImportService extends XdbImportService {
     for (const rowData of item.rows) {
       const uniqueKeyFields = this.getUniqueKeyFields(repository, rowData);
       let existingEntity = null;
-      console.log(uniqueKeyFields);
       if (Object.keys(uniqueKeyFields).length) {
         existingEntity = await repository.findOne({ where: uniqueKeyFields });
       }
       let entity;
       if (existingEntity) {
-        entity = await this.updateEntityFromRowData(existingEntity, repository, rowData);
+        const target = await this.explorerService.getTargetData(existingEntity.constructor.name);
+        entity = await this.explorerService.getEntityData(
+          target.entity.target, existingEntity[target.primaryColumn.property], undefined, { fullRelations: true }
+        );
+        entity = await this.updateEntityFromRowData(entity, repository, rowData);
       } else {
         entity = await this.createEntityFromRowData(repository, rowData);
       }
       await repository.save(entity);
-      this.logEntitySaved(repository, entity, uniqueKeyFields, existingEntity);
+      this.logSavedEntity(repository, entity, uniqueKeyFields, existingEntity);
     }
   }
 
@@ -275,7 +280,7 @@ export class XmlDataBridgeImportService extends XdbImportService {
    @param uniqueKeyFields - An object containing unique key fields.
    @param existingEntity - An existing entity, if any.
    */
-  private logEntitySaved(repository: Repository<any>, entity: any, uniqueKeyFields: object, existingEntity: any) {
+  private logSavedEntity(repository: Repository<any>, entity: any, uniqueKeyFields: object, existingEntity: any) {
     const metadata = repository.metadata;
     const primaryKey = metadata.primaryColumns[0].propertyName;
     const keys = [primaryKey, ...Object.keys(uniqueKeyFields)];
@@ -340,11 +345,15 @@ export class XmlDataBridgeImportService extends XdbImportService {
           const relatedRepository = this.connection.getRepository(
             relation.inverseEntityMetadata.targetName
           );
+          const existedVal = entity[key];
           entity[key] = await relatedRepository.find({
             where: {
               [rowData[key].attrs.key]: In(rowData[key].values)
             }
           });
+          if (rowData[key].attrs?.mode === "push" && existedVal?.length) {
+            entity[key] = entity[key].concat(existedVal);
+          }
         }
       } else if (rowData[key].value) {
         entity[key] = rowData[key].value;

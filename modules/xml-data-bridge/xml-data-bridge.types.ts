@@ -31,6 +31,7 @@ export type XdbRowDataValue = {
   attrs?: {
     key?: string;
     uri?: string;
+    mode?: "push";
   };
   value?: string;
   values?: string[];
