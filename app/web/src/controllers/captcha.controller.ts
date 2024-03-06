@@ -31,11 +31,16 @@ export class CaptchaController {
   }
 
   @Get("/")
-  async getCaptcha() {
+  async getCaptcha(): Promise<GraphicCaptchaResponse> {
     const captcha: GraphicCaptchaResponse = await this.captchaService.generateCaptcha();
+    if (!captcha) {
+      return { enabled: false };
+    }
     return {
+      enabled: true,
       id: captcha.id,
-      image: `data:image/png;base64,${captcha.image}`
+      image: `data:image/png;base64,${captcha.image}`,
+      type: captcha.type
     };
   }
 

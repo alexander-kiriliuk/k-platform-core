@@ -15,19 +15,24 @@
  */
 
 
-import { Body, Controller, Post, Req, Res, UseGuards } from "@nestjs/common";
+import { Body, Controller, ForbiddenException, Post, Req, Res, UseGuards } from "@nestjs/common";
 import { ExchangeTokenPayload, JwtDto, LoginPayload } from "@auth/auth.types";
 import { LiteAuthGuard } from "@shared/guards/lite-auth.guard";
 import { AccessToken } from "@shared/decorators/access-token.decorator";
 import { ResponseDto } from "@shared/decorators/response-dto.decorator";
 import { Request, Response } from "express";
 import { AuthService } from "@auth/auth.constants";
+import { CaptchaConfig } from "@captcha/gen-src/captcha.config";
+import { CacheService } from "@shared/modules/cache/cache.types";
+import { CaptchaService } from "@captcha/captcha.types";
 
 @Controller("/auth")
 export class AuthController {
 
   constructor(
-    private readonly authService: AuthService) {
+    private readonly authService: AuthService,
+    private readonly cacheService: CacheService,
+    private readonly captchaService: CaptchaService) {
   }
 
   @ResponseDto(JwtDto)
@@ -37,6 +42,15 @@ export class AuthController {
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response
   ) {
+    const captchaEnabled = await this.cacheService.getBoolean(CaptchaConfig.ENABLED);
+    if (captchaEnabled) {
+      const res = await this.captchaService.validateCaptcha({
+        id: payload.captchaId, data: payload.captchaPayload
+      });
+      if (!res) {
+        throw new ForbiddenException("Invalid captcha");
+      }
+    }
     if (request.ip) {
       payload.ipAddress = request.ip;
     }

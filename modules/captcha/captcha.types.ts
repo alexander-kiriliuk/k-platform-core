@@ -37,8 +37,10 @@ export class CaptchaRequest<T = any> {
 }
 
 export type GraphicCaptchaResponse = {
-  image: string;
-  id: string;
+  type?: string;
+  image?: string;
+  id?: string;
+  enabled?: boolean;
 }
 
 

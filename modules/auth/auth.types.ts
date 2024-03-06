@@ -35,6 +35,14 @@ export class LoginPayload {
   @IsOptional()
   ipAddress: string;
 
+  @IsString()
+  @IsOptional()
+  captchaId?: string;
+
+  @IsString()
+  @IsOptional()
+  captchaPayload?: string;
+
 }
 
 export class ExchangeTokenPayload {

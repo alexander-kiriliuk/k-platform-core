@@ -55,7 +55,7 @@ export class RedisCacheService implements CacheService {
    */
   async getBoolean(key: string) {
     const val = await this.get(key);
-    return Boolean(val);
+    return val === "true";
   }
 
   /**

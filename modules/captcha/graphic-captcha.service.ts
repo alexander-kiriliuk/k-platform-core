@@ -24,7 +24,7 @@ import { createCanvas, registerFont } from "canvas";
 import { NumberUtils } from "@shared/utils/number.utils";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { CAPTCHA_CACHE_PREFIX } from "./captcha.constants";
-import path from "path";
+import * as path from "path";
 import generateRandomString = StringUtils.generateRandomString;
 import generateRandomInt = NumberUtils.generateRandomInt;
 
@@ -49,13 +49,17 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
    * @returns {Promise<GraphicCaptchaResponse>} - A promise resolving to a GraphicCaptchaResponse object containing the captcha id and image.
    */
   async generateCaptcha(): Promise<GraphicCaptchaResponse> {
+    const captchaEnabled = await this.cacheService.getBoolean(CaptchaConfig.ENABLED);
+    if (!captchaEnabled) {
+      return undefined;
+    }
     const id = uuidv4();
     const val = generateRandomString(5, 7);
     const image = await this.makeImageFromText(val);
     const capEx = await this.getCaptchaExp();
     await this.cacheService.set(`${CAPTCHA_CACHE_PREFIX}:${id}`, val, capEx);
     this.logger.debug(`Generated captcha with id: ${id} and value: ${val}`);
-    return { id, image };
+    return { id, image, type: "default" };
   }
 
   /**
@@ -68,15 +72,15 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
   async validateCaptcha(request: CaptchaRequest): Promise<boolean> {
     const key = `${CAPTCHA_CACHE_PREFIX}:${request.id}`;
     const val = await this.cacheService.get(key);
+    this.cacheService.del(key);
     if (!val) {
       this.logger.warn(`Invalid captcha id: ${request.id}`);
-      throw new BadRequestException();
+      return false;
     }
     if (val !== request.data) {
       this.logger.warn(`Incorrect captcha value for id: ${request.id}`);
-      throw new ForbiddenException();
+      return false;
     }
-    this.cacheService.del(key);
     return true;
   }
 
@@ -91,7 +95,7 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
     const ctx = canvas.getContext("2d");
     const capFontFamily = await this.getCaptchaFontFamily();
     const capFontPath = await this.getCaptchaFontPath();
-    registerFont(process.cwd() + capFontPath, { family: capFontFamily });
+    registerFont(capFontPath, { family: capFontFamily });
     ctx.fillStyle = this.generateColor();
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = `30px ${capFontFamily}`;
