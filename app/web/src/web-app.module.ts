@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import { Logger, MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { ProfileController } from "./controllers/profile.controller";
 import { AuthController } from "./controllers/auth.controller";
 import { CacheModule } from "@shared/modules/cache/cache.module";
@@ -51,6 +51,11 @@ import { KpConfig } from "../../../gen-src/kp.config";
 import { ProcessModule } from "../../../modules/process/process.module";
 import { TmpDirCleanerProcess } from "../../../modules/process/default/tmp-dir-cleaner.process";
 import { ProcessController } from "./controllers/process.controller";
+import { LOGGER } from "@shared/modules/log/log.constants";
+import { GraphicCaptchaService } from "@captcha/graphic-captcha.service";
+import { CaptchaConfig } from "@captcha/gen-src/captcha.config";
+import { GoogleCaptchaService } from "@captcha/google-captcha.service";
+import { HttpModule, HttpService } from "@nestjs/axios";
 import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
 
 @Module({
@@ -63,7 +68,23 @@ import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
     AuthModule.forRoot(),
     FileModule.forRoot(),
     MediaModule.forRoot(),
-    CaptchaModule.forRoot(),
+    CaptchaModule.forRootAsync({
+      imports: [
+        CacheModule,
+        LogModule,
+        HttpModule
+      ],
+      inject: [CacheService, LOGGER, HttpService],
+      useFactory: async (cs: CacheService, logger: Logger, httpService: HttpService) => {
+        const type = await cs.get(CaptchaConfig.TYPE);
+        if (type === "google") {
+          logger.log("Set google recaptcha as captcha service");
+          return new GoogleCaptchaService(logger, cs, httpService);
+        }
+        logger.log("Set default captcha service");
+        return new GraphicCaptchaService(logger, cs);
+      }
+    }),
     UserModule.forRoot(),
     ExplorerModule.forRoot(),
     XmlDataBridgeModule.forRoot(),

@@ -14,9 +14,9 @@
  *    limitations under the License.
  */
 
-import { CaptchaRequest, CaptchaService, GraphicCaptchaResponse } from "./captcha.types";
+import { CaptchaRequest, CaptchaResponse, CaptchaService } from "./captcha.types";
 import { v4 as uuidv4 } from "uuid";
-import { BadRequestException, ForbiddenException, Inject, Logger } from "@nestjs/common";
+import { Inject, Logger } from "@nestjs/common";
 import { CacheService } from "@shared/modules/cache/cache.types";
 import { StringUtils } from "@shared/utils/string.utils";
 import { CaptchaConfig } from "@captcha/gen-src/captcha.config";
@@ -32,7 +32,7 @@ import generateRandomInt = NumberUtils.generateRandomInt;
  * The GraphicCaptchaService class extends the CaptchaService class with a specialization for graphical captchas.
  * It manages the generation and validation of graphic captchas.
  */
-export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse> {
+export class GraphicCaptchaService extends CaptchaService<CaptchaResponse> {
 
   /**
    * @param {Logger} logger - An instance of Logger.
@@ -46,9 +46,9 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
 
   /**
    * Generates a new graphical captcha and stores it in the cache.
-   * @returns {Promise<GraphicCaptchaResponse>} - A promise resolving to a GraphicCaptchaResponse object containing the captcha id and image.
+   * @returns {Promise<CaptchaResponse>} - A promise resolving to a GraphicCaptchaResponse object containing the captcha id and image.
    */
-  async generateCaptcha(): Promise<GraphicCaptchaResponse> {
+  async generateCaptcha(): Promise<CaptchaResponse> {
     const captchaEnabled = await this.cacheService.getBoolean(CaptchaConfig.ENABLED);
     if (!captchaEnabled) {
       return undefined;
@@ -59,15 +59,13 @@ export class GraphicCaptchaService extends CaptchaService<GraphicCaptchaResponse
     const capEx = await this.getCaptchaExp();
     await this.cacheService.set(`${CAPTCHA_CACHE_PREFIX}:${id}`, val, capEx);
     this.logger.debug(`Generated captcha with id: ${id} and value: ${val}`);
-    return { id, image, type: "default" };
+    return { id, image: `data:image/png;base64,${image}`, type: "default" };
   }
 
   /**
    * Validates the provided captcha request against the cached value.
    * @param {CaptchaRequest} request - The captcha request to be validated.
    * @returns {Promise<boolean>} - A promise resolving to a boolean indicating whether the captcha is valid or not.
-   * @throws {BadRequestException} - Thrown when the captcha id is invalid.
-   * @throws {ForbiddenException} - Thrown when the captcha value is incorrect.
    */
   async validateCaptcha(request: CaptchaRequest): Promise<boolean> {
     const key = `${CAPTCHA_CACHE_PREFIX}:${request.id}`;

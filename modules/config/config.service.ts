@@ -263,6 +263,7 @@ export class ConfigService {
           break;
         }
       }
+      mergedContent.push(localLine);
     }
     return mergedContent.join("\n");
   }

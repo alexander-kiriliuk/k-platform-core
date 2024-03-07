@@ -15,7 +15,7 @@
  */
 
 import { Body, Controller, Get, Post } from "@nestjs/common";
-import { CaptchaRequest, CaptchaService, GraphicCaptchaResponse } from "@captcha/captcha.types";
+import { CaptchaRequest, CaptchaResponse, CaptchaService } from "@captcha/captcha.types";
 
 @Controller("/captcha")
 export class CaptchaController {
@@ -31,15 +31,15 @@ export class CaptchaController {
   }
 
   @Get("/")
-  async getCaptcha(): Promise<GraphicCaptchaResponse> {
-    const captcha: GraphicCaptchaResponse = await this.captchaService.generateCaptcha();
+  async getCaptcha(): Promise<CaptchaResponse> {
+    const captcha: CaptchaResponse = await this.captchaService.generateCaptcha();
     if (!captcha) {
       return { enabled: false };
     }
     return {
       enabled: true,
       id: captcha.id,
-      image: `data:image/png;base64,${captcha.image}`,
+      image: captcha.image,
       type: captcha.type
     };
   }

@@ -36,14 +36,13 @@ export class CaptchaRequest<T = any> {
 
 }
 
-export type GraphicCaptchaResponse = {
+export type CaptchaResponse = {
   type?: string;
   image?: string;
   id?: string;
   enabled?: boolean;
 }
 
-
 export type CaptchaModuleOptions = {
   service: Class<CaptchaService>
-};
+}

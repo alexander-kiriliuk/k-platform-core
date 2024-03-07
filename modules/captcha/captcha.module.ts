@@ -40,4 +40,24 @@ export class CaptchaModule {
     };
   }
 
+  static forRootAsync(options: {
+    inject?: any[];
+    imports?: any[];
+    useFactory: (...args) => Promise<CaptchaService> | CaptchaService;
+  }): DynamicModule {
+    const { inject, imports, useFactory } = options;
+    return {
+      module: CaptchaModule,
+      imports: [...(imports || [])],
+      providers: [
+        {
+          provide: CaptchaService,
+          useFactory,
+          inject
+        }
+      ],
+      exports: [CaptchaService]
+    };
+  }
+
 }
