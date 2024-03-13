@@ -32,9 +32,7 @@ import * as path from "path";
 import { FilesUtils } from "@shared/utils/files.utils";
 import * as fs from "fs";
 import { File } from "./file.types";
-import { LocalizedString } from "@shared/modules/locale/locale.types";
-import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
-import { FileManager } from "@files/file.constants";
+import { FileManager, FileMd } from "@files/file.constants";
 import PRIVATE_DIR = FileConfig.PRIVATE_DIR;
 import PUBLIC_DIR = FileConfig.PUBLIC_DIR;
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
@@ -49,7 +47,8 @@ export class FileService extends FileManager {
     @Inject(LOGGER) protected readonly logger: Logger,
     @InjectRepository(FileEntity)
     private readonly fileRep: Repository<FileEntity>,
-    private readonly cacheService: CacheService) {
+    private readonly cacheService: CacheService,
+    private readonly metadataService: FileMd) {
     super();
   }
 
@@ -61,7 +60,7 @@ export class FileService extends FileManager {
    * @param isPublic - A boolean flag indicating if the file should be saved to the public directory (true) or private directory (false).
    * @param code - Specific identification code for file entity.
    * @param existedEntityId - ID of file entity for patch.
-   * @param name - localized name for file entity.
+   * @param name - name for file entity.
    * @returns A promise that resolves to the created FileEntity.
    */
   async createOrUpdateFile(
@@ -70,7 +69,7 @@ export class FileService extends FileManager {
     isPublic = true,
     code?: string,
     existedEntityId?: number,
-    name?: LocalizedString[]): Promise<FileEntity> {
+    name?: string): Promise<FileEntity> {
     let entity: FileEntity = undefined;
     await this.fileRep.manager.transaction(async transactionManager => {
       if (existedEntityId) {
@@ -92,9 +91,12 @@ export class FileService extends FileManager {
       const fileName = entity.id.toString() + (extension ? `.${extension}` : extension);
       entity.size = file.length;
       entity.path = fileName;
-      entity.name = name as LocalizedStringEntity[];
+      entity.name = name;
       entity.code = code;
       await fs.promises.writeFile(`${outputPath}/${fileName}`, file);
+      if (!existedEntityId) {
+        entity.metadata = await this.metadataService.createFileMetadataEntity(file, `${outputPath}/${fileName}`);
+      }
       await transactionManager.save(entity);
     });
     this.logger.log(`${!existedEntityId ? `Created` : `Updated`} file with ID ${entity.id}`);
@@ -171,6 +173,20 @@ export class FileService extends FileManager {
       file.id.toString()
     );
     await this.fileRep.manager.transaction(async transactionManager => {
+      if (file.metadata) {
+        if (file.metadata.image) {
+          await transactionManager.remove(file.metadata.image);
+        }
+        if (file.metadata.gps) {
+          await transactionManager.remove(file.metadata.gps);
+        }
+        if (file.metadata.audio) {
+          await transactionManager.remove(file.metadata.audio);
+        }
+        if (file.metadata.video) {
+          await transactionManager.remove(file.metadata.video);
+        }
+      }
       await transactionManager.remove(file);
       await fs.promises.rm(dir, { recursive: true, force: true }).catch(err => {
         throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
@@ -186,9 +202,12 @@ export class FileService extends FileManager {
    */
   private createBasicFindQb() {
     return this.fileRep.createQueryBuilder("file")
-      .leftJoinAndSelect("file.name", "name")
-      .leftJoinAndSelect("name.lang", "lang")
       .leftJoinAndSelect("file.icon", "icon")
+      .leftJoinAndSelect("file.metadata", "metadata")
+      .leftJoinAndSelect("metadata.gps", "metaGps")
+      .leftJoinAndSelect("metadata.image", "metaImage")
+      .leftJoinAndSelect("metadata.audio", "metaAudio")
+      .leftJoinAndSelect("metadata.video", "metaVideo")
       .leftJoinAndSelect("icon.name", "iconName")
       .leftJoinAndSelect("iconName.lang", "iconLang")
       .leftJoinAndSelect("icon.files", "iconFiles")

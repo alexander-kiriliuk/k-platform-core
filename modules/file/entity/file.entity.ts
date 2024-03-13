@@ -3,14 +3,14 @@ import {
   CreateDateColumn,
   Entity,
   Index,
-  JoinTable,
-  ManyToMany,
+  JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn
 } from "typeorm";
 import { MediaEntity } from "@media/entity/media.entity";
-import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-string.entity";
 import { File } from "../file.types";
+import { FileMetadataEntity } from "@files/entity/file-metadata.entity";
 
 @Entity("files")
 export class FileEntity implements File {
@@ -22,9 +22,8 @@ export class FileEntity implements File {
   @Column("varchar", { nullable: true })
   code: string;
 
-  @ManyToMany(() => LocalizedStringEntity, { cascade: true })
-  @JoinTable()
-  name: LocalizedStringEntity[];
+  @Column("varchar", { nullable: true })
+  name: string;
 
   @Column("varchar", { nullable: true })
   path: string;
@@ -40,6 +39,13 @@ export class FileEntity implements File {
 
   @ManyToOne(() => MediaEntity, t => t.code)
   preview: MediaEntity;
+
+  @OneToOne(() => FileMetadataEntity, t => t.id, {
+    cascade: true,
+    onDelete: "CASCADE"
+  })
+  @JoinColumn()
+  metadata: FileMetadataEntity;
 
   @Index()
   @CreateDateColumn({ name: "ts_created", type: "timestamp" })

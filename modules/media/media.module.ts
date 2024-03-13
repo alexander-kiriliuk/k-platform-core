@@ -24,6 +24,7 @@ import { MediaTypeEntity } from "./entity/media-type.entity";
 import { MediaFileEntity } from "./entity/media-file.entity";
 import { MediaFormatEntity } from "./entity/media-format.entity";
 import { MediaManager, MediaModuleOptions } from "@media/media.types";
+import { FileModule } from "@files/file.module";
 
 @Module({})
 export class MediaModule {
@@ -36,6 +37,7 @@ export class MediaModule {
       module: MediaModule,
       imports: [
         TypeOrmModule.forFeature(options.entities),
+        FileModule.forRoot(),
         LogModule,
         CacheModule
       ],

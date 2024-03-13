@@ -33,28 +33,12 @@
         </row>
     </InsertUpdate>
 
-    <InsertUpdate target="LocalizedStringEntity">
-        <row>
-            <lang key="id">ru</lang>
-            <code>test-text-file-name-ru</code>
-            <value>Тестовый текстовый файл</value>
-        </row>
-        <row>
-            <lang key="id">en</lang>
-            <code>test-text-file-name-en</code>
-            <value>Test text file</value>
-        </row>
-    </InsertUpdate>
-
     <File>
         <row>
             <code>test-text-file</code>
             <public>true</public>
             <file>/app/web/res/files/test.txt</file>
-            <name key="code">
-                <row>test-text-file-name-ru</row>
-                <row>test-text-file-name-en</row>
-            </name>
+            <name>test.txt</name>
         </row>
     </File>
 

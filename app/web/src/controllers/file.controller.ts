@@ -46,7 +46,12 @@ export class FileController {
     @UploadedFile("file", new NotEmptyPipe("file")) file: Express.Multer.File,
     @Query("public") isPublic = "true") {
     return this.fileService.createOrUpdateFile(
-      file.buffer, file.originalname.split(".").pop(), isPublic === "true"
+      file.buffer,
+      file.originalname.split(".").pop(),
+      isPublic === "true",
+      undefined,
+      undefined,
+      file.originalname
     );
   }
 

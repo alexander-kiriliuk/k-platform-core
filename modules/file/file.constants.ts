@@ -15,14 +15,14 @@
  */
 
 
-import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { FileEntity } from "@files/entity/file.entity";
 import { File } from "@files/file.types";
+import { FileMetadataEntity } from "@files/entity/file-metadata.entity";
 
 export abstract class FileManager {
 
   abstract createOrUpdateFile(
-    file: Buffer, extension: string, isPublic: boolean, code?: string, existedEntityId?: number, name?: LocalizedString[]
+    file: Buffer, extension: string, isPublic: boolean, code?: string, existedEntityId?: number, name?: string
   ): Promise<FileEntity>;
 
   abstract findByCode(code: string): Promise<FileEntity>;
@@ -36,5 +36,11 @@ export abstract class FileManager {
   abstract getFilePath(file: File): Promise<string>;
 
   abstract remove(id: number): Promise<FileEntity>;
+
+}
+
+export abstract class FileMd {
+
+  abstract createFileMetadataEntity(buf: Buffer, filePath?: string): Promise<FileMetadataEntity>;
 
 }

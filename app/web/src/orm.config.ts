@@ -41,6 +41,13 @@ import { ExplorerActionEntity } from "@explorer/entity/explorer-action.entity";
 import { WebAppMenuRestrictionEntity } from "./entity/web-app-menu-restriction.entity";
 import { ProcessUnitEntity } from "../../../modules/process/entity/process.unit.entity";
 import { ProcessLogEntity } from "../../../modules/process/entity/process.log.entity";
+import { IccFileMetadataEntity } from "@files/entity/icc-file-metadata.entity";
+import { ImageFileMetadataEntity } from "@files/entity/image-file-metadata.entity";
+import { FileMetadataEntity } from "@files/entity/file-metadata.entity";
+import { ExifFileMetadataEntity } from "@files/entity/exif-file-metadata.entity";
+import { GpsFileMetadataEntity } from "@files/entity/gps-file-metadata.entity";
+import { AudioFileMetadataEntity } from "@files/entity/audio-file-metadata.entity";
+import { VideoFileMetadataEntity } from "@files/entity/video-file-metadata.entity";
 
 export namespace Orm {
 
@@ -69,6 +76,13 @@ export namespace Orm {
             MediaFormatEntity,
             MediaTypeEntity,
             FileEntity,
+            FileMetadataEntity,
+            AudioFileMetadataEntity,
+            VideoFileMetadataEntity,
+            ImageFileMetadataEntity,
+            ExifFileMetadataEntity,
+            GpsFileMetadataEntity,
+            IccFileMetadataEntity,
             ExplorerTargetEntity,
             ExplorerColumnEntity,
             ExplorerTabEntity,

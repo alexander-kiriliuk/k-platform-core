@@ -15,9 +15,15 @@
  */
 
 import * as fs from "fs";
+import * as crypto from "crypto";
 import { OpenMode } from "node:fs";
 import { Abortable } from "node:events";
 import * as path from "path";
+
+const fileTypeModule = {} as { lib: typeof import("file-type") };
+(async (ft) => {  // crutch for import ES module
+  ft.lib = await (eval("import(\"file-type\")") as Promise<typeof import("file-type")>);
+})(fileTypeModule);
 
 interface DirectoryStructure {
   [key: string]: string[] | DirectoryStructure;
@@ -25,10 +31,16 @@ interface DirectoryStructure {
 
 export namespace FilesUtils {
 
-  /**
-   * Creates directories if they do not exist.
-   * @param directoryPath - The path of the directory to create.
-   */
+  export function fileType() {
+    return fileTypeModule.lib;
+  }
+
+  export function getHashFromBuffer(fileBuffer: Buffer) {
+    const hashSum = crypto.createHash("sha256");
+    hashSum.update(fileBuffer);
+    return hashSum.digest("hex");
+  }
+
   export async function createDirectoriesIfNotExist(directoryPath: string) {
     try {
       await fs.promises.access(directoryPath);
@@ -69,6 +81,5 @@ export namespace FilesUtils {
     await readDir(dirPath, "");
     return result;
   }
-
 
 }

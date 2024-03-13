@@ -19,6 +19,7 @@ import { Exclude, Expose, Type } from "class-transformer";
 import { MediaEntity } from "@media/entity/media.entity";
 import { Type as Class } from "@nestjs/common/interfaces/type.interface";
 import { EntityClassOrSchema } from "@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type";
+import { FileMetadata } from "@files/file.types";
 
 export interface Media {
   id: number;
@@ -26,6 +27,7 @@ export interface Media {
   name: LocalizedString[];
   type: MediaType;
   files: MediaFile[];
+  metadata: FileMetadata;
   tsCreated: Date;
 }
 
@@ -130,6 +132,9 @@ export class MediaDto implements Media {
   @Expose()
   @Type(() => MediaFileDto)
   files: MediaFile[];
+
+  @Expose()
+  metadata: FileMetadata;
 
   @Expose()
   tsCreated: Date;

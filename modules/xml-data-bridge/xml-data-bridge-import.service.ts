@@ -142,12 +142,11 @@ export class XmlDataBridgeImportService extends XdbImportService {
       if (row.code) {
         existedEntity = await this.filesService.findByCode(row.code);
       }
-      const localizedStrings = await this.getLocalizedStrings(row);
       const filePath = process.cwd() + row.file;
       const buf = await readFile(path.normalize(filePath));
       const isPublic = String(row.public) === "true";
       const file = await this.filesService.createOrUpdateFile(
-        buf, row.file.split(".").pop(), isPublic, row.code, existedEntity?.id, localizedStrings
+        buf, row.file.split(".").pop(), isPublic, row.code, existedEntity?.id, row.name
       );
       this.logger.log(`${existedEntity ? `Update` : `Create`} file with ID ${file.id}`);
     }

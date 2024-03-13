@@ -47,11 +47,15 @@ import * as sharp from "sharp";
 import * as imagemin from "imagemin";
 import * as fs from "fs";
 import * as path from "path";
+import * as heicConvert from "heic-convert";
 import imageminPngquant from "imagemin-pngquant";
 import { NumberUtils } from "@shared/utils/number.utils";
+import { FileMetadataEntity } from "@files/entity/file-metadata.entity";
+import { FileMd } from "@files/file.constants";
 
-createCanvas(0, 0);
+createCanvas(0, 0);   // crutch for canvas lib
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
+
 
 /**
  * `MediaService` is a service responsible for managing media files, including
@@ -70,7 +74,8 @@ export class MediaService extends MediaManager {
     private readonly mediaFormatRep: Repository<MediaFormatEntity>,
     @InjectRepository(MediaFileEntity)
     private readonly mediaFileRep: Repository<MediaFileEntity>,
-    private readonly cacheService: CacheService) {
+    private readonly cacheService: CacheService,
+    private readonly metadataService: FileMd) {
     super();
   }
 
@@ -117,6 +122,20 @@ export class MediaService extends MediaManager {
     await this.mediaRep.manager.transaction(async transactionManager => {
       await transactionManager.remove(media.files);
       await transactionManager.remove(media);
+      if (media.metadata) {
+        if (media.metadata.gps) {
+          await transactionManager.remove(media.metadata.gps);
+        }
+        if (media.metadata.image) {
+          await transactionManager.remove(media.metadata.image);
+        }
+        if (media.metadata.icc) {
+          await transactionManager.remove(media.metadata.icc);
+        }
+        if (media.metadata.exif) {
+          await transactionManager.remove(media.metadata.exif);
+        }
+      }
       await fs.promises.rm(dir, { recursive: true, force: true }).catch(err => {
         throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
       });
@@ -174,7 +193,17 @@ export class MediaService extends MediaManager {
     code?: string,
     existedEntityId?: number,
     name?: LocalizedString[]): Promise<MediaEntity> {
+    const fileMetadata = await this.metadataService.createFileMetadataEntity(file);
     const mediaType = await this.getMediaType(type);
+    if (fileMetadata.ext === "heic") {    // convert heic to target format
+      if (mediaType.ext.code !== "png" && mediaType.ext.code !== "jpg") {
+        throw new BadRequestException(`Can't convert input file to ${mediaType.ext.code}`);
+      }
+      file = await heicConvert({
+        buffer: file,
+        format: mediaType.ext.code.toUpperCase()
+      });
+    }
     let entity: MediaEntity = undefined;
     await this.mediaRep.manager.transaction(async transactionManager => {
       if (existedEntityId) {
@@ -190,7 +219,7 @@ export class MediaService extends MediaManager {
           throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
         });
       } else {
-        entity = await this.createMediaEntity(mediaType);
+        entity = await this.createMediaEntity(mediaType, fileMetadata);
       }
       entity.name = name as LocalizedStringEntity[];
       entity.code = code;
@@ -265,12 +294,14 @@ export class MediaService extends MediaManager {
   /**
    * Creates a new media entity with the provided media type.
    * @param mediaType - The MediaTypeEntity instance.
+   * @param metadata - The metadata of media file.
    * @returns The created MediaEntity instance.
    */
-  private async createMediaEntity(mediaType: MediaTypeEntity): Promise<MediaEntity> {
+  private async createMediaEntity(mediaType: MediaTypeEntity, metadata?: FileMetadataEntity): Promise<MediaEntity> {
     const entity = new MediaEntity();
-    entity.type = mediaType;
     entity.name = [];
+    entity.type = mediaType;
+    entity.metadata = metadata;
     return this.mediaRep.save(entity);
   }
 
@@ -450,6 +481,11 @@ export class MediaService extends MediaManager {
   private createBasicFindQb() {
     return this.mediaRep.createQueryBuilder("media")
       .leftJoinAndSelect("media.type", "type")
+      .leftJoinAndSelect("media.metadata", "metadata")
+      .leftJoinAndSelect("metadata.image", "metaImage")
+      .leftJoinAndSelect("metadata.gps", "metaGps")
+      .leftJoinAndSelect("metadata.icc", "metaIcc")
+      .leftJoinAndSelect("metadata.exif", "metaExif")
       .leftJoinAndSelect("type.formats", "formats")
       .leftJoinAndSelect("type.ext", "ext")
       .leftJoinAndSelect("media.files", "files")

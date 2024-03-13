@@ -20,14 +20,16 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { FileEntity } from "./entity/file.entity";
 import { LogModule } from "@shared/modules/log/log.module";
 import { CacheModule } from "@shared/modules/cache/cache.module";
-import { FileManager } from "@files/file.constants";
+import { FileManager, FileMd } from "@files/file.constants";
 import { FileModuleOptions } from "@files/file.types";
+import { FileMetadataService } from "@files/file-metadata.service";
 
 @Module({})
 export class FileModule {
 
   static forRoot(options: FileModuleOptions = {
-    service: FileService,
+    fileManager: FileService,
+    fileMd: FileMetadataService,
     entities: [FileEntity]
   }): DynamicModule {
     return {
@@ -40,10 +42,17 @@ export class FileModule {
       providers: [
         {
           provide: FileManager,
-          useClass: options.service
+          useClass: options.fileManager
+        },
+        {
+          provide: FileMd,
+          useClass: options.fileMd
         }
       ],
-      exports: [FileManager]
+      exports: [
+        FileManager,
+        FileMd
+      ]
     };
   }
 

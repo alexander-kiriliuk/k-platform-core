@@ -49,7 +49,7 @@ export type MediaRow = {
 }
 
 export type FileRow = {
-  name: XdbRowDataValue;
+  name: string;
   code: string;
   public: boolean;
   file: string;

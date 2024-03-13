@@ -45,7 +45,7 @@
             <sectionPriority>65</sectionPriority>
             <objectPriority>0</objectPriority>
             <sectionEnabled>true</sectionEnabled>
-            <objectEnabled>false</objectEnabled>
+            <objectEnabled>true</objectEnabled>
             <sectionVisibility>true</sectionVisibility>
             <objectVisibility>false</objectVisibility>
         </row>
@@ -61,7 +61,7 @@
         <row>
             <id>files.path</id>
             <sectionEnabled>false</sectionEnabled>
-            <objectEnabled>false</objectEnabled>
+            <objectEnabled>true</objectEnabled>
             <sectionVisibility>false</sectionVisibility>
             <objectVisibility>false</objectVisibility>
         </row>
