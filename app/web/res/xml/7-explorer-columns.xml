@@ -95,6 +95,15 @@
             <type>unknown</type>
             <property>imagesStats</property>
         </row>
+        <row>
+            <target>MediaEntity</target>
+            <id>medias.metadata</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <objectRenderer key="code">file-metadata-object-renderer</objectRenderer>
+            <type>unknown</type>
+            <property>metadata</property>
+        </row>
     </InsertUpdate>
 
     <InsertUpdate target="ExplorerColumnEntity">

@@ -18,13 +18,6 @@
 
 <schema>
 
-    <InsertUpdate target="ExplorerColumnRendererEntity">
-        <row>
-            <code>file-stat-object-renderer</code>
-            <type>object</type>
-        </row>
-    </InsertUpdate>
-
     <InsertUpdate target="ExplorerColumnEntity">
         <row>
             <id>files.ts_created</id>
@@ -114,6 +107,16 @@
             <objectVisibility>true</objectVisibility>
             <objectRenderer key="code">file-stat-object-renderer</objectRenderer>
         </row>
+        <row>
+            <id>files.metadata</id>
+            <property>metadata</property>
+            <objectPriority>89</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRenderer key="code">file-metadata-object-renderer</objectRenderer>
+        </row>
     </InsertUpdate>
 
     <InsertUpdate target="LocalizedStringEntity">
@@ -171,17 +174,8 @@
                 <row>create-file-section-action</row>
                 <row>delete-file-object-action</row>
             </actions>
-            <columns key="id">
-                <row>files.code</row>
+            <columns key="id" mode="push">
                 <row>files.fileStat</row>
-                <row>files.icon</row>
-                <row>files.id</row>
-                <row>files.name</row>
-                <row>files.path</row>
-                <row>files.preview</row>
-                <row>files.public</row>
-                <row>files.size</row>
-                <row>files.ts_created</row>
             </columns>
             <name key="code">
                 <row>ex-target-files-name-ru</row>

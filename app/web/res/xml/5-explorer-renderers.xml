@@ -169,6 +169,26 @@
             <code>ex-new-password-object-renderer-name-ru</code>
             <value>Новый пароль</value>
         </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-file-stat-object-renderer-name-en</code>
+            <value>File data</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-file-stat-object-renderer-name-ru</code>
+            <value>Данные файла</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-file-metadata-object-renderer-name-en</code>
+            <value>Metadata</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-file-metadata-object-renderer-name-ru</code>
+            <value>Метаданные</value>
+        </row>
     </InsertUpdate>
 
     <InsertUpdate target="ExplorerColumnRendererEntity">
@@ -290,6 +310,22 @@
             <name key="code">
                 <row>ex-new-password-object-renderer-name-en</row>
                 <row>ex-new-password-object-renderer-name-ru</row>
+            </name>
+        </row>
+        <row>
+            <code>file-stat-object-renderer</code>
+            <type>object</type>
+            <name key="code">
+                <row>ex-file-stat-object-renderer-name-en</row>
+                <row>ex-file-stat-object-renderer-name-ru</row>
+            </name>
+        </row>
+        <row>
+            <code>file-metadata-object-renderer</code>
+            <type>object</type>
+            <name key="code">
+                <row>ex-file-metadata-object-renderer-name-en</row>
+                <row>ex-file-metadata-object-renderer-name-ru</row>
             </name>
         </row>
     </InsertUpdate>

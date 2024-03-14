@@ -56,7 +56,29 @@ export class FileMetadataService extends FileMd {
       }
     } catch (e) {
     }
-    return md;
+    return this.trimProperties(md);
+  }
+
+  private trimProperties<T = any>(obj: T): T {
+    if (typeof obj === "string") {
+      return obj.trim() === "" ? undefined : obj.trim() as T;
+    } else if (Array.isArray(obj)) {
+      return obj.map(this.trimProperties) as T;
+    } else if (typeof obj === "object") {
+      if (obj instanceof Date) {
+        return obj as T;
+      }
+      const result: Record<string, any> = {};
+      for (const key in obj) {
+        const value = this.trimProperties(obj[key]);
+        if (value !== undefined) {
+          result[key] = value;
+        }
+      }
+      return result as T;
+    } else {
+      return obj;
+    }
   }
 
   private async setVideoMd(md: FileMetadataEntity, filePath: string) {
