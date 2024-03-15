@@ -201,7 +201,7 @@ export class MediaService extends MediaManager {
       }
       file = await heicConvert({
         buffer: file,
-        format: mediaType.ext.code.toUpperCase()
+        format: mediaType.ext.code === "jpg" ? "JPEG" : "PNG"
       });
     }
     let entity: MediaEntity = undefined;

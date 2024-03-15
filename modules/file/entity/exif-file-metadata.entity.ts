@@ -108,10 +108,6 @@ export class ExifFileMetadataEntity implements ExifFileMetadata {
   focalLength: string;
 
   @Index()
-  @Column("varchar", { name: "sub_sec_time", nullable: true })
-  subSecTime: string;
-
-  @Index()
   @Column("varchar", { name: "flashpix_version", nullable: true })
   flashpixVersion: string;
 

@@ -101,7 +101,6 @@
             <sectionEnabled>false</sectionEnabled>
             <objectEnabled>true</objectEnabled>
             <objectRenderer key="code">file-metadata-object-renderer</objectRenderer>
-            <type>unknown</type>
             <property>metadata</property>
         </row>
     </InsertUpdate>

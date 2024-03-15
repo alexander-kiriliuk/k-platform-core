@@ -8,10 +8,6 @@ export class IccFileMetadataEntity implements IccFileMetadata {
   id: number;
 
   @Index()
-  @Column("varchar", { name: "preferred_cmm_type", nullable: true })
-  preferredCmmType: string;
-
-  @Index()
   @Column("varchar", { name: "profile_version", nullable: true })
   profileVersion: string;
 
