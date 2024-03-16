@@ -67,6 +67,10 @@ export class ExplorerTargetEntity implements ExplorerTarget {
   @Column("boolean", { name: "default_action_delete", default: true, nullable: true })
   defaultActionDelete: boolean;
 
+  @Index()
+  @Column("boolean", { name: "default_action_duplicate", default: true, nullable: true })
+  defaultActionDuplicate: boolean;
+
   @ManyToMany(() => UserRoleEntity)
   @JoinTable()
   canRead: UserRoleEntity[];

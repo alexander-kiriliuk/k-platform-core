@@ -69,8 +69,8 @@ export class ConfigService {
    * @returns A promise that resolves to an object containing the pageable data.
    */
   async getPropertiesPage(params: PageableParams): Promise<PageableData<ConfigItem>> {
-    const { limit, page, sort, order } = params;
-    const propertyKeys = await this.cacheService.getFromPattern(`${CONFIG_CACHE_PREFIX}:*`);
+    const { limit, page, sort, order, filter } = params;
+    const propertyKeys = await this.cacheService.getFromPattern(`${CONFIG_CACHE_PREFIX}:${!filter ? "*" : filter}`);
     const sortedKeys = propertyKeys.sort((a, b) => {
       if (sort && order) {
         const aValue = a[sort] || "";
@@ -159,6 +159,8 @@ export class ConfigService {
       let keyWithoutPrefix = key;
       if (key.startsWith(fileNamePrefix + ".")) {
         keyWithoutPrefix = key.slice(fileNamePrefix.length + 1);
+      } else {
+        continue;
       }
       const variableName = keyWithoutPrefix
         .split(".")

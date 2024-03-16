@@ -37,6 +37,7 @@ export interface ExplorerTarget {
   defaultActionCreate: boolean;
   defaultActionSave: boolean;
   defaultActionDelete: boolean;
+  defaultActionDuplicate: boolean;
   canRead: UserRoleEntity[];
   canWrite: UserRoleEntity[];
   size?: number;

@@ -181,6 +181,7 @@
         <row>
             <target>MediaEntity</target>
             <alias>media</alias>
+            <defaultActionDuplicate>false</defaultActionDuplicate>
             <name key="code">
                 <row>ex-target-media-name-ru</row>
                 <row>ex-target-media-name-en</row>

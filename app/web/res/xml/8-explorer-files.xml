@@ -170,6 +170,7 @@
             <defaultActionCreate>false</defaultActionCreate>
             <defaultActionSave>true</defaultActionSave>
             <defaultActionDelete>false</defaultActionDelete>
+            <defaultActionDuplicate>false</defaultActionDuplicate>
             <actions key="code">
                 <row>create-file-section-action</row>
                 <row>delete-file-object-action</row>
