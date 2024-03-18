@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2023 Alexander Kiriliuk
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<schema>
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_722</code>
+            <value>Дата создания</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_721</code>
+            <value>Created date</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_720</code>
+            <value>Роли</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_719</code>
+            <value>Roles</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_720</code>
+            <value>Роли</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_719</code>
+            <value>Roles</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_718</code>
+            <value>Телефон</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_717</code>
+            <value>Phone</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_714</code>
+            <value>Пароль (ориг.)</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_713</code>
+            <value>Password (orig.)</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_716</code>
+            <value>Поле содержит пароль в зашифрованном виде, в котором оно хранится в базе данных</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_715</code>
+            <value>The field contains the encrypted password in which it is stored in the database</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>ex-new-password-object-renderer-name-ru</code>
+            <value>Новый пароль</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>ex-new-password-object-renderer-name-en</code>
+            <value>New password</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>ex_col_users.login_ru</code>
+            <value>Логин</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>ex_col_users.login_en</code>
+            <value>Login</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_708</code>
+            <value>Фамилия</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_707</code>
+            <value>Last name</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_706</code>
+            <value>ID</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_705</code>
+            <value>ID</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_704</code>
+            <value>Имя</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_703</code>
+            <value>First name</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_702</code>
+            <value>E-mail</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_701</code>
+            <value>E-mail</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_700</code>
+            <value>Аватар</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_699</code>
+            <value>Avatar</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_696</code>
+            <value>Актвирован</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_695</code>
+            <value>Activated</value>
+            <lang key="code">en_US</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>users.active</id>
+            <name key="code">
+                <row>localizedstringentity_695</row>
+                <row>localizedstringentity_696</row>
+            </name>
+        </row>
+        <row>
+            <id>users.avatar</id>
+            <name key="code">
+                <row>localizedstringentity_699</row>
+                <row>localizedstringentity_700</row>
+            </name>
+        </row>
+        <row>
+            <id>users.email</id>
+            <name key="code">
+                <row>localizedstringentity_701</row>
+                <row>localizedstringentity_702</row>
+            </name>
+        </row>
+        <row>
+            <id>users.first_name</id>
+            <name key="code">
+                <row>localizedstringentity_703</row>
+                <row>localizedstringentity_704</row>
+            </name>
+        </row>
+        <row>
+            <id>users.id</id>
+            <name key="code">
+                <row>localizedstringentity_705</row>
+                <row>localizedstringentity_706</row>
+            </name>
+        </row>
+        <row>
+            <id>users.last_name</id>
+            <name key="code">
+                <row>localizedstringentity_707</row>
+                <row>localizedstringentity_708</row>
+            </name>
+        </row>
+        <row>
+            <id>users.login</id>
+            <name key="code">
+                <row>ex_col_users.login_en</row>
+                <row>ex_col_users.login_ru</row>
+            </name>
+        </row>
+        <row>
+            <id>users.new_password</id>
+            <name key="code">
+                <row>localizedstringentity_709</row>
+                <row>localizedstringentity_710</row>
+            </name>
+        </row>
+        <row>
+            <id>users.password</id>
+            <description key="code">
+                <row>localizedstringentity_715</row>
+                <row>localizedstringentity_716</row>
+            </description>
+            <name key="code">
+                <row>localizedstringentity_713</row>
+                <row>localizedstringentity_714</row>
+            </name>
+        </row>
+        <row>
+            <id>users.phone</id>
+            <name key="code">
+                <row>localizedstringentity_717</row>
+                <row>localizedstringentity_718</row>
+            </name>
+        </row>
+        <row>
+            <id>users.roles</id>
+            <name key="code">
+                <row>localizedstringentity_719</row>
+                <row>localizedstringentity_720</row>
+            </name>
+        </row>
+        <row>
+            <id>users.ts_created</id>
+            <name key="code">
+                <row>localizedstringentity_721</row>
+                <row>localizedstringentity_722</row>
+            </name>
+        </row>
+        <row>
+            <id>users.roles</id>
+            <name key="code">
+                <row>localizedstringentity_719</row>
+                <row>localizedstringentity_720</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+</schema>

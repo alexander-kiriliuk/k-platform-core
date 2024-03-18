@@ -222,6 +222,10 @@ export class XmlDataBridgeExportService extends XdbExportService {
             stack[i].data[key][j] = `${stackEl.metadata.path}#${keyName}:${stack[i].data[key][j][keyName]}`;
           }
         } else {
+          if (stack[i].data[key].constructor.name === "Object") {
+            stack[i].data[key] = JSON.stringify(stack[i].data[key]);
+            continue;
+          }
           const target = await this.explorerService.getTargetData(stack[i].data[key].constructor.name, tParams);
           const keyName = this.getKeyPropertyName(target, stack[i].data[key]);
           const stackEl = stack.find(

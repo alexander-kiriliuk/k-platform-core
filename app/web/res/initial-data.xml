@@ -27,4 +27,5 @@
     <Include read="/app/web/res/xml/7-explorer-columns.xml"/>
     <Include read="/app/web/res/xml/8-explorer-files.xml"/>
     <Include read="/app/web/res/xml/9-processes.xml"/>
+    <Include read="/app/web/res/xml/10-locales.xml"/>
 </schema>
