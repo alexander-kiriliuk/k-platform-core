@@ -18,6 +18,8 @@
 
 <schema>
 
+    <!-- Users -->
+
     <InsertUpdate target="LocalizedStringEntity">
         <row>
             <code>localizedstringentity_722</code>
@@ -258,5 +260,66 @@
             </name>
         </row>
     </InsertUpdate>
+
+
+    <!-- Roles -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_720_26469</code>
+            <value>Дата создания</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_719_96555</code>
+            <value>Created date</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_718_26063</code>
+            <value>Код</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_717_31448</code>
+            <value>Code</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>ex_col_prop_users_roles.name_ru</code>
+            <value>Название</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>ex_col_prop_users_roles.name_en</code>
+            <value>Name</value>
+            <lang key="code">en_US</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>users_roles.ts_created</id>
+            <name key="code">
+                <row>localizedstringentity_719_96555</row>
+                <row>localizedstringentity_720_26469</row>
+            </name>
+        </row>
+        <row>
+            <id>users_roles.code</id>
+            <name key="code">
+                <row>localizedstringentity_717_31448</row>
+                <row>localizedstringentity_718_26063</row>
+            </name>
+        </row>
+        <row>
+            <id>users_roles.name</id>
+            <name key="code">
+                <row>ex_col_prop_users_roles.name_en</row>
+                <row>ex_col_prop_users_roles.name_ru</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
 
 </schema>

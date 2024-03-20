@@ -363,7 +363,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
       }
     }
     const propertyName = uniqColumns[0].property;
-    node[propertyName] = `${target.entity.target.toLowerCase()}_${node[primaryProperty]}`;
+    node[propertyName] = `${target.entity.target.toLowerCase()}_${node[primaryProperty]}_${generateRandomInt(99999)}`;
     if (target.entity.target !== MediaEntity.name && target.entity.target !== FileEntity.name) {
       delete node[primaryProperty];
     }
