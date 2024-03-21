@@ -20,7 +20,6 @@ import { LogModule } from "@shared/modules/log/log.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
-import { LocaleModule } from "@shared/modules/locale/locale.module";
 import { ExplorerModuleOptions, ExplorerService } from "@explorer/explorer.types";
 
 @Module({})
@@ -37,8 +36,7 @@ export class ExplorerModule implements OnModuleInit {
       module: ExplorerModule,
       imports: [
         TypeOrmModule.forFeature(options.entities),
-        LogModule,
-        LocaleModule
+        LogModule
       ],
       providers: [
         {

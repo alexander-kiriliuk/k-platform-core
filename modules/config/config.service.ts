@@ -55,6 +55,8 @@ export class ConfigService {
     await this.scanForPropertiesFiles(process.cwd());
     this.logger.log(`Clean generated source dirs`);
     await this.deleteExistingConfigTsFiles(process.cwd());
+    this.logger.log(`Clean config storage`);
+    await this.cacheService.del(CONFIG_CACHE_PREFIX + ":*");
     this.logger.log(`Generate config files`);
     await this.generateConfigTsFiles();
     for (const key in this.valuesOfProperties) {

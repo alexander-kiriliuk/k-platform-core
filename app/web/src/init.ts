@@ -121,6 +121,6 @@ import readFile = FilesUtils.readFile;
 
   await prepareEnvironment();
   console.log(`Application has been initialized, now you can run that`);
-  process.exit();
+  process.exit(1);
 
 })();

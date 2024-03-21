@@ -37,7 +37,6 @@ import {
 } from "./explorer.types";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
-import { LocaleService } from "@shared/modules/locale/locale.service";
 import { LOGGER } from "@shared/modules/log/log.constants";
 import { PageableData, PageableParams, SortOrder } from "@shared/modules/pageable/pageable.types";
 import { TransformUtils } from "@shared/utils/transform.utils";
@@ -64,8 +63,7 @@ export class BasicExplorerService extends ExplorerService {
     private readonly targetRep: Repository<ExplorerTargetEntity>,
     @InjectRepository(ExplorerColumnEntity)
     private readonly columnRep: Repository<ExplorerColumnEntity>,
-    @Inject(LOGGER) private readonly logger: Logger,
-    private readonly localeService: LocaleService) {
+    @Inject(LOGGER) private readonly logger: Logger) {
     super();
   }
 
@@ -84,7 +82,6 @@ export class BasicExplorerService extends ExplorerService {
       }
       const t = new ExplorerTargetEntity();
       t.target = md.targetName;
-      t.name = await this.localeService.createLocalizedStrings(md.targetName, `ex_target_${t.target}`);
       t.tableName = md.tableName;
       await this.saveTarget(t);
       t.columns = [];
@@ -92,7 +89,6 @@ export class BasicExplorerService extends ExplorerService {
         const c = new ExplorerColumnEntity();
         c.target = t;
         c.id = `${t.tableName}.${column.databasePath}`;
-        c.name = await this.localeService.createLocalizedStrings(column.propertyName, `ex_col_${c.id}`);
         c.property = column.propertyName;
         c.type = this.getColumnType(column.type as string);
         c.primary = md.primaryColumns.find(pc => pc.propertyName === column.propertyName) !== undefined;
@@ -538,7 +534,6 @@ export class BasicExplorerService extends ExplorerService {
   private async setColumnProperties(c: ExplorerColumnEntity, relation: RelationMetadata, target: ExplorerTargetEntity) {
     c.target = target;
     c.id = `${target.tableName}.${relation.propertyPath}`;
-    c.name = await this.localeService.createLocalizedStrings(relation.propertyName, `ex_col_prop_${c.id}`);
     c.property = relation.propertyName;
     c.type = "reference";
     c.referencedTableName = relation.inverseEntityMetadata.tableName;

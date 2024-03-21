@@ -82,22 +82,22 @@
             <lang key="code">en_US</lang>
         </row>
         <row>
-            <code>ex-new-password-object-renderer-name-ru</code>
+            <code>localizedstringentity_712077</code>
             <value>Новый пароль</value>
             <lang key="code">ru_RU</lang>
         </row>
         <row>
-            <code>ex-new-password-object-renderer-name-en</code>
+            <code>localizedstringentity_709777</code>
             <value>New password</value>
             <lang key="code">en_US</lang>
         </row>
         <row>
-            <code>ex_col_users.login_ru</code>
+            <code>localizedstringentity_715121</code>
             <value>Логин</value>
             <lang key="code">ru_RU</lang>
         </row>
         <row>
-            <code>ex_col_users.login_en</code>
+            <code>localizedstringentity_7112121</code>
             <value>Login</value>
             <lang key="code">en_US</lang>
         </row>
@@ -209,15 +209,15 @@
         <row>
             <id>users.login</id>
             <name key="code">
-                <row>ex_col_users.login_en</row>
-                <row>ex_col_users.login_ru</row>
+                <row>localizedstringentity_7112121</row>
+                <row>localizedstringentity_715121</row>
             </name>
         </row>
         <row>
             <id>users.new_password</id>
             <name key="code">
-                <row>localizedstringentity_709</row>
-                <row>localizedstringentity_710</row>
+                <row>localizedstringentity_709777</row>
+                <row>localizedstringentity_712077</row>
             </name>
         </row>
         <row>
@@ -286,12 +286,12 @@
             <lang key="code">en_US</lang>
         </row>
         <row>
-            <code>ex_col_prop_users_roles.name_ru</code>
+            <code>localizedstringentity_7111_11448</code>
             <value>Название</value>
             <lang key="code">ru_RU</lang>
         </row>
         <row>
-            <code>ex_col_prop_users_roles.name_en</code>
+            <code>localizedstringentity_7111_22448</code>
             <value>Name</value>
             <lang key="code">en_US</lang>
         </row>
@@ -315,11 +315,433 @@
         <row>
             <id>users_roles.name</id>
             <name key="code">
-                <row>ex_col_prop_users_roles.name_en</row>
-                <row>ex_col_prop_users_roles.name_ru</row>
+                <row>localizedstringentity_7111_11448</row>
+                <row>localizedstringentity_7111_22448</row>
             </name>
         </row>
     </InsertUpdate>
 
+
+    <!-- Medias -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_736_6681</code>
+            <value>Тип</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_735_3513</code>
+            <value>Type</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_734_96304</code>
+            <value>Дата создания</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_733_97418</code>
+            <value>Created date</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_742_59706</code>
+            <value>Превью</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_741_42935</code>
+            <value>Thumbnail</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_741243_42935</code>
+            <value>Название</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_746643_42665</code>
+            <value>Name</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_732_72318</code>
+            <value>Метаданные</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_731_95577</code>
+            <value>Metadata</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_738_80376</code>
+            <value>Содержимое медиа-контейнера</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_737_84640</code>
+            <value>Media container contents</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_740_53353</code>
+            <value>Список файлов внутри медиа-контейнера в соответствии формату</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_739_38437</code>
+            <value>The list of files inside the media container according to the format</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_730_96257</code>
+            <value>ID</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_729_4860</code>
+            <value>ID</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_728_51506</code>
+            <value>Файлы</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_727_68413</code>
+            <value>Files</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_726_2724</code>
+            <value>Код</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_725_27954</code>
+            <value>Code</value>
+            <lang key="code">en_US</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>medias.code</id>
+            <name key="code">
+                <row>localizedstringentity_725_27954</row>
+                <row>localizedstringentity_726_2724</row>
+            </name>
+        </row>
+        <row>
+            <id>medias.files</id>
+            <name key="code">
+                <row>localizedstringentity_727_68413</row>
+                <row>localizedstringentity_728_51506</row>
+            </name>
+        </row>
+        <row>
+            <id>medias.id</id>
+            <name key="code">
+                <row>localizedstringentity_729_4860</row>
+                <row>localizedstringentity_730_96257</row>
+            </name>
+        </row>
+        <row>
+            <id>medias.images_stats</id>
+            <description key="code">
+                <row>localizedstringentity_739_38437</row>
+                <row>localizedstringentity_740_53353</row>
+            </description>
+            <name key="code">
+                <row>localizedstringentity_737_84640</row>
+                <row>localizedstringentity_738_80376</row>
+            </name>
+        </row>
+        <row>
+            <id>medias.metadata</id>
+            <name key="code">
+                <row>localizedstringentity_731_95577</row>
+                <row>localizedstringentity_732_72318</row>
+            </name>
+        </row>
+        <row>
+            <id>medias.name</id>
+            <name key="code">
+                <row>localizedstringentity_746643_42665</row>
+                <row>localizedstringentity_741243_42935</row>
+            </name>
+        </row>
+        <row>
+            <id>medias.preview_virtual</id>
+            <name key="code">
+                <row>localizedstringentity_741_42935</row>
+                <row>localizedstringentity_742_59706</row>
+            </name>
+        </row>
+        <row>
+            <id>medias.type</id>
+            <name key="code">
+                <row>localizedstringentity_735_3513</row>
+                <row>localizedstringentity_736_6681</row>
+            </name>
+        </row>
+        <row>
+            <id>medias.ts_created</id>
+            <name key="code">
+                <row>localizedstringentity_733_97418</row>
+                <row>localizedstringentity_734_96304</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- MediaFormats -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_154_94054</code>
+            <value>Ширина</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_153_96062</code>
+            <value>Width</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_152_36542</code>
+            <value>Название</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_151_18223</code>
+            <value>Name</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_150_51964</code>
+            <value>Высота</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_149_68873</code>
+            <value>Height</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_148_27677</code>
+            <value>Код</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_147_20387</code>
+            <value>Code</value>
+            <lang key="code">en_US</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>medias_format.code</id>
+            <name key="code">
+                <row>localizedstringentity_147_20387</row>
+                <row>localizedstringentity_148_27677</row>
+            </name>
+        </row>
+        <row>
+            <id>medias_format.height</id>
+            <name key="code">
+                <row>localizedstringentity_149_68873</row>
+                <row>localizedstringentity_150_51964</row>
+            </name>
+        </row>
+        <row>
+            <id>medias_format.name</id>
+            <name key="code">
+                <row>localizedstringentity_151_18223</row>
+                <row>localizedstringentity_152_36542</row>
+            </name>
+        </row>
+        <row>
+            <id>medias_format.width</id>
+            <name key="code">
+                <row>localizedstringentity_153_96062</row>
+                <row>localizedstringentity_154_94054</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- MediaTypes -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_172_60110</code>
+            <value>VP6</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_171_20815</code>
+            <value>VP6</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_174_32746</code>
+            <value>Подразумевает создание копии в формате WEBP</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_173_71492</code>
+            <value>Implies the creation of a copy in WEBP format</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_168_4343</code>
+            <value>Качество</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_167_29280</code>
+            <value>Quality</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_170_86595</code>
+            <value>Подразумевает значение от 0 до 100</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_169_30268</code>
+            <value>Implies a value from 0 to 100</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_164_30925</code>
+            <value>Приватный</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_163_76470</code>
+            <value>Private</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_166_50617</code>
+            <value>Характеризует хранение файлов в отдельном каталоге для приватных объектов</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_165_96105</code>
+            <value>Characterizes the storage of files in a separate directory for private objects</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_162_81776</code>
+            <value>Название</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_161_38330</code>
+            <value>Name</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_160_20277</code>
+            <value>Форматы</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_159_99580</code>
+            <value>Formats</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_158_79108</code>
+            <value>Расширение</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_157_47216</code>
+            <value>Extension</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_156_71474</code>
+            <value>Код</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_155_80575</code>
+            <value>Code</value>
+            <lang key="code">en_US</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>medias_types.code</id>
+            <name key="code">
+                <row>localizedstringentity_155_80575</row>
+                <row>localizedstringentity_156_71474</row>
+            </name>
+        </row>
+        <row>
+            <id>medias_types.ext</id>
+            <name key="code">
+                <row>localizedstringentity_157_47216</row>
+                <row>localizedstringentity_158_79108</row>
+            </name>
+        </row>
+        <row>
+            <id>medias_types.formats</id>
+            <name key="code">
+                <row>localizedstringentity_159_99580</row>
+                <row>localizedstringentity_160_20277</row>
+            </name>
+        </row>
+        <row>
+            <id>medias_types.name</id>
+            <name key="code">
+                <row>localizedstringentity_161_38330</row>
+                <row>localizedstringentity_162_81776</row>
+            </name>
+        </row>
+        <row>
+            <id>medias_types.private</id>
+            <description key="code">
+                <row>localizedstringentity_165_96105</row>
+                <row>localizedstringentity_166_50617</row>
+            </description>
+            <name key="code">
+                <row>localizedstringentity_163_76470</row>
+                <row>localizedstringentity_164_30925</row>
+            </name>
+        </row>
+        <row>
+            <id>medias_types.quality</id>
+            <description key="code">
+                <row>localizedstringentity_169_30268</row>
+                <row>localizedstringentity_170_86595</row>
+            </description>
+            <name key="code">
+                <row>localizedstringentity_167_29280</row>
+                <row>localizedstringentity_168_4343</row>
+            </name>
+        </row>
+        <row>
+            <id>medias_types.vp6</id>
+            <description key="code">
+                <row>localizedstringentity_173_71492</row>
+                <row>localizedstringentity_174_32746</row>
+            </description>
+            <name key="code">
+                <row>localizedstringentity_171_20815</row>
+                <row>localizedstringentity_172_60110</row>
+            </name>
+        </row>
+    </InsertUpdate>
 
 </schema>
