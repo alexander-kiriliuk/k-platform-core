@@ -580,12 +580,12 @@
     <InsertUpdate target="LocalizedStringEntity">
         <row>
             <code>localizedstringentity_172_60110</code>
-            <value>VP6</value>
+            <value>WEBP</value>
             <lang key="code">ru_RU</lang>
         </row>
         <row>
             <code>localizedstringentity_171_20815</code>
-            <value>VP6</value>
+            <value>WEBP</value>
             <lang key="code">en_US</lang>
         </row>
         <row>
@@ -740,6 +740,522 @@
             <name key="code">
                 <row>localizedstringentity_171_20815</row>
                 <row>localizedstringentity_172_60110</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- Files -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_198_67641</code>
+            <value>Дата создания</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_197_44788</code>
+            <value>Created date</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_196_2897</code>
+            <value>Размер</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_195_34533</code>
+            <value>Size</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_192_2543</code>
+            <value>Общедоступный</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_191_91054</code>
+            <value>Public</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_194_34849</code>
+            <value>Характеризует хранение файлов в отдельном каталоге для приватных или общедоступных объектов</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_193_38351</code>
+            <value>Characterizes the storage of files in a separate directory for private or public objects</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_190_1941</code>
+            <value>Превью</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_189_76636</code>
+            <value>Preview</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_188_80178</code>
+            <value>Путь</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_187_50346</code>
+            <value>Path</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_186_65657</code>
+            <value>Название</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_185_50317</code>
+            <value>Name</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_184_36186</code>
+            <value>Метаданные</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_183_62018</code>
+            <value>Metadata</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_182_49235</code>
+            <value>ID</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_181_29816</code>
+            <value>ID</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_180_41870</code>
+            <value>Иконка</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_179_88979</code>
+            <value>Icon</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_178_29490</code>
+            <value>Свойства</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_177_27294</code>
+            <value>Properties</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_176_70785</code>
+            <value>Код</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_175_97995</code>
+            <value>Code</value>
+            <lang key="code">en_US</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>files.code</id>
+            <name key="code">
+                <row>localizedstringentity_175_97995</row>
+                <row>localizedstringentity_176_70785</row>
+            </name>
+        </row>
+        <row>
+            <id>files.fileStat</id>
+            <name key="code">
+                <row>localizedstringentity_177_27294</row>
+                <row>localizedstringentity_178_29490</row>
+            </name>
+        </row>
+        <row>
+            <id>files.icon</id>
+            <name key="code">
+                <row>localizedstringentity_179_88979</row>
+                <row>localizedstringentity_180_41870</row>
+            </name>
+        </row>
+        <row>
+            <id>files.id</id>
+            <name key="code">
+                <row>localizedstringentity_181_29816</row>
+                <row>localizedstringentity_182_49235</row>
+            </name>
+        </row>
+        <row>
+            <id>files.metadata</id>
+            <name key="code">
+                <row>localizedstringentity_183_62018</row>
+                <row>localizedstringentity_184_36186</row>
+            </name>
+        </row>
+        <row>
+            <id>files.name</id>
+            <name key="code">
+                <row>localizedstringentity_185_50317</row>
+                <row>localizedstringentity_186_65657</row>
+            </name>
+        </row>
+        <row>
+            <id>files.path</id>
+            <name key="code">
+                <row>localizedstringentity_187_50346</row>
+                <row>localizedstringentity_188_80178</row>
+            </name>
+        </row>
+        <row>
+            <id>files.preview</id>
+            <name key="code">
+                <row>localizedstringentity_189_76636</row>
+                <row>localizedstringentity_190_1941</row>
+            </name>
+        </row>
+        <row>
+            <id>files.public</id>
+            <description key="code">
+                <row>localizedstringentity_193_38351</row>
+                <row>localizedstringentity_194_34849</row>
+            </description>
+            <name key="code">
+                <row>localizedstringentity_191_91054</row>
+                <row>localizedstringentity_192_2543</row>
+            </name>
+        </row>
+        <row>
+            <id>files.size</id>
+            <name key="code">
+                <row>localizedstringentity_195_34533</row>
+                <row>localizedstringentity_196_2897</row>
+            </name>
+        </row>
+        <row>
+            <id>files.ts_created</id>
+            <name key="code">
+                <row>localizedstringentity_197_44788</row>
+                <row>localizedstringentity_198_67641</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <!-- Categories -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_216_12993</code>
+            <value>URL</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_215_32359</code>
+            <value>URL</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_214_3132</code>
+            <value>Приоритет</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_213_4106</code>
+            <value>Priority</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_212_21773</code>
+            <value>Родительская категория</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_211_45564</code>
+            <value>Parent category</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_210_37092</code>
+            <value>Параметры</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_209_76081</code>
+            <value>Parameters</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_208_64060</code>
+            <value>Название</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_207_70299</code>
+            <value>Name</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_206_93280</code>
+            <value>ID</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_205_48941</code>
+            <value>ID</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_204_41622</code>
+            <value>Иконка</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_203_79964</code>
+            <value>Icon</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_202_54179</code>
+            <value>Код</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_201_65443</code>
+            <value>Code</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_200_5384</code>
+            <value>Дочерние категории</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_199_62817</code>
+            <value>Child categories</value>
+            <lang key="code">en_US</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>categories.children</id>
+            <name key="code">
+                <row>localizedstringentity_199_62817</row>
+                <row>localizedstringentity_200_5384</row>
+            </name>
+        </row>
+        <row>
+            <id>categories.code</id>
+            <name key="code">
+                <row>localizedstringentity_201_65443</row>
+                <row>localizedstringentity_202_54179</row>
+            </name>
+        </row>
+        <row>
+            <id>categories.icon</id>
+            <name key="code">
+                <row>localizedstringentity_203_79964</row>
+                <row>localizedstringentity_204_41622</row>
+            </name>
+        </row>
+        <row>
+            <id>categories.id</id>
+            <name key="code">
+                <row>localizedstringentity_205_48941</row>
+                <row>localizedstringentity_206_93280</row>
+            </name>
+        </row>
+        <row>
+            <id>categories.name</id>
+            <name key="code">
+                <row>localizedstringentity_207_70299</row>
+                <row>localizedstringentity_208_64060</row>
+            </name>
+        </row>
+        <row>
+            <id>categories.params</id>
+            <name key="code">
+                <row>localizedstringentity_209_76081</row>
+                <row>localizedstringentity_210_37092</row>
+            </name>
+        </row>
+        <row>
+            <id>categories.parent</id>
+            <name key="code">
+                <row>localizedstringentity_211_45564</row>
+                <row>localizedstringentity_212_21773</row>
+            </name>
+        </row>
+        <row>
+            <id>categories.priority</id>
+            <name key="code">
+                <row>localizedstringentity_213_4106</row>
+                <row>localizedstringentity_214_3132</row>
+            </name>
+        </row>
+        <row>
+            <id>categories.url</id>
+            <name key="code">
+                <row>localizedstringentity_215_32359</row>
+                <row>localizedstringentity_216_12993</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- Processes -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_232_1507</code>
+            <value>Дата создания</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_231_75792</code>
+            <value>Creation date</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_230_18654</code>
+            <value>Статус</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_229_41598</code>
+            <value>Status</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_228_18835</code>
+            <value>Подробности</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_227_91313</code>
+            <value>Details</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_226_12436</code>
+            <value>Логи</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_225_71284</code>
+            <value>Logs</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_224_69228</code>
+            <value>Активирован</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_223_49093</code>
+            <value>Enabled</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_222_74159</code>
+            <value>Описание</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_221_73182</code>
+            <value>Description</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_220_64005</code>
+            <value>Cron-tab</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_219_85743</code>
+            <value>Cron-tab</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_218_20407</code>
+            <value>Код</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_217_60216</code>
+            <value>Code</value>
+            <lang key="code">en_US</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>process_units.code</id>
+            <name key="code">
+                <row>localizedstringentity_217_60216</row>
+                <row>localizedstringentity_218_20407</row>
+            </name>
+        </row>
+        <row>
+            <id>process_units.cron_tab</id>
+            <name key="code">
+                <row>localizedstringentity_219_85743</row>
+                <row>localizedstringentity_220_64005</row>
+            </name>
+        </row>
+        <row>
+            <id>process_units.description</id>
+            <name key="code">
+                <row>localizedstringentity_221_73182</row>
+                <row>localizedstringentity_222_74159</row>
+            </name>
+        </row>
+        <row>
+            <id>process_units.enabled</id>
+            <name key="code">
+                <row>localizedstringentity_223_49093</row>
+                <row>localizedstringentity_224_69228</row>
+            </name>
+        </row>
+        <row>
+            <id>process_units.logs</id>
+            <name key="code">
+                <row>localizedstringentity_225_71284</row>
+                <row>localizedstringentity_226_12436</row>
+            </name>
+        </row>
+        <row>
+            <id>process_units.statsVirtual</id>
+            <name key="code">
+                <row>localizedstringentity_227_91313</row>
+                <row>localizedstringentity_228_18835</row>
+            </name>
+        </row>
+        <row>
+            <id>process_units.status</id>
+            <name key="code">
+                <row>localizedstringentity_229_41598</row>
+                <row>localizedstringentity_230_18654</row>
+            </name>
+        </row>
+        <row>
+            <id>process_units.ts_created</id>
+            <name key="code">
+                <row>localizedstringentity_231_75792</row>
+                <row>localizedstringentity_232_1507</row>
             </name>
         </row>
     </InsertUpdate>
