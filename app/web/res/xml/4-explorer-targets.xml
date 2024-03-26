@@ -135,7 +135,7 @@
             </canWrite>
         </row>
         <row>
-            <target>WebAppMenuRestrictionEntity</target>
+            <target>CategoryRestrictionEntity</target>
             <canRead key="code">
                 <row>admin</row>
             </canRead>

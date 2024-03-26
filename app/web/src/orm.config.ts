@@ -38,7 +38,7 @@ import { CategoryEntity } from "@shared/modules/category/entity/category.entity"
 import { ExplorerColumnRendererEntity } from "@explorer/entity/explorer-column-renderer.entity";
 import { ExplorerTabEntity } from "@explorer/entity/explorer-tab.entity";
 import { ExplorerActionEntity } from "@explorer/entity/explorer-action.entity";
-import { WebAppMenuRestrictionEntity } from "./entity/web-app-menu-restriction.entity";
+import { CategoryRestrictionEntity } from "./entity/category-restriction.entity";
 import { ProcessUnitEntity } from "../../../modules/process/entity/process.unit.entity";
 import { ProcessLogEntity } from "../../../modules/process/entity/process.log.entity";
 import { IccFileMetadataEntity } from "@files/entity/icc-file-metadata.entity";
@@ -92,7 +92,7 @@ export namespace Orm {
             LocalizedStringEntity,
             LocalizedMediaEntity,
             CategoryEntity,
-            WebAppMenuRestrictionEntity
+            CategoryRestrictionEntity
           ],
           migrations: [],
           subscribers: [

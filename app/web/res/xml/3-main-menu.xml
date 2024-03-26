@@ -335,7 +335,7 @@
         </row>
     </InsertUpdate>
 
-    <InsertUpdate target="WebAppMenuRestrictionEntity">
+    <InsertUpdate target="CategoryRestrictionEntity">
         <row>
             <code>top-users-node</code>
             <category key="code">a-menu-users</category>

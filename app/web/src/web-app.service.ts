@@ -21,7 +21,7 @@ import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource } from "typeorm";
 import { CategoryEntity } from "@shared/modules/category/entity/category.entity";
 import { CategoryService } from "@shared/modules/category/category.service";
-import { WebAppMenuRestrictionEntity } from "./entity/web-app-menu-restriction.entity";
+import { CategoryRestrictionEntity } from "./entity/category-restriction.entity";
 import { User, UserRole } from "@user/user.types";
 import { UserUtils } from "@shared/utils/user.utils";
 import hasAccessForRoles = UserUtils.hasAccessForRoles;
@@ -37,7 +37,7 @@ export class WebAppService {
   }
 
   private get menuRestrictionRep() {
-    return this.dataSource.getRepository(WebAppMenuRestrictionEntity);
+    return this.dataSource.getRepository(CategoryRestrictionEntity);
   }
 
   getAvailableLangs() {
@@ -55,7 +55,7 @@ export class WebAppService {
     return menuTree;
   }
 
-  private validateMenu(menuTree: CategoryEntity, restrictions: WebAppMenuRestrictionEntity[], roles: UserRole[]) {
+  private validateMenu(menuTree: CategoryEntity, restrictions: CategoryRestrictionEntity[], roles: UserRole[]) {
     for (let i = menuTree.children.length - 1; i >= 0; i--) {
       const node = menuTree.children[i];
       const res = restrictions.find(v => v.category.code === node.code);

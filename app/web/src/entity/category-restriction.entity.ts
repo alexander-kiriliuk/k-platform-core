@@ -19,8 +19,8 @@ import { CategoryEntity } from "@shared/modules/category/entity/category.entity"
 import { UserRoleEntity } from "@user/entity/user-role.entity";
 
 
-@Entity("web_app_menu_restriction")
-export class WebAppMenuRestrictionEntity {
+@Entity("category_restriction")
+export class CategoryRestrictionEntity {
 
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
