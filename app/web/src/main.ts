@@ -29,7 +29,7 @@ import { CorsOptions } from "@nestjs/common/interfaces/external/cors-options.int
 import { ServerConfig } from "../gen-src/server.config";
 import helmet from "helmet";
 import * as express from "express";
-import { NextFunction, Request, Response } from "express";
+import { json, NextFunction, Request, Response, urlencoded } from "express";
 import * as cookieParser from "cookie-parser";
 import { DbExceptionFilter } from "@shared/filter/db-exception-filter";
 
@@ -53,6 +53,9 @@ import { DbExceptionFilter } from "@shared/filter/db-exception-filter";
   app.useGlobalFilters(new DbExceptionFilter());
   const cacheService: CacheService = app.select(CacheModule).get(CacheService);
   const crossOriginResourcePolicy = await cacheService.get(CorsConfig.RESOURCE_POLICY);
+  const reqLimit = await cacheService.get(ServerConfig.REQ_LIMIT);
+  expressAdapter.use(json({ limit: reqLimit }));
+  expressAdapter.use(urlencoded({ extended: true, limit: reqLimit }));
   app.use(helmet({
     crossOriginResourcePolicy: {
       policy: crossOriginResourcePolicy as "same-origin" | "same-site" | "cross-origin"

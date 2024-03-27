@@ -5118,9 +5118,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>audio-md-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/audio-md-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>AudioFileMetadataEntity</target>
+            <icon key="code">audio-md-icn</icon>
             <description key="code">
                 <row>localizedstringentity_800_5786</row>
                 <row>localizedstringentity_801_33376</row>
@@ -5145,9 +5154,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>md-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/md-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>CategoryEntity</target>
+            <icon key="code">md-icn</icon>
             <name key="code">
                 <row>localizedstringentity_822_77768</row>
                 <row>localizedstringentity_823_29721</row>
@@ -5178,9 +5196,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>cat-restriction-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/cat-restriction-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>CategoryRestrictionEntity</target>
+            <icon key="code">cat-restriction-icn</icon>
             <description key="code">
                 <row>localizedstringentity_892_6213</row>
                 <row>localizedstringentity_893_91832</row>
@@ -5205,9 +5232,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>exif-md-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/exif-md-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>ExifFileMetadataEntity</target>
+            <icon key="code">exif-md-icn</icon>
             <name key="code">
                 <row>localizedstringentity_830_96333</row>
                 <row>localizedstringentity_831_44779</row>
@@ -5238,9 +5274,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>exif-md-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/action-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>ExplorerActionEntity</target>
+            <icon key="code">action-icn</icon>
             <description key="code">
                 <row>localizedstringentity_846_59367</row>
                 <row>localizedstringentity_847_76148</row>
@@ -5276,9 +5321,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>ex-column-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/ex-column-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>ExplorerColumnEntity</target>
+            <icon key="code">ex-column-icn</icon>
             <description key="code">
                 <row>localizedstringentity_858_1486</row>
                 <row>localizedstringentity_859_12619</row>
@@ -5313,9 +5367,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>renderer-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/renderer-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>ExplorerColumnRendererEntity</target>
+            <icon key="code">renderer-icn</icon>
             <description key="code">
                 <row>localizedstringentity_872_13034</row>
                 <row>localizedstringentity_873_74341</row>
@@ -5350,9 +5413,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>tab-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/tab-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>ExplorerTabEntity</target>
+            <icon key="code">tab-icn</icon>
             <description key="code">
                 <row>localizedstringentity_884_84339</row>
                 <row>localizedstringentity_885_8096</row>
@@ -5387,9 +5459,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>target-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/target-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>ExplorerTargetEntity</target>
+            <icon key="code">target-icn</icon>
             <description key="code">
                 <row>localizedstringentity_808_45725</row>
                 <row>localizedstringentity_809_19831</row>
@@ -5424,9 +5505,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>file-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/file-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>FileEntity</target>
+            <icon key="code">file-icn</icon>
             <description key="code">
                 <row>localizedstringentity_838_45707</row>
                 <row>localizedstringentity_839_44378</row>
@@ -5451,9 +5541,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>file-md-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/file-md-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>FileMetadataEntity</target>
+            <icon key="code">file-md-icn</icon>
             <name key="code">
                 <row>localizedstringentity_832_12032</row>
                 <row>localizedstringentity_833_17297</row>
@@ -5474,9 +5573,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>gps-md-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/gps-md-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>GpsFileMetadataEntity</target>
+            <icon key="code">gps-md-icn</icon>
             <name key="code">
                 <row>localizedstringentity_848_23102</row>
                 <row>localizedstringentity_849_70633</row>
@@ -5497,9 +5605,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>icc-md-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/icc-md-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>IccFileMetadataEntity</target>
+            <icon key="code">icc-md-icn</icon>
             <name key="code">
                 <row>localizedstringentity_860_11296</row>
                 <row>localizedstringentity_861_38531</row>
@@ -5520,9 +5637,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>image-md-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/image-md-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>ImageFileMetadataEntity</target>
+            <icon key="code">image-md-icn</icon>
             <name key="code">
                 <row>localizedstringentity_874_9853</row>
                 <row>localizedstringentity_875_17774</row>
@@ -5553,9 +5679,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>lang-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/lang-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>LanguageEntity</target>
+            <icon key="code">lang-icn</icon>
             <description key="code">
                 <row>localizedstringentity_888_57643</row>
                 <row>localizedstringentity_889_84236</row>
@@ -5590,9 +5725,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>locale-media-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/locale-media-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>LocalizedMediaEntity</target>
+            <icon key="code">locale-media-icn</icon>
             <description key="code">
                 <row>localizedstringentity_812_6207</row>
                 <row>localizedstringentity_813_48337</row>
@@ -5627,9 +5771,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>locale-str-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/locale-str-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>LocalizedStringEntity</target>
+            <icon key="code">locale-str-icn</icon>
             <description key="code">
                 <row>localizedstringentity_820_8835</row>
                 <row>localizedstringentity_821_19265</row>
@@ -5664,9 +5817,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>media-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/media-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>MediaEntity</target>
+            <icon key="code">media-icn</icon>
             <description key="code">
                 <row>localizedstringentity_836_95725</row>
                 <row>localizedstringentity_837_29749</row>
@@ -5701,9 +5863,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>media-ext-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/media-ext-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>MediaExtEntity</target>
+            <icon key="code">media-ext-icn</icon>
             <description key="code">
                 <row>localizedstringentity_852_17117</row>
                 <row>localizedstringentity_853_33386</row>
@@ -5738,9 +5909,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>media-file-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/media-file-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>MediaFileEntity</target>
+            <icon key="code">media-file-icn</icon>
             <description key="code">
                 <row>localizedstringentity_864_17029</row>
                 <row>localizedstringentity_865_99519</row>
@@ -5775,9 +5955,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>media-format-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/media-format-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>MediaFormatEntity</target>
+            <icon key="code">media-format-icn</icon>
             <description key="code">
                 <row>localizedstringentity_880_83201</row>
                 <row>localizedstringentity_881_61705</row>
@@ -5812,9 +6001,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>media-type-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/media-type-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>MediaTypeEntity</target>
+            <icon key="code">media-type-icn</icon>
             <description key="code">
                 <row>localizedstringentity_828_48994</row>
                 <row>localizedstringentity_829_19668</row>
@@ -5849,9 +6047,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>process-log-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/process-log-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>ProcessLogEntity</target>
+            <icon key="code">process-log-icn</icon>
             <description key="code">
                 <row>localizedstringentity_816_28610</row>
                 <row>localizedstringentity_817_722</row>
@@ -5886,9 +6093,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>process-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/process-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>ProcessUnitEntity</target>
+            <icon key="code">process-icn</icon>
             <description key="code">
                 <row>localizedstringentity_842_16098</row>
                 <row>localizedstringentity_843_35456</row>
@@ -5913,9 +6129,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>user-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/user-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>UserEntity</target>
+            <icon key="code">user-icn</icon>
             <name key="code">
                 <row>localizedstringentity_854_60870</row>
                 <row>localizedstringentity_855_12258</row>
@@ -5946,9 +6171,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>user-role-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/user-role-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>UserRoleEntity</target>
+            <icon key="code">user-role-icn</icon>
             <description key="code">
                 <row>localizedstringentity_868_65784</row>
                 <row>localizedstringentity_869_60133</row>
@@ -5973,9 +6207,18 @@
         </row>
     </InsertUpdate>
 
+    <Media>
+        <row>
+            <code>video-md-icn</code>
+            <type>vector</type>
+            <file>/app/web/res/images/targets/video-md-icn.svg</file>
+        </row>
+    </Media>
+
     <InsertUpdate target="ExplorerTargetEntity">
         <row>
             <target>VideoFileMetadataEntity</target>
+            <icon key="code">video-md-icn</icon>
             <name key="code">
                 <row>localizedstringentity_876_84952</row>
                 <row>localizedstringentity_877_13922</row>
