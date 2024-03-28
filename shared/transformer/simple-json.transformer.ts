@@ -19,7 +19,11 @@ import { ValueTransformer } from "typeorm/decorator/options/ValueTransformer";
 export const SimpleJsonTransformer: ValueTransformer = {
   from(value: string | object) {
     if (typeof value === "string") {
-      return JSON.parse(value);
+      try {
+        return JSON.parse(value);
+      } catch (e) {
+        return undefined;
+      }
     }
     return value;
   },
