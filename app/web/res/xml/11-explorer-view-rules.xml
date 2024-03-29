@@ -619,7 +619,6 @@
                 <row>localizedstringentity_773_20928</row>
                 <row>localizedstringentity_774_90159</row>
             </name>
-            <target>undefined</target>
         </row>
     </InsertUpdate>
 
@@ -697,5 +696,583 @@
         </row>
     </InsertUpdate>
 
+
+    <!-- CategoryRestrictionEntity -->
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>category_restriction.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+        </row>
+        <row>
+            <id>category_restriction.code</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+        </row>
+        <row>
+            <id>category_restriction.category</id>
+            <sectionPriority>98</sectionPriority>
+            <objectPriority>98</objectPriority>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- FileEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_776_97147</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_775_57440</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>files-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":2}</size>
+            <name key="code">
+                <row>localizedstringentity_775_57440</row>
+                <row>localizedstringentity_776_97147</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>files.ts_created</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>95</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"showCalendar":false}</objectRendererParams>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.size</id>
+            <sectionPriority>60</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>false</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.public</id>
+            <sectionPriority>65</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>false</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.preview</id>
+            <objectPriority>96</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.path</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>false</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.name</id>
+            <sectionPriority>85</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.metadata</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>89</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.icon</id>
+            <sectionPriority>70</sectionPriority>
+            <objectPriority>97</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.fileStat</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>90</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.code</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+            <tab key="id">files-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- FileEntity -->
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>localized_strings.lang</id>
+            <sectionPriority>98</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>localized_strings.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>localized_strings.code</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- ProcessLogEntity -->
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>process_logs.ts_updated</id>
+            <sectionPriority>97</sectionPriority>
+            <objectPriority>97</objectPriority>
+            <objectRendererParams>{"showCalendar":false}</objectRendererParams>
+        </row>
+        <row>
+            <id>process_logs.ts_created</id>
+            <sectionPriority>98</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <objectRendererParams>{"showCalendar":false}</objectRendererParams>
+        </row>
+        <row>
+            <id>process_logs.process</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+        </row>
+        <row>
+            <id>process_logs.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+        </row>
+        <row>
+            <id>process_logs.content</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"disabled":true}</objectRendererParams>
+            <objectRenderer key="code">string-object-renderer</objectRenderer>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- ExifFileMetadataEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_777_62554</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_778_18212</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>exif-md-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":3}</size>
+            <name key="code">
+                <row>localizedstringentity_777_62554</row>
+                <row>localizedstringentity_778_18212</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>file_metadata_exif.ycb_cr_positioning</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.white_balance</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.subject_distance_range</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.subject_distance</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.software</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.shutterSpeedValue</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.sharpness</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.sensing_method</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.scene_type</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.scene_capture_type</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.saturation</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.resolution_y</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.resolution_x</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.resolution_unit</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.pixel_y_dimension</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.pixel_x_dimension</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.orientation</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.offset_time</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.model</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.metering_mode</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.max_aperture</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.make</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.lens_model</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.lens_make</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.iso_speed_ratings</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.interoperability_version</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.interoperability_index</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.interoperability_ifd_pointer</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.id</id>
+            <tab key="id">exif-md-tab-common</tab>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+        </row>
+        <row>
+            <id>file_metadata_exif.gps_info_ifd_pointer</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.focal_length</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.flashpix_version</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.flash</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.f_number</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.exposure_time</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.exposure_program</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.exposure_mode</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.exposure_bias</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.exif_version</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.exif_ifd_pointer</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.digital_zoom_ratio</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.custom_rendered</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.contrast</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.composite_image</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.color_space</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.brightness</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.aperture</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- FileMetadataEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_780_33082</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_779_41622</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>container-md-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":3}</size>
+            <name key="code">
+                <row>localizedstringentity_779_41622</row>
+                <row>localizedstringentity_780_33082</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>file_metadata.video</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.mime</id>
+            <sectionPriority>98</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.image</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.id</id>
+            <sectionPriority>101</sectionPriority>
+            <objectPriority>101</objectPriority>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.icc</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.hash</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"disabled":true}</objectRendererParams>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.gps</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.ext</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.exif</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.audio</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+    </InsertUpdate>
 
 </schema>
