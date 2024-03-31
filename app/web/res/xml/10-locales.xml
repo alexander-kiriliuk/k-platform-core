@@ -1409,7 +1409,7 @@
         </row>
         <row>
             <code>localizedstringentity_256_6920</code>
-            <value>Нзвание</value>
+            <value>Название</value>
             <lang key="code">ru_RU</lang>
         </row>
         <row>
@@ -1821,12 +1821,12 @@
         </row>
         <row>
             <code>localizedstringentity_371_85012</code>
-            <value>Целевой объект</value>
+            <value>Целевой объект (ссылка)</value>
             <lang key="code">ru_RU</lang>
         </row>
         <row>
             <code>localizedstringentity_370_46593</code>
-            <value>Target object</value>
+            <value>Target object (link)</value>
             <lang key="code">en_US</lang>
         </row>
         <row>
@@ -1841,7 +1841,7 @@
         </row>
         <row>
             <code>localizedstringentity_365_746</code>
-            <value>Редерер в списке</value>
+            <value>Рендерер в списке</value>
             <lang key="code">ru_RU</lang>
         </row>
         <row>
@@ -1955,17 +1955,17 @@
         </row>
         <row>
             <code>localizedstringentity_343_31385</code>
-            <value>Целевой объект</value>
+            <value>Целевой объект (название)</value>
             <lang key="code">ru_RU</lang>
         </row>
         <row>
             <code>localizedstringentity_342_38096</code>
-            <value>Referenced object</value>
+            <value>Referenced object (name)</value>
             <lang key="code">en_US</lang>
         </row>
         <row>
             <code>localizedstringentity_345_77561</code>
-            <value>Идентификатор объект, на который ссылается ссылка</value>
+            <value>Идентификатор объекта, на который ссылается ссылка</value>
             <lang key="code">ru_RU</lang>
         </row>
         <row>
