@@ -25,5 +25,5 @@ import { ConfigService } from "./config.service";
   const configService = app.select(ConfigModule).get(ConfigService);
   await configService.initWithPropertiesFiles();
   await app.close();
-  process.exit(1);
+  process.exit(0);
 })();

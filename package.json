@@ -6,6 +6,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "format": "prettier --write \"modules/**/*.ts\" \"app/**/*.ts\" \"libs/**/*.ts\"",
+    "init": "npm run init:config && npm run init:web-app",
     "init:config": "nest start init-config",
     "init:web-app": "nest start init-web-app",
     "build:web-app": "nest build web-app",

@@ -15,8 +15,6 @@
  */
 
 import { NestFactory } from "@nestjs/core";
-import { ConfigModule } from "@config/config.module";
-import { ConfigService } from "@config/config.service";
 import { XmlDataBridgeModule } from "@xml-data-bridge/xml-data-bridge.module";
 import { Xdb, XdbImportService } from "@xml-data-bridge/xml-data-bridge.constants";
 import { FilesUtils } from "@shared/utils/files.utils";
@@ -56,7 +54,6 @@ import readFile = FilesUtils.readFile;
     redisClient.disconnect();
     console.log(`Redis connection successful`);
     console.log(`Try to init configuration`);
-    await initConfig();
 
     console.log(`Test database connection...`);
     const app = await NestFactory.createApplicationContext(CacheModule);
@@ -78,14 +75,6 @@ import readFile = FilesUtils.readFile;
     await queryRunner.createDatabase(dbName);
     console.log(`Try init database`);
     await initDatabase();
-  }
-
-  async function initConfig() {
-    const app = await NestFactory.createApplicationContext(ConfigModule);
-    await app.init();
-    const service = app.select(ConfigModule).get(ConfigService);
-    await service.initWithPropertiesFiles();
-    await app.close();
   }
 
   async function initDatabase() {
@@ -121,6 +110,6 @@ import readFile = FilesUtils.readFile;
 
   await prepareEnvironment();
   console.log(`Application has been initialized, now you can run that`);
-  process.exit(1);
+  process.exit(0);
 
 })();
