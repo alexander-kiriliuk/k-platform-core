@@ -1880,4 +1880,250 @@
     </InsertUpdate>
 
 
+    <!-- ExplorerColumnRendererEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_790_76318</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_789_22078</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>ex-col-renderer-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":2}</size>
+            <name key="code">
+                <row>localizedstringentity_789_22078</row>
+                <row>localizedstringentity_790_76318</row>
+            </name>
+            <target key="target">ExplorerColumnRendererEntity</target>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>explorer_column_renderers.type</id>
+            <sectionPriority>97</sectionPriority>
+            <objectPriority>97</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-col-renderer-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_column_renderers.params</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-col-renderer-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_column_renderers.name</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-col-renderer-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_column_renderers.description</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-col-renderer-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_column_renderers.code</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+            <tab key="id">ex-col-renderer-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- ImageFileMetadataEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_792_63864</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_791_89710</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>image-md-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":3}</size>
+            <name key="code">
+                <row>localizedstringentity_791_89710</row>
+                <row>localizedstringentity_792_63864</row>
+            </name>
+            <target key="target">ImageFileMetadataEntity</target>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>file_metadata_image.subsampling</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.interlace</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.id</id>
+            <tab key="id">image-md-tab-common</tab>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+        </row>
+        <row>
+            <id>file_metadata_image.height</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.filter</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.date_time</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.compression</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.colorType</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.color_components</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.bps</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.bitDepth</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- VideoFileMetadataEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_794_67852</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_793_44808</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>video-md-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":3}</size>
+            <name key="code">
+                <row>localizedstringentity_793_44808</row>
+                <row>localizedstringentity_794_67852</row>
+            </name>
+            <target key="target">VideoFileMetadataEntity</target>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>file_metadata_video.width</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.sample_aspect_ratio</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.rotate</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.id</id>
+            <tab key="id">video-md-tab-common</tab>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+        </row>
+        <row>
+            <id>file_metadata_video.height</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.frame_rate</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.duration</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.display_aspect_ratio</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.container</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.color_space</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.color_range</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.codec</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.bitrate</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
 </schema>
