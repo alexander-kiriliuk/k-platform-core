@@ -259,10 +259,14 @@ export class XmlDataBridgeImportService extends XdbImportService {
       }
       let entity;
       if (existingEntity) {
-        const target = await this.explorerService.getTargetData(existingEntity.constructor.name);
-        entity = await this.explorerService.getEntityData(
-          target.entity.target, existingEntity[target.primaryColumn.property], undefined, { fullRelations: true }
-        );
+        if (this.hasPushMode(item)) {
+          const target = await this.explorerService.getTargetData(existingEntity.constructor.name);
+          entity = await this.explorerService.getEntityData(
+            target.entity.target, existingEntity[target.primaryColumn.property], undefined, { fullRelations: true }
+          );
+        } else {
+          entity = existingEntity;
+        }
         entity = await this.updateEntityFromRowData(entity, repository, rowData);
       } else {
         entity = await this.createEntityFromRowData(repository, rowData);
@@ -270,6 +274,21 @@ export class XmlDataBridgeImportService extends XdbImportService {
       await repository.save(entity);
       this.logSavedEntity(repository, entity, uniqueKeyFields, existingEntity);
     }
+  }
+
+  /**
+   Checks whether an entity has a mode property with push value
+   @param item - xml action-node
+   */
+  private hasPushMode(item: XdbAction) {
+    for (const row of item.rows) {
+      for (const key in row) {
+        if (typeof row[key] === "object" && row[key]?.hasOwnProperty("attrs") && row[key]["attrs"]["mode"] === "push") {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   /**

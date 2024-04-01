@@ -1831,7 +1831,7 @@
             <sectionEnabled>true</sectionEnabled>
             <objectEnabled>true</objectEnabled>
             <sectionVisibility>false</sectionVisibility>
-            <objectVisibility>true</objectVisibility>
+            <objectVisibility>false</objectVisibility>
             <tab key="id">media-file-tab-common</tab>
         </row>
         <row>
