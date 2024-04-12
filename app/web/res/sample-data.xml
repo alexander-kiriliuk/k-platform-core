@@ -28,8 +28,8 @@
             <roles key="code">
                 <row>root</row>
             </roles>
-            <firstName>John</firstName>
-            <lastName key="code">Doe</lastName>
+            <firstName>Root</firstName>
+            <lastName>Admin</lastName>
         </row>
     </InsertUpdate>
 
