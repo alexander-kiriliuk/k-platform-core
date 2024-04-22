@@ -28,7 +28,7 @@ export class ImageFileMetadataEntity implements ImageFileMetadata {
   subsampling: string;
 
   @Index()
-  @Column("datetime", { name: "date_time", nullable: true })
+  @Column("date", { name: "date_time", nullable: true })
   dateTime: Date;
 
   @Index()

@@ -24,7 +24,7 @@ export class ProcessLogEntity implements ProcessLog {
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 
-  @Column("longtext", { nullable: true })
+  @Column("text", { nullable: true })
   content: string;
 
   @Index()
