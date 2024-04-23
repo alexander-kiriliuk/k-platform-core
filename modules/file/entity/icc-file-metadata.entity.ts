@@ -24,7 +24,7 @@ export class IccFileMetadataEntity implements IccFileMetadata {
   connectionSpace: string;
 
   @Index()
-  @Column("datetime", { name: "icc_profile_date", nullable: true })
+  @Column("date", { name: "icc_profile_date", nullable: true })
   iccProfileDate: Date;
 
   @Index()
