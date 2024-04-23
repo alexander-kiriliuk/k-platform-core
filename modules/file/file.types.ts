@@ -16,7 +16,6 @@
 
 import { Media } from "@media/media.types";
 import { Type as Class } from "@nestjs/common/interfaces/type.interface";
-import { EntityClassOrSchema } from "@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type";
 import { FileManager, FileMd } from "@files/file.constants";
 
 export interface File {
@@ -172,5 +171,4 @@ export interface AudioFileMetadata {
 export type FileModuleOptions = {
   fileManager: Class<FileManager>;
   fileMd: Class<FileMd>;
-  entities: EntityClassOrSchema[];
 };

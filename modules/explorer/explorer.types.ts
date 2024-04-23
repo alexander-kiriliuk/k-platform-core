@@ -18,7 +18,6 @@ import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { PageableData, PageableParams } from "@shared/modules/pageable/pageable.types";
 import { ObjectLiteral } from "typeorm";
 import { Type as Class } from "@nestjs/common/interfaces/type.interface";
-import { EntityClassOrSchema } from "@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type";
 import { Explorer } from "@explorer/explorer.constants";
 import { Media } from "@media/media.types";
 import { User } from "@user/user.types";
@@ -116,7 +115,6 @@ export type ExplorerSelectParams = {
 
 export type ExplorerModuleOptions = {
   service: Class<ExplorerService>;
-  entities: EntityClassOrSchema[];
 };
 
 export interface EntitySaveHandler<T = any> {

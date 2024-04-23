@@ -24,13 +24,12 @@ import { UserModuleOptions, UserService } from "@user/user.types";
 export class UserModule {
 
   static forRoot(options: UserModuleOptions = {
-    service: BasicUserService,
-    entities: [UserEntity]
+    service: BasicUserService
   }): DynamicModule {
     return {
       module: UserModule,
       imports: [
-        TypeOrmModule.forFeature(options.entities)
+        TypeOrmModule.forFeature([UserEntity])
       ],
       providers: [
         {

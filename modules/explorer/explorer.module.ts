@@ -26,16 +26,15 @@ import { ExplorerModuleOptions, ExplorerService } from "@explorer/explorer.types
 export class ExplorerModule implements OnModuleInit {
 
   static forRoot(options: ExplorerModuleOptions = {
-    service: BasicExplorerService,
-    entities: [
-      ExplorerTargetEntity,
-      ExplorerColumnEntity
-    ]
+    service: BasicExplorerService
   }): DynamicModule {
     return {
       module: ExplorerModule,
       imports: [
-        TypeOrmModule.forFeature(options.entities),
+        TypeOrmModule.forFeature([
+          ExplorerTargetEntity,
+          ExplorerColumnEntity
+        ]),
         LogModule
       ],
       providers: [

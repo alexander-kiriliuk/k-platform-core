@@ -29,13 +29,12 @@ export class FileModule {
 
   static forRoot(options: FileModuleOptions = {
     fileManager: FileService,
-    fileMd: FileMetadataService,
-    entities: [FileEntity]
+    fileMd: FileMetadataService
   }): DynamicModule {
     return {
       module: FileModule,
       imports: [
-        TypeOrmModule.forFeature(options.entities),
+        TypeOrmModule.forFeature([FileEntity]),
         LogModule,
         CacheModule
       ],

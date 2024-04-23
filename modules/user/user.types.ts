@@ -18,7 +18,6 @@ import { Media } from "@media/media.types";
 import { LocalizedString } from "@shared/modules/locale/locale.types";
 import { Exclude, Expose, Type } from "class-transformer";
 import { Type as Class } from "@nestjs/common/interfaces/type.interface";
-import { EntityClassOrSchema } from "@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type";
 import { UserEntity } from "@user/entity/user.entity";
 
 export interface User {
@@ -113,5 +112,4 @@ export abstract class UserService {
 
 export type UserModuleOptions = {
   service: Class<UserService>;
-  entities: EntityClassOrSchema[];
 };

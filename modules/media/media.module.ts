@@ -30,13 +30,17 @@ import { FileModule } from "@files/file.module";
 export class MediaModule {
 
   static forRoot(options: MediaModuleOptions = {
-    service: MediaService,
-    entities: [MediaEntity, MediaTypeEntity, MediaFileEntity, MediaFormatEntity]
+    service: MediaService
   }): DynamicModule {
     return {
       module: MediaModule,
       imports: [
-        TypeOrmModule.forFeature(options.entities),
+        TypeOrmModule.forFeature([
+          MediaEntity,
+          MediaTypeEntity,
+          MediaFileEntity,
+          MediaFormatEntity
+        ]),
         FileModule.forRoot(),
         LogModule,
         CacheModule
