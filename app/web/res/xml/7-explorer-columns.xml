@@ -126,11 +126,13 @@
             <id>users.id</id>
             <tab key="id">users-common-tab</tab>
             <objectPriority>100</objectPriority>
+            <sectionPriority>110</sectionPriority>
         </row>
         <row>
             <id>users.login</id>
             <tab key="id">users-common-tab</tab>
             <objectPriority>90</objectPriority>
+            <sectionPriority>90</sectionPriority>
             <objectRenderer key="code">string-object-renderer</objectRenderer>
             <objectRendererParams>{"readonly": true}</objectRendererParams>
         </row>
@@ -138,35 +140,42 @@
             <id>users.first_name</id>
             <tab key="id">users-common-tab</tab>
             <objectPriority>80</objectPriority>
+            <sectionPriority>80</sectionPriority>
         </row>
         <row>
             <id>users.last_name</id>
             <tab key="id">users-common-tab</tab>
             <objectPriority>70</objectPriority>
+            <sectionPriority>70</sectionPriority>
         </row>
         <row>
             <id>users.email</id>
             <tab key="id">users-common-tab</tab>
             <objectPriority>60</objectPriority>
+            <sectionPriority>60</sectionPriority>
         </row>
         <row>
             <id>users.phone</id>
             <tab key="id">users-common-tab</tab>
             <objectPriority>50</objectPriority>
+            <sectionPriority>50</sectionPriority>
         </row>
         <row>
             <id>users.avatar</id>
             <tab key="id">users-common-tab</tab>
             <objectPriority>40</objectPriority>
+            <sectionPriority>100</sectionPriority>
         </row>
         <row>
             <id>users.ts_created</id>
             <objectRenderer key="code">date-object-renderer</objectRenderer>
             <objectRendererParams>{"showCalendar": false}</objectRendererParams>
+            <sectionPriority>11</sectionPriority>
         </row>
         <row>
             <id>users.active</id>
             <objectPriority>100</objectPriority>
+            <sectionPriority>10</sectionPriority>
         </row>
         <row>
             <id>users.new_password</id>
@@ -175,6 +184,7 @@
         <row>
             <id>users.roles</id>
             <objectPriority>80</objectPriority>
+            <sectionPriority>20</sectionPriority>
         </row>
     </InsertUpdate>
 
