@@ -72,10 +72,11 @@ export namespace Xdb {
       const tagName = action["#name"];
       const target = action?.$?.target;
       const read = action?.$?.read;
+      const content = action?.$?.content;
       const rows = action.$$ ?? [];
       const obj: XdbAction = {
         action: tagName,
-        attrs: { target, read },
+        attrs: { target, read, content },
         rows: []
       };
       for (const row of rows) {

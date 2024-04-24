@@ -84,6 +84,9 @@ export class XmlDataBridgeImportService extends XdbImportService {
         case "Include":
           await this.processIncludeNodes(item);
           break;
+        case "Query":
+          await this.processQueryNodes(item);
+          break;
       }
     }
     return true;
@@ -150,6 +153,17 @@ export class XmlDataBridgeImportService extends XdbImportService {
       );
       this.logger.log(`${existedEntity ? `Update` : `Create`} file with ID ${file.id}`);
     }
+  }
+
+
+  /**
+   * Process "query" nodes by execute SQL queries.
+   * @param item - An XdbActions object containing rows of file data.
+   * @returns A promise that resolves when all query nodes are processed.
+   */
+  private async processQueryNodes(item: XdbAction) {
+    this.logger.log(item.attrs.content);
+    await this.connection.query(item.attrs.content);
   }
 
   /**

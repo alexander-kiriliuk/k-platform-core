@@ -6,13 +6,15 @@ import {
   JoinColumn,
   ManyToOne,
   OneToOne,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  TableInheritance
 } from "typeorm";
 import { MediaEntity } from "@media/entity/media.entity";
 import { File } from "../file.types";
 import { FileMetadataEntity } from "@files/entity/file-metadata.entity";
 
 @Entity("files")
+@TableInheritance({ column: { type: "varchar", name: "class", nullable: true } })
 export class FileEntity implements File {
 
   @PrimaryGeneratedColumn({ zerofill: true })

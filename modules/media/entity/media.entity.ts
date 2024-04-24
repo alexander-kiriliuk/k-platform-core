@@ -9,7 +9,8 @@ import {
   ManyToOne,
   OneToMany,
   OneToOne,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  TableInheritance
 } from "typeorm";
 import { MediaTypeEntity } from "./media-type.entity";
 import { MediaFileEntity } from "./media-file.entity";
@@ -18,6 +19,7 @@ import { LocalizedStringEntity } from "@shared/modules/locale/entity/localized-s
 import { FileMetadataEntity } from "@files/entity/file-metadata.entity";
 
 @Entity("medias")
+@TableInheritance({ column: { type: "varchar", name: "class", nullable: true } })
 export class MediaEntity implements Media {
 
   @PrimaryGeneratedColumn({ zerofill: true })

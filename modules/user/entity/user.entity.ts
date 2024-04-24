@@ -22,13 +22,15 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  TableInheritance
 } from "typeorm";
 import { UserRoleEntity } from "./user-role.entity";
 import { MediaEntity } from "@media/entity/media.entity";
 import { User } from "../user.types";
 
 @Entity("users")
+@TableInheritance({ column: { type: "varchar", name: "class", nullable: true } })
 export class UserEntity implements User {
 
   @PrimaryGeneratedColumn()
@@ -47,6 +49,7 @@ export class UserEntity implements User {
   @Column("varchar", { nullable: true })
   email: string;
 
+  @Index()
   @Column("varchar", { nullable: true })
   phone: string;
 

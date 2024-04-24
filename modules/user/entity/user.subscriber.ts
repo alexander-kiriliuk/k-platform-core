@@ -16,12 +16,13 @@
 
 import { EntitySubscriberInterface, EventSubscriber, UpdateEvent } from "typeorm";
 import { UserEntity } from "./user.entity";
-import * as bcrypt from "bcrypt";
 import { InsertEvent } from "typeorm/subscriber/event/InsertEvent";
-import { BadRequestException } from "@nestjs/common";
+import { AbstractUserSubscriber } from "@user/abstract-user-subscriber";
 
 @EventSubscriber()
-export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
+export class UserSubscriber extends AbstractUserSubscriber<UserEntity> implements EntitySubscriberInterface<UserEntity> {
+
+  protected readonly type = UserEntity;
 
   listenTo() {
     return UserEntity;
@@ -37,38 +38,6 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
       await this.validateLogin(event.entity.login);
     }
     await this.hashPasswordIfNeeded(event);
-  }
-
-  private async validateLogin(login: string) {
-    const loginRegex = /^[A-Za-z0-9_]+$/;
-    if (!loginRegex.test(login)) {
-      throw new BadRequestException("Login must contain only Latin letters, numbers, and underscores.");
-    }
-  }
-
-  private async hashPasswordIfNeeded(event: InsertEvent<UserEntity> | UpdateEvent<UserEntity>) {
-    const { entity: user, manager } = event;
-    if (typeof user.password === "number") {
-      user.password = user.password.toString();
-    }
-    if (!user.password?.length) {
-      delete user.password;
-      return;
-    }
-    const foundUser: UserEntity = await manager.findOne(UserEntity, { where: { id: user.id } });
-    if (foundUser) {
-      if (await bcrypt.compare(user.password, foundUser.password)) {
-        user.password = foundUser.password;
-      } else {
-        user.password = await this.hashPassword(user.password);
-      }
-    } else {
-      user.password = await this.hashPassword(user.password);
-    }
-  }
-
-  private async hashPassword(password: string) {
-    return await bcrypt.hash(password, 10);
   }
 
 }

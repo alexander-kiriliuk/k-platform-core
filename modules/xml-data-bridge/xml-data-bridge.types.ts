@@ -56,10 +56,11 @@ export type FileRow = {
 }
 
 export type XdbAction = {
-  action: "InsertUpdate" | "Media" | "File" | "Remove" | "Include";
+  action: "InsertUpdate" | "Media" | "File" | "Remove" | "Include" | "Query";
   attrs: {
     target?: string;
     read?: string;
+    content?: string;
   };
   rows: Array<XdbRowData | FileRow>;
 };
