@@ -440,11 +440,13 @@ export class BasicExplorerService extends ExplorerService {
       return undefined;
     }
     visitedEntities.push(visitedKey);
-    const withRelations = await repository.findOne({
+    const newRow = await repository.findOne({
       select: colsForSelect.colList,
       where: { [idProp]: row[idProp] },
       relations
     });
+    const withRelations = {};
+    Object.assign(withRelations, row, newRow);
     for (const k in withRelations) {
       if (relations.indexOf(k) === -1) {
         continue;
@@ -468,7 +470,6 @@ export class BasicExplorerService extends ExplorerService {
     }
     return withRelations;
   }
-
 
   /**
    * Generates a list of columns to extract.
