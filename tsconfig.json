@@ -16,35 +16,6 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
-    "paths": {
-      "@shared/*": [
-        "shared/*"
-      ],
-      "@user/*": [
-        "modules/user/*"
-      ],
-      "@media/*": [
-        "modules/media/*"
-      ],
-      "@files/*": [
-        "modules/file/*"
-      ],
-      "@xml-data-bridge/*": [
-        "modules/xml-data-bridge/*"
-      ],
-      "@explorer/*": [
-        "modules/explorer/*"
-      ],
-      "@config/*": [
-        "modules/config/*"
-      ],
-      "@auth/*": [
-        "modules/auth/*"
-      ],
-      "@captcha/*": [
-        "modules/captcha/*"
-      ]
-    }
+    "noFallthroughCasesInSwitch": false
   }
 }
