@@ -33,7 +33,7 @@ export * from "./common/config/config.constants";
 export * from "./common/config/config.module";
 export * from "./common/config/config.service";
 export * from "./common/config/config.types";
-export * from "./common/config/init";
+export * from "./common/config/config.init-fn";
 
 // explorer module
 export * from "./common/explorer/basic-explorer.service";

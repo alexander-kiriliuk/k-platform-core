@@ -14,25 +14,8 @@
  *    limitations under the License.
  */
 
-import { NestFactory } from "@nestjs/core";
-import { ConfigModule } from "./config.module";
-import { ConfigService } from "./config.service";
-import { Logger } from "@nestjs/common";
-import { LogModule } from "../../shared/modules/log/log.module";
-import { LOGGER } from "../../shared/modules/log/log.constants";
-import { EnvLoader } from "../../shared/utils/env.loader";
 
-export const InitConfig = async () => {
-  const app = await NestFactory.createApplicationContext(ConfigModule);
-  await app.init();
-  const logger: Logger = app.select(LogModule).get(LOGGER);
-  EnvLoader.loadEnvironment(logger);
-  const configService = app.select(ConfigModule).get(ConfigService);
-  const genCnfDir = `${process.cwd()}/${process.env.CONFIG_SRC_DIR}`;
-  await configService.initWithPropertiesFiles(genCnfDir);
-  await app.close();
-  process.exit(0);
-};
+import { InitConfig } from "./config.init-fn";
 
 (async () => {
   await InitConfig();

@@ -210,6 +210,9 @@ export class ConfigService {
   }
 
   private async deleteExistingConfigTsFiles(directory: string) {
+    if (directory === process.cwd() + "/node_modules") {
+      return;
+    }
     const files = await fs.promises.readdir(directory, { withFileTypes: true });
     for (const file of files) {
       const fullPath = path.join(directory, file.name);
