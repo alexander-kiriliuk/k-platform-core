@@ -15,15 +15,15 @@
  */
 
 const Arborist = require("@npmcli/arborist");
-const packlist = require("npm-packlist");
+const packList = require("npm-packlist");
 const tar = require("tar");
 const packageDir = process.cwd();
 const packageTarball = process.cwd() + "/dist/package.tgz";
 
-const regex = /^(?!.*(?:\.spec\.d\.ts|\.mock\.map\.js|\.mock\.js|\.tgz|\.tsbuildinfo)$).*$/;
+const regex = /^(?!.*(?:\.spec\.d\.ts|\.mock\.map\.js|\.mock\.js|\.tgz|\.tsbuildinfo|local.properties)$).*$/;
 const arborist = new Arborist({ path: packageDir });
 arborist.loadActual().then((tree) => {
-  packlist(tree).then(files => {
+  packList(tree).then(files => {
     const tarFiles = [];
     files.forEach(file => {
       if (regex.test(file)) {
@@ -31,6 +31,7 @@ arborist.loadActual().then((tree) => {
       }
     });
     tar.create({
+      prefix: "package/",
       cwd: packageDir,
       file: packageTarball,
       gzip: true
