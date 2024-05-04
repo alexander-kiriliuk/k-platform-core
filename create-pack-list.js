@@ -37,6 +37,6 @@ arborist.loadActual().then((tree) => {
       gzip: true
     }, tarFiles);
   }).then(() => {
-    console.log("Tarball has been created, continue with your day");
+    console.log("Tarball has been created");
   });
 });
