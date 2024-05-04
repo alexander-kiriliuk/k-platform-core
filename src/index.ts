@@ -115,6 +115,7 @@ export * from "./shared/modules/category/category.constants";
 export * from "./shared/modules/category/category.module";
 export * from "./shared/modules/category/category.service";
 export * from "./shared/modules/category/entity/category.entity";
+export * from "./shared/modules/category/entity/category-restriction.entity";
 
 // locale shared module
 export * from "./shared/modules/locale/locale.module";
