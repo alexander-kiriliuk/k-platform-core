@@ -27,12 +27,14 @@ export namespace ReservedMediaExt {
   export const SVG = "svg";
 }
 
-export const MEDIA_TYPE_RELATIONS = [
-  "ext", "formats"
-];
+export const MEDIA_TYPE_RELATIONS = ["ext", "formats"];
 
 export const MEDIA_RELATIONS = [
-  "name", "name.lang",
-  "type", "type.formats", "type.ext",
-  "files", "files.format"
+  "name",
+  "name.lang",
+  "type",
+  "type.formats",
+  "type.ext",
+  "files",
+  "files.format"
 ];

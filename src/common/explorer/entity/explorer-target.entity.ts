@@ -22,10 +22,8 @@ import { MediaEntity } from "../../media/entity/media.entity";
 import { ExplorerActionEntity } from "./explorer-action.entity";
 import { UserRoleEntity } from "../../user/entity/user-role.entity";
 
-
 @Entity("explorer_targets")
 export class ExplorerTargetEntity implements ExplorerTarget {
-
   @PrimaryColumn("varchar")
   target: string;
 
@@ -45,10 +43,10 @@ export class ExplorerTargetEntity implements ExplorerTarget {
   @JoinTable()
   description: LocalizedStringEntity[];
 
-  @ManyToOne(() => MediaEntity, t => t.code)
+  @ManyToOne(() => MediaEntity, (t) => t.code)
   icon: MediaEntity;
 
-  @OneToMany(() => ExplorerColumnEntity, c => c.target, { cascade: true })
+  @OneToMany(() => ExplorerColumnEntity, (c) => c.target, { cascade: true })
   columns: ExplorerColumnEntity[];
 
   @ManyToMany(() => ExplorerActionEntity)
@@ -56,19 +54,35 @@ export class ExplorerTargetEntity implements ExplorerTarget {
   actions: ExplorerAction[];
 
   @Index()
-  @Column("boolean", { name: "default_action_create", default: true, nullable: true })
+  @Column("boolean", {
+    name: "default_action_create",
+    default: true,
+    nullable: true
+  })
   defaultActionCreate: boolean;
 
   @Index()
-  @Column("boolean", { name: "default_action_save", default: true, nullable: true })
+  @Column("boolean", {
+    name: "default_action_save",
+    default: true,
+    nullable: true
+  })
   defaultActionSave: boolean;
 
   @Index()
-  @Column("boolean", { name: "default_action_delete", default: true, nullable: true })
+  @Column("boolean", {
+    name: "default_action_delete",
+    default: true,
+    nullable: true
+  })
   defaultActionDelete: boolean;
 
   @Index()
-  @Column("boolean", { name: "default_action_duplicate", default: true, nullable: true })
+  @Column("boolean", {
+    name: "default_action_duplicate",
+    default: true,
+    nullable: true
+  })
   defaultActionDuplicate: boolean;
 
   @ManyToMany(() => UserRoleEntity)
@@ -78,6 +92,4 @@ export class ExplorerTargetEntity implements ExplorerTarget {
   @ManyToMany(() => UserRoleEntity)
   @JoinTable()
   canWrite: UserRoleEntity[];
-
 }
-

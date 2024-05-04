@@ -3,7 +3,6 @@ import { MediaExt } from "../media.types";
 
 @Entity("medias_ext")
 export class MediaExtEntity implements MediaExt {
-
   @Index({ unique: true })
   @PrimaryColumn("varchar")
   code: string;
@@ -11,5 +10,4 @@ export class MediaExtEntity implements MediaExt {
   @Index()
   @Column("varchar", { nullable: false })
   name: string;
-
 }

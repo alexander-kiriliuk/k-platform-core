@@ -25,11 +25,10 @@ import { REDIS_CLIENT } from "./cache.constants";
  */
 @Injectable()
 export class RedisCacheService implements CacheService {
-
-
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
-    @Inject(REDIS_CLIENT) private readonly client: Redis) {
+    @Inject(REDIS_CLIENT) private readonly client: Redis
+  ) {
   }
 
   /**
@@ -77,7 +76,11 @@ export class RedisCacheService implements CacheService {
    * @param expiresIn - Optional expiration time in seconds.
    * @returns A Promise that resolves to true if the operation is successful, false otherwise.
    */
-  async set(key: string, value: string | number, expiresIn?: number): Promise<boolean> {
+  async set(
+    key: string,
+    value: string | number,
+    expiresIn?: number
+  ): Promise<boolean> {
     try {
       if (expiresIn) {
         await this.client.set(key, value, "EX", expiresIn);
@@ -102,7 +105,10 @@ export class RedisCacheService implements CacheService {
       await this.client.del(...keys);
       return true;
     } catch (error) {
-      this.logger.error(`Error while deleting keys "${keys.join(", ")}" from Redis:`, error);
+      this.logger.error(
+        `Error while deleting keys "${keys.join(", ")}" from Redis:`,
+        error
+      );
       return false;
     }
   }
@@ -117,7 +123,10 @@ export class RedisCacheService implements CacheService {
     try {
       return await this.client.incr(key);
     } catch (error) {
-      this.logger.error(`Error while incrementing key "${key}" in Redis:`, error);
+      this.logger.error(
+        `Error while incrementing key "${key}" in Redis:`,
+        error
+      );
       return null;
     }
   }
@@ -133,7 +142,10 @@ export class RedisCacheService implements CacheService {
       await this.client.expire(key, expiresIn);
       return true;
     } catch (error) {
-      this.logger.error(`Error while setting expiration for key "${key}" in Redis:`, error);
+      this.logger.error(
+        `Error while setting expiration for key "${key}" in Redis:`,
+        error
+      );
       return false;
     }
   }
@@ -159,5 +171,4 @@ export class RedisCacheService implements CacheService {
       });
     });
   }
-
 }

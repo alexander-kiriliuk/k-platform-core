@@ -14,9 +14,10 @@ import { MediaEntity } from "../../media/entity/media.entity";
 import { FileMetadataEntity } from "./file-metadata.entity";
 
 @Entity("files")
-@TableInheritance({ column: { type: "varchar", name: "class", nullable: true } })
+@TableInheritance({
+  column: { type: "varchar", name: "class", nullable: true }
+})
 export class FileEntity implements File {
-
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 
@@ -36,13 +37,13 @@ export class FileEntity implements File {
   @Column("int", { nullable: true })
   size: number;
 
-  @ManyToOne(() => MediaEntity, t => t.code)
+  @ManyToOne(() => MediaEntity, (t) => t.code)
   icon: MediaEntity;
 
-  @ManyToOne(() => MediaEntity, t => t.code)
+  @ManyToOne(() => MediaEntity, (t) => t.code)
   preview: MediaEntity;
 
-  @OneToOne(() => FileMetadataEntity, t => t.id, {
+  @OneToOne(() => FileMetadataEntity, (t) => t.id, {
     cascade: true,
     onDelete: "CASCADE"
   })
@@ -52,5 +53,4 @@ export class FileEntity implements File {
   @Index()
   @CreateDateColumn({ name: "ts_created", type: "timestamp" })
   tsCreated: Date;
-
 }

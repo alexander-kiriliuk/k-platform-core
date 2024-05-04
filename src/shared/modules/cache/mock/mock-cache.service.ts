@@ -23,9 +23,7 @@ import { MockStorage } from "../../mock/mock.storage";
  */
 @Injectable()
 export class MockCacheService implements CacheService {
-
-  constructor(
-    private readonly storage: MockStorage) {
+  constructor(private readonly storage: MockStorage) {
   }
 
   /**
@@ -35,7 +33,7 @@ export class MockCacheService implements CacheService {
    * @returns A Promise that resolves to the value of the key or null.
    */
   async get(key: string): Promise<string | null> {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const res = this.storage.find(key);
       resolve(res?.data as string);
     });
@@ -71,8 +69,12 @@ export class MockCacheService implements CacheService {
    * @param expiresIn - Optional expiration time in seconds (not affect to anything).
    * @returns A true value always.
    */
-  async set(key: string, value: string | number, expiresIn?: number): Promise<boolean> {
-    return new Promise(resolve => {
+  async set(
+    key: string,
+    value: string | number,
+    expiresIn?: number
+  ): Promise<boolean> {
+    return new Promise((resolve) => {
       this.storage.set(key, value);
       resolve(true);
     });
@@ -85,8 +87,8 @@ export class MockCacheService implements CacheService {
    * @returns A true value always.
    */
   async del(...keys: string[]): Promise<boolean> {
-    return new Promise(resolve => {
-      keys.forEach(k => this.storage.remove(k));
+    return new Promise((resolve) => {
+      keys.forEach((k) => this.storage.remove(k));
       resolve(true);
     });
   }
@@ -98,7 +100,7 @@ export class MockCacheService implements CacheService {
    * @returns A Promise that resolves to the new value of the key or null if an error occurs.
    */
   async incr(key: string): Promise<number | null> {
-    return new Promise(async resolve => {
+    return new Promise(async (resolve) => {
       try {
         let num = await this.getNumber(key);
         num++;
@@ -117,7 +119,7 @@ export class MockCacheService implements CacheService {
    * @returns A true value always.
    */
   async expire(key: string, expiresIn: number): Promise<boolean> {
-    return new Promise(resolve => resolve(true));
+    return new Promise((resolve) => resolve(true));
   }
 
   /**
@@ -127,12 +129,11 @@ export class MockCacheService implements CacheService {
    * @returns An array of data.
    */
   getFromPattern(key: string): Promise<string[]> {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const res = this.storage.filter(key);
       const result = [];
-      res.forEach(v => result.push(v.key));
+      res.forEach((v) => result.push(v.key));
       return resolve(result.length ? result : undefined);
     });
   }
-
 }

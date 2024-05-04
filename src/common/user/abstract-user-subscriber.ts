@@ -22,13 +22,14 @@ import { Type } from "@nestjs/common/interfaces/type.interface";
 import { UserEntity } from "./entity/user.entity";
 
 export abstract class AbstractUserSubscriber<T extends UserEntity> {
-
   protected abstract readonly type: Type<T>;
 
   protected async validateLogin(login: string) {
     const loginRegex = /^[A-Za-z0-9_]+$/;
     if (!loginRegex.test(login)) {
-      throw new BadRequestException("Login must contain only Latin letters, numbers, and underscores.");
+      throw new BadRequestException(
+        "Login must contain only Latin letters, numbers, and underscores."
+      );
     }
   }
 
@@ -41,7 +42,9 @@ export abstract class AbstractUserSubscriber<T extends UserEntity> {
       delete user.password;
       return;
     }
-    const foundUser: T = await manager.findOne(this.type, { where: { id: user.id } });
+    const foundUser: T = await manager.findOne(this.type, {
+      where: { id: user.id }
+    });
     if (foundUser) {
       if (await bcrypt.compare(user.password, foundUser.password)) {
         user.password = foundUser.password;
@@ -56,5 +59,4 @@ export abstract class AbstractUserSubscriber<T extends UserEntity> {
   protected async hashPassword(password: string) {
     return await bcrypt.hash(password, 10);
   }
-
 }

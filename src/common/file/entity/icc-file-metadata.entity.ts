@@ -3,7 +3,6 @@ import { IccFileMetadata } from "../file.types";
 
 @Entity("file_metadata_icc")
 export class IccFileMetadataEntity implements IccFileMetadata {
-
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 
@@ -62,5 +61,4 @@ export class IccFileMetadataEntity implements IccFileMetadata {
   @Index()
   @Column("varchar", { name: "icc_copyright", nullable: true })
   iccCopyright: string;
-
 }

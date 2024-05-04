@@ -22,9 +22,7 @@ import { MockStorage } from "../../mock/mock.storage";
  * A mock service client for dispatching messages between microservices.
  */
 export class MockMsClient implements MessageBus {
-
-  constructor(
-    private readonly storage: MockStorage) {
+  constructor(private readonly storage: MockStorage) {
   }
 
   /**
@@ -34,8 +32,12 @@ export class MockMsClient implements MessageBus {
    * @param opts - Optional configuration options for the client (not affect to anything).
    * @returns A promise resolving to the result of the dispatched message.
    */
-  dispatch<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions): Promise<TResult> {
-    return new Promise<TResult>(resolve => {
+  dispatch<TResult = any, TInput = any>(
+    pattern: any,
+    data: TInput,
+    opts?: MsClientOptions
+  ): Promise<TResult> {
+    return new Promise<TResult>((resolve) => {
       const res = this.storage.find(pattern, data);
       resolve(res?.data as TResult);
     });
@@ -48,7 +50,11 @@ export class MockMsClient implements MessageBus {
    * @param opts - Optional configuration options for the client (not affect to anything).
    * @returns An observable of the result of the send message.
    */
-  send<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions): Observable<TResult> {
+  send<TResult = any, TInput = any>(
+    pattern: any,
+    data: TInput,
+    opts?: MsClientOptions
+  ): Observable<TResult> {
     const res = this.storage.find(pattern, data);
     return of(res?.data as TResult);
   }
@@ -60,10 +66,12 @@ export class MockMsClient implements MessageBus {
    * @param opts - Optional configuration options for the client (not affect to anything).
    * @returns An observable of the result of the emitted message.
    */
-  emit<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions): Observable<TResult> {
+  emit<TResult = any, TInput = any>(
+    pattern: any,
+    data: TInput,
+    opts?: MsClientOptions
+  ): Observable<TResult> {
     const res = this.storage.find(pattern, data);
     return of(res?.data as TResult);
   }
-
 }
-

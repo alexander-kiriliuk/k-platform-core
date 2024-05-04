@@ -55,7 +55,6 @@ import hasAccessForRoles = UserUtils.hasAccessForRoles;
  */
 @Injectable()
 export class BasicExplorerService extends ExplorerService {
-
   constructor(
     @InjectDataSource()
     private readonly dataSource: DataSource,
@@ -63,7 +62,8 @@ export class BasicExplorerService extends ExplorerService {
     private readonly targetRep: Repository<ExplorerTargetEntity>,
     @InjectRepository(ExplorerColumnEntity)
     private readonly columnRep: Repository<ExplorerColumnEntity>,
-    @Inject(LOGGER) private readonly logger: Logger) {
+    @Inject(LOGGER) private readonly logger: Logger
+  ) {
     super();
   }
 
@@ -91,20 +91,29 @@ export class BasicExplorerService extends ExplorerService {
         c.id = `${t.tableName}.${column.databasePath}`;
         c.property = column.propertyName;
         c.type = this.getColumnType(column.type as string);
-        c.primary = md.primaryColumns.find(pc => pc.propertyName === column.propertyName) !== undefined;
+        c.primary =
+          md.primaryColumns.find(
+            (pc) => pc.propertyName === column.propertyName
+          ) !== undefined;
         c.unique = this.isColumnUnique(md, column);
         c.multiple = false;
         t.columns.push(c);
         await this.saveColumn(c);
       }
-      for (const relation of [...md.oneToManyRelations, ...md.manyToManyRelations]) {
+      for (const relation of [
+        ...md.oneToManyRelations,
+        ...md.manyToManyRelations
+      ]) {
         const c = new ExplorerColumnEntity();
         await this.setColumnProperties(c, relation, t);
         c.multiple = true;
         t.columns.push(c);
         await this.saveColumn(c);
       }
-      for (const relation of [...md.oneToOneRelations, ...md.manyToOneRelations]) {
+      for (const relation of [
+        ...md.oneToOneRelations,
+        ...md.manyToOneRelations
+      ]) {
         const c = new ExplorerColumnEntity();
         await this.setColumnProperties(c, relation, t);
         c.multiple = false;
@@ -124,7 +133,11 @@ export class BasicExplorerService extends ExplorerService {
    * @returns The saved or updated entity.
    * @throws {NotFoundException} If the target entity is not found.
    */
-  async saveEntityData<T = any>(target: string, entity: T, targetParams?: ExplorerTargetParams): Promise<T> {
+  async saveEntityData<T = any>(
+    target: string,
+    entity: T,
+    targetParams?: ExplorerTargetParams
+  ): Promise<T> {
     const targetData = await this.getTargetData(target, targetParams);
     const repository = this.connection.getRepository(targetData.entity.target);
     if (!entity[targetData.primaryColumn.property]) {
@@ -145,7 +158,9 @@ export class BasicExplorerService extends ExplorerService {
    * Getting all registered targets with count items inside.
    */
   async getTargetList(): Promise<ExplorerTarget[]> {
-    const res: ExplorerTarget[] = await this.targetRep.find({ relations: Explorer.TARGET_RELATIONS_BASIC });
+    const res: ExplorerTarget[] = await this.targetRep.find({
+      relations: Explorer.TARGET_RELATIONS_BASIC
+    });
     for (const v of res) {
       const rep = this.connection.getRepository(v.target);
       v.size = await rep.count();
@@ -161,15 +176,26 @@ export class BasicExplorerService extends ExplorerService {
    * @returns The removed entity.
    * @throws {NotFoundException} If the target entity or the entity with the specified ID is not found.
    */
-  async removeEntity(target: string, id: string | number, targetParams?: ExplorerTargetParams): Promise<ObjectLiteral> {
+  async removeEntity(
+    target: string,
+    id: string | number,
+    targetParams?: ExplorerTargetParams
+  ): Promise<ObjectLiteral> {
     const targetData = await this.getTargetData(target, targetParams);
-    if (targetParams?.checkUserAccess && !this.checkEntityAccess(targetData, targetParams)) {
+    if (
+      targetParams?.checkUserAccess &&
+      !this.checkEntityAccess(targetData, targetParams)
+    ) {
       throw new ForbiddenException(`Can't get access to target: ${target}`);
     }
     const repository = this.connection.getRepository(targetData.entity.target);
-    const entity = await repository.findOne({ where: { [targetData.primaryColumn.property]: id } });
+    const entity = await repository.findOne({
+      where: { [targetData.primaryColumn.property]: id }
+    });
     if (!entity) {
-      throw new NotFoundException(`Entity with ID ${id} not found in table ${target}`);
+      throw new NotFoundException(
+        `Entity with ID ${id} not found in table ${target}`
+      );
     }
     return await repository.remove(entity);
   }
@@ -182,22 +208,40 @@ export class BasicExplorerService extends ExplorerService {
    * @param targetParams - Fetch and check entity access params
    * @returns A Promise that resolves to the entity object.
    */
-  async getEntityData(target: string, rowId: string | number, maxDepth = Infinity, targetParams?: ExplorerTargetParams) {
+  async getEntityData(
+    target: string,
+    rowId: string | number,
+    maxDepth = Infinity,
+    targetParams?: ExplorerTargetParams
+  ) {
     const tParams = targetParams ?? {};
     tParams.object = true;
     const targetData = await this.getTargetData(target, tParams);
     if (!targetData) {
       throw new NotFoundException(`Target entity not found: ${target}`);
     }
-    if (targetParams?.checkUserAccess && !this.checkEntityAccess(targetData, targetParams)) {
+    if (
+      targetParams?.checkUserAccess &&
+      !this.checkEntityAccess(targetData, targetParams)
+    ) {
       throw new ForbiddenException(`Can't get access to target: ${target}`);
     }
     const repository = this.connection.getRepository(targetData.entity.target);
-    const row = await repository.findOne({ where: { [targetData.primaryColumn.property]: rowId } });
+    const row = await repository.findOne({
+      where: { [targetData.primaryColumn.property]: rowId }
+    });
     if (!row) {
-      throw new NotFoundException(`Row with ID ${rowId} not found in table ${target}`);
+      throw new NotFoundException(
+        `Row with ID ${rowId} not found in table ${target}`
+      );
     }
-    return await this.attachRelations(row, targetData, { object: true }, [], maxDepth);
+    return await this.attachRelations(
+      row,
+      targetData,
+      { object: true },
+      [],
+      maxDepth
+    );
   }
 
   /**
@@ -209,7 +253,11 @@ export class BasicExplorerService extends ExplorerService {
    * @returns A Promise that resolves to a PageableData object containing the paginated results.
    * @throws NotFoundException if the target entity is not found.
    */
-  async getPageableEntityData(target: string, params?: PageableParams, targetParams?: ExplorerTargetParams): Promise<PageableData> {
+  async getPageableEntityData(
+    target: string,
+    params?: PageableParams,
+    targetParams?: ExplorerTargetParams
+  ): Promise<PageableData> {
     const tParams = targetParams ?? {};
     tParams.section = true;
     const targetData = await this.getTargetData(target, tParams);
@@ -227,17 +275,28 @@ export class BasicExplorerService extends ExplorerService {
       const filterParams = parseParamsString(params.filter);
       await this.applyFilterParams(qb, targetData, filterParams);
     }
-    const colsForSelect = this.getColsForSelect(targetData, { section: true, prefix: "entity." });
+    const colsForSelect = this.getColsForSelect(targetData, {
+      section: true,
+      prefix: "entity."
+    });
     if (!colsForSelect.referencedCols.length) {
       qb.select(colsForSelect.colList);
     }
-    const [items, totalCount] = await qb.skip((page - 1) * limit)
+    const [items, totalCount] = await qb
+      .skip((page - 1) * limit)
       .take(limit)
       .orderBy(`entity.${sort}`, order)
       .getManyAndCount();
     const itemsWithRelations = await Promise.all(
-      items.map(async item =>
-        await this.attachRelations(item, targetData, { section: true }, [], 3)
+      items.map(
+        async (item) =>
+          await this.attachRelations(
+            item,
+            targetData,
+            { section: true },
+            [],
+            3
+          )
       )
     );
     return new PageableData(itemsWithRelations, totalCount, page, limit);
@@ -249,38 +308,47 @@ export class BasicExplorerService extends ExplorerService {
    * @param targetParams - Fetch and check entity access params
    * @returns A Promise that resolves to the TargetData object, or null if not found.
    */
-  async getTargetData(target: string, targetParams: ExplorerTargetParams = {}): Promise<TargetData> {
+  async getTargetData(
+    target: string,
+    targetParams: ExplorerTargetParams = {}
+  ): Promise<TargetData> {
     let relations = ["columns", "canRead", "canWrite"];
     if (targetParams.fullRelations) {
       if (!targetParams.section || !targetParams.object) {
         relations = TARGET_RELATIONS_FULL;
       } else {
-        relations = targetParams.section ? TARGET_RELATIONS_SECTION : TARGET_RELATIONS_OBJECT;
+        relations = targetParams.section
+          ? TARGET_RELATIONS_SECTION
+          : TARGET_RELATIONS_OBJECT;
       }
     }
     const entity = await this.targetRep.findOne({
-      where: [{ target }, { tableName: target }, { alias: target }], relations
+      where: [{ target }, { tableName: target }, { alias: target }],
+      relations
     });
     if (!entity) {
       return null;
     }
     if (targetParams.section) {
-      entity.columns = entity.columns.filter(c => c.sectionEnabled);
+      entity.columns = entity.columns.filter((c) => c.sectionEnabled);
       ObjectUtils.sort(entity.columns, "sectionPriority");
-      entity.actions = entity.actions?.filter(a => a.type === "section");
+      entity.actions = entity.actions?.filter((a) => a.type === "section");
     } else if (targetParams.object) {
-      entity.columns = entity.columns.filter(c => c.objectEnabled);
+      entity.columns = entity.columns.filter((c) => c.objectEnabled);
       ObjectUtils.sort(entity.columns, "objectPriority");
-      entity.actions = entity.actions?.filter(a => a.type === "object");
+      entity.actions = entity.actions?.filter((a) => a.type === "object");
     }
     ObjectUtils.sort(entity.actions, "priority");
-    const primaryColumn = entity.columns.find(c => c.primary === true);
-    const namedColumn = entity.columns.find(c => c.named === true);
+    const primaryColumn = entity.columns.find((c) => c.primary === true);
+    const namedColumn = entity.columns.find((c) => c.named === true);
     const targetData = { entity, primaryColumn, namedColumn };
     if (!targetData) {
       throw new NotFoundException(`Target entity not found: ${target}`);
     }
-    if (targetParams?.checkUserAccess && !this.checkEntityAccess(targetData, targetParams)) {
+    if (
+      targetParams?.checkUserAccess &&
+      !this.checkEntityAccess(targetData, targetParams)
+    ) {
       throw new ForbiddenException(`Can't get access to target: ${target}`);
     }
     return targetData;
@@ -293,10 +361,14 @@ export class BasicExplorerService extends ExplorerService {
    * @param targetData - Information about the target entity.
    * @param filterParams - The filter parameters to apply.
    */
-  private async applyFilterParams<T = any>(qb: SelectQueryBuilder<T>, targetData: TargetData, filterParams: Record<string, string>) {
+  private async applyFilterParams<T = any>(
+    qb: SelectQueryBuilder<T>,
+    targetData: TargetData,
+    filterParams: Record<string, string>
+  ) {
     for (const key in filterParams) {
       const value = filterParams[key];
-      const column = targetData.entity.columns.find(c => c.property === key);
+      const column = targetData.entity.columns.find((c) => c.property === key);
       if (!column) {
         continue;
       }
@@ -307,14 +379,23 @@ export class BasicExplorerService extends ExplorerService {
         const targetName = parts[0];
         const colName = parts[1];
         const clearValue = value.replace(/\{[^}]*}/g, "");
-        const refTarget = await this.getTargetData(targetName, { section: true });
-        const refColumn = refTarget.entity.columns.find(c => c.property === colName);
+        const refTarget = await this.getTargetData(targetName, {
+          section: true
+        });
+        const refColumn = refTarget.entity.columns.find(
+          (c) => c.property === colName
+        );
         const alias = colName + targetName;
         qb.innerJoinAndSelect(`entity.${prop}`, alias);
         if (refColumn.type === "date") {
           this.applyDateFilter(qb, alias, colName, clearValue);
         } else {
-          this.applyColumnFilter(qb, refColumn, `${alias}.${colName}`, clearValue);
+          this.applyColumnFilter(
+            qb,
+            refColumn,
+            `${alias}.${colName}`,
+            clearValue
+          );
         }
       } else {
         if (column.type === "date") {
@@ -331,16 +412,18 @@ export class BasicExplorerService extends ExplorerService {
    * @param target The target entity with columns
    */
   private async detectAndMarkNamedColumn(target: ExplorerTargetEntity) {
-    let namedCol = target.columns.find(c => c.named);
+    let namedCol = target.columns.find((c) => c.named);
     if (namedCol) {
       return;
     }
-    namedCol = target.columns.find(c => c.referencedEntityName === LocalizedStringEntity.name);
+    namedCol = target.columns.find(
+      (c) => c.referencedEntityName === LocalizedStringEntity.name
+    );
     if (!namedCol) {
-      namedCol = target.columns.find(c => c.unique && c.type === "string");
+      namedCol = target.columns.find((c) => c.unique && c.type === "string");
     }
     if (!namedCol) {
-      namedCol = target.columns.find(c => c.primary);
+      namedCol = target.columns.find((c) => c.primary);
     }
     namedCol.named = true;
     await this.columnRep.save(namedCol);
@@ -354,16 +437,27 @@ export class BasicExplorerService extends ExplorerService {
    * @param column - The column name to filter.
    * @param value - The date filter value.
    */
-  private applyDateFilter<T = any>(qb: SelectQueryBuilder<T>, aliasOrEntity: string, column: string, value: string) {
+  private applyDateFilter<T = any>(
+    qb: SelectQueryBuilder<T>,
+    aliasOrEntity: string,
+    column: string,
+    value: string
+  ) {
     const match = value.match(/FROM(\d+)TO(\d+)/);
     const fromTimestamp = match[1];
     const toTimestamp = match[2];
     const fromDate = new Date(parseInt(fromTimestamp, 10));
     const toDate = new Date(parseInt(toTimestamp, 10));
-    qb.andWhere(new Brackets(sqb => {
-      sqb.andWhere(`${aliasOrEntity}.${column} >= :from${column}`, { [`from${column}`]: fromDate.toJSON() });
-      sqb.andWhere(`${aliasOrEntity}.${column} <= :to${column}`, { [`to${column}`]: toDate.toJSON() });
-    }));
+    qb.andWhere(
+      new Brackets((sqb) => {
+        sqb.andWhere(`${aliasOrEntity}.${column} >= :from${column}`, {
+          [`from${column}`]: fromDate.toJSON()
+        });
+        sqb.andWhere(`${aliasOrEntity}.${column} <= :to${column}`, {
+          [`to${column}`]: toDate.toJSON()
+        });
+      })
+    );
   }
 
   /**
@@ -374,12 +468,19 @@ export class BasicExplorerService extends ExplorerService {
    * @param path - The column name to filter.
    * @param value - The column filter value.
    */
-  private applyColumnFilter<T = any>(qb: SelectQueryBuilder<T>, exCol: ExplorerColumn, path: string, value: string) {
+  private applyColumnFilter<T = any>(
+    qb: SelectQueryBuilder<T>,
+    exCol: ExplorerColumn,
+    path: string,
+    value: string
+  ) {
     if (exCol.type === "boolean") {
       value = value === "true" ? "1" : "0";
     }
     const exactMatch = !(value.startsWith("%") && value.endsWith("%"));
-    qb.andWhere(`${path} ${exactMatch ? "=" : "LIKE"} :${path}`, { [path]: value });
+    qb.andWhere(`${path} ${exactMatch ? "=" : "LIKE"} :${path}`, {
+      [path]: value
+    });
   }
 
   /**
@@ -389,23 +490,41 @@ export class BasicExplorerService extends ExplorerService {
    * @param repository - The repository associated with the target entity.
    * @returns The saved or updated entity with its nested entities.
    */
-  private async saveNestedEntities<T = any>(entity: T, targetData: TargetData, repository: Repository<any>): Promise<T> {
-    const referencedCols = targetData.entity.columns.filter(c => c.type === "reference");
+  private async saveNestedEntities<T = any>(
+    entity: T,
+    targetData: TargetData,
+    repository: Repository<any>
+  ): Promise<T> {
+    const referencedCols = targetData.entity.columns.filter(
+      (c) => c.type === "reference"
+    );
     for (const col of referencedCols) {
       const relationProp = col.property;
       const relatedEntityData = entity[relationProp];
       if (relatedEntityData) {
-        const currTargetData = await this.getTargetData(col.referencedEntityName);
+        const currTargetData = await this.getTargetData(
+          col.referencedEntityName
+        );
         if (!currTargetData) {
           entity[relationProp] = repository.create();
         } else {
-          const relatedRepository = this.connection.getRepository(currTargetData.entity.target);
+          const relatedRepository = this.connection.getRepository(
+            currTargetData.entity.target
+          );
           if (Array.isArray(relatedEntityData) && col.multiple) {
             for (let i = 0; i < relatedEntityData.length; i++) {
-              entity[relationProp][i] = await this.saveNestedEntities(relatedEntityData[i], currTargetData, relatedRepository);
+              entity[relationProp][i] = await this.saveNestedEntities(
+                relatedEntityData[i],
+                currTargetData,
+                relatedRepository
+              );
             }
           } else {
-            entity[relationProp] = await this.saveNestedEntities(relatedEntityData, currTargetData, relatedRepository);
+            entity[relationProp] = await this.saveNestedEntities(
+              relatedEntityData,
+              currTargetData,
+              relatedRepository
+            );
           }
         }
       }
@@ -423,13 +542,17 @@ export class BasicExplorerService extends ExplorerService {
    * @returns The row with attached relations.
    */
   private async attachRelations<T = any>(
-    row: T, targetData: TargetData, selectParams: ExplorerSelectParams = {},
-    visitedEntities: string[] = [], maxDepth = Infinity) {
+    row: T,
+    targetData: TargetData,
+    selectParams: ExplorerSelectParams = {},
+    visitedEntities: string[] = [],
+    maxDepth = Infinity
+  ) {
     if (maxDepth < 0) {
       throw new InternalServerErrorException("maxDepth should be non-negative");
     }
     const colsForSelect = this.getColsForSelect(targetData, selectParams);
-    const relations = colsForSelect.referencedCols.map(c => c.property);
+    const relations = colsForSelect.referencedCols.map((c) => c.property);
     if (!row || !relations.length || maxDepth <= 0) {
       return row;
     }
@@ -451,20 +574,31 @@ export class BasicExplorerService extends ExplorerService {
       if (relations.indexOf(k) === -1) {
         continue;
       }
-      const colData = targetData.entity.columns.find(c => c.property === k);
-      const currTargetData = await this.getTargetData(colData.referencedEntityName, {
-        section: selectParams.section,
-        object: selectParams.object
-      });
+      const colData = targetData.entity.columns.find((c) => c.property === k);
+      const currTargetData = await this.getTargetData(
+        colData.referencedEntityName,
+        {
+          section: selectParams.section,
+          object: selectParams.object
+        }
+      );
       if (Array.isArray(withRelations[k]) && colData.multiple) {
         for (const key in withRelations[k]) {
           withRelations[k][key] = await this.attachRelations(
-            withRelations[k][key], currTargetData, selectParams, visitedEntities.slice(), maxDepth - 1
+            withRelations[k][key],
+            currTargetData,
+            selectParams,
+            visitedEntities.slice(),
+            maxDepth - 1
           );
         }
       } else {
         withRelations[k] = await this.attachRelations(
-          withRelations[k], currTargetData, selectParams, visitedEntities.slice(), maxDepth - 1
+          withRelations[k],
+          currTargetData,
+          selectParams,
+          visitedEntities.slice(),
+          maxDepth - 1
         );
       }
     }
@@ -476,7 +610,10 @@ export class BasicExplorerService extends ExplorerService {
    * @param targetData The target data of the current row.
    * @param params Parameters regulating sample width
    */
-  private getColsForSelect(targetData: TargetData, params: ExplorerSelectParams = {}) {
+  private getColsForSelect(
+    targetData: TargetData,
+    params: ExplorerSelectParams = {}
+  ) {
     const colList: string[] = [];
     const referencedCols: ExplorerColumn[] = [];
     const prefix = params.prefix ? params.prefix : "";
@@ -503,7 +640,9 @@ export class BasicExplorerService extends ExplorerService {
    * @param target The target entity to save.
    */
   private async saveTarget(target: ExplorerTargetEntity) {
-    const t = await this.targetRep.findOne({ where: { target: target.target } });
+    const t = await this.targetRep.findOne({
+      where: { target: target.target }
+    });
     if (t) {
       this.logger.verbose(`Entity ${target.target} already exists, skipping`);
       return;
@@ -532,7 +671,11 @@ export class BasicExplorerService extends ExplorerService {
    * @param relation The relation metadata used to set properties.
    * @param target The target entity to associate the column with.
    */
-  private async setColumnProperties(c: ExplorerColumnEntity, relation: RelationMetadata, target: ExplorerTargetEntity) {
+  private async setColumnProperties(
+    c: ExplorerColumnEntity,
+    relation: RelationMetadata,
+    target: ExplorerTargetEntity
+  ) {
     c.target = target;
     c.id = `${target.tableName}.${relation.propertyPath}`;
     c.property = relation.propertyName;
@@ -551,7 +694,10 @@ export class BasicExplorerService extends ExplorerService {
    */
   private isColumnUnique(md: EntityMetadata, column: ColumnMetadata) {
     for (const uniq of md.uniques) {
-      if (uniq.columns.find(col => col.propertyName === column.propertyName) !== undefined) {
+      if (
+        uniq.columns.find((col) => col.propertyName === column.propertyName) !==
+        undefined
+      ) {
         return true;
       }
     }
@@ -559,7 +705,7 @@ export class BasicExplorerService extends ExplorerService {
       if (!ind.isUnique) {
         continue;
       }
-      if (ind.columns.find(c => c.propertyName === column.propertyName)) {
+      if (ind.columns.find((c) => c.propertyName === column.propertyName)) {
         return true;
       }
     }
@@ -571,15 +717,32 @@ export class BasicExplorerService extends ExplorerService {
    * @param targetData The target data of the current row.
    * @param targetParams - Fetch and check entity access params
    */
-  private checkEntityAccess(targetData: TargetData, targetParams: ExplorerTargetParams) {
+  private checkEntityAccess(
+    targetData: TargetData,
+    targetParams: ExplorerTargetParams
+  ) {
     if (targetParams.readRequest) {
-      return hasAccessForRoles(targetParams?.checkUserAccess.roles, targetData.entity.canRead);
+      return hasAccessForRoles(
+        targetParams?.checkUserAccess.roles,
+        targetData.entity.canRead
+      );
     }
     if (targetParams.writeRequest) {
-      return hasAccessForRoles(targetParams?.checkUserAccess.roles, targetData.entity.canWrite);
+      return hasAccessForRoles(
+        targetParams?.checkUserAccess.roles,
+        targetData.entity.canWrite
+      );
     }
-    return hasAccessForRoles(targetParams?.checkUserAccess.roles, targetData.entity.canWrite) &&
-      hasAccessForRoles(targetParams?.checkUserAccess.roles, targetData.entity.canRead);
+    return (
+      hasAccessForRoles(
+        targetParams?.checkUserAccess.roles,
+        targetData.entity.canWrite
+      ) &&
+      hasAccessForRoles(
+        targetParams?.checkUserAccess.roles,
+        targetData.entity.canRead
+      )
+    );
   }
 
   /**
@@ -627,5 +790,4 @@ export class BasicExplorerService extends ExplorerService {
         return "unknown";
     }
   }
-
 }

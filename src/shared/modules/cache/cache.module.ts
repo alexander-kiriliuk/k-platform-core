@@ -36,9 +36,9 @@ import { RedisCacheService } from "./redis-cache.service";
             db: parseInt(process.env.REDIS_DB),
             username: process.env.REDIS_USER,
             password: process.env.REDIS_PASSWORD
-          }
+          },
         };
-      }
+      },
     }),
     LogModule
   ],
@@ -46,11 +46,9 @@ import { RedisCacheService } from "./redis-cache.service";
     {
       provide: CacheService,
       useClass: RedisCacheService
-    }
+    },
   ],
-  exports: [
-    CacheService
-  ]
+  exports: [CacheService]
 })
 export class CacheModule {
 }

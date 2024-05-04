@@ -20,8 +20,9 @@ import { InsertEvent } from "typeorm/subscriber/event/InsertEvent";
 import { AbstractUserSubscriber } from "../abstract-user-subscriber";
 
 @EventSubscriber()
-export class UserSubscriber extends AbstractUserSubscriber<UserEntity> implements EntitySubscriberInterface<UserEntity> {
-
+export class UserSubscriber
+  extends AbstractUserSubscriber<UserEntity>
+  implements EntitySubscriberInterface<UserEntity> {
   protected readonly type = UserEntity;
 
   listenTo() {
@@ -39,5 +40,4 @@ export class UserSubscriber extends AbstractUserSubscriber<UserEntity> implement
     }
     await this.hashPasswordIfNeeded(event);
   }
-
 }

@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 
-
 import { Inject, Injectable } from "@nestjs/common";
 import Redis from "ioredis";
 import { MessagesBroker } from "./messages-broker.types";
@@ -22,12 +21,11 @@ import { REDIS_CLIENT } from "../cache/cache.constants";
 
 @Injectable()
 export class MessagesBrokerService implements MessagesBroker {
-
   private readonly subClient: Redis;
-  private readonly subscribers: Map<string, (data: unknown) => void> = new Map();
+  private readonly subscribers: Map<string, (data: unknown) => void> =
+    new Map();
 
-  constructor(
-    @Inject(REDIS_CLIENT) private readonly pubClient: Redis) {
+  constructor(@Inject(REDIS_CLIENT) private readonly pubClient: Redis) {
     this.subClient = this.pubClient.duplicate();
     this.subClient.on("message", (chanel, data) => {
       if (!this.subscribers.has(chanel)) {
@@ -67,5 +65,4 @@ export class MessagesBrokerService implements MessagesBroker {
       return data;
     }
   }
-
 }

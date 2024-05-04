@@ -25,21 +25,21 @@ import { FileModule } from "../file/file.module";
 import { MediaModule } from "../media/media.module";
 import { XdbExportService, XdbImportService } from "./xml-data-bridge.constants";
 
-
 @Module({})
 export class XmlDataBridgeModule {
-
-  static forRoot(options: XdbModuleOptions = {
-    importService: XmlDataBridgeImportService,
-    exportService: XmlDataBridgeExportService,
-    imports: [
-      LogModule,
-      CacheModule,
-      ExplorerModule.forRoot(),
-      FileModule.forRoot(),
-      MediaModule.forRoot()
-    ]
-  }): DynamicModule {
+  static forRoot(
+    options: XdbModuleOptions = {
+      importService: XmlDataBridgeImportService,
+      exportService: XmlDataBridgeExportService,
+      imports: [
+        LogModule,
+        CacheModule,
+        ExplorerModule.forRoot(),
+        FileModule.forRoot(),
+        MediaModule.forRoot()
+      ]
+    }
+  ): DynamicModule {
     return {
       module: XmlDataBridgeModule,
       imports: options.imports,
@@ -51,10 +51,9 @@ export class XmlDataBridgeModule {
         {
           provide: XdbExportService,
           useClass: options.exportService
-        }
+        },
       ],
       exports: [XdbImportService, XdbExportService]
     };
   }
-
 }

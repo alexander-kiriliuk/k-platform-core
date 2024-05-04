@@ -20,7 +20,6 @@ import { ProcessLog } from "../process.types";
 
 @Entity("process_logs")
 export class ProcessLogEntity implements ProcessLog {
-
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 
@@ -35,7 +34,6 @@ export class ProcessLogEntity implements ProcessLog {
   @UpdateDateColumn({ name: "ts_updated", type: "timestamp" })
   tsUpdated: Date;
 
-  @ManyToOne(() => ProcessUnitEntity, t => t.code)
+  @ManyToOne(() => ProcessUnitEntity, (t) => t.code)
   process: ProcessUnitEntity;
-
 }

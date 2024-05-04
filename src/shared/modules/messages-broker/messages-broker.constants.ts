@@ -14,5 +14,4 @@
  *    limitations under the License.
  */
 
-
 export const MESSAGES_BROKER = Symbol("MSG_BROKER");

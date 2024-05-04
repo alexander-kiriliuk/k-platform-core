@@ -21,7 +21,6 @@ import { XdbDecomposedEntity } from "./xml-data-bridge.types";
 import { Xdb } from "./xml-data-bridge.constants";
 
 export namespace XmlDataBridgeFileSchema {
-
   export const BODY_TOKEN = `%%%body%%%`;
 
   export function xmlFileSchemaTpl() {
@@ -33,7 +32,7 @@ export namespace XmlDataBridgeFileSchema {
   }
 
   export function xmlMediaNodeTpl(obj: ObjectLiteral) {
-    const media = obj as Media & { file: string, type: string, name: string[] };
+    const media = obj as Media & { file: string; type: string; name: string[] };
     let data = `\n\t<Media>\n\t\t<row>\n`;
     if (media.code) {
       data += `\t\t\t<code>${media.code}</code>\n`;
@@ -52,7 +51,12 @@ export namespace XmlDataBridgeFileSchema {
   }
 
   export function xmlFileNodeTpl(obj: ObjectLiteral) {
-    const file = obj as File & { file: string, icon: string, preview: string, name: string[] };
+    const file = obj as File & {
+      file: string;
+      icon: string;
+      preview: string;
+      name: string[];
+    };
     let data = `\n\t<File>\n\t\t<row>\n`;
     if (file.code) {
       data += `\t\t\t<code>${file.code}</code>\n`;
@@ -90,8 +94,11 @@ export namespace XmlDataBridgeFileSchema {
     return data;
   }
 
-
-  export function xmlFileRowPropertyNode(stack: XdbDecomposedEntity[], key: string, value: unknown | unknown[]) {
+  export function xmlFileRowPropertyNode(
+    stack: XdbDecomposedEntity[],
+    key: string,
+    value: unknown | unknown[]
+  ) {
     let val = value as string;
     if (value instanceof Date) {
       val = value.toISOString();
@@ -119,7 +126,11 @@ export namespace XmlDataBridgeFileSchema {
       }
       data += `\n\t\t\t</${key}>`;
       return data;
-    } else if (typeof val === "string" && val.startsWith(Xdb.rootToken) && val.indexOf("#") !== -1) {
+    } else if (
+      typeof val === "string" &&
+      val.startsWith(Xdb.rootToken) &&
+      val.indexOf("#") !== -1
+    ) {
       const parts = val.split("#");
       const propValue = parts[1];
       const kParts = propValue.split(":");
@@ -133,5 +144,4 @@ export namespace XmlDataBridgeFileSchema {
     data += `</${key}>`;
     return data;
   }
-
 }

@@ -7,11 +7,9 @@ import { LOGGER } from "./log.constants";
     {
       provide: LOGGER,
       useClass: LogService
-    }
+    },
   ],
-  exports: [
-    LOGGER
-  ]
+  exports: [LOGGER]
 })
 export class LogModule {
 }

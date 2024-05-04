@@ -42,13 +42,13 @@ import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
  */
 @Injectable()
 export class FileService extends FileManager {
-
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
     @InjectRepository(FileEntity)
     private readonly fileRep: Repository<FileEntity>,
     private readonly cacheService: CacheService,
-    private readonly metadataService: FileMd) {
+    private readonly metadataService: FileMd
+  ) {
     super();
   }
 
@@ -69,37 +69,56 @@ export class FileService extends FileManager {
     isPublic = true,
     code?: string,
     existedEntityId?: number,
-    name?: string): Promise<FileEntity> {
+    name?: string
+  ): Promise<FileEntity> {
     let entity: FileEntity = undefined;
-    await this.fileRep.manager.transaction(async transactionManager => {
+    await this.fileRep.manager.transaction(async (transactionManager) => {
       if (existedEntityId) {
         entity = await this.findFileById(existedEntityId, isPublic);
         if (!entity) {
-          throw new BadRequestException(`Cannot patch file with ID ${existedEntityId}, because than not exists`);
+          throw new BadRequestException(
+            `Cannot patch file with ID ${existedEntityId}, because than not exists`
+          );
         }
         const dir = path.join(
-          !entity.public ? await this.getPrivateDir() : await this.getPublicDir(),
+          !entity.public
+            ? await this.getPrivateDir()
+            : await this.getPublicDir(),
           entity.id.toString()
         );
-        await fs.promises.rm(dir, { recursive: true, force: true }).catch(err => {
-          throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
-        });
+        await fs.promises
+          .rm(dir, { recursive: true, force: true })
+          .catch((err) => {
+            throw new InternalServerErrorException(
+              `Failed to delete directory: ${dir}`,
+              err
+            );
+          });
       } else {
         entity = await this.createFileEntity(isPublic);
       }
-      const outputPath = await this.createFileDirectory(entity.public, entity.id.toString());
-      const fileName = entity.id.toString() + (extension ? `.${extension}` : extension);
+      const outputPath = await this.createFileDirectory(
+        entity.public,
+        entity.id.toString()
+      );
+      const fileName =
+        entity.id.toString() + (extension ? `.${extension}` : extension);
       entity.size = file.length;
       entity.path = fileName;
       entity.name = name;
       entity.code = code;
       await fs.promises.writeFile(`${outputPath}/${fileName}`, file);
       if (!existedEntityId) {
-        entity.metadata = await this.metadataService.createFileMetadataEntity(file, `${outputPath}/${fileName}`);
+        entity.metadata = await this.metadataService.createFileMetadataEntity(
+          file,
+          `${outputPath}/${fileName}`
+        );
       }
       await transactionManager.save(entity);
     });
-    this.logger.log(`${!existedEntityId ? `Created` : `Updated`} file with ID ${entity.id}`);
+    this.logger.log(
+      `${!existedEntityId ? `Created` : `Updated`} file with ID ${entity.id}`
+    );
     return entity;
   }
 
@@ -110,8 +129,7 @@ export class FileService extends FileManager {
    * @returns A promise that resolves to the found FileEntity.
    */
   async findFileById(id: number, isPublic: boolean = undefined) {
-    const qb = this.createBasicFindQb()
-      .where("file.id = :id", { id });
+    const qb = this.createBasicFindQb().where("file.id = :id", { id });
     if (isPublic !== undefined) {
       qb.andWhere(`file.public = :isPublic`, { isPublic });
     }
@@ -172,7 +190,7 @@ export class FileService extends FileManager {
       !file.public ? await this.getPrivateDir() : await this.getPublicDir(),
       file.id.toString()
     );
-    await this.fileRep.manager.transaction(async transactionManager => {
+    await this.fileRep.manager.transaction(async (transactionManager) => {
       if (file.metadata) {
         if (file.metadata.image) {
           await transactionManager.remove(file.metadata.image);
@@ -188,9 +206,14 @@ export class FileService extends FileManager {
         }
       }
       await transactionManager.remove(file);
-      await fs.promises.rm(dir, { recursive: true, force: true }).catch(err => {
-        throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
-      });
+      await fs.promises
+        .rm(dir, { recursive: true, force: true })
+        .catch((err) => {
+          throw new InternalServerErrorException(
+            `Failed to delete directory: ${dir}`,
+            err
+          );
+        });
     });
     this.logger.log(`File with ID ${id} removed`);
     return file;
@@ -201,7 +224,8 @@ export class FileService extends FileManager {
    * @returns A query builder instance for finding files.
    */
   private createBasicFindQb() {
-    return this.fileRep.createQueryBuilder("file")
+    return this.fileRep
+      .createQueryBuilder("file")
       .leftJoinAndSelect("file.icon", "icon")
       .leftJoinAndSelect("file.metadata", "metadata")
       .leftJoinAndSelect("metadata.gps", "metaGps")
@@ -229,8 +253,14 @@ export class FileService extends FileManager {
    * @param entityId - The entity ID to use as the directory name.
    * @returns A promise that resolves to the created directory path as a string.
    */
-  private async createFileDirectory(isPublic: boolean, entityId: string): Promise<string> {
-    const dir = path.join(!isPublic ? await this.getPrivateDir() : await this.getPublicDir(), entityId);
+  private async createFileDirectory(
+    isPublic: boolean,
+    entityId: string
+  ): Promise<string> {
+    const dir = path.join(
+      !isPublic ? await this.getPrivateDir() : await this.getPublicDir(),
+      entityId
+    );
     await createDirectoriesIfNotExist(dir);
     return dir;
   }
@@ -247,13 +277,12 @@ export class FileService extends FileManager {
   }
 
   private async getPublicDir() {
-    const dir = process.cwd() + await this.cacheService.get(PUBLIC_DIR);
+    const dir = process.cwd() + (await this.cacheService.get(PUBLIC_DIR));
     return path.normalize(dir);
   }
 
   private async getPrivateDir() {
-    const dir = process.cwd() + await this.cacheService.get(PRIVATE_DIR);
+    const dir = process.cwd() + (await this.cacheService.get(PRIVATE_DIR));
     return path.normalize(dir);
   }
-
 }

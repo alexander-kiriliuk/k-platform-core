@@ -29,10 +29,8 @@ import Status = Process.Status;
 import Command = Process.Command;
 import hasProcessInstance = Process.hasProcessInstance;
 
-
 @Injectable()
 export class ProcessManagerService {
-
   private static pmInitStatus: boolean;
 
   constructor(
@@ -42,7 +40,8 @@ export class ProcessManagerService {
     @InjectRepository(ProcessUnitEntity)
     private readonly processUnitRep: Repository<ProcessUnitEntity>,
     @InjectRepository(ProcessLogEntity)
-    private readonly processLogRep: Repository<ProcessLogEntity>) {
+    private readonly processLogRep: Repository<ProcessLogEntity>,
+  ) {
   }
 
   async init() {
@@ -53,10 +52,14 @@ export class ProcessManagerService {
     await this.resetAllProcessStatuses();
     this.logger.log("Init process manager");
     ProcessManagerService.pmInitStatus = true;
-    const processList = await this.processUnitRep.find({ where: { enabled: true } });
+    const processList = await this.processUnitRep.find({
+      where: { enabled: true }
+    });
     for (const processData of processList) {
       if (!processData.cronTab?.length) {
-        this.logger.warn(`Process ${processData.code} hasn't cron-tab, skip job registration`);
+        this.logger.warn(
+          `Process ${processData.code} hasn't cron-tab, skip job registration`
+        );
         continue;
       }
       this.broker.emit(Command.Register, processData);
@@ -66,7 +69,9 @@ export class ProcessManagerService {
   async startProcess(code: string) {
     const processData = await this.getProcessData(code, true);
     if (!processData) {
-      throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
+      throw new InternalServerErrorException(
+        `Process ${code} hasn't options-data`
+      );
     }
     this.broker.emit(Command.Start, processData);
   }
@@ -74,7 +79,9 @@ export class ProcessManagerService {
   async stopProcess(code: string) {
     const processData = await this.getProcessData(code, true);
     if (!processData) {
-      throw new InternalServerErrorException(`Process ${code} hasn't options-data`);
+      throw new InternalServerErrorException(
+        `Process ${code} hasn't options-data`
+      );
     }
     this.broker.emit(Command.Stop, processData);
   }
@@ -106,7 +113,10 @@ export class ProcessManagerService {
 
   async createLogInstance(processCode: string) {
     const process = await this.getProcessData(processCode);
-    return this.processLogRep.save({ process, content: "" } as ProcessLogEntity);
+    return this.processLogRep.save({
+      process,
+      content: ""
+    } as ProcessLogEntity);
   }
 
   updateLogInstance(logInstance: ProcessLogEntity) {
@@ -119,7 +129,10 @@ export class ProcessManagerService {
   }
 
   getProcessLogById(id: number) {
-    return this.processLogRep.findOne({ where: { id }, relations: ["process"] });
+    return this.processLogRep.findOne({
+      where: { id },
+      relations: ["process"]
+    });
   }
 
   getLastLogsByProcess(processCode: string, limit = 3) {
@@ -131,10 +144,11 @@ export class ProcessManagerService {
   }
 
   private async resetAllProcessStatuses() {
-    const entities = await this.processUnitRep.find({ where: { enabled: true } });
+    const entities = await this.processUnitRep.find({
+      where: { enabled: true }
+    });
     for (const processData of entities) {
       await this.setProcessUnitStatus(processData.code, Status.Ready);
     }
   }
-
 }

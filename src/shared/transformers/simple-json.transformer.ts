@@ -29,5 +29,5 @@ export const SimpleJsonTransformer: ValueTransformer = {
   },
   to(value: object) {
     return value;
-  }
+  },
 };

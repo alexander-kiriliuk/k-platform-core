@@ -24,35 +24,31 @@ import { LogModule } from "../../shared/modules/log/log.module";
 
 @Module({})
 export class ExplorerModule implements OnModuleInit {
-
-  static forRoot(options: ExplorerModuleOptions = {
-    service: BasicExplorerService
-  }): DynamicModule {
+  static forRoot(
+    options: ExplorerModuleOptions = {
+      service: BasicExplorerService
+    }
+  ): DynamicModule {
     return {
       module: ExplorerModule,
       imports: [
-        TypeOrmModule.forFeature([
-          ExplorerTargetEntity,
-          ExplorerColumnEntity
-        ]),
+        TypeOrmModule.forFeature([ExplorerTargetEntity, ExplorerColumnEntity]),
         LogModule
       ],
       providers: [
         {
           provide: ExplorerService,
           useClass: options.service
-        }
+        },
       ],
       exports: [ExplorerService]
     };
   }
 
-  constructor(
-    private readonly service: ExplorerService) {
+  constructor(private readonly service: ExplorerService) {
   }
 
   async onModuleInit() {
     await this.service.analyzeDatabase();
   }
-
 }

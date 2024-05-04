@@ -22,7 +22,6 @@ import { SimpleJsonTransformer } from "../../../shared/transformers/simple-json.
 
 @Entity("explorer_actions")
 export class ExplorerActionEntity implements ExplorerAction {
-
   @PrimaryColumn("varchar")
   code: string;
 
@@ -43,12 +42,13 @@ export class ExplorerActionEntity implements ExplorerAction {
   })
   type: Explorer.Variation;
 
-  @Column("simple-json", { transformer: SimpleJsonTransformer, nullable: true, default: null })
+  @Column("simple-json", {
+    transformer: SimpleJsonTransformer,
+    nullable: true,
+    default: null
+  })
   params: object;
   @Index()
-
   @Column("int", { default: 0, unsigned: true })
   priority: number;
-
 }
-

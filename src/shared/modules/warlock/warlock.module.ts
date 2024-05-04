@@ -39,34 +39,40 @@ import { WarlockFn } from "./warlock.types";
             db: parseInt(process.env.REDIS_DB),
             username: process.env.REDIS_USER,
             password: process.env.REDIS_PASSWORD
-          }
+          },
         };
-      }
-    })
+      },
+    }),
   ],
   providers: [
     {
       provide: WARLOCK,
       inject: [REDIS_CLIENT],
-      useFactory: (client: Redis, lockLifeTime = 10000, lockKey = "lock"): WarlockFn => {
+      useFactory: (
+        client: Redis,
+        lockLifeTime = 10000,
+        lockKey = "lock"
+      ): WarlockFn => {
         const warlock = Warlock(client);
         return function(lockCode: string, caller: () => Promise<void>) {
-          warlock.lock(`${lockKey}:${lockCode}`, lockLifeTime, async (err, unlock) => {
-            if (err) {
-              return;
+          warlock.lock(
+            `${lockKey}:${lockCode}`,
+            lockLifeTime,
+            async (err, unlock) => {
+              if (err) {
+                return;
+              }
+              if (typeof unlock === "function") {
+                await caller();
+                unlock();
+              }
             }
-            if (typeof unlock === "function") {
-              await caller();
-              unlock();
-            }
-          });
+          );
         };
-      }
-    }
+      },
+    },
   ],
-  exports: [
-    WARLOCK
-  ]
+  exports: [WARLOCK]
 })
 export class WarlockModule {
 }

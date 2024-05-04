@@ -18,22 +18,18 @@ import { IsNotEmpty, IsString } from "class-validator";
 import { Type as Class } from "@nestjs/common/interfaces/type.interface";
 
 export abstract class CaptchaService<CaptchaBody = any> {
-
   abstract generateCaptcha(): Promise<CaptchaBody>;
 
   abstract validateCaptcha(request: CaptchaRequest): Promise<boolean>;
-
 }
 
 export class CaptchaRequest<T = any> {
-
   @IsString()
   @IsNotEmpty()
   id: string;
 
   @IsNotEmpty()
   data: T;
-
 }
 
 export type CaptchaResponse = {
@@ -41,8 +37,8 @@ export type CaptchaResponse = {
   image?: string;
   id?: string;
   enabled?: boolean;
-}
+};
 
 export type CaptchaModuleOptions = {
-  service: Class<CaptchaService>
-}
+  service: Class<CaptchaService>;
+};

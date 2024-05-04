@@ -5,7 +5,6 @@ import { MediaFormatEntity } from "./media-format.entity";
 
 @Entity("medias_files")
 export class MediaFileEntity implements MediaFile {
-
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 
@@ -26,10 +25,9 @@ export class MediaFileEntity implements MediaFile {
   @Column("int", { nullable: true })
   size: number;
 
-  @ManyToOne(() => MediaFormatEntity, type => type.code)
+  @ManyToOne(() => MediaFormatEntity, (type) => type.code)
   format: MediaFormatEntity;
 
   @ManyToOne(() => MediaEntity)
   media: MediaEntity;
-
 }

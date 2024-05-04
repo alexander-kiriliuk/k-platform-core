@@ -48,9 +48,8 @@ import * as path from "path";
 import * as heicConvert from "heic-convert";
 import imageminPngquant from "imagemin-pngquant";
 
-createCanvas(0, 0);   // crutch for canvas lib
+createCanvas(0, 0); // crutch for canvas lib
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
-
 
 /**
  * `MediaService` is a service responsible for managing media files, including
@@ -58,7 +57,6 @@ import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
  */
 @Injectable()
 export class MediaService extends MediaManager {
-
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
     @InjectRepository(MediaEntity)
@@ -70,7 +68,8 @@ export class MediaService extends MediaManager {
     @InjectRepository(MediaFileEntity)
     private readonly mediaFileRep: Repository<MediaFileEntity>,
     private readonly cacheService: CacheService,
-    private readonly metadataService: FileMd) {
+    private readonly metadataService: FileMd
+  ) {
     super();
   }
 
@@ -111,10 +110,12 @@ export class MediaService extends MediaManager {
   async remove(id: number): Promise<MediaEntity> {
     const media = await this.findMediaById(id);
     const dir = path.join(
-      media.type.private ? await this.getPrivateDir() : await this.getPublicDir(),
+      media.type.private
+        ? await this.getPrivateDir()
+        : await this.getPublicDir(),
       media.id.toString()
     );
-    await this.mediaRep.manager.transaction(async transactionManager => {
+    await this.mediaRep.manager.transaction(async (transactionManager) => {
       await transactionManager.remove(media.files);
       await transactionManager.remove(media);
       if (media.metadata) {
@@ -131,9 +132,14 @@ export class MediaService extends MediaManager {
           await transactionManager.remove(media.metadata.exif);
         }
       }
-      await fs.promises.rm(dir, { recursive: true, force: true }).catch(err => {
-        throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
-      });
+      await fs.promises
+        .rm(dir, { recursive: true, force: true })
+        .catch((err) => {
+          throw new InternalServerErrorException(
+            `Failed to delete directory: ${dir}`,
+            err
+          );
+        });
     });
     this.logger.log(`Media with ID ${id} removed`);
     return media;
@@ -152,7 +158,9 @@ export class MediaService extends MediaManager {
       throw new NotFoundException(`Media with ID ${id} not found`);
     }
     const dir = path.join(
-      media.type.private ? await this.getPrivateDir() : await this.getPublicDir(),
+      media.type.private
+        ? await this.getPrivateDir()
+        : await this.getPublicDir(),
       media.id.toString()
     );
     this.logger.log(`Try to recreate media with ID ${id}`);
@@ -160,12 +168,19 @@ export class MediaService extends MediaManager {
       if (file.format.code !== ReservedMediaFormat.ORIGINAL) {
         continue;
       }
-      const oldFilePath = path.normalize(`${dir}/${file.name}.${media.type.ext.code}`);
+      const oldFilePath = path.normalize(
+        `${dir}/${file.name}.${media.type.ext.code}`
+      );
       if (!fs.existsSync(oldFilePath)) {
         throw new BadRequestException(`Related file was not found`);
       }
       const oldFile = await fs.promises.readFile(oldFilePath);
-      const newMedia = await this.createOrUpdateMedia(oldFile, media.type.code, media.code, media.id);
+      const newMedia = await this.createOrUpdateMedia(
+        oldFile,
+        media.type.code,
+        media.code,
+        media.id
+      );
       this.logger.log(`Media with ID ${id} recreated`);
       return newMedia;
     }
@@ -187,12 +202,17 @@ export class MediaService extends MediaManager {
     type: string,
     code?: string,
     existedEntityId?: number,
-    name?: LocalizedString[]): Promise<MediaEntity> {
-    const fileMetadata = await this.metadataService.createFileMetadataEntity(file);
+    name?: LocalizedString[]
+  ): Promise<MediaEntity> {
+    const fileMetadata =
+      await this.metadataService.createFileMetadataEntity(file);
     const mediaType = await this.getMediaType(type);
-    if (fileMetadata.ext === "heic") {    // convert heic to target format
+    if (fileMetadata.ext === "heic") {
+      // convert heic to target format
       if (mediaType.ext.code !== "png" && mediaType.ext.code !== "jpg") {
-        throw new BadRequestException(`Can't convert input file to ${mediaType.ext.code}`);
+        throw new BadRequestException(
+          `Can't convert input file to ${mediaType.ext.code}`
+        );
       }
       file = await heicConvert({
         buffer: file,
@@ -200,33 +220,51 @@ export class MediaService extends MediaManager {
       });
     }
     let entity: MediaEntity = undefined;
-    await this.mediaRep.manager.transaction(async transactionManager => {
+    await this.mediaRep.manager.transaction(async (transactionManager) => {
       if (existedEntityId) {
         entity = await this.findMediaById(existedEntityId);
         if (!entity) {
-          throw new BadRequestException(`Cannot patch media with ID ${existedEntityId}, because that not exists`);
+          throw new BadRequestException(
+            `Cannot patch media with ID ${existedEntityId}, because that not exists`
+          );
         }
         const dir = path.join(
-          entity.type.private ? await this.getPrivateDir() : await this.getPublicDir(),
+          entity.type.private
+            ? await this.getPrivateDir()
+            : await this.getPublicDir(),
           entity.id.toString()
         );
-        await fs.promises.rm(dir, { recursive: true, force: true }).catch(err => {
-          throw new InternalServerErrorException(`Failed to delete directory: ${dir}`, err);
-        });
+        await fs.promises
+          .rm(dir, { recursive: true, force: true })
+          .catch((err) => {
+            throw new InternalServerErrorException(
+              `Failed to delete directory: ${dir}`,
+              err
+            );
+          });
       } else {
         entity = await this.createMediaEntity(mediaType, fileMetadata);
       }
       entity.name = name as LocalizedStringEntity[];
       entity.code = code;
-      const outputPath = await this.createMediaDirectory(mediaType, entity.id.toString());
+      const outputPath = await this.createMediaDirectory(
+        mediaType,
+        entity.id.toString()
+      );
       const formatsToProcess = await this.getFormatsToProcess(mediaType);
       entity.files = await this.processFormats(
-        file, formatsToProcess, mediaType, entity, outputPath
+        file,
+        formatsToProcess,
+        mediaType,
+        entity,
+        outputPath
       );
       await transactionManager.save(entity);
     });
-    this.logger.log(`${!existedEntityId ? `Created` : `Updated`} media with ID ${entity.id}`);
-    entity.files.forEach(f => delete f.media);  // remove inverse side ref
+    this.logger.log(
+      `${!existedEntityId ? `Created` : `Updated`} media with ID ${entity.id}`
+    );
+    entity.files.forEach((f) => delete f.media); // remove inverse side ref
     return entity;
   }
 
@@ -237,9 +275,13 @@ export class MediaService extends MediaManager {
    * @param webpSupport - A boolean indicating whether the client supports WebP format (default is false).
    * @returns The full path to the media file including the file extension.
    */
-  async getMediaPath(media: Media, format = ReservedMediaFormat.ORIGINAL, webpSupport = false) {
+  async getMediaPath(
+    media: Media,
+    format = ReservedMediaFormat.ORIGINAL,
+    webpSupport = false
+  ) {
     let mediaPath = `${media.type.private ? await this.getPrivateDir() : await this.getPublicDir()}/${media.id}/`;
-    const file = media.files.find(v => v.format.code === format);
+    const file = media.files.find((v) => v.format.code === format);
     mediaPath += file.name;
     if (webpSupport && media.type.vp6) {
       mediaPath += ".webp";
@@ -256,9 +298,11 @@ export class MediaService extends MediaManager {
    * @returns The found media entity.
    * @throws NotFoundException if the media entity is not found.
    */
-  async findMediaById(id: number, privateMedia: boolean = undefined): Promise<MediaEntity> {
-    const qb = this.createBasicFindQb()
-      .where("media.id = :id", { id });
+  async findMediaById(
+    id: number,
+    privateMedia: boolean = undefined
+  ): Promise<MediaEntity> {
+    const qb = this.createBasicFindQb().where("media.id = :id", { id });
     if (privateMedia !== undefined) {
       qb.andWhere(`type.private = ${privateMedia}`);
     }
@@ -292,7 +336,10 @@ export class MediaService extends MediaManager {
    * @param metadata - The metadata of media file.
    * @returns The created MediaEntity instance.
    */
-  private async createMediaEntity(mediaType: MediaTypeEntity, metadata?: FileMetadataEntity): Promise<MediaEntity> {
+  private async createMediaEntity(
+    mediaType: MediaTypeEntity,
+    metadata?: FileMetadataEntity
+  ): Promise<MediaEntity> {
     const entity = new MediaEntity();
     entity.name = [];
     entity.type = mediaType;
@@ -306,8 +353,16 @@ export class MediaService extends MediaManager {
    * @param mediaEntityId - The media entity ID.
    * @returns The path to the created media directory.
    */
-  private async createMediaDirectory(mediaType: MediaTypeEntity, mediaEntityId: string): Promise<string> {
-    const dir = path.join(mediaType.private ? await this.getPrivateDir() : await this.getPublicDir(), mediaEntityId);
+  private async createMediaDirectory(
+    mediaType: MediaTypeEntity,
+    mediaEntityId: string
+  ): Promise<string> {
+    const dir = path.join(
+      mediaType.private
+        ? await this.getPrivateDir()
+        : await this.getPublicDir(),
+      mediaEntityId
+    );
     await createDirectoriesIfNotExist(dir);
     return dir;
   }
@@ -317,9 +372,13 @@ export class MediaService extends MediaManager {
    * @param mediaType - The MediaTypeEntity instance.
    * @returns An array of MediaFormatEntity instances to be processed.
    */
-  private async getFormatsToProcess(mediaType: MediaTypeEntity): Promise<MediaFormatEntity[]> {
+  private async getFormatsToProcess(
+    mediaType: MediaTypeEntity
+  ): Promise<MediaFormatEntity[]> {
     mediaType.formats = mediaType.formats.filter(
-      f => f.code !== ReservedMediaFormat.ORIGINAL && f.code !== ReservedMediaFormat.THUMB
+      (f) =>
+        f.code !== ReservedMediaFormat.ORIGINAL &&
+        f.code !== ReservedMediaFormat.THUMB
     );
     const thumbFormat = await this.getThumbFormat();
     const originalFormat = await this.getOriginalFormat();
@@ -348,20 +407,40 @@ export class MediaService extends MediaManager {
     const processingPromises = formats.map(async (format) => {
       const quality = mediaType.quality || DEFAULT_MEDIA_QUALITY;
       let imgBuffer = file;
-      if (format.code !== ReservedMediaFormat.ORIGINAL && mediaType.ext.code !== ReservedMediaExt.SVG) {
+      if (
+        format.code !== ReservedMediaFormat.ORIGINAL &&
+        mediaType.ext.code !== ReservedMediaExt.SVG
+      ) {
         imgBuffer = await this.resizeImage(file, format);
-        imgBuffer = await this.optimizeImage(imgBuffer, mediaType.ext.code, quality);
+        imgBuffer = await this.optimizeImage(
+          imgBuffer,
+          mediaType.ext.code,
+          quality
+        );
       }
       const fileName = `${NumberUtils.generateRandomInt()}-${format.code}`;
       const resizedImagePath = `${outputPath}/${fileName}.${mediaType.ext.code}`;
       await fs.promises.writeFile(resizedImagePath, imgBuffer);
-      const resizedMediaFile = await this.createMediaFileEntity(imgBuffer, format, mediaEntity, fileName);
+      const resizedMediaFile = await this.createMediaFileEntity(
+        imgBuffer,
+        format,
+        mediaEntity,
+        fileName
+      );
       if (mediaType.vp6) {
         const webpImage = await sharp(imgBuffer).webp({ quality }).toBuffer();
         const webpImagePath = `${outputPath}/${fileName}.webp`;
         await fs.promises.writeFile(webpImagePath, webpImage);
-        const webpMediaFile = await this.createMediaFileEntity(webpImage, format, mediaEntity, fileName);
-        return [await this.mediaFileRep.save(resizedMediaFile), await this.mediaFileRep.save(webpMediaFile)];
+        const webpMediaFile = await this.createMediaFileEntity(
+          webpImage,
+          format,
+          mediaEntity,
+          fileName
+        );
+        return [
+          await this.mediaFileRep.save(resizedMediaFile),
+          await this.mediaFileRep.save(webpMediaFile)
+        ];
       } else {
         return [await this.mediaFileRep.save(resizedMediaFile)];
       }
@@ -377,12 +456,18 @@ export class MediaService extends MediaManager {
    * @param quality - The image quality.
    * @returns The optimized image buffer.
    */
-  private async optimizeImage(buffer: Buffer, fileExt: string, quality: number) {
+  private async optimizeImage(
+    buffer: Buffer,
+    fileExt: string,
+    quality: number
+  ) {
     try {
       switch (fileExt) {
         case "png":
           return await imagemin.buffer(buffer, {
-            plugins: [imageminPngquant({ quality: this.getPngQualityRange(quality) })]
+            plugins: [
+              imageminPngquant({ quality: this.getPngQualityRange(quality) })
+            ]
           });
         case "jpg":
         case "jpeg":
@@ -413,7 +498,10 @@ export class MediaService extends MediaManager {
    * @param format - The MediaFormatEntity instance.
    * @returns The resized image buffer.
    */
-  private async resizeImage(buffer: Buffer, format: MediaFormatEntity): Promise<Buffer> {
+  private async resizeImage(
+    buffer: Buffer,
+    format: MediaFormatEntity
+  ): Promise<Buffer> {
     const originalMetadata = await sharp(buffer).metadata();
     const originalWidth = originalMetadata.width;
     const originalHeight = originalMetadata.height;
@@ -439,9 +527,7 @@ export class MediaService extends MediaManager {
       targetWidth = Math.round(originalWidth * minRatio);
       targetHeight = Math.round(originalHeight * minRatio);
     }
-    return await sharp(buffer)
-      .resize(targetWidth, targetHeight)
-      .toBuffer();
+    return await sharp(buffer).resize(targetWidth, targetHeight).toBuffer();
   }
 
   /**
@@ -474,7 +560,8 @@ export class MediaService extends MediaManager {
    * @returns The created query builder.
    */
   private createBasicFindQb() {
-    return this.mediaRep.createQueryBuilder("media")
+    return this.mediaRep
+      .createQueryBuilder("media")
       .leftJoinAndSelect("media.type", "type")
       .leftJoinAndSelect("media.metadata", "metadata")
       .leftJoinAndSelect("metadata.image", "metaImage")
@@ -490,21 +577,26 @@ export class MediaService extends MediaManager {
   }
 
   private async getPublicDir() {
-    const dir = process.cwd() + await this.cacheService.get(MediaConfig.PUBLIC_DIR);
+    const dir =
+      process.cwd() + (await this.cacheService.get(MediaConfig.PUBLIC_DIR));
     return path.normalize(dir);
   }
 
   private async getPrivateDir() {
-    const dir = process.cwd() + await this.cacheService.get(MediaConfig.PRIVATE_DIR);
+    const dir =
+      process.cwd() + (await this.cacheService.get(MediaConfig.PRIVATE_DIR));
     return path.normalize(dir);
   }
 
   private async getOriginalFormat() {
-    return await this.mediaFormatRep.findOne({ where: { code: ReservedMediaFormat.ORIGINAL } });
+    return await this.mediaFormatRep.findOne({
+      where: { code: ReservedMediaFormat.ORIGINAL }
+    });
   }
 
   private async getThumbFormat() {
-    return await this.mediaFormatRep.findOne({ where: { code: ReservedMediaFormat.THUMB } });
+    return await this.mediaFormatRep.findOne({
+      where: { code: ReservedMediaFormat.THUMB }
+    });
   }
-
 }

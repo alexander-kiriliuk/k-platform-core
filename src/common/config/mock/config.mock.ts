@@ -19,41 +19,52 @@ import { MockStorage } from "../../../shared/modules/mock/mock.storage";
 import { CONFIG_CACHE_PREFIX } from "../config.constants";
 
 export namespace ConfigMock {
-
-  export const testSetProp: ConfigItem = { key: "test_set_k", value: "test_val" };
+  export const testSetProp: ConfigItem = {
+    key: "test_set_k",
+    value: "test_val"
+  };
   export const testExistedProp = "val_1";
 
   export const Storage = new MockStorage([
     {
-      key: `${CONFIG_CACHE_PREFIX}:${testExistedProp}`, data: testExistedProp
+      key: `${CONFIG_CACHE_PREFIX}:${testExistedProp}`,
+      data: testExistedProp
     },
     {
-      key: `${CONFIG_CACHE_PREFIX}:val_2`, data: "val_2"
+      key: `${CONFIG_CACHE_PREFIX}:val_2`,
+      data: "val_2"
     },
     {
-      key: `${CONFIG_CACHE_PREFIX}:val_3`, data: "val_3"
+      key: `${CONFIG_CACHE_PREFIX}:val_3`,
+      data: "val_3"
     },
     {
-      key: `${CONFIG_CACHE_PREFIX}:val_4`, data: "val_4"
+      key: `${CONFIG_CACHE_PREFIX}:val_4`,
+      data: "val_4"
     },
     {
-      key: `${CONFIG_CACHE_PREFIX}:val_5`, data: "val_5"
+      key: `${CONFIG_CACHE_PREFIX}:val_5`,
+      data: "val_5"
     },
     {
-      key: `${CONFIG_CACHE_PREFIX}:val_6`, data: "val_6"
+      key: `${CONFIG_CACHE_PREFIX}:val_6`,
+      data: "val_6"
     },
     {
-      key: `${CONFIG_CACHE_PREFIX}:val_7`, data: "val_7"
+      key: `${CONFIG_CACHE_PREFIX}:val_7`,
+      data: "val_7"
     },
     {
-      key: `${CONFIG_CACHE_PREFIX}:val_8`, data: "val_8"
+      key: `${CONFIG_CACHE_PREFIX}:val_8`,
+      data: "val_8"
     },
     {
-      key: `${CONFIG_CACHE_PREFIX}:val_9`, data: "val_9"
+      key: `${CONFIG_CACHE_PREFIX}:val_9`,
+      data: "val_9"
     },
     {
-      key: `${CONFIG_CACHE_PREFIX}:val_10`, data: "val_10"
-    }
+      key: `${CONFIG_CACHE_PREFIX}:val_10`,
+      data: "val_10"
+    },
   ]);
-
 }

@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 
-
 import { BadRequestException, ForbiddenException } from "@nestjs/common";
 import { GraphicCaptchaService } from "./graphic-captcha.service";
 import { MockCacheService } from "../../shared/modules/cache/mock/mock-cache.service";
@@ -22,7 +21,6 @@ import { CaptchaMock } from "./mock/captcha.mock";
 import { LoggerMock } from "../../shared/modules/mock/logger.mock";
 
 describe("GraphicCaptchaService", () => {
-
   let captchaService: GraphicCaptchaService;
   let cacheService: MockCacheService;
 
@@ -41,20 +39,22 @@ describe("GraphicCaptchaService", () => {
   });
 
   it("failed validate captcha with wrong id", async () => {
-    await expect(captchaService.validateCaptcha(CaptchaMock.captchaRequestWithInvalidId))
-      .rejects.toThrow(BadRequestException);
+    await expect(
+      captchaService.validateCaptcha(CaptchaMock.captchaRequestWithInvalidId)
+    ).rejects.toThrow(BadRequestException);
   });
 
   it("failed validate captcha with wrong data value", async () => {
-    await expect(captchaService.validateCaptcha(CaptchaMock.captchaRequestWithInvalidData))
-      .rejects.toThrow(ForbiddenException);
+    await expect(
+      captchaService.validateCaptcha(CaptchaMock.captchaRequestWithInvalidData)
+    ).rejects.toThrow(ForbiddenException);
   });
 
   it("success validate captcha", async () => {
-    const res = await captchaService.validateCaptcha(CaptchaMock.validCaptchaRequest);
+    const res = await captchaService.validateCaptcha(
+      CaptchaMock.validCaptchaRequest
+    );
     expect(res).toBeDefined();
     expect(res).toBe(true);
   });
-
 });
-

@@ -27,14 +27,10 @@ import { LocaleService } from "./locale.service";
       LanguageEntity,
       LocalizedStringEntity,
       LocalizedMediaEntity
-    ])
+    ]),
   ],
-  providers: [
-    LocaleService
-  ],
-  exports: [
-    LocaleService
-  ]
+  providers: [LocaleService],
+  exports: [LocaleService]
 })
 export class LocaleModule {
 }

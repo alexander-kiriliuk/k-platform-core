@@ -7,10 +7,8 @@ import { ExifFileMetadataEntity } from "./exif-file-metadata.entity";
 import { VideoFileMetadataEntity } from "./video-file-metadata.entity";
 import { AudioFileMetadataEntity } from "./audio-file-metadata.entity";
 
-
 @Entity("file_metadata")
 export class FileMetadataEntity implements FileMetadata {
-
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 
@@ -64,5 +62,4 @@ export class FileMetadataEntity implements FileMetadata {
   })
   @JoinColumn()
   video: VideoFileMetadataEntity;
-
 }

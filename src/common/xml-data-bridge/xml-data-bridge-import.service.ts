@@ -45,7 +45,6 @@ import generateRandomInt = NumberUtils.generateRandomInt;
  */
 @Injectable()
 export class XmlDataBridgeImportService extends XdbImportService {
-
   constructor(
     @InjectDataSource()
     private readonly dataSource: DataSource,
@@ -53,7 +52,8 @@ export class XmlDataBridgeImportService extends XdbImportService {
     private readonly mediaService: MediaManager,
     private readonly filesService: FileManager,
     private readonly cacheService: CacheService,
-    private readonly explorerService: ExplorerService) {
+    private readonly explorerService: ExplorerService
+  ) {
     super();
   }
 
@@ -93,7 +93,6 @@ export class XmlDataBridgeImportService extends XdbImportService {
     return true;
   }
 
-
   /**
    * Import XML data from Zip-archive.
    * @param fileData - The XdbObject containing the XML data.
@@ -101,7 +100,8 @@ export class XmlDataBridgeImportService extends XdbImportService {
    */
   async importFromFile(fileData: Buffer) {
     // write archive
-    const tmpDir = process.cwd() + await this.cacheService.get(KpConfig.TMP_DIR);
+    const tmpDir =
+      process.cwd() + (await this.cacheService.get(KpConfig.TMP_DIR));
     await createDirectoriesIfNotExist(tmpDir);
     const fileName = generateRandomInt();
     const filePath = `${tmpDir}/${fileName}.zip`;
@@ -112,13 +112,15 @@ export class XmlDataBridgeImportService extends XdbImportService {
     await createDirectoriesIfNotExist(operationDir);
     arch.extractAllTo(operationDir, true);
     const fileList = await readDirectoryRecursively(operationDir);
-    const xmlFiles: string [] = [];
+    const xmlFiles: string[] = [];
     for (const dir of Object.keys(fileList)) {
       if (!fileList[dir]?.length) {
         continue;
       }
       for (const file of fileList[dir].sort()) {
-        const extractedFilePath = path.normalize(`${operationDir}/${dir}/${file}`);
+        const extractedFilePath = path.normalize(
+          `${operationDir}/${dir}/${file}`
+        );
         if (!extractedFilePath.endsWith(".xml")) {
           continue;
         }
@@ -150,12 +152,18 @@ export class XmlDataBridgeImportService extends XdbImportService {
       const buf = await readFile(path.normalize(filePath));
       const isPublic = String(row.public) === "true";
       const file = await this.filesService.createOrUpdateFile(
-        buf, row.file.split(".").pop(), isPublic, row.code, existedEntity?.id, row.name
+        buf,
+        row.file.split(".").pop(),
+        isPublic,
+        row.code,
+        existedEntity?.id,
+        row.name
       );
-      this.logger.log(`${existedEntity ? `Update` : `Create`} file with ID ${file.id}`);
+      this.logger.log(
+        `${existedEntity ? `Update` : `Create`} file with ID ${file.id}`
+      );
     }
   }
-
 
   /**
    * Process "query" nodes by execute SQL queries.
@@ -196,9 +204,15 @@ export class XmlDataBridgeImportService extends XdbImportService {
       const filePath = process.cwd() + row.file;
       const buf = await readFile(path.normalize(filePath));
       const media = await this.mediaService.createOrUpdateMedia(
-        buf, row.type, row.code, existedEntity?.id, localizedStrings
+        buf,
+        row.type,
+        row.code,
+        existedEntity?.id,
+        localizedStrings
       );
-      this.logger.log(`${existedEntity ? `Update` : `Create`} media with ID ${media.id}`);
+      this.logger.log(
+        `${existedEntity ? `Update` : `Create`} media with ID ${media.id}`
+      );
     }
   }
 
@@ -212,7 +226,9 @@ export class XmlDataBridgeImportService extends XdbImportService {
     for (const rowData of item.rows) {
       const whereConditions = this.getRowDataWhereConditions(rowData);
       if (Object.keys(whereConditions).length > 0) {
-        const entityToRemove = await repository.findOne({ where: whereConditions });
+        const entityToRemove = await repository.findOne({
+          where: whereConditions
+        });
         if (entityToRemove) {
           await repository.remove(entityToRemove);
           this.logRemovedEntity(repository, whereConditions);
@@ -251,7 +267,10 @@ export class XmlDataBridgeImportService extends XdbImportService {
    * @param repository - A TypeORM Repository instance for the entity.
    * @param whereConditions - An object containing WHERE conditions.
    */
-  private logRemovedEntity(repository: Repository<any>, whereConditions: object) {
+  private logRemovedEntity(
+    repository: Repository<any>,
+    whereConditions: object
+  ) {
     const metadata = repository.metadata;
     const keyValuePairs = Object.entries(whereConditions)
       .map(([key, value]) => `${key}=${value}`)
@@ -275,14 +294,23 @@ export class XmlDataBridgeImportService extends XdbImportService {
       let entity;
       if (existingEntity) {
         if (this.hasPushMode(item)) {
-          const target = await this.explorerService.getTargetData(existingEntity.constructor.name);
+          const target = await this.explorerService.getTargetData(
+            existingEntity.constructor.name
+          );
           entity = await this.explorerService.getEntityData(
-            target.entity.target, existingEntity[target.primaryColumn.property], undefined, { fullRelations: true }
+            target.entity.target,
+            existingEntity[target.primaryColumn.property],
+            undefined,
+            { fullRelations: true }
           );
         } else {
           entity = existingEntity;
         }
-        entity = await this.updateEntityFromRowData(entity, repository, rowData);
+        entity = await this.updateEntityFromRowData(
+          entity,
+          repository,
+          rowData
+        );
       } else {
         entity = await this.createEntityFromRowData(repository, rowData);
       }
@@ -298,7 +326,11 @@ export class XmlDataBridgeImportService extends XdbImportService {
   private hasPushMode(item: XdbAction) {
     for (const row of item.rows) {
       for (const key in row) {
-        if (typeof row[key] === "object" && row[key]?.hasOwnProperty("attrs") && row[key]["attrs"]["mode"] === "push") {
+        if (
+          typeof row[key] === "object" &&
+          row[key]?.hasOwnProperty("attrs") &&
+          row[key]["attrs"]["mode"] === "push"
+        ) {
           return true;
         }
       }
@@ -313,13 +345,22 @@ export class XmlDataBridgeImportService extends XdbImportService {
    @param uniqueKeyFields - An object containing unique key fields.
    @param existingEntity - An existing entity, if any.
    */
-  private logSavedEntity(repository: Repository<any>, entity: any, uniqueKeyFields: object, existingEntity: any) {
+  private logSavedEntity(
+    repository: Repository<any>,
+    entity: any,
+    uniqueKeyFields: object,
+    existingEntity: any
+  ) {
     const metadata = repository.metadata;
     const primaryKey = metadata.primaryColumns[0].propertyName;
     const keys = [primaryKey, ...Object.keys(uniqueKeyFields)];
     const values = [entity[primaryKey], ...Object.values(uniqueKeyFields)];
-    const keyValuePairs = keys.map((key, index) => `${key}=${values[index]}`).join("; ");
-    this.logger.log(`${existingEntity ? `Update` : `Create`} [${metadata.targetName}] with ${keyValuePairs}`);
+    const keyValuePairs = keys
+      .map((key, index) => `${key}=${values[index]}`)
+      .join("; ");
+    this.logger.log(
+      `${existingEntity ? `Update` : `Create`} [${metadata.targetName}] with ${keyValuePairs}`
+    );
   }
 
   /**
@@ -328,15 +369,22 @@ export class XmlDataBridgeImportService extends XdbImportService {
    @param rowData - An object containing row data.
    @returns An object containing unique key fields.
    */
-  private getUniqueKeyFields(repository: Repository<any>, rowData: { [key: string]: any }): object {
+  private getUniqueKeyFields(
+    repository: Repository<any>,
+    rowData: { [key: string]: any }
+  ): object {
     const entityMetadata = repository.metadata;
-    const uniqueColumns = entityMetadata.columns.filter(column => {
+    const uniqueColumns = entityMetadata.columns.filter((column) => {
       if (this.isColumnUnique(entityMetadata, column)) {
         return true;
       }
-      const uniqIndices = repository.metadata.indices.filter(idc => idc.isUnique);
+      const uniqIndices = repository.metadata.indices.filter(
+        (idc) => idc.isUnique
+      );
       for (const idc of uniqIndices) {
-        const result = idc?.columns?.find(col => col.propertyName === column.propertyName);
+        const result = idc?.columns?.find(
+          (col) => col.propertyName === column.propertyName
+        );
         if (result) {
           return true;
         }
@@ -347,7 +395,8 @@ export class XmlDataBridgeImportService extends XdbImportService {
     for (const uniqueColumn of uniqueColumns) {
       const propertyName = uniqueColumn.propertyName;
       if (rowData[propertyName]) {
-        uniqueKeyFields[propertyName] = rowData[propertyName].value || rowData[propertyName];
+        uniqueKeyFields[propertyName] =
+          rowData[propertyName].value || rowData[propertyName];
       }
     }
     return uniqueKeyFields;
@@ -363,16 +412,19 @@ export class XmlDataBridgeImportService extends XdbImportService {
   private async setEntityPropertiesFromRowData(
     entity: any,
     repository: Repository<any>,
-    rowData: { [key: string]: any }) {
+    rowData: { [key: string]: any }
+  ) {
     for (const key in rowData) {
       const relation = repository.metadata.findRelationWithPropertyPath(key);
       if (relation && rowData[key].attrs) {
         if (rowData[key].value) {
-          const relatedRepository = this.connection.getRepository(relation.type);
+          const relatedRepository = this.connection.getRepository(
+            relation.type
+          );
           entity[key] = await relatedRepository.findOne({
             where: {
               [rowData[key].attrs.key]: rowData[key].value
-            }
+            },
           });
         } else if (rowData[key].values && rowData[key].attrs) {
           const relatedRepository = this.connection.getRepository(
@@ -382,7 +434,7 @@ export class XmlDataBridgeImportService extends XdbImportService {
           entity[key] = await relatedRepository.find({
             where: {
               [rowData[key].attrs.key]: In(rowData[key].values)
-            }
+            },
           });
           if (rowData[key].attrs?.mode === "push" && existedVal?.length) {
             entity[key] = entity[key].concat(existedVal);
@@ -420,8 +472,13 @@ export class XmlDataBridgeImportService extends XdbImportService {
   private async updateEntityFromRowData(
     existingEntity: any,
     repository: Repository<any>,
-    rowData: { [key: string]: any }) {
-    return this.setEntityPropertiesFromRowData(existingEntity, repository, rowData);
+    rowData: { [key: string]: any }
+  ) {
+    return this.setEntityPropertiesFromRowData(
+      existingEntity,
+      repository,
+      rowData
+    );
   }
 
   /**
@@ -432,7 +489,8 @@ export class XmlDataBridgeImportService extends XdbImportService {
    */
   private async createEntityFromRowData(
     repository: Repository<any>,
-    rowData: { [key: string]: any }) {
+    rowData: { [key: string]: any }
+  ) {
     const entity = repository.create();
     return this.setEntityPropertiesFromRowData(entity, repository, rowData);
   }
@@ -445,7 +503,10 @@ export class XmlDataBridgeImportService extends XdbImportService {
    */
   private isColumnUnique(metadata: EntityMetadata, column: ColumnMetadata) {
     for (const uniq of metadata.uniques) {
-      if (uniq.columns.find(col => col.propertyName === column.propertyName) !== undefined) {
+      if (
+        uniq.columns.find((col) => col.propertyName === column.propertyName) !==
+        undefined
+      ) {
         return true;
       }
     }
@@ -457,7 +518,9 @@ export class XmlDataBridgeImportService extends XdbImportService {
    @param row - A xml-row object containing the name property.
    @returns A promise that resolves to an array of LocalizedStringEntity objects.
    */
-  private async getLocalizedStrings(row: { name: any }): Promise<LocalizedStringEntity[]> {
+  private async getLocalizedStrings(row: {
+    name: any;
+  }): Promise<LocalizedStringEntity[]> {
     const localizedStrings: LocalizedStringEntity[] = [];
     if (row.name) {
       const rep = this.connection.getRepository(LocalizedStringEntity);
@@ -502,5 +565,4 @@ export class XmlDataBridgeImportService extends XdbImportService {
     }
     return undefined;
   }
-
 }

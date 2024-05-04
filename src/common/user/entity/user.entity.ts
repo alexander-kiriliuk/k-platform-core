@@ -30,13 +30,14 @@ import { User } from "../user.types";
 import { MediaEntity } from "../../media/entity/media.entity";
 
 @Entity("users")
-@TableInheritance({ column: { type: "varchar", name: "class", nullable: true } })
+@TableInheritance({
+  column: { type: "varchar", name: "class", nullable: true }
+})
 export class UserEntity implements User {
-
   @PrimaryGeneratedColumn()
   id: string;
 
-  @ManyToOne(() => MediaEntity, t => t.code)
+  @ManyToOne(() => MediaEntity, (t) => t.code)
   avatar: MediaEntity;
 
   @Column("varchar", { nullable: false })
@@ -72,5 +73,4 @@ export class UserEntity implements User {
   @Index()
   @CreateDateColumn({ name: "ts_created", type: "timestamp" })
   tsCreated: Date;
-
 }

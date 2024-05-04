@@ -6,7 +6,6 @@ import inspect = ObjectUtils.inspect;
  * Log service that extends the built-in Nest Logger.
  */
 export class LogService extends Logger {
-
   log<T = any>(message: string, data: T) {
     const ctx = this.getCallingContext();
     super.log(this.prepareMessage(message, data), ctx.methodName);
@@ -32,7 +31,11 @@ export class LogService extends Logger {
     super.debug(this.prepareMessage(message, data), this.patchFromCtx(ctx));
   }
 
-  private patchFromCtx(ctx: { filePath: string; methodName: string; lineNumber: string }) {
+  private patchFromCtx(ctx: {
+    filePath: string;
+    methodName: string;
+    lineNumber: string;
+  }) {
     let p = `${ctx?.filePath}:${ctx?.lineNumber} > ${ctx?.methodName}`;
     if (p === "undefined:undefined > undefined") {
       p = "unknown";
@@ -42,7 +45,10 @@ export class LogService extends Logger {
 
   private prepareMessage<T = any>(message: string, data?: T) {
     let m = inspect(message);
-    if ((m.startsWith(`'`) && m.endsWith(`'`)) || m.startsWith(`"`) && m.endsWith(`"`)) {
+    if (
+      (m.startsWith(`'`) && m.endsWith(`'`)) ||
+      (m.startsWith(`"`) && m.endsWith(`"`))
+    ) {
       m = m.substring(1, m.length - 1);
     }
     if (data) {
@@ -72,5 +78,4 @@ export class LogService extends Logger {
       lineNumber: "Unknown line"
     };
   }
-
 }

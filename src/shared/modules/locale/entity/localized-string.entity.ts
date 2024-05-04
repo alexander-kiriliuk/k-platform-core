@@ -20,7 +20,6 @@ import { LanguageEntity } from "./language.entity";
 
 @Entity("localized_strings")
 export class LocalizedStringEntity implements LocalizedString {
-
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 
@@ -28,10 +27,9 @@ export class LocalizedStringEntity implements LocalizedString {
   @Column("varchar", { nullable: true })
   code: string;
 
-  @ManyToOne(() => LanguageEntity, t => t.id)
+  @ManyToOne(() => LanguageEntity, (t) => t.id)
   lang: LanguageEntity;
 
   @Column("text", { nullable: false })
   value: string;
-
 }

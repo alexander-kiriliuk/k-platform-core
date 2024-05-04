@@ -27,25 +27,23 @@ import { Parser } from "yargs-parser";
 import { ObjectLiteral } from "typeorm";
 
 export abstract class XdbImportService {
-
   abstract importXml(xml: XdbObject): Promise<boolean>;
 
   abstract importFromFile(fileData: Buffer): Promise<boolean>;
-
 }
 
 export abstract class XdbExportService {
-
   abstract exportXml(params: XdbExportParams): Promise<XdbExportDto>;
-
 }
 
 export namespace Xdb {
-
   export const rootToken = "@root";
 
   let parser: Parser & {
-    parseString: (xmlData: string | Buffer, callback: (err: Error | null, result: unknown) => void) => void
+    parseString: (
+      xmlData: string | Buffer,
+      callback: (err: Error | null, result: unknown) => void
+    ) => void;
   };
 
   export const ReadOperatorRe = /\$\{@read:([^}]*)}/;
@@ -89,7 +87,7 @@ export namespace Xdb {
               value: item._
             };
             if (item.$.key && item.$$) {
-              rowObj[itemName].values = item.$$.map(r => r._);
+              rowObj[itemName].values = item.$$.map((r) => r._);
             }
           } else {
             rowObj[itemName] = item._;
@@ -115,7 +113,9 @@ export namespace Xdb {
     });
   }
 
-  export function removeDuplicateObjects(array: XdbDecomposedEntity[]): XdbDecomposedEntity[] {
+  export function removeDuplicateObjects(
+    array: XdbDecomposedEntity[]
+  ): XdbDecomposedEntity[] {
     const uniqueObjects: XdbDecomposedEntity[] = [];
     array.reverse().forEach((obj) => {
       if (!uniqueObjects.some((uniqueObj) => deepEqual(uniqueObj, obj))) {
@@ -129,7 +129,12 @@ export namespace Xdb {
     if (obj1 === obj2) {
       return true;
     }
-    if (typeof obj1 !== "object" || typeof obj2 !== "object" || obj1 === null || obj2 === null) {
+    if (
+      typeof obj1 !== "object" ||
+      typeof obj2 !== "object" ||
+      obj1 === null ||
+      obj2 === null
+    ) {
       return false;
     }
     const keys1 = Object.keys(obj1);
@@ -144,5 +149,4 @@ export namespace Xdb {
     }
     return true;
   }
-
 }

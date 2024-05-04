@@ -22,7 +22,6 @@ import { ExplorerTargetEntity } from "./explorer-target.entity";
 
 @Entity("explorer_tabs")
 export class ExplorerTabEntity implements ExplorerTab {
-
   @Index({ unique: true })
   @PrimaryColumn("varchar")
   id: string;
@@ -35,11 +34,13 @@ export class ExplorerTabEntity implements ExplorerTab {
   @Column("int", { default: 0, unsigned: true })
   priority: number;
 
-  @Column("simple-json", { transformer: SimpleJsonTransformer, nullable: true, default: null })
+  @Column("simple-json", {
+    transformer: SimpleJsonTransformer,
+    nullable: true,
+    default: null
+  })
   size: object;
 
-  @ManyToOne(() => ExplorerTargetEntity, t => t.target)
+  @ManyToOne(() => ExplorerTargetEntity, (t) => t.target)
   target: ExplorerTargetEntity;
-
 }
-

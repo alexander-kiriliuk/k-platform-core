@@ -26,14 +26,13 @@ import { CacheService } from "../modules/cache/cache.types";
  */
 @Injectable()
 export class LiteAuthGuard extends AbstractAuthGuard {
-
   protected fetchUser = false;
 
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
     protected readonly userService: UserService,
-    protected readonly cacheService: CacheService) {
+    protected readonly cacheService: CacheService
+  ) {
     super();
   }
-
 }

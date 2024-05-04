@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 
-
 import { AuthorizationService } from "./authorization.service";
 import { AuthMock } from "./mock/auth.mock";
 import { bruteForceIPKey } from "./auth.constants";
@@ -27,7 +26,6 @@ import { UserEntity } from "../user/entity/user.entity";
 import { LoggerMock } from "../../shared/modules/mock/logger.mock";
 
 describe("AuthService", () => {
-
   let authService: AuthorizationService;
   let cacheService: MockCacheService;
   let userService: BasicUserService;
@@ -44,44 +42,57 @@ describe("AuthService", () => {
             remove: jest.fn(),
             save: jest.fn(),
             create: jest.fn()
-          }
-        }
-      ]
+          },
+        },
+      ],
     }).compile();
     userService = module.get<BasicUserService>(BasicUserService);
     cacheService = new MockCacheService(AuthMock.Storage);
-    authService = new AuthorizationService(LoggerMock, userService, cacheService, AuthMock.jwtService);
+    authService = new AuthorizationService(
+      LoggerMock,
+      userService,
+      cacheService,
+      AuthMock.jwtService
+    );
   });
 
   describe("authenticate", () => {
-
     it("throw error if user is blocked by login", async () => {
-      await expect(authService.authenticate(AuthMock.blockedUsrLoginPayload))
-        .rejects.toThrow(InternalServerErrorException);
+      await expect(
+        authService.authenticate(AuthMock.blockedUsrLoginPayload)
+      ).rejects.toThrow(InternalServerErrorException);
     });
 
     it("throw error if user is blocked by ip address", async () => {
-      await expect(authService.authenticate(AuthMock.blockedUsrIpPayload))
-        .rejects.toThrow(InternalServerErrorException);
+      await expect(
+        authService.authenticate(AuthMock.blockedUsrIpPayload)
+      ).rejects.toThrow(InternalServerErrorException);
     });
 
     it("throw error if credentials are invalid", async () => {
-      await expect(authService.authenticate(AuthMock.wrongCredentialsUsrPayload))
-        .rejects.toThrow(UnauthorizedException);
+      await expect(
+        authService.authenticate(AuthMock.wrongCredentialsUsrPayload)
+      ).rejects.toThrow(UnauthorizedException);
     });
 
     it("write and clean failed auth attempt", async () => {
-      const ipKey = bruteForceIPKey(AuthMock.wrongCredentialsUsrPayload.ipAddress);
+      const ipKey = bruteForceIPKey(
+        AuthMock.wrongCredentialsUsrPayload.ipAddress
+      );
       await cacheService.del(ipKey);
-      await expect(authService.authenticate(AuthMock.wrongCredentialsUsrPayload))
-        .rejects.toThrow(UnauthorizedException);
+      await expect(
+        authService.authenticate(AuthMock.wrongCredentialsUsrPayload)
+      ).rejects.toThrow(UnauthorizedException);
       let attempts = await cacheService.getNumber(ipKey);
       expect(attempts).toBe(1);
-      await expect(authService.authenticate(AuthMock.wrongCredentialsUsrPayload))
-        .rejects.toThrow(UnauthorizedException);
+      await expect(
+        authService.authenticate(AuthMock.wrongCredentialsUsrPayload)
+      ).rejects.toThrow(UnauthorizedException);
       attempts = await cacheService.getNumber(ipKey);
       expect(attempts).toBe(2);
-      jest.spyOn(userService, "findByLogin").mockResolvedValue(AuthMock.testUser as UserEntity);
+      jest
+        .spyOn(userService, "findByLogin")
+        .mockResolvedValue(AuthMock.testUser as UserEntity);
       await authService.authenticate(AuthMock.validCredentialsUsrPayload);
       attempts = await cacheService.getNumber(ipKey);
       if (isNaN(attempts) || typeof attempts !== "number") {
@@ -91,8 +102,12 @@ describe("AuthService", () => {
     });
 
     it("return JWT if credentials are valid", async () => {
-      jest.spyOn(userService, "findByLogin").mockResolvedValue(AuthMock.testUser as UserEntity);
-      const result = await authService.authenticate(AuthMock.validCredentialsUsrPayload);
+      jest
+        .spyOn(userService, "findByLogin")
+        .mockResolvedValue(AuthMock.testUser as UserEntity);
+      const result = await authService.authenticate(
+        AuthMock.validCredentialsUsrPayload
+      );
       expect(result).toBeDefined();
       expect(result).toHaveProperty("user");
       expect(result).toHaveProperty("accessToken");
@@ -102,44 +117,46 @@ describe("AuthService", () => {
       expect(result.user).toHaveProperty("id");
       expect(result.user).toHaveProperty("login");
     });
-
   });
 
   describe("invalidateToken", () => {
-
     it("success invalidate if token exists in db", async () => {
-      const result = await authService.invalidateToken(AuthMock.validAccessToken);
+      const result = await authService.invalidateToken(
+        AuthMock.validAccessToken
+      );
       expect(result).toBeDefined();
       expect(result).toBe(true);
     });
 
     it("fail invalidate if token not exists in db", async () => {
-      await expect(authService.invalidateToken("fake-token")).rejects.toThrow(UnauthorizedException);
+      await expect(authService.invalidateToken("fake-token")).rejects.toThrow(
+        UnauthorizedException
+      );
     });
-
   });
 
   describe("exchangeToken", () => {
-
     it("throw error if refresh token not exists in db", async () => {
-      await expect(authService.exchangeToken("fake-token")).rejects.toThrow(UnauthorizedException);
+      await expect(authService.exchangeToken("fake-token")).rejects.toThrow(
+        UnauthorizedException
+      );
     });
 
     it("throw error if related user for refresh token not exists in db", async () => {
-      await expect(authService.exchangeToken(AuthMock.refreshTokenWithoutRelatedUser))
-        .rejects.toThrow(UnauthorizedException);
+      await expect(
+        authService.exchangeToken(AuthMock.refreshTokenWithoutRelatedUser)
+      ).rejects.toThrow(UnauthorizedException);
     });
 
     it("return JWT if tokens success exchanged", async () => {
-      const result = await authService.exchangeToken(AuthMock.validRefreshToken);
+      const result = await authService.exchangeToken(
+        AuthMock.validRefreshToken
+      );
       expect(result).toBeDefined();
       expect(result).toHaveProperty("accessToken");
       expect(result).toHaveProperty("refreshToken");
       expect(typeof result.accessToken).toBe("string");
       expect(typeof result.refreshToken).toBe("string");
     });
-
   });
-
 });
-

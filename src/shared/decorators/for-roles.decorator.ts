@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 
-
 import { SetMetadata } from "@nestjs/common";
 
 export const AllowedForMetadataKey = "for_roles";
@@ -23,4 +22,5 @@ export const AllowedForMetadataKey = "for_roles";
  * ForRoles custom decorator for defining roles allowed to access a route.
  * @param roles - An array of roles allowed for access.
  */
-export const ForRoles = (...roles: string[]) => SetMetadata(AllowedForMetadataKey, roles);
+export const ForRoles = (...roles: string[]) =>
+  SetMetadata(AllowedForMetadataKey, roles);

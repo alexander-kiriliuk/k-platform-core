@@ -25,7 +25,6 @@ import inspect = ObjectUtils.inspect;
 import LogLevel = Process.LogLevel;
 
 export abstract class AbstractProcess {
-
   protected abstract readonly logger: Logger;
   protected abstract readonly pmService: ProcessManagerService;
   private logInstance: ProcessLogEntity;
@@ -39,22 +38,32 @@ export abstract class AbstractProcess {
   async start() {
     const status = await this.getStatus();
     if (status === Status.Execute) {
-      this.logger.warn(`Process with id ${this.constructor.name} now executed, can't start that`);
+      this.logger.warn(
+        `Process with id ${this.constructor.name} now executed, can't start that`
+      );
       return;
     }
-    this.logInstance = await this.pmService.createLogInstance(this.constructor.name);
+    this.logInstance = await this.pmService.createLogInstance(
+      this.constructor.name
+    );
     await this.writeLog(`Start process with id ${this.constructor.name}`);
     await this.setStatus(Status.Execute);
     try {
       await this.execute();
       await this.setStatus(Status.Ready);
       await this.onFinish();
-      await this.writeLog(`Process with id ${this.constructor.name} was finished`);
+      await this.writeLog(
+        `Process with id ${this.constructor.name} was finished`
+      );
       this.logInstance = undefined;
     } catch (e) {
       await this.setStatus(Status.Crashed);
       await this.onCrash(e);
-      await this.writeLog(`Process with id ${this.constructor.name} was crashed`, e, LogLevel.Error);
+      await this.writeLog(
+        `Process with id ${this.constructor.name} was crashed`,
+        e,
+        LogLevel.Error
+      );
       this.logInstance = undefined;
     }
   }
@@ -67,7 +76,11 @@ export abstract class AbstractProcess {
     this.logInstance = undefined;
   }
 
-  protected async writeLog(message: string, data?: unknown, level = LogLevel.Log) {
+  protected async writeLog(
+    message: string,
+    data?: unknown,
+    level = LogLevel.Log
+  ) {
     switch (level) {
       case LogLevel.Log:
         this.logger.log(message, data);
@@ -90,7 +103,10 @@ export abstract class AbstractProcess {
     }
     const date = new Date();
     let msg = inspect(message);
-    if ((msg.startsWith(`'`) && msg.endsWith(`'`)) || msg.startsWith(`"`) && msg.endsWith(`"`)) {
+    if (
+      (msg.startsWith(`'`) && msg.endsWith(`'`)) ||
+      (msg.startsWith(`"`) && msg.endsWith(`"`))
+    ) {
       msg = msg.substring(1, msg.length - 1);
     }
     if (data) {
@@ -121,5 +137,4 @@ export abstract class AbstractProcess {
   private async setStatus(status: Status) {
     await this.pmService.setProcessUnitStatus(this.constructor.name, status);
   }
-
 }

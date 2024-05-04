@@ -20,24 +20,35 @@ import { MockStorage } from "../../../shared/modules/mock/mock.storage";
 import { CaptchaConfig } from "../../../gen-src/captcha.config";
 
 export namespace CaptchaMock {
-
-  export const validCaptchaRequest: CaptchaRequest = { id: "test-id", data: "12345" };
-  export const captchaRequestWithInvalidId: CaptchaRequest = { id: "test-wrong-id", data: "12345" };
-  export const captchaRequestWithInvalidData: CaptchaRequest = { id: validCaptchaRequest.id, data: "12345-wrong" };
+  export const validCaptchaRequest: CaptchaRequest = {
+    id: "test-id",
+    data: "12345"
+  };
+  export const captchaRequestWithInvalidId: CaptchaRequest = {
+    id: "test-wrong-id",
+    data: "12345"
+  };
+  export const captchaRequestWithInvalidData: CaptchaRequest = {
+    id: validCaptchaRequest.id,
+    data: "12345-wrong"
+  };
 
   export const Storage = new MockStorage([
     {
-      key: CaptchaConfig.FONT_PATH, data: "/modules/captcha/montserrat.ttf"
+      key: CaptchaConfig.FONT_PATH,
+      data: "/modules/captcha/montserrat.ttf"
     },
     {
-      key: CaptchaConfig.FONT_FAMILY, data: "Montserrat"
+      key: CaptchaConfig.FONT_FAMILY,
+      data: "Montserrat"
     },
     {
-      key: `${CAPTCHA_CACHE_PREFIX}:${validCaptchaRequest.id}`, data: validCaptchaRequest.data
+      key: `${CAPTCHA_CACHE_PREFIX}:${validCaptchaRequest.id}`,
+      data: validCaptchaRequest.data
     },
     {
-      key: `${validCaptchaRequest.id}`, data: validCaptchaRequest.data
-    }
+      key: `${validCaptchaRequest.id}`,
+      data: validCaptchaRequest.data
+    },
   ]);
-
 }

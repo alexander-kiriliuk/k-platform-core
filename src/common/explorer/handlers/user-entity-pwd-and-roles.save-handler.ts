@@ -20,10 +20,10 @@ import { User } from "../../user/user.types";
 import { Roles } from "../../../shared/constants";
 
 @Injectable()
-export class UserEntityPwdAndRolesSaveHandler implements EntitySaveHandler<User> {
-
+export class UserEntityPwdAndRolesSaveHandler
+  implements EntitySaveHandler<User> {
   handle(target: string, payload: User, currentUser: User) {
-    if (!currentUser.roles.find(v => v.code === Roles.ROOT)) {
+    if (!currentUser.roles.find((v) => v.code === Roles.ROOT)) {
       if (payload.id) {
         delete payload.password;
         delete payload.login;
@@ -32,5 +32,4 @@ export class UserEntityPwdAndRolesSaveHandler implements EntitySaveHandler<User>
     }
     return payload;
   }
-
 }

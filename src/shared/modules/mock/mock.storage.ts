@@ -20,14 +20,14 @@ import * as hash from "object-hash";
  * A mock storage object, used for mock services
  */
 export class MockStorage {
-
   constructor(
-    private data: Array<{ data: unknown, key: string, params?: unknown }>) {
+    private data: Array<{ data: unknown; key: string; params?: unknown }>
+  ) {
   }
 
   find(key: string, params?: unknown) {
     if (!params) {
-      return this.data.find(v => v.key === key);
+      return this.data.find((v) => v.key === key);
     }
     const paramsHash = hash(params);
     for (const item of this.data) {
@@ -44,16 +44,15 @@ export class MockStorage {
   filter(key: string) {
     const regexPattern = key.split("*").join(".+");
     const regex = new RegExp(`^${regexPattern}$`);
-    return this.data.filter(v => regex.test(v.key));
+    return this.data.filter((v) => regex.test(v.key));
   }
 
   set(key: string, data: string | number) {
-    this.data = this.data.filter(v => v.key !== key);
+    this.data = this.data.filter((v) => v.key !== key);
     this.data.push({ key, data });
   }
 
   remove(key: string) {
-    this.data = this.data.filter(v => v.key !== key);
+    this.data = this.data.filter((v) => v.key !== key);
   }
-
 }

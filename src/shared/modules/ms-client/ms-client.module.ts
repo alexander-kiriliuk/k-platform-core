@@ -38,22 +38,21 @@ import { MsClient } from "./ms-client";
               host: process.env.TRANSPORT_HOST,
               port: parseInt(process.env.TRANSPORT_PORT),
               timeout: parseInt(process.env.TRANSPORT_TIMEOUT)
-            }
+            },
           };
-        }
-      }
-    ])
+        },
+      },
+    ]),
   ],
   providers: [
     {
       provide: MSG_BUS,
-      useFactory: (logger: Logger, client: ClientProxy) => new MsClient(logger, client),
+      useFactory: (logger: Logger, client: ClientProxy) =>
+        new MsClient(logger, client),
       inject: [LOGGER, MS_CLIENT]
-    }
+    },
   ],
-  exports: [
-    MSG_BUS
-  ]
+  exports: [MSG_BUS]
 })
 export class MsClientModule {
 }

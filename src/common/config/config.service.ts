@@ -38,14 +38,15 @@ import { PageableData, PageableParams } from "../../shared/modules/pageable/page
  */
 @Injectable()
 export class ConfigService {
-
-  private readonly propertiesFiles: { [path: string]: { [key: string]: any } } = {};
+  private readonly propertiesFiles: { [path: string]: { [key: string]: any } } =
+    {};
   private readonly valuesOfProperties: { [key: string]: any } = {};
   private generatedTsOutput: string;
 
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
-    private readonly cacheService: CacheService) {
+    private readonly cacheService: CacheService
+  ) {
   }
 
   /**
@@ -72,14 +73,20 @@ export class ConfigService {
    * @param params - Pageable parameters for sorting, filtering, and pagination.
    * @returns A promise that resolves to an object containing the pageable data.
    */
-  async getPropertiesPage(params: PageableParams): Promise<PageableData<ConfigItem>> {
+  async getPropertiesPage(
+    params: PageableParams
+  ): Promise<PageableData<ConfigItem>> {
     const { limit, page, sort, order, filter } = params;
-    const propertyKeys = await this.cacheService.getFromPattern(`${CONFIG_CACHE_PREFIX}:${!filter ? "*" : filter}`);
+    const propertyKeys = await this.cacheService.getFromPattern(
+      `${CONFIG_CACHE_PREFIX}:${!filter ? "*" : filter}`
+    );
     const sortedKeys = propertyKeys.sort((a, b) => {
       if (sort && order) {
         const aValue = a[sort] || "";
         const bValue = b[sort] || "";
-        return order === "ASC" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+        return order === "ASC"
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
       }
       return a.localeCompare(b);
     });
@@ -91,7 +98,7 @@ export class ConfigService {
       keysToRetrieve.map(async (key) => {
         const value = await this.cacheService.get(key);
         return { key: key.replace(`${CONFIG_CACHE_PREFIX}:`, ``), value };
-      })
+      }),
     );
     return new PageableData(propertiesWithValues, totalCount, page, limit);
   }
@@ -116,17 +123,29 @@ export class ConfigService {
     return await this.cacheService.del(fullKey);
   }
 
-  private async scanForPropertiesFiles(directory: string, globalKpContent: string | null = null) {
+  private async scanForPropertiesFiles(
+    directory: string,
+    globalKpContent: string | null = null
+  ) {
     const files = await fs.promises.readdir(directory, { withFileTypes: true });
     if (directory === process.cwd()) {
       for (const file of files) {
         if (file.isFile() && file.name === KP_PROPERTIES_FILE_NAME) {
           const kpPath = path.join(directory, file.name);
           globalKpContent = await fs.promises.readFile(kpPath, FILES_ENCODING);
-          const localPropertiesPath = path.join(directory, LOCAL_PROPERTIES_FILE_NAME);
+          const localPropertiesPath = path.join(
+            directory,
+            LOCAL_PROPERTIES_FILE_NAME
+          );
           if (fs.existsSync(localPropertiesPath)) {
-            const localPropertiesContent = await fs.promises.readFile(localPropertiesPath, FILES_ENCODING);
-            globalKpContent = this.mergePropertiesContent(globalKpContent, localPropertiesContent);
+            const localPropertiesContent = await fs.promises.readFile(
+              localPropertiesPath,
+              FILES_ENCODING
+            );
+            globalKpContent = this.mergePropertiesContent(
+              globalKpContent,
+              localPropertiesContent
+            );
           }
           break;
         }
@@ -136,23 +155,50 @@ export class ConfigService {
       const fullPath = path.join(directory, file.name);
       if (file.isDirectory()) {
         await this.scanForPropertiesFiles(fullPath, globalKpContent);
-      } else if (file.isFile() && path.extname(file.name) === PROPERTIES_FILE_EXT_PATTERN) {
+      } else if (
+        file.isFile() &&
+        path.extname(file.name) === PROPERTIES_FILE_EXT_PATTERN
+      ) {
         let fileContent = await fs.promises.readFile(fullPath, FILES_ENCODING);
-        const localPropertiesPath = path.join(directory, LOCAL_PROPERTIES_FILE_NAME);
+        const localPropertiesPath = path.join(
+          directory,
+          LOCAL_PROPERTIES_FILE_NAME
+        );
         if (fs.existsSync(localPropertiesPath)) {
-          const localPropertiesContent = await fs.promises.readFile(localPropertiesPath, FILES_ENCODING);
-          fileContent = this.mergePropertiesContent(fileContent, localPropertiesContent);
+          const localPropertiesContent = await fs.promises.readFile(
+            localPropertiesPath,
+            FILES_ENCODING
+          );
+          fileContent = this.mergePropertiesContent(
+            fileContent,
+            localPropertiesContent
+          );
         }
         if (globalKpContent) {
-          fileContent = this.mergePropertiesContent(fileContent, globalKpContent);
+          fileContent = this.mergePropertiesContent(
+            fileContent,
+            globalKpContent
+          );
         }
-        const fileNamePrefix = path.basename(fullPath, PROPERTIES_FILE_EXT_PATTERN);
-        this.propertiesFiles[fullPath] = await this.processAndValidatePropertiesContent(fullPath, fileContent, fileNamePrefix);
+        const fileNamePrefix = path.basename(
+          fullPath,
+          PROPERTIES_FILE_EXT_PATTERN
+        );
+        this.propertiesFiles[fullPath] =
+          await this.processAndValidatePropertiesContent(
+            fullPath,
+            fileContent,
+            fileNamePrefix
+          );
       }
     }
   }
 
-  private async processAndValidatePropertiesContent(filePath: string, content: string, fileNamePrefix: string) {
+  private async processAndValidatePropertiesContent(
+    filePath: string,
+    content: string,
+    fileNamePrefix: string
+  ) {
     const lines = content.split("\n");
     const processedData: { [key: string]: any } = {};
     for (const line of lines) {
@@ -199,11 +245,14 @@ export class ConfigService {
     return processedValue;
   }
 
-  private generateNamespaceWithVariables(namespaceName: string, processedData: { [key: string]: string }) {
+  private generateNamespaceWithVariables(
+    namespaceName: string,
+    processedData: { [key: string]: string }
+  ) {
     let generatedContent = `export namespace ${namespaceName} {\n`;
     for (const variableName in processedData) {
       const processedValue = processedData[variableName];
-      generatedContent += `  export const ${variableName} = ${processedValue};\n`;  // initial value: ${this.valuesOfProperties[processedValue.substring(1,processedValue.length-1)]}
+      generatedContent += `  export const ${variableName} = ${processedValue};\n`; // initial value: ${this.valuesOfProperties[processedValue.substring(1,processedValue.length-1)]}
     }
     generatedContent += "}\n";
     return generatedContent;
@@ -218,10 +267,15 @@ export class ConfigService {
       const fullPath = path.join(directory, file.name);
       if (file.isDirectory()) {
         if (file.name === GEN_SRC_DIR) {
-          const genSrcFiles = await fs.promises.readdir(fullPath, { withFileTypes: true });
+          const genSrcFiles = await fs.promises.readdir(fullPath, {
+            withFileTypes: true
+          });
           this.logger.verbose(`Read dir: ${fullPath}`);
           for (const genSrcFile of genSrcFiles) {
-            if (genSrcFile.isFile() && genSrcFile.name.endsWith(CONFIG_FILE_EXT_PATTERN)) {
+            if (
+              genSrcFile.isFile() &&
+              genSrcFile.name.endsWith(CONFIG_FILE_EXT_PATTERN)
+            ) {
               this.logger.verbose(`Delete file: ${genSrcFile.name}`);
               await fs.promises.unlink(path.join(fullPath, genSrcFile.name));
             }
@@ -245,18 +299,27 @@ export class ConfigService {
         .basename(filePath, PROPERTIES_FILE_EXT_PATTERN)
         .concat(CONFIG_FILE_EXT_PATTERN);
       const configFilePath = path.join(genSrcPath, configFileName);
-      const namespaceName = path
-        .basename(filePath, PROPERTIES_FILE_EXT_PATTERN)
-        .charAt(0)
-        .toUpperCase() + path.basename(filePath, PROPERTIES_FILE_EXT_PATTERN).slice(1) + "Config";
-      const generatedFileContent = this.generateNamespaceWithVariables(namespaceName, fileContent);
+      const namespaceName =
+        path
+          .basename(filePath, PROPERTIES_FILE_EXT_PATTERN)
+          .charAt(0)
+          .toUpperCase() +
+        path.basename(filePath, PROPERTIES_FILE_EXT_PATTERN).slice(1) +
+        "Config";
+      const generatedFileContent = this.generateNamespaceWithVariables(
+        namespaceName,
+        fileContent
+      );
       await fs.promises.mkdir(genSrcPath, { recursive: true });
       await fs.promises.writeFile(configFilePath, generatedFileContent);
       this.logger.verbose(`Generated ${configFilePath}`);
     }
   }
 
-  private mergePropertiesContent(mainContent: string, localContent: string): string {
+  private mergePropertiesContent(
+    mainContent: string,
+    localContent: string
+  ): string {
     const mainContentLines = mainContent.split("\n");
     const localContentLines = localContent.split("\n");
     const mergedContent = [...mainContentLines];
@@ -276,5 +339,4 @@ export class ConfigService {
     }
     return mergedContent.join("\n");
   }
-
 }

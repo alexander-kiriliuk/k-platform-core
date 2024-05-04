@@ -15,7 +15,6 @@
  */
 
 export namespace TransformUtils {
-
   export function dateToTime({ value }) {
     if (value instanceof Date) {
       return value.getTime();
@@ -23,7 +22,9 @@ export namespace TransformUtils {
     return value;
   }
 
-  export function parseParamsString(filterString: string): { [key: string]: string } {
+  export function parseParamsString(filterString: string): {
+    [key: string]: string;
+  } {
     const filterObject: { [key: string]: string } = {};
     const filterParts = filterString.split("::");
     if (filterString.startsWith("::")) {
@@ -36,7 +37,9 @@ export namespace TransformUtils {
     return filterObject;
   }
 
-  export function stringifyParamsObject(filterObject: { [key: string]: string }): string {
+  export function stringifyParamsObject(filterObject: {
+    [key: string]: string;
+  }): string {
     const filterParts = [];
     for (const key in filterObject) {
       const encodedValue = filterObject[key];
@@ -45,5 +48,4 @@ export namespace TransformUtils {
     }
     return "::" + filterParts.join("::");
   }
-
 }

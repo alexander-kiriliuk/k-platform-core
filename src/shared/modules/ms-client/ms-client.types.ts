@@ -18,14 +18,24 @@ import { Observable } from "rxjs";
 
 export type MsClientOptions = {
   timeout: number;
-}
+};
 
 export interface MessageBus {
+  dispatch<TResult = any, TInput = any>(
+    pattern: any,
+    data?: TInput,
+    opts?: MsClientOptions
+  ): Promise<TResult>;
 
-  dispatch<TResult = any, TInput = any>(pattern: any, data?: TInput, opts?: MsClientOptions): Promise<TResult>;
+  send<TResult = any, TInput = any>(
+    pattern: any,
+    data?: TInput,
+    opts?: MsClientOptions
+  ): Observable<TResult>;
 
-  send<TResult = any, TInput = any>(pattern: any, data?: TInput, opts?: MsClientOptions): Observable<TResult>;
-
-  emit<TResult = any, TInput = any>(pattern: any, data?: TInput, opts?: MsClientOptions): Observable<TResult>;
-
+  emit<TResult = any, TInput = any>(
+    pattern: any,
+    data?: TInput,
+    opts?: MsClientOptions
+  ): Observable<TResult>;
 }

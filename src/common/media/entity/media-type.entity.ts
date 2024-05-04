@@ -5,7 +5,6 @@ import { MediaExtEntity } from "./media-ext.entity";
 
 @Entity("medias_types")
 export class MediaTypeEntity implements MediaType {
-
   @Index({ unique: true })
   @PrimaryColumn("varchar")
   code: string;
@@ -23,11 +22,10 @@ export class MediaTypeEntity implements MediaType {
   @Column("int", { nullable: true })
   quality: number;
 
-  @ManyToOne(() => MediaExtEntity, e => e.code)
+  @ManyToOne(() => MediaExtEntity, (e) => e.code)
   ext: MediaExtEntity;
 
   @ManyToMany(() => MediaFormatEntity)
   @JoinTable()
   formats: MediaFormatEntity[];
-
 }

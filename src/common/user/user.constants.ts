@@ -15,6 +15,14 @@
  */
 
 export const USER_RELATIONS = [
-  "avatar", "avatar.name", "avatar.name.lang", "avatar.files", "avatar.files.format", "avatar.type", "avatar.type.ext",
-  "roles", "roles.name", "roles.name.lang"
+  "avatar",
+  "avatar.name",
+  "avatar.name.lang",
+  "avatar.files",
+  "avatar.files.format",
+  "avatar.type",
+  "avatar.type.ext",
+  "roles",
+  "roles.name",
+  "roles.name.lang"
 ];

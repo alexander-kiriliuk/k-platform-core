@@ -41,12 +41,14 @@ describe("UserService", () => {
             remove: jest.fn(),
             save: jest.fn(),
             create: jest.fn()
-          }
-        }
-      ]
+          },
+        },
+      ],
     }).compile();
     userService = module.get<BasicUserService>(BasicUserService);
-    userRep = module.get<Repository<UserEntity>>(getRepositoryToken(UserEntity));
+    userRep = module.get<Repository<UserEntity>>(
+      getRepositoryToken(UserEntity)
+    );
   });
 
   it("call finding user by login", async () => {
@@ -94,7 +96,10 @@ describe("UserService", () => {
     jest.spyOn(userRep, "findOne").mockResolvedValue(testUser);
     jest.spyOn(userRep, "remove").mockResolvedValue(testUser);
     expect(await userService.removeById(id)).toEqual(testUser);
-    expect(userRep.findOne).toHaveBeenCalledWith({ where: { id }, relations: USER_RELATIONS });
+    expect(userRep.findOne).toHaveBeenCalledWith({
+      where: { id },
+      relations: USER_RELATIONS
+    });
     expect(userRep.remove).toHaveBeenCalledWith(testUser);
   });
 
@@ -102,7 +107,9 @@ describe("UserService", () => {
     const id = "12345";
     jest.spyOn(userRep, "findOne").mockResolvedValue(undefined);
     await expect(userService.removeById(id)).rejects.toThrow(NotFoundException);
-    expect(userRep.findOne).toHaveBeenCalledWith({ where: { id }, relations: USER_RELATIONS });
+    expect(userRep.findOne).toHaveBeenCalledWith({
+      where: { id },
+      relations: USER_RELATIONS
+    });
   });
-
 });

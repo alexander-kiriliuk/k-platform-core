@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 
-
 import { Logger } from "@nestjs/common";
 
 export const LoggerMock: jest.Mocked<Logger> = {

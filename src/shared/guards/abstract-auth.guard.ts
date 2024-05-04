@@ -31,7 +31,6 @@ import { REQUEST_PROPS } from "../constants";
  * An abstract class for creating authentication guards.
  */
 export abstract class AbstractAuthGuard implements CanActivate {
-
   protected abstract readonly logger: Logger;
   protected abstract readonly cacheService: CacheService;
   protected abstract readonly userService: UserService;
@@ -58,7 +57,9 @@ export abstract class AbstractAuthGuard implements CanActivate {
   }
 
   private async validateToken(token: string) {
-    return this.cacheService.get(`${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${token}`);
+    return this.cacheService.get(
+      `${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${token}`
+    );
   }
 
   private getAccessTokenFromRequest(req: Request) {
@@ -75,5 +76,4 @@ export abstract class AbstractAuthGuard implements CanActivate {
     }
     return null;
   }
-
 }

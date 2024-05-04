@@ -28,10 +28,11 @@ import { CacheModule } from "../../shared/modules/cache/cache.module";
 
 @Module({})
 export class MediaModule {
-
-  static forRoot(options: MediaModuleOptions = {
-    service: MediaService
-  }): DynamicModule {
+  static forRoot(
+    options: MediaModuleOptions = {
+      service: MediaService
+    }
+  ): DynamicModule {
     return {
       module: MediaModule,
       imports: [
@@ -49,10 +50,9 @@ export class MediaModule {
         {
           provide: MediaManager,
           useClass: options.service
-        }
+        },
       ],
       exports: [MediaManager]
     };
   }
-
 }

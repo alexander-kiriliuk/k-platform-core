@@ -20,7 +20,6 @@ import { Xdb } from "./xml-data-bridge.constants";
 
 @Injectable()
 export class XmlDataBridgeMiddleware implements NestMiddleware {
-
   private readonly parser = Xdb.getXmlParser();
 
   async use(req: Request, res: Response, next: NextFunction) {
@@ -48,5 +47,4 @@ export class XmlDataBridgeMiddleware implements NestMiddleware {
       });
     });
   }
-
 }

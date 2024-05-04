@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 
-
 import { AbstractProcess } from "../abstract-process";
 import { Inject, Logger } from "@nestjs/common";
 import { ProcessManagerService } from "../process-manager.service";
@@ -26,23 +25,26 @@ import { CacheService } from "../../../shared/modules/cache/cache.types";
 import readDirectoryRecursively = FilesUtils.readDirectoryRecursively;
 
 export class TmpDirCleanerProcess extends AbstractProcess {
-
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
     protected readonly pmService: ProcessManagerService,
-    private readonly cacheService: CacheService) {
+    private readonly cacheService: CacheService
+  ) {
     super();
   }
 
   protected async execute() {
-    const tmpDir = process.cwd() + await this.cacheService.get(KpConfig.TMP_DIR);
+    const tmpDir =
+      process.cwd() + (await this.cacheService.get(KpConfig.TMP_DIR));
     if (!fs.existsSync(tmpDir)) {
       await this.writeLog(`Nothing to delete`);
       return;
     }
     const dirStruct = await readDirectoryRecursively(tmpDir);
     const stats = this.getDeleteStats(dirStruct as { [k: string]: string[] });
-    await this.writeLog(`Try to delete ${stats.filesCount} files and ${stats.foldersCount} folders...`);
+    await this.writeLog(
+      `Try to delete ${stats.filesCount} files and ${stats.foldersCount} folders...`
+    );
     await fs.promises.rm(tmpDir, { recursive: true, force: true });
     await this.writeLog(`Tmp dir was cleaned`);
   }
@@ -59,6 +61,4 @@ export class TmpDirCleanerProcess extends AbstractProcess {
     }
     return { filesCount, foldersCount };
   }
-
-
 }

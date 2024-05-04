@@ -41,7 +41,6 @@ export interface UserRole {
 }
 
 export class UserRoleDto implements UserRole {
-
   @Expose()
   code: string;
 
@@ -50,11 +49,9 @@ export class UserRoleDto implements UserRole {
 
   @Exclude()
   tsCreated: Date;
-
 }
 
 export class UserDto implements User {
-
   @Expose()
   id: string;
 
@@ -88,7 +85,6 @@ export class UserDto implements User {
 
   @Exclude()
   tsCreated: Date;
-
 }
 
 export interface UserUpdateRequest {
@@ -97,7 +93,6 @@ export interface UserUpdateRequest {
 }
 
 export abstract class UserService {
-
   abstract findByLogin(login: string): Promise<UserEntity>;
 
   abstract findById(id: string): Promise<UserEntity>;
@@ -107,7 +102,6 @@ export abstract class UserService {
   abstract create(user: User): Promise<UserEntity>;
 
   abstract removeById(id: string): Promise<UserEntity>;
-
 }
 
 export type UserModuleOptions = {

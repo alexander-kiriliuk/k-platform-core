@@ -3,7 +3,6 @@ import { ExifFileMetadata } from "../file.types";
 
 @Entity("file_metadata_exif")
 export class ExifFileMetadataEntity implements ExifFileMetadata {
-
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 
@@ -190,5 +189,4 @@ export class ExifFileMetadataEntity implements ExifFileMetadata {
   @Index()
   @Column("varchar", { name: "interoperability_version", nullable: true })
   interoperabilityVersion: string;
-
 }

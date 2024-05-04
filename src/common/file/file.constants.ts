@@ -14,15 +14,18 @@
  *    limitations under the License.
  */
 
-
 import { FileEntity } from "./entity/file.entity";
 import { FileMetadataEntity } from "./entity/file-metadata.entity";
 import { File } from "./file.types";
 
 export abstract class FileManager {
-
   abstract createOrUpdateFile(
-    file: Buffer, extension: string, isPublic: boolean, code?: string, existedEntityId?: number, name?: string
+    file: Buffer,
+    extension: string,
+    isPublic: boolean,
+    code?: string,
+    existedEntityId?: number,
+    name?: string
   ): Promise<FileEntity>;
 
   abstract findByCode(code: string): Promise<FileEntity>;
@@ -36,11 +39,11 @@ export abstract class FileManager {
   abstract getFilePath(file: File): Promise<string>;
 
   abstract remove(id: number): Promise<FileEntity>;
-
 }
 
 export abstract class FileMd {
-
-  abstract createFileMetadataEntity(buf: Buffer, filePath?: string): Promise<FileMetadataEntity>;
-
+  abstract createFileMetadataEntity(
+    buf: Buffer,
+    filePath?: string
+  ): Promise<FileMetadataEntity>;
 }

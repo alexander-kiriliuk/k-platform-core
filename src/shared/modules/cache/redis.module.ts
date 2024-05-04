@@ -21,13 +21,20 @@ import { EnvLoader } from "../../utils/env.loader";
 
 @Module({})
 export class RedisModule {
-
   private static redisInstance: Redis | null = null;
 
   static forRootAsync(options: {
     inject?: any[];
     imports?: any[];
-    useFactory: (...args) => { config: { host: string; port: number; db: number; username: string; password: string } };
+    useFactory: (...args) => {
+      config: {
+        host: string;
+        port: number;
+        db: number;
+        username: string;
+        password: string;
+      };
+    };
   }): DynamicModule {
     const { inject, imports, useFactory } = options;
     return {
@@ -38,7 +45,7 @@ export class RedisModule {
           provide: REDIS_CLIENT,
           useFactory: async (...args: any[]) => {
             if (!RedisModule.redisInstance) {
-              const logger = args.find(arg => arg instanceof Logger);
+              const logger = args.find((arg) => arg instanceof Logger);
               EnvLoader.loadEnvironment(logger);
               const redisOptions = useFactory(...args).config;
               RedisModule.redisInstance = new Redis(redisOptions);
@@ -46,7 +53,7 @@ export class RedisModule {
             return RedisModule.redisInstance;
           },
           inject
-        }
+        },
       ],
       exports: [REDIS_CLIENT]
     };

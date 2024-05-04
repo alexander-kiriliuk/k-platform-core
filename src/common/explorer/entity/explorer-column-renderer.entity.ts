@@ -22,7 +22,6 @@ import { Explorer } from "../explorer.constants";
 
 @Entity("explorer_column_renderers")
 export class ExplorerColumnRendererEntity implements ExplorerColumnRenderer {
-
   @PrimaryColumn("varchar")
   code: string;
 
@@ -43,8 +42,10 @@ export class ExplorerColumnRendererEntity implements ExplorerColumnRenderer {
   })
   type: Explorer.Variation;
 
-  @Column("simple-json", { transformer: SimpleJsonTransformer, nullable: true, default: null })
+  @Column("simple-json", {
+    transformer: SimpleJsonTransformer,
+    nullable: true,
+    default: null
+  })
   params: object;
-
 }
-

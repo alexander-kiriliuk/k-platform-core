@@ -26,18 +26,15 @@ import { FileManager, FileMd } from "./file.constants";
 
 @Module({})
 export class FileModule {
-
-  static forRoot(options: FileModuleOptions = {
-    fileManager: FileService,
-    fileMd: FileMetadataService
-  }): DynamicModule {
+  static forRoot(
+    options: FileModuleOptions = {
+      fileManager: FileService,
+      fileMd: FileMetadataService
+    }
+  ): DynamicModule {
     return {
       module: FileModule,
-      imports: [
-        TypeOrmModule.forFeature([FileEntity]),
-        LogModule,
-        CacheModule
-      ],
+      imports: [TypeOrmModule.forFeature([FileEntity]), LogModule, CacheModule],
       providers: [
         {
           provide: FileManager,
@@ -46,13 +43,9 @@ export class FileModule {
         {
           provide: FileMd,
           useClass: options.fileMd
-        }
+        },
       ],
-      exports: [
-        FileManager,
-        FileMd
-      ]
+      exports: [FileManager, FileMd]
     };
   }
-
 }

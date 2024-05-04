@@ -2,7 +2,6 @@ import { Type } from "class-transformer";
 import { Max, Min } from "class-validator";
 
 export class PageableParams {
-
   @Min(1)
   @Max(1000)
   @Type(() => Number)
@@ -20,7 +19,6 @@ export class PageableParams {
 
   @Type(() => String)
   filter?: string;
-
 }
 
 export class PageableData<T = any> {
@@ -28,11 +26,12 @@ export class PageableData<T = any> {
     readonly items: T[],
     readonly totalCount: number,
     readonly currentPage: number,
-    readonly pageSize: number) {
+    readonly pageSize: number
+  ) {
   }
 }
 
 export enum SortOrder {
   ASC = "ASC",
-  DESC = "DESC"
+  DESC = "DESC",
 }

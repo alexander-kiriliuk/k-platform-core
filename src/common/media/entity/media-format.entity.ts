@@ -3,7 +3,6 @@ import { MediaFormat } from "../media.types";
 
 @Entity("medias_format")
 export class MediaFormatEntity implements MediaFormat {
-
   @Index({ unique: true })
   @PrimaryColumn("varchar")
   code: string;
@@ -17,5 +16,4 @@ export class MediaFormatEntity implements MediaFormat {
 
   @Column("smallint", { nullable: true })
   height: string;
-
 }

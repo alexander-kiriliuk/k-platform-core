@@ -28,10 +28,10 @@ import inspect = ObjectUtils.inspect;
  * Microservices client for dispatching messages between microservices.
  */
 export class MsClient implements MessageBus {
-
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
-    private readonly proxy: ClientProxy) {
+    private readonly proxy: ClientProxy
+  ) {
   }
 
   /**
@@ -41,12 +41,16 @@ export class MsClient implements MessageBus {
    * @param opts - Optional configuration options for the client.
    * @returns A promise resolving to the result of the dispatched message.
    */
-  dispatch<TResult = any, TInput = any>(pattern: any, data: TInput = Object(), opts?: MsClientOptions): Promise<TResult> {
+  dispatch<TResult = any, TInput = any>(
+    pattern: any,
+    data: TInput = Object(),
+    opts?: MsClientOptions
+  ): Promise<TResult> {
     return new Promise<TResult>((resolve, reject) => {
       const source = this.proxy.send<TResult, TInput>(pattern, data);
       this.handleRequest(source, pattern, data, opts).subscribe({
-        next: result => resolve(result),
-        error: error => reject(error)
+        next: (result) => resolve(result),
+        error: (error) => reject(error)
       });
     });
   }
@@ -58,7 +62,11 @@ export class MsClient implements MessageBus {
    * @param opts - Optional configuration options for the client.
    * @returns An observable of the result of the send message.
    */
-  send<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions) {
+  send<TResult = any, TInput = any>(
+    pattern: any,
+    data: TInput,
+    opts?: MsClientOptions
+  ) {
     const source = this.proxy.send<TResult, TInput>(pattern, data);
     return this.handleRequest(source, pattern, data, opts);
   }
@@ -70,30 +78,46 @@ export class MsClient implements MessageBus {
    * @param opts - Optional configuration options for the client.
    * @returns An observable of the result of the emitted message.
    */
-  emit<TResult = any, TInput = any>(pattern: any, data: TInput, opts?: MsClientOptions) {
+  emit<TResult = any, TInput = any>(
+    pattern: any,
+    data: TInput,
+    opts?: MsClientOptions
+  ) {
     const source = this.proxy.emit<TResult, TInput>(pattern, data);
     return this.handleRequest(source, pattern, data, opts);
   }
 
-  private handleRequest<T>(source: Observable<T>, pattern: any, data: any, opts?: MsClientOptions): Observable<T> {
+  private handleRequest<T>(
+    source: Observable<T>,
+    pattern: any,
+    data: any,
+    opts?: MsClientOptions
+  ): Observable<T> {
     this.logger.debug(`Sending request with pattern: ${inspect(pattern)}`);
     return source.pipe(
       timeout(opts?.timeout || parseInt(process.env.TRANSPORT_TIMEOUT)),
-      catchError(error => {
+      catchError((error) => {
         if (error?.type === MS_EXCEPTION_ID) {
           const err = error as MsException;
-          this.logger.error(`Microservice exception: ${err.message}`, err.stack);
+          this.logger.error(
+            `Microservice exception: ${err.message}`,
+            err.stack
+          );
           throw new HttpException(err.message, err.code);
         }
         if (error.name === "TimeoutError") {
           this.logger.warn(`Request timeout for pattern: ${inspect(pattern)}`);
-          throw new HttpException("Request Timeout", HttpStatus.REQUEST_TIMEOUT);
+          throw new HttpException(
+            "Request Timeout",
+            HttpStatus.REQUEST_TIMEOUT
+          );
         }
-        this.logger.error(`Unknown error for pattern: ${inspect(pattern)}`, error);
+        this.logger.error(
+          `Unknown error for pattern: ${inspect(pattern)}`,
+          error
+        );
         return throwError(error);
-      })
+      }),
     );
   }
-
 }
-

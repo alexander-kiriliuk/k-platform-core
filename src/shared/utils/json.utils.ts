@@ -15,7 +15,6 @@
  */
 
 export namespace JsonUtils {
-
   export function jsonFilter(key, value) {
     if (value === null || (Array.isArray(value) && !value.length)) {
       return undefined;
@@ -24,7 +23,11 @@ export namespace JsonUtils {
   }
 
   function removeCircularReferences(value, cache = new Set()) {
-    if (!(value instanceof Date) && typeof value === "object" && value !== null) {
+    if (
+      !(value instanceof Date) &&
+      typeof value === "object" &&
+      value !== null
+    ) {
       if (cache.has(value)) {
         return null;
       }
@@ -44,5 +47,4 @@ export namespace JsonUtils {
     }
     return value;
   }
-
 }

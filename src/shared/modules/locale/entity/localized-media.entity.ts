@@ -21,7 +21,6 @@ import { MediaEntity } from "../../../../common/media/entity/media.entity";
 
 @Entity("localized_medias")
 export class LocalizedMediaEntity implements LocalizedMedia {
-
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 
@@ -29,10 +28,9 @@ export class LocalizedMediaEntity implements LocalizedMedia {
   @Column("varchar", { nullable: false })
   code: string;
 
-  @ManyToOne(() => LanguageEntity, t => t.id)
+  @ManyToOne(() => LanguageEntity, (t) => t.id)
   lang: LanguageEntity;
 
-  @ManyToOne(() => MediaEntity, t => t.code)
+  @ManyToOne(() => MediaEntity, (t) => t.code)
   value: MediaEntity;
-
 }

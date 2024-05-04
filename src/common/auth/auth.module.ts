@@ -26,11 +26,11 @@ import { CacheService } from "../../shared/modules/cache/cache.types";
 import { AuthConfig } from "../../gen-src/auth.config";
 import { AuthService } from "./auth.constants";
 
-
 @Module({})
 export class AuthModule {
-
-  static forRoot(options: AuthModuleOptions = { service: AuthorizationService }): DynamicModule {
+  static forRoot(
+    options: AuthModuleOptions = { service: AuthorizationService }
+  ): DynamicModule {
     return {
       module: AuthModule,
       imports: [
@@ -44,19 +44,22 @@ export class AuthModule {
           useFactory: async (cs: CacheService) => {
             return {
               secret: await cs.get(AuthConfig.JWT_SECRET),
-              signOptions: { expiresIn: await cs.getNumber(AuthConfig.ACCESS_TOKEN_EXPIRATION) }
+              signOptions: {
+                expiresIn: await cs.getNumber(
+                  AuthConfig.ACCESS_TOKEN_EXPIRATION
+                )
+              }
             };
-          }
-        })
+          },
+        }),
       ],
       providers: [
         {
           provide: AuthService,
           useClass: options.service
-        }
+        },
       ],
       exports: [AuthService]
     };
   }
-
 }

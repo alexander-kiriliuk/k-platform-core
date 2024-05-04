@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 
-
 import * as fs from "fs";
 import { ConfigService } from "./config.service";
 import { MockCacheService } from "../../shared/modules/cache/mock/mock-cache.service";
@@ -34,7 +33,6 @@ jest.mock("fs", () => ({
 }));
 
 describe("ConfigService", () => {
-
   let configService: ConfigService;
   let cacheService: MockCacheService;
 
@@ -51,15 +49,21 @@ describe("ConfigService", () => {
 
   it("set property", async () => {
     await configService.setProperty(ConfigMock.testSetProp);
-    const result = await cacheService.get(`${CONFIG_CACHE_PREFIX}:${ConfigMock.testSetProp.key}`);
+    const result = await cacheService.get(
+      `${CONFIG_CACHE_PREFIX}:${ConfigMock.testSetProp.key}`
+    );
     expect(result).toEqual(ConfigMock.testSetProp.value);
   });
 
   it("remove property", async () => {
-    let existedProp = await cacheService.get(`${CONFIG_CACHE_PREFIX}:${ConfigMock.testExistedProp}`);
+    let existedProp = await cacheService.get(
+      `${CONFIG_CACHE_PREFIX}:${ConfigMock.testExistedProp}`
+    );
     expect(existedProp).toEqual(ConfigMock.testExistedProp);
     await configService.removeProperty(ConfigMock.testExistedProp);
-    existedProp = await cacheService.get(`${CONFIG_CACHE_PREFIX}:${ConfigMock.testExistedProp}`);
+    existedProp = await cacheService.get(
+      `${CONFIG_CACHE_PREFIX}:${ConfigMock.testExistedProp}`
+    );
     expect(existedProp).toEqual(undefined);
   });
 
@@ -69,11 +73,10 @@ describe("ConfigService", () => {
         isFile: () => true,
         isDirectory: () => false,
         name: PROPERTIES_FILE_EXT_PATTERN
-      }
+      },
     ]);
     (fs.promises.readFile as jest.Mock).mockResolvedValue("test=true");
     (fs.existsSync as jest.Mock).mockReturnValue(true);
     await configService.initWithPropertiesFiles();
   });
-
 });

@@ -3,7 +3,6 @@ import { VideoFileMetadata } from "../file.types";
 
 @Entity("file_metadata_video")
 export class VideoFileMetadataEntity implements VideoFileMetadata {
-
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 
@@ -28,7 +27,12 @@ export class VideoFileMetadataEntity implements VideoFileMetadata {
   bitrate: number;
 
   @Index()
-  @Column("decimal", { nullable: true, default: null, precision: 15, scale: 10 })
+  @Column("decimal", {
+    nullable: true,
+    default: null,
+    precision: 15,
+    scale: 10
+  })
   duration: number;
 
   @Index()
@@ -54,5 +58,4 @@ export class VideoFileMetadataEntity implements VideoFileMetadata {
   @Index()
   @Column("varchar", { nullable: true })
   rotate: string;
-
 }

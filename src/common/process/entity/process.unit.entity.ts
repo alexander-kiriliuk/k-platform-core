@@ -22,14 +22,17 @@ import { LocalizedStringEntity } from "../../../shared/modules/locale/entity/loc
 
 @Entity("process_units")
 export class ProcessUnitEntity implements ProcessUnit {
-
   @PrimaryColumn("varchar")
   code: string;
 
   @Index()
   @Column({
     type: "enum",
-    enum: [Process.Status.Ready, Process.Status.Execute, Process.Status.Crashed],
+    enum: [
+      Process.Status.Ready,
+      Process.Status.Execute,
+      Process.Status.Crashed
+    ],
     default: null,
     nullable: true
   })
@@ -47,11 +50,10 @@ export class ProcessUnitEntity implements ProcessUnit {
   @Column("varchar", { name: "cron_tab", nullable: true })
   cronTab: string;
 
-  @OneToMany(() => ProcessLogEntity, c => c.process, { cascade: true })
+  @OneToMany(() => ProcessLogEntity, (c) => c.process, { cascade: true })
   logs: ProcessLogEntity[];
 
   @Index()
   @CreateDateColumn({ name: "ts_created", type: "timestamp" })
   tsCreated: Date;
-
 }

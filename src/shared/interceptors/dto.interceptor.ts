@@ -25,15 +25,12 @@ import { plainToInstance } from "class-transformer";
  */
 @Injectable()
 export class DtoInterceptor<T> implements NestInterceptor {
-
-  constructor(
-    private readonly serializer: new () => T) {
+  constructor(private readonly serializer: new () => T) {
   }
 
   intercept(context: ExecutionContext, next: CallHandler) {
     return next
       .handle()
-      .pipe(map(data => plainToInstance(this.serializer, data)));
+      .pipe(map((data) => plainToInstance(this.serializer, data)));
   }
-
 }

@@ -28,8 +28,9 @@ import {
 } from "../auth.constants";
 
 export namespace AuthMock {
-
-  export const jwtService: jest.Mocked<JwtService> = { sign: () => uuidv4() } as any;
+  export const jwtService: jest.Mocked<JwtService> = {
+    sign: () => uuidv4()
+  } as any;
   export const blockedUsrLoginPayload: LoginPayload = {
     login: "blockedUserByLogin",
     password: "1111",
@@ -57,7 +58,7 @@ export namespace AuthMock {
   export const testUser: User = {
     id: "12345",
     login: "test",
-    password: "$2b$10$pLGG/FWq1krOgl8wg05.DeoC5WlNEYOhuX7zYbtJlYQ0aZjKaMmIe"  // encrypted string "1111"
+    password: "$2b$10$pLGG/FWq1krOgl8wg05.DeoC5WlNEYOhuX7zYbtJlYQ0aZjKaMmIe" // encrypted string "1111"
   } as User;
 
   export const validAccessToken = "valid-access-token";
@@ -66,39 +67,50 @@ export namespace AuthMock {
 
   export const Storage = new MockStorage([
     {
-      key: BruteforceConfig.ENABLED, data: "true"
+      key: BruteforceConfig.ENABLED,
+      data: "true"
     },
     {
-      key: BruteforceConfig.MAX_ATTEMPTS, data: 3
+      key: BruteforceConfig.MAX_ATTEMPTS,
+      data: 3
     },
     {
-      key: `${BRUTEFORCE_JWT_CACHE_PREFIX}:login:${blockedUsrLoginPayload.login}`, data: 10
+      key: `${BRUTEFORCE_JWT_CACHE_PREFIX}:login:${blockedUsrLoginPayload.login}`,
+      data: 10
     },
     {
-      key: `${BRUTEFORCE_JWT_CACHE_PREFIX}:ip:${blockedUsrIpPayload.ipAddress}`, data: 10
+      key: `${BRUTEFORCE_JWT_CACHE_PREFIX}:ip:${blockedUsrIpPayload.ipAddress}`,
+      data: 10
     },
     {
-      key: "user.find.by.login", data: null, params: wrongCredentialsUsrPayload.login
+      key: "user.find.by.login",
+      data: null,
+      params: wrongCredentialsUsrPayload.login
     },
     {
-      key: "user.find.by.login", data: testUser, params: validCredentialsUsrPayload.login
+      key: "user.find.by.login",
+      data: testUser,
+      params: validCredentialsUsrPayload.login
     },
     {
-      key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${validAccessToken}`, data: testUser
+      key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${validAccessToken}`,
+      data: testUser
     },
     {
-      key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${validAccessToken}:*`, data: testUser
+      key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${validAccessToken}:*`,
+      data: testUser
     },
     {
-      key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:*:${refreshTokenWithoutRelatedUser}`, data: undefined
+      key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:*:${refreshTokenWithoutRelatedUser}`,
+      data: undefined
     },
     {
-      key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:*:${validRefreshToken}`, data: [
-        validRefreshToken
-      ]
+      key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:*:${validRefreshToken}`,
+      data: [validRefreshToken]
     },
     {
-      key: validRefreshToken, data: testUser.login
-    }
+      key: validRefreshToken,
+      data: testUser.login
+    },
   ]);
 }

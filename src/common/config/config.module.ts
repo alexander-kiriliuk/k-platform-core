@@ -20,10 +20,7 @@ import { LogModule } from "../../shared/modules/log/log.module";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
 
 @Module({
-  imports: [
-    LogModule,
-    CacheModule
-  ],
+  imports: [LogModule, CacheModule],
   providers: [ConfigService],
   exports: [ConfigService]
 })

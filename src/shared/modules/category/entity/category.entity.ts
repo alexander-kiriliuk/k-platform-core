@@ -30,11 +30,9 @@ import { LocalizedStringEntity } from "../../locale/entity/localized-string.enti
 import { SimpleJsonTransformer } from "../../../transformers/simple-json.transformer";
 import { MediaEntity } from "../../../../common/media/entity/media.entity";
 
-
 @Entity("categories")
 @Tree("nested-set")
 export class CategoryEntity {
-
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 
@@ -49,10 +47,14 @@ export class CategoryEntity {
   @JoinTable()
   name: LocalizedStringEntity[];
 
-  @Column("simple-json", { transformer: SimpleJsonTransformer, nullable: true, default: null })
+  @Column("simple-json", {
+    transformer: SimpleJsonTransformer,
+    nullable: true,
+    default: null
+  })
   params: object;
 
-  @ManyToOne(() => MediaEntity, t => t.code)
+  @ManyToOne(() => MediaEntity, (t) => t.code)
   icon: MediaEntity;
 
   @Index()
@@ -64,5 +66,4 @@ export class CategoryEntity {
 
   @TreeChildren()
   children: CategoryEntity[];
-
 }

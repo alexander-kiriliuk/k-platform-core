@@ -23,7 +23,13 @@ import { Explorer } from "./explorer.constants";
 import { User } from "../user/user.types";
 import { PageableData, PageableParams } from "../../shared/modules/pageable/pageable.types";
 
-export type ColumnDataType = "string" | "number" | "boolean" | "date" | "reference" | "unknown";
+export type ColumnDataType =
+  | "string"
+  | "number"
+  | "boolean"
+  | "date"
+  | "reference"
+  | "unknown";
 
 export interface ExplorerTarget {
   target: string;
@@ -99,18 +105,18 @@ export interface TargetData {
 }
 
 export type ExplorerTargetParams = {
-  section?: boolean,
-  object?: boolean,
-  fullRelations?: boolean,
-  readRequest?: boolean,
-  writeRequest?: boolean,
-  checkUserAccess?: User
+  section?: boolean;
+  object?: boolean;
+  fullRelations?: boolean;
+  readRequest?: boolean;
+  writeRequest?: boolean;
+  checkUserAccess?: User;
 };
 
 export type ExplorerSelectParams = {
-  section?: boolean,
-  object?: boolean,
-  prefix?: string
+  section?: boolean;
+  object?: boolean;
+  prefix?: string;
 };
 
 export type ExplorerModuleOptions = {
@@ -122,21 +128,39 @@ export interface EntitySaveHandler<T = any> {
 }
 
 export abstract class ExplorerService {
-
   abstract analyzeDatabase(): Promise<void>;
 
-  abstract getPageableEntityData(target: string, params?: PageableParams, targetParams?: ExplorerTargetParams): Promise<PageableData>;
+  abstract getPageableEntityData(
+    target: string,
+    params?: PageableParams,
+    targetParams?: ExplorerTargetParams
+  ): Promise<PageableData>;
 
-  abstract saveEntityData<T = any>(target: string, entity: T, targetParams?: ExplorerTargetParams): Promise<T>;
+  abstract saveEntityData<T = any>(
+    target: string,
+    entity: T,
+    targetParams?: ExplorerTargetParams
+  ): Promise<T>;
 
-  abstract removeEntity(target: string, id: string | number, targetParams?: ExplorerTargetParams): Promise<ObjectLiteral>;
+  abstract removeEntity(
+    target: string,
+    id: string | number,
+    targetParams?: ExplorerTargetParams
+  ): Promise<ObjectLiteral>;
 
-  abstract getEntityData(target: string, rowId: string | number, maxDepth?: number, targetParams?: ExplorerTargetParams): Promise<ObjectLiteral>;
+  abstract getEntityData(
+    target: string,
+    rowId: string | number,
+    maxDepth?: number,
+    targetParams?: ExplorerTargetParams
+  ): Promise<ObjectLiteral>;
 
-  abstract getTargetData(target: string, targetParams?: ExplorerTargetParams): Promise<TargetData>;
+  abstract getTargetData(
+    target: string,
+    targetParams?: ExplorerTargetParams
+  ): Promise<TargetData>;
 
   abstract getTargetList(): Promise<ExplorerTarget[]>;
 
   abstract changeTarget(target: ExplorerTarget): Promise<ExplorerTarget>;
-
 }

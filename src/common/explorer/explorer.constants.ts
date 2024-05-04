@@ -15,49 +15,117 @@
  */
 
 export namespace Explorer {
-
   export const ENTITY_SAVE_HANDLER = Symbol("ENTITY_SAVE_HANDLER");
 
   export const TARGET_RELATIONS_BASIC = [
-    "name", "name.lang",
-    "description", "description.lang",
-    "icon", "icon.name", "icon.name.lang", "icon.files", "icon.files.format", "icon.type", "icon.type.ext"
+    "name",
+    "name.lang",
+    "description",
+    "description.lang",
+    "icon",
+    "icon.name",
+    "icon.name.lang",
+    "icon.files",
+    "icon.files.format",
+    "icon.type",
+    "icon.type.ext"
   ];
 
   export const TARGET_RELATIONS_FULL = [
-    "name", "name.lang",
-    "description", "description.lang",
-    "icon", "icon.name", "icon.name.lang", "icon.files", "icon.files.format", "icon.type", "icon.type.ext",
-    "columns", "columns.name", "columns.name.lang", "columns.description", "columns.description.lang",
-    "columns.objectRenderer", "columns.objectRenderer.name", "columns.objectRenderer.name.lang",
-    "columns.objectRenderer.description", "columns.objectRenderer.description.lang",
-    "columns.sectionRenderer", "columns.sectionRenderer.name", "columns.sectionRenderer.name.lang",
-    "columns.sectionRenderer.description", "columns.sectionRenderer.description.lang",
-    "columns.tab", "columns.tab.name", "columns.tab.name.lang",
-    "actions", "actions.name", "actions.name.lang", "actions.description", "actions.description.lang",
-    "canRead", "canRead.name", "canRead.name.lang",
-    "canWrite", "canWrite.name", "canWrite.name.lang"
+    "name",
+    "name.lang",
+    "description",
+    "description.lang",
+    "icon",
+    "icon.name",
+    "icon.name.lang",
+    "icon.files",
+    "icon.files.format",
+    "icon.type",
+    "icon.type.ext",
+    "columns",
+    "columns.name",
+    "columns.name.lang",
+    "columns.description",
+    "columns.description.lang",
+    "columns.objectRenderer",
+    "columns.objectRenderer.name",
+    "columns.objectRenderer.name.lang",
+    "columns.objectRenderer.description",
+    "columns.objectRenderer.description.lang",
+    "columns.sectionRenderer",
+    "columns.sectionRenderer.name",
+    "columns.sectionRenderer.name.lang",
+    "columns.sectionRenderer.description",
+    "columns.sectionRenderer.description.lang",
+    "columns.tab",
+    "columns.tab.name",
+    "columns.tab.name.lang",
+    "actions",
+    "actions.name",
+    "actions.name.lang",
+    "actions.description",
+    "actions.description.lang",
+    "canRead",
+    "canRead.name",
+    "canRead.name.lang",
+    "canWrite",
+    "canWrite.name",
+    "canWrite.name.lang"
   ];
 
   export const TARGET_RELATIONS_OBJECT = [
-    "name", "name.lang",
-    "icon", "icon.name", "icon.name.lang", "icon.files", "icon.files.format", "icon.type", "icon.type.ext",
-    "columns", "columns.name", "columns.name.lang",
-    "columns.objectRenderer", "columns.objectRenderer.name", "columns.objectRenderer.name.lang",
-    "columns.objectRenderer.description", "columns.objectRenderer.description.lang",
-    "columns.tab", "columns.tab.name", "columns.tab.name.lang",
-    "actions", "actions.name", "actions.name.lang", "actions.description", "actions.description.lang"
+    "name",
+    "name.lang",
+    "icon",
+    "icon.name",
+    "icon.name.lang",
+    "icon.files",
+    "icon.files.format",
+    "icon.type",
+    "icon.type.ext",
+    "columns",
+    "columns.name",
+    "columns.name.lang",
+    "columns.objectRenderer",
+    "columns.objectRenderer.name",
+    "columns.objectRenderer.name.lang",
+    "columns.objectRenderer.description",
+    "columns.objectRenderer.description.lang",
+    "columns.tab",
+    "columns.tab.name",
+    "columns.tab.name.lang",
+    "actions",
+    "actions.name",
+    "actions.name.lang",
+    "actions.description",
+    "actions.description.lang"
   ];
 
   export const TARGET_RELATIONS_SECTION = [
-    "name", "name.lang",
-    "icon", "icon.name", "icon.name.lang", "icon.files", "icon.files.format", "icon.type", "icon.type.ext",
-    "columns", "columns.name", "columns.name.lang",
-    "columns.sectionRenderer", "columns.sectionRenderer.name", "columns.sectionRenderer.name.lang",
-    "columns.sectionRenderer.description", "columns.sectionRenderer.description.lang",
-    "actions", "actions.name", "actions.name.lang", "actions.description", "actions.description.lang"
+    "name",
+    "name.lang",
+    "icon",
+    "icon.name",
+    "icon.name.lang",
+    "icon.files",
+    "icon.files.format",
+    "icon.type",
+    "icon.type.ext",
+    "columns",
+    "columns.name",
+    "columns.name.lang",
+    "columns.sectionRenderer",
+    "columns.sectionRenderer.name",
+    "columns.sectionRenderer.name.lang",
+    "columns.sectionRenderer.description",
+    "columns.sectionRenderer.description.lang",
+    "actions",
+    "actions.name",
+    "actions.name.lang",
+    "actions.description",
+    "actions.description.lang"
   ];
 
   export type Variation = "section" | "object";
-
 }

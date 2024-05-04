@@ -20,7 +20,6 @@ import { LocalizedStringEntity } from "../../../shared/modules/locale/entity/loc
 
 @Entity("users_roles")
 export class UserRoleEntity implements UserRole {
-
   @Index({ unique: true })
   @PrimaryColumn("varchar")
   code: string;
@@ -32,5 +31,4 @@ export class UserRoleEntity implements UserRole {
   @Index()
   @CreateDateColumn({ name: "ts_created", type: "timestamp" })
   tsCreated: Date;
-
 }

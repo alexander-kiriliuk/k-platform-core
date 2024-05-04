@@ -15,7 +15,6 @@
  */
 
 export namespace NumberUtils {
-
   /**
    * Generates a random integer between the given minimum and maximum values (inclusive).
    * @param max - The maximum value of the random integer (default: Number.MAX_SAFE_INTEGER).
@@ -27,5 +26,4 @@ export namespace NumberUtils {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-
 }

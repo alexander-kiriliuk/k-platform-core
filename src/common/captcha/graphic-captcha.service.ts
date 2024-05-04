@@ -33,14 +33,14 @@ import generateRandomInt = NumberUtils.generateRandomInt;
  * It manages the generation and validation of graphic captchas.
  */
 export class GraphicCaptchaService extends CaptchaService<CaptchaResponse> {
-
   /**
    * @param {Logger} logger - An instance of Logger.
    * @param {CacheService} cacheService - An instance of CacheService.
    */
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
-    private readonly cacheService: CacheService) {
+    private readonly cacheService: CacheService
+  ) {
     super();
   }
 
@@ -49,7 +49,9 @@ export class GraphicCaptchaService extends CaptchaService<CaptchaResponse> {
    * @returns {Promise<CaptchaResponse>} - A promise resolving to a GraphicCaptchaResponse object containing the captcha id and image.
    */
   async generateCaptcha(): Promise<CaptchaResponse> {
-    const captchaEnabled = await this.cacheService.getBoolean(CaptchaConfig.ENABLED);
+    const captchaEnabled = await this.cacheService.getBoolean(
+      CaptchaConfig.ENABLED
+    );
     if (!captchaEnabled) {
       return undefined;
     }
@@ -135,8 +137,8 @@ export class GraphicCaptchaService extends CaptchaService<CaptchaResponse> {
   }
 
   private async getCaptchaFontPath() {
-    const dir = process.cwd() + await this.cacheService.get(CaptchaConfig.FONT_PATH);
+    const dir =
+      process.cwd() + (await this.cacheService.get(CaptchaConfig.FONT_PATH));
     return path.normalize(dir);
   }
-
 }

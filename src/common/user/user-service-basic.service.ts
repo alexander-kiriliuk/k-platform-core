@@ -27,10 +27,10 @@ import { USER_RELATIONS } from "./user.constants";
  */
 @Injectable()
 export class BasicUserService extends UserService {
-
   constructor(
     @InjectRepository(UserEntity)
-    private readonly userRep: Repository<UserEntity>) {
+    private readonly userRep: Repository<UserEntity>,
+  ) {
     super();
   }
 
@@ -41,7 +41,10 @@ export class BasicUserService extends UserService {
    * @returns {Promise<UserEntity | undefined>} The user found or undefined if not found.
    */
   async findByLogin(login: string): Promise<UserEntity> {
-    return await this.userRep.findOne({ where: { login, active: true }, relations: USER_RELATIONS });
+    return await this.userRep.findOne({
+      where: { login, active: true },
+      relations: USER_RELATIONS
+    });
   }
 
   /**
@@ -51,7 +54,10 @@ export class BasicUserService extends UserService {
    * @returns {Promise<UserEntity | undefined>} The user found or undefined if not found.
    */
   async findById(id: string): Promise<UserEntity> {
-    return await this.userRep.findOne({ where: { id }, relations: USER_RELATIONS });
+    return await this.userRep.findOne({
+      where: { id },
+      relations: USER_RELATIONS
+    });
   }
 
   /**
@@ -96,5 +102,4 @@ export class BasicUserService extends UserService {
     await this.userRep.remove(user);
     return user;
   }
-
 }

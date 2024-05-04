@@ -40,7 +40,6 @@ import { LocalizedMediaEntity } from "./localized-media.entity";
 @Injectable()
 @EventSubscriber()
 export class LocaleSubscriber implements EntitySubscriberInterface {
-
   /**
    * Constructs a new LocaleSubscriber instance.
    *
@@ -49,7 +48,8 @@ export class LocaleSubscriber implements EntitySubscriberInterface {
    */
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
-    @InjectDataSource() private readonly dataSource: DataSource) {
+    @InjectDataSource() private readonly dataSource: DataSource
+  ) {
     dataSource.manager.connection.subscribers.push(this);
   }
 
@@ -66,7 +66,7 @@ export class LocaleSubscriber implements EntitySubscriberInterface {
     if (!entity) {
       return;
     }
-    const localizedStringProperties = Object.values(entity).filter(value => {
+    const localizedStringProperties = Object.values(entity).filter((value) => {
       return (
         Array.isArray(value) &&
         value.length > 0 &&
@@ -74,17 +74,23 @@ export class LocaleSubscriber implements EntitySubscriberInterface {
       );
     });
     if (localizedStringProperties.length > 0) {
-      this.logger.verbose(`Removing related LocalizedStringEntity entities for ${entity.constructor.name} with ID ${event.entityId}`);
+      this.logger.verbose(
+        `Removing related LocalizedStringEntity entities for ${entity.constructor.name} with ID ${event.entityId}`
+      );
       for (const relatedEntities of localizedStringProperties as LocalizedStringEntity[][]) {
         for (const relatedEntity of relatedEntities) {
-          this.logger.verbose(`Removing LocalizedStringEntity with ID ${relatedEntity.id}`);
+          this.logger.verbose(
+            `Removing LocalizedStringEntity with ID ${relatedEntity.id}`
+          );
           await event.manager.remove(relatedEntity);
-          this.logger.verbose(`LocalizedStringEntity with ID ${relatedEntity.id} removed`);
+          this.logger.verbose(
+            `LocalizedStringEntity with ID ${relatedEntity.id} removed`
+          );
         }
       }
     }
 
-    const localizedMediaProperties = Object.values(entity).filter(value => {
+    const localizedMediaProperties = Object.values(entity).filter((value) => {
       return (
         Array.isArray(value) &&
         value.length > 0 &&
@@ -92,15 +98,20 @@ export class LocaleSubscriber implements EntitySubscriberInterface {
       );
     });
     if (localizedMediaProperties.length > 0) {
-      this.logger.verbose(`Removing related LocalizedMediaEntity entities for ${entity.constructor.name} with ID ${event.entityId}`);
+      this.logger.verbose(
+        `Removing related LocalizedMediaEntity entities for ${entity.constructor.name} with ID ${event.entityId}`
+      );
       for (const relatedEntities of localizedMediaProperties as LocalizedMediaEntity[][]) {
         for (const relatedEntity of relatedEntities) {
-          this.logger.verbose(`Removing LocalizedMediaEntity with ID ${relatedEntity.id}`);
+          this.logger.verbose(
+            `Removing LocalizedMediaEntity with ID ${relatedEntity.id}`
+          );
           await event.manager.remove(relatedEntity);
-          this.logger.verbose(`LocalizedMediaEntity with ID ${relatedEntity.id} removed`);
+          this.logger.verbose(
+            `LocalizedMediaEntity with ID ${relatedEntity.id} removed`
+          );
         }
       }
     }
   }
-
 }

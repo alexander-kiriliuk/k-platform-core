@@ -29,10 +29,14 @@ export class LocaleService {
     @InjectRepository(LocalizedStringEntity)
     private readonly localizedStringRep: Repository<LocalizedStringEntity>,
     @InjectRepository(LocalizedMediaEntity)
-    private readonly localizedMediaRep: Repository<LocalizedMediaEntity>) {
+    private readonly localizedMediaRep: Repository<LocalizedMediaEntity>,
+  ) {
   }
 
-  async createLocalizedStrings(value: string, code?: string): Promise<LocalizedStringEntity[]> {
+  async createLocalizedStrings(
+    value: string,
+    code?: string
+  ): Promise<LocalizedStringEntity[]> {
     const languages = await this.languageRep.find();
     const res: LocalizedStringEntity[] = [];
     for (const language of languages) {
@@ -41,7 +45,9 @@ export class LocaleService {
       ls.value = value;
       if (code) {
         ls.code = `${code}_${language.id}`;
-        const existed = await this.localizedStringRep.findOne({ where: { code: ls.code } });
+        const existed = await this.localizedStringRep.findOne({
+          where: { code: ls.code }
+        });
         ls.id = existed?.id;
       }
       await this.localizedStringRep.save(ls);
@@ -49,5 +55,4 @@ export class LocaleService {
     }
     return res;
   }
-
 }

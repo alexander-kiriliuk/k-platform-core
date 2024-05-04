@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 
-
 import { JwtDto, LoginPayload } from "./auth.types";
 
 export const ACCESS_TOKEN_ERROR_MSG = "ERR_TOKEN_A";
@@ -29,20 +28,23 @@ export const jwtAccessTokenKey = (accessToken: string) => {
   return `${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${accessToken}`;
 };
 
-export const jwtRefreshTokenKey = (accessToken: string, refreshToken: string) => {
+export const jwtRefreshTokenKey = (
+  accessToken: string,
+  refreshToken: string
+) => {
   return `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${accessToken}:${refreshToken}`;
 };
 
-export const bruteForceLoginKey = (login: string) => `${BRUTEFORCE_JWT_CACHE_PREFIX}:login:${login}`;
+export const bruteForceLoginKey = (login: string) =>
+  `${BRUTEFORCE_JWT_CACHE_PREFIX}:login:${login}`;
 
-export const bruteForceIPKey = (ipAddress: string) => `${BRUTEFORCE_JWT_CACHE_PREFIX}:ip:${ipAddress}`;
+export const bruteForceIPKey = (ipAddress: string) =>
+  `${BRUTEFORCE_JWT_CACHE_PREFIX}:ip:${ipAddress}`;
 
 export abstract class AuthService {
-
   abstract authenticate(data: LoginPayload): Promise<JwtDto>;
 
   abstract invalidateToken(accessToken: string);
 
   abstract exchangeToken(refreshToken: string): Promise<Partial<JwtDto>>;
-
 }

@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 
-
 import { Module } from "@nestjs/common";
 import { CategoryService } from "./category.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -22,10 +21,7 @@ import { CategoryEntity } from "./entity/category.entity";
 import { LogModule } from "../log/log.module";
 
 @Module({
-  imports: [
-    LogModule,
-    TypeOrmModule.forFeature([CategoryEntity])
-  ],
+  imports: [LogModule, TypeOrmModule.forFeature([CategoryEntity])],
   providers: [CategoryService],
   exports: [CategoryService]
 })

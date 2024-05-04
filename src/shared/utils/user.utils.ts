@@ -14,19 +14,20 @@
  *    limitations under the License.
  */
 
-
 import { UserRole } from "../../common/user/user.types";
 import { Roles } from "../constants";
 
 export namespace UserUtils {
-
-  export function hasAccessForRoles(userRoles: UserRole[], allowedRoles: UserRole[]) {
-    if (!allowedRoles?.length || userRoles.find(v => v.code === Roles.ROOT)) {
+  export function hasAccessForRoles(
+    userRoles: UserRole[],
+    allowedRoles: UserRole[]
+  ) {
+    if (!allowedRoles?.length || userRoles.find((v) => v.code === Roles.ROOT)) {
       return true;
     }
     let allowed = false;
     for (const role of allowedRoles) {
-      const existedRole = userRoles.find(v => v.code === role.code);
+      const existedRole = userRoles.find((v) => v.code === role.code);
       if (existedRole) {
         allowed = true;
         break;
@@ -39,15 +40,14 @@ export namespace UserUtils {
     if (!userRoles?.length) {
       return false;
     }
-    if (userRoles.find(v => v.code === Roles.ROOT)) {
+    if (userRoles.find((v) => v.code === Roles.ROOT)) {
       return true;
     }
     for (const role of roles) {
-      if (userRoles.find(v => v.code === role)) {
+      if (userRoles.find((v) => v.code === role)) {
         return true;
       }
     }
     return false;
   }
-
 }

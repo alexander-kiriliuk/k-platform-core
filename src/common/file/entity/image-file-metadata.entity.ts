@@ -3,7 +3,6 @@ import { ImageFileMetadata } from "../file.types";
 
 @Entity("file_metadata_image")
 export class ImageFileMetadataEntity implements ImageFileMetadata {
-
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 
@@ -50,5 +49,4 @@ export class ImageFileMetadataEntity implements ImageFileMetadata {
   @Index()
   @Column("varchar", { nullable: true })
   interlace: string;
-
 }

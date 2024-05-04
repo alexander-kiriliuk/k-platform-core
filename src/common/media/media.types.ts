@@ -72,7 +72,6 @@ export interface UpsertMediaRequest {
 }
 
 export class MediaTypeDto implements MediaType {
-
   @Expose()
   code: string;
 
@@ -94,11 +93,9 @@ export class MediaTypeDto implements MediaType {
 
   @Expose()
   quality: number;
-
 }
 
 export class MediaFormatDto implements MediaFormat {
-
   @Expose()
   code: string;
 
@@ -110,11 +107,9 @@ export class MediaFormatDto implements MediaFormat {
 
   @Expose()
   width: string;
-
 }
 
 export class MediaDto implements Media {
-
   @Expose()
   id: number;
 
@@ -137,11 +132,9 @@ export class MediaDto implements Media {
 
   @Expose()
   tsCreated: Date;
-
 }
 
 export class MediaFileDto implements MediaFile {
-
   @Expose()
   id: number;
 
@@ -166,14 +159,15 @@ export class MediaFileDto implements MediaFile {
 
   @Expose()
   width: number;
-
 }
 
 export abstract class MediaManager {
-
   abstract findByCode(code: string): Promise<MediaEntity>;
 
-  abstract findMediaById(id: number, privateMedia?: boolean): Promise<MediaEntity>
+  abstract findMediaById(
+    id: number,
+    privateMedia?: boolean
+  ): Promise<MediaEntity>;
 
   abstract findPublicById(id: number): Promise<MediaEntity>;
 
@@ -191,8 +185,11 @@ export abstract class MediaManager {
     name?: LocalizedString[]
   ): Promise<MediaEntity>;
 
-  abstract getMediaPath(media: Media, format?: string, webpSupport?: boolean): Promise<string>;
-
+  abstract getMediaPath(
+    media: Media,
+    format?: string,
+    webpSupport?: boolean
+  ): Promise<string>;
 }
 
 export type MediaModuleOptions = {

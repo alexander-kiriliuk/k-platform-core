@@ -15,11 +15,9 @@
  */
 
 export namespace CommonUtils {
-
   export function sleep(delay: number) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       setTimeout(() => resolve(true), delay);
     });
   }
-
 }

@@ -3,7 +3,6 @@ import { AudioFileMetadata } from "../file.types";
 
 @Entity("file_metadata_audio")
 export class AudioFileMetadataEntity implements AudioFileMetadata {
-
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 
@@ -36,7 +35,12 @@ export class AudioFileMetadataEntity implements AudioFileMetadata {
   tool: string;
 
   @Index()
-  @Column("decimal", { nullable: true, default: null, precision: 15, scale: 10 })
+  @Column("decimal", {
+    nullable: true,
+    default: null,
+    precision: 15,
+    scale: 10
+  })
   duration: number;
 
   @Index()
@@ -62,5 +66,4 @@ export class AudioFileMetadataEntity implements AudioFileMetadata {
   @Index()
   @Column("varchar", { nullable: true })
   label: string;
-
 }

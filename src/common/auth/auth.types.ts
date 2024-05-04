@@ -22,7 +22,6 @@ import { TransformUtils } from "../../shared/utils/transform.utils";
 import { AuthService } from "./auth.constants";
 
 export class LoginPayload {
-
   @IsString()
   @IsNotEmpty()
   login: string;
@@ -42,20 +41,16 @@ export class LoginPayload {
   @IsString()
   @IsOptional()
   captchaPayload?: string;
-
 }
 
 export class ExchangeTokenPayload {
-
   @IsString()
   @IsNotEmpty()
   @IsOptional()
   token: string;
-
 }
 
 export class JwtDto {
-
   @Expose()
   @Type(() => UserDto)
   user: UserDto;
@@ -71,9 +66,8 @@ export class JwtDto {
 
   @Transform(TransformUtils.dateToTime)
   rtExp: Date;
-
 }
 
 export type AuthModuleOptions = {
-  service: Class<AuthService>
+  service: Class<AuthService>;
 };

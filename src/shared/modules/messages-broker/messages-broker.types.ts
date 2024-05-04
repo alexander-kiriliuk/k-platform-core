@@ -15,11 +15,9 @@
  */
 
 export interface MessagesBroker {
-
   emit<T = unknown>(chanel: string, data: T): Promise<void>;
 
   subscribe<T = unknown>(chanel: string, handler: (data: T) => void);
 
   unsubscribe(chanel: string);
-
 }

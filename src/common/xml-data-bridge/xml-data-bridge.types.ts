@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 
-
 import { Type, Type as Class } from "@nestjs/common/interfaces/type.interface";
 import { DynamicModule } from "@nestjs/common/interfaces/modules/dynamic-module.interface";
 import { ForwardReference } from "@nestjs/common/interfaces/modules/forward-reference.interface";
@@ -35,7 +34,7 @@ export type XdbRowDataValue = {
   };
   value?: string;
   values?: string[];
-}
+};
 
 export type XdbRowData = {
   [key: string]: XdbRowDataValue;
@@ -46,14 +45,14 @@ export type MediaRow = {
   code: string;
   type: string;
   file: string;
-}
+};
 
 export type FileRow = {
   name: string;
   code: string;
   public: boolean;
   file: string;
-}
+};
 
 export type XdbAction = {
   action: "InsertUpdate" | "Media" | "File" | "Remove" | "Include" | "Query";
@@ -70,9 +69,11 @@ export type XdbObject = {
 };
 
 export type XdbModuleOptions = {
-  importService: Class<XdbImportService>,
-  exportService: Class<XdbExportService>,
-  imports: Array<Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference>;
+  importService: Class<XdbImportService>;
+  exportService: Class<XdbExportService>;
+  imports: Array<
+    Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference
+  >;
 };
 
 export type XdbExportParams = {
@@ -82,13 +83,13 @@ export type XdbExportParams = {
   useFiles: boolean;
   excludeProperties: string[];
   user: User;
-}
+};
 
 export type XdbExportDto = {
   file: string;
-}
+};
 
 export type XdbDecomposedEntity = {
-  metadata: { type: string, fieldName: string, path: string },
-  data: ObjectLiteral | Array<ObjectLiteral>
-}
+  metadata: { type: string; fieldName: string; path: string };
+  data: ObjectLiteral | Array<ObjectLiteral>;
+};

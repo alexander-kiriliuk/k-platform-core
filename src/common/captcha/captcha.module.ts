@@ -22,19 +22,17 @@ import { LogModule } from "../../shared/modules/log/log.module";
 
 @Module({})
 export class CaptchaModule {
-
-  static forRoot(options: CaptchaModuleOptions = { service: GraphicCaptchaService }): DynamicModule {
+  static forRoot(
+    options: CaptchaModuleOptions = { service: GraphicCaptchaService }
+  ): DynamicModule {
     return {
       module: CaptchaModule,
-      imports: [
-        CacheModule,
-        LogModule
-      ],
+      imports: [CacheModule, LogModule],
       providers: [
         {
           provide: CaptchaService,
           useClass: options.service
-        }
+        },
       ],
       exports: [CaptchaService]
     };
@@ -54,10 +52,9 @@ export class CaptchaModule {
           provide: CaptchaService,
           useFactory,
           inject
-        }
+        },
       ],
       exports: [CaptchaService]
     };
   }
-
 }

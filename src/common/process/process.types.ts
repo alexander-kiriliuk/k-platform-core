@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 
-
 import { Process } from "./process.constants";
 import { LocalizedString } from "../../shared/modules/locale/locale.types";
 

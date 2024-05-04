@@ -15,7 +15,6 @@
  */
 
 export namespace StringUtils {
-
   /**
    * Generates a random string of a random length between the given minimum and maximum values (inclusive).
    * @param min - The minimum length of the random string.
@@ -23,13 +22,15 @@ export namespace StringUtils {
    * @returns A random string with a length between the specified min and max values.
    */
   export function generateRandomString(min: number, max: number): string {
-    const characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const characters =
+      "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const length = Math.floor(Math.random() * (max - min + 1) + min);
     let result = "";
     for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
     }
     return result;
   }
-
 }

@@ -22,10 +22,8 @@ import { ExplorerColumnRendererEntity } from "./explorer-column-renderer.entity"
 import { SimpleJsonTransformer } from "../../../shared/transformers/simple-json.transformer";
 import { ExplorerTabEntity } from "./explorer-tab.entity";
 
-
 @Entity("explorer_columns")
 export class ExplorerColumnEntity implements ExplorerColumn {
-
   @Index({ unique: true })
   @PrimaryColumn("varchar")
   id: string;
@@ -42,7 +40,7 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   @JoinTable()
   description: LocalizedStringEntity[];
 
-  @ManyToOne(() => ExplorerTargetEntity, t => t.target)
+  @ManyToOne(() => ExplorerTargetEntity, (t) => t.target)
   target: ExplorerTargetEntity;
 
   @Column("text", { nullable: false })
@@ -101,11 +99,11 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   objectVisibility: boolean;
 
   @Index()
-  @ManyToOne(() => ExplorerColumnRendererEntity, t => t.code)
+  @ManyToOne(() => ExplorerColumnRendererEntity, (t) => t.code)
   sectionRenderer: ExplorerColumnRendererEntity;
 
   @Index()
-  @ManyToOne(() => ExplorerColumnRendererEntity, t => t.code)
+  @ManyToOne(() => ExplorerColumnRendererEntity, (t) => t.code)
   objectRenderer: ExplorerColumnRendererEntity;
 
   @Column("simple-json", {
@@ -124,8 +122,6 @@ export class ExplorerColumnEntity implements ExplorerColumn {
   })
   objectRendererParams: object;
 
-  @ManyToOne(() => ExplorerTabEntity, t => t.id)
+  @ManyToOne(() => ExplorerTabEntity, (t) => t.id)
   tab: ExplorerTabEntity;
-
 }
-

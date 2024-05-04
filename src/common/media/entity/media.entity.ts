@@ -19,9 +19,10 @@ import { LocalizedStringEntity } from "../../../shared/modules/locale/entity/loc
 import { FileMetadataEntity } from "../../file/entity/file-metadata.entity";
 
 @Entity("medias")
-@TableInheritance({ column: { type: "varchar", name: "class", nullable: true } })
+@TableInheritance({
+  column: { type: "varchar", name: "class", nullable: true }
+})
 export class MediaEntity implements Media {
-
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 
@@ -33,13 +34,13 @@ export class MediaEntity implements Media {
   @JoinTable()
   name: LocalizedStringEntity[];
 
-  @ManyToOne(() => MediaTypeEntity, type => type.code)
+  @ManyToOne(() => MediaTypeEntity, (type) => type.code)
   type: MediaTypeEntity;
 
-  @OneToMany(() => MediaFileEntity, f => f.media, { cascade: true })
+  @OneToMany(() => MediaFileEntity, (f) => f.media, { cascade: true })
   files: MediaFileEntity[];
 
-  @OneToOne(() => FileMetadataEntity, t => t.id, {
+  @OneToOne(() => FileMetadataEntity, (t) => t.id, {
     cascade: true,
     onDelete: "CASCADE"
   })
@@ -49,5 +50,4 @@ export class MediaEntity implements Media {
   @Index()
   @CreateDateColumn({ name: "ts_created", type: "timestamp" })
   tsCreated: Date;
-
 }

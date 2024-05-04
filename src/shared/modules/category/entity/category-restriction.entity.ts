@@ -20,7 +20,6 @@ import { UserRoleEntity } from "../../../../common/user/entity/user-role.entity"
 
 @Entity("category_restriction")
 export class CategoryRestrictionEntity {
-
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
 

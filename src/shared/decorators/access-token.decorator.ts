@@ -25,5 +25,5 @@ export const AccessToken = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
     return request[REQUEST_PROPS.accessToken];
-  }
+  },
 );

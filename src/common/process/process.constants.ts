@@ -18,8 +18,10 @@ import { AbstractProcess } from "./abstract-process";
 import { InternalServerErrorException } from "@nestjs/common";
 
 export namespace Process {
-
-  const REGISTERED_PROCESSES: Map<string, AbstractProcess> = new Map<string, AbstractProcess>();
+  const REGISTERED_PROCESSES: Map<string, AbstractProcess> = new Map<
+    string,
+    AbstractProcess
+  >();
 
   export enum Status {
     Execute = "execute",
@@ -49,7 +51,9 @@ export namespace Process {
   export function registerProcess<T extends AbstractProcess>(process: T) {
     const processName = process.constructor.name;
     if (REGISTERED_PROCESSES.has(processName)) {
-      throw new InternalServerErrorException(`Process ${processName} already defined`);
+      throw new InternalServerErrorException(
+        `Process ${processName} already defined`
+      );
     }
     REGISTERED_PROCESSES.set(processName, process);
   }
@@ -66,5 +70,4 @@ export namespace Process {
     }
     return process;
   }
-
 }

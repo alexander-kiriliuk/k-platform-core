@@ -17,7 +17,6 @@
 import * as util from "util";
 
 export namespace ObjectUtils {
-
   /**
    * Inspects an object and returns a string representation of it.
    * @param obj - The object to inspect.
@@ -27,7 +26,6 @@ export namespace ObjectUtils {
     return util.inspect(obj, { showHidden: false, depth: null });
   }
 
-
   /**
    * Sorts array of objects.
    * @param obj - The object to sort.
@@ -35,7 +33,11 @@ export namespace ObjectUtils {
    * @param vector - sorting order
    * @returns A string representation of the object.
    */
-  export function sort<T = any>(obj: Array<T>, property: string, vector = true) {
+  export function sort<T = any>(
+    obj: Array<T>,
+    property: string,
+    vector = true
+  ) {
     obj?.sort((a: T, b: T) => {
       if (!vector) {
         if (a[property] < b[property]) {
@@ -55,5 +57,4 @@ export namespace ObjectUtils {
       return 0;
     });
   }
-
 }

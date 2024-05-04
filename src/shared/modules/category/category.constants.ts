@@ -15,6 +15,13 @@
  */
 
 export const CATEGORY_RELATIONS = [
-  "icon", "icon.name", "icon.name.lang", "icon.files", "icon.files.format", "icon.type", "icon.type.ext",
-  "name", "name.lang"
+  "icon",
+  "icon.name",
+  "icon.name.lang",
+  "icon.files",
+  "icon.files.format",
+  "icon.type",
+  "icon.type.ext",
+  "name",
+  "name.lang"
 ];
