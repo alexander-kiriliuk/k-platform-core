@@ -29,8 +29,8 @@ export class FileModule {
   static forRoot(
     options: FileModuleOptions = {
       fileManager: FileService,
-      fileMd: FileMetadataService
-    }
+      fileMd: FileMetadataService,
+    },
   ): DynamicModule {
     return {
       module: FileModule,
@@ -38,14 +38,14 @@ export class FileModule {
       providers: [
         {
           provide: FileManager,
-          useClass: options.fileManager
+          useClass: options.fileManager,
         },
         {
           provide: FileMd,
-          useClass: options.fileMd
+          useClass: options.fileMd,
         },
       ],
-      exports: [FileManager, FileMd]
+      exports: [FileManager, FileMd],
     };
   }
 }

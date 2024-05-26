@@ -28,13 +28,12 @@ import hasSomeRole = UserUtils.hasSomeRole;
  */
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) {
-  }
+  constructor(private readonly reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
     const roles = this.reflector.get<string[]>(
       AllowedForMetadataKey,
-      context.getHandler()
+      context.getHandler(),
     );
     if (!roles) {
       return true;

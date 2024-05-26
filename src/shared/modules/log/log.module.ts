@@ -6,10 +6,9 @@ import { LOGGER } from "./log.constants";
   providers: [
     {
       provide: LOGGER,
-      useClass: LogService
+      useClass: LogService,
     },
   ],
-  exports: [LOGGER]
+  exports: [LOGGER],
 })
-export class LogModule {
-}
+export class LogModule {}

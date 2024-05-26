@@ -27,9 +27,8 @@ import { REDIS_CLIENT } from "./cache.constants";
 export class RedisCacheService implements CacheService {
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
-    @Inject(REDIS_CLIENT) private readonly client: Redis
-  ) {
-  }
+    @Inject(REDIS_CLIENT) private readonly client: Redis,
+  ) {}
 
   /**
    * Retrieves the value of the specified key from the cache storage.
@@ -79,7 +78,7 @@ export class RedisCacheService implements CacheService {
   async set(
     key: string,
     value: string | number,
-    expiresIn?: number
+    expiresIn?: number,
   ): Promise<boolean> {
     try {
       if (expiresIn) {
@@ -107,7 +106,7 @@ export class RedisCacheService implements CacheService {
     } catch (error) {
       this.logger.error(
         `Error while deleting keys "${keys.join(", ")}" from Redis:`,
-        error
+        error,
       );
       return false;
     }
@@ -125,7 +124,7 @@ export class RedisCacheService implements CacheService {
     } catch (error) {
       this.logger.error(
         `Error while incrementing key "${key}" in Redis:`,
-        error
+        error,
       );
       return null;
     }
@@ -144,7 +143,7 @@ export class RedisCacheService implements CacheService {
     } catch (error) {
       this.logger.error(
         `Error while setting expiration for key "${key}" in Redis:`,
-        error
+        error,
       );
       return false;
     }

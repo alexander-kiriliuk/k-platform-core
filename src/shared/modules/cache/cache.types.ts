@@ -24,7 +24,7 @@ export abstract class CacheService {
   abstract set(
     key: string,
     value: string | number,
-    expiration?: number
+    expiration?: number,
   ): Promise<boolean>;
 
   abstract del(...keys: string[]): Promise<boolean>;

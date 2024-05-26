@@ -35,20 +35,19 @@ import { RedisCacheService } from "./redis-cache.service";
             port: parseInt(process.env.REDIS_PORT),
             db: parseInt(process.env.REDIS_DB),
             username: process.env.REDIS_USER,
-            password: process.env.REDIS_PASSWORD
+            password: process.env.REDIS_PASSWORD,
           },
         };
       },
     }),
-    LogModule
+    LogModule,
   ],
   providers: [
     {
       provide: CacheService,
-      useClass: RedisCacheService
+      useClass: RedisCacheService,
     },
   ],
-  exports: [CacheService]
+  exports: [CacheService],
 })
-export class CacheModule {
-}
+export class CacheModule {}

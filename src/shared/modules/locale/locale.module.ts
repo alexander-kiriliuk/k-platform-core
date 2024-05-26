@@ -26,11 +26,10 @@ import { LocaleService } from "./locale.service";
     TypeOrmModule.forFeature([
       LanguageEntity,
       LocalizedStringEntity,
-      LocalizedMediaEntity
+      LocalizedMediaEntity,
     ]),
   ],
   providers: [LocaleService],
-  exports: [LocaleService]
+  exports: [LocaleService],
 })
-export class LocaleModule {
-}
+export class LocaleModule {}

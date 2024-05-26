@@ -52,7 +52,7 @@ export namespace Process {
     const processName = process.constructor.name;
     if (REGISTERED_PROCESSES.has(processName)) {
       throw new InternalServerErrorException(
-        `Process ${processName} already defined`
+        `Process ${processName} already defined`,
       );
     }
     REGISTERED_PROCESSES.set(processName, process);

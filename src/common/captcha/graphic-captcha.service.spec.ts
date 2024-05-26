@@ -40,19 +40,19 @@ describe("GraphicCaptchaService", () => {
 
   it("failed validate captcha with wrong id", async () => {
     await expect(
-      captchaService.validateCaptcha(CaptchaMock.captchaRequestWithInvalidId)
+      captchaService.validateCaptcha(CaptchaMock.captchaRequestWithInvalidId),
     ).rejects.toThrow(BadRequestException);
   });
 
   it("failed validate captcha with wrong data value", async () => {
     await expect(
-      captchaService.validateCaptcha(CaptchaMock.captchaRequestWithInvalidData)
+      captchaService.validateCaptcha(CaptchaMock.captchaRequestWithInvalidData),
     ).rejects.toThrow(ForbiddenException);
   });
 
   it("success validate captcha", async () => {
     const res = await captchaService.validateCaptcha(
-      CaptchaMock.validCaptchaRequest
+      CaptchaMock.validCaptchaRequest,
     );
     expect(res).toBeDefined();
     expect(res).toBe(true);

@@ -20,7 +20,7 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
-  NotFoundException
+  NotFoundException,
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
@@ -47,7 +47,7 @@ export class FileService extends FileManager {
     @InjectRepository(FileEntity)
     private readonly fileRep: Repository<FileEntity>,
     private readonly cacheService: CacheService,
-    private readonly metadataService: FileMd
+    private readonly metadataService: FileMd,
   ) {
     super();
   }
@@ -69,7 +69,7 @@ export class FileService extends FileManager {
     isPublic = true,
     code?: string,
     existedEntityId?: number,
-    name?: string
+    name?: string,
   ): Promise<FileEntity> {
     let entity: FileEntity = undefined;
     await this.fileRep.manager.transaction(async (transactionManager) => {
@@ -77,21 +77,21 @@ export class FileService extends FileManager {
         entity = await this.findFileById(existedEntityId, isPublic);
         if (!entity) {
           throw new BadRequestException(
-            `Cannot patch file with ID ${existedEntityId}, because than not exists`
+            `Cannot patch file with ID ${existedEntityId}, because than not exists`,
           );
         }
         const dir = path.join(
           !entity.public
             ? await this.getPrivateDir()
             : await this.getPublicDir(),
-          entity.id.toString()
+          entity.id.toString(),
         );
         await fs.promises
           .rm(dir, { recursive: true, force: true })
           .catch((err) => {
             throw new InternalServerErrorException(
               `Failed to delete directory: ${dir}`,
-              err
+              err,
             );
           });
       } else {
@@ -99,7 +99,7 @@ export class FileService extends FileManager {
       }
       const outputPath = await this.createFileDirectory(
         entity.public,
-        entity.id.toString()
+        entity.id.toString(),
       );
       const fileName =
         entity.id.toString() + (extension ? `.${extension}` : extension);
@@ -111,13 +111,13 @@ export class FileService extends FileManager {
       if (!existedEntityId) {
         entity.metadata = await this.metadataService.createFileMetadataEntity(
           file,
-          `${outputPath}/${fileName}`
+          `${outputPath}/${fileName}`,
         );
       }
       await transactionManager.save(entity);
     });
     this.logger.log(
-      `${!existedEntityId ? `Created` : `Updated`} file with ID ${entity.id}`
+      `${!existedEntityId ? `Created` : `Updated`} file with ID ${entity.id}`,
     );
     return entity;
   }
@@ -188,7 +188,7 @@ export class FileService extends FileManager {
     const file = await this.findFileById(id);
     const dir = path.join(
       !file.public ? await this.getPrivateDir() : await this.getPublicDir(),
-      file.id.toString()
+      file.id.toString(),
     );
     await this.fileRep.manager.transaction(async (transactionManager) => {
       if (file.metadata) {
@@ -211,7 +211,7 @@ export class FileService extends FileManager {
         .catch((err) => {
           throw new InternalServerErrorException(
             `Failed to delete directory: ${dir}`,
-            err
+            err,
           );
         });
     });
@@ -255,11 +255,11 @@ export class FileService extends FileManager {
    */
   private async createFileDirectory(
     isPublic: boolean,
-    entityId: string
+    entityId: string,
   ): Promise<string> {
     const dir = path.join(
       !isPublic ? await this.getPrivateDir() : await this.getPublicDir(),
-      entityId
+      entityId,
     );
     await createDirectoriesIfNotExist(dir);
     return dir;

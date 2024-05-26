@@ -22,7 +22,7 @@ export class Roles {
 
 export const REQUEST_PROPS = {
   accessToken: "accessToken",
-  currentUser: "currentUser"
+  currentUser: "currentUser",
 };
 
 export const MS_EXCEPTION_ID = "MsException";

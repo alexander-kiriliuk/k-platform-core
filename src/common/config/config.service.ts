@@ -24,12 +24,15 @@ import {
   GEN_SRC_DIR,
   KP_PROPERTIES_FILE_NAME,
   LOCAL_PROPERTIES_FILE_NAME,
-  PROPERTIES_FILE_EXT_PATTERN
+  PROPERTIES_FILE_EXT_PATTERN,
 } from "./config.constants";
 import { ConfigItem } from "./config.types";
 import { LOGGER } from "../../shared/modules/log/log.constants";
 import { CacheService } from "../../shared/modules/cache/cache.types";
-import { PageableData, PageableParams } from "../../shared/modules/pageable/pageable.types";
+import {
+  PageableData,
+  PageableParams,
+} from "../../shared/modules/pageable/pageable.types";
 
 /**
  * ConfigService is a service responsible for managing configurations in your application.
@@ -45,9 +48,8 @@ export class ConfigService {
 
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
-    private readonly cacheService: CacheService
-  ) {
-  }
+    private readonly cacheService: CacheService,
+  ) {}
 
   /**
    * Initializes the service by scanning for properties files, generating config files, and synchronizing the cache.
@@ -74,11 +76,11 @@ export class ConfigService {
    * @returns A promise that resolves to an object containing the pageable data.
    */
   async getPropertiesPage(
-    params: PageableParams
+    params: PageableParams,
   ): Promise<PageableData<ConfigItem>> {
     const { limit, page, sort, order, filter } = params;
     const propertyKeys = await this.cacheService.getFromPattern(
-      `${CONFIG_CACHE_PREFIX}:${!filter ? "*" : filter}`
+      `${CONFIG_CACHE_PREFIX}:${!filter ? "*" : filter}`,
     );
     const sortedKeys = propertyKeys.sort((a, b) => {
       if (sort && order) {
@@ -125,7 +127,7 @@ export class ConfigService {
 
   private async scanForPropertiesFiles(
     directory: string,
-    globalKpContent: string | null = null
+    globalKpContent: string | null = null,
   ) {
     const files = await fs.promises.readdir(directory, { withFileTypes: true });
     if (directory === process.cwd()) {
@@ -135,16 +137,16 @@ export class ConfigService {
           globalKpContent = await fs.promises.readFile(kpPath, FILES_ENCODING);
           const localPropertiesPath = path.join(
             directory,
-            LOCAL_PROPERTIES_FILE_NAME
+            LOCAL_PROPERTIES_FILE_NAME,
           );
           if (fs.existsSync(localPropertiesPath)) {
             const localPropertiesContent = await fs.promises.readFile(
               localPropertiesPath,
-              FILES_ENCODING
+              FILES_ENCODING,
             );
             globalKpContent = this.mergePropertiesContent(
               globalKpContent,
-              localPropertiesContent
+              localPropertiesContent,
             );
           }
           break;
@@ -162,33 +164,33 @@ export class ConfigService {
         let fileContent = await fs.promises.readFile(fullPath, FILES_ENCODING);
         const localPropertiesPath = path.join(
           directory,
-          LOCAL_PROPERTIES_FILE_NAME
+          LOCAL_PROPERTIES_FILE_NAME,
         );
         if (fs.existsSync(localPropertiesPath)) {
           const localPropertiesContent = await fs.promises.readFile(
             localPropertiesPath,
-            FILES_ENCODING
+            FILES_ENCODING,
           );
           fileContent = this.mergePropertiesContent(
             fileContent,
-            localPropertiesContent
+            localPropertiesContent,
           );
         }
         if (globalKpContent) {
           fileContent = this.mergePropertiesContent(
             fileContent,
-            globalKpContent
+            globalKpContent,
           );
         }
         const fileNamePrefix = path.basename(
           fullPath,
-          PROPERTIES_FILE_EXT_PATTERN
+          PROPERTIES_FILE_EXT_PATTERN,
         );
         this.propertiesFiles[fullPath] =
           await this.processAndValidatePropertiesContent(
             fullPath,
             fileContent,
-            fileNamePrefix
+            fileNamePrefix,
           );
       }
     }
@@ -197,7 +199,7 @@ export class ConfigService {
   private async processAndValidatePropertiesContent(
     filePath: string,
     content: string,
-    fileNamePrefix: string
+    fileNamePrefix: string,
   ) {
     const lines = content.split("\n");
     const processedData: { [key: string]: any } = {};
@@ -247,7 +249,7 @@ export class ConfigService {
 
   private generateNamespaceWithVariables(
     namespaceName: string,
-    processedData: { [key: string]: string }
+    processedData: { [key: string]: string },
   ) {
     let generatedContent = `export namespace ${namespaceName} {\n`;
     for (const variableName in processedData) {
@@ -268,7 +270,7 @@ export class ConfigService {
       if (file.isDirectory()) {
         if (file.name === GEN_SRC_DIR) {
           const genSrcFiles = await fs.promises.readdir(fullPath, {
-            withFileTypes: true
+            withFileTypes: true,
           });
           this.logger.verbose(`Read dir: ${fullPath}`);
           for (const genSrcFile of genSrcFiles) {
@@ -308,7 +310,7 @@ export class ConfigService {
         "Config";
       const generatedFileContent = this.generateNamespaceWithVariables(
         namespaceName,
-        fileContent
+        fileContent,
       );
       await fs.promises.mkdir(genSrcPath, { recursive: true });
       await fs.promises.writeFile(configFilePath, generatedFileContent);
@@ -318,7 +320,7 @@ export class ConfigService {
 
   private mergePropertiesContent(
     mainContent: string,
-    localContent: string
+    localContent: string,
   ): string {
     const mainContentLines = mainContent.split("\n");
     const localContentLines = localContent.split("\n");

@@ -14,7 +14,11 @@
  *    limitations under the License.
  */
 
-import { EntitySubscriberInterface, EventSubscriber, UpdateEvent } from "typeorm";
+import {
+  EntitySubscriberInterface,
+  EventSubscriber,
+  UpdateEvent,
+} from "typeorm";
 import { UserEntity } from "./user.entity";
 import { InsertEvent } from "typeorm/subscriber/event/InsertEvent";
 import { AbstractUserSubscriber } from "../abstract-user-subscriber";
@@ -22,7 +26,8 @@ import { AbstractUserSubscriber } from "../abstract-user-subscriber";
 @EventSubscriber()
 export class UserSubscriber
   extends AbstractUserSubscriber<UserEntity>
-  implements EntitySubscriberInterface<UserEntity> {
+  implements EntitySubscriberInterface<UserEntity>
+{
   protected readonly type = UserEntity;
 
   listenTo() {

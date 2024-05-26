@@ -43,7 +43,7 @@ export class BasicUserService extends UserService {
   async findByLogin(login: string): Promise<UserEntity> {
     return await this.userRep.findOne({
       where: { login, active: true },
-      relations: USER_RELATIONS
+      relations: USER_RELATIONS,
     });
   }
 
@@ -56,7 +56,7 @@ export class BasicUserService extends UserService {
   async findById(id: string): Promise<UserEntity> {
     return await this.userRep.findOne({
       where: { id },
-      relations: USER_RELATIONS
+      relations: USER_RELATIONS,
     });
   }
 

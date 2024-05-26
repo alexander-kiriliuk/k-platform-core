@@ -21,7 +21,10 @@ import { Media } from "../media/media.types";
 import { UserRoleEntity } from "../user/entity/user-role.entity";
 import { Explorer } from "./explorer.constants";
 import { User } from "../user/user.types";
-import { PageableData, PageableParams } from "../../shared/modules/pageable/pageable.types";
+import {
+  PageableData,
+  PageableParams,
+} from "../../shared/modules/pageable/pageable.types";
 
 export type ColumnDataType =
   | "string"
@@ -133,31 +136,31 @@ export abstract class ExplorerService {
   abstract getPageableEntityData(
     target: string,
     params?: PageableParams,
-    targetParams?: ExplorerTargetParams
+    targetParams?: ExplorerTargetParams,
   ): Promise<PageableData>;
 
   abstract saveEntityData<T = any>(
     target: string,
     entity: T,
-    targetParams?: ExplorerTargetParams
+    targetParams?: ExplorerTargetParams,
   ): Promise<T>;
 
   abstract removeEntity(
     target: string,
     id: string | number,
-    targetParams?: ExplorerTargetParams
+    targetParams?: ExplorerTargetParams,
   ): Promise<ObjectLiteral>;
 
   abstract getEntityData(
     target: string,
     rowId: string | number,
     maxDepth?: number,
-    targetParams?: ExplorerTargetParams
+    targetParams?: ExplorerTargetParams,
   ): Promise<ObjectLiteral>;
 
   abstract getTargetData(
     target: string,
-    targetParams?: ExplorerTargetParams
+    targetParams?: ExplorerTargetParams,
   ): Promise<TargetData>;
 
   abstract getTargetList(): Promise<ExplorerTarget[]>;

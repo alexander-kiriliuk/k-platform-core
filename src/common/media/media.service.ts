@@ -20,7 +20,7 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
-  NotFoundException
+  NotFoundException,
 } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -33,7 +33,12 @@ import { MediaFormatEntity } from "./entity/media-format.entity";
 import { MediaFileEntity } from "./entity/media-file.entity";
 import { CacheService } from "../../shared/modules/cache/cache.types";
 import { FileMd } from "../file/file.constants";
-import { DEFAULT_MEDIA_QUALITY, MEDIA_TYPE_RELATIONS, ReservedMediaExt, ReservedMediaFormat } from "./media.constants";
+import {
+  DEFAULT_MEDIA_QUALITY,
+  MEDIA_TYPE_RELATIONS,
+  ReservedMediaExt,
+  ReservedMediaFormat,
+} from "./media.constants";
 import { LocalizedString } from "../../shared/modules/locale/locale.types";
 import { LocalizedStringEntity } from "../../shared/modules/locale/entity/localized-string.entity";
 import { FileMetadataEntity } from "../file/entity/file-metadata.entity";
@@ -68,7 +73,7 @@ export class MediaService extends MediaManager {
     @InjectRepository(MediaFileEntity)
     private readonly mediaFileRep: Repository<MediaFileEntity>,
     private readonly cacheService: CacheService,
-    private readonly metadataService: FileMd
+    private readonly metadataService: FileMd,
   ) {
     super();
   }
@@ -113,7 +118,7 @@ export class MediaService extends MediaManager {
       media.type.private
         ? await this.getPrivateDir()
         : await this.getPublicDir(),
-      media.id.toString()
+      media.id.toString(),
     );
     await this.mediaRep.manager.transaction(async (transactionManager) => {
       await transactionManager.remove(media.files);
@@ -137,7 +142,7 @@ export class MediaService extends MediaManager {
         .catch((err) => {
           throw new InternalServerErrorException(
             `Failed to delete directory: ${dir}`,
-            err
+            err,
           );
         });
     });
@@ -161,7 +166,7 @@ export class MediaService extends MediaManager {
       media.type.private
         ? await this.getPrivateDir()
         : await this.getPublicDir(),
-      media.id.toString()
+      media.id.toString(),
     );
     this.logger.log(`Try to recreate media with ID ${id}`);
     for (const file of media.files) {
@@ -169,7 +174,7 @@ export class MediaService extends MediaManager {
         continue;
       }
       const oldFilePath = path.normalize(
-        `${dir}/${file.name}.${media.type.ext.code}`
+        `${dir}/${file.name}.${media.type.ext.code}`,
       );
       if (!fs.existsSync(oldFilePath)) {
         throw new BadRequestException(`Related file was not found`);
@@ -179,7 +184,7 @@ export class MediaService extends MediaManager {
         oldFile,
         media.type.code,
         media.code,
-        media.id
+        media.id,
       );
       this.logger.log(`Media with ID ${id} recreated`);
       return newMedia;
@@ -202,7 +207,7 @@ export class MediaService extends MediaManager {
     type: string,
     code?: string,
     existedEntityId?: number,
-    name?: LocalizedString[]
+    name?: LocalizedString[],
   ): Promise<MediaEntity> {
     const fileMetadata =
       await this.metadataService.createFileMetadataEntity(file);
@@ -211,12 +216,12 @@ export class MediaService extends MediaManager {
       // convert heic to target format
       if (mediaType.ext.code !== "png" && mediaType.ext.code !== "jpg") {
         throw new BadRequestException(
-          `Can't convert input file to ${mediaType.ext.code}`
+          `Can't convert input file to ${mediaType.ext.code}`,
         );
       }
       file = await heicConvert({
         buffer: file,
-        format: mediaType.ext.code === "jpg" ? "JPEG" : "PNG"
+        format: mediaType.ext.code === "jpg" ? "JPEG" : "PNG",
       });
     }
     let entity: MediaEntity = undefined;
@@ -225,21 +230,21 @@ export class MediaService extends MediaManager {
         entity = await this.findMediaById(existedEntityId);
         if (!entity) {
           throw new BadRequestException(
-            `Cannot patch media with ID ${existedEntityId}, because that not exists`
+            `Cannot patch media with ID ${existedEntityId}, because that not exists`,
           );
         }
         const dir = path.join(
           entity.type.private
             ? await this.getPrivateDir()
             : await this.getPublicDir(),
-          entity.id.toString()
+          entity.id.toString(),
         );
         await fs.promises
           .rm(dir, { recursive: true, force: true })
           .catch((err) => {
             throw new InternalServerErrorException(
               `Failed to delete directory: ${dir}`,
-              err
+              err,
             );
           });
       } else {
@@ -249,7 +254,7 @@ export class MediaService extends MediaManager {
       entity.code = code;
       const outputPath = await this.createMediaDirectory(
         mediaType,
-        entity.id.toString()
+        entity.id.toString(),
       );
       const formatsToProcess = await this.getFormatsToProcess(mediaType);
       entity.files = await this.processFormats(
@@ -257,12 +262,12 @@ export class MediaService extends MediaManager {
         formatsToProcess,
         mediaType,
         entity,
-        outputPath
+        outputPath,
       );
       await transactionManager.save(entity);
     });
     this.logger.log(
-      `${!existedEntityId ? `Created` : `Updated`} media with ID ${entity.id}`
+      `${!existedEntityId ? `Created` : `Updated`} media with ID ${entity.id}`,
     );
     entity.files.forEach((f) => delete f.media); // remove inverse side ref
     return entity;
@@ -278,7 +283,7 @@ export class MediaService extends MediaManager {
   async getMediaPath(
     media: Media,
     format = ReservedMediaFormat.ORIGINAL,
-    webpSupport = false
+    webpSupport = false,
   ) {
     let mediaPath = `${media.type.private ? await this.getPrivateDir() : await this.getPublicDir()}/${media.id}/`;
     const file = media.files.find((v) => v.format.code === format);
@@ -300,7 +305,7 @@ export class MediaService extends MediaManager {
    */
   async findMediaById(
     id: number,
-    privateMedia: boolean = undefined
+    privateMedia: boolean = undefined,
   ): Promise<MediaEntity> {
     const qb = this.createBasicFindQb().where("media.id = :id", { id });
     if (privateMedia !== undefined) {
@@ -322,7 +327,7 @@ export class MediaService extends MediaManager {
   private async getMediaType(type: string): Promise<MediaTypeEntity> {
     const mediaType = await this.mediaTypeRep.findOne({
       where: { code: type },
-      relations: MEDIA_TYPE_RELATIONS
+      relations: MEDIA_TYPE_RELATIONS,
     });
     if (!mediaType) {
       throw new BadRequestException("Media type not found");
@@ -338,7 +343,7 @@ export class MediaService extends MediaManager {
    */
   private async createMediaEntity(
     mediaType: MediaTypeEntity,
-    metadata?: FileMetadataEntity
+    metadata?: FileMetadataEntity,
   ): Promise<MediaEntity> {
     const entity = new MediaEntity();
     entity.name = [];
@@ -355,13 +360,13 @@ export class MediaService extends MediaManager {
    */
   private async createMediaDirectory(
     mediaType: MediaTypeEntity,
-    mediaEntityId: string
+    mediaEntityId: string,
   ): Promise<string> {
     const dir = path.join(
       mediaType.private
         ? await this.getPrivateDir()
         : await this.getPublicDir(),
-      mediaEntityId
+      mediaEntityId,
     );
     await createDirectoriesIfNotExist(dir);
     return dir;
@@ -373,12 +378,12 @@ export class MediaService extends MediaManager {
    * @returns An array of MediaFormatEntity instances to be processed.
    */
   private async getFormatsToProcess(
-    mediaType: MediaTypeEntity
+    mediaType: MediaTypeEntity,
   ): Promise<MediaFormatEntity[]> {
     mediaType.formats = mediaType.formats.filter(
       (f) =>
         f.code !== ReservedMediaFormat.ORIGINAL &&
-        f.code !== ReservedMediaFormat.THUMB
+        f.code !== ReservedMediaFormat.THUMB,
     );
     const thumbFormat = await this.getThumbFormat();
     const originalFormat = await this.getOriginalFormat();
@@ -402,7 +407,7 @@ export class MediaService extends MediaManager {
     formats: MediaFormatEntity[],
     mediaType: MediaTypeEntity,
     mediaEntity: MediaEntity,
-    outputPath: string
+    outputPath: string,
   ): Promise<MediaFileEntity[]> {
     const processingPromises = formats.map(async (format) => {
       const quality = mediaType.quality || DEFAULT_MEDIA_QUALITY;
@@ -415,7 +420,7 @@ export class MediaService extends MediaManager {
         imgBuffer = await this.optimizeImage(
           imgBuffer,
           mediaType.ext.code,
-          quality
+          quality,
         );
       }
       const fileName = `${NumberUtils.generateRandomInt()}-${format.code}`;
@@ -425,7 +430,7 @@ export class MediaService extends MediaManager {
         imgBuffer,
         format,
         mediaEntity,
-        fileName
+        fileName,
       );
       if (mediaType.vp6) {
         const webpImage = await sharp(imgBuffer).webp({ quality }).toBuffer();
@@ -435,11 +440,11 @@ export class MediaService extends MediaManager {
           webpImage,
           format,
           mediaEntity,
-          fileName
+          fileName,
         );
         return [
           await this.mediaFileRep.save(resizedMediaFile),
-          await this.mediaFileRep.save(webpMediaFile)
+          await this.mediaFileRep.save(webpMediaFile),
         ];
       } else {
         return [await this.mediaFileRep.save(resizedMediaFile)];
@@ -459,20 +464,20 @@ export class MediaService extends MediaManager {
   private async optimizeImage(
     buffer: Buffer,
     fileExt: string,
-    quality: number
+    quality: number,
   ) {
     try {
       switch (fileExt) {
         case "png":
           return await imagemin.buffer(buffer, {
             plugins: [
-              imageminPngquant({ quality: this.getPngQualityRange(quality) })
-            ]
+              imageminPngquant({ quality: this.getPngQualityRange(quality) }),
+            ],
           });
         case "jpg":
         case "jpeg":
           return await imagemin.buffer(buffer, {
-            plugins: [imageminMozjpeg({ quality })]
+            plugins: [imageminMozjpeg({ quality })],
           });
       }
     } catch (e) {
@@ -500,7 +505,7 @@ export class MediaService extends MediaManager {
    */
   private async resizeImage(
     buffer: Buffer,
-    format: MediaFormatEntity
+    format: MediaFormatEntity,
   ): Promise<Buffer> {
     const originalMetadata = await sharp(buffer).metadata();
     const originalWidth = originalMetadata.width;
@@ -542,7 +547,7 @@ export class MediaService extends MediaManager {
     image: Buffer,
     format: MediaFormatEntity,
     mediaEntity: MediaEntity,
-    fileName: string
+    fileName: string,
   ): Promise<MediaFileEntity> {
     const metadata = await sharp(image).metadata();
     const mediaFile = new MediaFileEntity();
@@ -590,13 +595,13 @@ export class MediaService extends MediaManager {
 
   private async getOriginalFormat() {
     return await this.mediaFormatRep.findOne({
-      where: { code: ReservedMediaFormat.ORIGINAL }
+      where: { code: ReservedMediaFormat.ORIGINAL },
     });
   }
 
   private async getThumbFormat() {
     return await this.mediaFormatRep.findOne({
-      where: { code: ReservedMediaFormat.THUMB }
+      where: { code: ReservedMediaFormat.THUMB },
     });
   }
 }

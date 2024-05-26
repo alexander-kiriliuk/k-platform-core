@@ -1,4 +1,10 @@
-import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { MediaEntity } from "./media.entity";
 import { MediaFile } from "../media.types";
 import { MediaFormatEntity } from "./media-format.entity";

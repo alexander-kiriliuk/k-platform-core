@@ -38,7 +38,7 @@ import { WarlockFn } from "./warlock.types";
             port: parseInt(process.env.REDIS_PORT),
             db: parseInt(process.env.REDIS_DB),
             username: process.env.REDIS_USER,
-            password: process.env.REDIS_PASSWORD
+            password: process.env.REDIS_PASSWORD,
           },
         };
       },
@@ -51,10 +51,10 @@ import { WarlockFn } from "./warlock.types";
       useFactory: (
         client: Redis,
         lockLifeTime = 10000,
-        lockKey = "lock"
+        lockKey = "lock",
       ): WarlockFn => {
         const warlock = Warlock(client);
-        return function(lockCode: string, caller: () => Promise<void>) {
+        return function (lockCode: string, caller: () => Promise<void>) {
           warlock.lock(
             `${lockKey}:${lockCode}`,
             lockLifeTime,
@@ -66,13 +66,12 @@ import { WarlockFn } from "./warlock.types";
                 await caller();
                 unlock();
               }
-            }
+            },
           );
         };
       },
     },
   ],
-  exports: [WARLOCK]
+  exports: [WARLOCK],
 })
-export class WarlockModule {
-}
+export class WarlockModule {}

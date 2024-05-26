@@ -23,7 +23,7 @@ import * as path from "path";
 const fileTypeModule = {} as { lib: typeof import("file-type") };
 (async (ft) => {
   // crutch for import ES module
-  ft.lib = await (eval("import(\"file-type\")") as Promise<
+  ft.lib = await (eval('import("file-type")') as Promise<
     typeof import("file-type")
   >);
 })(fileTypeModule);
@@ -55,22 +55,22 @@ export namespace FilesUtils {
     path: string,
     options?:
       | ({
-      encoding?: null | undefined;
-      flag?: OpenMode | undefined;
-    } & Abortable)
-      | null
+          encoding?: null | undefined;
+          flag?: OpenMode | undefined;
+        } & Abortable)
+      | null,
   ) {
     return await fs.promises.readFile(path);
   }
 
   export async function readDirectoryRecursively(
-    dirPath: string
+    dirPath: string,
   ): Promise<DirectoryStructure | string[]> {
     const result: DirectoryStructure = {};
 
     async function readDir(
       currentPath: string,
-      relativePath: string
+      relativePath: string,
     ): Promise<DirectoryStructure | string[]> {
       const files = await fs.promises.readdir(currentPath);
       const filePromises = files.map(async (file) => {

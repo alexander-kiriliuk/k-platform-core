@@ -28,7 +28,7 @@ export namespace Explorer {
     "icon.files",
     "icon.files.format",
     "icon.type",
-    "icon.type.ext"
+    "icon.type.ext",
   ];
 
   export const TARGET_RELATIONS_FULL = [
@@ -71,7 +71,7 @@ export namespace Explorer {
     "canRead.name.lang",
     "canWrite",
     "canWrite.name",
-    "canWrite.name.lang"
+    "canWrite.name.lang",
   ];
 
   export const TARGET_RELATIONS_OBJECT = [
@@ -99,7 +99,7 @@ export namespace Explorer {
     "actions.name",
     "actions.name.lang",
     "actions.description",
-    "actions.description.lang"
+    "actions.description.lang",
   ];
 
   export const TARGET_RELATIONS_SECTION = [
@@ -124,7 +124,7 @@ export namespace Explorer {
     "actions.name",
     "actions.name.lang",
     "actions.description",
-    "actions.description.lang"
+    "actions.description.lang",
   ];
 
   export type Variation = "section" | "object";

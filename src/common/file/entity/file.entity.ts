@@ -7,7 +7,7 @@ import {
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
-  TableInheritance
+  TableInheritance,
 } from "typeorm";
 import { File } from "../file.types";
 import { MediaEntity } from "../../media/entity/media.entity";
@@ -15,7 +15,7 @@ import { FileMetadataEntity } from "./file-metadata.entity";
 
 @Entity("files")
 @TableInheritance({
-  column: { type: "varchar", name: "class", nullable: true }
+  column: { type: "varchar", name: "class", nullable: true },
 })
 export class FileEntity implements File {
   @PrimaryGeneratedColumn({ zerofill: true })
@@ -45,7 +45,7 @@ export class FileEntity implements File {
 
   @OneToOne(() => FileMetadataEntity, (t) => t.id, {
     cascade: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn()
   metadata: FileMetadataEntity;

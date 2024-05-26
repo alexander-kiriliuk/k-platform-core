@@ -11,7 +11,7 @@ export class GpsFileMetadataEntity implements GpsFileMetadata {
     nullable: true,
     default: null,
     precision: 15,
-    scale: 10
+    scale: 10,
   })
   altitude: number;
 
@@ -20,7 +20,7 @@ export class GpsFileMetadataEntity implements GpsFileMetadata {
     nullable: true,
     default: null,
     precision: 15,
-    scale: 10
+    scale: 10,
   })
   latitude: number;
 
@@ -29,7 +29,7 @@ export class GpsFileMetadataEntity implements GpsFileMetadata {
     nullable: true,
     default: null,
     precision: 15,
-    scale: 10
+    scale: 10,
   })
   longitude: number;
 }

@@ -52,10 +52,10 @@ export class RedisModule {
             }
             return RedisModule.redisInstance;
           },
-          inject
+          inject,
         },
       ],
-      exports: [REDIS_CLIENT]
+      exports: [REDIS_CLIENT],
     };
   }
 }

@@ -36,5 +36,5 @@ export const MEDIA_RELATIONS = [
   "type.formats",
   "type.ext",
   "files",
-  "files.format"
+  "files.format",
 ];

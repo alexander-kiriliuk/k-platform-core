@@ -1,4 +1,12 @@
-import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryColumn,
+} from "typeorm";
 import { MediaFormatEntity } from "./media-format.entity";
 import { MediaType } from "../media.types";
 import { MediaExtEntity } from "./media-ext.entity";

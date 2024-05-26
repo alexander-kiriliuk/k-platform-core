@@ -30,12 +30,11 @@ export class LocaleService {
     private readonly localizedStringRep: Repository<LocalizedStringEntity>,
     @InjectRepository(LocalizedMediaEntity)
     private readonly localizedMediaRep: Repository<LocalizedMediaEntity>,
-  ) {
-  }
+  ) {}
 
   async createLocalizedStrings(
     value: string,
-    code?: string
+    code?: string,
   ): Promise<LocalizedStringEntity[]> {
     const languages = await this.languageRep.find();
     const res: LocalizedStringEntity[] = [];
@@ -46,7 +45,7 @@ export class LocaleService {
       if (code) {
         ls.code = `${code}_${language.id}`;
         const existed = await this.localizedStringRep.findOne({
-          where: { code: ls.code }
+          where: { code: ls.code },
         });
         ls.id = existed?.id;
       }

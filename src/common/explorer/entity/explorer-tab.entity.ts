@@ -14,7 +14,15 @@
  *    limitations under the License.
  */
 
-import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryColumn,
+} from "typeorm";
 import { ExplorerTab } from "../explorer.types";
 import { LocalizedStringEntity } from "../../../shared/modules/locale/entity/localized-string.entity";
 import { SimpleJsonTransformer } from "../../../shared/transformers/simple-json.transformer";
@@ -37,7 +45,7 @@ export class ExplorerTabEntity implements ExplorerTab {
   @Column("simple-json", {
     transformer: SimpleJsonTransformer,
     nullable: true,
-    default: null
+    default: null,
   })
   size: object;
 

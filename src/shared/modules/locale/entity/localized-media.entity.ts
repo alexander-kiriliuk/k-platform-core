@@ -14,7 +14,13 @@
  *    limitations under the License.
  */
 
-import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { LocalizedMedia } from "../locale.types";
 import { LanguageEntity } from "./language.entity";
 import { MediaEntity } from "../../../../common/media/entity/media.entity";

@@ -97,7 +97,7 @@ export namespace XmlDataBridgeFileSchema {
   export function xmlFileRowPropertyNode(
     stack: XdbDecomposedEntity[],
     key: string,
-    value: unknown | unknown[]
+    value: unknown | unknown[],
   ) {
     let val = value as string;
     if (value instanceof Date) {

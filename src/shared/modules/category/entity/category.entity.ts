@@ -24,7 +24,7 @@ import {
   PrimaryGeneratedColumn,
   Tree,
   TreeChildren,
-  TreeParent
+  TreeParent,
 } from "typeorm";
 import { LocalizedStringEntity } from "../../locale/entity/localized-string.entity";
 import { SimpleJsonTransformer } from "../../../transformers/simple-json.transformer";
@@ -50,7 +50,7 @@ export class CategoryEntity {
   @Column("simple-json", {
     transformer: SimpleJsonTransformer,
     nullable: true,
-    default: null
+    default: null,
   })
   params: object;
 

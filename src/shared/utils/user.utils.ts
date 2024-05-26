@@ -20,7 +20,7 @@ import { Roles } from "../constants";
 export namespace UserUtils {
   export function hasAccessForRoles(
     userRoles: UserRole[],
-    allowedRoles: UserRole[]
+    allowedRoles: UserRole[],
   ) {
     if (!allowedRoles?.length || userRoles.find((v) => v.code === Roles.ROOT)) {
       return true;

@@ -14,7 +14,12 @@
  *    limitations under the License.
  */
 
-import { DataSource, EntitySubscriberInterface, EventSubscriber, RemoveEvent } from "typeorm";
+import {
+  DataSource,
+  EntitySubscriberInterface,
+  EventSubscriber,
+  RemoveEvent,
+} from "typeorm";
 import { Inject, Injectable, Logger } from "@nestjs/common";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { LOGGER } from "../../log/log.constants";
@@ -48,7 +53,7 @@ export class LocaleSubscriber implements EntitySubscriberInterface {
    */
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
-    @InjectDataSource() private readonly dataSource: DataSource
+    @InjectDataSource() private readonly dataSource: DataSource,
   ) {
     dataSource.manager.connection.subscribers.push(this);
   }
@@ -75,16 +80,16 @@ export class LocaleSubscriber implements EntitySubscriberInterface {
     });
     if (localizedStringProperties.length > 0) {
       this.logger.verbose(
-        `Removing related LocalizedStringEntity entities for ${entity.constructor.name} with ID ${event.entityId}`
+        `Removing related LocalizedStringEntity entities for ${entity.constructor.name} with ID ${event.entityId}`,
       );
       for (const relatedEntities of localizedStringProperties as LocalizedStringEntity[][]) {
         for (const relatedEntity of relatedEntities) {
           this.logger.verbose(
-            `Removing LocalizedStringEntity with ID ${relatedEntity.id}`
+            `Removing LocalizedStringEntity with ID ${relatedEntity.id}`,
           );
           await event.manager.remove(relatedEntity);
           this.logger.verbose(
-            `LocalizedStringEntity with ID ${relatedEntity.id} removed`
+            `LocalizedStringEntity with ID ${relatedEntity.id} removed`,
           );
         }
       }
@@ -99,16 +104,16 @@ export class LocaleSubscriber implements EntitySubscriberInterface {
     });
     if (localizedMediaProperties.length > 0) {
       this.logger.verbose(
-        `Removing related LocalizedMediaEntity entities for ${entity.constructor.name} with ID ${event.entityId}`
+        `Removing related LocalizedMediaEntity entities for ${entity.constructor.name} with ID ${event.entityId}`,
       );
       for (const relatedEntities of localizedMediaProperties as LocalizedMediaEntity[][]) {
         for (const relatedEntity of relatedEntities) {
           this.logger.verbose(
-            `Removing LocalizedMediaEntity with ID ${relatedEntity.id}`
+            `Removing LocalizedMediaEntity with ID ${relatedEntity.id}`,
           );
           await event.manager.remove(relatedEntity);
           this.logger.verbose(
-            `LocalizedMediaEntity with ID ${relatedEntity.id} removed`
+            `LocalizedMediaEntity with ID ${relatedEntity.id} removed`,
           );
         }
       }

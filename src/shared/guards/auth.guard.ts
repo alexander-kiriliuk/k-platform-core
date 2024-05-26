@@ -29,7 +29,7 @@ export class AuthGuard extends AbstractAuthGuard {
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
     protected readonly userService: UserService,
-    protected readonly cacheService: CacheService
+    protected readonly cacheService: CacheService,
   ) {
     super();
   }

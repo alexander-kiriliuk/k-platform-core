@@ -40,14 +40,14 @@ describe("UserService", () => {
             update: jest.fn(),
             remove: jest.fn(),
             save: jest.fn(),
-            create: jest.fn()
+            create: jest.fn(),
           },
         },
       ],
     }).compile();
     userService = module.get<BasicUserService>(BasicUserService);
     userRep = module.get<Repository<UserEntity>>(
-      getRepositoryToken(UserEntity)
+      getRepositoryToken(UserEntity),
     );
   });
 
@@ -57,7 +57,7 @@ describe("UserService", () => {
     const result = await userService.findByLogin(login);
     expect(userRep.findOne).toHaveBeenCalledWith({
       where: { login },
-      relations: USER_RELATIONS
+      relations: USER_RELATIONS,
     });
     expect(result).toBe(testUser);
   });
@@ -68,7 +68,7 @@ describe("UserService", () => {
     const result = await userService.findById(id);
     expect(userRep.findOne).toHaveBeenCalledWith({
       where: { id },
-      relations: USER_RELATIONS
+      relations: USER_RELATIONS,
     });
     expect(result).toBe(testUser);
   });
@@ -98,7 +98,7 @@ describe("UserService", () => {
     expect(await userService.removeById(id)).toEqual(testUser);
     expect(userRep.findOne).toHaveBeenCalledWith({
       where: { id },
-      relations: USER_RELATIONS
+      relations: USER_RELATIONS,
     });
     expect(userRep.remove).toHaveBeenCalledWith(testUser);
   });
@@ -109,7 +109,7 @@ describe("UserService", () => {
     await expect(userService.removeById(id)).rejects.toThrow(NotFoundException);
     expect(userRep.findOne).toHaveBeenCalledWith({
       where: { id },
-      relations: USER_RELATIONS
+      relations: USER_RELATIONS,
     });
   });
 });

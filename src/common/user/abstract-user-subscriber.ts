@@ -28,7 +28,7 @@ export abstract class AbstractUserSubscriber<T extends UserEntity> {
     const loginRegex = /^[A-Za-z0-9_]+$/;
     if (!loginRegex.test(login)) {
       throw new BadRequestException(
-        "Login must contain only Latin letters, numbers, and underscores."
+        "Login must contain only Latin letters, numbers, and underscores.",
       );
     }
   }
@@ -43,7 +43,7 @@ export abstract class AbstractUserSubscriber<T extends UserEntity> {
       return;
     }
     const foundUser: T = await manager.findOne(this.type, {
-      where: { id: user.id }
+      where: { id: user.id },
     });
     if (foundUser) {
       if (await bcrypt.compare(user.password, foundUser.password)) {

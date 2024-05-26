@@ -1,4 +1,10 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { FileMetadata } from "../file.types";
 import { ImageFileMetadataEntity } from "./image-file-metadata.entity";
 import { GpsFileMetadataEntity } from "./gps-file-metadata.entity";
@@ -23,42 +29,42 @@ export class FileMetadataEntity implements FileMetadata {
 
   @OneToOne(() => ImageFileMetadataEntity, (t) => t.id, {
     cascade: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn()
   image: ImageFileMetadataEntity;
 
   @OneToOne(() => GpsFileMetadataEntity, (t) => t.id, {
     cascade: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn()
   gps: GpsFileMetadataEntity;
 
   @OneToOne(() => IccFileMetadataEntity, (t) => t.id, {
     cascade: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn()
   icc: IccFileMetadataEntity;
 
   @OneToOne(() => ExifFileMetadataEntity, (t) => t.id, {
     cascade: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn()
   exif: ExifFileMetadataEntity;
 
   @OneToOne(() => AudioFileMetadataEntity, (t) => t.id, {
     cascade: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn()
   audio: AudioFileMetadataEntity;
 
   @OneToOne(() => VideoFileMetadataEntity, (t) => t.id, {
     cascade: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn()
   video: VideoFileMetadataEntity;

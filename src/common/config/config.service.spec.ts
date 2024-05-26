@@ -19,7 +19,10 @@ import { ConfigService } from "./config.service";
 import { MockCacheService } from "../../shared/modules/cache/mock/mock-cache.service";
 import { ConfigMock } from "./mock/config.mock";
 import { LoggerMock } from "../../shared/modules/mock/logger.mock";
-import { CONFIG_CACHE_PREFIX, PROPERTIES_FILE_EXT_PATTERN } from "./config.constants";
+import {
+  CONFIG_CACHE_PREFIX,
+  PROPERTIES_FILE_EXT_PATTERN,
+} from "./config.constants";
 
 jest.mock("fs", () => ({
   promises: {
@@ -27,9 +30,9 @@ jest.mock("fs", () => ({
     readFile: jest.fn(),
     unlink: jest.fn(),
     mkdir: jest.fn(),
-    writeFile: jest.fn()
+    writeFile: jest.fn(),
   },
-  existsSync: jest.fn()
+  existsSync: jest.fn(),
 }));
 
 describe("ConfigService", () => {
@@ -50,19 +53,19 @@ describe("ConfigService", () => {
   it("set property", async () => {
     await configService.setProperty(ConfigMock.testSetProp);
     const result = await cacheService.get(
-      `${CONFIG_CACHE_PREFIX}:${ConfigMock.testSetProp.key}`
+      `${CONFIG_CACHE_PREFIX}:${ConfigMock.testSetProp.key}`,
     );
     expect(result).toEqual(ConfigMock.testSetProp.value);
   });
 
   it("remove property", async () => {
     let existedProp = await cacheService.get(
-      `${CONFIG_CACHE_PREFIX}:${ConfigMock.testExistedProp}`
+      `${CONFIG_CACHE_PREFIX}:${ConfigMock.testExistedProp}`,
     );
     expect(existedProp).toEqual(ConfigMock.testExistedProp);
     await configService.removeProperty(ConfigMock.testExistedProp);
     existedProp = await cacheService.get(
-      `${CONFIG_CACHE_PREFIX}:${ConfigMock.testExistedProp}`
+      `${CONFIG_CACHE_PREFIX}:${ConfigMock.testExistedProp}`,
     );
     expect(existedProp).toEqual(undefined);
   });
@@ -72,7 +75,7 @@ describe("ConfigService", () => {
       {
         isFile: () => true,
         isDirectory: () => false,
-        name: PROPERTIES_FILE_EXT_PATTERN
+        name: PROPERTIES_FILE_EXT_PATTERN,
       },
     ]);
     (fs.promises.readFile as jest.Mock).mockResolvedValue("test=true");

@@ -23,7 +23,6 @@ import { LogModule } from "../log/log.module";
 @Module({
   imports: [LogModule, TypeOrmModule.forFeature([CategoryEntity])],
   providers: [CategoryService],
-  exports: [CategoryService]
+  exports: [CategoryService],
 })
-export class CategoryModule {
-}
+export class CategoryModule {}

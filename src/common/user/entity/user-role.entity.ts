@@ -14,7 +14,14 @@
  *    limitations under the License.
  */
 
-import { CreateDateColumn, Entity, Index, JoinTable, ManyToMany, PrimaryColumn } from "typeorm";
+import {
+  CreateDateColumn,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  PrimaryColumn,
+} from "typeorm";
 import { UserRole } from "../user.types";
 import { LocalizedStringEntity } from "../../../shared/modules/locale/entity/localized-string.entity";
 

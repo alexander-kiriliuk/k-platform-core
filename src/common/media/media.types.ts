@@ -166,7 +166,7 @@ export abstract class MediaManager {
 
   abstract findMediaById(
     id: number,
-    privateMedia?: boolean
+    privateMedia?: boolean,
   ): Promise<MediaEntity>;
 
   abstract findPublicById(id: number): Promise<MediaEntity>;
@@ -182,13 +182,13 @@ export abstract class MediaManager {
     type: string,
     code?: string,
     existedEntityId?: number,
-    name?: LocalizedString[]
+    name?: LocalizedString[],
   ): Promise<MediaEntity>;
 
   abstract getMediaPath(
     media: Media,
     format?: string,
-    webpSupport?: boolean
+    webpSupport?: boolean,
   ): Promise<string>;
 }
 

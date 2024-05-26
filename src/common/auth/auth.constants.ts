@@ -30,7 +30,7 @@ export const jwtAccessTokenKey = (accessToken: string) => {
 
 export const jwtRefreshTokenKey = (
   accessToken: string,
-  refreshToken: string
+  refreshToken: string,
 ) => {
   return `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${accessToken}:${refreshToken}`;
 };

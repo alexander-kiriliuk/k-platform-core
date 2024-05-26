@@ -17,7 +17,10 @@
 import { AuthorizationService } from "./authorization.service";
 import { AuthMock } from "./mock/auth.mock";
 import { bruteForceIPKey } from "./auth.constants";
-import { InternalServerErrorException, UnauthorizedException } from "@nestjs/common";
+import {
+  InternalServerErrorException,
+  UnauthorizedException,
+} from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { MockCacheService } from "../../shared/modules/cache/mock/mock-cache.service";
@@ -41,7 +44,7 @@ describe("AuthService", () => {
             update: jest.fn(),
             remove: jest.fn(),
             save: jest.fn(),
-            create: jest.fn()
+            create: jest.fn(),
           },
         },
       ],
@@ -52,41 +55,41 @@ describe("AuthService", () => {
       LoggerMock,
       userService,
       cacheService,
-      AuthMock.jwtService
+      AuthMock.jwtService,
     );
   });
 
   describe("authenticate", () => {
     it("throw error if user is blocked by login", async () => {
       await expect(
-        authService.authenticate(AuthMock.blockedUsrLoginPayload)
+        authService.authenticate(AuthMock.blockedUsrLoginPayload),
       ).rejects.toThrow(InternalServerErrorException);
     });
 
     it("throw error if user is blocked by ip address", async () => {
       await expect(
-        authService.authenticate(AuthMock.blockedUsrIpPayload)
+        authService.authenticate(AuthMock.blockedUsrIpPayload),
       ).rejects.toThrow(InternalServerErrorException);
     });
 
     it("throw error if credentials are invalid", async () => {
       await expect(
-        authService.authenticate(AuthMock.wrongCredentialsUsrPayload)
+        authService.authenticate(AuthMock.wrongCredentialsUsrPayload),
       ).rejects.toThrow(UnauthorizedException);
     });
 
     it("write and clean failed auth attempt", async () => {
       const ipKey = bruteForceIPKey(
-        AuthMock.wrongCredentialsUsrPayload.ipAddress
+        AuthMock.wrongCredentialsUsrPayload.ipAddress,
       );
       await cacheService.del(ipKey);
       await expect(
-        authService.authenticate(AuthMock.wrongCredentialsUsrPayload)
+        authService.authenticate(AuthMock.wrongCredentialsUsrPayload),
       ).rejects.toThrow(UnauthorizedException);
       let attempts = await cacheService.getNumber(ipKey);
       expect(attempts).toBe(1);
       await expect(
-        authService.authenticate(AuthMock.wrongCredentialsUsrPayload)
+        authService.authenticate(AuthMock.wrongCredentialsUsrPayload),
       ).rejects.toThrow(UnauthorizedException);
       attempts = await cacheService.getNumber(ipKey);
       expect(attempts).toBe(2);
@@ -106,7 +109,7 @@ describe("AuthService", () => {
         .spyOn(userService, "findByLogin")
         .mockResolvedValue(AuthMock.testUser as UserEntity);
       const result = await authService.authenticate(
-        AuthMock.validCredentialsUsrPayload
+        AuthMock.validCredentialsUsrPayload,
       );
       expect(result).toBeDefined();
       expect(result).toHaveProperty("user");
@@ -122,7 +125,7 @@ describe("AuthService", () => {
   describe("invalidateToken", () => {
     it("success invalidate if token exists in db", async () => {
       const result = await authService.invalidateToken(
-        AuthMock.validAccessToken
+        AuthMock.validAccessToken,
       );
       expect(result).toBeDefined();
       expect(result).toBe(true);
@@ -130,7 +133,7 @@ describe("AuthService", () => {
 
     it("fail invalidate if token not exists in db", async () => {
       await expect(authService.invalidateToken("fake-token")).rejects.toThrow(
-        UnauthorizedException
+        UnauthorizedException,
       );
     });
   });
@@ -138,19 +141,19 @@ describe("AuthService", () => {
   describe("exchangeToken", () => {
     it("throw error if refresh token not exists in db", async () => {
       await expect(authService.exchangeToken("fake-token")).rejects.toThrow(
-        UnauthorizedException
+        UnauthorizedException,
       );
     });
 
     it("throw error if related user for refresh token not exists in db", async () => {
       await expect(
-        authService.exchangeToken(AuthMock.refreshTokenWithoutRelatedUser)
+        authService.exchangeToken(AuthMock.refreshTokenWithoutRelatedUser),
       ).rejects.toThrow(UnauthorizedException);
     });
 
     it("return JWT if tokens success exchanged", async () => {
       const result = await authService.exchangeToken(
-        AuthMock.validRefreshToken
+        AuthMock.validRefreshToken,
       );
       expect(result).toBeDefined();
       expect(result).toHaveProperty("accessToken");

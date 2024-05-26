@@ -14,7 +14,11 @@
  *    limitations under the License.
  */
 
-import { CaptchaRequest, CaptchaResponse, CaptchaService } from "./captcha.types";
+import {
+  CaptchaRequest,
+  CaptchaResponse,
+  CaptchaService,
+} from "./captcha.types";
 import { v4 as uuidv4 } from "uuid";
 import { Inject, Logger } from "@nestjs/common";
 import { createCanvas, registerFont } from "canvas";
@@ -39,7 +43,7 @@ export class GraphicCaptchaService extends CaptchaService<CaptchaResponse> {
    */
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
-    private readonly cacheService: CacheService
+    private readonly cacheService: CacheService,
   ) {
     super();
   }
@@ -50,7 +54,7 @@ export class GraphicCaptchaService extends CaptchaService<CaptchaResponse> {
    */
   async generateCaptcha(): Promise<CaptchaResponse> {
     const captchaEnabled = await this.cacheService.getBoolean(
-      CaptchaConfig.ENABLED
+      CaptchaConfig.ENABLED,
     );
     if (!captchaEnabled) {
       return undefined;
@@ -106,7 +110,7 @@ export class GraphicCaptchaService extends CaptchaService<CaptchaResponse> {
       ctx.fillText(
         char,
         (i * canvas.width) / text.length + Math.random() * 10 - 5,
-        canvas.height / 2 + Math.random() * 10 - 5
+        canvas.height / 2 + Math.random() * 10 - 5,
       );
     }
     for (let i = 0; i < 5; i++) {

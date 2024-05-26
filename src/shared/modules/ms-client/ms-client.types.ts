@@ -24,18 +24,18 @@ export interface MessageBus {
   dispatch<TResult = any, TInput = any>(
     pattern: any,
     data?: TInput,
-    opts?: MsClientOptions
+    opts?: MsClientOptions,
   ): Promise<TResult>;
 
   send<TResult = any, TInput = any>(
     pattern: any,
     data?: TInput,
-    opts?: MsClientOptions
+    opts?: MsClientOptions,
   ): Observable<TResult>;
 
   emit<TResult = any, TInput = any>(
     pattern: any,
     data?: TInput,
-    opts?: MsClientOptions
+    opts?: MsClientOptions,
   ): Observable<TResult>;
 }

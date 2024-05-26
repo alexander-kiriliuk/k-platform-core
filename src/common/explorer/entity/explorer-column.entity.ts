@@ -14,7 +14,15 @@
  *    limitations under the License.
  */
 
-import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryColumn,
+} from "typeorm";
 import { ExplorerTargetEntity } from "./explorer-target.entity";
 import { ExplorerColumn } from "../explorer.types";
 import { LocalizedStringEntity } from "../../../shared/modules/locale/entity/localized-string.entity";
@@ -110,7 +118,7 @@ export class ExplorerColumnEntity implements ExplorerColumn {
     transformer: SimpleJsonTransformer,
     name: "section_renderer_params",
     nullable: true,
-    default: null
+    default: null,
   })
   sectionRendererParams: object;
 
@@ -118,7 +126,7 @@ export class ExplorerColumnEntity implements ExplorerColumn {
     transformer: SimpleJsonTransformer,
     name: "object_renderer_params",
     nullable: true,
-    default: null
+    default: null,
   })
   objectRendererParams: object;
 

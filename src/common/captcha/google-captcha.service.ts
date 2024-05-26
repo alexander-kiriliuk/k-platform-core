@@ -14,7 +14,11 @@
  *    limitations under the License.
  */
 
-import { CaptchaRequest, CaptchaResponse, CaptchaService } from "./captcha.types";
+import {
+  CaptchaRequest,
+  CaptchaResponse,
+  CaptchaService,
+} from "./captcha.types";
 import { Inject, Logger } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
 import { lastValueFrom } from "rxjs";
@@ -26,14 +30,14 @@ export class GoogleCaptchaService extends CaptchaService<CaptchaResponse> {
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
     private readonly cacheService: CacheService,
-    private readonly http: HttpService
+    private readonly http: HttpService,
   ) {
     super();
   }
 
   async generateCaptcha(): Promise<CaptchaResponse> {
     const captchaEnabled = await this.cacheService.getBoolean(
-      CaptchaConfig.ENABLED
+      CaptchaConfig.ENABLED,
     );
     if (!captchaEnabled) {
       return undefined;
@@ -44,10 +48,10 @@ export class GoogleCaptchaService extends CaptchaService<CaptchaResponse> {
 
   async validateCaptcha(request: CaptchaRequest): Promise<boolean> {
     const secretKey = await this.cacheService.get(
-      CaptchaConfig.GOOGLE_SECRET_KEY
+      CaptchaConfig.GOOGLE_SECRET_KEY,
     );
     const response$ = await this.http.post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${request.data}`
+      `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${request.data}`,
     );
     const response = await lastValueFrom(response$);
     return response?.data?.success;

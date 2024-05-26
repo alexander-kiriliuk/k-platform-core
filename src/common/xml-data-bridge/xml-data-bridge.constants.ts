@@ -20,7 +20,7 @@ import {
   XdbExportDto,
   XdbExportParams,
   XdbObject,
-  XdbRowData
+  XdbRowData,
 } from "./xml-data-bridge.types";
 import * as xml2js from "xml2js";
 import { Parser } from "yargs-parser";
@@ -42,7 +42,7 @@ export namespace Xdb {
   let parser: Parser & {
     parseString: (
       xmlData: string | Buffer,
-      callback: (err: Error | null, result: unknown) => void
+      callback: (err: Error | null, result: unknown) => void,
     ) => void;
   };
 
@@ -55,7 +55,7 @@ export namespace Xdb {
     parser = new xml2js.Parser({
       explicitArray: false,
       preserveChildrenOrder: true,
-      explicitChildren: true
+      explicitChildren: true,
     });
     return parser;
   }
@@ -64,7 +64,7 @@ export namespace Xdb {
     const schema = body.schema;
     const actions = schema.$$;
     const result: XdbObject = {
-      schema: []
+      schema: [],
     };
     for (const action of actions) {
       const tagName = action["#name"];
@@ -75,7 +75,7 @@ export namespace Xdb {
       const obj: XdbAction = {
         action: tagName,
         attrs: { target, read, content },
-        rows: []
+        rows: [],
       };
       for (const row of rows) {
         const rowObj: XdbRowData = {};
@@ -84,7 +84,7 @@ export namespace Xdb {
           if (item.$) {
             rowObj[itemName] = {
               attrs: item.$,
-              value: item._
+              value: item._,
             };
             if (item.$.key && item.$$) {
               rowObj[itemName].values = item.$$.map((r) => r._);
@@ -114,7 +114,7 @@ export namespace Xdb {
   }
 
   export function removeDuplicateObjects(
-    array: XdbDecomposedEntity[]
+    array: XdbDecomposedEntity[],
   ): XdbDecomposedEntity[] {
     const uniqueObjects: XdbDecomposedEntity[] = [];
     array.reverse().forEach((obj) => {

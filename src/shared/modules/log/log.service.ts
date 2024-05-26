@@ -75,7 +75,7 @@ export class LogService extends Logger {
     return {
       filePath: "Unknown path",
       methodName: "Anonymous context",
-      lineNumber: "Unknown line"
+      lineNumber: "Unknown line",
     };
   }
 }

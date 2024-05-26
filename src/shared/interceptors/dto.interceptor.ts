@@ -14,7 +14,12 @@
  *    limitations under the License.
  */
 
-import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
+import {
+  CallHandler,
+  ExecutionContext,
+  Injectable,
+  NestInterceptor,
+} from "@nestjs/common";
 import { map } from "rxjs";
 import { plainToInstance } from "class-transformer";
 
@@ -25,8 +30,7 @@ import { plainToInstance } from "class-transformer";
  */
 @Injectable()
 export class DtoInterceptor<T> implements NestInterceptor {
-  constructor(private readonly serializer: new () => T) {
-  }
+  constructor(private readonly serializer: new () => T) {}
 
   intercept(context: ExecutionContext, next: CallHandler) {
     return next

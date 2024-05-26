@@ -29,7 +29,7 @@ import { AuthService } from "./auth.constants";
 @Module({})
 export class AuthModule {
   static forRoot(
-    options: AuthModuleOptions = { service: AuthorizationService }
+    options: AuthModuleOptions = { service: AuthorizationService },
   ): DynamicModule {
     return {
       module: AuthModule,
@@ -46,9 +46,9 @@ export class AuthModule {
               secret: await cs.get(AuthConfig.JWT_SECRET),
               signOptions: {
                 expiresIn: await cs.getNumber(
-                  AuthConfig.ACCESS_TOKEN_EXPIRATION
-                )
-              }
+                  AuthConfig.ACCESS_TOKEN_EXPIRATION,
+                ),
+              },
             };
           },
         }),
@@ -56,10 +56,10 @@ export class AuthModule {
       providers: [
         {
           provide: AuthService,
-          useClass: options.service
+          useClass: options.service,
         },
       ],
-      exports: [AuthService]
+      exports: [AuthService],
     };
   }
 }

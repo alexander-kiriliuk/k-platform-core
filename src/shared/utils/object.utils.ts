@@ -36,7 +36,7 @@ export namespace ObjectUtils {
   export function sort<T = any>(
     obj: Array<T>,
     property: string,
-    vector = true
+    vector = true,
   ) {
     obj?.sort((a: T, b: T) => {
       if (!vector) {

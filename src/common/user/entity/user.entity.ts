@@ -23,7 +23,7 @@ import {
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
-  TableInheritance
+  TableInheritance,
 } from "typeorm";
 import { UserRoleEntity } from "./user-role.entity";
 import { User } from "../user.types";
@@ -31,7 +31,7 @@ import { MediaEntity } from "../../media/entity/media.entity";
 
 @Entity("users")
 @TableInheritance({
-  column: { type: "varchar", name: "class", nullable: true }
+  column: { type: "varchar", name: "class", nullable: true },
 })
 export class UserEntity implements User {
   @PrimaryGeneratedColumn()

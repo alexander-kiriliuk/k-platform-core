@@ -30,9 +30,8 @@ import inspect = ObjectUtils.inspect;
 export class MsClient implements MessageBus {
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
-    private readonly proxy: ClientProxy
-  ) {
-  }
+    private readonly proxy: ClientProxy,
+  ) {}
 
   /**
    * Dispatches a message with the given pattern and data.
@@ -44,13 +43,13 @@ export class MsClient implements MessageBus {
   dispatch<TResult = any, TInput = any>(
     pattern: any,
     data: TInput = Object(),
-    opts?: MsClientOptions
+    opts?: MsClientOptions,
   ): Promise<TResult> {
     return new Promise<TResult>((resolve, reject) => {
       const source = this.proxy.send<TResult, TInput>(pattern, data);
       this.handleRequest(source, pattern, data, opts).subscribe({
         next: (result) => resolve(result),
-        error: (error) => reject(error)
+        error: (error) => reject(error),
       });
     });
   }
@@ -65,7 +64,7 @@ export class MsClient implements MessageBus {
   send<TResult = any, TInput = any>(
     pattern: any,
     data: TInput,
-    opts?: MsClientOptions
+    opts?: MsClientOptions,
   ) {
     const source = this.proxy.send<TResult, TInput>(pattern, data);
     return this.handleRequest(source, pattern, data, opts);
@@ -81,7 +80,7 @@ export class MsClient implements MessageBus {
   emit<TResult = any, TInput = any>(
     pattern: any,
     data: TInput,
-    opts?: MsClientOptions
+    opts?: MsClientOptions,
   ) {
     const source = this.proxy.emit<TResult, TInput>(pattern, data);
     return this.handleRequest(source, pattern, data, opts);
@@ -91,7 +90,7 @@ export class MsClient implements MessageBus {
     source: Observable<T>,
     pattern: any,
     data: any,
-    opts?: MsClientOptions
+    opts?: MsClientOptions,
   ): Observable<T> {
     this.logger.debug(`Sending request with pattern: ${inspect(pattern)}`);
     return source.pipe(
@@ -101,7 +100,7 @@ export class MsClient implements MessageBus {
           const err = error as MsException;
           this.logger.error(
             `Microservice exception: ${err.message}`,
-            err.stack
+            err.stack,
           );
           throw new HttpException(err.message, err.code);
         }
@@ -109,12 +108,12 @@ export class MsClient implements MessageBus {
           this.logger.warn(`Request timeout for pattern: ${inspect(pattern)}`);
           throw new HttpException(
             "Request Timeout",
-            HttpStatus.REQUEST_TIMEOUT
+            HttpStatus.REQUEST_TIMEOUT,
           );
         }
         this.logger.error(
           `Unknown error for pattern: ${inspect(pattern)}`,
-          error
+          error,
         );
         return throwError(error);
       }),

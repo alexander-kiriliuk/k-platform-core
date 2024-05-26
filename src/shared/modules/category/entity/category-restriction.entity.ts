@@ -14,7 +14,15 @@
  *    limitations under the License.
  */
 
-import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { CategoryEntity } from "./category.entity";
 import { UserRoleEntity } from "../../../../common/user/entity/user-role.entity";
 

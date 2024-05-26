@@ -30,8 +30,8 @@ import { CacheModule } from "../../shared/modules/cache/cache.module";
 export class MediaModule {
   static forRoot(
     options: MediaModuleOptions = {
-      service: MediaService
-    }
+      service: MediaService,
+    },
   ): DynamicModule {
     return {
       module: MediaModule,
@@ -40,19 +40,19 @@ export class MediaModule {
           MediaEntity,
           MediaTypeEntity,
           MediaFileEntity,
-          MediaFormatEntity
+          MediaFormatEntity,
         ]),
         FileModule.forRoot(),
         LogModule,
-        CacheModule
+        CacheModule,
       ],
       providers: [
         {
           provide: MediaManager,
-          useClass: options.service
+          useClass: options.service,
         },
       ],
-      exports: [MediaManager]
+      exports: [MediaManager],
     };
   }
 }

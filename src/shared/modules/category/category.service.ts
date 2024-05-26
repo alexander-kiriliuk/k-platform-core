@@ -30,9 +30,8 @@ export class CategoryService {
   constructor(
     @InjectRepository(CategoryEntity)
     private readonly catRep: TreeRepository<CategoryEntity>,
-    @Inject(LOGGER) private readonly logger: Logger
-  ) {
-  }
+    @Inject(LOGGER) private readonly logger: Logger,
+  ) {}
 
   /**
    * Get descendants of a category by its code.
@@ -43,11 +42,11 @@ export class CategoryService {
   async getDescendantsByCodeOfRoot(code: string, depth?: number) {
     const cat = await this.catRep.findOne({
       where: { code },
-      relations: CATEGORY_RELATIONS
+      relations: CATEGORY_RELATIONS,
     });
     const res = await this.catRep.findDescendantsTree(cat, {
       depth,
-      relations: CATEGORY_RELATIONS
+      relations: CATEGORY_RELATIONS,
     });
     res.children?.forEach((cat) => this.sort(cat));
     this.sort(res);

@@ -23,7 +23,10 @@ import { CacheModule } from "../../shared/modules/cache/cache.module";
 import { ExplorerModule } from "../explorer/explorer.module";
 import { FileModule } from "../file/file.module";
 import { MediaModule } from "../media/media.module";
-import { XdbExportService, XdbImportService } from "./xml-data-bridge.constants";
+import {
+  XdbExportService,
+  XdbImportService,
+} from "./xml-data-bridge.constants";
 
 @Module({})
 export class XmlDataBridgeModule {
@@ -36,9 +39,9 @@ export class XmlDataBridgeModule {
         CacheModule,
         ExplorerModule.forRoot(),
         FileModule.forRoot(),
-        MediaModule.forRoot()
-      ]
-    }
+        MediaModule.forRoot(),
+      ],
+    },
   ): DynamicModule {
     return {
       module: XmlDataBridgeModule,
@@ -46,14 +49,14 @@ export class XmlDataBridgeModule {
       providers: [
         {
           provide: XdbImportService,
-          useClass: options.importService
+          useClass: options.importService,
         },
         {
           provide: XdbExportService,
-          useClass: options.exportService
+          useClass: options.exportService,
         },
       ],
-      exports: [XdbImportService, XdbExportService]
+      exports: [XdbImportService, XdbExportService],
     };
   }
 }

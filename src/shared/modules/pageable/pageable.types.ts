@@ -26,9 +26,8 @@ export class PageableData<T = any> {
     readonly items: T[],
     readonly totalCount: number,
     readonly currentPage: number,
-    readonly pageSize: number
-  ) {
-  }
+    readonly pageSize: number,
+  ) {}
 }
 
 export enum SortOrder {

@@ -24,8 +24,8 @@ import { UserModuleOptions, UserService } from "./user.types";
 export class UserModule {
   static forRoot(
     options: UserModuleOptions = {
-      service: BasicUserService
-    }
+      service: BasicUserService,
+    },
   ): DynamicModule {
     return {
       module: UserModule,
@@ -33,10 +33,10 @@ export class UserModule {
       providers: [
         {
           provide: UserService,
-          useClass: options.service
+          useClass: options.service,
         },
       ],
-      exports: [UserService]
+      exports: [UserService],
     };
   }
 }

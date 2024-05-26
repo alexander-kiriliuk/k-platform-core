@@ -20,12 +20,19 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
-  NotFoundException
+  NotFoundException,
 } from "@nestjs/common";
 import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
-import { Brackets, DataSource, EntityMetadata, ObjectLiteral, Repository, SelectQueryBuilder } from "typeorm";
+import {
+  Brackets,
+  DataSource,
+  EntityMetadata,
+  ObjectLiteral,
+  Repository,
+  SelectQueryBuilder,
+} from "typeorm";
 import {
   ColumnDataType,
   ExplorerColumn,
@@ -33,7 +40,7 @@ import {
   ExplorerService,
   ExplorerTarget,
   ExplorerTargetParams,
-  TargetData
+  TargetData,
 } from "./explorer.types";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { RelationMetadata } from "typeorm/metadata/RelationMetadata";
@@ -41,7 +48,11 @@ import { LOGGER } from "../../shared/modules/log/log.constants";
 import { UserUtils } from "../../shared/utils/user.utils";
 import { TransformUtils } from "../../shared/utils/transform.utils";
 import { Explorer } from "./explorer.constants";
-import { PageableData, PageableParams, SortOrder } from "../../shared/modules/pageable/pageable.types";
+import {
+  PageableData,
+  PageableParams,
+  SortOrder,
+} from "../../shared/modules/pageable/pageable.types";
 import { ObjectUtils } from "../../shared/utils/object.utils";
 import { LocalizedStringEntity } from "../../shared/modules/locale/entity/localized-string.entity";
 import parseParamsString = TransformUtils.parseParamsString;
@@ -62,7 +73,7 @@ export class BasicExplorerService extends ExplorerService {
     private readonly targetRep: Repository<ExplorerTargetEntity>,
     @InjectRepository(ExplorerColumnEntity)
     private readonly columnRep: Repository<ExplorerColumnEntity>,
-    @Inject(LOGGER) private readonly logger: Logger
+    @Inject(LOGGER) private readonly logger: Logger,
   ) {
     super();
   }
@@ -93,7 +104,7 @@ export class BasicExplorerService extends ExplorerService {
         c.type = this.getColumnType(column.type as string);
         c.primary =
           md.primaryColumns.find(
-            (pc) => pc.propertyName === column.propertyName
+            (pc) => pc.propertyName === column.propertyName,
           ) !== undefined;
         c.unique = this.isColumnUnique(md, column);
         c.multiple = false;
@@ -102,7 +113,7 @@ export class BasicExplorerService extends ExplorerService {
       }
       for (const relation of [
         ...md.oneToManyRelations,
-        ...md.manyToManyRelations
+        ...md.manyToManyRelations,
       ]) {
         const c = new ExplorerColumnEntity();
         await this.setColumnProperties(c, relation, t);
@@ -112,7 +123,7 @@ export class BasicExplorerService extends ExplorerService {
       }
       for (const relation of [
         ...md.oneToOneRelations,
-        ...md.manyToOneRelations
+        ...md.manyToOneRelations,
       ]) {
         const c = new ExplorerColumnEntity();
         await this.setColumnProperties(c, relation, t);
@@ -136,7 +147,7 @@ export class BasicExplorerService extends ExplorerService {
   async saveEntityData<T = any>(
     target: string,
     entity: T,
-    targetParams?: ExplorerTargetParams
+    targetParams?: ExplorerTargetParams,
   ): Promise<T> {
     const targetData = await this.getTargetData(target, targetParams);
     const repository = this.connection.getRepository(targetData.entity.target);
@@ -159,7 +170,7 @@ export class BasicExplorerService extends ExplorerService {
    */
   async getTargetList(): Promise<ExplorerTarget[]> {
     const res: ExplorerTarget[] = await this.targetRep.find({
-      relations: Explorer.TARGET_RELATIONS_BASIC
+      relations: Explorer.TARGET_RELATIONS_BASIC,
     });
     for (const v of res) {
       const rep = this.connection.getRepository(v.target);
@@ -179,7 +190,7 @@ export class BasicExplorerService extends ExplorerService {
   async removeEntity(
     target: string,
     id: string | number,
-    targetParams?: ExplorerTargetParams
+    targetParams?: ExplorerTargetParams,
   ): Promise<ObjectLiteral> {
     const targetData = await this.getTargetData(target, targetParams);
     if (
@@ -190,11 +201,11 @@ export class BasicExplorerService extends ExplorerService {
     }
     const repository = this.connection.getRepository(targetData.entity.target);
     const entity = await repository.findOne({
-      where: { [targetData.primaryColumn.property]: id }
+      where: { [targetData.primaryColumn.property]: id },
     });
     if (!entity) {
       throw new NotFoundException(
-        `Entity with ID ${id} not found in table ${target}`
+        `Entity with ID ${id} not found in table ${target}`,
       );
     }
     return await repository.remove(entity);
@@ -212,7 +223,7 @@ export class BasicExplorerService extends ExplorerService {
     target: string,
     rowId: string | number,
     maxDepth = Infinity,
-    targetParams?: ExplorerTargetParams
+    targetParams?: ExplorerTargetParams,
   ) {
     const tParams = targetParams ?? {};
     tParams.object = true;
@@ -228,11 +239,11 @@ export class BasicExplorerService extends ExplorerService {
     }
     const repository = this.connection.getRepository(targetData.entity.target);
     const row = await repository.findOne({
-      where: { [targetData.primaryColumn.property]: rowId }
+      where: { [targetData.primaryColumn.property]: rowId },
     });
     if (!row) {
       throw new NotFoundException(
-        `Row with ID ${rowId} not found in table ${target}`
+        `Row with ID ${rowId} not found in table ${target}`,
       );
     }
     return await this.attachRelations(
@@ -240,7 +251,7 @@ export class BasicExplorerService extends ExplorerService {
       targetData,
       { object: true },
       [],
-      maxDepth
+      maxDepth,
     );
   }
 
@@ -256,7 +267,7 @@ export class BasicExplorerService extends ExplorerService {
   async getPageableEntityData(
     target: string,
     params?: PageableParams,
-    targetParams?: ExplorerTargetParams
+    targetParams?: ExplorerTargetParams,
   ): Promise<PageableData> {
     const tParams = targetParams ?? {};
     tParams.section = true;
@@ -277,7 +288,7 @@ export class BasicExplorerService extends ExplorerService {
     }
     const colsForSelect = this.getColsForSelect(targetData, {
       section: true,
-      prefix: "entity."
+      prefix: "entity.",
     });
     if (!colsForSelect.referencedCols.length) {
       qb.select(colsForSelect.colList);
@@ -295,9 +306,9 @@ export class BasicExplorerService extends ExplorerService {
             targetData,
             { section: true },
             [],
-            3
-          )
-      )
+            3,
+          ),
+      ),
     );
     return new PageableData(itemsWithRelations, totalCount, page, limit);
   }
@@ -310,7 +321,7 @@ export class BasicExplorerService extends ExplorerService {
    */
   async getTargetData(
     target: string,
-    targetParams: ExplorerTargetParams = {}
+    targetParams: ExplorerTargetParams = {},
   ): Promise<TargetData> {
     let relations = ["columns", "canRead", "canWrite"];
     if (targetParams.fullRelations) {
@@ -324,7 +335,7 @@ export class BasicExplorerService extends ExplorerService {
     }
     const entity = await this.targetRep.findOne({
       where: [{ target }, { tableName: target }, { alias: target }],
-      relations
+      relations,
     });
     if (!entity) {
       return null;
@@ -364,7 +375,7 @@ export class BasicExplorerService extends ExplorerService {
   private async applyFilterParams<T = any>(
     qb: SelectQueryBuilder<T>,
     targetData: TargetData,
-    filterParams: Record<string, string>
+    filterParams: Record<string, string>,
   ) {
     for (const key in filterParams) {
       const value = filterParams[key];
@@ -380,10 +391,10 @@ export class BasicExplorerService extends ExplorerService {
         const colName = parts[1];
         const clearValue = value.replace(/\{[^}]*}/g, "");
         const refTarget = await this.getTargetData(targetName, {
-          section: true
+          section: true,
         });
         const refColumn = refTarget.entity.columns.find(
-          (c) => c.property === colName
+          (c) => c.property === colName,
         );
         const alias = colName + targetName;
         qb.innerJoinAndSelect(`entity.${prop}`, alias);
@@ -394,7 +405,7 @@ export class BasicExplorerService extends ExplorerService {
             qb,
             refColumn,
             `${alias}.${colName}`,
-            clearValue
+            clearValue,
           );
         }
       } else {
@@ -417,7 +428,7 @@ export class BasicExplorerService extends ExplorerService {
       return;
     }
     namedCol = target.columns.find(
-      (c) => c.referencedEntityName === LocalizedStringEntity.name
+      (c) => c.referencedEntityName === LocalizedStringEntity.name,
     );
     if (!namedCol) {
       namedCol = target.columns.find((c) => c.unique && c.type === "string");
@@ -441,7 +452,7 @@ export class BasicExplorerService extends ExplorerService {
     qb: SelectQueryBuilder<T>,
     aliasOrEntity: string,
     column: string,
-    value: string
+    value: string,
   ) {
     const match = value.match(/FROM(\d+)TO(\d+)/);
     const fromTimestamp = match[1];
@@ -451,12 +462,12 @@ export class BasicExplorerService extends ExplorerService {
     qb.andWhere(
       new Brackets((sqb) => {
         sqb.andWhere(`${aliasOrEntity}.${column} >= :from${column}`, {
-          [`from${column}`]: fromDate.toJSON()
+          [`from${column}`]: fromDate.toJSON(),
         });
         sqb.andWhere(`${aliasOrEntity}.${column} <= :to${column}`, {
-          [`to${column}`]: toDate.toJSON()
+          [`to${column}`]: toDate.toJSON(),
         });
-      })
+      }),
     );
   }
 
@@ -472,14 +483,14 @@ export class BasicExplorerService extends ExplorerService {
     qb: SelectQueryBuilder<T>,
     exCol: ExplorerColumn,
     path: string,
-    value: string
+    value: string,
   ) {
     if (exCol.type === "boolean") {
       value = value === "true" ? "1" : "0";
     }
     const exactMatch = !(value.startsWith("%") && value.endsWith("%"));
     qb.andWhere(`${path} ${exactMatch ? "=" : "LIKE"} :${path}`, {
-      [path]: value
+      [path]: value,
     });
   }
 
@@ -493,37 +504,37 @@ export class BasicExplorerService extends ExplorerService {
   private async saveNestedEntities<T = any>(
     entity: T,
     targetData: TargetData,
-    repository: Repository<any>
+    repository: Repository<any>,
   ): Promise<T> {
     const referencedCols = targetData.entity.columns.filter(
-      (c) => c.type === "reference"
+      (c) => c.type === "reference",
     );
     for (const col of referencedCols) {
       const relationProp = col.property;
       const relatedEntityData = entity[relationProp];
       if (relatedEntityData) {
         const currTargetData = await this.getTargetData(
-          col.referencedEntityName
+          col.referencedEntityName,
         );
         if (!currTargetData) {
           entity[relationProp] = repository.create();
         } else {
           const relatedRepository = this.connection.getRepository(
-            currTargetData.entity.target
+            currTargetData.entity.target,
           );
           if (Array.isArray(relatedEntityData) && col.multiple) {
             for (let i = 0; i < relatedEntityData.length; i++) {
               entity[relationProp][i] = await this.saveNestedEntities(
                 relatedEntityData[i],
                 currTargetData,
-                relatedRepository
+                relatedRepository,
               );
             }
           } else {
             entity[relationProp] = await this.saveNestedEntities(
               relatedEntityData,
               currTargetData,
-              relatedRepository
+              relatedRepository,
             );
           }
         }
@@ -546,7 +557,7 @@ export class BasicExplorerService extends ExplorerService {
     targetData: TargetData,
     selectParams: ExplorerSelectParams = {},
     visitedEntities: string[] = [],
-    maxDepth = Infinity
+    maxDepth = Infinity,
   ) {
     if (maxDepth < 0) {
       throw new InternalServerErrorException("maxDepth should be non-negative");
@@ -566,7 +577,7 @@ export class BasicExplorerService extends ExplorerService {
     const newRow = await repository.findOne({
       select: colsForSelect.colList,
       where: { [idProp]: row[idProp] },
-      relations
+      relations,
     });
     const withRelations = {};
     Object.assign(withRelations, row, newRow);
@@ -579,8 +590,8 @@ export class BasicExplorerService extends ExplorerService {
         colData.referencedEntityName,
         {
           section: selectParams.section,
-          object: selectParams.object
-        }
+          object: selectParams.object,
+        },
       );
       if (Array.isArray(withRelations[k]) && colData.multiple) {
         for (const key in withRelations[k]) {
@@ -589,7 +600,7 @@ export class BasicExplorerService extends ExplorerService {
             currTargetData,
             selectParams,
             visitedEntities.slice(),
-            maxDepth - 1
+            maxDepth - 1,
           );
         }
       } else {
@@ -598,7 +609,7 @@ export class BasicExplorerService extends ExplorerService {
           currTargetData,
           selectParams,
           visitedEntities.slice(),
-          maxDepth - 1
+          maxDepth - 1,
         );
       }
     }
@@ -612,7 +623,7 @@ export class BasicExplorerService extends ExplorerService {
    */
   private getColsForSelect(
     targetData: TargetData,
-    params: ExplorerSelectParams = {}
+    params: ExplorerSelectParams = {},
   ) {
     const colList: string[] = [];
     const referencedCols: ExplorerColumn[] = [];
@@ -641,7 +652,7 @@ export class BasicExplorerService extends ExplorerService {
    */
   private async saveTarget(target: ExplorerTargetEntity) {
     const t = await this.targetRep.findOne({
-      where: { target: target.target }
+      where: { target: target.target },
     });
     if (t) {
       this.logger.verbose(`Entity ${target.target} already exists, skipping`);
@@ -674,7 +685,7 @@ export class BasicExplorerService extends ExplorerService {
   private async setColumnProperties(
     c: ExplorerColumnEntity,
     relation: RelationMetadata,
-    target: ExplorerTargetEntity
+    target: ExplorerTargetEntity,
   ) {
     c.target = target;
     c.id = `${target.tableName}.${relation.propertyPath}`;
@@ -719,28 +730,28 @@ export class BasicExplorerService extends ExplorerService {
    */
   private checkEntityAccess(
     targetData: TargetData,
-    targetParams: ExplorerTargetParams
+    targetParams: ExplorerTargetParams,
   ) {
     if (targetParams.readRequest) {
       return hasAccessForRoles(
         targetParams?.checkUserAccess.roles,
-        targetData.entity.canRead
+        targetData.entity.canRead,
       );
     }
     if (targetParams.writeRequest) {
       return hasAccessForRoles(
         targetParams?.checkUserAccess.roles,
-        targetData.entity.canWrite
+        targetData.entity.canWrite,
       );
     }
     return (
       hasAccessForRoles(
         targetParams?.checkUserAccess.roles,
-        targetData.entity.canWrite
+        targetData.entity.canWrite,
       ) &&
       hasAccessForRoles(
         targetParams?.checkUserAccess.roles,
-        targetData.entity.canRead
+        targetData.entity.canRead,
       )
     );
   }

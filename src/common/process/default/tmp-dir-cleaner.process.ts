@@ -28,7 +28,7 @@ export class TmpDirCleanerProcess extends AbstractProcess {
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
     protected readonly pmService: ProcessManagerService,
-    private readonly cacheService: CacheService
+    private readonly cacheService: CacheService,
   ) {
     super();
   }
@@ -43,7 +43,7 @@ export class TmpDirCleanerProcess extends AbstractProcess {
     const dirStruct = await readDirectoryRecursively(tmpDir);
     const stats = this.getDeleteStats(dirStruct as { [k: string]: string[] });
     await this.writeLog(
-      `Try to delete ${stats.filesCount} files and ${stats.foldersCount} folders...`
+      `Try to delete ${stats.filesCount} files and ${stats.foldersCount} folders...`,
     );
     await fs.promises.rm(tmpDir, { recursive: true, force: true });
     await this.writeLog(`Tmp dir was cleaned`);

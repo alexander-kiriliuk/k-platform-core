@@ -25,7 +25,7 @@ export abstract class FileManager {
     isPublic: boolean,
     code?: string,
     existedEntityId?: number,
-    name?: string
+    name?: string,
   ): Promise<FileEntity>;
 
   abstract findByCode(code: string): Promise<FileEntity>;
@@ -44,6 +44,6 @@ export abstract class FileManager {
 export abstract class FileMd {
   abstract createFileMetadataEntity(
     buf: Buffer,
-    filePath?: string
+    filePath?: string,
   ): Promise<FileMetadataEntity>;
 }

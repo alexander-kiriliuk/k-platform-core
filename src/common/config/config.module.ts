@@ -22,7 +22,6 @@ import { CacheModule } from "../../shared/modules/cache/cache.module";
 @Module({
   imports: [LogModule, CacheModule],
   providers: [ConfigService],
-  exports: [ConfigService]
+  exports: [ConfigService],
 })
-export class ConfigModule {
-}
+export class ConfigModule {}

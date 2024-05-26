@@ -22,8 +22,7 @@ import { MockStorage } from "../../mock/mock.storage";
  * A mock service client for dispatching messages between microservices.
  */
 export class MockMsClient implements MessageBus {
-  constructor(private readonly storage: MockStorage) {
-  }
+  constructor(private readonly storage: MockStorage) {}
 
   /**
    * Dispatches a message with the given pattern and data.
@@ -35,7 +34,7 @@ export class MockMsClient implements MessageBus {
   dispatch<TResult = any, TInput = any>(
     pattern: any,
     data: TInput,
-    opts?: MsClientOptions
+    opts?: MsClientOptions,
   ): Promise<TResult> {
     return new Promise<TResult>((resolve) => {
       const res = this.storage.find(pattern, data);
@@ -53,7 +52,7 @@ export class MockMsClient implements MessageBus {
   send<TResult = any, TInput = any>(
     pattern: any,
     data: TInput,
-    opts?: MsClientOptions
+    opts?: MsClientOptions,
   ): Observable<TResult> {
     const res = this.storage.find(pattern, data);
     return of(res?.data as TResult);
@@ -69,7 +68,7 @@ export class MockMsClient implements MessageBus {
   emit<TResult = any, TInput = any>(
     pattern: any,
     data: TInput,
-    opts?: MsClientOptions
+    opts?: MsClientOptions,
   ): Observable<TResult> {
     const res = this.storage.find(pattern, data);
     return of(res?.data as TResult);

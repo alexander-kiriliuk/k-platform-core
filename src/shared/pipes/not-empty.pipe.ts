@@ -21,8 +21,7 @@ import { BadRequestException, Injectable, PipeTransform } from "@nestjs/common";
  */
 @Injectable()
 export class NotEmptyPipe implements PipeTransform {
-  constructor(private readonly fieldName: string) {
-  }
+  constructor(private readonly fieldName: string) {}
 
   transform(value: any) {
     if (!value || Object.keys(value).length === 0) {

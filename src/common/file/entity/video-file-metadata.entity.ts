@@ -31,7 +31,7 @@ export class VideoFileMetadataEntity implements VideoFileMetadata {
     nullable: true,
     default: null,
     precision: 15,
-    scale: 10
+    scale: 10,
   })
   duration: number;
 

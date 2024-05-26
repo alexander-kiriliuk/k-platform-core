@@ -23,5 +23,5 @@ export const CATEGORY_RELATIONS = [
   "icon.type",
   "icon.type.ext",
   "name",
-  "name.lang"
+  "name.lang",
 ];

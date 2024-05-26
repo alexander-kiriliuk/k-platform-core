@@ -20,7 +20,7 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
-  UnauthorizedException
+  UnauthorizedException,
 } from "@nestjs/common";
 import * as bcrypt from "bcrypt";
 import { JwtDto, LoginPayload } from "./auth.types";
@@ -35,7 +35,7 @@ import {
   jwtAccessTokenKey,
   jwtRefreshTokenKey,
   REFRESH_TOKEN_ERROR_MSG,
-  UNKNOWN_IP
+  UNKNOWN_IP,
 } from "./auth.constants";
 import { LOGGER } from "../../shared/modules/log/log.constants";
 import { User, UserService } from "../user/user.types";
@@ -54,7 +54,7 @@ export class AuthorizationService extends AuthService {
     @Inject(LOGGER) private readonly logger: Logger,
     private readonly userService: UserService,
     private readonly cacheService: CacheService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
   ) {
     super();
   }
@@ -72,7 +72,7 @@ export class AuthorizationService extends AuthService {
     const isBlocked = await this.isBlocked(data.login, data.ipAddress);
     if (isBlocked) {
       this.logger.warn(
-        `Too many login attempts for ${data.login} from ${data.ipAddress}`
+        `Too many login attempts for ${data.login} from ${data.ipAddress}`,
       );
       throw new InternalServerErrorException(HttpStatus.TOO_MANY_REQUESTS);
     }
@@ -88,14 +88,14 @@ export class AuthorizationService extends AuthService {
     await this.cacheService.set(
       jwtAccessTokenKey(accessToken),
       user.login,
-      atExp
+      atExp,
     );
     const refreshToken = this.jwtService.sign({ rt: uuidv4() });
     const rtExp = await this.getRefreshTokenExp();
     await this.cacheService.set(
       jwtRefreshTokenKey(accessToken, refreshToken),
       user.login,
-      rtExp
+      rtExp,
     );
     const atExpDate = new Date();
     atExpDate.setTime(atExpDate.getTime() + atExp * 1000);
@@ -107,7 +107,7 @@ export class AuthorizationService extends AuthService {
       accessToken,
       refreshToken,
       atExp: atExpDate,
-      rtExp: rtExpDate
+      rtExp: rtExpDate,
     };
   }
 
@@ -119,18 +119,18 @@ export class AuthorizationService extends AuthService {
    */
   async invalidateToken(accessToken: string) {
     const userLogin = await this.cacheService.get(
-      jwtAccessTokenKey(accessToken)
+      jwtAccessTokenKey(accessToken),
     );
     if (userLogin) {
       this.logger.debug(`Invalidating access token for user ${userLogin}`);
       await this.deleteAccessToken(accessToken);
       await this.deleteRefreshTokens(
         accessToken,
-        jwtRefreshTokenKey(accessToken, "*")
+        jwtRefreshTokenKey(accessToken, "*"),
       );
     } else {
       this.logger.warn(
-        `Attempt to invalidate an invalid token: ${accessToken}`
+        `Attempt to invalidate an invalid token: ${accessToken}`,
       );
       throw new UnauthorizedException();
     }
@@ -146,11 +146,11 @@ export class AuthorizationService extends AuthService {
   async exchangeToken(refreshToken: string): Promise<Partial<JwtDto>> {
     const refreshTokenKeyPattern = jwtRefreshTokenKey("*", refreshToken);
     const refreshTokenKeys = await this.cacheService.getFromPattern(
-      refreshTokenKeyPattern
+      refreshTokenKeyPattern,
     );
     if (!refreshTokenKeys?.length) {
       this.logger.warn(
-        `Attempt to exchange an invalid refresh token: ${refreshToken}`
+        `Attempt to exchange an invalid refresh token: ${refreshToken}`,
       );
       throw new UnauthorizedException(REFRESH_TOKEN_ERROR_MSG);
     }
@@ -164,14 +164,14 @@ export class AuthorizationService extends AuthService {
     await this.cacheService.set(
       jwtAccessTokenKey(accessToken),
       userLogin,
-      atExp
+      atExp,
     );
     const newRefreshToken = this.jwtService.sign({ rt: uuidv4() });
     const rtExp = await this.getRefreshTokenExp();
     await this.cacheService.set(
       `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${accessToken}:${newRefreshToken}`,
       userLogin,
-      rtExp
+      rtExp,
     );
     // extract related access token for delete
     const oldAccessToken =
@@ -191,7 +191,7 @@ export class AuthorizationService extends AuthService {
     const ipKey = bruteForceIPKey(ipAddress);
     const [loginAttempts, ipAttempts] = await Promise.all([
       this.cacheService.get(loginKey),
-      this.cacheService.get(ipKey)
+      this.cacheService.get(ipKey),
     ]);
     const bfMaxAt = await this.getBruteForceMaxAttempts();
     return (
@@ -202,20 +202,20 @@ export class AuthorizationService extends AuthService {
 
   private async registerFailedAttempt(
     login: string,
-    ipAddress: string
+    ipAddress: string,
   ): Promise<void> {
     const bfEnabled = await this.getBruteForceEnabled();
     if (!bfEnabled) {
       return;
     }
     this.logger.debug(
-      `Registering failed login attempt for ${login} from ${ipAddress}`
+      `Registering failed login attempt for ${login} from ${ipAddress}`,
     );
     const loginKey = bruteForceLoginKey(login);
     const ipKey = bruteForceIPKey(ipAddress);
     const [loginAttempts, ipAttempts] = await Promise.all([
       this.cacheService.get(loginKey),
-      this.cacheService.get(ipKey)
+      this.cacheService.get(ipKey),
     ]);
     const blockDuration = await this.getBruteForceBlockDuration();
     const loginUpdate = loginAttempts
@@ -229,14 +229,14 @@ export class AuthorizationService extends AuthService {
 
   private async resetFailedAttempts(
     login: string,
-    ipAddress: string
+    ipAddress: string,
   ): Promise<void> {
     const bfEnabled = await this.getBruteForceEnabled();
     if (!bfEnabled) {
       return;
     }
     this.logger.debug(
-      `Resetting failed login attempts for ${login} from ${ipAddress}`
+      `Resetting failed login attempts for ${login} from ${ipAddress}`,
     );
     const loginKey = bruteForceLoginKey(login);
     const ipKey = bruteForceIPKey(ipAddress);
@@ -258,7 +258,7 @@ export class AuthorizationService extends AuthService {
 
   private extractAccessTokenFromRefreshTokenKey(refreshTokenKey: string) {
     const regex = new RegExp(
-      `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:(.*):[^:]*$`
+      `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:(.*):[^:]*$`,
     );
     const parts = refreshTokenKey.match(regex);
     if (parts?.length) {
@@ -274,10 +274,10 @@ export class AuthorizationService extends AuthService {
 
   private async deleteRefreshTokens(
     accessToken: string,
-    pattern: string
+    pattern: string,
   ): Promise<void> {
     this.logger.debug(
-      `Deleting refresh tokens for access token: ${accessToken}`
+      `Deleting refresh tokens for access token: ${accessToken}`,
     );
     const refreshTokenKeys = await this.cacheService.getFromPattern(pattern);
     if (refreshTokenKeys?.length > 0) {
@@ -287,13 +287,13 @@ export class AuthorizationService extends AuthService {
 
   private async getAccessTokenExp() {
     return await this.cacheService.getNumber(
-      AuthConfig.ACCESS_TOKEN_EXPIRATION
+      AuthConfig.ACCESS_TOKEN_EXPIRATION,
     );
   }
 
   private async getRefreshTokenExp() {
     return await this.cacheService.getNumber(
-      AuthConfig.REFRESH_TOKEN_EXPIRATION
+      AuthConfig.REFRESH_TOKEN_EXPIRATION,
     );
   }
 

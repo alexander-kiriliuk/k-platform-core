@@ -21,7 +21,7 @@ export class TooManyRequestsMsException extends MsException {
   constructor(message?: string) {
     super(
       HttpStatus.TOO_MANY_REQUESTS,
-      message || "You have made too many requests. Please try again later."
+      message || "You have made too many requests. Please try again later.",
     );
   }
 }

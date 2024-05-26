@@ -21,9 +21,8 @@ import * as hash from "object-hash";
  */
 export class MockStorage {
   constructor(
-    private data: Array<{ data: unknown; key: string; params?: unknown }>
-  ) {
-  }
+    private data: Array<{ data: unknown; key: string; params?: unknown }>,
+  ) {}
 
   find(key: string, params?: unknown) {
     if (!params) {

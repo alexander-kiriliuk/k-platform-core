@@ -24,41 +24,41 @@ import {
   AUTH_ACCESS_TOKEN_PREFIX,
   AUTH_JWT_CACHE_PREFIX,
   AUTH_REFRESH_TOKEN_PREFIX,
-  BRUTEFORCE_JWT_CACHE_PREFIX
+  BRUTEFORCE_JWT_CACHE_PREFIX,
 } from "../auth.constants";
 
 export namespace AuthMock {
   export const jwtService: jest.Mocked<JwtService> = {
-    sign: () => uuidv4()
+    sign: () => uuidv4(),
   } as any;
   export const blockedUsrLoginPayload: LoginPayload = {
     login: "blockedUserByLogin",
     password: "1111",
-    ipAddress: "123.123.123.123"
+    ipAddress: "123.123.123.123",
   };
 
   export const blockedUsrIpPayload: LoginPayload = {
     login: "blockedUserByIp",
     password: "1111",
-    ipAddress: "111.111.111.111"
+    ipAddress: "111.111.111.111",
   };
 
   export const wrongCredentialsUsrPayload: LoginPayload = {
     login: "wrongCredentialsUsr",
     password: "1111",
-    ipAddress: "123.123.123.123"
+    ipAddress: "123.123.123.123",
   };
 
   export const validCredentialsUsrPayload: LoginPayload = {
     login: "test",
     password: "1111",
-    ipAddress: "123.123.123.123"
+    ipAddress: "123.123.123.123",
   };
 
   export const testUser: User = {
     id: "12345",
     login: "test",
-    password: "$2b$10$pLGG/FWq1krOgl8wg05.DeoC5WlNEYOhuX7zYbtJlYQ0aZjKaMmIe" // encrypted string "1111"
+    password: "$2b$10$pLGG/FWq1krOgl8wg05.DeoC5WlNEYOhuX7zYbtJlYQ0aZjKaMmIe", // encrypted string "1111"
   } as User;
 
   export const validAccessToken = "valid-access-token";
@@ -68,49 +68,49 @@ export namespace AuthMock {
   export const Storage = new MockStorage([
     {
       key: BruteforceConfig.ENABLED,
-      data: "true"
+      data: "true",
     },
     {
       key: BruteforceConfig.MAX_ATTEMPTS,
-      data: 3
+      data: 3,
     },
     {
       key: `${BRUTEFORCE_JWT_CACHE_PREFIX}:login:${blockedUsrLoginPayload.login}`,
-      data: 10
+      data: 10,
     },
     {
       key: `${BRUTEFORCE_JWT_CACHE_PREFIX}:ip:${blockedUsrIpPayload.ipAddress}`,
-      data: 10
+      data: 10,
     },
     {
       key: "user.find.by.login",
       data: null,
-      params: wrongCredentialsUsrPayload.login
+      params: wrongCredentialsUsrPayload.login,
     },
     {
       key: "user.find.by.login",
       data: testUser,
-      params: validCredentialsUsrPayload.login
+      params: validCredentialsUsrPayload.login,
     },
     {
       key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${validAccessToken}`,
-      data: testUser
+      data: testUser,
     },
     {
       key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${validAccessToken}:*`,
-      data: testUser
+      data: testUser,
     },
     {
       key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:*:${refreshTokenWithoutRelatedUser}`,
-      data: undefined
+      data: undefined,
     },
     {
       key: `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:*:${validRefreshToken}`,
-      data: [validRefreshToken]
+      data: [validRefreshToken],
     },
     {
       key: validRefreshToken,
-      data: testUser.login
+      data: testUser.login,
     },
   ]);
 }

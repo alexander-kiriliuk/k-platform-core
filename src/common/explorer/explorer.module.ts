@@ -26,27 +26,26 @@ import { LogModule } from "../../shared/modules/log/log.module";
 export class ExplorerModule implements OnModuleInit {
   static forRoot(
     options: ExplorerModuleOptions = {
-      service: BasicExplorerService
-    }
+      service: BasicExplorerService,
+    },
   ): DynamicModule {
     return {
       module: ExplorerModule,
       imports: [
         TypeOrmModule.forFeature([ExplorerTargetEntity, ExplorerColumnEntity]),
-        LogModule
+        LogModule,
       ],
       providers: [
         {
           provide: ExplorerService,
-          useClass: options.service
+          useClass: options.service,
         },
       ],
-      exports: [ExplorerService]
+      exports: [ExplorerService],
     };
   }
 
-  constructor(private readonly service: ExplorerService) {
-  }
+  constructor(private readonly service: ExplorerService) {}
 
   async onModuleInit() {
     await this.service.analyzeDatabase();

@@ -32,14 +32,13 @@ import { WarlockModule } from "../../shared/modules/warlock/warlock.module";
     ScheduleModule.forRoot(),
     LogModule,
     MessagesBrokerModule,
-    WarlockModule
+    WarlockModule,
   ],
   providers: [ProcessManagerService, ProcessRegisterService],
-  exports: [ProcessManagerService]
+  exports: [ProcessManagerService],
 })
 export class ProcessModule implements OnApplicationBootstrap {
-  constructor(private readonly pmService: ProcessManagerService) {
-  }
+  constructor(private readonly pmService: ProcessManagerService) {}
 
   async onApplicationBootstrap() {
     await this.pmService.init();

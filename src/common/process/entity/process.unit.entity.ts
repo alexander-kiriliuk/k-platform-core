@@ -14,7 +14,16 @@
  *    limitations under the License.
  */
 
-import { Column, CreateDateColumn, Entity, Index, JoinTable, ManyToMany, OneToMany, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryColumn,
+} from "typeorm";
 import { Process } from "../process.constants";
 import { ProcessUnit } from "../process.types";
 import { ProcessLogEntity } from "./process.log.entity";
@@ -31,10 +40,10 @@ export class ProcessUnitEntity implements ProcessUnit {
     enum: [
       Process.Status.Ready,
       Process.Status.Execute,
-      Process.Status.Crashed
+      Process.Status.Crashed,
     ],
     default: null,
-    nullable: true
+    nullable: true,
   })
   status: Process.Status;
 

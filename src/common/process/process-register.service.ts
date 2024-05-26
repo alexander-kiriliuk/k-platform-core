@@ -36,19 +36,19 @@ export class ProcessRegisterService {
     @Inject(WARLOCK) private readonly lockExec: WarlockFn,
     @Inject(MESSAGES_BROKER) private readonly broker: MessagesBrokerService,
     private readonly pmService: ProcessManagerService,
-    private readonly schedulerRegistry: SchedulerRegistry
+    private readonly schedulerRegistry: SchedulerRegistry,
   ) {
     broker.subscribe<ProcessUnit>(Command.Register, (data) =>
-      this.registerCronJob(data)
+      this.registerCronJob(data),
     );
     broker.subscribe<ProcessUnit>(Command.Unregister, (data) =>
-      this.unregisterCronJob(data)
+      this.unregisterCronJob(data),
     );
     broker.subscribe<ProcessUnit>(Command.Start, (data) =>
-      this.startProcess(data)
+      this.startProcess(data),
     );
     broker.subscribe<ProcessUnit>(Command.Stop, (data) =>
-      this.stopProcess(data)
+      this.stopProcess(data),
     );
   }
 
@@ -59,7 +59,7 @@ export class ProcessRegisterService {
       return;
     }
     this.lockExec(`${processData.code}_start`, async () =>
-      processInstance.start()
+      processInstance.start(),
     );
   }
 
@@ -75,7 +75,7 @@ export class ProcessRegisterService {
   private async registerCronJob(processData: ProcessUnit) {
     if (this.schedulerRegistry.doesExist("cron", processData.code)) {
       this.logger.warn(
-        `Can't register cron job with code ${processData.code}, that already exists`
+        `Can't register cron job with code ${processData.code}, that already exists`,
       );
       return false;
     }
@@ -87,14 +87,14 @@ export class ProcessRegisterService {
     }
     if (!processData.cronTab?.length) {
       this.logger.warn(
-        `Process ${processData.code} hasn't cron-tab, skip job registration`
+        `Process ${processData.code} hasn't cron-tab, skip job registration`,
       );
       return false;
     }
     const job = new CronJob(processData.cronTab, () => {
       this.lockExec(
         processData.code,
-        async () => await processInstance.start()
+        async () => await processInstance.start(),
       );
     });
     job.start();
@@ -105,7 +105,7 @@ export class ProcessRegisterService {
   private async unregisterCronJob(processData: ProcessUnit) {
     if (!this.schedulerRegistry.doesExist("cron", processData.code)) {
       this.logger.warn(
-        `Can't unregister cron job with code ${processData.code}`
+        `Can't unregister cron job with code ${processData.code}`,
       );
       return false;
     }

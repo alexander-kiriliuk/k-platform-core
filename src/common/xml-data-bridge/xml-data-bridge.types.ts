@@ -18,7 +18,10 @@ import { Type, Type as Class } from "@nestjs/common/interfaces/type.interface";
 import { DynamicModule } from "@nestjs/common/interfaces/modules/dynamic-module.interface";
 import { ForwardReference } from "@nestjs/common/interfaces/modules/forward-reference.interface";
 import { ObjectLiteral } from "typeorm";
-import { XdbExportService, XdbImportService } from "./xml-data-bridge.constants";
+import {
+  XdbExportService,
+  XdbImportService,
+} from "./xml-data-bridge.constants";
 import { User } from "../user/user.types";
 
 export interface XdbRequest {

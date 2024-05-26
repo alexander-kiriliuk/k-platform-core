@@ -24,5 +24,5 @@ export const USER_RELATIONS = [
   "avatar.type.ext",
   "roles",
   "roles.name",
-  "roles.name.lang"
+  "roles.name.lang",
 ];

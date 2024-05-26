@@ -21,7 +21,7 @@ export class MsException extends RpcException {
   constructor(
     readonly code: number,
     readonly message: string = undefined,
-    readonly stack?: any
+    readonly stack?: any,
   ) {
     super({ type: MS_EXCEPTION_ID, message, code, stack });
   }

@@ -35,7 +35,7 @@ import { MessagesBrokerService } from "./messages-broker.service";
             port: parseInt(process.env.REDIS_PORT),
             db: parseInt(process.env.REDIS_DB),
             username: process.env.REDIS_USER,
-            password: process.env.REDIS_PASSWORD
+            password: process.env.REDIS_PASSWORD,
           },
         };
       },
@@ -44,10 +44,9 @@ import { MessagesBrokerService } from "./messages-broker.service";
   providers: [
     {
       provide: MESSAGES_BROKER,
-      useClass: MessagesBrokerService
+      useClass: MessagesBrokerService,
     },
   ],
-  exports: [MESSAGES_BROKER]
+  exports: [MESSAGES_BROKER],
 })
-export class MessagesBrokerModule {
-}
+export class MessagesBrokerModule {}

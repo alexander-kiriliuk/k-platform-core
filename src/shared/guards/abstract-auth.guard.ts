@@ -14,11 +14,16 @@
  *    limitations under the License.
  */
 
-import { CanActivate, ExecutionContext, ForbiddenException, Logger } from "@nestjs/common";
+import {
+  CanActivate,
+  ExecutionContext,
+  ForbiddenException,
+  Logger,
+} from "@nestjs/common";
 import {
   ACCESS_TOKEN_ERROR_MSG,
   AUTH_ACCESS_TOKEN_PREFIX,
-  AUTH_JWT_CACHE_PREFIX
+  AUTH_JWT_CACHE_PREFIX,
 } from "../../common/auth/auth.constants";
 import { Request } from "express";
 import { CacheService } from "../modules/cache/cache.types";
@@ -58,7 +63,7 @@ export abstract class AbstractAuthGuard implements CanActivate {
 
   private async validateToken(token: string) {
     return this.cacheService.get(
-      `${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${token}`
+      `${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${token}`,
     );
   }
 

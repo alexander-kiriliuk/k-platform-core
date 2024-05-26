@@ -14,7 +14,12 @@
  *    limitations under the License.
  */
 
-import { Inject, Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ProcessUnitEntity } from "./entity/process.unit.entity";
@@ -41,8 +46,7 @@ export class ProcessManagerService {
     private readonly processUnitRep: Repository<ProcessUnitEntity>,
     @InjectRepository(ProcessLogEntity)
     private readonly processLogRep: Repository<ProcessLogEntity>,
-  ) {
-  }
+  ) {}
 
   async init() {
     if (ProcessManagerService.pmInitStatus) {
@@ -53,12 +57,12 @@ export class ProcessManagerService {
     this.logger.log("Init process manager");
     ProcessManagerService.pmInitStatus = true;
     const processList = await this.processUnitRep.find({
-      where: { enabled: true }
+      where: { enabled: true },
     });
     for (const processData of processList) {
       if (!processData.cronTab?.length) {
         this.logger.warn(
-          `Process ${processData.code} hasn't cron-tab, skip job registration`
+          `Process ${processData.code} hasn't cron-tab, skip job registration`,
         );
         continue;
       }
@@ -70,7 +74,7 @@ export class ProcessManagerService {
     const processData = await this.getProcessData(code, true);
     if (!processData) {
       throw new InternalServerErrorException(
-        `Process ${code} hasn't options-data`
+        `Process ${code} hasn't options-data`,
       );
     }
     this.broker.emit(Command.Start, processData);
@@ -80,7 +84,7 @@ export class ProcessManagerService {
     const processData = await this.getProcessData(code, true);
     if (!processData) {
       throw new InternalServerErrorException(
-        `Process ${code} hasn't options-data`
+        `Process ${code} hasn't options-data`,
       );
     }
     this.broker.emit(Command.Stop, processData);
@@ -115,7 +119,7 @@ export class ProcessManagerService {
     const process = await this.getProcessData(processCode);
     return this.processLogRep.save({
       process,
-      content: ""
+      content: "",
     } as ProcessLogEntity);
   }
 
@@ -131,7 +135,7 @@ export class ProcessManagerService {
   getProcessLogById(id: number) {
     return this.processLogRep.findOne({
       where: { id },
-      relations: ["process"]
+      relations: ["process"],
     });
   }
 
@@ -139,13 +143,13 @@ export class ProcessManagerService {
     return this.processLogRep.find({
       where: { process: { code: processCode } },
       take: limit,
-      order: { tsUpdated: "DESC" }
+      order: { tsUpdated: "DESC" },
     });
   }
 
   private async resetAllProcessStatuses() {
     const entities = await this.processUnitRep.find({
-      where: { enabled: true }
+      where: { enabled: true },
     });
     for (const processData of entities) {
       await this.setProcessUnitStatus(processData.code, Status.Ready);

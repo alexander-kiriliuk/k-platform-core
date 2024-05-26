@@ -14,7 +14,16 @@
  *    limitations under the License.
  */
 
-import { Column, Entity, Index, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
+} from "typeorm";
 import { ExplorerColumnEntity } from "./explorer-column.entity";
 import { ExplorerAction, ExplorerTarget } from "../explorer.types";
 import { LocalizedStringEntity } from "../../../shared/modules/locale/entity/localized-string.entity";
@@ -57,7 +66,7 @@ export class ExplorerTargetEntity implements ExplorerTarget {
   @Column("boolean", {
     name: "default_action_create",
     default: true,
-    nullable: true
+    nullable: true,
   })
   defaultActionCreate: boolean;
 
@@ -65,7 +74,7 @@ export class ExplorerTargetEntity implements ExplorerTarget {
   @Column("boolean", {
     name: "default_action_save",
     default: true,
-    nullable: true
+    nullable: true,
   })
   defaultActionSave: boolean;
 
@@ -73,7 +82,7 @@ export class ExplorerTargetEntity implements ExplorerTarget {
   @Column("boolean", {
     name: "default_action_delete",
     default: true,
-    nullable: true
+    nullable: true,
   })
   defaultActionDelete: boolean;
 
@@ -81,7 +90,7 @@ export class ExplorerTargetEntity implements ExplorerTarget {
   @Column("boolean", {
     name: "default_action_duplicate",
     default: true,
-    nullable: true
+    nullable: true,
   })
   defaultActionDuplicate: boolean;
 

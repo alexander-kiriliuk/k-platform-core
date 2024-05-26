@@ -28,8 +28,17 @@ import { LOGGER } from "../../shared/modules/log/log.constants";
 import { Media, MediaFormat, MediaManager } from "../media/media.types";
 import { FileManager } from "../file/file.constants";
 import { CacheService } from "../../shared/modules/cache/cache.types";
-import { ExplorerColumn, ExplorerService, ExplorerTargetParams, TargetData } from "../explorer/explorer.types";
-import { XdbDecomposedEntity, XdbExportDto, XdbExportParams } from "./xml-data-bridge.types";
+import {
+  ExplorerColumn,
+  ExplorerService,
+  ExplorerTargetParams,
+  TargetData,
+} from "../explorer/explorer.types";
+import {
+  XdbDecomposedEntity,
+  XdbExportDto,
+  XdbExportParams,
+} from "./xml-data-bridge.types";
 import { KpConfig } from "../../gen-src/kp.config";
 import { MediaEntity } from "../media/entity/media.entity";
 import { FileEntity } from "../file/entity/file.entity";
@@ -62,7 +71,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
     private readonly mediaService: MediaManager,
     private readonly filesService: FileManager,
     private readonly cacheService: CacheService,
-    private readonly explorerService: ExplorerService
+    private readonly explorerService: ExplorerService,
   ) {
     super();
   }
@@ -75,17 +84,17 @@ export class XmlDataBridgeExportService extends XdbExportService {
   async exportXml(params: XdbExportParams): Promise<XdbExportDto> {
     const tParams: ExplorerTargetParams = {
       readRequest: true,
-      checkUserAccess: params.user
+      checkUserAccess: params.user,
     };
     const target = await this.explorerService.getTargetData(
       params.target,
-      tParams
+      tParams,
     );
     const entity = await this.explorerService.getEntityData(
       params.target,
       params.id,
       params.depth,
-      tParams
+      tParams,
     );
     if (params.excludeProperties?.length) {
       for (const property of params.excludeProperties) {
@@ -95,7 +104,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
     const decomposedEntityStack = await this.decomposeEntity(
       entity,
       target,
-      tParams
+      tParams,
     );
     const tmpDir =
       process.cwd() + (await this.cacheService.get(KpConfig.TMP_DIR));
@@ -105,11 +114,11 @@ export class XmlDataBridgeExportService extends XdbExportService {
     const xmlFilePath = `${operationDir}/${fileName}.xml`;
     const handledMedias = await this.handleDecomposedMedias(
       decomposedEntityStack,
-      operationDir
+      operationDir,
     );
     const handledFiles = await this.handleDecomposedFiles(
       decomposedEntityStack,
-      operationDir
+      operationDir,
     );
     this.handleStringValues(decomposedEntityStack);
     const xmlBody = this.buildXmlBody(decomposedEntityStack);
@@ -146,7 +155,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
         const row = xmlFileRowPropertyNode(
           decomposedEntityStack,
           key,
-          entity.data[key]
+          entity.data[key],
         );
         if (!row) {
           continue;
@@ -155,7 +164,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
       }
       body += node.replace(
         BODY_TOKEN,
-        xmlFileRowNode().replace(BODY_TOKEN, rowBody)
+        xmlFileRowNode().replace(BODY_TOKEN, rowBody),
       );
     }
     const xmlBody = xmlFileSchemaTpl();
@@ -165,7 +174,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
   private async decomposeEntity(
     object: ObjectLiteral,
     target: TargetData,
-    tParams: ExplorerTargetParams
+    tParams: ExplorerTargetParams,
   ) {
     let stack: XdbDecomposedEntity[] = [];
     this.handleNode(stack, object, rootToken);
@@ -215,7 +224,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
       stack,
       root.data,
       root.data,
-      rootToken
+      rootToken,
     );
     // mark root object
     for (const key of Object.keys(root.data)) {
@@ -226,7 +235,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
         for (let i = 0; i < root.data[key].length; i++) {
           const target = await this.explorerService.getTargetData(
             root.data[key][i].constructor.name,
-            tParams
+            tParams,
           );
           const p = `${rootToken}/${key}`;
           const keyName = this.getKeyPropertyName(target, root.data[key][i]);
@@ -235,7 +244,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
       } else {
         const target = await this.explorerService.getTargetData(
           root.data[key].constructor.name,
-          tParams
+          tParams,
         );
         const p = `${rootToken}/${key}`;
         const keyName = this.getKeyPropertyName(target, root.data[key]);
@@ -249,7 +258,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
 
   private async handleStackRoots(
     stack: XdbDecomposedEntity[],
-    tParams: ExplorerTargetParams
+    tParams: ExplorerTargetParams,
   ) {
     for (let i = stack.length - 1; i >= 0; i--) {
       for (const key of Object.keys(stack[i].data)) {
@@ -273,16 +282,16 @@ export class XmlDataBridgeExportService extends XdbExportService {
             }
             const target = await this.explorerService.getTargetData(
               stack[i].data[key][j].constructor.name,
-              tParams
+              tParams,
             );
             const keyName = this.getKeyPropertyName(
               target,
-              stack[i].data[key][j]
+              stack[i].data[key][j],
             );
             const stackEl = stack.find(
               (v) =>
                 v.metadata.type === target.entity.target &&
-                v.data[keyName] === stack[i].data[key][j][keyName]
+                v.data[keyName] === stack[i].data[key][j][keyName],
             );
             stack[i].data[key][j] =
               `${stackEl.metadata.path}#${keyName}:${stack[i].data[key][j][keyName]}`;
@@ -294,13 +303,13 @@ export class XmlDataBridgeExportService extends XdbExportService {
           }
           const target = await this.explorerService.getTargetData(
             stack[i].data[key].constructor.name,
-            tParams
+            tParams,
           );
           const keyName = this.getKeyPropertyName(target, stack[i].data[key]);
           const stackEl = stack.find(
             (v) =>
               v.metadata.type === target.entity.target &&
-              v.data[keyName] === stack[i].data[key][keyName]
+              v.data[keyName] === stack[i].data[key][keyName],
           );
           stack[i].data[key] =
             `${stackEl.metadata.path}#${keyName}:${stack[i].data[key][keyName]}`;
@@ -316,7 +325,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
     stack: XdbDecomposedEntity[],
     node: ObjectLiteral,
     parent: ObjectLiteral,
-    path: string
+    path: string,
   ) {
     const root = stack[stack.length - 1];
     for (const key in node) {
@@ -334,14 +343,14 @@ export class XmlDataBridgeExportService extends XdbExportService {
           }
           const target = await this.explorerService.getTargetData(
             arrEl.constructor.name,
-            tParams
+            tParams,
           );
           const p = `${path}/${key}`;
           const stackEl = stack.find(
             (v) =>
               v.metadata.path === p &&
               v.data[target.primaryColumn.property] ===
-              arrEl[target.primaryColumn.property]
+                arrEl[target.primaryColumn.property],
           );
           if (!stackEl) {
             continue;
@@ -352,13 +361,13 @@ export class XmlDataBridgeExportService extends XdbExportService {
             }
             if (stackEl.data[sDataElKey].constructor.name === "Object") {
               stackEl.data[sDataElKey] = JSON.stringify(
-                stackEl.data[sDataElKey]
+                stackEl.data[sDataElKey],
               );
               continue;
             }
             const sdTarget = await this.explorerService.getTargetData(
               stackEl.data[sDataElKey].constructor.name,
-              tParams
+              tParams,
             );
             if (!sdTarget) {
               continue;
@@ -367,14 +376,14 @@ export class XmlDataBridgeExportService extends XdbExportService {
             if (
               sdTarget.entity.target === root.metadata.type &&
               stackEl.data[sDataElKey][rootPrimaryCol.property] ===
-              root.data[rootPrimaryCol.property]
+                root.data[rootPrimaryCol.property]
             ) {
               delete stackEl.data[sDataElKey];
               continue;
             }
             const keyName = this.getKeyPropertyName(
               sdTarget,
-              stackEl.data[sDataElKey]
+              stackEl.data[sDataElKey],
             );
             stackEl.data[sDataElKey] =
               `${sdP}#${keyName}:${stackEl.data[sDataElKey][keyName]}`;
@@ -388,7 +397,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
             stack,
             node[key],
             node,
-            `${path}/${key}`
+            `${path}/${key}`,
           );
         } else {
           if (node[key].constructor.name === "Object") {
@@ -397,7 +406,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
           }
           const target = await this.explorerService.getTargetData(
             node[key].constructor.name,
-            tParams
+            tParams,
           );
           const p = `${path}/${key}`;
           const keyName = this.getKeyPropertyName(target, node[key]);
@@ -408,7 +417,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
             stack,
             node[key],
             node,
-            `${path}/${key}`
+            `${path}/${key}`,
           );
         }
       }
@@ -420,7 +429,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
     node: ObjectLiteral,
     fieldName: string,
     path?: string,
-    arrayClassName?: string
+    arrayClassName?: string,
   ) {
     if (this.isPrimitiveNode(node)) {
       return;
@@ -434,7 +443,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
       if (type !== "Array") {
         stack.push({
           metadata: { type, fieldName, path: newPath },
-          data: node
+          data: node,
         });
       }
     }
@@ -504,7 +513,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
 
   private async handleDecomposedMedias(
     stack: XdbDecomposedEntity[],
-    operationDir: string
+    operationDir: string,
   ) {
     const result: string[] = [];
     for (const item of stack) {
@@ -521,7 +530,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
       const fileName = `${file.name}.${media.type.ext.code}`;
       const tmpFileName = `${generateRandomInt()}.${media.type.ext.code}`;
       const mediaFilePath = path.normalize(
-        process.cwd() + `${loc}/${media.id}/${fileName}`
+        process.cwd() + `${loc}/${media.id}/${fileName}`,
       );
       const tmpFilePath = path.normalize(`${operationDir}/${tmpFileName}`);
       const fileData = await readFile(mediaFilePath);
@@ -534,7 +543,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
 
   private async handleDecomposedFiles(
     stack: XdbDecomposedEntity[],
-    operationDir: string
+    operationDir: string,
   ) {
     const result: string[] = [];
     for (const item of stack) {
@@ -550,7 +559,7 @@ export class XmlDataBridgeExportService extends XdbExportService {
       const fileName = `${fileEntity.path}`;
       const tmpFileName = `${generateRandomInt()}.${fileName.split(".").pop()}`;
       const filePath = path.normalize(
-        process.cwd() + `${loc}/${fileEntity.id}/${fileName}`
+        process.cwd() + `${loc}/${fileEntity.id}/${fileName}`,
       );
       const tmpFilePath = path.normalize(`${operationDir}/${tmpFileName}`);
       const fileData = await readFile(filePath);

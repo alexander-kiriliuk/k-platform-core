@@ -14,7 +14,14 @@
  *    limitations under the License.
  */
 
-import { Column, Entity, Index, JoinTable, ManyToMany, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  PrimaryColumn,
+} from "typeorm";
 import { ExplorerAction } from "../explorer.types";
 import { LocalizedStringEntity } from "../../../shared/modules/locale/entity/localized-string.entity";
 import { Explorer } from "../explorer.constants";
@@ -38,14 +45,14 @@ export class ExplorerActionEntity implements ExplorerAction {
     type: "enum",
     enum: ["section", "object"],
     default: null,
-    nullable: true
+    nullable: true,
   })
   type: Explorer.Variation;
 
   @Column("simple-json", {
     transformer: SimpleJsonTransformer,
     nullable: true,
-    default: null
+    default: null,
   })
   params: object;
   @Index()

@@ -39,12 +39,12 @@ export abstract class AbstractProcess {
     const status = await this.getStatus();
     if (status === Status.Execute) {
       this.logger.warn(
-        `Process with id ${this.constructor.name} now executed, can't start that`
+        `Process with id ${this.constructor.name} now executed, can't start that`,
       );
       return;
     }
     this.logInstance = await this.pmService.createLogInstance(
-      this.constructor.name
+      this.constructor.name,
     );
     await this.writeLog(`Start process with id ${this.constructor.name}`);
     await this.setStatus(Status.Execute);
@@ -53,7 +53,7 @@ export abstract class AbstractProcess {
       await this.setStatus(Status.Ready);
       await this.onFinish();
       await this.writeLog(
-        `Process with id ${this.constructor.name} was finished`
+        `Process with id ${this.constructor.name} was finished`,
       );
       this.logInstance = undefined;
     } catch (e) {
@@ -62,7 +62,7 @@ export abstract class AbstractProcess {
       await this.writeLog(
         `Process with id ${this.constructor.name} was crashed`,
         e,
-        LogLevel.Error
+        LogLevel.Error,
       );
       this.logInstance = undefined;
     }
@@ -79,7 +79,7 @@ export abstract class AbstractProcess {
   protected async writeLog(
     message: string,
     data?: unknown,
-    level = LogLevel.Log
+    level = LogLevel.Log,
   ) {
     switch (level) {
       case LogLevel.Log:

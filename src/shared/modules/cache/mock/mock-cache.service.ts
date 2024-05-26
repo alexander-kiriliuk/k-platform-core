@@ -23,8 +23,7 @@ import { MockStorage } from "../../mock/mock.storage";
  */
 @Injectable()
 export class MockCacheService implements CacheService {
-  constructor(private readonly storage: MockStorage) {
-  }
+  constructor(private readonly storage: MockStorage) {}
 
   /**
    * Retrieves the value of the specified key from the mock storage.
@@ -72,7 +71,7 @@ export class MockCacheService implements CacheService {
   async set(
     key: string,
     value: string | number,
-    expiresIn?: number
+    expiresIn?: number,
   ): Promise<boolean> {
     return new Promise((resolve) => {
       this.storage.set(key, value);
