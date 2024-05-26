@@ -11,13 +11,13 @@
     "examples/*"
   ],
   "scripts": {
-    "build": "rimraf dist/lib && tsc -p ./src/tsconfig.lib.json",
+    "build": "rimraf dist/lib && tsc -p lib/tsconfig.lib.json",
     "create:tar": "node ./create-pack-list.js",
     "publish": "npm publish ./dist/package.tgz",
-    "start:web-app": "rimraf dist/examples/web-server && nest start web-app --debug --watch",
     "init:config": "nest start init-config",
+    "lint": "eslint --fix --ext .js,.ts .",
     "init:web-app": "nest start init-web-app",
-    "lint": "eslint \"src/**/*.ts\" --fix",
+    "start:web-app": "rimraf dist/examples/web-server && nest start web-app --debug --watch",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",

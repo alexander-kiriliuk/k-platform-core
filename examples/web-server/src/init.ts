@@ -100,11 +100,11 @@ import readFile = FilesUtils.readFile;
     const service = app.select(mod).get(XdbImportService);
     console.log("Import initial-data");
     const initialDataBody = await parseXmlFileData(
-      "/app/web/res/initial-data.xml",
+      "/examples/web-server/res/initial-data.xml",
     );
     await service.importXml(initialDataBody);
     const sampleDataBody = await parseXmlFileData(
-      "/app/web/res/sample-data.xml",
+      "/examples/web-server/res/sample-data.xml",
     );
     console.log("Import sample-data");
     await service.importXml(sampleDataBody);

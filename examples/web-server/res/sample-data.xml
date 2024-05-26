@@ -37,7 +37,7 @@
         <row>
             <code>test-text-file</code>
             <public>true</public>
-            <file>/app/web/res/files/test.txt</file>
+            <file>/examples/web-server/res/files/test.txt</file>
             <name>test.txt</name>
         </row>
     </File>

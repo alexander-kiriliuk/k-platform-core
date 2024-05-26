@@ -5122,7 +5122,7 @@
         <row>
             <code>audio-md-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/audio-md-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/audio-md-icn.svg</file>
         </row>
     </Media>
 
@@ -5158,7 +5158,7 @@
         <row>
             <code>md-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/md-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/md-icn.svg</file>
         </row>
     </Media>
 
@@ -5200,7 +5200,7 @@
         <row>
             <code>cat-restriction-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/cat-restriction-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/cat-restriction-icn.svg</file>
         </row>
     </Media>
 
@@ -5236,7 +5236,7 @@
         <row>
             <code>exif-md-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/exif-md-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/exif-md-icn.svg</file>
         </row>
     </Media>
 
@@ -5278,7 +5278,7 @@
         <row>
             <code>exif-md-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/action-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/action-icn.svg</file>
         </row>
     </Media>
 
@@ -5325,7 +5325,7 @@
         <row>
             <code>ex-column-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/ex-column-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/ex-column-icn.svg</file>
         </row>
     </Media>
 
@@ -5371,7 +5371,7 @@
         <row>
             <code>renderer-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/renderer-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/renderer-icn.svg</file>
         </row>
     </Media>
 
@@ -5417,7 +5417,7 @@
         <row>
             <code>tab-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/tab-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/tab-icn.svg</file>
         </row>
     </Media>
 
@@ -5463,7 +5463,7 @@
         <row>
             <code>target-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/target-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/target-icn.svg</file>
         </row>
     </Media>
 
@@ -5509,7 +5509,7 @@
         <row>
             <code>file-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/file-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/file-icn.svg</file>
         </row>
     </Media>
 
@@ -5545,7 +5545,7 @@
         <row>
             <code>file-md-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/file-md-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/file-md-icn.svg</file>
         </row>
     </Media>
 
@@ -5577,7 +5577,7 @@
         <row>
             <code>gps-md-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/gps-md-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/gps-md-icn.svg</file>
         </row>
     </Media>
 
@@ -5609,7 +5609,7 @@
         <row>
             <code>icc-md-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/icc-md-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/icc-md-icn.svg</file>
         </row>
     </Media>
 
@@ -5641,7 +5641,7 @@
         <row>
             <code>image-md-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/image-md-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/image-md-icn.svg</file>
         </row>
     </Media>
 
@@ -5683,7 +5683,7 @@
         <row>
             <code>lang-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/lang-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/lang-icn.svg</file>
         </row>
     </Media>
 
@@ -5729,7 +5729,7 @@
         <row>
             <code>locale-media-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/locale-media-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/locale-media-icn.svg</file>
         </row>
     </Media>
 
@@ -5775,7 +5775,7 @@
         <row>
             <code>locale-str-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/locale-str-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/locale-str-icn.svg</file>
         </row>
     </Media>
 
@@ -5821,7 +5821,7 @@
         <row>
             <code>media-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/media-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/media-icn.svg</file>
         </row>
     </Media>
 
@@ -5867,7 +5867,7 @@
         <row>
             <code>media-ext-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/media-ext-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/media-ext-icn.svg</file>
         </row>
     </Media>
 
@@ -5913,7 +5913,7 @@
         <row>
             <code>media-file-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/media-file-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/media-file-icn.svg</file>
         </row>
     </Media>
 
@@ -5959,7 +5959,7 @@
         <row>
             <code>media-format-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/media-format-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/media-format-icn.svg</file>
         </row>
     </Media>
 
@@ -6005,7 +6005,7 @@
         <row>
             <code>media-type-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/media-type-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/media-type-icn.svg</file>
         </row>
     </Media>
 
@@ -6051,7 +6051,7 @@
         <row>
             <code>process-log-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/process-log-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/process-log-icn.svg</file>
         </row>
     </Media>
 
@@ -6097,7 +6097,7 @@
         <row>
             <code>process-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/process-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/process-icn.svg</file>
         </row>
     </Media>
 
@@ -6133,7 +6133,7 @@
         <row>
             <code>user-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/user-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/user-icn.svg</file>
         </row>
     </Media>
 
@@ -6175,7 +6175,7 @@
         <row>
             <code>user-role-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/user-role-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/user-role-icn.svg</file>
         </row>
     </Media>
 
@@ -6211,7 +6211,7 @@
         <row>
             <code>video-md-icn</code>
             <type>vector</type>
-            <file>/app/web/res/images/targets/video-md-icn.svg</file>
+            <file>/examples/web-server/res/images/targets/video-md-icn.svg</file>
         </row>
     </Media>
 

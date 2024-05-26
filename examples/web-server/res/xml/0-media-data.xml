@@ -114,22 +114,22 @@
         <row>
             <code>kp-logo</code>
             <type>vector</type>
-            <file>/app/web/res/images/kp-logo.svg</file>
+            <file>/examples/web-server/res/images/kp-logo.svg</file>
         </row>
         <row>
             <code>flag-ru</code>
             <type>vector</type>
-            <file>/app/web/res/images/icons/ru.svg</file>
+            <file>/examples/web-server/res/images/icons/ru.svg</file>
         </row>
         <row>
             <code>flag-en</code>
             <type>vector</type>
-            <file>/app/web/res/images/icons/us.svg</file>
+            <file>/examples/web-server/res/images/icons/us.svg</file>
         </row>
         <row>
             <code>admin-avatar</code>
             <type>default</type>
-            <file>/app/web/res/images/admin-avatar.png</file>
+            <file>/examples/web-server/res/images/admin-avatar.png</file>
         </row>
     </Media>
 

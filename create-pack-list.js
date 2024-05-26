@@ -20,23 +20,29 @@ const tar = require("tar");
 const packageDir = process.cwd();
 const packageTarball = process.cwd() + "/dist/package.tgz";
 
-const regex = /^(?!.*(?:\.spec\.d\.ts|\.mock\.map\.js|\.mock\.js|\.tgz|\.tsbuildinfo|local.properties)$).*$/;
+const regex =
+  /^(?!.*(?:\.spec\.d\.ts|\.mock\.map\.js|\.mock\.js|\.tgz|\.tsbuildinfo|local.properties)$).*$/;
 const arborist = new Arborist({ path: packageDir });
 arborist.loadActual().then((tree) => {
-  packList(tree).then(files => {
-    const tarFiles = [];
-    files.forEach(file => {
-      if (regex.test(file)) {
-        tarFiles.push(file);
-      }
+  packList(tree)
+    .then((files) => {
+      const tarFiles = [];
+      files.forEach((file) => {
+        if (!file.startsWith("dist/examples/") && regex.test(file)) {
+          tarFiles.push(file);
+        }
+      });
+      tar.create(
+        {
+          prefix: "package/",
+          cwd: packageDir,
+          file: packageTarball,
+          gzip: true,
+        },
+        tarFiles,
+      );
+    })
+    .then(() => {
+      console.log("Tarball has been created");
     });
-    tar.create({
-      prefix: "package/",
-      cwd: packageDir,
-      file: packageTarball,
-      gzip: true
-    }, tarFiles);
-  }).then(() => {
-    console.log("Tarball has been created");
-  });
 });

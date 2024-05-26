@@ -19,13 +19,13 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@k-platform/core": [
-        "src"
+        "lib"
       ],
       "@k-platform/core/*": [
-        "src/*"
+        "lib/*"
       ],
       "@gen-src/*": [
-        "src/gen-src/*"
+        "lib/gen-src/*"
       ]
     }
   }

@@ -20,13 +20,12 @@ import { AuthGuard, CurrentUser, User } from "@k-platform/core";
 
 @Controller("app")
 export class AppController {
-  constructor(private readonly webAppService: WebAppService) {
-  }
+  constructor(private readonly webAppService: WebAppService) {}
 
   @Get("/options")
   async getOptions() {
     return {
-      langs: await this.webAppService.getAvailableLangs()
+      langs: await this.webAppService.getAvailableLangs(),
     };
   }
 
