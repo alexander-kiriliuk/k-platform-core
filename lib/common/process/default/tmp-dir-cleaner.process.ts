@@ -18,7 +18,7 @@ import { AbstractProcess } from "../abstract-process";
 import { Inject, Logger } from "@nestjs/common";
 import { ProcessManagerService } from "../process-manager.service";
 import * as fs from "fs";
-import { KpConfig } from "../../../gen-src/kp.config";
+import { KpConfig } from "../../../../gen-src/kp.config";
 import { FilesUtils } from "../../../shared/utils/files.utils";
 import { LOGGER } from "../../../shared/modules/log/log.constants";
 import { CacheService } from "../../../shared/modules/cache/cache.types";

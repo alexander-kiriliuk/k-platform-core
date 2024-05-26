@@ -23,7 +23,7 @@ import { CacheModule } from "../../shared/modules/cache/cache.module";
 import { LogModule } from "../../shared/modules/log/log.module";
 import { UserModule } from "../user/user.module";
 import { CacheService } from "../../shared/modules/cache/cache.types";
-import { AuthConfig } from "../../gen-src/auth.config";
+import { AuthConfig } from "../../../gen-src/auth.config";
 import { AuthService } from "./auth.constants";
 
 @Module({})

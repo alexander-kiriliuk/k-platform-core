@@ -39,14 +39,14 @@ import {
   XdbExportDto,
   XdbExportParams,
 } from "./xml-data-bridge.types";
-import { KpConfig } from "../../gen-src/kp.config";
+import { KpConfig } from "../../../gen-src/kp.config";
 import { MediaEntity } from "../media/entity/media.entity";
 import { FileEntity } from "../file/entity/file.entity";
 import { MediaFileEntity } from "../media/entity/media-file.entity";
 import { MediaFormatEntity } from "../media/entity/media-format.entity";
 import { File } from "../file/file.types";
-import { FileConfig } from "../../gen-src/file.config";
-import { MediaConfig } from "../../gen-src/media.config";
+import { FileConfig } from "../../../gen-src/file.config";
+import { MediaConfig } from "../../../gen-src/media.config";
 import xmlFileSchemaTpl = XmlDataBridgeFileSchema.xmlFileSchemaTpl;
 import xmlFileInsertUpdateNodeTpl = XmlDataBridgeFileSchema.xmlFileInsertUpdateNodeTpl;
 import BODY_TOKEN = XmlDataBridgeFileSchema.BODY_TOKEN;

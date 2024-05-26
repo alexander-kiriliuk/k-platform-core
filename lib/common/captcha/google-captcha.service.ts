@@ -24,7 +24,7 @@ import { HttpService } from "@nestjs/axios";
 import { lastValueFrom } from "rxjs";
 import { LOGGER } from "../../shared/modules/log/log.constants";
 import { CacheService } from "../../shared/modules/cache/cache.types";
-import { CaptchaConfig } from "../../gen-src/captcha.config";
+import { CaptchaConfig } from "../../../gen-src/captcha.config";
 
 export class GoogleCaptchaService extends CaptchaService<CaptchaResponse> {
   constructor(

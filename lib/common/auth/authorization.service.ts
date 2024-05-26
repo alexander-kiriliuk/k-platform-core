@@ -40,8 +40,8 @@ import {
 import { LOGGER } from "../../shared/modules/log/log.constants";
 import { User, UserService } from "../user/user.types";
 import { CacheService } from "../../shared/modules/cache/cache.types";
-import { AuthConfig } from "../../gen-src/auth.config";
-import { BruteforceConfig } from "../../gen-src/bruteforce.config";
+import { AuthConfig } from "../../../gen-src/auth.config";
+import { BruteforceConfig } from "../../../gen-src/bruteforce.config";
 
 /**
  * @class AuthorizationService

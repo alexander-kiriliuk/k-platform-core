@@ -28,7 +28,7 @@ import { StringUtils } from "../../shared/utils/string.utils";
 import { NumberUtils } from "../../shared/utils/number.utils";
 import { LOGGER } from "../../shared/modules/log/log.constants";
 import { CacheService } from "../../shared/modules/cache/cache.types";
-import { CaptchaConfig } from "../../gen-src/captcha.config";
+import { CaptchaConfig } from "../../../gen-src/captcha.config";
 import generateRandomString = StringUtils.generateRandomString;
 import generateRandomInt = NumberUtils.generateRandomInt;
 

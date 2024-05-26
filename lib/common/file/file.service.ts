@@ -29,7 +29,7 @@ import * as path from "path";
 import * as fs from "fs";
 import { File } from "./file.types";
 import { FilesUtils } from "../../shared/utils/files.utils";
-import { FileConfig } from "../../gen-src/file.config";
+import { FileConfig } from "../../../gen-src/file.config";
 import { FileManager, FileMd } from "./file.constants";
 import { LOGGER } from "../../shared/modules/log/log.constants";
 import { CacheService } from "../../shared/modules/cache/cache.types";

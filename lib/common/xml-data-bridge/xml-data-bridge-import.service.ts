@@ -22,7 +22,7 @@ import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import * as AdmZip from "adm-zip";
 import * as fs from "fs";
 import * as path from "path";
-import { KpConfig } from "../../gen-src/kp.config";
+import { KpConfig } from "../../../gen-src/kp.config";
 import { FilesUtils } from "../../shared/utils/files.utils";
 import { Xdb, XdbImportService } from "./xml-data-bridge.constants";
 import { NumberUtils } from "../../shared/utils/number.utils";

@@ -43,7 +43,7 @@ import { LocalizedString } from "../../shared/modules/locale/locale.types";
 import { LocalizedStringEntity } from "../../shared/modules/locale/entity/localized-string.entity";
 import { FileMetadataEntity } from "../file/entity/file-metadata.entity";
 import { NumberUtils } from "../../shared/utils/number.utils";
-import { MediaConfig } from "../../gen-src/media.config";
+import { MediaConfig } from "../../../gen-src/media.config";
 import * as imageminMozjpeg from "imagemin-mozjpeg";
 import { createCanvas } from "canvas"; // fix canvas compatibility with Windows OS
 import * as sharp from "sharp";
