@@ -19,7 +19,7 @@ import { JwtService } from "@nestjs/jwt";
 import { LoginPayload } from "../auth.types";
 import { User } from "../../user/user.types";
 import { MockStorage } from "../../../shared/modules/mock/mock.storage";
-import { BruteforceConfig } from "../../../gen-src/bruteforce.config";
+import { BruteforceConfig } from "../../../../gen-src/bruteforce.config";
 import {
   AUTH_ACCESS_TOKEN_PREFIX,
   AUTH_JWT_CACHE_PREFIX,

@@ -17,7 +17,7 @@
 import { CaptchaRequest } from "../captcha.types";
 import { CAPTCHA_CACHE_PREFIX } from "../captcha.constants";
 import { MockStorage } from "../../../shared/modules/mock/mock.storage";
-import { CaptchaConfig } from "../../../gen-src/captcha.config";
+import { CaptchaConfig } from "../../../../gen-src/captcha.config";
 
 export namespace CaptchaMock {
   export const validCaptchaRequest: CaptchaRequest = {
