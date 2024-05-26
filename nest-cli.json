@@ -10,15 +10,6 @@
   "monorepo": true,
   "root": "",
   "projects": {
-    "core": {
-      "type": "library",
-      "root": "lib",
-      "entryFile": "index",
-      "sourceRoot": "lib",
-      "compilerOptions": {
-        "tsConfigPath": "lib/tsconfig.lib.json"
-      }
-    },
     "init-config": {
       "type": "application",
       "root": "lib/common/config",
@@ -26,6 +17,15 @@
       "sourceRoot": "lib/common/config",
       "compilerOptions": {
         "tsConfigPath": "lib/common/config/tsconfig.app.json"
+      }
+    },
+    "core": {
+      "type": "library",
+      "root": "lib",
+      "entryFile": "index",
+      "sourceRoot": "lib",
+      "compilerOptions": {
+        "tsConfigPath": "lib/tsconfig.lib.json"
       }
     },
     "init-web-app": {
