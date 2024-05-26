@@ -20,9 +20,16 @@ arborist.loadActual().then((tree) => {
           tarFiles.push(file);
         }
       });
-      const libFiles = glob.sync("lib/**/*.{properties,ttf}", {
-        cwd: packageDir,
-      });
+      const libFiles = glob
+        .sync("lib/**/*.*", {
+          cwd: packageDir,
+        })
+        .filter(
+          (file) =>
+            regex.test(file) &&
+            !file.endsWith(".ts") &&
+            !(file.startsWith("tsconfig") && file.endsWith(".json")),
+        );
       await Promise.all(
         libFiles.map((file) => {
           const src = path.join(packageDir, file);
@@ -33,7 +40,6 @@ arborist.loadActual().then((tree) => {
             .then(() => fs.copy(src, dest));
         }),
       );
-
       return tar.create(
         {
           prefix: "package/",
