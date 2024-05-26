@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2023 Alexander Kiriliuk
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<schema>
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <lang key="id">ru</lang>
+            <code>ex-users-common-tab-name-ru</code>
+            <value>Основные данные</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>ex-users-common-tab-name-en</code>
+            <value>Common data</value>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>users-common-tab</id>
+            <priority>10</priority>
+            <target key="target">UserEntity</target>
+            <size>{"desktop":2}</size>
+            <name key="code">
+                <row>ex-users-common-tab-name-ru</row>
+                <row>ex-users-common-tab-name-en</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>medias.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+        </row>
+        <row>
+            <id>medias.type</id>
+            <sectionPriority>90</sectionPriority>
+            <objectPriority>90</objectPriority>
+        </row>
+        <row>
+            <id>medias.code</id>
+            <sectionPriority>80</sectionPriority>
+            <objectPriority>95</objectPriority>
+        </row>
+        <row>
+            <id>medias.files</id>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>false</objectVisibility>
+        </row>
+        <row>
+            <id>medias.name</id>
+            <objectPriority>95</objectPriority>
+        </row>
+        <row>
+            <id>medias.ts_created</id>
+            <sectionVisibility>false</sectionVisibility>
+            <objectEnabled>false</objectEnabled>
+        </row>
+        <row>
+            <target>MediaEntity</target>
+            <id>medias.preview_virtual</id>
+            <sectionPriority>150</sectionPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>false</objectEnabled>
+            <sectionRenderer key="code">virtual-media-column-section-renderer</sectionRenderer>
+            <virtual>true</virtual>
+            <type>unknown</type>
+            <property>previewVirtual</property>
+        </row>
+        <row>
+            <target>MediaEntity</target>
+            <id>medias.images_stats</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <objectRenderer key="code">images-stats-media-object-renderer</objectRenderer>
+            <virtual>true</virtual>
+            <type>unknown</type>
+            <property>imagesStats</property>
+        </row>
+        <row>
+            <target>MediaEntity</target>
+            <id>medias.metadata</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <objectRenderer key="code">file-metadata-object-renderer</objectRenderer>
+            <property>metadata</property>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>users.password</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>false</objectEnabled>
+        </row>
+        <row>
+            <target>UserEntity</target>
+            <id>users.new_password</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <objectPriority>50</objectPriority>
+            <objectRenderer key="code">new-password-object-renderer</objectRenderer>
+            <virtual>true</virtual>
+            <type>unknown</type>
+            <property>password</property>
+        </row>
+        <row>
+            <id>users.id</id>
+            <tab key="id">users-common-tab</tab>
+            <objectPriority>100</objectPriority>
+            <sectionPriority>110</sectionPriority>
+        </row>
+        <row>
+            <id>users.login</id>
+            <tab key="id">users-common-tab</tab>
+            <objectPriority>90</objectPriority>
+            <sectionPriority>90</sectionPriority>
+            <objectRenderer key="code">string-object-renderer</objectRenderer>
+            <objectRendererParams>{"readonly": true}</objectRendererParams>
+        </row>
+        <row>
+            <id>users.first_name</id>
+            <tab key="id">users-common-tab</tab>
+            <objectPriority>80</objectPriority>
+            <sectionPriority>80</sectionPriority>
+        </row>
+        <row>
+            <id>users.last_name</id>
+            <tab key="id">users-common-tab</tab>
+            <objectPriority>70</objectPriority>
+            <sectionPriority>70</sectionPriority>
+        </row>
+        <row>
+            <id>users.email</id>
+            <tab key="id">users-common-tab</tab>
+            <objectPriority>60</objectPriority>
+            <sectionPriority>60</sectionPriority>
+        </row>
+        <row>
+            <id>users.phone</id>
+            <tab key="id">users-common-tab</tab>
+            <objectPriority>50</objectPriority>
+            <sectionPriority>50</sectionPriority>
+        </row>
+        <row>
+            <id>users.avatar</id>
+            <tab key="id">users-common-tab</tab>
+            <objectPriority>40</objectPriority>
+            <sectionPriority>100</sectionPriority>
+        </row>
+        <row>
+            <id>users.ts_created</id>
+            <objectRenderer key="code">date-object-renderer</objectRenderer>
+            <objectRendererParams>{"showCalendar": false}</objectRendererParams>
+            <sectionPriority>11</sectionPriority>
+        </row>
+        <row>
+            <id>users.active</id>
+            <objectPriority>100</objectPriority>
+            <sectionPriority>10</sectionPriority>
+        </row>
+        <row>
+            <id>users.new_password</id>
+            <objectPriority>90</objectPriority>
+        </row>
+        <row>
+            <id>users.roles</id>
+            <objectPriority>80</objectPriority>
+            <sectionPriority>20</sectionPriority>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>users_roles.ts_created</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>false</objectEnabled>
+        </row>
+    </InsertUpdate>
+
+</schema>

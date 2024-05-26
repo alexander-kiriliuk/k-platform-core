@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2023 Alexander Kiriliuk
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<schema>
+
+
+    <!--Create process actions for explorer-->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>process-start-action-name-ru</code>
+            <value>Выполнить</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>process-start-action-name-en</code>
+            <value>Execute</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>process-stop-action-name-ru</code>
+            <value>Остановить</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>process-stop-action-name-en</code>
+            <value>Stop</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>process-toggle-action-name-ru</code>
+            <value>Вкл/Выкл</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>process-toggle-action-name-en</code>
+            <value>Toggle</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>ex-process-stats-object-renderer-name-ru</code>
+            <value>Данные процесса</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>ex-process-stats-object-renderer-name-en</code>
+            <value>Process data</value>
+            <lang key="code">en_US</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerActionEntity">
+        <row>
+            <code>start-process-object-action</code>
+            <type>object</type>
+            <name key="code">
+                <row>process-start-action-name-ru</row>
+                <row>process-start-action-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>stop-process-object-action</code>
+            <type>object</type>
+            <name key="code">
+                <row>process-stop-action-name-ru</row>
+                <row>process-stop-action-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>toggle-process-object-action</code>
+            <type>object</type>
+            <name key="code">
+                <row>process-toggle-action-name-ru</row>
+                <row>process-toggle-action-name-en</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTargetEntity">
+        <row>
+            <target>ProcessUnitEntity</target>
+            <alias>process</alias>
+            <actions key="code">
+                <row>start-process-object-action</row>
+                <row>stop-process-object-action</row>
+                <row>toggle-process-object-action</row>
+            </actions>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnRendererEntity">
+        <row>
+            <code>process-stats-object-renderer</code>
+            <type>object</type>
+            <name key="code">
+                <row>ex-process-stats-object-renderer-name-ru</row>
+                <row>ex-process-stats-object-renderer-name-en</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>process_units.ts_created</id>
+            <objectEnabled>false</objectEnabled>
+        </row>
+        <row>
+            <id>process_units.code</id>
+            <objectRendererParams>{"readonly": true}</objectRendererParams>
+        </row>
+        <row>
+            <id>process_units.status</id>
+            <objectRendererParams>{"disabled": true}</objectRendererParams>
+            <objectVisibility>false</objectVisibility>
+        </row>
+        <row>
+            <id>process_units.enabled</id>
+            <objectVisibility>false</objectVisibility>
+        </row>
+        <row>
+            <id>process_units.logs</id>
+            <objectEnabled>false</objectEnabled>
+            <sectionEnabled>false</sectionEnabled>
+        </row>
+        <row>
+            <target>ProcessUnitEntity</target>
+            <id>process_units.statsVirtual</id>
+            <property>statsVirtual</property>
+            <virtual>true</virtual>
+            <type>unknown</type>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRenderer key="code">process-stats-object-renderer</objectRenderer>
+        </row>
+    </InsertUpdate>
+
+    <!--Create tmp-dir cleaner process-->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>process-tmp-dir-cleaner-name-ru</code>
+            <value>Очищает временную папку</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>process-tmp-dir-cleaner-name-en</code>
+            <value>Clears the temporary handle</value>
+            <lang key="code">en_US</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ProcessUnitEntity">
+        <row>
+            <code>TmpDirCleanerProcess</code>
+            <enabled>true</enabled>
+            <cronTab>0 0 0 * * *</cronTab>
+            <description key="code">
+                <row>process-tmp-dir-cleaner-name-en</row>
+                <row>process-tmp-dir-cleaner-name-ru</row>
+            </description>
+        </row>
+    </InsertUpdate>
+
+</schema>

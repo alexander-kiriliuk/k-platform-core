@@ -1,10 +1,11 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../dist/lib"
+    "declaration": false,
+    "outDir": "../../dist/examples/web-server"
   },
   "include": [
-    "./**/*.ts"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",

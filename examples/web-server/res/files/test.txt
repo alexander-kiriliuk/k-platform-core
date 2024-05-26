@@ -1,0 +1,13 @@
+This is content of text file.
+
+Example about remove entity through XDB:
+
+    <Remove target="UserEntity">
+        <row>
+            <login>usr-1</login>
+        </row>
+        <row>
+            <login>usr-2</login>
+        </row>
+    </Remove>
+

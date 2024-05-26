@@ -7,10 +7,14 @@
   "exports": "./dist/index.js",
   "author": "Alexander Kiriliuk",
   "license": "Apache-2.0",
+  "workspaces": [
+    "examples/*"
+  ],
   "scripts": {
-    "build": "rimraf dist && tsc -p ./src/tsconfig.lib.json",
+    "build": "rimraf dist/lib && tsc -p ./src/tsconfig.lib.json",
     "create:tar": "node ./create-pack-list.js",
     "publish": "npm publish ./dist/package.tgz",
+    "start:web-app": "rimraf dist/examples/web-server && nest start web-app --debug --watch",
     "init:config": "nest start init-config",
     "init:web-app": "nest start init-web-app",
     "lint": "eslint \"src/**/*.ts\" --fix",

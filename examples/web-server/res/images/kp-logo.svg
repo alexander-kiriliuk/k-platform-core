@@ -1,0 +1,24 @@
+<!--
+  - Copyright 2023 Alexander Kiriliuk
+  -
+  -    Licensed under the Apache License, Version 2.0 (the "License");
+  -    you may not use this file except in compliance with the License.
+  -    You may obtain a copy of the License at
+  -
+  -        http://www.apache.org/licenses/LICENSE-2.0
+  -
+  -    Unless required by applicable law or agreed to in writing, software
+  -    distributed under the License is distributed on an "AS IS" BASIS,
+  -    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  -    See the License for the specific language governing permissions and
+  -    limitations under the License.
+  -->
+
+<svg width="164" height="164" viewBox="0 0 164 164" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18.9127 0.877342C14.9171 1.75465 8.52405 5.70258 5.86028 8.86091C0.355168 15.2653 0.443961 14.4757 0.177584 56.5869L0 95.1887L13.1412 82.029C20.3334 74.7473 37.4703 57.4642 51.0555 43.4271C64.7295 29.4778 79.913 13.9493 84.7077 9.03637L93.587 2.28882e-05L57.6261 0.0877533C37.9143 0.175484 22.198 0.155991 18.9127 0.877342Z"
+          fill="#FFCC00"/>
+    <path d="M114.32 15.2069C105.981 23.6455 93.8268 36.0396 87.2619 42.808C80.697 49.5764 69.6077 60.8278 62.5993 67.8599L49.9131 80.6935L57.72 88.0772C69.6077 99.5044 118.489 146.356 128.248 155.673L136.853 163.936L142.088 163.497C150.959 162.618 158.322 157.607 162.137 149.608C164 145.653 164 145.037 164 81.9241C164 10.6361 162.669 13.5865 157.524 7.91113C153.539 3.51606 147.943 0.879012 137.829 0.351604L129.401 -2.38419e-07L114.32 15.2069Z"
+          fill="#007AFF"/>
+    <path d="M16.2963 116.807L0 133.333V138.055C0 149.422 6.14451 158.778 15.762 162.363C20.3927 164.024 22.1737 164.111 60.1984 163.937L99.8261 163.674L66.7882 132.197C48.5328 114.884 33.3941 100.631 33.0379 100.544C32.7707 100.369 25.2014 107.714 16.2963 116.807Z"
+          fill="#FF2D55"/>
+</svg>

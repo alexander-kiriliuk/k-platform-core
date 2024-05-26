@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2023 Alexander Kiriliuk
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<schema>
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-root-name-ru</code>
+            <value>Корневой нав. узел</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-root-name-en</code>
+            <value>Root nav node</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-users-name-ru</code>
+            <value>Пользователи</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-users-name-en</code>
+            <value>Users</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-users-roles-name-ru</code>
+            <value>Роли</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-users-roles-name-en</code>
+            <value>Roles</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-users-all-name-ru</code>
+            <value>Все пользователи</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-users-all-name-en</code>
+            <value>All users</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-files-name-ru</code>
+            <value>Файлы</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-files-name-en</code>
+            <value>Files</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-system-name-ru</code>
+            <value>Система</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-system-name-en</code>
+            <value>System</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-import-data-name-ru</code>
+            <value>Импорт данных</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-import-data-name-en</code>
+            <value>Import data</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-objects-name-ru</code>
+            <value>Объекты</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-objects-name-en</code>
+            <value>Objects</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-config-name-ru</code>
+            <value>Конфигурация</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-config-name-en</code>
+            <value>Configuration</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-media-name-ru</code>
+            <value>Медиа</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-media-name-en</code>
+            <value>Media</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-media-gallery-name-ru</code>
+            <value>Галерея</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-media-gallery-name-en</code>
+            <value>Gallery</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-media-format-name-ru</code>
+            <value>Форматы</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-media-format-name-en</code>
+            <value>Formats</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-media-type-name-ru</code>
+            <value>Типы</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-media-type-name-en</code>
+            <value>Types</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-category-name-ru</code>
+            <value>Категории</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-category-name-en</code>
+            <value>Categories</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>a-menu-process-name-ru</code>
+            <value>Процессы</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>a-menu-process-name-en</code>
+            <value>Process</value>
+        </row>
+    </InsertUpdate>
+
+
+    <InsertUpdate target="CategoryEntity">
+        <row>
+            <code>a-menu-root</code>
+            <icon key="code">kp-logo</icon>
+            <priority>0</priority>
+            <name key="code">
+                <row>a-menu-root-name-ru</row>
+                <row>a-menu-root-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>a-menu-users</code>
+            <params>{"iconClass": "pi pi-user"}</params>
+            <parent key="code">a-menu-root</parent>
+            <priority>1</priority>
+            <name key="code">
+                <row>a-menu-users-name-ru</row>
+                <row>a-menu-users-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>a-menu-users-all</code>
+            <url>/section/users</url>
+            <params>{"iconClass": "pi pi-users"}</params>
+            <parent key="code">a-menu-users</parent>
+            <priority>2</priority>
+            <name key="code">
+                <row>a-menu-users-all-name-ru</row>
+                <row>a-menu-users-all-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>a-menu-users-roles</code>
+            <url>/section/user-roles</url>
+            <params>{"iconClass": "pi pi-box"}</params>
+            <parent key="code">a-menu-users</parent>
+            <priority>3</priority>
+            <name key="code">
+                <row>a-menu-users-roles-name-ru</row>
+                <row>a-menu-users-roles-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>a-menu-media</code>
+            <params>{"iconClass": "pi pi-images"}</params>
+            <parent key="code">a-menu-root</parent>
+            <priority>4</priority>
+            <name key="code">
+                <row>a-menu-media-name-ru</row>
+                <row>a-menu-media-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>a-menu-media-gallery</code>
+            <url>/section/media</url>
+            <params>{"iconClass": "pi pi-images"}</params>
+            <parent key="code">a-menu-media</parent>
+            <priority>5</priority>
+            <name key="code">
+                <row>a-menu-media-gallery-name-ru</row>
+                <row>a-menu-media-gallery-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>a-menu-media-format</code>
+            <url>/section/media-format</url>
+            <params>{"iconClass": "pi pi-clone"}</params>
+            <parent key="code">a-menu-media</parent>
+            <priority>6</priority>
+            <name key="code">
+                <row>a-menu-media-format-name-ru</row>
+                <row>a-menu-media-format-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>a-menu-media-type</code>
+            <url>/section/media-type</url>
+            <params>{"iconClass": "pi pi-clone"}</params>
+            <parent key="code">a-menu-media</parent>
+            <priority>7</priority>
+            <name key="code">
+                <row>a-menu-media-type-name-ru</row>
+                <row>a-menu-media-type-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>a-menu-files</code>
+            <url>/section/files</url>
+            <params>{"iconClass": "pi pi-file"}</params>
+            <parent key="code">a-menu-root</parent>
+            <priority>8</priority>
+            <name key="code">
+                <row>a-menu-files-name-ru</row>
+                <row>a-menu-files-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>a-menu-system</code>
+            <params>{"iconClass": "pi pi-desktop"}</params>
+            <priority>300</priority>
+            <parent key="code">a-menu-root</parent>
+            <name key="code">
+                <row>a-menu-system-name-ru</row>
+                <row>a-menu-system-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>a-menu-import-data</code>
+            <url>/system/import-data</url>
+            <params>{"iconClass": "pi pi-file-import"}</params>
+            <parent key="code">a-menu-system</parent>
+            <priority>301</priority>
+            <name key="code">
+                <row>a-menu-import-data-name-ru</row>
+                <row>a-menu-import-data-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>a-menu-category</code>
+            <url>/section/categories</url>
+            <params>{"iconClass": "pi pi-sitemap"}</params>
+            <parent key="code">a-menu-system</parent>
+            <priority>302</priority>
+            <name key="code">
+                <row>a-menu-category-name-ru</row>
+                <row>a-menu-category-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>a-menu-objects</code>
+            <url>/system/objects</url>
+            <params>{"iconClass": "pi pi-box"}</params>
+            <parent key="code">a-menu-system</parent>
+            <priority>303</priority>
+            <name key="code">
+                <row>a-menu-objects-name-ru</row>
+                <row>a-menu-objects-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>a-menu-config</code>
+            <url>/system/config</url>
+            <params>{"iconClass": "pi pi-cog"}</params>
+            <parent key="code">a-menu-system</parent>
+            <priority>304</priority>
+            <name key="code">
+                <row>a-menu-config-name-ru</row>
+                <row>a-menu-config-name-en</row>
+            </name>
+        </row>
+        <row>
+            <code>a-menu-process</code>
+            <url>/section/process</url>
+            <params>{"iconClass": "pi pi-chart-bar"}</params>
+            <parent key="code">a-menu-system</parent>
+            <priority>304</priority>
+            <name key="code">
+                <row>a-menu-process-name-ru</row>
+                <row>a-menu-process-name-en</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="CategoryRestrictionEntity">
+        <row>
+            <code>top-users-node</code>
+            <category key="code">a-menu-users</category>
+            <allowFor key="code">
+                <row>admin</row>
+                <row>manager</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>user-roles-node</code>
+            <category key="code">a-menu-users-roles</category>
+            <allowFor key="code">
+                <row>root</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>media-format-node</code>
+            <category key="code">a-menu-media-format</category>
+            <allowFor key="code">
+                <row>admin</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>media-type-node</code>
+            <category key="code">a-menu-media-type</category>
+            <allowFor key="code">
+                <row>admin</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>system-node</code>
+            <category key="code">a-menu-system</category>
+            <allowFor key="code">
+                <row>admin</row>
+                <row>manager</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>system-import-node</code>
+            <category key="code">a-menu-import-data</category>
+            <allowFor key="code">
+                <row>root</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>category-node</code>
+            <category key="code">a-menu-category</category>
+            <allowFor key="code">
+                <row>admin</row>
+                <row>manager</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>objects-node</code>
+            <category key="code">a-menu-objects</category>
+            <allowFor key="code">
+                <row>admin</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>config-node</code>
+            <category key="code">a-menu-config</category>
+            <allowFor key="code">
+                <row>admin</row>
+            </allowFor>
+        </row>
+        <row>
+            <code>process-node</code>
+            <category key="code">a-menu-process</category>
+            <allowFor key="code">
+                <row>admin</row>
+            </allowFor>
+        </row>
+    </InsertUpdate>
+
+</schema>

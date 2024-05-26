@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2023 Alexander Kiriliuk
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<schema>
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <lang key="id">ru</lang>
+            <code>role-root-ru</code>
+            <value>Root-доступ</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>role-root-en</code>
+            <value>Root-access</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>role-admin-ru</code>
+            <value>Администратор</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>role-admin-en</code>
+            <value>Admin</value>
+        </row>
+        <row>
+            <lang key="id">ru</lang>
+            <code>role-manager-ru</code>
+            <value>Менеджер</value>
+        </row>
+        <row>
+            <lang key="id">en</lang>
+            <code>role-manager-en</code>
+            <value>Manager</value>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="UserRoleEntity">
+        <row>
+            <code>root</code>
+            <name key="code">
+                <row>role-root-ru</row>
+                <row>role-root-en</row>
+            </name>
+        </row>
+        <row>
+            <code>admin</code>
+            <name key="code">
+                <row>role-admin-ru</row>
+                <row>role-admin-en</row>
+            </name>
+        </row>
+        <row>
+            <code>manager</code>
+            <name key="code">
+                <row>role-manager-ru</row>
+                <row>role-manager-en</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+</schema>

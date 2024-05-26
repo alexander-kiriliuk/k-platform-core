@@ -27,6 +27,15 @@
       "compilerOptions": {
         "tsConfigPath": "src/common/config/tsconfig.app.json"
       }
+    },
+    "web-app": {
+      "type": "application",
+      "root": "examples/web-server",
+      "entryFile": "main",
+      "sourceRoot": "examples/web-server/src",
+      "compilerOptions": {
+        "tsConfigPath": "examples/web-server/tsconfig.app.json"
+      }
     }
   }
 }

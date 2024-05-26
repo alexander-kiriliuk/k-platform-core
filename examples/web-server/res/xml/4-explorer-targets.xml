@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2023 Alexander Kiriliuk
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<schema>
+
+    <InsertUpdate target="ExplorerTargetEntity">
+        <row>
+            <target>UserEntity</target>
+            <alias>users</alias>
+        </row>
+        <row>
+            <target>UserRoleEntity</target>
+            <alias>user-roles</alias>
+        </row>
+        <row>
+            <target>MediaEntity</target>
+            <alias>media</alias>
+            <defaultActionDuplicate>false</defaultActionDuplicate>
+        </row>
+        <row>
+            <target>MediaFormatEntity</target>
+            <alias>media-format</alias>
+        </row>
+        <row>
+            <target>MediaTypeEntity</target>
+            <alias>media-type</alias>
+        </row>
+        <row>
+            <target>FileEntity</target>
+            <alias>files</alias>
+            <name key="code">
+                <row>ex-target-files-name-ru</row>
+                <row>ex-target-files-name-en</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+
+    <!--Apply restrictions-->
+
+    <InsertUpdate target="ExplorerTargetEntity">
+        <row>
+            <target>ExplorerTargetEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>MediaTypeEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>MediaExtEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>MediaFormatEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>MediaFileEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>UserRoleEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>LanguageEntity</target>
+            <canWrite key="code">
+                <row>root</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>CategoryEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+                <row>manager</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+                <row>manager</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>ExplorerActionEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>ExplorerColumnEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>ExplorerColumnRendererEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>CategoryRestrictionEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>ExplorerTabEntity</target>
+            <canRead key="code">
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>admin</row>
+            </canWrite>
+        </row>
+        <row>
+            <target>UserEntity</target>
+            <canRead key="code">
+                <row>manager</row>
+                <row>admin</row>
+            </canRead>
+            <canWrite key="code">
+                <row>manager</row>
+                <row>admin</row>
+            </canWrite>
+        </row>
+    </InsertUpdate>
+
+</schema>
