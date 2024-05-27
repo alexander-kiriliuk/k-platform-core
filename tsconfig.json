@@ -16,6 +16,17 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@k-platform/core": [
+        "lib"
+      ],
+      "@k-platform/core/*": [
+        "lib/*"
+      ],
+      "@gen-src/*": [
+        "gen-src/*"
+      ]
+    }
   }
 }

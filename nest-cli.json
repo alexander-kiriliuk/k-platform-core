@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "sourceRoot": "lib",
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
@@ -10,22 +10,40 @@
   "monorepo": true,
   "root": "",
   "projects": {
-    "core": {
-      "type": "library",
-      "root": "src",
-      "entryFile": "index",
-      "sourceRoot": "src",
-      "compilerOptions": {
-        "tsConfigPath": "src/tsconfig.lib.json"
-      }
-    },
     "init-config": {
       "type": "application",
-      "root": "src/common/config",
+      "root": "lib/common/config",
       "entryFile": "init",
-      "sourceRoot": "src/common/config",
+      "sourceRoot": "lib/common/config",
       "compilerOptions": {
-        "tsConfigPath": "src/common/config/tsconfig.app.json"
+        "tsConfigPath": "lib/common/config/tsconfig.app.json"
+      }
+    },
+    "core": {
+      "type": "library",
+      "root": "lib",
+      "entryFile": "index",
+      "sourceRoot": "lib",
+      "compilerOptions": {
+        "tsConfigPath": "lib/tsconfig.lib.json"
+      }
+    },
+    "init-web-app": {
+      "type": "application",
+      "root": "examples/web-server",
+      "entryFile": "init",
+      "sourceRoot": "examples/web-server/src",
+      "compilerOptions": {
+        "tsConfigPath": "examples/web-server/tsconfig.app.json"
+      }
+    },
+    "web-app": {
+      "type": "application",
+      "root": "examples/web-server",
+      "entryFile": "main",
+      "sourceRoot": "examples/web-server/src",
+      "compilerOptions": {
+        "tsConfigPath": "examples/web-server/tsconfig.app.json"
       }
     }
   }

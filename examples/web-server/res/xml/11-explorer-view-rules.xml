@@ -1,0 +1,2129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2023 Alexander Kiriliuk
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<schema>
+
+    <!-- AudioFileMetadataEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_761_72632</code>
+            <value>Common data</value>
+            <lang key="code">en_US</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_762_66749</code>
+            <value>Основные данные</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <target key="target">AudioFileMetadataEntity</target>
+            <id>audio-md-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":3}</size>
+            <name key="code">
+                <row>localizedstringentity_761_72632</row>
+                <row>localizedstringentity_762_66749</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>file_metadata_audio.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_audio.year</id>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_audio.tool</id>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_audio.title</id>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_audio.sample_rate</id>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_audio.number_of_channels</id>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_audio.label</id>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_audio.genre</id>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_audio.duration</id>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_audio.container</id>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_audio.codec_profile</id>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_audio.codec</id>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_audio.bitrate</id>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_audio.artist</id>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_audio.album</id>
+            <tab key="id">audio-md-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- ExplorerTabEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_764_86711</code>
+            <value>Основные данные</value>
+            <lang key="code">ru_RU</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_763_47619</code>
+            <value>Common data</value>
+            <lang key="code">en_US</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>ex-tab-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":2}</size>
+            <name key="code">
+                <row>localizedstringentity_763_47619</row>
+                <row>localizedstringentity_764_86711</row>
+            </name>
+            <target key="target">ExplorerTabEntity</target>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>explorer_tabs.target</id>
+            <tab key="id">ex-tab-tab-common</tab>
+            <sectionPriority>97</sectionPriority>
+            <objectPriority>97</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_tabs.size</id>
+            <tab key="id">ex-tab-tab-common</tab>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_tabs.priority</id>
+            <tab key="id">ex-tab-tab-common</tab>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>96</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_tabs.name</id>
+            <tab key="id">ex-tab-tab-common</tab>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_tabs.id</id>
+            <tab key="id">ex-tab-tab-common</tab>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- LanguageEntity -->
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>languages.name</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>languages.id</id>
+            <sectionPriority>95</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+        </row>
+        <row>
+            <id>languages.icon</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>95</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>languages.code</id>
+            <sectionPriority>90</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- MediaFormatEntity -->
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>medias_format.width</id>
+            <sectionPriority>90</sectionPriority>
+            <objectPriority>90</objectPriority>
+        </row>
+        <row>
+            <id>medias_format.name</id>
+            <sectionPriority>95</sectionPriority>
+            <objectPriority>95</objectPriority>
+        </row>
+        <row>
+            <id>medias_format.code</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- CategoryEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_769_32231</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_770_97245</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>cats-tab-common</id>
+            <target key="target">CategoryEntity</target>
+            <priority>0</priority>
+            <size>{"desktop":2}</size>
+            <name key="code">
+                <row>localizedstringentity_769_32231</row>
+                <row>localizedstringentity_770_97245</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>categories.url</id>
+            <tab key="id">cats-tab-common</tab>
+            <sectionPriority>94</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>categories.priority</id>
+            <tab key="id">cats-tab-common</tab>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>categories.parent</id>
+            <tab key="id">cats-tab-common</tab>
+            <sectionPriority>95</sectionPriority>
+            <objectPriority>96</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>categories.params</id>
+            <tab key="id">cats-tab-common</tab>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>97</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>categories.name</id>
+            <tab key="id">cats-tab-common</tab>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>categories.id</id>
+            <tab key="id">cats-tab-common</tab>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>categories.icon</id>
+            <tab key="id">cats-tab-common</tab>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>categories.code</id>
+            <tab key="id">cats-tab-common</tab>
+            <sectionPriority>1</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>categories.children</id>
+            <tab key="id">cats-tab-common</tab>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>95</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- ExplorerTargetEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_772_33471</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_771_40015</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>ex-targets-tab-common</id>
+            <target key="target">ExplorerTargetEntity</target>
+            <priority>0</priority>
+            <size>{"desktop":2}</size>
+            <name key="code">
+                <row>localizedstringentity_771_40015</row>
+                <row>localizedstringentity_772_33471</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>explorer_targets.target</id>
+            <tab key="id">ex-targets-tab-common</tab>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+        </row>
+        <row>
+            <id>explorer_targets.table_name</id>
+            <sectionPriority>92</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-targets-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_targets.name</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>97</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+            <tab key="id">ex-targets-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_targets.icon</id>
+            <sectionPriority>101</sectionPriority>
+            <objectPriority>95</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-targets-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_targets.description</id>
+            <sectionPriority>90</sectionPriority>
+            <objectPriority>96</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-targets-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_targets.default_action_save</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-targets-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_targets.default_action_duplicate</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-targets-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_targets.default_action_delete</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-targets-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_targets.default_action_create</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-targets-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_targets.columns</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_targets.canWrite</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>48</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_targets.canRead</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>49</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_targets.alias</id>
+            <sectionPriority>98</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-targets-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_targets.actions</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>50</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- LocalizedMediaEntity -->
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>localized_medias.value</id>
+            <sectionPriority>97</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>localized_medias.lang</id>
+            <sectionPriority>98</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>localized_medias.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+        </row>
+        <row>
+            <id>localized_medias.code</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- MediaTypeEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_774_90159</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_773_20928</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>media-types-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":2}</size>
+            <name key="code">
+                <row>localizedstringentity_773_20928</row>
+                <row>localizedstringentity_774_90159</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>medias_types.vp6</id>
+            <tab key="id">media-types-tab-common</tab>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>97</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>medias_types.quality</id>
+            <sectionPriority>9</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">media-types-tab-common</tab>
+        </row>
+        <row>
+            <id>medias_types.private</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">media-types-tab-common</tab>
+        </row>
+        <row>
+            <id>medias_types.name</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">media-types-tab-common</tab>
+        </row>
+        <row>
+            <id>medias_types.formats</id>
+            <sectionPriority>96</sectionPriority>
+            <objectPriority>96</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">media-types-tab-common</tab>
+        </row>
+        <row>
+            <id>medias_types.ext</id>
+            <sectionPriority>97</sectionPriority>
+            <objectPriority>95</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">media-types-tab-common</tab>
+        </row>
+        <row>
+            <id>medias_types.code</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+            <tab key="id">media-types-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- CategoryRestrictionEntity -->
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>category_restriction.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+        </row>
+        <row>
+            <id>category_restriction.code</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+        </row>
+        <row>
+            <id>category_restriction.category</id>
+            <sectionPriority>98</sectionPriority>
+            <objectPriority>98</objectPriority>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- FileEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_776_97147</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_775_57440</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>files-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":2}</size>
+            <name key="code">
+                <row>localizedstringentity_775_57440</row>
+                <row>localizedstringentity_776_97147</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>files.ts_created</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>95</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"showCalendar":false}</objectRendererParams>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.size</id>
+            <sectionPriority>60</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>false</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.public</id>
+            <sectionPriority>65</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>false</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.preview</id>
+            <objectPriority>96</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.path</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>false</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.name</id>
+            <sectionPriority>85</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.metadata</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>89</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.icon</id>
+            <sectionPriority>70</sectionPriority>
+            <objectPriority>97</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.fileStat</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>90</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">files-tab-common</tab>
+        </row>
+        <row>
+            <id>files.code</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+            <tab key="id">files-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- FileEntity -->
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>localized_strings.lang</id>
+            <sectionPriority>98</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>localized_strings.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>localized_strings.code</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- ProcessLogEntity -->
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>process_logs.ts_updated</id>
+            <sectionPriority>97</sectionPriority>
+            <objectPriority>97</objectPriority>
+            <objectRendererParams>{"showCalendar":false}</objectRendererParams>
+        </row>
+        <row>
+            <id>process_logs.ts_created</id>
+            <sectionPriority>98</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <objectRendererParams>{"showCalendar":false}</objectRendererParams>
+        </row>
+        <row>
+            <id>process_logs.process</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+        </row>
+        <row>
+            <id>process_logs.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+        </row>
+        <row>
+            <id>process_logs.content</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"disabled":true}</objectRendererParams>
+            <objectRenderer key="code">string-object-renderer</objectRenderer>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- ExifFileMetadataEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_777_62554</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_778_18212</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>exif-md-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":3}</size>
+            <name key="code">
+                <row>localizedstringentity_777_62554</row>
+                <row>localizedstringentity_778_18212</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>file_metadata_exif.ycb_cr_positioning</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.white_balance</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.subject_distance_range</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.subject_distance</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.software</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.shutterSpeedValue</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.sharpness</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.sensing_method</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.scene_type</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.scene_capture_type</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.saturation</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.resolution_y</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.resolution_x</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.resolution_unit</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.pixel_y_dimension</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.pixel_x_dimension</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.orientation</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.offset_time</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.model</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.metering_mode</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.max_aperture</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.make</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.lens_model</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.lens_make</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.iso_speed_ratings</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.interoperability_version</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.interoperability_index</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.interoperability_ifd_pointer</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.id</id>
+            <tab key="id">exif-md-tab-common</tab>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+        </row>
+        <row>
+            <id>file_metadata_exif.gps_info_ifd_pointer</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.focal_length</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.flashpix_version</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.flash</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.f_number</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.exposure_time</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.exposure_program</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.exposure_mode</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.exposure_bias</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.exif_version</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.exif_ifd_pointer</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.digital_zoom_ratio</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.custom_rendered</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.contrast</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.composite_image</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.color_space</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.brightness</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_exif.aperture</id>
+            <tab key="id">exif-md-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- FileMetadataEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_780_33082</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_779_41622</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>container-md-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":3}</size>
+            <name key="code">
+                <row>localizedstringentity_779_41622</row>
+                <row>localizedstringentity_780_33082</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>file_metadata.video</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.mime</id>
+            <sectionPriority>98</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.image</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.id</id>
+            <sectionPriority>101</sectionPriority>
+            <objectPriority>101</objectPriority>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.icc</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.hash</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"disabled":true}</objectRendererParams>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.gps</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.ext</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.exif</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata.audio</id>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">container-md-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- ExplorerActionEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_782_54297</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_781_86844</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>ex-actions-tab-common</id>
+            <target key="target">ExplorerActionEntity</target>
+            <priority>0</priority>
+            <size>{"desktop":2}</size>
+            <name key="code">
+                <row>localizedstringentity_781_86844</row>
+                <row>localizedstringentity_782_54297</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>explorer_actions.type</id>
+            <sectionPriority>90</sectionPriority>
+            <objectPriority>90</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-actions-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_actions.priority</id>
+            <sectionPriority>95</sectionPriority>
+            <objectPriority>95</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-actions-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_actions.params</id>
+            <sectionPriority>96</sectionPriority>
+            <objectPriority>96</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-actions-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_actions.name</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-actions-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_actions.description</id>
+            <sectionPriority>98</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-actions-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_actions.code</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+            <tab key="id">ex-actions-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- GpsFileMetadataEntity -->
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>file_metadata_gps.longitude</id>
+            <sectionPriority>98</sectionPriority>
+            <objectPriority>98</objectPriority>
+        </row>
+        <row>
+            <id>file_metadata_gps.latitude</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+        </row>
+        <row>
+            <id>file_metadata_gps.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+        </row>
+        <row>
+            <id>file_metadata_gps.altitude</id>
+            <sectionPriority>97</sectionPriority>
+            <objectPriority>97</objectPriority>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- MediaExtEntity -->
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>medias_ext.name</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+        </row>
+        <row>
+            <id>medias_ext.code</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- ExplorerColumnEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_783_87714</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_784_76788</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>ex-column-tab-common</id>
+            <target key="target">ExplorerColumnEntity</target>
+            <priority>0</priority>
+            <size>{"desktop":2}</size>
+            <name key="code">
+                <row>localizedstringentity_783_87714</row>
+                <row>localizedstringentity_784_76788</row>
+            </name>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>explorer_columns.virtual</id>
+            <sectionPriority>93</sectionPriority>
+            <objectPriority>101</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.unique</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>104</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.type</id>
+            <sectionPriority>98</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-column-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_columns.target</id>
+            <sectionPriority>94</sectionPriority>
+            <objectPriority>94</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-column-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_columns.tab</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>115</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.sectionRenderer</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>60</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.section_visibility</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.section_renderer_params</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>92</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.section_priority</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>93</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.section_enabled</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>91</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.referenced_table_name</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-column-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_columns.referenced_entity_name</id>
+            <sectionPriority>95</sectionPriority>
+            <objectPriority>95</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-column-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_columns.property</id>
+            <sectionPriority>96</sectionPriority>
+            <objectPriority>96</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-column-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_columns.primary</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>110</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.objectRenderer</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>93</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.object_visibility</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>94</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.object_renderer_params</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>96</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.object_priority</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>97</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.object_enabled</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>95</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.named</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>103</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.name</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-column-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_columns.multiple</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>102</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+        </row>
+        <row>
+            <id>explorer_columns.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+            <tab key="id">ex-column-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_columns.description</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-column-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- IccFileMetadataEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_786_33414</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_785_25636</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>icc-md-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":3}</size>
+            <name key="code">
+                <row>localizedstringentity_785_25636</row>
+                <row>localizedstringentity_786_33414</row>
+            </name>
+            <target key="target">IccFileMetadataEntity</target>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>file_metadata_icc.rendering_intent_value</id>
+            <tab key="id">icc-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_icc.rendering_intent_name</id>
+            <tab key="id">icc-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_icc.profile_version</id>
+            <tab key="id">icc-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_icc.profile_creator</id>
+            <tab key="id">icc-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_icc.profile_class_value</id>
+            <tab key="id">icc-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_icc.profile_class_name</id>
+            <tab key="id">icc-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_icc.primary_platform</id>
+            <tab key="id">icc-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_icc.id</id>
+            <tab key="id">icc-md-tab-common</tab>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+        </row>
+        <row>
+            <id>file_metadata_icc.icc_signature</id>
+            <tab key="id">icc-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_icc.icc_profile_date</id>
+            <tab key="id">icc-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_icc.icc_description</id>
+            <tab key="id">icc-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_icc.icc_copyright</id>
+            <tab key="id">icc-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_icc.device_model_number</id>
+            <tab key="id">icc-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_icc.device_manufacturer</id>
+            <tab key="id">icc-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_icc.connection_space</id>
+            <tab key="id">icc-md-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- MediaFileEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_788_32083</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_787_77048</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>media-file-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":2}</size>
+            <name key="code">
+                <row>localizedstringentity_787_77048</row>
+                <row>localizedstringentity_788_32083</row>
+            </name>
+            <target key="target">MediaFileEntity</target>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>medias_files.width</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>95</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"disabled":true}</objectRendererParams>
+            <tab key="id">media-file-tab-common</tab>
+        </row>
+        <row>
+            <id>medias_files.size</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>94</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"disabled":true}</objectRendererParams>
+            <tab key="id">media-file-tab-common</tab>
+        </row>
+        <row>
+            <id>medias_files.name</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>97</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">media-file-tab-common</tab>
+        </row>
+        <row>
+            <id>medias_files.media</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>false</objectVisibility>
+            <tab key="id">media-file-tab-common</tab>
+        </row>
+        <row>
+            <id>medias_files.id</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">media-file-tab-common</tab>
+        </row>
+        <row>
+            <id>medias_files.height</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>96</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"disabled":true}</objectRendererParams>
+            <tab key="id">media-file-tab-common</tab>
+            <tab key="id">media-file-tab-common</tab>
+        </row>
+        <row>
+            <id>medias_files.format</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">media-file-tab-common</tab>
+        </row>
+        <row>
+            <id>medias_files.code</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+            <tab key="id">media-file-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- ExplorerColumnRendererEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_790_76318</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_789_22078</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>ex-col-renderer-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":2}</size>
+            <name key="code">
+                <row>localizedstringentity_789_22078</row>
+                <row>localizedstringentity_790_76318</row>
+            </name>
+            <target key="target">ExplorerColumnRendererEntity</target>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>explorer_column_renderers.type</id>
+            <sectionPriority>97</sectionPriority>
+            <objectPriority>97</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-col-renderer-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_column_renderers.params</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>0</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-col-renderer-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_column_renderers.name</id>
+            <sectionPriority>99</sectionPriority>
+            <objectPriority>99</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-col-renderer-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_column_renderers.description</id>
+            <sectionPriority>0</sectionPriority>
+            <objectPriority>98</objectPriority>
+            <sectionEnabled>false</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>false</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <tab key="id">ex-col-renderer-tab-common</tab>
+        </row>
+        <row>
+            <id>explorer_column_renderers.code</id>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+            <sectionEnabled>true</sectionEnabled>
+            <objectEnabled>true</objectEnabled>
+            <sectionVisibility>true</sectionVisibility>
+            <objectVisibility>true</objectVisibility>
+            <objectRendererParams>{"readonly":true}</objectRendererParams>
+            <tab key="id">ex-col-renderer-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- ImageFileMetadataEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_792_63864</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_791_89710</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>image-md-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":3}</size>
+            <name key="code">
+                <row>localizedstringentity_791_89710</row>
+                <row>localizedstringentity_792_63864</row>
+            </name>
+            <target key="target">ImageFileMetadataEntity</target>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>file_metadata_image.subsampling</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.interlace</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.id</id>
+            <tab key="id">image-md-tab-common</tab>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+        </row>
+        <row>
+            <id>file_metadata_image.height</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.filter</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.date_time</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.compression</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.colorType</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.color_components</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.bps</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_image.bitDepth</id>
+            <tab key="id">image-md-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+
+    <!-- VideoFileMetadataEntity -->
+
+    <InsertUpdate target="LocalizedStringEntity">
+        <row>
+            <code>localizedstringentity_794_67852</code>
+            <value>Основные данные</value>
+            <lang key="id">ru</lang>
+        </row>
+        <row>
+            <code>localizedstringentity_793_44808</code>
+            <value>Common data</value>
+            <lang key="id">en</lang>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerTabEntity">
+        <row>
+            <id>video-md-tab-common</id>
+            <priority>0</priority>
+            <size>{"desktop":3}</size>
+            <name key="code">
+                <row>localizedstringentity_793_44808</row>
+                <row>localizedstringentity_794_67852</row>
+            </name>
+            <target key="target">VideoFileMetadataEntity</target>
+        </row>
+    </InsertUpdate>
+
+    <InsertUpdate target="ExplorerColumnEntity">
+        <row>
+            <id>file_metadata_video.width</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.sample_aspect_ratio</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.rotate</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.id</id>
+            <tab key="id">video-md-tab-common</tab>
+            <sectionPriority>100</sectionPriority>
+            <objectPriority>100</objectPriority>
+        </row>
+        <row>
+            <id>file_metadata_video.height</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.frame_rate</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.duration</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.display_aspect_ratio</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.container</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.color_space</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.color_range</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.codec</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+        <row>
+            <id>file_metadata_video.bitrate</id>
+            <tab key="id">video-md-tab-common</tab>
+        </row>
+    </InsertUpdate>
+
+</schema>
