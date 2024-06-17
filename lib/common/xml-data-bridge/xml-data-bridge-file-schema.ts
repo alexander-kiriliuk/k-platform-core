@@ -69,11 +69,7 @@ export namespace XmlDataBridgeFileSchema {
       data += `\t\t\t<preview>${file.preview.split(":").pop()}</preview>\n`;
     }
     if (file.name?.length) {
-      data += `\t\t\t<name key="code">\n`;
-      for (const row of file.name) {
-        data += `\t\t\t\t<row>${row.split(":").pop()}</row>\n`;
-      }
-      data += `\t\t\t</name>\n`;
+      data += `\t\t\t<name>${file.name}</name>\n`;
     }
     data += `\t\t\t<file>@zip:/${file.file}</file>\n`;
     data += `\t\t</row>\n\t</File>\n`;

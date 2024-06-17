@@ -60,6 +60,7 @@ import TARGET_RELATIONS_OBJECT = Explorer.TARGET_RELATIONS_OBJECT;
 import TARGET_RELATIONS_SECTION = Explorer.TARGET_RELATIONS_SECTION;
 import TARGET_RELATIONS_FULL = Explorer.TARGET_RELATIONS_FULL;
 import hasAccessForRoles = UserUtils.hasAccessForRoles;
+import { Type } from "@nestjs/common/interfaces/type.interface";
 
 /**
  * Service for exploring and analyzing the database schema and relationships.
@@ -579,7 +580,7 @@ export class BasicExplorerService extends ExplorerService {
       where: { [idProp]: row[idProp] },
       relations,
     });
-    const withRelations = {};
+    const withRelations = new (repository.metadata.target as Type)();
     Object.assign(withRelations, row, newRow);
     for (const k in withRelations) {
       if (relations.indexOf(k) === -1) {
