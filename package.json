@@ -18,6 +18,8 @@
     "init:web-app": "npm run init:config && nest start init-web-app",
     "start:web-app": "rimraf dist/examples/web-server && nest start web-app --debug --watch",
     "lint": "eslint --fix --ext .js,.ts .",
+    "docs:build": "npx compodoc -p tsconfig.doc.json -d ./dist/docs",
+    "docs:serve": "npx compodoc -p tsconfig.doc.json -d ./dist/docs -s -w",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -59,6 +61,7 @@
     "xml2js": "0.6.*"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.25",
     "@nestjs/cli": "10.3.2",
     "@nestjs/schematics": "10.1.1",
     "@nestjs/testing": "10.3.7",
