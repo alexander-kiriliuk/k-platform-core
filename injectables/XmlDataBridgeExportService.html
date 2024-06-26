@@ -1,0 +1,2010 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@k-platform/core documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@k-platform/core documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >XmlDataBridgeExportService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>lib/common/xml-data-bridge/xml-data-bridge-export.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>XmlDataBridgeExportService is responsible for exporting data through XML.</p>
+
+            </p>
+
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                            <code><a href="../classes/XdbExportService.html" target="_self" >XdbExportService</a></code>
+            </p>
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#buildXmlBody" >buildXmlBody</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#decomposeEntity" >decomposeEntity</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#exportXml" >exportXml</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getKeyPropertyName" >getKeyPropertyName</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#handleDecomposedFiles" >handleDecomposedFiles</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#handleDecomposedMedias" >handleDecomposedMedias</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handleNode" >handleNode</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#handleStackRoots" >handleStackRoots</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handleStringValues" >handleStringValues</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#hasNestedNodes" >hasNestedNodes</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isPrimitiveNode" >isPrimitiveNode</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#markReferences" >markReferences</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(logger: Logger, mediaService: <a href="../classes/MediaManager.html" target="_self">MediaManager</a>, filesService: <a href="../classes/FileManager.html" target="_self">FileManager</a>, cacheService: <a href="../classes/CacheService.html" target="_self">CacheService</a>, explorerService: <a href="../classes/ExplorerService.html" target="_self">ExplorerService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-export.service.ts:68</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>logger</td>
+                                                  
+                                                        <td>
+                                                                    <code>Logger</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>mediaService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/MediaManager.html" target="_self" >MediaManager</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>filesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/FileManager.html" target="_self" >FileManager</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cacheService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/CacheService.html" target="_self" >CacheService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>explorerService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/ExplorerService.html" target="_self" >ExplorerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildXmlBody"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>buildXmlBody</b></span>
+                        <a href="#buildXmlBody"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buildXmlBody(decomposedEntityStack: <a href="../undefineds/XdbDecomposedEntity.html" target="_self">XdbDecomposedEntity[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="139"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-export.service.ts:139</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>decomposedEntityStack</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbDecomposedEntity" target="_self" >XdbDecomposedEntity[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="decomposeEntity"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>decomposeEntity</b></span>
+                        <a href="#decomposeEntity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>decomposeEntity(object: ObjectLiteral, target: <a href="../interfaces/TargetData.html" target="_self">TargetData</a>, tParams: <a href="../undefineds/ExplorerTargetParams.html" target="_self">ExplorerTargetParams</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="174"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-export.service.ts:174</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>object</td>
+                                            <td>
+                                                        <code>ObjectLiteral</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                            <code><a href="../interfaces/TargetData.html" target="_self" >TargetData</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>tParams</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerTargetParams" target="_self" >ExplorerTargetParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportXml"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>exportXml</b></span>
+                        <a href="#exportXml"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>exportXml(params: <a href="../undefineds/XdbExportParams.html" target="_self">XdbExportParams</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/XdbExportService.html" target="_self" >XdbExportService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/XdbExportService.html#source" target="_self" >XdbExportService:84</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Export XML data to a specified target.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>params</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbExportParams" target="_self" >XdbExportParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>object with export params XdbExportParams</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#XdbExportDto" target="_self" >Promise&lt;XdbExportDto&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A string if object exported to zip-file</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getKeyPropertyName"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getKeyPropertyName</b></span>
+                        <a href="#getKeyPropertyName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getKeyPropertyName(target: <a href="../interfaces/TargetData.html" target="_self">TargetData</a>, node: ObjectLiteral)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="479"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-export.service.ts:479</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                            <code><a href="../interfaces/TargetData.html" target="_self" >TargetData</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>node</td>
+                                            <td>
+                                                        <code>ObjectLiteral</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleDecomposedFiles"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>handleDecomposedFiles</b></span>
+                        <a href="#handleDecomposedFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleDecomposedFiles(stack: <a href="../undefineds/XdbDecomposedEntity.html" target="_self">XdbDecomposedEntity[]</a>, operationDir: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="544"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-export.service.ts:544</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>stack</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbDecomposedEntity" target="_self" >XdbDecomposedEntity[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>operationDir</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleDecomposedMedias"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>handleDecomposedMedias</b></span>
+                        <a href="#handleDecomposedMedias"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleDecomposedMedias(stack: <a href="../undefineds/XdbDecomposedEntity.html" target="_self">XdbDecomposedEntity[]</a>, operationDir: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="514"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-export.service.ts:514</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>stack</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbDecomposedEntity" target="_self" >XdbDecomposedEntity[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>operationDir</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleNode"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>handleNode</b></span>
+                        <a href="#handleNode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleNode(stack: <a href="../undefineds/XdbDecomposedEntity.html" target="_self">XdbDecomposedEntity[]</a>, node: ObjectLiteral, fieldName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, path?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, arrayClassName?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="427"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-export.service.ts:427</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>stack</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbDecomposedEntity" target="_self" >XdbDecomposedEntity[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>node</td>
+                                            <td>
+                                                        <code>ObjectLiteral</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>fieldName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>path</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>arrayClassName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleStackRoots"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>handleStackRoots</b></span>
+                        <a href="#handleStackRoots"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleStackRoots(stack: <a href="../undefineds/XdbDecomposedEntity.html" target="_self">XdbDecomposedEntity[]</a>, tParams: <a href="../undefineds/ExplorerTargetParams.html" target="_self">ExplorerTargetParams</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="259"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-export.service.ts:259</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>stack</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbDecomposedEntity" target="_self" >XdbDecomposedEntity[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>tParams</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerTargetParams" target="_self" >ExplorerTargetParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleStringValues"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>handleStringValues</b></span>
+                        <a href="#handleStringValues"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleStringValues(stack: <a href="../undefineds/XdbDecomposedEntity.html" target="_self">XdbDecomposedEntity[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="573"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-export.service.ts:573</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>stack</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbDecomposedEntity" target="_self" >XdbDecomposedEntity[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasNestedNodes"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>hasNestedNodes</b></span>
+                        <a href="#hasNestedNodes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>hasNestedNodes(node: ObjectLiteral)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="470"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-export.service.ts:470</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>node</td>
+                                            <td>
+                                                        <code>ObjectLiteral</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isPrimitiveNode"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isPrimitiveNode</b></span>
+                        <a href="#isPrimitiveNode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isPrimitiveNode(node: ObjectLiteral)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="466"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-export.service.ts:466</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>node</td>
+                                            <td>
+                                                        <code>ObjectLiteral</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="markReferences"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>markReferences</b></span>
+                        <a href="#markReferences"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>markReferences(rootPrimaryCol: <a href="../interfaces/ExplorerColumn.html" target="_self">ExplorerColumn</a>, tParams: <a href="../undefineds/ExplorerTargetParams.html" target="_self">ExplorerTargetParams</a>, stack: <a href="../undefineds/XdbDecomposedEntity.html" target="_self">XdbDecomposedEntity[]</a>, node: ObjectLiteral, parent: ObjectLiteral, path: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="322"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-export.service.ts:322</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>rootPrimaryCol</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ExplorerColumn.html" target="_self" >ExplorerColumn</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>tParams</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerTargetParams" target="_self" >ExplorerTargetParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>stack</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbDecomposedEntity" target="_self" >XdbDecomposedEntity[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>node</td>
+                                            <td>
+                                                        <code>ObjectLiteral</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>parent</td>
+                                            <td>
+                                                        <code>ObjectLiteral</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>path</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Inject, Injectable, Logger } from &quot;@nestjs/common&quot;;
+import { ObjectLiteral } from &quot;typeorm&quot;;
+import * as path from &quot;path&quot;;
+import * as fs from &quot;fs&quot;;
+import * as AdmZip from &quot;adm-zip&quot;;
+import { XmlDataBridgeFileSchema } from &quot;./xml-data-bridge-file-schema&quot;;
+import { FilesUtils } from &quot;../../shared/utils/files.utils&quot;;
+import { NumberUtils } from &quot;../../shared/utils/number.utils&quot;;
+import { Xdb, XdbExportService } from &quot;./xml-data-bridge.constants&quot;;
+import { ReservedMediaFormat } from &quot;../media/media.constants&quot;;
+import { LOGGER } from &quot;../../shared/modules/log/log.constants&quot;;
+import { Media, MediaFormat, MediaManager } from &quot;../media/media.types&quot;;
+import { FileManager } from &quot;../file/file.constants&quot;;
+import { CacheService } from &quot;../../shared/modules/cache/cache.types&quot;;
+import {
+  ExplorerColumn,
+  ExplorerService,
+  ExplorerTargetParams,
+  TargetData,
+} from &quot;../explorer/explorer.types&quot;;
+import {
+  XdbDecomposedEntity,
+  XdbExportDto,
+  XdbExportParams,
+} from &quot;./xml-data-bridge.types&quot;;
+import { KpConfig } from &quot;../../../gen-src/kp.config&quot;;
+import { MediaEntity } from &quot;../media/entity/media.entity&quot;;
+import { FileEntity } from &quot;../file/entity/file.entity&quot;;
+import { MediaFileEntity } from &quot;../media/entity/media-file.entity&quot;;
+import { MediaFormatEntity } from &quot;../media/entity/media-format.entity&quot;;
+import { File } from &quot;../file/file.types&quot;;
+import { FileConfig } from &quot;../../../gen-src/file.config&quot;;
+import { MediaConfig } from &quot;../../../gen-src/media.config&quot;;
+import xmlFileSchemaTpl &#x3D; XmlDataBridgeFileSchema.xmlFileSchemaTpl;
+import xmlFileInsertUpdateNodeTpl &#x3D; XmlDataBridgeFileSchema.xmlFileInsertUpdateNodeTpl;
+import BODY_TOKEN &#x3D; XmlDataBridgeFileSchema.BODY_TOKEN;
+import createDirectoriesIfNotExist &#x3D; FilesUtils.createDirectoriesIfNotExist;
+import generateRandomInt &#x3D; NumberUtils.generateRandomInt;
+import xmlFileRowNode &#x3D; XmlDataBridgeFileSchema.xmlFileRowNode;
+import xmlFileRowPropertyNode &#x3D; XmlDataBridgeFileSchema.xmlFileRowPropertyNode;
+import rootToken &#x3D; Xdb.rootToken;
+import THUMB &#x3D; ReservedMediaFormat.THUMB;
+import ORIGINAL &#x3D; ReservedMediaFormat.ORIGINAL;
+import xmlMediaNodeTpl &#x3D; XmlDataBridgeFileSchema.xmlMediaNodeTpl;
+import readFile &#x3D; FilesUtils.readFile;
+import xmlFileNodeTpl &#x3D; XmlDataBridgeFileSchema.xmlFileNodeTpl;
+
+/**
+ * XmlDataBridgeExportService is responsible for exporting data through XML.
+ */
+@Injectable()
+export class XmlDataBridgeExportService extends XdbExportService {
+  constructor(
+    @Inject(LOGGER) private readonly logger: Logger,
+    private readonly mediaService: MediaManager,
+    private readonly filesService: FileManager,
+    private readonly cacheService: CacheService,
+    private readonly explorerService: ExplorerService,
+  ) {
+    super();
+  }
+
+  /**
+   * Export XML data to a specified target.
+   * @param params - object with export params XdbExportParams
+   * @returns A string if object exported to zip-file
+   */
+  async exportXml(params: XdbExportParams): Promise&lt;XdbExportDto&gt; {
+    const tParams: ExplorerTargetParams &#x3D; {
+      readRequest: true,
+      checkUserAccess: params.user,
+    };
+    const target &#x3D; await this.explorerService.getTargetData(
+      params.target,
+      tParams,
+    );
+    const entity &#x3D; await this.explorerService.getEntityData(
+      params.target,
+      params.id,
+      params.depth,
+      tParams,
+    );
+    if (params.excludeProperties?.length) {
+      for (const property of params.excludeProperties) {
+        delete entity[property];
+      }
+    }
+    const decomposedEntityStack &#x3D; await this.decomposeEntity(
+      entity,
+      target,
+      tParams,
+    );
+    const tmpDir &#x3D;
+      process.cwd() + (await this.cacheService.get(KpConfig.TMP_DIR));
+    const fileName &#x3D; &#x60;${params.target.toLowerCase()}-${params.id}-${generateRandomInt()}&#x60;;
+    const operationDir &#x3D; &#x60;${tmpDir}/${fileName}&#x60;;
+    await createDirectoriesIfNotExist(operationDir);
+    const xmlFilePath &#x3D; &#x60;${operationDir}/${fileName}.xml&#x60;;
+    const handledMedias &#x3D; await this.handleDecomposedMedias(
+      decomposedEntityStack,
+      operationDir,
+    );
+    const handledFiles &#x3D; await this.handleDecomposedFiles(
+      decomposedEntityStack,
+      operationDir,
+    );
+    this.handleStringValues(decomposedEntityStack);
+    const xmlBody &#x3D; this.buildXmlBody(decomposedEntityStack);
+    await fs.promises.writeFile(xmlFilePath, xmlBody);
+    if (!params.useFiles) {
+      return { file: &#x60;${fileName}/${fileName}.xml&#x60; };
+    }
+    const filesForZip &#x3D; [xmlFilePath, ...handledFiles, ...handledMedias];
+    const zipFilePath &#x3D; &#x60;${operationDir}/${fileName}.zip&#x60;;
+    const zip &#x3D; new AdmZip();
+    for (const filePatch of filesForZip) {
+      zip.addLocalFile(filePatch);
+    }
+    zip.writeZip(zipFilePath);
+    return { file: &#x60;${fileName}/${fileName}.zip&#x60; };
+  }
+
+  private buildXmlBody(decomposedEntityStack: XdbDecomposedEntity[]) {
+    let body &#x3D; &#x60;&#x60;;
+    for (const entity of decomposedEntityStack) {
+      if (entity.metadata.type &#x3D;&#x3D;&#x3D; MediaEntity.name) {
+        const node &#x3D; xmlMediaNodeTpl(entity.data);
+        body +&#x3D; node;
+        continue;
+      }
+      if (entity.metadata.type &#x3D;&#x3D;&#x3D; FileEntity.name) {
+        const node &#x3D; xmlFileNodeTpl(entity.data);
+        body +&#x3D; node;
+        continue;
+      }
+      const node &#x3D; xmlFileInsertUpdateNodeTpl(entity.metadata.type);
+      let rowBody &#x3D; &#x60;&#x60;;
+      for (const key of Object.keys(entity.data)) {
+        const row &#x3D; xmlFileRowPropertyNode(
+          decomposedEntityStack,
+          key,
+          entity.data[key],
+        );
+        if (!row) {
+          continue;
+        }
+        rowBody +&#x3D; row;
+      }
+      body +&#x3D; node.replace(
+        BODY_TOKEN,
+        xmlFileRowNode().replace(BODY_TOKEN, rowBody),
+      );
+    }
+    const xmlBody &#x3D; xmlFileSchemaTpl();
+    return xmlBody.replace(BODY_TOKEN, body);
+  }
+
+  private async decomposeEntity(
+    object: ObjectLiteral,
+    target: TargetData,
+    tParams: ExplorerTargetParams,
+  ) {
+    let stack: XdbDecomposedEntity[] &#x3D; [];
+    this.handleNode(stack, object, rootToken);
+    // remove root duplicates
+    const rootNode &#x3D; stack.find((v) &#x3D;&gt; v.metadata.fieldName &#x3D;&#x3D;&#x3D; rootToken);
+    const rootPrimaryCol &#x3D; target.entity.columns.find((v) &#x3D;&gt; v.primary);
+    for (let i &#x3D; stack.length - 1; i &gt;&#x3D; 0; i--) {
+      const node &#x3D; stack[i]; // handle medias
+      if (node.metadata.type &#x3D;&#x3D;&#x3D; MediaFileEntity.name) {
+        stack.splice(i, 1);
+        continue;
+      }
+      if (node.metadata.type &#x3D;&#x3D;&#x3D; MediaFormatEntity.name) {
+        const format &#x3D; node.data as MediaFormat;
+        if (format.code &#x3D;&#x3D;&#x3D; THUMB || format.code &#x3D;&#x3D;&#x3D; ORIGINAL) {
+          stack.splice(i, 1);
+          continue;
+        }
+      }
+      if (node.metadata.type &#x3D;&#x3D;&#x3D; MediaEntity.name) {
+        const media &#x3D; node.data as MediaEntity;
+        if (!media.files?.length) {
+          stack.splice(i, 1);
+        } else {
+          delete media.files;
+        }
+        continue;
+      }
+      if (
+        node.metadata.fieldName &#x3D;&#x3D;&#x3D; rootToken ||
+        node.metadata.type !&#x3D;&#x3D; target.entity.target
+      ) {
+        continue;
+      }
+      if (
+        node.data[rootPrimaryCol.property] &#x3D;&#x3D;&#x3D;
+        rootNode.data[rootPrimaryCol.property]
+      ) {
+        stack.splice(i, 1);
+      }
+    }
+    stack &#x3D; Xdb.removeDuplicateObjects(stack).reverse();
+    const root &#x3D; stack[stack.length - 1];
+    await this.markReferences(
+      rootPrimaryCol,
+      tParams,
+      stack,
+      root.data,
+      root.data,
+      rootToken,
+    );
+    // mark root object
+    for (const key of Object.keys(root.data)) {
+      if (this.isPrimitiveNode(root.data[key])) {
+        continue;
+      }
+      if (Array.isArray(root.data[key])) {
+        for (let i &#x3D; 0; i &lt; root.data[key].length; i++) {
+          const target &#x3D; await this.explorerService.getTargetData(
+            root.data[key][i].constructor.name,
+            tParams,
+          );
+          const p &#x3D; &#x60;${rootToken}/${key}&#x60;;
+          const keyName &#x3D; this.getKeyPropertyName(target, root.data[key][i]);
+          root.data[key][i] &#x3D; &#x60;${p}#${keyName}:${root.data[key][i][keyName]}&#x60;;
+        }
+      } else {
+        const target &#x3D; await this.explorerService.getTargetData(
+          root.data[key].constructor.name,
+          tParams,
+        );
+        const p &#x3D; &#x60;${rootToken}/${key}&#x60;;
+        const keyName &#x3D; this.getKeyPropertyName(target, root.data[key]);
+        root.data[key] &#x3D; &#x60;${p}#${keyName}:${root.data[key][keyName]}&#x60;;
+      }
+    }
+    // clean keys
+    this.getKeyPropertyName(target, root.data);
+    return await this.handleStackRoots(stack, tParams);
+  }
+
+  private async handleStackRoots(
+    stack: XdbDecomposedEntity[],
+    tParams: ExplorerTargetParams,
+  ) {
+    for (let i &#x3D; stack.length - 1; i &gt;&#x3D; 0; i--) {
+      for (const key of Object.keys(stack[i].data)) {
+        if (this.isPrimitiveNode(stack[i].data[key])) {
+          continue;
+        }
+        if (Array.isArray(stack[i].data[key])) {
+          if (!stack[i].data[key].length) {
+            delete stack[i].data[key];
+            continue;
+          }
+          if (
+            typeof stack[i].data[key][0] &#x3D;&#x3D;&#x3D; &quot;string&quot; &amp;&amp;
+            stack[i].data[key][0].startsWith(rootToken)
+          ) {
+            continue;
+          }
+          for (const j in stack[i].data[key]) {
+            if (!stack[i].data[key][j]) {
+              continue;
+            }
+            const target &#x3D; await this.explorerService.getTargetData(
+              stack[i].data[key][j].constructor.name,
+              tParams,
+            );
+            const keyName &#x3D; this.getKeyPropertyName(
+              target,
+              stack[i].data[key][j],
+            );
+            const stackEl &#x3D; stack.find(
+              (v) &#x3D;&gt;
+                v.metadata.type &#x3D;&#x3D;&#x3D; target.entity.target &amp;&amp;
+                v.data[keyName] &#x3D;&#x3D;&#x3D; stack[i].data[key][j][keyName],
+            );
+            stack[i].data[key][j] &#x3D;
+              &#x60;${stackEl.metadata.path}#${keyName}:${stack[i].data[key][j][keyName]}&#x60;;
+          }
+        } else {
+          if (stack[i].data[key].constructor.name &#x3D;&#x3D;&#x3D; &quot;Object&quot;) {
+            stack[i].data[key] &#x3D; JSON.stringify(stack[i].data[key]);
+            continue;
+          }
+          const target &#x3D; await this.explorerService.getTargetData(
+            stack[i].data[key].constructor.name,
+            tParams,
+          );
+          const keyName &#x3D; this.getKeyPropertyName(target, stack[i].data[key]);
+          const stackEl &#x3D; stack.find(
+            (v) &#x3D;&gt;
+              v.metadata.type &#x3D;&#x3D;&#x3D; target.entity.target &amp;&amp;
+              v.data[keyName] &#x3D;&#x3D;&#x3D; stack[i].data[key][keyName],
+          );
+          stack[i].data[key] &#x3D;
+            &#x60;${stackEl.metadata.path}#${keyName}:${stack[i].data[key][keyName]}&#x60;;
+        }
+      }
+    }
+    return stack;
+  }
+
+  private async markReferences(
+    rootPrimaryCol: ExplorerColumn,
+    tParams: ExplorerTargetParams,
+    stack: XdbDecomposedEntity[],
+    node: ObjectLiteral,
+    parent: ObjectLiteral,
+    path: string,
+  ) {
+    const root &#x3D; stack[stack.length - 1];
+    for (const key in node) {
+      if (this.isPrimitiveNode(node[key])) {
+        continue;
+      }
+      if (Array.isArray(node[key])) {
+        if (!node[key].length) {
+          delete node[key];
+          continue;
+        }
+        for (const arrEl of node[key]) {
+          if (!arrEl) {
+            continue;
+          }
+          const target &#x3D; await this.explorerService.getTargetData(
+            arrEl.constructor.name,
+            tParams,
+          );
+          const p &#x3D; &#x60;${path}/${key}&#x60;;
+          const stackEl &#x3D; stack.find(
+            (v) &#x3D;&gt;
+              v.metadata.path &#x3D;&#x3D;&#x3D; p &amp;&amp;
+              v.data[target.primaryColumn.property] &#x3D;&#x3D;&#x3D;
+                arrEl[target.primaryColumn.property],
+          );
+          if (!stackEl) {
+            continue;
+          }
+          for (const sDataElKey of Object.keys(stackEl.data)) {
+            if (this.isPrimitiveNode(stackEl.data[sDataElKey])) {
+              continue;
+            }
+            if (stackEl.data[sDataElKey].constructor.name &#x3D;&#x3D;&#x3D; &quot;Object&quot;) {
+              stackEl.data[sDataElKey] &#x3D; JSON.stringify(
+                stackEl.data[sDataElKey],
+              );
+              continue;
+            }
+            const sdTarget &#x3D; await this.explorerService.getTargetData(
+              stackEl.data[sDataElKey].constructor.name,
+              tParams,
+            );
+            if (!sdTarget) {
+              continue;
+            }
+            const sdP &#x3D; &#x60;${p}/${sDataElKey}&#x60;;
+            if (
+              sdTarget.entity.target &#x3D;&#x3D;&#x3D; root.metadata.type &amp;&amp;
+              stackEl.data[sDataElKey][rootPrimaryCol.property] &#x3D;&#x3D;&#x3D;
+                root.data[rootPrimaryCol.property]
+            ) {
+              delete stackEl.data[sDataElKey];
+              continue;
+            }
+            const keyName &#x3D; this.getKeyPropertyName(
+              sdTarget,
+              stackEl.data[sDataElKey],
+            );
+            stackEl.data[sDataElKey] &#x3D;
+              &#x60;${sdP}#${keyName}:${stackEl.data[sDataElKey][keyName]}&#x60;;
+          }
+        }
+      } else {
+        if (this.hasNestedNodes(node[key])) {
+          await this.markReferences(
+            rootPrimaryCol,
+            tParams,
+            stack,
+            node[key],
+            node,
+            &#x60;${path}/${key}&#x60;,
+          );
+        } else {
+          if (node[key].constructor.name &#x3D;&#x3D;&#x3D; &quot;Object&quot;) {
+            node[key] &#x3D; JSON.stringify(node[key]);
+            continue;
+          }
+          const target &#x3D; await this.explorerService.getTargetData(
+            node[key].constructor.name,
+            tParams,
+          );
+          const p &#x3D; &#x60;${path}/${key}&#x60;;
+          const keyName &#x3D; this.getKeyPropertyName(target, node[key]);
+          node[key] &#x3D; &#x60;${p}#${keyName}:${node[key][keyName]}&#x60;;
+          await this.markReferences(
+            rootPrimaryCol,
+            tParams,
+            stack,
+            node[key],
+            node,
+            &#x60;${path}/${key}&#x60;,
+          );
+        }
+      }
+    }
+  }
+
+  private handleNode(
+    stack: XdbDecomposedEntity[],
+    node: ObjectLiteral,
+    fieldName: string,
+    path?: string,
+    arrayClassName?: string,
+  ) {
+    if (this.isPrimitiveNode(node)) {
+      return;
+    }
+    if (node.constructor.name &#x3D;&#x3D;&#x3D; &quot;Object&quot;) {
+      return;
+    }
+    const newPath &#x3D; path ? &#x60;${path}/${fieldName}&#x60; : fieldName;
+    if (!Array.isArray(node) || (Array.isArray(node) &amp;&amp; node?.length &gt; 0)) {
+      const type &#x3D; arrayClassName ?? node.constructor.name;
+      if (type !&#x3D;&#x3D; &quot;Array&quot;) {
+        stack.push({
+          metadata: { type, fieldName, path: newPath },
+          data: node,
+        });
+      }
+    }
+    if (!Array.isArray(node)) {
+      for (const key of Object.keys(node)) {
+        if (node[key] &#x3D;&#x3D;&#x3D; null) {
+          continue;
+        }
+        this.handleNode(stack, node[key], key, newPath);
+      }
+    } else {
+      const arrNode &#x3D; node as Array&lt;ObjectLiteral&gt;;
+      const arrClassName &#x3D; arrNode[0]?.constructor?.name;
+      for (const e of arrNode) {
+        this.handleNode(stack, e, fieldName, path, arrClassName);
+      }
+    }
+  }
+
+  private isPrimitiveNode(node: ObjectLiteral) {
+    return !node || typeof node !&#x3D;&#x3D; &quot;object&quot; || node instanceof Date;
+  }
+
+  private hasNestedNodes(node: ObjectLiteral) {
+    for (const key in node) {
+      if (!this.isPrimitiveNode(node[key])) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private getKeyPropertyName(target: TargetData, node: ObjectLiteral) {
+    const primaryProperty &#x3D; target.primaryColumn.property;
+    const uniqColumns &#x3D; target.entity.columns.filter((v) &#x3D;&gt; v.unique);
+    if (!uniqColumns?.length) {
+      return primaryProperty;
+    }
+    for (const col of uniqColumns) {
+      if (
+        node[col.property] &amp;&amp;
+        (typeof node[col.property] &#x3D;&#x3D;&#x3D; &quot;string&quot; ||
+          typeof node[col.property] &#x3D;&#x3D;&#x3D; &quot;number&quot;)
+      ) {
+        if (col.property !&#x3D;&#x3D; primaryProperty) {
+          if (
+            target.entity.target !&#x3D;&#x3D; MediaEntity.name &amp;&amp;
+            target.entity.target !&#x3D;&#x3D; FileEntity.name
+          ) {
+            delete node[primaryProperty];
+          }
+        }
+        return col.property;
+      }
+    }
+    const propertyName &#x3D; uniqColumns[0].property;
+    node[propertyName] &#x3D;
+      &#x60;${target.entity.target.toLowerCase()}_${node[primaryProperty]}_${generateRandomInt(99999)}&#x60;;
+    if (
+      target.entity.target !&#x3D;&#x3D; MediaEntity.name &amp;&amp;
+      target.entity.target !&#x3D;&#x3D; FileEntity.name
+    ) {
+      delete node[primaryProperty];
+    }
+    return propertyName;
+  }
+
+  private async handleDecomposedMedias(
+    stack: XdbDecomposedEntity[],
+    operationDir: string,
+  ) {
+    const result: string[] &#x3D; [];
+    for (const item of stack) {
+      if (item.metadata.type !&#x3D;&#x3D; MediaEntity.name) {
+        continue;
+      }
+      const node &#x3D; item.data as Media &amp; { file: string };
+      const media &#x3D; await this.mediaService.findMediaById(node.id);
+      const file &#x3D; media.files.find((v) &#x3D;&gt; v.format.code);
+      const cfgProp &#x3D; media.type.private
+        ? MediaConfig.PRIVATE_DIR
+        : MediaConfig.PUBLIC_DIR;
+      const loc &#x3D; await this.cacheService.get(cfgProp);
+      const fileName &#x3D; &#x60;${file.name}.${media.type.ext.code}&#x60;;
+      const tmpFileName &#x3D; &#x60;${generateRandomInt()}.${media.type.ext.code}&#x60;;
+      const mediaFilePath &#x3D; path.normalize(
+        process.cwd() + &#x60;${loc}/${media.id}/${fileName}&#x60;,
+      );
+      const tmpFilePath &#x3D; path.normalize(&#x60;${operationDir}/${tmpFileName}&#x60;);
+      const fileData &#x3D; await readFile(mediaFilePath);
+      await fs.promises.writeFile(tmpFilePath, fileData);
+      node.file &#x3D; tmpFileName;
+      result.push(tmpFilePath);
+    }
+    return result;
+  }
+
+  private async handleDecomposedFiles(
+    stack: XdbDecomposedEntity[],
+    operationDir: string,
+  ) {
+    const result: string[] &#x3D; [];
+    for (const item of stack) {
+      if (item.metadata.type !&#x3D;&#x3D; FileEntity.name) {
+        continue;
+      }
+      const node &#x3D; item.data as File &amp; { file: string };
+      const fileEntity &#x3D; await this.filesService.findFileById(node.id);
+      const cfgProp &#x3D; !fileEntity.public
+        ? FileConfig.PRIVATE_DIR
+        : FileConfig.PUBLIC_DIR;
+      const loc &#x3D; await this.cacheService.get(cfgProp);
+      const fileName &#x3D; &#x60;${fileEntity.path}&#x60;;
+      const tmpFileName &#x3D; &#x60;${generateRandomInt()}.${fileName.split(&quot;.&quot;).pop()}&#x60;;
+      const filePath &#x3D; path.normalize(
+        process.cwd() + &#x60;${loc}/${fileEntity.id}/${fileName}&#x60;,
+      );
+      const tmpFilePath &#x3D; path.normalize(&#x60;${operationDir}/${tmpFileName}&#x60;);
+      const fileData &#x3D; await readFile(filePath);
+      await fs.promises.writeFile(tmpFilePath, fileData);
+      node.file &#x3D; tmpFileName;
+      result.push(tmpFilePath);
+    }
+    return result;
+  }
+
+  private handleStringValues(stack: XdbDecomposedEntity[]) {
+    for (const item of stack) {
+      for (const key of Object.keys(item.data)) {
+        if (
+          typeof item.data[key] &#x3D;&#x3D;&#x3D; &quot;string&quot; &amp;&amp;
+          /&lt;[^&gt;]+&gt;/g.test(item.data[key])
+        ) {
+          item.data[key] &#x3D; &#x60;&lt;![CDATA[${item.data[key]}]]&gt;&#x60;;
+        }
+      }
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'XmlDataBridgeExportService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

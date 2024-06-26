@@ -1,0 +1,2849 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@k-platform/core documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@k-platform/core documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >XmlDataBridgeImportService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>lib/common/xml-data-bridge/xml-data-bridge-import.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>XmlDataBridgeImportService is responsible for importing data through XML.</p>
+
+            </p>
+
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                            <code><a href="../classes/XdbImportService.html" target="_self" >XdbImportService</a></code>
+            </p>
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#createEntityFromRowData" >createEntityFromRowData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#findReadOperator" >findReadOperator</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getLocalizedStrings" >getLocalizedStrings</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getRowDataWhereConditions" >getRowDataWhereConditions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getUniqueKeyFields" >getUniqueKeyFields</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#hasPushMode" >hasPushMode</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#importFromFile" >importFromFile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#importXml" >importXml</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isColumnUnique" >isColumnUnique</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#logRemovedEntity" >logRemovedEntity</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#logSavedEntity" >logSavedEntity</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#processFileNodes" >processFileNodes</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#processIncludeNodes" >processIncludeNodes</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#processInsertUpdateNodes" >processInsertUpdateNodes</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#processMediaNodes" >processMediaNodes</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#processQueryNodes" >processQueryNodes</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#processReadOperators" >processReadOperators</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#processRemoveNodes" >processRemoveNodes</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#setEntityPropertiesFromRowData" >setEntityPropertiesFromRowData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateEntityFromRowData" >updateEntityFromRowData</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#connection" >connection</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dataSource: DataSource, logger: Logger, mediaService: <a href="../classes/MediaManager.html" target="_self">MediaManager</a>, filesService: <a href="../classes/FileManager.html" target="_self">FileManager</a>, cacheService: <a href="../classes/CacheService.html" target="_self">CacheService</a>, explorerService: <a href="../classes/ExplorerService.html" target="_self">ExplorerService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:53</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dataSource</td>
+                                                  
+                                                        <td>
+                                                                    <code>DataSource</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>logger</td>
+                                                  
+                                                        <td>
+                                                                    <code>Logger</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>mediaService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/MediaManager.html" target="_self" >MediaManager</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>filesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/FileManager.html" target="_self" >FileManager</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cacheService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/CacheService.html" target="_self" >CacheService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>explorerService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/ExplorerService.html" target="_self" >ExplorerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createEntityFromRowData"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>createEntityFromRowData</b></span>
+                        <a href="#createEntityFromRowData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createEntityFromRowData(repository: Repository<any>, rowData: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="496"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:496</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Create a new entity with properties from the provided row data.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>repository</td>
+                                            <td>
+                                                        <code>Repository&lt;any&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>A TypeORM Repository instance for the entity.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>rowData</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An object containing row data.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The created entity.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findReadOperator"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>findReadOperator</b></span>
+                        <a href="#findReadOperator"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findReadOperator(input: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="567"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:567</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>input</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLocalizedStrings"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getLocalizedStrings</b></span>
+                        <a href="#getLocalizedStrings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getLocalizedStrings(row: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="527"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:527</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Build localized strings object from xml-row</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>row</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>A xml-row object containing the name property.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/LocalizedString.html" target="_self" >Promise&lt;LocalizedStringEntity[]&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves to an array of LocalizedStringEntity objects.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRowDataWhereConditions"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getRowDataWhereConditions</b></span>
+                        <a href="#getRowDataWhereConditions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getRowDataWhereConditions(rowData: <a href="../interfaces/File.html" target="_self">XdbRowData | FileRow</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="259"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:259</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Get the WHERE conditions for a row data object.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>rowData</td>
+                                            <td>
+                                                            <code><a href="../interfaces/File.html" target="_self" >XdbRowData | FileRow</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An XdbRowData object containing data for a row.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An object containing WHERE conditions.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUniqueKeyFields"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getUniqueKeyFields</b></span>
+                        <a href="#getUniqueKeyFields"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getUniqueKeyFields(repository: Repository<any>, rowData: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="378"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:378</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Get the unique key fields for an entity based on the provided row data.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>repository</td>
+                                            <td>
+                                                        <code>Repository&lt;any&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>A TypeORM Repository instance for the entity.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>rowData</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An object containing row data.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An object containing unique key fields.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasPushMode"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>hasPushMode</b></span>
+                        <a href="#hasPushMode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>hasPushMode(item: <a href="../undefineds/XdbAction.html" target="_self">XdbAction</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="332"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:332</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks whether an entity has a mode property with push value</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbAction" target="_self" >XdbAction</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>xml action-node</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="importFromFile"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>importFromFile</b></span>
+                        <a href="#importFromFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>importFromFile(fileData: Buffer)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/XdbImportService.html" target="_self" >XdbImportService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/XdbImportService.html#source" target="_self" >XdbImportService:107</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Import XML data from Zip-archive.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fileData</td>
+                                            <td>
+                                                        <code>Buffer</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The XdbObject containing the XML data.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves to a boolean indicating whether the import was successful.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="importXml"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>importXml</b></span>
+                        <a href="#importXml"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>importXml(xml: <a href="../undefineds/XdbObject.html" target="_self">XdbObject</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/XdbImportService.html" target="_self" >XdbImportService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/XdbImportService.html#source" target="_self" >XdbImportService:75</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Import XML data from an XdbObject.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>xml</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbObject" target="_self" >XdbObject</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The XdbObject containing the XML data.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves to a boolean indicating whether the import was successful.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isColumnUnique"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isColumnUnique</b></span>
+                        <a href="#isColumnUnique"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isColumnUnique(metadata: EntityMetadata, column: ColumnMetadata)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="510"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:510</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Determine if a column is unique.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>metadata</td>
+                                            <td>
+                                                        <code>EntityMetadata</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>EntityMetadata for the entity.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>column</td>
+                                            <td>
+                                                        <code>ColumnMetadata</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>ColumnMetadata for the column.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A boolean indicating whether the column is unique.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logRemovedEntity"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>logRemovedEntity</b></span>
+                        <a href="#logRemovedEntity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>logRemovedEntity(repository: Repository<any>, whereConditions: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank">object</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="276"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:276</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Log that an entity has been removed.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>repository</td>
+                                            <td>
+                                                        <code>Repository&lt;any&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>A TypeORM Repository instance for the entity.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>whereConditions</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An object containing WHERE conditions.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logSavedEntity"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>logSavedEntity</b></span>
+                        <a href="#logSavedEntity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>logSavedEntity(repository: Repository<any>, entity: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, uniqueKeyFields: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank">object</a>, existingEntity: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="354"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:354</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Log that an entity has been saved (created or updated).</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>repository</td>
+                                            <td>
+                                                        <code>Repository&lt;any&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>A TypeORM Repository instance for the entity.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>entity</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The saved entity.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>uniqueKeyFields</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An object containing unique key fields.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>existingEntity</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An existing entity, if any.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="processFileNodes"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>processFileNodes</b></span>
+                        <a href="#processFileNodes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>processFileNodes(item: <a href="../undefineds/XdbAction.html" target="_self">XdbAction</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="150"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:150</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Process &quot;file&quot; nodes by creating or updating a file.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbAction" target="_self" >XdbAction</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An XdbActions object containing rows of file data.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves when all file nodes are processed.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="processIncludeNodes"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>processIncludeNodes</b></span>
+                        <a href="#processIncludeNodes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>processIncludeNodes(item: <a href="../undefineds/XdbAction.html" target="_self">XdbAction</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="189"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:189</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Process &quot;file&quot; nodes by creating or updating a file.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbAction" target="_self" >XdbAction</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An XdbActions object containing rows of file data.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves when all file nodes are processed.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="processInsertUpdateNodes"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>processInsertUpdateNodes</b></span>
+                        <a href="#processInsertUpdateNodes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>processInsertUpdateNodes(item: <a href="../undefineds/XdbAction.html" target="_self">XdbAction</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="292"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:292</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Process &quot;InsertUpdate&quot; nodes by creating or updating entities.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbAction" target="_self" >XdbAction</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An XdbActions object containing rows of entity data.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves when all InsertUpdate nodes are processed.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="processMediaNodes"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>processMediaNodes</b></span>
+                        <a href="#processMediaNodes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>processMediaNodes(item: <a href="../undefineds/XdbAction.html" target="_self">XdbAction</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="202"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:202</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Process &quot;media&quot; nodes by creating or updating a media object.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbAction" target="_self" >XdbAction</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An XdbActions object containing rows of media data.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves when all media nodes are processed.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="processQueryNodes"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>processQueryNodes</b></span>
+                        <a href="#processQueryNodes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>processQueryNodes(item: <a href="../undefineds/XdbAction.html" target="_self">XdbAction</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="179"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:179</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Process &quot;query&quot; nodes by execute SQL queries.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbAction" target="_self" >XdbAction</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An XdbActions object containing rows of file data.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves when all query nodes are processed.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="processReadOperators"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>processReadOperators</b></span>
+                        <a href="#processReadOperators"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>processReadOperators(rows: <a href="../interfaces/File.html" target="_self">Array&lt;XdbRowData | FileRow&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="546"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:546</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Processes @read operators in attributes and nodes, downloads the file along the path contained
+in the ${@read:/path} construct, replaces this construct with its contents</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>rows</td>
+                                            <td>
+                                                            <code><a href="../interfaces/File.html" target="_self" >Array&lt;XdbRowData | FileRow&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>A list of xml-row object containing the name property.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="processRemoveNodes"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>processRemoveNodes</b></span>
+                        <a href="#processRemoveNodes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>processRemoveNodes(item: <a href="../undefineds/XdbAction.html" target="_self">XdbAction</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="230"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:230</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Process &quot;remove&quot; nodes by removing the specified entities.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbAction" target="_self" >XdbAction</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An XdbActions object containing rows of entity data to remove.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves when all remove nodes are processed.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setEntityPropertiesFromRowData"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>setEntityPropertiesFromRowData</b></span>
+                        <a href="#setEntityPropertiesFromRowData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setEntityPropertiesFromRowData(entity: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, repository: Repository<any>, rowData: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="418"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:418</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Set entity properties from the provided row data.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>entity</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The entity to set properties for.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>repository</td>
+                                            <td>
+                                                        <code>Repository&lt;any&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>A TypeORM Repository instance for the entity.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>rowData</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An object containing row data.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The entity with properties set from rowData.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateEntityFromRowData"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>updateEntityFromRowData</b></span>
+                        <a href="#updateEntityFromRowData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateEntityFromRowData(existingEntity: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, repository: Repository<any>, rowData: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="478"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:478</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Update an existing entity with properties from the provided row data.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>existingEntity</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The existing entity to update.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>repository</td>
+                                            <td>
+                                                        <code>Repository&lt;any&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>A TypeORM Repository instance for the entity.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>rowData</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An object containing row data.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The updated entity.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="connection"></a>
+                        <span class="name"><b>connection</b><a href="#connection"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>connection()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:66</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Inject, Injectable, Logger } from &quot;@nestjs/common&quot;;
+import { InjectDataSource } from &quot;@nestjs/typeorm&quot;;
+import { DataSource, EntityMetadata, In, Repository } from &quot;typeorm&quot;;
+import { ColumnMetadata } from &quot;typeorm/metadata/ColumnMetadata&quot;;
+
+import * as AdmZip from &quot;adm-zip&quot;;
+import * as fs from &quot;fs&quot;;
+import * as path from &quot;path&quot;;
+import { KpConfig } from &quot;../../../gen-src/kp.config&quot;;
+import { FilesUtils } from &quot;../../shared/utils/files.utils&quot;;
+import { Xdb, XdbImportService } from &quot;./xml-data-bridge.constants&quot;;
+import { NumberUtils } from &quot;../../shared/utils/number.utils&quot;;
+import { LOGGER } from &quot;../../shared/modules/log/log.constants&quot;;
+import { Media, MediaManager } from &quot;../media/media.types&quot;;
+import { FileManager } from &quot;../file/file.constants&quot;;
+import { CacheService } from &quot;../../shared/modules/cache/cache.types&quot;;
+import { ExplorerService } from &quot;../explorer/explorer.types&quot;;
+import {
+  FileRow,
+  MediaRow,
+  XdbAction,
+  XdbObject,
+  XdbRowData,
+} from &quot;./xml-data-bridge.types&quot;;
+import { File } from &quot;../file/file.types&quot;;
+import { LocalizedStringEntity } from &quot;../../shared/modules/locale/entity/localized-string.entity&quot;;
+import readFile &#x3D; FilesUtils.readFile;
+import createDirectoriesIfNotExist &#x3D; FilesUtils.createDirectoriesIfNotExist;
+import readDirectoryRecursively &#x3D; FilesUtils.readDirectoryRecursively;
+import ReadOperatorRe &#x3D; Xdb.ReadOperatorRe;
+import generateRandomInt &#x3D; NumberUtils.generateRandomInt;
+
+/**
+ * XmlDataBridgeImportService is responsible for importing data through XML.
+ */
+@Injectable()
+export class XmlDataBridgeImportService extends XdbImportService {
+  constructor(
+    @InjectDataSource()
+    private readonly dataSource: DataSource,
+    @Inject(LOGGER) private readonly logger: Logger,
+    private readonly mediaService: MediaManager,
+    private readonly filesService: FileManager,
+    private readonly cacheService: CacheService,
+    private readonly explorerService: ExplorerService,
+  ) {
+    super();
+  }
+
+  private get connection() {
+    return this.dataSource.manager.connection;
+  }
+
+  /**
+   * Import XML data from an XdbObject.
+   * @param xml - The XdbObject containing the XML data.
+   * @returns A promise that resolves to a boolean indicating whether the import was successful.
+   */
+  async importXml(xml: XdbObject): Promise&lt;boolean&gt; {
+    for (const item of xml.schema) {
+      await this.processReadOperators(item.rows);
+      switch (item.action) {
+        case &quot;InsertUpdate&quot;:
+          await this.processInsertUpdateNodes(item);
+          break;
+        case &quot;Media&quot;:
+          await this.processMediaNodes(item);
+          break;
+        case &quot;File&quot;:
+          await this.processFileNodes(item);
+          break;
+        case &quot;Remove&quot;:
+          await this.processRemoveNodes(item);
+          break;
+        case &quot;Include&quot;:
+          await this.processIncludeNodes(item);
+          break;
+        case &quot;Query&quot;:
+          await this.processQueryNodes(item);
+          break;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Import XML data from Zip-archive.
+   * @param fileData - The XdbObject containing the XML data.
+   * @returns A promise that resolves to a boolean indicating whether the import was successful.
+   */
+  async importFromFile(fileData: Buffer) {
+    // write archive
+    const tmpDir &#x3D;
+      process.cwd() + (await this.cacheService.get(KpConfig.TMP_DIR));
+    await createDirectoriesIfNotExist(tmpDir);
+    const fileName &#x3D; generateRandomInt();
+    const filePath &#x3D; &#x60;${tmpDir}/${fileName}.zip&#x60;;
+    const operationDir &#x3D; &#x60;${tmpDir}/${fileName}&#x60;;
+    await fs.promises.writeFile(filePath, fileData);
+    // work with archive
+    const arch &#x3D; new AdmZip(filePath);
+    await createDirectoriesIfNotExist(operationDir);
+    arch.extractAllTo(operationDir, true);
+    const fileList &#x3D; await readDirectoryRecursively(operationDir);
+    const xmlFiles: string[] &#x3D; [];
+    for (const dir of Object.keys(fileList)) {
+      if (!fileList[dir]?.length) {
+        continue;
+      }
+      for (const file of fileList[dir].sort()) {
+        const extractedFilePath &#x3D; path.normalize(
+          &#x60;${operationDir}/${dir}/${file}&#x60;,
+        );
+        if (!extractedFilePath.endsWith(&quot;.xml&quot;)) {
+          continue;
+        }
+        const contentBuf &#x3D; await readFile(extractedFilePath);
+        const zipDir &#x3D; operationDir.replace(process.cwd(), &quot;&quot;);
+        const contentStr &#x3D; contentBuf.toString().replace(/@zip:/g, zipDir);
+        const modifiedBuf &#x3D; Buffer.from(contentStr);
+        const xml &#x3D; await Xdb.parseXmlFile(modifiedBuf);
+        await this.importXml(xml);
+        xmlFiles.push(extractedFilePath);
+      }
+    }
+    return xmlFiles.length &gt; 0;
+  }
+
+  /**
+   * Process &quot;file&quot; nodes by creating or updating a file.
+   * @param item - An XdbActions object containing rows of file data.
+   * @returns A promise that resolves when all file nodes are processed.
+   */
+  private async processFileNodes(item: XdbAction) {
+    const rows &#x3D; item.rows as FileRow[];
+    for (const row of rows) {
+      let existedEntity: File;
+      if (row.code) {
+        existedEntity &#x3D; await this.filesService.findByCode(row.code);
+      }
+      const filePath &#x3D; process.cwd() + row.file;
+      const buf &#x3D; await readFile(path.normalize(filePath));
+      const isPublic &#x3D; String(row.public) &#x3D;&#x3D;&#x3D; &quot;true&quot;;
+      const file &#x3D; await this.filesService.createOrUpdateFile(
+        buf,
+        row.file.split(&quot;.&quot;).pop(),
+        isPublic,
+        row.code,
+        existedEntity?.id,
+        row.name,
+      );
+      this.logger.log(
+        &#x60;${existedEntity ? &#x60;Update&#x60; : &#x60;Create&#x60;} file with ID ${file.id}&#x60;,
+      );
+    }
+  }
+
+  /**
+   * Process &quot;query&quot; nodes by execute SQL queries.
+   * @param item - An XdbActions object containing rows of file data.
+   * @returns A promise that resolves when all query nodes are processed.
+   */
+  private async processQueryNodes(item: XdbAction) {
+    this.logger.log(item.attrs.content);
+    await this.connection.query(item.attrs.content);
+  }
+
+  /**
+   * Process &quot;file&quot; nodes by creating or updating a file.
+   * @param item - An XdbActions object containing rows of file data.
+   * @returns A promise that resolves when all file nodes are processed.
+   */
+  private async processIncludeNodes(item: XdbAction) {
+    this.logger.log(item.attrs.read);
+    const filePath &#x3D; process.cwd() + item.attrs.read;
+    const buf &#x3D; await readFile(path.normalize(filePath));
+    const xml &#x3D; await Xdb.parseXmlFile(buf);
+    await this.importXml(xml);
+  }
+
+  /**
+   * Process &quot;media&quot; nodes by creating or updating a media object.
+   * @param item - An XdbActions object containing rows of media data.
+   * @returns A promise that resolves when all media nodes are processed.
+   */
+  private async processMediaNodes(item: XdbAction) {
+    const rows &#x3D; item.rows as MediaRow[];
+    for (const row of rows) {
+      let existedEntity: Media;
+      if (row.code) {
+        existedEntity &#x3D; await this.mediaService.findByCode(row.code);
+      }
+      const localizedStrings &#x3D; await this.getLocalizedStrings(row);
+      const filePath &#x3D; process.cwd() + row.file;
+      const buf &#x3D; await readFile(path.normalize(filePath));
+      const media &#x3D; await this.mediaService.createOrUpdateMedia(
+        buf,
+        row.type,
+        row.code,
+        existedEntity?.id,
+        localizedStrings,
+      );
+      this.logger.log(
+        &#x60;${existedEntity ? &#x60;Update&#x60; : &#x60;Create&#x60;} media with ID ${media.id}&#x60;,
+      );
+    }
+  }
+
+  /**
+   * Process &quot;remove&quot; nodes by removing the specified entities.
+   * @param item - An XdbActions object containing rows of entity data to remove.
+   * @returns A promise that resolves when all remove nodes are processed.
+   */
+  private async processRemoveNodes(item: XdbAction) {
+    const repository &#x3D; this.connection.getRepository(item.attrs.target);
+    for (const rowData of item.rows) {
+      const whereConditions &#x3D; this.getRowDataWhereConditions(rowData);
+      if (Object.keys(whereConditions).length &gt; 0) {
+        const entityToRemove &#x3D; await repository.findOne({
+          where: whereConditions,
+        });
+        if (entityToRemove) {
+          await repository.remove(entityToRemove);
+          this.logRemovedEntity(repository, whereConditions);
+        } else {
+          this.logger.warn(
+            &#x60;Entity [${item.attrs.target}] with ${JSON.stringify(whereConditions)} not found, no removal performed&#x60;,
+          );
+        }
+      } else {
+        this.logger.warn(
+          &#x60;Invalid row data for [${item.attrs.target}], no removal performed&#x60;,
+        );
+      }
+    }
+  }
+
+  /**
+   * Get the WHERE conditions for a row data object.
+   * @param rowData - An XdbRowData object containing data for a row.
+   * @returns An object containing WHERE conditions.
+   */
+  private getRowDataWhereConditions(rowData: XdbRowData | FileRow): object {
+    const whereConditions &#x3D; {};
+    for (const key in rowData) {
+      if (rowData[key].value) {
+        whereConditions[key] &#x3D; rowData[key].value;
+      } else {
+        whereConditions[key] &#x3D; rowData[key];
+      }
+    }
+    return whereConditions;
+  }
+
+  /**
+   * Log that an entity has been removed.
+   * @param repository - A TypeORM Repository instance for the entity.
+   * @param whereConditions - An object containing WHERE conditions.
+   */
+  private logRemovedEntity(
+    repository: Repository&lt;any&gt;,
+    whereConditions: object,
+  ) {
+    const metadata &#x3D; repository.metadata;
+    const keyValuePairs &#x3D; Object.entries(whereConditions)
+      .map(([key, value]) &#x3D;&gt; &#x60;${key}&#x3D;${value}&#x60;)
+      .join(&quot;; &quot;);
+    this.logger.log(&#x60;Removed [${metadata.targetName}] with ${keyValuePairs}&#x60;);
+  }
+
+  /**
+   * Process &quot;InsertUpdate&quot; nodes by creating or updating entities.
+   * @param item - An XdbActions object containing rows of entity data.
+   * @returns A promise that resolves when all InsertUpdate nodes are processed.
+   */
+  private async processInsertUpdateNodes(item: XdbAction) {
+    const repository &#x3D; this.connection.getRepository(item.attrs.target);
+    for (const rowData of item.rows) {
+      const uniqueKeyFields &#x3D; this.getUniqueKeyFields(repository, rowData);
+      let existingEntity &#x3D; null;
+      if (Object.keys(uniqueKeyFields).length) {
+        existingEntity &#x3D; await repository.findOne({ where: uniqueKeyFields });
+      }
+      let entity;
+      if (existingEntity) {
+        if (this.hasPushMode(item)) {
+          const target &#x3D; await this.explorerService.getTargetData(
+            existingEntity.constructor.name,
+          );
+          entity &#x3D; await this.explorerService.getEntityData(
+            target.entity.target,
+            existingEntity[target.primaryColumn.property],
+            undefined,
+            { fullRelations: true },
+          );
+        } else {
+          entity &#x3D; existingEntity;
+        }
+        entity &#x3D; await this.updateEntityFromRowData(
+          entity,
+          repository,
+          rowData,
+        );
+      } else {
+        entity &#x3D; await this.createEntityFromRowData(repository, rowData);
+      }
+      await repository.save(entity);
+      this.logSavedEntity(repository, entity, uniqueKeyFields, existingEntity);
+    }
+  }
+
+  /**
+   Checks whether an entity has a mode property with push value
+   @param item - xml action-node
+   */
+  private hasPushMode(item: XdbAction) {
+    for (const row of item.rows) {
+      for (const key in row) {
+        if (
+          typeof row[key] &#x3D;&#x3D;&#x3D; &quot;object&quot; &amp;&amp;
+          row[key]?.hasOwnProperty(&quot;attrs&quot;) &amp;&amp;
+          row[key][&quot;attrs&quot;][&quot;mode&quot;] &#x3D;&#x3D;&#x3D; &quot;push&quot;
+        ) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /**
+   Log that an entity has been saved (created or updated).
+   @param repository - A TypeORM Repository instance for the entity.
+   @param entity - The saved entity.
+   @param uniqueKeyFields - An object containing unique key fields.
+   @param existingEntity - An existing entity, if any.
+   */
+  private logSavedEntity(
+    repository: Repository&lt;any&gt;,
+    entity: any,
+    uniqueKeyFields: object,
+    existingEntity: any,
+  ) {
+    const metadata &#x3D; repository.metadata;
+    const primaryKey &#x3D; metadata.primaryColumns[0].propertyName;
+    const keys &#x3D; [primaryKey, ...Object.keys(uniqueKeyFields)];
+    const values &#x3D; [entity[primaryKey], ...Object.values(uniqueKeyFields)];
+    const keyValuePairs &#x3D; keys
+      .map((key, index) &#x3D;&gt; &#x60;${key}&#x3D;${values[index]}&#x60;)
+      .join(&quot;; &quot;);
+    this.logger.log(
+      &#x60;${existingEntity ? &#x60;Update&#x60; : &#x60;Create&#x60;} [${metadata.targetName}] with ${keyValuePairs}&#x60;,
+    );
+  }
+
+  /**
+   Get the unique key fields for an entity based on the provided row data.
+   @param repository - A TypeORM Repository instance for the entity.
+   @param rowData - An object containing row data.
+   @returns An object containing unique key fields.
+   */
+  private getUniqueKeyFields(
+    repository: Repository&lt;any&gt;,
+    rowData: { [key: string]: any },
+  ): object {
+    const entityMetadata &#x3D; repository.metadata;
+    const uniqueColumns &#x3D; entityMetadata.columns.filter((column) &#x3D;&gt; {
+      if (this.isColumnUnique(entityMetadata, column)) {
+        return true;
+      }
+      const uniqIndices &#x3D; repository.metadata.indices.filter(
+        (idc) &#x3D;&gt; idc.isUnique,
+      );
+      for (const idc of uniqIndices) {
+        const result &#x3D; idc?.columns?.find(
+          (col) &#x3D;&gt; col.propertyName &#x3D;&#x3D;&#x3D; column.propertyName,
+        );
+        if (result) {
+          return true;
+        }
+      }
+      return false;
+    });
+    const uniqueKeyFields &#x3D; {};
+    for (const uniqueColumn of uniqueColumns) {
+      const propertyName &#x3D; uniqueColumn.propertyName;
+      if (rowData[propertyName]) {
+        uniqueKeyFields[propertyName] &#x3D;
+          rowData[propertyName].value || rowData[propertyName];
+      }
+    }
+    return uniqueKeyFields;
+  }
+
+  /**
+   Set entity properties from the provided row data.
+   @param entity - The entity to set properties for.
+   @param repository - A TypeORM Repository instance for the entity.
+   @param rowData - An object containing row data.
+   @returns The entity with properties set from rowData.
+   */
+  private async setEntityPropertiesFromRowData(
+    entity: any,
+    repository: Repository&lt;any&gt;,
+    rowData: { [key: string]: any },
+  ) {
+    for (const key in rowData) {
+      const relation &#x3D; repository.metadata.findRelationWithPropertyPath(key);
+      if (relation &amp;&amp; rowData[key].attrs) {
+        if (rowData[key].value) {
+          const relatedRepository &#x3D; this.connection.getRepository(
+            relation.type,
+          );
+          entity[key] &#x3D; await relatedRepository.findOne({
+            where: {
+              [rowData[key].attrs.key]: rowData[key].value,
+            },
+          });
+        } else if (rowData[key].values &amp;&amp; rowData[key].attrs) {
+          const relatedRepository &#x3D; this.connection.getRepository(
+            relation.inverseEntityMetadata.targetName,
+          );
+          const existedVal &#x3D; entity[key];
+          entity[key] &#x3D; await relatedRepository.find({
+            where: {
+              [rowData[key].attrs.key]: In(rowData[key].values),
+            },
+          });
+          if (rowData[key].attrs?.mode &#x3D;&#x3D;&#x3D; &quot;push&quot; &amp;&amp; existedVal?.length) {
+            entity[key] &#x3D; entity[key].concat(existedVal);
+          }
+        }
+      } else if (rowData[key].value) {
+        entity[key] &#x3D; rowData[key].value;
+      } else if (rowData[key].values) {
+        entity[key] &#x3D; rowData[key].values;
+      } else {
+        entity[key] &#x3D; rowData[key];
+        switch (entity[key]) {
+          case &quot;true&quot;:
+            entity[key] &#x3D; true;
+            break;
+          case &quot;false&quot;:
+            entity[key] &#x3D; false;
+            break;
+          case &quot;null&quot;:
+            entity[key] &#x3D; null;
+            break;
+        }
+      }
+    }
+    return entity;
+  }
+
+  /**
+   Update an existing entity with properties from the provided row data.
+   @param existingEntity - The existing entity to update.
+   @param repository - A TypeORM Repository instance for the entity.
+   @param rowData - An object containing row data.
+   @returns The updated entity.
+   */
+  private async updateEntityFromRowData(
+    existingEntity: any,
+    repository: Repository&lt;any&gt;,
+    rowData: { [key: string]: any },
+  ) {
+    return this.setEntityPropertiesFromRowData(
+      existingEntity,
+      repository,
+      rowData,
+    );
+  }
+
+  /**
+   Create a new entity with properties from the provided row data.
+   @param repository - A TypeORM Repository instance for the entity.
+   @param rowData - An object containing row data.
+   @returns The created entity.
+   */
+  private async createEntityFromRowData(
+    repository: Repository&lt;any&gt;,
+    rowData: { [key: string]: any },
+  ) {
+    const entity &#x3D; repository.create();
+    return this.setEntityPropertiesFromRowData(entity, repository, rowData);
+  }
+
+  /**
+   Determine if a column is unique.
+   @param metadata - EntityMetadata for the entity.
+   @param column - ColumnMetadata for the column.
+   @returns A boolean indicating whether the column is unique.
+   */
+  private isColumnUnique(metadata: EntityMetadata, column: ColumnMetadata) {
+    for (const uniq of metadata.uniques) {
+      if (
+        uniq.columns.find((col) &#x3D;&gt; col.propertyName &#x3D;&#x3D;&#x3D; column.propertyName) !&#x3D;&#x3D;
+        undefined
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   Build localized strings object from xml-row
+   @param row - A xml-row object containing the name property.
+   @returns A promise that resolves to an array of LocalizedStringEntity objects.
+   */
+  private async getLocalizedStrings(row: {
+    name: any;
+  }): Promise&lt;LocalizedStringEntity[]&gt; {
+    const localizedStrings: LocalizedStringEntity[] &#x3D; [];
+    if (row.name) {
+      const rep &#x3D; this.connection.getRepository(LocalizedStringEntity);
+      for (const value of row.name.values) {
+        const v &#x3D; await rep.findOne({ where: { [row.name.attrs.key]: value } });
+        localizedStrings.push(v);
+      }
+    }
+    return localizedStrings;
+  }
+
+  /**
+   Processes @read operators in attributes and nodes, downloads the file along the path contained
+   in the ${@read:/path} construct, replaces this construct with its contents
+   @param rows - A list of xml-row object containing the name property.
+   */
+  private async processReadOperators(rows: Array&lt;XdbRowData | FileRow&gt;) {
+    for (const row of rows) {
+      for (const val of Object.keys(row)) {
+        let link: string &#x3D; undefined;
+        if (typeof row[val] &#x3D;&#x3D;&#x3D; &quot;string&quot;) {
+          link &#x3D; this.findReadOperator(row[val]);
+          if (link) {
+            const buf &#x3D; await readFile(path.normalize(process.cwd() + link));
+            row[val] &#x3D; row[val].replace(ReadOperatorRe, buf.toString());
+          }
+        } else {
+          link &#x3D; this.findReadOperator(row[val].value);
+          if (link) {
+            const buf &#x3D; await readFile(path.normalize(process.cwd() + link));
+            row[val] &#x3D; row[val].value.replace(ReadOperatorRe, buf.toString());
+          }
+        }
+      }
+    }
+  }
+
+  private findReadOperator(input: string) {
+    const match &#x3D; input?.match(ReadOperatorRe);
+    if (match?.length &gt; 1) {
+      return match[1];
+    }
+    return undefined;
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'XmlDataBridgeImportService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,2526 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@k-platform/core documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@k-platform/core documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Variables</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#ACCESS_TOKEN_ERROR_MSG" title="lib/common/auth/auth.constants.ts" ><b>ACCESS_TOKEN_ERROR_MSG</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#AccessToken" title="lib/shared/decorators/access-token.decorator.ts" ><b>AccessToken</b>&nbsp;&nbsp;&nbsp;(lib/.../access-token.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#AllowedForMetadataKey" title="lib/shared/decorators/for-roles.decorator.ts" ><b>AllowedForMetadataKey</b>&nbsp;&nbsp;&nbsp;(lib/.../for-roles.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#AUTH_ACCESS_TOKEN_PREFIX" title="lib/common/auth/auth.constants.ts" ><b>AUTH_ACCESS_TOKEN_PREFIX</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#AUTH_JWT_CACHE_PREFIX" title="lib/common/auth/auth.constants.ts" ><b>AUTH_JWT_CACHE_PREFIX</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#AUTH_REFRESH_TOKEN_PREFIX" title="lib/common/auth/auth.constants.ts" ><b>AUTH_REFRESH_TOKEN_PREFIX</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#blockedUsrIpPayload" title="lib/common/auth/mock/auth.mock.ts" ><b>blockedUsrIpPayload</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#blockedUsrLoginPayload" title="lib/common/auth/mock/auth.mock.ts" ><b>blockedUsrLoginPayload</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#BODY_TOKEN" title="lib/common/xml-data-bridge/xml-data-bridge-file-schema.ts" ><b>BODY_TOKEN</b>&nbsp;&nbsp;&nbsp;(lib/.../xml-data-bridge-file-schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#BRUTEFORCE_JWT_CACHE_PREFIX" title="lib/common/auth/auth.constants.ts" ><b>BRUTEFORCE_JWT_CACHE_PREFIX</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#bruteForceIPKey" title="lib/common/auth/auth.constants.ts" ><b>bruteForceIPKey</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#bruteForceLoginKey" title="lib/common/auth/auth.constants.ts" ><b>bruteForceLoginKey</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CAPTCHA_CACHE_PREFIX" title="lib/common/captcha/captcha.constants.ts" ><b>CAPTCHA_CACHE_PREFIX</b>&nbsp;&nbsp;&nbsp;(lib/.../captcha.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#captchaRequestWithInvalidData" title="lib/common/captcha/mock/captcha.mock.ts" ><b>captchaRequestWithInvalidData</b>&nbsp;&nbsp;&nbsp;(lib/.../captcha.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#captchaRequestWithInvalidId" title="lib/common/captcha/mock/captcha.mock.ts" ><b>captchaRequestWithInvalidId</b>&nbsp;&nbsp;&nbsp;(lib/.../captcha.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CATEGORY_RELATIONS" title="lib/shared/modules/category/category.constants.ts" ><b>CATEGORY_RELATIONS</b>&nbsp;&nbsp;&nbsp;(lib/.../category.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CONFIG_CACHE_PREFIX" title="lib/common/config/config.constants.ts" ><b>CONFIG_CACHE_PREFIX</b>&nbsp;&nbsp;&nbsp;(lib/.../config.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CONFIG_FILE_EXT_PATTERN" title="lib/common/config/config.constants.ts" ><b>CONFIG_FILE_EXT_PATTERN</b>&nbsp;&nbsp;&nbsp;(lib/.../config.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CurrentUser" title="lib/shared/decorators/current-user.decorator.ts" ><b>CurrentUser</b>&nbsp;&nbsp;&nbsp;(lib/.../current-user.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DEFAULT_MEDIA_QUALITY" title="lib/common/media/media.constants.ts" ><b>DEFAULT_MEDIA_QUALITY</b>&nbsp;&nbsp;&nbsp;(lib/.../media.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DEFAULT_MEDIA_TYPE" title="lib/common/media/media.constants.ts" ><b>DEFAULT_MEDIA_TYPE</b>&nbsp;&nbsp;&nbsp;(lib/.../media.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ENTITY_SAVE_HANDLER" title="lib/common/explorer/explorer.constants.ts" ><b>ENTITY_SAVE_HANDLER</b>&nbsp;&nbsp;&nbsp;(lib/.../explorer.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#FILES_ENCODING" title="lib/common/config/config.constants.ts" ><b>FILES_ENCODING</b>&nbsp;&nbsp;&nbsp;(lib/.../config.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#fileTypeModule" title="lib/shared/utils/files.utils.ts" ><b>fileTypeModule</b>&nbsp;&nbsp;&nbsp;(lib/.../files.utils.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ForRoles" title="lib/shared/decorators/for-roles.decorator.ts" ><b>ForRoles</b>&nbsp;&nbsp;&nbsp;(lib/.../for-roles.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#GEN_SRC_DIR" title="lib/common/config/config.constants.ts" ><b>GEN_SRC_DIR</b>&nbsp;&nbsp;&nbsp;(lib/.../config.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#InitConfig" title="lib/common/config/config.init-fn.ts" ><b>InitConfig</b>&nbsp;&nbsp;&nbsp;(lib/.../config.init-fn.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#jwtAccessTokenKey" title="lib/common/auth/auth.constants.ts" ><b>jwtAccessTokenKey</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#jwtRefreshTokenKey" title="lib/common/auth/auth.constants.ts" ><b>jwtRefreshTokenKey</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#jwtService" title="lib/common/auth/mock/auth.mock.ts" ><b>jwtService</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#KP_PROPERTIES_FILE_NAME" title="lib/common/config/config.constants.ts" ><b>KP_PROPERTIES_FILE_NAME</b>&nbsp;&nbsp;&nbsp;(lib/.../config.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LOCAL_PROPERTIES_FILE_NAME" title="lib/common/config/config.constants.ts" ><b>LOCAL_PROPERTIES_FILE_NAME</b>&nbsp;&nbsp;&nbsp;(lib/.../config.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LOGGER" title="lib/shared/modules/log/log.constants.ts" ><b>LOGGER</b>&nbsp;&nbsp;&nbsp;(lib/.../log.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LoggerMock" title="lib/shared/modules/mock/logger.mock.ts" ><b>LoggerMock</b>&nbsp;&nbsp;&nbsp;(lib/.../logger.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MEDIA_RELATIONS" title="lib/common/media/media.constants.ts" ><b>MEDIA_RELATIONS</b>&nbsp;&nbsp;&nbsp;(lib/.../media.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MEDIA_TYPE_RELATIONS" title="lib/common/media/media.constants.ts" ><b>MEDIA_TYPE_RELATIONS</b>&nbsp;&nbsp;&nbsp;(lib/.../media.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MESSAGES_BROKER" title="lib/shared/modules/messages-broker/messages-broker.constants.ts" ><b>MESSAGES_BROKER</b>&nbsp;&nbsp;&nbsp;(lib/.../messages-broker.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MS_CLIENT" title="lib/shared/modules/ms-client/ms-client.constants.ts" ><b>MS_CLIENT</b>&nbsp;&nbsp;&nbsp;(lib/.../ms-client.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MS_EXCEPTION_ID" title="lib/shared/constants.ts" ><b>MS_EXCEPTION_ID</b>&nbsp;&nbsp;&nbsp;(lib/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MSG_BUS" title="lib/shared/modules/ms-client/ms-client.constants.ts" ><b>MSG_BUS</b>&nbsp;&nbsp;&nbsp;(lib/.../ms-client.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ORIGINAL" title="lib/common/media/media.constants.ts" ><b>ORIGINAL</b>&nbsp;&nbsp;&nbsp;(lib/.../media.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#parser" title="lib/common/xml-data-bridge/xml-data-bridge.constants.ts" ><b>parser</b>&nbsp;&nbsp;&nbsp;(lib/.../xml-data-bridge.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#PROPERTIES_FILE_EXT_PATTERN" title="lib/common/config/config.constants.ts" ><b>PROPERTIES_FILE_EXT_PATTERN</b>&nbsp;&nbsp;&nbsp;(lib/.../config.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ReadOperatorRe" title="lib/common/xml-data-bridge/xml-data-bridge.constants.ts" ><b>ReadOperatorRe</b>&nbsp;&nbsp;&nbsp;(lib/.../xml-data-bridge.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#REDIS_CLIENT" title="lib/shared/modules/cache/cache.constants.ts" ><b>REDIS_CLIENT</b>&nbsp;&nbsp;&nbsp;(lib/.../cache.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#REFRESH_TOKEN_ERROR_MSG" title="lib/common/auth/auth.constants.ts" ><b>REFRESH_TOKEN_ERROR_MSG</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#refreshTokenWithoutRelatedUser" title="lib/common/auth/mock/auth.mock.ts" ><b>refreshTokenWithoutRelatedUser</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#REGISTERED_PROCESSES" title="lib/common/process/process.constants.ts" ><b>REGISTERED_PROCESSES</b>&nbsp;&nbsp;&nbsp;(lib/.../process.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#REQUEST_PROPS" title="lib/shared/constants.ts" ><b>REQUEST_PROPS</b>&nbsp;&nbsp;&nbsp;(lib/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#rootToken" title="lib/common/xml-data-bridge/xml-data-bridge.constants.ts" ><b>rootToken</b>&nbsp;&nbsp;&nbsp;(lib/.../xml-data-bridge.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SimpleJsonTransformer" title="lib/shared/transformers/simple-json.transformer.ts" ><b>SimpleJsonTransformer</b>&nbsp;&nbsp;&nbsp;(lib/.../simple-json.transformer.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Storage" title="lib/common/auth/mock/auth.mock.ts" ><b>Storage</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Storage" title="lib/common/captcha/mock/captcha.mock.ts" ><b>Storage</b>&nbsp;&nbsp;&nbsp;(lib/.../captcha.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Storage" title="lib/common/config/mock/config.mock.ts" ><b>Storage</b>&nbsp;&nbsp;&nbsp;(lib/.../config.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SVG" title="lib/common/media/media.constants.ts" ><b>SVG</b>&nbsp;&nbsp;&nbsp;(lib/.../media.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TARGET_RELATIONS_BASIC" title="lib/common/explorer/explorer.constants.ts" ><b>TARGET_RELATIONS_BASIC</b>&nbsp;&nbsp;&nbsp;(lib/.../explorer.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TARGET_RELATIONS_FULL" title="lib/common/explorer/explorer.constants.ts" ><b>TARGET_RELATIONS_FULL</b>&nbsp;&nbsp;&nbsp;(lib/.../explorer.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TARGET_RELATIONS_OBJECT" title="lib/common/explorer/explorer.constants.ts" ><b>TARGET_RELATIONS_OBJECT</b>&nbsp;&nbsp;&nbsp;(lib/.../explorer.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TARGET_RELATIONS_SECTION" title="lib/common/explorer/explorer.constants.ts" ><b>TARGET_RELATIONS_SECTION</b>&nbsp;&nbsp;&nbsp;(lib/.../explorer.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#testExistedProp" title="lib/common/config/mock/config.mock.ts" ><b>testExistedProp</b>&nbsp;&nbsp;&nbsp;(lib/.../config.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#testSetProp" title="lib/common/config/mock/config.mock.ts" ><b>testSetProp</b>&nbsp;&nbsp;&nbsp;(lib/.../config.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#testUser" title="lib/common/auth/mock/auth.mock.ts" ><b>testUser</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#THUMB" title="lib/common/media/media.constants.ts" ><b>THUMB</b>&nbsp;&nbsp;&nbsp;(lib/.../media.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UNKNOWN_IP" title="lib/common/auth/auth.constants.ts" ><b>UNKNOWN_IP</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#USER_RELATIONS" title="lib/common/user/user.constants.ts" ><b>USER_RELATIONS</b>&nbsp;&nbsp;&nbsp;(lib/.../user.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#validAccessToken" title="lib/common/auth/mock/auth.mock.ts" ><b>validAccessToken</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#validCaptchaRequest" title="lib/common/captcha/mock/captcha.mock.ts" ><b>validCaptchaRequest</b>&nbsp;&nbsp;&nbsp;(lib/.../captcha.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#validCredentialsUsrPayload" title="lib/common/auth/mock/auth.mock.ts" ><b>validCredentialsUsrPayload</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#validRefreshToken" title="lib/common/auth/mock/auth.mock.ts" ><b>validRefreshToken</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WARLOCK" title="lib/shared/modules/warlock/warlock.constants.ts" ><b>WARLOCK</b>&nbsp;&nbsp;&nbsp;(lib/.../warlock.constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#wrongCredentialsUsrPayload" title="lib/common/auth/mock/auth.mock.ts" ><b>wrongCredentialsUsrPayload</b>&nbsp;&nbsp;&nbsp;(lib/.../auth.mock.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>lib/common/auth/auth.constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ACCESS_TOKEN_ERROR_MSG"></a>
+                    <span class="name">
+                        <span ><b>ACCESS_TOKEN_ERROR_MSG</b></span>
+                        <a href="#ACCESS_TOKEN_ERROR_MSG"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;ERR_TOKEN_A&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="AUTH_ACCESS_TOKEN_PREFIX"></a>
+                    <span class="name">
+                        <span ><b>AUTH_ACCESS_TOKEN_PREFIX</b></span>
+                        <a href="#AUTH_ACCESS_TOKEN_PREFIX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;access_token&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="AUTH_JWT_CACHE_PREFIX"></a>
+                    <span class="name">
+                        <span ><b>AUTH_JWT_CACHE_PREFIX</b></span>
+                        <a href="#AUTH_JWT_CACHE_PREFIX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;jwt&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="AUTH_REFRESH_TOKEN_PREFIX"></a>
+                    <span class="name">
+                        <span ><b>AUTH_REFRESH_TOKEN_PREFIX</b></span>
+                        <a href="#AUTH_REFRESH_TOKEN_PREFIX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;refresh_token&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="BRUTEFORCE_JWT_CACHE_PREFIX"></a>
+                    <span class="name">
+                        <span ><b>BRUTEFORCE_JWT_CACHE_PREFIX</b></span>
+                        <a href="#BRUTEFORCE_JWT_CACHE_PREFIX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;bruteforce&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bruteForceIPKey"></a>
+                    <span class="name">
+                        <span ><b>bruteForceIPKey</b></span>
+                        <a href="#bruteForceIPKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(ipAddress: string) &#x3D;&gt;
+  &#x60;${BRUTEFORCE_JWT_CACHE_PREFIX}:ip:${ipAddress}&#x60;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bruteForceLoginKey"></a>
+                    <span class="name">
+                        <span ><b>bruteForceLoginKey</b></span>
+                        <a href="#bruteForceLoginKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(login: string) &#x3D;&gt;
+  &#x60;${BRUTEFORCE_JWT_CACHE_PREFIX}:login:${login}&#x60;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="jwtAccessTokenKey"></a>
+                    <span class="name">
+                        <span ><b>jwtAccessTokenKey</b></span>
+                        <a href="#jwtAccessTokenKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(accessToken: string) &#x3D;&gt; {
+  return &#x60;${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${accessToken}&#x60;;
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="jwtRefreshTokenKey"></a>
+                    <span class="name">
+                        <span ><b>jwtRefreshTokenKey</b></span>
+                        <a href="#jwtRefreshTokenKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(
+  accessToken: string,
+  refreshToken: string,
+) &#x3D;&gt; {
+  return &#x60;${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${accessToken}:${refreshToken}&#x60;;
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="REFRESH_TOKEN_ERROR_MSG"></a>
+                    <span class="name">
+                        <span ><b>REFRESH_TOKEN_ERROR_MSG</b></span>
+                        <a href="#REFRESH_TOKEN_ERROR_MSG"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;ERR_TOKEN_R&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UNKNOWN_IP"></a>
+                    <span class="name">
+                        <span ><b>UNKNOWN_IP</b></span>
+                        <a href="#UNKNOWN_IP"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;unknown&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/shared/decorators/access-token.decorator.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="AccessToken"></a>
+                    <span class="name">
+                        <span ><b>AccessToken</b></span>
+                        <a href="#AccessToken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createParamDecorator(
+  (data: unknown, ctx: ExecutionContext) &#x3D;&gt; {
+    const request &#x3D; ctx.switchToHttp().getRequest();
+    return request[REQUEST_PROPS.accessToken];
+  },
+)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/shared/decorators/for-roles.decorator.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="AllowedForMetadataKey"></a>
+                    <span class="name">
+                        <span ><b>AllowedForMetadataKey</b></span>
+                        <a href="#AllowedForMetadataKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;for_roles&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ForRoles"></a>
+                    <span class="name">
+                        <span ><b>ForRoles</b></span>
+                        <a href="#ForRoles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(...roles: string[]) &#x3D;&gt;
+  SetMetadata(AllowedForMetadataKey, roles)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>ForRoles custom decorator for defining roles allowed to access a route.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/common/auth/mock/auth.mock.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="blockedUsrIpPayload"></a>
+                    <span class="name">
+                        <span ><b>blockedUsrIpPayload</b></span>
+                        <a href="#blockedUsrIpPayload"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/LoginPayload.html" target="_self" >LoginPayload</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    login: &quot;blockedUserByIp&quot;,
+    password: &quot;1111&quot;,
+    ipAddress: &quot;111.111.111.111&quot;,
+  }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="blockedUsrLoginPayload"></a>
+                    <span class="name">
+                        <span ><b>blockedUsrLoginPayload</b></span>
+                        <a href="#blockedUsrLoginPayload"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/LoginPayload.html" target="_self" >LoginPayload</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    login: &quot;blockedUserByLogin&quot;,
+    password: &quot;1111&quot;,
+    ipAddress: &quot;123.123.123.123&quot;,
+  }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="jwtService"></a>
+                    <span class="name">
+                        <span ><b>jwtService</b></span>
+                        <a href="#jwtService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>jest.Mocked&lt;JwtService&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    sign: () &#x3D;&gt; uuidv4(),
+  } as any</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="refreshTokenWithoutRelatedUser"></a>
+                    <span class="name">
+                        <span ><b>refreshTokenWithoutRelatedUser</b></span>
+                        <a href="#refreshTokenWithoutRelatedUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;no-user-refresh-token&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Storage"></a>
+                    <span class="name">
+                        <span ><b>Storage</b></span>
+                        <a href="#Storage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new MockStorage([
+    {
+      key: BruteforceConfig.ENABLED,
+      data: &quot;true&quot;,
+    },
+    {
+      key: BruteforceConfig.MAX_ATTEMPTS,
+      data: 3,
+    },
+    {
+      key: &#x60;${BRUTEFORCE_JWT_CACHE_PREFIX}:login:${blockedUsrLoginPayload.login}&#x60;,
+      data: 10,
+    },
+    {
+      key: &#x60;${BRUTEFORCE_JWT_CACHE_PREFIX}:ip:${blockedUsrIpPayload.ipAddress}&#x60;,
+      data: 10,
+    },
+    {
+      key: &quot;user.find.by.login&quot;,
+      data: null,
+      params: wrongCredentialsUsrPayload.login,
+    },
+    {
+      key: &quot;user.find.by.login&quot;,
+      data: testUser,
+      params: validCredentialsUsrPayload.login,
+    },
+    {
+      key: &#x60;${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${validAccessToken}&#x60;,
+      data: testUser,
+    },
+    {
+      key: &#x60;${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${validAccessToken}:*&#x60;,
+      data: testUser,
+    },
+    {
+      key: &#x60;${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:*:${refreshTokenWithoutRelatedUser}&#x60;,
+      data: undefined,
+    },
+    {
+      key: &#x60;${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:*:${validRefreshToken}&#x60;,
+      data: [validRefreshToken],
+    },
+    {
+      key: validRefreshToken,
+      data: testUser.login,
+    },
+  ])</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="testUser"></a>
+                    <span class="name">
+                        <span ><b>testUser</b></span>
+                        <a href="#testUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    id: &quot;12345&quot;,
+    login: &quot;test&quot;,
+    password: &quot;$2b$10$pLGG/FWq1krOgl8wg05.DeoC5WlNEYOhuX7zYbtJlYQ0aZjKaMmIe&quot;, // encrypted string &quot;1111&quot;
+  } as User</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validAccessToken"></a>
+                    <span class="name">
+                        <span ><b>validAccessToken</b></span>
+                        <a href="#validAccessToken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;valid-access-token&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validCredentialsUsrPayload"></a>
+                    <span class="name">
+                        <span ><b>validCredentialsUsrPayload</b></span>
+                        <a href="#validCredentialsUsrPayload"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/LoginPayload.html" target="_self" >LoginPayload</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    login: &quot;test&quot;,
+    password: &quot;1111&quot;,
+    ipAddress: &quot;123.123.123.123&quot;,
+  }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validRefreshToken"></a>
+                    <span class="name">
+                        <span ><b>validRefreshToken</b></span>
+                        <a href="#validRefreshToken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;valid-refresh-token&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="wrongCredentialsUsrPayload"></a>
+                    <span class="name">
+                        <span ><b>wrongCredentialsUsrPayload</b></span>
+                        <a href="#wrongCredentialsUsrPayload"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/LoginPayload.html" target="_self" >LoginPayload</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    login: &quot;wrongCredentialsUsr&quot;,
+    password: &quot;1111&quot;,
+    ipAddress: &quot;123.123.123.123&quot;,
+  }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/common/xml-data-bridge/xml-data-bridge-file-schema.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="BODY_TOKEN"></a>
+                    <span class="name">
+                        <span ><b>BODY_TOKEN</b></span>
+                        <a href="#BODY_TOKEN"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;%%%body%%%&#x60;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/common/captcha/captcha.constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CAPTCHA_CACHE_PREFIX"></a>
+                    <span class="name">
+                        <span ><b>CAPTCHA_CACHE_PREFIX</b></span>
+                        <a href="#CAPTCHA_CACHE_PREFIX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;captcha&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/common/captcha/mock/captcha.mock.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="captchaRequestWithInvalidData"></a>
+                    <span class="name">
+                        <span ><b>captchaRequestWithInvalidData</b></span>
+                        <a href="#captchaRequestWithInvalidData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/CaptchaRequest.html" target="_self" >CaptchaRequest</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    id: validCaptchaRequest.id,
+    data: &quot;12345-wrong&quot;,
+  }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="captchaRequestWithInvalidId"></a>
+                    <span class="name">
+                        <span ><b>captchaRequestWithInvalidId</b></span>
+                        <a href="#captchaRequestWithInvalidId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/CaptchaRequest.html" target="_self" >CaptchaRequest</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    id: &quot;test-wrong-id&quot;,
+    data: &quot;12345&quot;,
+  }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Storage"></a>
+                    <span class="name">
+                        <span ><b>Storage</b></span>
+                        <a href="#Storage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new MockStorage([
+    {
+      key: CaptchaConfig.FONT_PATH,
+      data: &quot;/modules/captcha/montserrat.ttf&quot;,
+    },
+    {
+      key: CaptchaConfig.FONT_FAMILY,
+      data: &quot;Montserrat&quot;,
+    },
+    {
+      key: &#x60;${CAPTCHA_CACHE_PREFIX}:${validCaptchaRequest.id}&#x60;,
+      data: validCaptchaRequest.data,
+    },
+    {
+      key: &#x60;${validCaptchaRequest.id}&#x60;,
+      data: validCaptchaRequest.data,
+    },
+  ])</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validCaptchaRequest"></a>
+                    <span class="name">
+                        <span ><b>validCaptchaRequest</b></span>
+                        <a href="#validCaptchaRequest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/CaptchaRequest.html" target="_self" >CaptchaRequest</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    id: &quot;test-id&quot;,
+    data: &quot;12345&quot;,
+  }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/shared/modules/category/category.constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CATEGORY_RELATIONS"></a>
+                    <span class="name">
+                        <span ><b>CATEGORY_RELATIONS</b></span>
+                        <a href="#CATEGORY_RELATIONS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  &quot;icon&quot;,
+  &quot;icon.name&quot;,
+  &quot;icon.name.lang&quot;,
+  &quot;icon.files&quot;,
+  &quot;icon.files.format&quot;,
+  &quot;icon.type&quot;,
+  &quot;icon.type.ext&quot;,
+  &quot;name&quot;,
+  &quot;name.lang&quot;,
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/common/config/config.constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CONFIG_CACHE_PREFIX"></a>
+                    <span class="name">
+                        <span ><b>CONFIG_CACHE_PREFIX</b></span>
+                        <a href="#CONFIG_CACHE_PREFIX"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;config&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CONFIG_FILE_EXT_PATTERN"></a>
+                    <span class="name">
+                        <span ><b>CONFIG_FILE_EXT_PATTERN</b></span>
+                        <a href="#CONFIG_FILE_EXT_PATTERN"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;.config.ts&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FILES_ENCODING"></a>
+                    <span class="name">
+                        <span ><b>FILES_ENCODING</b></span>
+                        <a href="#FILES_ENCODING"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;utf-8&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="GEN_SRC_DIR"></a>
+                    <span class="name">
+                        <span ><b>GEN_SRC_DIR</b></span>
+                        <a href="#GEN_SRC_DIR"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;gen-src&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="KP_PROPERTIES_FILE_NAME"></a>
+                    <span class="name">
+                        <span ><b>KP_PROPERTIES_FILE_NAME</b></span>
+                        <a href="#KP_PROPERTIES_FILE_NAME"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;kp.properties&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LOCAL_PROPERTIES_FILE_NAME"></a>
+                    <span class="name">
+                        <span ><b>LOCAL_PROPERTIES_FILE_NAME</b></span>
+                        <a href="#LOCAL_PROPERTIES_FILE_NAME"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;local.properties&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PROPERTIES_FILE_EXT_PATTERN"></a>
+                    <span class="name">
+                        <span ><b>PROPERTIES_FILE_EXT_PATTERN</b></span>
+                        <a href="#PROPERTIES_FILE_EXT_PATTERN"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;.properties&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/shared/decorators/current-user.decorator.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CurrentUser"></a>
+                    <span class="name">
+                        <span ><b>CurrentUser</b></span>
+                        <a href="#CurrentUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createParamDecorator(
+  (data: unknown, ctx: ExecutionContext) &#x3D;&gt; {
+    const request &#x3D; ctx.switchToHttp().getRequest();
+    return request[REQUEST_PROPS.currentUser];
+  },
+)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/common/media/media.constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DEFAULT_MEDIA_QUALITY"></a>
+                    <span class="name">
+                        <span ><b>DEFAULT_MEDIA_QUALITY</b></span>
+                        <a href="#DEFAULT_MEDIA_QUALITY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>78</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DEFAULT_MEDIA_TYPE"></a>
+                    <span class="name">
+                        <span ><b>DEFAULT_MEDIA_TYPE</b></span>
+                        <a href="#DEFAULT_MEDIA_TYPE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;default&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MEDIA_RELATIONS"></a>
+                    <span class="name">
+                        <span ><b>MEDIA_RELATIONS</b></span>
+                        <a href="#MEDIA_RELATIONS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  &quot;name&quot;,
+  &quot;name.lang&quot;,
+  &quot;type&quot;,
+  &quot;type.formats&quot;,
+  &quot;type.ext&quot;,
+  &quot;files&quot;,
+  &quot;files.format&quot;,
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MEDIA_TYPE_RELATIONS"></a>
+                    <span class="name">
+                        <span ><b>MEDIA_TYPE_RELATIONS</b></span>
+                        <a href="#MEDIA_TYPE_RELATIONS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&quot;ext&quot;, &quot;formats&quot;]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ORIGINAL"></a>
+                    <span class="name">
+                        <span ><b>ORIGINAL</b></span>
+                        <a href="#ORIGINAL"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;original&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SVG"></a>
+                    <span class="name">
+                        <span ><b>SVG</b></span>
+                        <a href="#SVG"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;svg&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="THUMB"></a>
+                    <span class="name">
+                        <span ><b>THUMB</b></span>
+                        <a href="#THUMB"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;thumb&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/common/explorer/explorer.constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ENTITY_SAVE_HANDLER"></a>
+                    <span class="name">
+                        <span ><b>ENTITY_SAVE_HANDLER</b></span>
+                        <a href="#ENTITY_SAVE_HANDLER"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Symbol(&quot;ENTITY_SAVE_HANDLER&quot;)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TARGET_RELATIONS_BASIC"></a>
+                    <span class="name">
+                        <span ><b>TARGET_RELATIONS_BASIC</b></span>
+                        <a href="#TARGET_RELATIONS_BASIC"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &quot;name&quot;,
+    &quot;name.lang&quot;,
+    &quot;description&quot;,
+    &quot;description.lang&quot;,
+    &quot;icon&quot;,
+    &quot;icon.name&quot;,
+    &quot;icon.name.lang&quot;,
+    &quot;icon.files&quot;,
+    &quot;icon.files.format&quot;,
+    &quot;icon.type&quot;,
+    &quot;icon.type.ext&quot;,
+  ]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TARGET_RELATIONS_FULL"></a>
+                    <span class="name">
+                        <span ><b>TARGET_RELATIONS_FULL</b></span>
+                        <a href="#TARGET_RELATIONS_FULL"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &quot;name&quot;,
+    &quot;name.lang&quot;,
+    &quot;description&quot;,
+    &quot;description.lang&quot;,
+    &quot;icon&quot;,
+    &quot;icon.name&quot;,
+    &quot;icon.name.lang&quot;,
+    &quot;icon.files&quot;,
+    &quot;icon.files.format&quot;,
+    &quot;icon.type&quot;,
+    &quot;icon.type.ext&quot;,
+    &quot;columns&quot;,
+    &quot;columns.name&quot;,
+    &quot;columns.name.lang&quot;,
+    &quot;columns.description&quot;,
+    &quot;columns.description.lang&quot;,
+    &quot;columns.objectRenderer&quot;,
+    &quot;columns.objectRenderer.name&quot;,
+    &quot;columns.objectRenderer.name.lang&quot;,
+    &quot;columns.objectRenderer.description&quot;,
+    &quot;columns.objectRenderer.description.lang&quot;,
+    &quot;columns.sectionRenderer&quot;,
+    &quot;columns.sectionRenderer.name&quot;,
+    &quot;columns.sectionRenderer.name.lang&quot;,
+    &quot;columns.sectionRenderer.description&quot;,
+    &quot;columns.sectionRenderer.description.lang&quot;,
+    &quot;columns.tab&quot;,
+    &quot;columns.tab.name&quot;,
+    &quot;columns.tab.name.lang&quot;,
+    &quot;actions&quot;,
+    &quot;actions.name&quot;,
+    &quot;actions.name.lang&quot;,
+    &quot;actions.description&quot;,
+    &quot;actions.description.lang&quot;,
+    &quot;canRead&quot;,
+    &quot;canRead.name&quot;,
+    &quot;canRead.name.lang&quot;,
+    &quot;canWrite&quot;,
+    &quot;canWrite.name&quot;,
+    &quot;canWrite.name.lang&quot;,
+  ]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TARGET_RELATIONS_OBJECT"></a>
+                    <span class="name">
+                        <span ><b>TARGET_RELATIONS_OBJECT</b></span>
+                        <a href="#TARGET_RELATIONS_OBJECT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &quot;name&quot;,
+    &quot;name.lang&quot;,
+    &quot;icon&quot;,
+    &quot;icon.name&quot;,
+    &quot;icon.name.lang&quot;,
+    &quot;icon.files&quot;,
+    &quot;icon.files.format&quot;,
+    &quot;icon.type&quot;,
+    &quot;icon.type.ext&quot;,
+    &quot;columns&quot;,
+    &quot;columns.name&quot;,
+    &quot;columns.name.lang&quot;,
+    &quot;columns.objectRenderer&quot;,
+    &quot;columns.objectRenderer.name&quot;,
+    &quot;columns.objectRenderer.name.lang&quot;,
+    &quot;columns.objectRenderer.description&quot;,
+    &quot;columns.objectRenderer.description.lang&quot;,
+    &quot;columns.tab&quot;,
+    &quot;columns.tab.name&quot;,
+    &quot;columns.tab.name.lang&quot;,
+    &quot;actions&quot;,
+    &quot;actions.name&quot;,
+    &quot;actions.name.lang&quot;,
+    &quot;actions.description&quot;,
+    &quot;actions.description.lang&quot;,
+  ]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TARGET_RELATIONS_SECTION"></a>
+                    <span class="name">
+                        <span ><b>TARGET_RELATIONS_SECTION</b></span>
+                        <a href="#TARGET_RELATIONS_SECTION"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &quot;name&quot;,
+    &quot;name.lang&quot;,
+    &quot;icon&quot;,
+    &quot;icon.name&quot;,
+    &quot;icon.name.lang&quot;,
+    &quot;icon.files&quot;,
+    &quot;icon.files.format&quot;,
+    &quot;icon.type&quot;,
+    &quot;icon.type.ext&quot;,
+    &quot;columns&quot;,
+    &quot;columns.name&quot;,
+    &quot;columns.name.lang&quot;,
+    &quot;columns.sectionRenderer&quot;,
+    &quot;columns.sectionRenderer.name&quot;,
+    &quot;columns.sectionRenderer.name.lang&quot;,
+    &quot;columns.sectionRenderer.description&quot;,
+    &quot;columns.sectionRenderer.description.lang&quot;,
+    &quot;actions&quot;,
+    &quot;actions.name&quot;,
+    &quot;actions.name.lang&quot;,
+    &quot;actions.description&quot;,
+    &quot;actions.description.lang&quot;,
+  ]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/shared/utils/files.utils.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fileTypeModule"></a>
+                    <span class="name">
+                        <span ><b>fileTypeModule</b></span>
+                        <a href="#fileTypeModule"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{} as { lib: typeof import(&quot;file-type&quot;) }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/common/config/config.init-fn.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="InitConfig"></a>
+                    <span class="name">
+                        <span ><b>InitConfig</b></span>
+                        <a href="#InitConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>async () &#x3D;&gt; {
+  const app &#x3D; await NestFactory.createApplicationContext(ConfigModule);
+  await app.init();
+  const logger: Logger &#x3D; app.select(LogModule).get(LOGGER);
+  EnvLoader.loadEnvironment(logger);
+  const configService &#x3D; app.select(ConfigModule).get(ConfigService);
+  const genCnfDir &#x3D; &#x60;${process.cwd()}/${process.env.CONFIG_SRC_DIR}&#x60;;
+  await configService.initWithPropertiesFiles(genCnfDir);
+  await app.close();
+  process.exit(0);
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/shared/modules/log/log.constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LOGGER"></a>
+                    <span class="name">
+                        <span ><b>LOGGER</b></span>
+                        <a href="#LOGGER"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Symbol(&quot;LOGGER_SERVICE&quot;)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/shared/modules/mock/logger.mock.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LoggerMock"></a>
+                    <span class="name">
+                        <span ><b>LoggerMock</b></span>
+                        <a href="#LoggerMock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>jest.Mocked&lt;Logger&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  warn: jest.fn(),
+  debug: jest.fn(),
+  verbose: jest.fn(),
+  log: jest.fn(),
+} as any</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/shared/modules/messages-broker/messages-broker.constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MESSAGES_BROKER"></a>
+                    <span class="name">
+                        <span ><b>MESSAGES_BROKER</b></span>
+                        <a href="#MESSAGES_BROKER"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Symbol(&quot;MSG_BROKER&quot;)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/shared/modules/ms-client/ms-client.constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MS_CLIENT"></a>
+                    <span class="name">
+                        <span ><b>MS_CLIENT</b></span>
+                        <a href="#MS_CLIENT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Symbol(&quot;MS_CLIENT&quot;)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MSG_BUS"></a>
+                    <span class="name">
+                        <span ><b>MSG_BUS</b></span>
+                        <a href="#MSG_BUS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Symbol(&quot;MSG_BUS&quot;)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/shared/constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MS_EXCEPTION_ID"></a>
+                    <span class="name">
+                        <span ><b>MS_EXCEPTION_ID</b></span>
+                        <a href="#MS_EXCEPTION_ID"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;MsException&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="REQUEST_PROPS"></a>
+                    <span class="name">
+                        <span ><b>REQUEST_PROPS</b></span>
+                        <a href="#REQUEST_PROPS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  accessToken: &quot;accessToken&quot;,
+  currentUser: &quot;currentUser&quot;,
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/common/xml-data-bridge/xml-data-bridge.constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="parser"></a>
+                    <span class="name">
+                        <span ><b>parser</b></span>
+                        <a href="#parser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ReadOperatorRe"></a>
+                    <span class="name">
+                        <span ><b>ReadOperatorRe</b></span>
+                        <a href="#ReadOperatorRe"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>/\$\{@read:([^}]*)}/</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rootToken"></a>
+                    <span class="name">
+                        <span ><b>rootToken</b></span>
+                        <a href="#rootToken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;@root&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/shared/modules/cache/cache.constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="REDIS_CLIENT"></a>
+                    <span class="name">
+                        <span ><b>REDIS_CLIENT</b></span>
+                        <a href="#REDIS_CLIENT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Symbol(&quot;REDIS_CLIENT&quot;)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/common/process/process.constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="REGISTERED_PROCESSES"></a>
+                    <span class="name">
+                        <span ><b>REGISTERED_PROCESSES</b></span>
+                        <a href="#REGISTERED_PROCESSES"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/AbstractProcess.html" target="_self" >Map&lt;string, AbstractProcess&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Map&lt;
+    string,
+    AbstractProcess
+  &gt;()</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/shared/transformers/simple-json.transformer.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SimpleJsonTransformer"></a>
+                    <span class="name">
+                        <span ><b>SimpleJsonTransformer</b></span>
+                        <a href="#SimpleJsonTransformer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ValueTransformer</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  from(value: string | object) {
+    if (typeof value &#x3D;&#x3D;&#x3D; &quot;string&quot;) {
+      try {
+        return JSON.parse(value);
+      } catch (e) {
+        return undefined;
+      }
+    }
+    return value;
+  },
+  to(value: object) {
+    return value;
+  },
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/common/config/mock/config.mock.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Storage"></a>
+                    <span class="name">
+                        <span ><b>Storage</b></span>
+                        <a href="#Storage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new MockStorage([
+    {
+      key: &#x60;${CONFIG_CACHE_PREFIX}:${testExistedProp}&#x60;,
+      data: testExistedProp,
+    },
+    {
+      key: &#x60;${CONFIG_CACHE_PREFIX}:val_2&#x60;,
+      data: &quot;val_2&quot;,
+    },
+    {
+      key: &#x60;${CONFIG_CACHE_PREFIX}:val_3&#x60;,
+      data: &quot;val_3&quot;,
+    },
+    {
+      key: &#x60;${CONFIG_CACHE_PREFIX}:val_4&#x60;,
+      data: &quot;val_4&quot;,
+    },
+    {
+      key: &#x60;${CONFIG_CACHE_PREFIX}:val_5&#x60;,
+      data: &quot;val_5&quot;,
+    },
+    {
+      key: &#x60;${CONFIG_CACHE_PREFIX}:val_6&#x60;,
+      data: &quot;val_6&quot;,
+    },
+    {
+      key: &#x60;${CONFIG_CACHE_PREFIX}:val_7&#x60;,
+      data: &quot;val_7&quot;,
+    },
+    {
+      key: &#x60;${CONFIG_CACHE_PREFIX}:val_8&#x60;,
+      data: &quot;val_8&quot;,
+    },
+    {
+      key: &#x60;${CONFIG_CACHE_PREFIX}:val_9&#x60;,
+      data: &quot;val_9&quot;,
+    },
+    {
+      key: &#x60;${CONFIG_CACHE_PREFIX}:val_10&#x60;,
+      data: &quot;val_10&quot;,
+    },
+  ])</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="testExistedProp"></a>
+                    <span class="name">
+                        <span ><b>testExistedProp</b></span>
+                        <a href="#testExistedProp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;val_1&quot;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="testSetProp"></a>
+                    <span class="name">
+                        <span ><b>testSetProp</b></span>
+                        <a href="#testSetProp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ConfigItem.html" target="_self" >ConfigItem</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    key: &quot;test_set_k&quot;,
+    value: &quot;test_val&quot;,
+  }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/common/user/user.constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="USER_RELATIONS"></a>
+                    <span class="name">
+                        <span ><b>USER_RELATIONS</b></span>
+                        <a href="#USER_RELATIONS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  &quot;avatar&quot;,
+  &quot;avatar.name&quot;,
+  &quot;avatar.name.lang&quot;,
+  &quot;avatar.files&quot;,
+  &quot;avatar.files.format&quot;,
+  &quot;avatar.type&quot;,
+  &quot;avatar.type.ext&quot;,
+  &quot;roles&quot;,
+  &quot;roles.name&quot;,
+  &quot;roles.name.lang&quot;,
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>lib/shared/modules/warlock/warlock.constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WARLOCK"></a>
+                    <span class="name">
+                        <span ><b>WARLOCK</b></span>
+                        <a href="#WARLOCK"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Symbol(&quot;WARLOCK&quot;)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

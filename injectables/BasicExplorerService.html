@@ -1,0 +1,3458 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@k-platform/core documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@k-platform/core documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >BasicExplorerService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>lib/common/explorer/basic-explorer.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service for exploring and analyzing the database schema and relationships.</p>
+
+            </p>
+
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                            <code><a href="../classes/ExplorerService.html" target="_self" >ExplorerService</a></code>
+            </p>
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#analyzeDatabase" >analyzeDatabase</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#applyColumnFilter" >applyColumnFilter</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#applyDateFilter" >applyDateFilter</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#applyFilterParams" >applyFilterParams</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#attachRelations" >attachRelations</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#changeTarget" >changeTarget</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkEntityAccess" >checkEntityAccess</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#detectAndMarkNamedColumn" >detectAndMarkNamedColumn</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getColsForSelect" >getColsForSelect</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getColumnType" >getColumnType</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getEntityData" >getEntityData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getPageableEntityData" >getPageableEntityData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getTargetData" >getTargetData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getTargetList" >getTargetList</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isColumnUnique" >isColumnUnique</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#removeEntity" >removeEntity</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#saveColumn" >saveColumn</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#saveEntityData" >saveEntityData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#saveNestedEntities" >saveNestedEntities</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#saveTarget" >saveTarget</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#setColumnProperties" >setColumnProperties</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#connection" >connection</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dataSource: DataSource, targetRep: <a href="../interfaces/ExplorerTarget.html" target="_self">Repository&lt;ExplorerTargetEntity&gt;</a>, columnRep: <a href="../interfaces/ExplorerColumn.html" target="_self">Repository&lt;ExplorerColumnEntity&gt;</a>, logger: Logger)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:69</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dataSource</td>
+                                                  
+                                                        <td>
+                                                                    <code>DataSource</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>targetRep</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/ExplorerTarget.html" target="_self" >Repository&lt;ExplorerTargetEntity&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>columnRep</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/ExplorerColumn.html" target="_self" >Repository&lt;ExplorerColumnEntity&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>logger</td>
+                                                  
+                                                        <td>
+                                                                    <code>Logger</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="analyzeDatabase"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>analyzeDatabase</b></span>
+                        <a href="#analyzeDatabase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>analyzeDatabase()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/ExplorerService.html" target="_self" >ExplorerService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:89</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Analyzes the database and saves the results to the corresponding entities.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="applyColumnFilter"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>applyColumnFilter</b></span>
+                        <a href="#applyColumnFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>applyColumnFilter(qb: SelectQueryBuilder<T>, exCol: <a href="../interfaces/ExplorerColumn.html" target="_self">ExplorerColumn</a>, path: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="483"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:483</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Applies a column filter to a SelectQueryBuilder.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>qb</td>
+                                            <td>
+                                                        <code>SelectQueryBuilder&lt;T&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The SelectQueryBuilder to apply the column filter to.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>exCol</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ExplorerColumn.html" target="_self" >ExplorerColumn</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The ExplorerColumn data</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>path</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The column name to filter.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The column filter value.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="applyDateFilter"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>applyDateFilter</b></span>
+                        <a href="#applyDateFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>applyDateFilter(qb: SelectQueryBuilder<T>, aliasOrEntity: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, column: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="452"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:452</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Applies a date filter to a SelectQueryBuilder.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>qb</td>
+                                            <td>
+                                                        <code>SelectQueryBuilder&lt;T&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The SelectQueryBuilder to apply the date filter to.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>aliasOrEntity</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The alias or entity to apply the filter on.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>column</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The column name to filter.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The date filter value.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="applyFilterParams"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>applyFilterParams</b></span>
+                        <a href="#applyFilterParams"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>applyFilterParams(qb: SelectQueryBuilder<T>, targetData: <a href="../interfaces/TargetData.html" target="_self">TargetData</a>, filterParams: Record<string | string>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="376"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:376</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Applies filter parameters to a SelectQueryBuilder for a specific entity.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>qb</td>
+                                            <td>
+                                                        <code>SelectQueryBuilder&lt;T&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The SelectQueryBuilder to apply filters to.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>targetData</td>
+                                            <td>
+                                                            <code><a href="../interfaces/TargetData.html" target="_self" >TargetData</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Information about the target entity.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>filterParams</td>
+                                            <td>
+                                                        <code>Record&lt;string | string&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The filter parameters to apply.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="attachRelations"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>attachRelations</b></span>
+                        <a href="#attachRelations"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>attachRelations(row: T, targetData: <a href="../interfaces/TargetData.html" target="_self">TargetData</a>, selectParams: <a href="../undefineds/ExplorerSelectParams.html" target="_self">ExplorerSelectParams</a>, visitedEntities: string[], maxDepth)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="556"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:556</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Attaches relations to the given row recursively up to the specified depth.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>row</td>
+                                            <td>
+                                                        <code>T</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    <p>The row to attach relations to.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>targetData</td>
+                                            <td>
+                                                            <code><a href="../interfaces/TargetData.html" target="_self" >TargetData</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    <p>The target data of the current row.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>selectParams</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerSelectParams" target="_self" >ExplorerSelectParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>{}</code>
+                                            </td>
+
+                                            <td>
+                                                    <p>Parameters regulating sample width</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>visitedEntities</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>[]</code>
+                                            </td>
+
+                                            <td>
+                                                    <p>The array of visited entity names.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>maxDepth</td>
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>Infinity</code>
+                                            </td>
+
+                                            <td>
+                                                    <p>The maximum depth of relations to fetch. Defaults to Infinity.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The row with attached relations.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeTarget"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>changeTarget</b></span>
+                        <a href="#changeTarget"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>changeTarget(target: <a href="../interfaces/ExplorerTarget.html" target="_self">ExplorerTarget</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/ExplorerService.html" target="_self" >ExplorerService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:165</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Change target data</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ExplorerTarget.html" target="_self" >ExplorerTarget</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>data of the target entity.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkEntityAccess"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>checkEntityAccess</b></span>
+                        <a href="#checkEntityAccess"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkEntityAccess(targetData: <a href="../interfaces/TargetData.html" target="_self">TargetData</a>, targetParams: <a href="../undefineds/ExplorerTargetParams.html" target="_self">ExplorerTargetParams</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="732"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:732</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks requested user access to entity.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>targetData</td>
+                                            <td>
+                                                            <code><a href="../interfaces/TargetData.html" target="_self" >TargetData</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The target data of the current row.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>targetParams</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerTargetParams" target="_self" >ExplorerTargetParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Fetch and check entity access params</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="detectAndMarkNamedColumn"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>detectAndMarkNamedColumn</b></span>
+                        <a href="#detectAndMarkNamedColumn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>detectAndMarkNamedColumn(target: <a href="../entitys/ExplorerTargetEntity.html" target="_self">ExplorerTargetEntity</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="426"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:426</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Defines a suitable column that can be used for naming.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                            <code><a href="../entitys/ExplorerTargetEntity.html" target="_self" >ExplorerTargetEntity</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The target entity with columns</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getColsForSelect"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getColsForSelect</b></span>
+                        <a href="#getColsForSelect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getColsForSelect(targetData: <a href="../interfaces/TargetData.html" target="_self">TargetData</a>, params: <a href="../undefineds/ExplorerSelectParams.html" target="_self">ExplorerSelectParams</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="625"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:625</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Generates a list of columns to extract.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>targetData</td>
+                                            <td>
+                                                            <code><a href="../interfaces/TargetData.html" target="_self" >TargetData</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    <p>The target data of the current row.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>params</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerSelectParams" target="_self" >ExplorerSelectParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>{}</code>
+                                            </td>
+
+                                            <td>
+                                                    <p>Parameters regulating sample width</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>{ colList: {}; referencedCols: {}; }</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getColumnType"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getColumnType</b></span>
+                        <a href="#getColumnType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getColumnType(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="765"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:765</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Converts a string type name to a corresponding ColumnDataType.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The string type name.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#ColumnDataType" target="_self" >ColumnDataType</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The corresponding ColumnDataType.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getEntityData"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getEntityData</b></span>
+                        <a href="#getEntityData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getEntityData(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, rowId: string | number, maxDepth, targetParams?: <a href="../undefineds/ExplorerTargetParams.html" target="_self">ExplorerTargetParams</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/ExplorerService.html" target="_self" >ExplorerService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:223</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves entity data for the given target and rowId, with relations attached up to the specified depth.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    <p>The target entity name.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>rowId</td>
+                                            <td>
+                                                        <code>string | number</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    <p>The ID of the row to fetch.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>maxDepth</td>
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>Infinity</code>
+                                            </td>
+
+                                            <td>
+                                                    <p>The maximum depth of relations to fetch. Defaults to Infinity.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>targetParams</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerTargetParams" target="_self" >ExplorerTargetParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    <ul>
+<li>Fetch and check entity access params</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A Promise that resolves to the entity object.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPageableEntityData"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getPageableEntityData</b></span>
+                        <a href="#getPageableEntityData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getPageableEntityData(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, params?: <a href="../classes/PageableParams.html" target="_self">PageableParams</a>, targetParams?: <a href="../undefineds/ExplorerTargetParams.html" target="_self">ExplorerTargetParams</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/ExplorerService.html" target="_self" >ExplorerService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:268</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves paginated entity data with relations.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The name of the target entity or table.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>params</td>
+                                            <td>
+                                                            <code><a href="../classes/PageableParams.html" target="_self" >PageableParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An optional object containing pageable parameters.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>targetParams</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerTargetParams" target="_self" >ExplorerTargetParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Fetch and check entity access params</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/PageableData.html" target="_self" >Promise&lt;PageableData&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A Promise that resolves to a PageableData object containing the paginated results.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTargetData"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getTargetData</b></span>
+                        <a href="#getTargetData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getTargetData(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, targetParams: <a href="../undefineds/ExplorerTargetParams.html" target="_self">ExplorerTargetParams</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/ExplorerService.html" target="_self" >ExplorerService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:323</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves target data for the specified target entity name.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    <p>The target entity name.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>targetParams</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerTargetParams" target="_self" >ExplorerTargetParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>{}</code>
+                                            </td>
+
+                                            <td>
+                                                    <ul>
+<li>Fetch and check entity access params</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/TargetData.html" target="_self" >Promise&lt;TargetData&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A Promise that resolves to the TargetData object, or null if not found.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTargetList"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getTargetList</b></span>
+                        <a href="#getTargetList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getTargetList()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/ExplorerService.html" target="_self" >ExplorerService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:172</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Getting all registered targets with count items inside.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/ExplorerTarget.html" target="_self" >Promise&lt;ExplorerTarget[]&gt;</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isColumnUnique"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isColumnUnique</b></span>
+                        <a href="#isColumnUnique"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isColumnUnique(md: EntityMetadata, column: ColumnMetadata)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="707"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:707</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks if the given column is unique within the entity metadata.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>md</td>
+                                            <td>
+                                                        <code>EntityMetadata</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The entity metadata to check.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>column</td>
+                                            <td>
+                                                        <code>ColumnMetadata</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The column metadata to check for uniqueness.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if the column is unique, false otherwise.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeEntity"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>removeEntity</b></span>
+                        <a href="#removeEntity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>removeEntity(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, id: string | number, targetParams?: <a href="../undefineds/ExplorerTargetParams.html" target="_self">ExplorerTargetParams</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/ExplorerService.html" target="_self" >ExplorerService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:191</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Remove an entity by its ID.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The name of the target entity.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                        <code>string | number</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The ID of the entity to be removed.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>targetParams</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerTargetParams" target="_self" >ExplorerTargetParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Fetch and check entity access params</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;ObjectLiteral&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The removed entity.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveColumn"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>saveColumn</b></span>
+                        <a href="#saveColumn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveColumn(column: <a href="../entitys/ExplorerColumnEntity.html" target="_self">ExplorerColumnEntity</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="670"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:670</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Saves the column entity to the repository, if it does not exist.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>column</td>
+                                            <td>
+                                                            <code><a href="../entitys/ExplorerColumnEntity.html" target="_self" >ExplorerColumnEntity</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The column entity to save.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveEntityData"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>saveEntityData</b></span>
+                        <a href="#saveEntityData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveEntityData(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, entity: T, targetParams?: <a href="../undefineds/ExplorerTargetParams.html" target="_self">ExplorerTargetParams</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/ExplorerService.html" target="_self" >ExplorerService</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:148</a></code>
+</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Save or update an entity including its nested entities.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The name of the target entity.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>entity</td>
+                                            <td>
+                                                        <code>T</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The entity object to be saved or updated.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>targetParams</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerTargetParams" target="_self" >ExplorerTargetParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Fetch and check entity access params</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;T&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The saved or updated entity.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveNestedEntities"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>saveNestedEntities</b></span>
+                        <a href="#saveNestedEntities"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveNestedEntities(entity: T, targetData: <a href="../interfaces/TargetData.html" target="_self">TargetData</a>, repository: Repository<any>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="505"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:505</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Recursively save or update nested entities.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>entity</td>
+                                            <td>
+                                                        <code>T</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The entity containing nested entities to be saved or updated.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>targetData</td>
+                                            <td>
+                                                            <code><a href="../interfaces/TargetData.html" target="_self" >TargetData</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Metadata of the target entity.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>repository</td>
+                                            <td>
+                                                        <code>Repository&lt;any&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The repository associated with the target entity.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;T&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The saved or updated entity with its nested entities.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveTarget"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>saveTarget</b></span>
+                        <a href="#saveTarget"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveTarget(target: <a href="../entitys/ExplorerTargetEntity.html" target="_self">ExplorerTargetEntity</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="654"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:654</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Saves the target entity to the repository, if it does not exist.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                            <code><a href="../entitys/ExplorerTargetEntity.html" target="_self" >ExplorerTargetEntity</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The target entity to save.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setColumnProperties"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>setColumnProperties</b></span>
+                        <a href="#setColumnProperties"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setColumnProperties(c: <a href="../entitys/ExplorerColumnEntity.html" target="_self">ExplorerColumnEntity</a>, relation: RelationMetadata, target: <a href="../entitys/ExplorerTargetEntity.html" target="_self">ExplorerTargetEntity</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="686"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:686</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Sets the properties of a column entity based on the given relation and target.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>c</td>
+                                            <td>
+                                                            <code><a href="../entitys/ExplorerColumnEntity.html" target="_self" >ExplorerColumnEntity</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The column entity to set properties for.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>relation</td>
+                                            <td>
+                                                        <code>RelationMetadata</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The relation metadata used to set properties.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                            <code><a href="../entitys/ExplorerTargetEntity.html" target="_self" >ExplorerTargetEntity</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The target entity to associate the column with.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="connection"></a>
+                        <span class="name"><b>connection</b><a href="#connection"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>connection()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:82</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  ForbiddenException,
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  NotFoundException,
+} from &quot;@nestjs/common&quot;;
+import { ExplorerTargetEntity } from &quot;./entity/explorer-target.entity&quot;;
+import { ExplorerColumnEntity } from &quot;./entity/explorer-column.entity&quot;;
+import { InjectDataSource, InjectRepository } from &quot;@nestjs/typeorm&quot;;
+import {
+  Brackets,
+  DataSource,
+  EntityMetadata,
+  ObjectLiteral,
+  Repository,
+  SelectQueryBuilder,
+} from &quot;typeorm&quot;;
+import {
+  ColumnDataType,
+  ExplorerColumn,
+  ExplorerSelectParams,
+  ExplorerService,
+  ExplorerTarget,
+  ExplorerTargetParams,
+  TargetData,
+} from &quot;./explorer.types&quot;;
+import { ColumnMetadata } from &quot;typeorm/metadata/ColumnMetadata&quot;;
+import { RelationMetadata } from &quot;typeorm/metadata/RelationMetadata&quot;;
+import { LOGGER } from &quot;../../shared/modules/log/log.constants&quot;;
+import { UserUtils } from &quot;../../shared/utils/user.utils&quot;;
+import { TransformUtils } from &quot;../../shared/utils/transform.utils&quot;;
+import { Explorer } from &quot;./explorer.constants&quot;;
+import {
+  PageableData,
+  PageableParams,
+  SortOrder,
+} from &quot;../../shared/modules/pageable/pageable.types&quot;;
+import { ObjectUtils } from &quot;../../shared/utils/object.utils&quot;;
+import { LocalizedStringEntity } from &quot;../../shared/modules/locale/entity/localized-string.entity&quot;;
+import parseParamsString &#x3D; TransformUtils.parseParamsString;
+import TARGET_RELATIONS_OBJECT &#x3D; Explorer.TARGET_RELATIONS_OBJECT;
+import TARGET_RELATIONS_SECTION &#x3D; Explorer.TARGET_RELATIONS_SECTION;
+import TARGET_RELATIONS_FULL &#x3D; Explorer.TARGET_RELATIONS_FULL;
+import hasAccessForRoles &#x3D; UserUtils.hasAccessForRoles;
+import { Type } from &quot;@nestjs/common/interfaces/type.interface&quot;;
+
+/**
+ * Service for exploring and analyzing the database schema and relationships.
+ */
+@Injectable()
+export class BasicExplorerService extends ExplorerService {
+  constructor(
+    @InjectDataSource()
+    private readonly dataSource: DataSource,
+    @InjectRepository(ExplorerTargetEntity)
+    private readonly targetRep: Repository&lt;ExplorerTargetEntity&gt;,
+    @InjectRepository(ExplorerColumnEntity)
+    private readonly columnRep: Repository&lt;ExplorerColumnEntity&gt;,
+    @Inject(LOGGER) private readonly logger: Logger,
+  ) {
+    super();
+  }
+
+  private get connection() {
+    return this.dataSource.manager.connection;
+  }
+
+  /**
+   * Analyzes the database and saves the results to the corresponding entities.
+   */
+  async analyzeDatabase(): Promise&lt;void&gt; {
+    this.logger.log(&#x60;Starting database analysis&#x60;);
+    for (const md of this.connection.entityMetadatas) {
+      if (md.tableType !&#x3D;&#x3D; &quot;regular&quot;) {
+        continue;
+      }
+      const t &#x3D; new ExplorerTargetEntity();
+      t.target &#x3D; md.targetName;
+      t.tableName &#x3D; md.tableName;
+      await this.saveTarget(t);
+      t.columns &#x3D; [];
+      for (const column of md.nonVirtualColumns) {
+        const c &#x3D; new ExplorerColumnEntity();
+        c.target &#x3D; t;
+        c.id &#x3D; &#x60;${t.tableName}.${column.databasePath}&#x60;;
+        c.property &#x3D; column.propertyName;
+        c.type &#x3D; this.getColumnType(column.type as string);
+        c.primary &#x3D;
+          md.primaryColumns.find(
+            (pc) &#x3D;&gt; pc.propertyName &#x3D;&#x3D;&#x3D; column.propertyName,
+          ) !&#x3D;&#x3D; undefined;
+        c.unique &#x3D; this.isColumnUnique(md, column);
+        c.multiple &#x3D; false;
+        t.columns.push(c);
+        await this.saveColumn(c);
+      }
+      for (const relation of [
+        ...md.oneToManyRelations,
+        ...md.manyToManyRelations,
+      ]) {
+        const c &#x3D; new ExplorerColumnEntity();
+        await this.setColumnProperties(c, relation, t);
+        c.multiple &#x3D; true;
+        t.columns.push(c);
+        await this.saveColumn(c);
+      }
+      for (const relation of [
+        ...md.oneToOneRelations,
+        ...md.manyToOneRelations,
+      ]) {
+        const c &#x3D; new ExplorerColumnEntity();
+        await this.setColumnProperties(c, relation, t);
+        c.multiple &#x3D; false;
+        t.columns.push(c);
+        await this.saveColumn(c);
+      }
+      await this.detectAndMarkNamedColumn(t);
+    }
+    this.logger.log(&#x60;Database was analyzed&#x60;);
+  }
+
+  /**
+   * Save or update an entity including its nested entities.
+   * @param target - The name of the target entity.
+   * @param entity - The entity object to be saved or updated.
+   * @param targetParams - Fetch and check entity access params
+   * @returns The saved or updated entity.
+   * @throws {NotFoundException} If the target entity is not found.
+   */
+  async saveEntityData&lt;T &#x3D; any&gt;(
+    target: string,
+    entity: T,
+    targetParams?: ExplorerTargetParams,
+  ): Promise&lt;T&gt; {
+    const targetData &#x3D; await this.getTargetData(target, targetParams);
+    const repository &#x3D; this.connection.getRepository(targetData.entity.target);
+    if (!entity[targetData.primaryColumn.property]) {
+      entity &#x3D; repository.create(entity) as T;
+    }
+    return await this.saveNestedEntities(entity, targetData, repository);
+  }
+
+  /**
+   * Change target data
+   * @param target - data of the target entity.
+   */
+  async changeTarget(target: ExplorerTarget) {
+    return await this.targetRep.save(target);
+  }
+
+  /**
+   * Getting all registered targets with count items inside.
+   */
+  async getTargetList(): Promise&lt;ExplorerTarget[]&gt; {
+    const res: ExplorerTarget[] &#x3D; await this.targetRep.find({
+      relations: Explorer.TARGET_RELATIONS_BASIC,
+    });
+    for (const v of res) {
+      const rep &#x3D; this.connection.getRepository(v.target);
+      v.size &#x3D; await rep.count();
+    }
+    return res;
+  }
+
+  /**
+   * Remove an entity by its ID.
+   * @param target - The name of the target entity.
+   * @param id - The ID of the entity to be removed.
+   * @param targetParams - Fetch and check entity access params
+   * @returns The removed entity.
+   * @throws {NotFoundException} If the target entity or the entity with the specified ID is not found.
+   */
+  async removeEntity(
+    target: string,
+    id: string | number,
+    targetParams?: ExplorerTargetParams,
+  ): Promise&lt;ObjectLiteral&gt; {
+    const targetData &#x3D; await this.getTargetData(target, targetParams);
+    if (
+      targetParams?.checkUserAccess &amp;&amp;
+      !this.checkEntityAccess(targetData, targetParams)
+    ) {
+      throw new ForbiddenException(&#x60;Can&#x27;t get access to target: ${target}&#x60;);
+    }
+    const repository &#x3D; this.connection.getRepository(targetData.entity.target);
+    const entity &#x3D; await repository.findOne({
+      where: { [targetData.primaryColumn.property]: id },
+    });
+    if (!entity) {
+      throw new NotFoundException(
+        &#x60;Entity with ID ${id} not found in table ${target}&#x60;,
+      );
+    }
+    return await repository.remove(entity);
+  }
+
+  /**
+   * Retrieves entity data for the given target and rowId, with relations attached up to the specified depth.
+   * @param target The target entity name.
+   * @param rowId The ID of the row to fetch.
+   * @param maxDepth The maximum depth of relations to fetch. Defaults to Infinity.
+   * @param targetParams - Fetch and check entity access params
+   * @returns A Promise that resolves to the entity object.
+   */
+  async getEntityData(
+    target: string,
+    rowId: string | number,
+    maxDepth &#x3D; Infinity,
+    targetParams?: ExplorerTargetParams,
+  ) {
+    const tParams &#x3D; targetParams ?? {};
+    tParams.object &#x3D; true;
+    const targetData &#x3D; await this.getTargetData(target, tParams);
+    if (!targetData) {
+      throw new NotFoundException(&#x60;Target entity not found: ${target}&#x60;);
+    }
+    if (
+      targetParams?.checkUserAccess &amp;&amp;
+      !this.checkEntityAccess(targetData, targetParams)
+    ) {
+      throw new ForbiddenException(&#x60;Can&#x27;t get access to target: ${target}&#x60;);
+    }
+    const repository &#x3D; this.connection.getRepository(targetData.entity.target);
+    const row &#x3D; await repository.findOne({
+      where: { [targetData.primaryColumn.property]: rowId },
+    });
+    if (!row) {
+      throw new NotFoundException(
+        &#x60;Row with ID ${rowId} not found in table ${target}&#x60;,
+      );
+    }
+    return await this.attachRelations(
+      row,
+      targetData,
+      { object: true },
+      [],
+      maxDepth,
+    );
+  }
+
+  /**
+   * Retrieves paginated entity data with relations.
+   *
+   * @param target - The name of the target entity or table.
+   * @param params - An optional object containing pageable parameters.
+   * @param targetParams - Fetch and check entity access params
+   * @returns A Promise that resolves to a PageableData object containing the paginated results.
+   * @throws NotFoundException if the target entity is not found.
+   */
+  async getPageableEntityData(
+    target: string,
+    params?: PageableParams,
+    targetParams?: ExplorerTargetParams,
+  ): Promise&lt;PageableData&gt; {
+    const tParams &#x3D; targetParams ?? {};
+    tParams.section &#x3D; true;
+    const targetData &#x3D; await this.getTargetData(target, tParams);
+    if (!targetData) {
+      throw new NotFoundException(&#x60;Target entity not found: ${target}&#x60;);
+    }
+    const repository &#x3D; this.connection.getRepository(targetData.entity.target);
+    const primaryColumnProperty &#x3D; targetData.primaryColumn.property;
+    const limit &#x3D; params?.limit || 20;
+    const page &#x3D; params?.page || 1;
+    const sort &#x3D; params?.sort || primaryColumnProperty;
+    const order &#x3D; params?.order || SortOrder.DESC;
+    const qb &#x3D; repository.createQueryBuilder(&quot;entity&quot;);
+    if (params?.filter) {
+      const filterParams &#x3D; parseParamsString(params.filter);
+      await this.applyFilterParams(qb, targetData, filterParams);
+    }
+    const colsForSelect &#x3D; this.getColsForSelect(targetData, {
+      section: true,
+      prefix: &quot;entity.&quot;,
+    });
+    if (!colsForSelect.referencedCols.length) {
+      qb.select(colsForSelect.colList);
+    }
+    const [items, totalCount] &#x3D; await qb
+      .skip((page - 1) * limit)
+      .take(limit)
+      .orderBy(&#x60;entity.${sort}&#x60;, order)
+      .getManyAndCount();
+    const itemsWithRelations &#x3D; await Promise.all(
+      items.map(
+        async (item) &#x3D;&gt;
+          await this.attachRelations(
+            item,
+            targetData,
+            { section: true },
+            [],
+            3,
+          ),
+      ),
+    );
+    return new PageableData(itemsWithRelations, totalCount, page, limit);
+  }
+
+  /**
+   * Retrieves target data for the specified target entity name.
+   * @param target The target entity name.
+   * @param targetParams - Fetch and check entity access params
+   * @returns A Promise that resolves to the TargetData object, or null if not found.
+   */
+  async getTargetData(
+    target: string,
+    targetParams: ExplorerTargetParams &#x3D; {},
+  ): Promise&lt;TargetData&gt; {
+    let relations &#x3D; [&quot;columns&quot;, &quot;canRead&quot;, &quot;canWrite&quot;];
+    if (targetParams.fullRelations) {
+      if (!targetParams.section || !targetParams.object) {
+        relations &#x3D; TARGET_RELATIONS_FULL;
+      } else {
+        relations &#x3D; targetParams.section
+          ? TARGET_RELATIONS_SECTION
+          : TARGET_RELATIONS_OBJECT;
+      }
+    }
+    const entity &#x3D; await this.targetRep.findOne({
+      where: [{ target }, { tableName: target }, { alias: target }],
+      relations,
+    });
+    if (!entity) {
+      return null;
+    }
+    if (targetParams.section) {
+      entity.columns &#x3D; entity.columns.filter((c) &#x3D;&gt; c.sectionEnabled);
+      ObjectUtils.sort(entity.columns, &quot;sectionPriority&quot;);
+      entity.actions &#x3D; entity.actions?.filter((a) &#x3D;&gt; a.type &#x3D;&#x3D;&#x3D; &quot;section&quot;);
+    } else if (targetParams.object) {
+      entity.columns &#x3D; entity.columns.filter((c) &#x3D;&gt; c.objectEnabled);
+      ObjectUtils.sort(entity.columns, &quot;objectPriority&quot;);
+      entity.actions &#x3D; entity.actions?.filter((a) &#x3D;&gt; a.type &#x3D;&#x3D;&#x3D; &quot;object&quot;);
+    }
+    ObjectUtils.sort(entity.actions, &quot;priority&quot;);
+    const primaryColumn &#x3D; entity.columns.find((c) &#x3D;&gt; c.primary &#x3D;&#x3D;&#x3D; true);
+    const namedColumn &#x3D; entity.columns.find((c) &#x3D;&gt; c.named &#x3D;&#x3D;&#x3D; true);
+    const targetData &#x3D; { entity, primaryColumn, namedColumn };
+    if (!targetData) {
+      throw new NotFoundException(&#x60;Target entity not found: ${target}&#x60;);
+    }
+    if (
+      targetParams?.checkUserAccess &amp;&amp;
+      !this.checkEntityAccess(targetData, targetParams)
+    ) {
+      throw new ForbiddenException(&#x60;Can&#x27;t get access to target: ${target}&#x60;);
+    }
+    return targetData;
+  }
+
+  /**
+   * Applies filter parameters to a SelectQueryBuilder for a specific entity.
+   *
+   * @param qb - The SelectQueryBuilder to apply filters to.
+   * @param targetData - Information about the target entity.
+   * @param filterParams - The filter parameters to apply.
+   */
+  private async applyFilterParams&lt;T &#x3D; any&gt;(
+    qb: SelectQueryBuilder&lt;T&gt;,
+    targetData: TargetData,
+    filterParams: Record&lt;string, string&gt;,
+  ) {
+    for (const key in filterParams) {
+      const value &#x3D; filterParams[key];
+      const column &#x3D; targetData.entity.columns.find((c) &#x3D;&gt; c.property &#x3D;&#x3D;&#x3D; key);
+      if (!column) {
+        continue;
+      }
+      const prop &#x3D; column.property;
+      if (column.type &#x3D;&#x3D;&#x3D; &quot;reference&quot;) {
+        const match &#x3D; value.match(/\{([^}]*)}/);
+        const parts &#x3D; match[1].split(&quot;.&quot;);
+        const targetName &#x3D; parts[0];
+        const colName &#x3D; parts[1];
+        const clearValue &#x3D; value.replace(/\{[^}]*}/g, &quot;&quot;);
+        const refTarget &#x3D; await this.getTargetData(targetName, {
+          section: true,
+        });
+        const refColumn &#x3D; refTarget.entity.columns.find(
+          (c) &#x3D;&gt; c.property &#x3D;&#x3D;&#x3D; colName,
+        );
+        const alias &#x3D; colName + targetName;
+        qb.innerJoinAndSelect(&#x60;entity.${prop}&#x60;, alias);
+        if (refColumn.type &#x3D;&#x3D;&#x3D; &quot;date&quot;) {
+          this.applyDateFilter(qb, alias, colName, clearValue);
+        } else {
+          this.applyColumnFilter(
+            qb,
+            refColumn,
+            &#x60;${alias}.${colName}&#x60;,
+            clearValue,
+          );
+        }
+      } else {
+        if (column.type &#x3D;&#x3D;&#x3D; &quot;date&quot;) {
+          this.applyDateFilter(qb, &#x60;entity&#x60;, prop, value);
+        } else {
+          this.applyColumnFilter(qb, column, &#x60;entity.${prop}&#x60;, value);
+        }
+      }
+    }
+  }
+
+  /**
+   * Defines a suitable column that can be used for naming.
+   * @param target The target entity with columns
+   */
+  private async detectAndMarkNamedColumn(target: ExplorerTargetEntity) {
+    let namedCol &#x3D; target.columns.find((c) &#x3D;&gt; c.named);
+    if (namedCol) {
+      return;
+    }
+    namedCol &#x3D; target.columns.find(
+      (c) &#x3D;&gt; c.referencedEntityName &#x3D;&#x3D;&#x3D; LocalizedStringEntity.name,
+    );
+    if (!namedCol) {
+      namedCol &#x3D; target.columns.find((c) &#x3D;&gt; c.unique &amp;&amp; c.type &#x3D;&#x3D;&#x3D; &quot;string&quot;);
+    }
+    if (!namedCol) {
+      namedCol &#x3D; target.columns.find((c) &#x3D;&gt; c.primary);
+    }
+    namedCol.named &#x3D; true;
+    await this.columnRep.save(namedCol);
+  }
+
+  /**
+   * Applies a date filter to a SelectQueryBuilder.
+   *
+   * @param qb - The SelectQueryBuilder to apply the date filter to.
+   * @param aliasOrEntity - The alias or entity to apply the filter on.
+   * @param column - The column name to filter.
+   * @param value - The date filter value.
+   */
+  private applyDateFilter&lt;T &#x3D; any&gt;(
+    qb: SelectQueryBuilder&lt;T&gt;,
+    aliasOrEntity: string,
+    column: string,
+    value: string,
+  ) {
+    const match &#x3D; value.match(/FROM(\d+)TO(\d+)/);
+    const fromTimestamp &#x3D; match[1];
+    const toTimestamp &#x3D; match[2];
+    const fromDate &#x3D; new Date(parseInt(fromTimestamp, 10));
+    const toDate &#x3D; new Date(parseInt(toTimestamp, 10));
+    qb.andWhere(
+      new Brackets((sqb) &#x3D;&gt; {
+        sqb.andWhere(&#x60;${aliasOrEntity}.${column} &gt;&#x3D; :from${column}&#x60;, {
+          [&#x60;from${column}&#x60;]: fromDate.toJSON(),
+        });
+        sqb.andWhere(&#x60;${aliasOrEntity}.${column} &lt;&#x3D; :to${column}&#x60;, {
+          [&#x60;to${column}&#x60;]: toDate.toJSON(),
+        });
+      }),
+    );
+  }
+
+  /**
+   * Applies a column filter to a SelectQueryBuilder.
+   *
+   * @param qb - The SelectQueryBuilder to apply the column filter to.
+   * @param exCol - The ExplorerColumn data
+   * @param path - The column name to filter.
+   * @param value - The column filter value.
+   */
+  private applyColumnFilter&lt;T &#x3D; any&gt;(
+    qb: SelectQueryBuilder&lt;T&gt;,
+    exCol: ExplorerColumn,
+    path: string,
+    value: string,
+  ) {
+    if (exCol.type &#x3D;&#x3D;&#x3D; &quot;boolean&quot;) {
+      value &#x3D; value &#x3D;&#x3D;&#x3D; &quot;true&quot; ? &quot;1&quot; : &quot;0&quot;;
+    }
+    const exactMatch &#x3D; !(value.startsWith(&quot;%&quot;) &amp;&amp; value.endsWith(&quot;%&quot;));
+    qb.andWhere(&#x60;${path} ${exactMatch ? &quot;&#x3D;&quot; : &quot;LIKE&quot;} :${path}&#x60;, {
+      [path]: value,
+    });
+  }
+
+  /**
+   * Recursively save or update nested entities.
+   * @param entity - The entity containing nested entities to be saved or updated.
+   * @param targetData - Metadata of the target entity.
+   * @param repository - The repository associated with the target entity.
+   * @returns The saved or updated entity with its nested entities.
+   */
+  private async saveNestedEntities&lt;T &#x3D; any&gt;(
+    entity: T,
+    targetData: TargetData,
+    repository: Repository&lt;any&gt;,
+  ): Promise&lt;T&gt; {
+    const referencedCols &#x3D; targetData.entity.columns.filter(
+      (c) &#x3D;&gt; c.type &#x3D;&#x3D;&#x3D; &quot;reference&quot;,
+    );
+    for (const col of referencedCols) {
+      const relationProp &#x3D; col.property;
+      const relatedEntityData &#x3D; entity[relationProp];
+      if (relatedEntityData) {
+        const currTargetData &#x3D; await this.getTargetData(
+          col.referencedEntityName,
+        );
+        if (!currTargetData) {
+          entity[relationProp] &#x3D; repository.create();
+        } else {
+          const relatedRepository &#x3D; this.connection.getRepository(
+            currTargetData.entity.target,
+          );
+          if (Array.isArray(relatedEntityData) &amp;&amp; col.multiple) {
+            for (let i &#x3D; 0; i &lt; relatedEntityData.length; i++) {
+              entity[relationProp][i] &#x3D; await this.saveNestedEntities(
+                relatedEntityData[i],
+                currTargetData,
+                relatedRepository,
+              );
+            }
+          } else {
+            entity[relationProp] &#x3D; await this.saveNestedEntities(
+              relatedEntityData,
+              currTargetData,
+              relatedRepository,
+            );
+          }
+        }
+      }
+    }
+    return await repository.save(entity);
+  }
+
+  /**
+   * Attaches relations to the given row recursively up to the specified depth.
+   * @param row The row to attach relations to.
+   * @param targetData The target data of the current row.
+   * @param selectParams Parameters regulating sample width
+   * @param visitedEntities The array of visited entity names.
+   * @param maxDepth The maximum depth of relations to fetch. Defaults to Infinity.
+   * @returns The row with attached relations.
+   */
+  private async attachRelations&lt;T &#x3D; any&gt;(
+    row: T,
+    targetData: TargetData,
+    selectParams: ExplorerSelectParams &#x3D; {},
+    visitedEntities: string[] &#x3D; [],
+    maxDepth &#x3D; Infinity,
+  ) {
+    if (maxDepth &lt; 0) {
+      throw new InternalServerErrorException(&quot;maxDepth should be non-negative&quot;);
+    }
+    const colsForSelect &#x3D; this.getColsForSelect(targetData, selectParams);
+    const relations &#x3D; colsForSelect.referencedCols.map((c) &#x3D;&gt; c.property);
+    if (!row || !relations.length || maxDepth &lt;&#x3D; 0) {
+      return row;
+    }
+    const repository &#x3D; this.connection.getRepository(targetData.entity.target);
+    const idProp &#x3D; targetData.primaryColumn.property;
+    const visitedKey &#x3D; &#x60;${targetData.entity.target}_${row[idProp]}&#x60;;
+    if (visitedEntities.includes(visitedKey)) {
+      return undefined;
+    }
+    visitedEntities.push(visitedKey);
+    const newRow &#x3D; await repository.findOne({
+      select: colsForSelect.colList,
+      where: { [idProp]: row[idProp] },
+      relations,
+    });
+    const withRelations &#x3D; new (repository.metadata.target as Type)();
+    Object.assign(withRelations, row, newRow);
+    for (const k in withRelations) {
+      if (relations.indexOf(k) &#x3D;&#x3D;&#x3D; -1) {
+        continue;
+      }
+      const colData &#x3D; targetData.entity.columns.find((c) &#x3D;&gt; c.property &#x3D;&#x3D;&#x3D; k);
+      const currTargetData &#x3D; await this.getTargetData(
+        colData.referencedEntityName,
+        {
+          section: selectParams.section,
+          object: selectParams.object,
+        },
+      );
+      if (Array.isArray(withRelations[k]) &amp;&amp; colData.multiple) {
+        for (const key in withRelations[k]) {
+          withRelations[k][key] &#x3D; await this.attachRelations(
+            withRelations[k][key],
+            currTargetData,
+            selectParams,
+            visitedEntities.slice(),
+            maxDepth - 1,
+          );
+        }
+      } else {
+        withRelations[k] &#x3D; await this.attachRelations(
+          withRelations[k],
+          currTargetData,
+          selectParams,
+          visitedEntities.slice(),
+          maxDepth - 1,
+        );
+      }
+    }
+    return withRelations;
+  }
+
+  /**
+   * Generates a list of columns to extract.
+   * @param targetData The target data of the current row.
+   * @param params Parameters regulating sample width
+   */
+  private getColsForSelect(
+    targetData: TargetData,
+    params: ExplorerSelectParams &#x3D; {},
+  ) {
+    const colList: string[] &#x3D; [];
+    const referencedCols: ExplorerColumn[] &#x3D; [];
+    const prefix &#x3D; params.prefix ? params.prefix : &quot;&quot;;
+    for (const col of targetData.entity.columns) {
+      if (col.virtual) {
+        continue;
+      }
+      if (params.section &amp;&amp; !col.sectionEnabled) {
+        continue;
+      }
+      if (params.object &amp;&amp; !col.objectEnabled) {
+        continue;
+      }
+      if (col.type &#x3D;&#x3D;&#x3D; &quot;reference&quot;) {
+        referencedCols.push(col);
+      }
+      colList.push(prefix + col.property);
+    }
+    return { colList, referencedCols };
+  }
+
+  /**
+   * Saves the target entity to the repository, if it does not exist.
+   * @param target The target entity to save.
+   */
+  private async saveTarget(target: ExplorerTargetEntity) {
+    const t &#x3D; await this.targetRep.findOne({
+      where: { target: target.target },
+    });
+    if (t) {
+      this.logger.verbose(&#x60;Entity ${target.target} already exists, skipping&#x60;);
+      return;
+    }
+    await this.targetRep.save(target);
+    this.logger.verbose(&#x60;Entity ${target.target} was created&#x60;);
+  }
+
+  /**
+   * Saves the column entity to the repository, if it does not exist.
+   * @param column The column entity to save.
+   */
+  private async saveColumn(column: ExplorerColumnEntity) {
+    const c &#x3D; await this.columnRep.findOne({ where: { id: column.id } });
+    if (c) {
+      this.logger.verbose(&#x60;Column ${column.id} already exists, skipping&#x60;);
+      return;
+    }
+    await this.columnRep.save(column);
+    this.logger.verbose(&#x60;Column ${column.id} was created&#x60;);
+  }
+
+  /**
+   * Sets the properties of a column entity based on the given relation and target.
+   * @param c The column entity to set properties for.
+   * @param relation The relation metadata used to set properties.
+   * @param target The target entity to associate the column with.
+   */
+  private async setColumnProperties(
+    c: ExplorerColumnEntity,
+    relation: RelationMetadata,
+    target: ExplorerTargetEntity,
+  ) {
+    c.target &#x3D; target;
+    c.id &#x3D; &#x60;${target.tableName}.${relation.propertyPath}&#x60;;
+    c.property &#x3D; relation.propertyName;
+    c.type &#x3D; &quot;reference&quot;;
+    c.referencedTableName &#x3D; relation.inverseEntityMetadata.tableName;
+    c.referencedEntityName &#x3D; relation.inverseEntityMetadata.targetName;
+    c.primary &#x3D; false;
+    c.unique &#x3D; false;
+  }
+
+  /**
+   * Checks if the given column is unique within the entity metadata.
+   * @param md The entity metadata to check.
+   * @param column The column metadata to check for uniqueness.
+   * @returns True if the column is unique, false otherwise.
+   */
+  private isColumnUnique(md: EntityMetadata, column: ColumnMetadata) {
+    for (const uniq of md.uniques) {
+      if (
+        uniq.columns.find((col) &#x3D;&gt; col.propertyName &#x3D;&#x3D;&#x3D; column.propertyName) !&#x3D;&#x3D;
+        undefined
+      ) {
+        return true;
+      }
+    }
+    for (const ind of md.indices) {
+      if (!ind.isUnique) {
+        continue;
+      }
+      if (ind.columns.find((c) &#x3D;&gt; c.propertyName &#x3D;&#x3D;&#x3D; column.propertyName)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Checks requested user access to entity.
+   * @param targetData The target data of the current row.
+   * @param targetParams - Fetch and check entity access params
+   */
+  private checkEntityAccess(
+    targetData: TargetData,
+    targetParams: ExplorerTargetParams,
+  ) {
+    if (targetParams.readRequest) {
+      return hasAccessForRoles(
+        targetParams?.checkUserAccess.roles,
+        targetData.entity.canRead,
+      );
+    }
+    if (targetParams.writeRequest) {
+      return hasAccessForRoles(
+        targetParams?.checkUserAccess.roles,
+        targetData.entity.canWrite,
+      );
+    }
+    return (
+      hasAccessForRoles(
+        targetParams?.checkUserAccess.roles,
+        targetData.entity.canWrite,
+      ) &amp;&amp;
+      hasAccessForRoles(
+        targetParams?.checkUserAccess.roles,
+        targetData.entity.canRead,
+      )
+    );
+  }
+
+  /**
+   * Converts a string type name to a corresponding ColumnDataType.
+   * @param type The string type name.
+   * @returns The corresponding ColumnDataType.
+   */
+  private getColumnType(type: string): ColumnDataType {
+    switch (type) {
+      case &quot;string&quot;:
+      case &quot;text&quot;:
+      case &quot;longtext&quot;:
+      case &quot;tinytext&quot;:
+      case &quot;mediumint&quot;:
+      case &quot;uuid&quot;:
+      case &quot;varchar&quot;:
+      case &quot;char&quot;:
+      case &quot;simple-array&quot;:
+      case &quot;simple-json&quot;:
+      case &quot;json&quot;:
+      case &quot;jsonb&quot;:
+        return &quot;string&quot;;
+      case &quot;int&quot;:
+      case &quot;int2&quot;:
+      case &quot;int4&quot;:
+      case &quot;int8&quot;:
+      case &quot;float4&quot;:
+      case &quot;float8&quot;:
+      case &quot;smallint&quot;:
+      case &quot;integer&quot;:
+      case &quot;bigint&quot;:
+      case &quot;numeric&quot;:
+        return &quot;number&quot;;
+      case &quot;boolean&quot;:
+      case &quot;bool&quot;:
+        return &quot;boolean&quot;;
+      case &quot;timestamp&quot;:
+      case &quot;timestamptz&quot;:
+      case &quot;date&quot;:
+      case &quot;time&quot;:
+      case &quot;timetz&quot;:
+      case &quot;interval&quot;:
+        return &quot;date&quot;;
+      default:
+        return &quot;unknown&quot;;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'BasicExplorerService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

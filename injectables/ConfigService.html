@@ -1,0 +1,1650 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@k-platform/core documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@k-platform/core documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >ConfigService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>lib/common/config/config.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>ConfigService is a service responsible for managing configurations in your application.
+It reads configuration properties from .properties files and stores the values in a cache for fast retrieval.
+The service provides methods to get, set, and remove configuration properties.</p>
+
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#generatedTsOutput" >generatedTsOutput</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#propertiesFiles" >propertiesFiles</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#valuesOfProperties" >valuesOfProperties</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteExistingConfigTsFiles" >deleteExistingConfigTsFiles</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#generateConfigTsFiles" >generateConfigTsFiles</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#generateNamespaceWithVariables" >generateNamespaceWithVariables</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getPropertiesPage" >getPropertiesPage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#initWithPropertiesFiles" >initWithPropertiesFiles</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#mergePropertiesContent" >mergePropertiesContent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#parseValue" >parseValue</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#processAndValidatePropertiesContent" >processAndValidatePropertiesContent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#removeProperty" >removeProperty</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#scanForPropertiesFiles" >scanForPropertiesFiles</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#setProperty" >setProperty</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(logger: Logger, cacheService: <a href="../classes/CacheService.html" target="_self">CacheService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">lib/common/config/config.service.ts:47</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>logger</td>
+                                                  
+                                                        <td>
+                                                                    <code>Logger</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cacheService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/CacheService.html" target="_self" >CacheService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteExistingConfigTsFiles"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>deleteExistingConfigTsFiles</b></span>
+                        <a href="#deleteExistingConfigTsFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteExistingConfigTsFiles(directory: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="263"
+                                    class="link-to-prism">lib/common/config/config.service.ts:263</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>directory</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateConfigTsFiles"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>generateConfigTsFiles</b></span>
+                        <a href="#generateConfigTsFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>generateConfigTsFiles()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="292"
+                                    class="link-to-prism">lib/common/config/config.service.ts:292</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateNamespaceWithVariables"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>generateNamespaceWithVariables</b></span>
+                        <a href="#generateNamespaceWithVariables"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>generateNamespaceWithVariables(namespaceName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, processedData: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="250"
+                                    class="link-to-prism">lib/common/config/config.service.ts:250</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>namespaceName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>processedData</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPropertiesPage"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getPropertiesPage</b></span>
+                        <a href="#getPropertiesPage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getPropertiesPage(params: <a href="../classes/PageableParams.html" target="_self">PageableParams</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="78"
+                                    class="link-to-prism">lib/common/config/config.service.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves a page of configuration properties based on the provided pageable parameters.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>params</td>
+                                            <td>
+                                                            <code><a href="../classes/PageableParams.html" target="_self" >PageableParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Pageable parameters for sorting, filtering, and pagination.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/ConfigItem.html" target="_self" >Promise&lt;PageableData&lt;ConfigItem&gt;&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves to an object containing the pageable data.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initWithPropertiesFiles"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>initWithPropertiesFiles</b></span>
+                        <a href="#initWithPropertiesFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initWithPropertiesFiles(genCnfDir?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">lib/common/config/config.service.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Initializes the service by scanning for properties files, generating config files, and synchronizing the cache.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>genCnfDir</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mergePropertiesContent"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>mergePropertiesContent</b></span>
+                        <a href="#mergePropertiesContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>mergePropertiesContent(mainContent: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, localContent: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="321"
+                                    class="link-to-prism">lib/common/config/config.service.ts:321</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>mainContent</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>localContent</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="parseValue"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>parseValue</b></span>
+                        <a href="#parseValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>parseValue(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="234"
+                                    class="link-to-prism">lib/common/config/config.service.ts:234</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="processAndValidatePropertiesContent"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>processAndValidatePropertiesContent</b></span>
+                        <a href="#processAndValidatePropertiesContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>processAndValidatePropertiesContent(filePath: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, content: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, fileNamePrefix: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="199"
+                                    class="link-to-prism">lib/common/config/config.service.ts:199</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>filePath</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>content</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>fileNamePrefix</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeProperty"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>removeProperty</b></span>
+                        <a href="#removeProperty"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>removeProperty(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">lib/common/config/config.service.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Removes a configuration property.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>key</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The key of the configuration property to remove.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves to a boolean indicating whether the operation was successful.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scanForPropertiesFiles"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>scanForPropertiesFiles</b></span>
+                        <a href="#scanForPropertiesFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>scanForPropertiesFiles(directory: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, globalKpContent: string | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="128"
+                                    class="link-to-prism">lib/common/config/config.service.ts:128</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>directory</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>globalKpContent</td>
+                                            <td>
+                                                        <code>string | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>null</code>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setProperty"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>setProperty</b></span>
+                        <a href="#setProperty"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setProperty(item: <a href="../interfaces/ConfigItem.html" target="_self">ConfigItem</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="113"
+                                    class="link-to-prism">lib/common/config/config.service.ts:113</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Sets a configuration property.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ConfigItem.html" target="_self" >ConfigItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>An object containing the key and value of the configuration property.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves to a boolean indicating whether the operation was successful.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generatedTsOutput"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>generatedTsOutput</b></span>
+                        <a href="#generatedTsOutput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">lib/common/config/config.service.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="propertiesFiles"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>propertiesFiles</b></span>
+                        <a href="#propertiesFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">lib/common/config/config.service.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="valuesOfProperties"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>valuesOfProperties</b></span>
+                        <a href="#valuesOfProperties"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">lib/common/config/config.service.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Inject, Injectable, Logger } from &quot;@nestjs/common&quot;;
+import * as fs from &quot;fs&quot;;
+import * as path from &quot;path&quot;;
+import {
+  CONFIG_CACHE_PREFIX,
+  CONFIG_FILE_EXT_PATTERN,
+  FILES_ENCODING,
+  GEN_SRC_DIR,
+  KP_PROPERTIES_FILE_NAME,
+  LOCAL_PROPERTIES_FILE_NAME,
+  PROPERTIES_FILE_EXT_PATTERN,
+} from &quot;./config.constants&quot;;
+import { ConfigItem } from &quot;./config.types&quot;;
+import { LOGGER } from &quot;../../shared/modules/log/log.constants&quot;;
+import { CacheService } from &quot;../../shared/modules/cache/cache.types&quot;;
+import {
+  PageableData,
+  PageableParams,
+} from &quot;../../shared/modules/pageable/pageable.types&quot;;
+
+/**
+ * ConfigService is a service responsible for managing configurations in your application.
+ * It reads configuration properties from .properties files and stores the values in a cache for fast retrieval.
+ * The service provides methods to get, set, and remove configuration properties.
+ */
+@Injectable()
+export class ConfigService {
+  private readonly propertiesFiles: { [path: string]: { [key: string]: any } } &#x3D;
+    {};
+  private readonly valuesOfProperties: { [key: string]: any } &#x3D; {};
+  private generatedTsOutput: string;
+
+  constructor(
+    @Inject(LOGGER) private readonly logger: Logger,
+    private readonly cacheService: CacheService,
+  ) {}
+
+  /**
+   * Initializes the service by scanning for properties files, generating config files, and synchronizing the cache.
+   */
+  async initWithPropertiesFiles(genCnfDir?: string) {
+    this.generatedTsOutput &#x3D; genCnfDir;
+    this.logger.log(&#x60;Scan project&#x60;);
+    await this.scanForPropertiesFiles(process.cwd());
+    this.logger.log(&#x60;Clean generated source dirs&#x60;);
+    await this.deleteExistingConfigTsFiles(process.cwd());
+    this.logger.log(&#x60;Clean config storage&#x60;);
+    await this.cacheService.del(CONFIG_CACHE_PREFIX + &quot;:*&quot;);
+    this.logger.log(&#x60;Generate config files&#x60;);
+    await this.generateConfigTsFiles();
+    for (const key in this.valuesOfProperties) {
+      await this.cacheService.set(&#x60;${key}&#x60;, this.valuesOfProperties[key]);
+    }
+    this.logger.log(&#x60;Config files was synchronize&#x60;);
+  }
+
+  /**
+   * Retrieves a page of configuration properties based on the provided pageable parameters.
+   * @param params - Pageable parameters for sorting, filtering, and pagination.
+   * @returns A promise that resolves to an object containing the pageable data.
+   */
+  async getPropertiesPage(
+    params: PageableParams,
+  ): Promise&lt;PageableData&lt;ConfigItem&gt;&gt; {
+    const { limit, page, sort, order, filter } &#x3D; params;
+    const propertyKeys &#x3D; await this.cacheService.getFromPattern(
+      &#x60;${CONFIG_CACHE_PREFIX}:${!filter ? &quot;*&quot; : filter}&#x60;,
+    );
+    const sortedKeys &#x3D; propertyKeys.sort((a, b) &#x3D;&gt; {
+      if (sort &amp;&amp; order) {
+        const aValue &#x3D; a[sort] || &quot;&quot;;
+        const bValue &#x3D; b[sort] || &quot;&quot;;
+        return order &#x3D;&#x3D;&#x3D; &quot;ASC&quot;
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      }
+      return a.localeCompare(b);
+    });
+    const totalCount &#x3D; sortedKeys.length;
+    const start &#x3D; (page - 1) * limit;
+    const end &#x3D; start + limit;
+    const keysToRetrieve &#x3D; sortedKeys.slice(start, end);
+    const propertiesWithValues: ConfigItem[] &#x3D; await Promise.all(
+      keysToRetrieve.map(async (key) &#x3D;&gt; {
+        const value &#x3D; await this.cacheService.get(key);
+        return { key: key.replace(&#x60;${CONFIG_CACHE_PREFIX}:&#x60;, &#x60;&#x60;), value };
+      }),
+    );
+    return new PageableData(propertiesWithValues, totalCount, page, limit);
+  }
+
+  /**
+   * Sets a configuration property.
+   * @param item - An object containing the key and value of the configuration property.
+   * @returns A promise that resolves to a boolean indicating whether the operation was successful.
+   */
+  async setProperty(item: ConfigItem): Promise&lt;boolean&gt; {
+    const fullKey &#x3D; &#x60;${CONFIG_CACHE_PREFIX}:${item.key}&#x60;;
+    return await this.cacheService.set(fullKey, item.value);
+  }
+
+  /**
+   * Removes a configuration property.
+   * @param key - The key of the configuration property to remove.
+   * @returns A promise that resolves to a boolean indicating whether the operation was successful.
+   */
+  async removeProperty(key: string): Promise&lt;boolean&gt; {
+    const fullKey &#x3D; &#x60;${CONFIG_CACHE_PREFIX}:${key}&#x60;;
+    return await this.cacheService.del(fullKey);
+  }
+
+  private async scanForPropertiesFiles(
+    directory: string,
+    globalKpContent: string | null &#x3D; null,
+  ) {
+    const files &#x3D; await fs.promises.readdir(directory, { withFileTypes: true });
+    if (directory &#x3D;&#x3D;&#x3D; process.cwd()) {
+      for (const file of files) {
+        if (file.isFile() &amp;&amp; file.name &#x3D;&#x3D;&#x3D; KP_PROPERTIES_FILE_NAME) {
+          const kpPath &#x3D; path.join(directory, file.name);
+          globalKpContent &#x3D; await fs.promises.readFile(kpPath, FILES_ENCODING);
+          const localPropertiesPath &#x3D; path.join(
+            directory,
+            LOCAL_PROPERTIES_FILE_NAME,
+          );
+          if (fs.existsSync(localPropertiesPath)) {
+            const localPropertiesContent &#x3D; await fs.promises.readFile(
+              localPropertiesPath,
+              FILES_ENCODING,
+            );
+            globalKpContent &#x3D; this.mergePropertiesContent(
+              globalKpContent,
+              localPropertiesContent,
+            );
+          }
+          break;
+        }
+      }
+    }
+    for (const file of files) {
+      const fullPath &#x3D; path.join(directory, file.name);
+      if (file.isDirectory()) {
+        await this.scanForPropertiesFiles(fullPath, globalKpContent);
+      } else if (
+        file.isFile() &amp;&amp;
+        path.extname(file.name) &#x3D;&#x3D;&#x3D; PROPERTIES_FILE_EXT_PATTERN
+      ) {
+        let fileContent &#x3D; await fs.promises.readFile(fullPath, FILES_ENCODING);
+        const localPropertiesPath &#x3D; path.join(
+          directory,
+          LOCAL_PROPERTIES_FILE_NAME,
+        );
+        if (fs.existsSync(localPropertiesPath)) {
+          const localPropertiesContent &#x3D; await fs.promises.readFile(
+            localPropertiesPath,
+            FILES_ENCODING,
+          );
+          fileContent &#x3D; this.mergePropertiesContent(
+            fileContent,
+            localPropertiesContent,
+          );
+        }
+        if (globalKpContent) {
+          fileContent &#x3D; this.mergePropertiesContent(
+            fileContent,
+            globalKpContent,
+          );
+        }
+        const fileNamePrefix &#x3D; path.basename(
+          fullPath,
+          PROPERTIES_FILE_EXT_PATTERN,
+        );
+        this.propertiesFiles[fullPath] &#x3D;
+          await this.processAndValidatePropertiesContent(
+            fullPath,
+            fileContent,
+            fileNamePrefix,
+          );
+      }
+    }
+  }
+
+  private async processAndValidatePropertiesContent(
+    filePath: string,
+    content: string,
+    fileNamePrefix: string,
+  ) {
+    const lines &#x3D; content.split(&quot;\n&quot;);
+    const processedData: { [key: string]: any } &#x3D; {};
+    for (const line of lines) {
+      if (line.trim().startsWith(&quot;#&quot;) || line.trim().length &#x3D;&#x3D;&#x3D; 0) {
+        continue;
+      }
+      const [key, value] &#x3D; line.split(&quot;&#x3D;&quot;);
+      let keyWithoutPrefix &#x3D; key;
+      if (key.startsWith(fileNamePrefix + &quot;.&quot;)) {
+        keyWithoutPrefix &#x3D; key.slice(fileNamePrefix.length + 1);
+      } else {
+        continue;
+      }
+      const variableName &#x3D; keyWithoutPrefix
+        .split(&quot;.&quot;)
+        .map((part) &#x3D;&gt; part.toUpperCase())
+        .join(&quot;_&quot;);
+      if (!/^[_a-zA-Z][_a-zA-Z0-9]*$/.test(variableName)) {
+        this.logger.error(&#x60;Invalid line found: &quot;${line}&quot; in file ${filePath}&#x60;);
+        throw new Error(&#x60;Invalid content in file: &quot;${filePath}&quot;&#x60;);
+      }
+      const propertyKey &#x3D; &#x60;${CONFIG_CACHE_PREFIX}:${fileNamePrefix}.${keyWithoutPrefix}&#x60;;
+      processedData[variableName] &#x3D; &#x60;&quot;${propertyKey}&quot;&#x60;;
+      if (!propertyKey.startsWith(&quot;kp.&quot;) &amp;&amp; !propertyKey.startsWith(&quot;local.&quot;)) {
+        this.valuesOfProperties[propertyKey] &#x3D; this.parseValue(value.trim());
+      }
+    }
+    return processedData;
+  }
+
+  private parseValue(value: string) {
+    let processedValue &#x3D; value.trim();
+    if (processedValue &#x3D;&#x3D;&#x3D; &quot;true&quot; || processedValue &#x3D;&#x3D;&#x3D; &quot;false&quot;) {
+      processedValue &#x3D; JSON.parse(processedValue);
+    } else if (processedValue &#x3D;&#x3D;&#x3D; &quot;null&quot;) {
+      processedValue &#x3D; null;
+    } else if (/^[-+*/\d\s()]*$/.test(processedValue)) {
+      try {
+        processedValue &#x3D; eval(processedValue);
+      } catch (e) {
+        return processedValue;
+      }
+    }
+    return processedValue;
+  }
+
+  private generateNamespaceWithVariables(
+    namespaceName: string,
+    processedData: { [key: string]: string },
+  ) {
+    let generatedContent &#x3D; &#x60;export namespace ${namespaceName} {\n&#x60;;
+    for (const variableName in processedData) {
+      const processedValue &#x3D; processedData[variableName];
+      generatedContent +&#x3D; &#x60;  export const ${variableName} &#x3D; ${processedValue};\n&#x60;; // initial value: ${this.valuesOfProperties[processedValue.substring(1,processedValue.length-1)]}
+    }
+    generatedContent +&#x3D; &quot;}\n&quot;;
+    return generatedContent;
+  }
+
+  private async deleteExistingConfigTsFiles(directory: string) {
+    if (directory &#x3D;&#x3D;&#x3D; process.cwd() + &quot;/node_modules&quot;) {
+      return;
+    }
+    const files &#x3D; await fs.promises.readdir(directory, { withFileTypes: true });
+    for (const file of files) {
+      const fullPath &#x3D; path.join(directory, file.name);
+      if (file.isDirectory()) {
+        if (file.name &#x3D;&#x3D;&#x3D; GEN_SRC_DIR) {
+          const genSrcFiles &#x3D; await fs.promises.readdir(fullPath, {
+            withFileTypes: true,
+          });
+          this.logger.verbose(&#x60;Read dir: ${fullPath}&#x60;);
+          for (const genSrcFile of genSrcFiles) {
+            if (
+              genSrcFile.isFile() &amp;&amp;
+              genSrcFile.name.endsWith(CONFIG_FILE_EXT_PATTERN)
+            ) {
+              this.logger.verbose(&#x60;Delete file: ${genSrcFile.name}&#x60;);
+              await fs.promises.unlink(path.join(fullPath, genSrcFile.name));
+            }
+          }
+        } else {
+          await this.deleteExistingConfigTsFiles(fullPath);
+        }
+      }
+    }
+  }
+
+  private async generateConfigTsFiles() {
+    for (const filePath in this.propertiesFiles) {
+      if (path.basename(filePath) &#x3D;&#x3D;&#x3D; LOCAL_PROPERTIES_FILE_NAME) {
+        continue;
+      }
+      const fileContent &#x3D; this.propertiesFiles[filePath];
+      const dirPath &#x3D; this.generatedTsOutput ?? path.dirname(filePath);
+      const genSrcPath &#x3D; path.join(dirPath, GEN_SRC_DIR);
+      const configFileName &#x3D; path
+        .basename(filePath, PROPERTIES_FILE_EXT_PATTERN)
+        .concat(CONFIG_FILE_EXT_PATTERN);
+      const configFilePath &#x3D; path.join(genSrcPath, configFileName);
+      const namespaceName &#x3D;
+        path
+          .basename(filePath, PROPERTIES_FILE_EXT_PATTERN)
+          .charAt(0)
+          .toUpperCase() +
+        path.basename(filePath, PROPERTIES_FILE_EXT_PATTERN).slice(1) +
+        &quot;Config&quot;;
+      const generatedFileContent &#x3D; this.generateNamespaceWithVariables(
+        namespaceName,
+        fileContent,
+      );
+      await fs.promises.mkdir(genSrcPath, { recursive: true });
+      await fs.promises.writeFile(configFilePath, generatedFileContent);
+      this.logger.verbose(&#x60;Generated ${configFilePath}&#x60;);
+    }
+  }
+
+  private mergePropertiesContent(
+    mainContent: string,
+    localContent: string,
+  ): string {
+    const mainContentLines &#x3D; mainContent.split(&quot;\n&quot;);
+    const localContentLines &#x3D; localContent.split(&quot;\n&quot;);
+    const mergedContent &#x3D; [...mainContentLines];
+    for (const localLine of localContentLines) {
+      if (localLine.trim().startsWith(&quot;#&quot;) || localLine.trim().length &#x3D;&#x3D;&#x3D; 0) {
+        continue;
+      }
+      const [localKey] &#x3D; localLine.split(&quot;&#x3D;&quot;);
+      for (let i &#x3D; 0; i &lt; mainContentLines.length; i++) {
+        const mainLine &#x3D; mainContentLines[i];
+        if (mainLine.trim().startsWith(localKey + &quot;&#x3D;&quot;)) {
+          mergedContent[i] &#x3D; localLine;
+          break;
+        }
+      }
+      mergedContent.push(localLine);
+    }
+    return mergedContent.join(&quot;\n&quot;);
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ConfigService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

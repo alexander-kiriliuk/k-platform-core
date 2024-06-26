@@ -1,0 +1,916 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@k-platform/core documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@k-platform/core documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >FileMetadataService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>lib/common/file/file-metadata.service.ts</code>
+        </p>
+
+
+
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                            <code><a href="../classes/FileMd.html" target="_self" >FileMd</a></code>
+            </p>
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createFileMetadataEntity" >createFileMetadataEntity</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#setAudioMd" >setAudioMd</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#setImageMd" >setImageMd</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#setVideoMd" >setVideoMd</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#trimProperties" >trimProperties</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createFileMetadataEntity"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createFileMetadataEntity</b></span>
+                        <a href="#createFileMetadataEntity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createFileMetadataEntity(buf: Buffer, filePath?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Inherited from         <code><a href="../classes/FileMd.html" target="_self" >FileMd</a></code>
+</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/FileMd.html#source" target="_self" >FileMd:36</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>buf</td>
+                                            <td>
+                                                        <code>Buffer</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>filePath</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setAudioMd"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>setAudioMd</b></span>
+                        <a href="#setAudioMd"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setAudioMd(md: <a href="../entitys/FileMetadataEntity.html" target="_self">FileMetadataEntity</a>, buf: Buffer)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">lib/common/file/file-metadata.service.ts:115</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>md</td>
+                                            <td>
+                                                            <code><a href="../entitys/FileMetadataEntity.html" target="_self" >FileMetadataEntity</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>buf</td>
+                                            <td>
+                                                        <code>Buffer</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setImageMd"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>setImageMd</b></span>
+                        <a href="#setImageMd"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setImageMd(md: <a href="../entitys/FileMetadataEntity.html" target="_self">FileMetadataEntity</a>, buf: Buffer)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">lib/common/file/file-metadata.service.ts:137</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>md</td>
+                                            <td>
+                                                            <code><a href="../entitys/FileMetadataEntity.html" target="_self" >FileMetadataEntity</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>buf</td>
+                                            <td>
+                                                        <code>Buffer</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setVideoMd"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>setVideoMd</b></span>
+                        <a href="#setVideoMd"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setVideoMd(md: <a href="../entitys/FileMetadataEntity.html" target="_self">FileMetadataEntity</a>, filePath: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="82"
+                                    class="link-to-prism">lib/common/file/file-metadata.service.ts:82</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>md</td>
+                                            <td>
+                                                            <code><a href="../entitys/FileMetadataEntity.html" target="_self" >FileMetadataEntity</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>filePath</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="trimProperties"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>trimProperties</b></span>
+                        <a href="#trimProperties"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>trimProperties(obj: T)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="58"
+                                    class="link-to-prism">lib/common/file/file-metadata.service.ts:58</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>obj</td>
+                                            <td>
+                                                        <code>T</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>T</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &quot;@nestjs/common&quot;;
+import { parseBuffer } from &quot;music-metadata&quot;;
+import * as ExifReader from &quot;exifreader&quot;;
+import * as ffprobe from &quot;ffprobe&quot;;
+import * as ffprobeStatic from &quot;ffprobe-static&quot;;
+import { FilesUtils } from &quot;../../shared/utils/files.utils&quot;;
+import { FileMd } from &quot;./file.constants&quot;;
+import { FileMetadataEntity } from &quot;./entity/file-metadata.entity&quot;;
+import { AudioFileMetadataEntity } from &quot;./entity/audio-file-metadata.entity&quot;;
+import { VideoFileMetadataEntity } from &quot;./entity/video-file-metadata.entity&quot;;
+import { ImageFileMetadataEntity } from &quot;./entity/image-file-metadata.entity&quot;;
+import { GpsFileMetadataEntity } from &quot;./entity/gps-file-metadata.entity&quot;;
+import { ExifFileMetadataEntity } from &quot;./entity/exif-file-metadata.entity&quot;;
+import { IccFileMetadataEntity } from &quot;./entity/icc-file-metadata.entity&quot;;
+import getHashFromBuffer &#x3D; FilesUtils.getHashFromBuffer;
+import fileType &#x3D; FilesUtils.fileType;
+
+@Injectable()
+export class FileMetadataService extends FileMd {
+  async createFileMetadataEntity(buf: Buffer, filePath?: string) {
+    const fileTypeData &#x3D; await fileType().fileTypeFromBuffer(buf);
+    const md &#x3D; new FileMetadataEntity();
+    md.hash &#x3D; getHashFromBuffer(buf);
+    if (fileTypeData) {
+      md.mime &#x3D; fileTypeData.mime;
+      md.ext &#x3D; fileTypeData.ext;
+    } else {
+      return md;
+    }
+    try {
+      if (md.mime.startsWith(&quot;image&quot;)) {
+        this.setImageMd(md, buf);
+      } else if (md.mime.startsWith(&quot;audio&quot;)) {
+        await this.setAudioMd(md, buf);
+      } else if (md.mime.startsWith(&quot;video&quot;)) {
+        await this.setVideoMd(md, filePath);
+      }
+    } catch (e) {}
+    return this.trimProperties(md);
+  }
+
+  private trimProperties&lt;T &#x3D; any&gt;(obj: T): T {
+    if (typeof obj &#x3D;&#x3D;&#x3D; &quot;string&quot;) {
+      return obj.trim() &#x3D;&#x3D;&#x3D; &quot;&quot; || obj.indexOf(&quot; &quot;) !&#x3D;&#x3D; -1
+        ? undefined
+        : (obj.trim() as T);
+    } else if (Array.isArray(obj)) {
+      return obj.map(this.trimProperties) as T;
+    } else if (typeof obj &#x3D;&#x3D;&#x3D; &quot;object&quot;) {
+      if (obj instanceof Date) {
+        return obj as T;
+      }
+      const result: Record&lt;string, any&gt; &#x3D; {};
+      for (const key in obj) {
+        const value &#x3D; this.trimProperties(obj[key]);
+        if (value !&#x3D;&#x3D; undefined) {
+          result[key] &#x3D; value;
+        }
+      }
+      return result as T;
+    } else {
+      return obj;
+    }
+  }
+
+  private async setVideoMd(md: FileMetadataEntity, filePath: string) {
+    if (filePath) {
+      const ffProbeMd &#x3D; await ffprobe(filePath, { path: ffprobeStatic.path });
+      if (ffProbeMd) {
+        const audioMd &#x3D; ffProbeMd.streams.find((v) &#x3D;&gt; v.codec_type &#x3D;&#x3D;&#x3D; &quot;audio&quot;);
+        if (audioMd) {
+          md.audio &#x3D; new AudioFileMetadataEntity();
+          md.audio.container &#x3D; audioMd.codec_name?.toUpperCase();
+          md.audio.codec &#x3D; audioMd.codec_long_name;
+          md.audio.duration &#x3D; parseFloat(audioMd.duration || 0);
+          md.audio.numberOfChannels &#x3D; audioMd.channels;
+          md.audio.bitrate &#x3D; audioMd.bit_rate;
+        }
+        const videoMd &#x3D; ffProbeMd.streams.find((v) &#x3D;&gt; v.codec_type &#x3D;&#x3D;&#x3D; &quot;video&quot;);
+        if (videoMd) {
+          md.video &#x3D; new VideoFileMetadataEntity();
+          md.video.codec &#x3D; videoMd.codec_name?.toUpperCase();
+          md.video.container &#x3D; videoMd.codec_long_name;
+          md.video.width &#x3D; videoMd.width;
+          md.video.height &#x3D; videoMd.height;
+          md.video.bitrate &#x3D; videoMd.bit_rate;
+          md.video.duration &#x3D; parseFloat(videoMd.duration || 0);
+          md.video.sampleAspectRatio &#x3D; videoMd.sample_aspect_ratio;
+          md.video.displayAspectRatio &#x3D; videoMd.display_aspect_ratio;
+          md.video.colorRange &#x3D; videoMd.color_range;
+          md.video.colorSpace &#x3D; videoMd.color_space;
+          md.video.frameRate &#x3D; videoMd.r_frame_rate;
+          md.video.rotate &#x3D; videoMd.tags?.rotate;
+        }
+      }
+    }
+  }
+
+  private async setAudioMd(md: FileMetadataEntity, buf: Buffer) {
+    const musicMd &#x3D; await parseBuffer(buf);
+    if (!musicMd) {
+      return;
+    }
+    md.audio &#x3D; new AudioFileMetadataEntity();
+    md.audio.container &#x3D; musicMd.format.container;
+    md.audio.codec &#x3D; musicMd.format.codec;
+    md.audio.sampleRate &#x3D; musicMd.format.sampleRate;
+    md.audio.numberOfChannels &#x3D; musicMd.format.numberOfChannels;
+    md.audio.bitrate &#x3D; musicMd.format.bitrate;
+    md.audio.codecProfile &#x3D; musicMd.format.codecProfile;
+    md.audio.tool &#x3D; musicMd.format.tool;
+    md.audio.duration &#x3D; musicMd.format.duration;
+    md.audio.title &#x3D; musicMd.common.title;
+    md.audio.album &#x3D; musicMd.common.album;
+    md.audio.artist &#x3D; musicMd.common.artists?.join(&quot;, &quot;);
+    md.audio.year &#x3D; musicMd.common.year;
+    md.audio.genre &#x3D; musicMd.common.genre?.join(&quot;, &quot;);
+    md.audio.label &#x3D; musicMd.common.label?.join(&quot;, &quot;);
+  }
+
+  private setImageMd(md: FileMetadataEntity, buf: Buffer) {
+    const exifData &#x3D; ExifReader.load(buf, {
+      expanded: true,
+      includeUnknown: true,
+    });
+    if (!exifData) {
+      return;
+    }
+    md.image &#x3D; new ImageFileMetadataEntity();
+    md.image.bps &#x3D; exifData.file[&quot;Bits Per Sample&quot;]?.value;
+    md.image.height &#x3D; exifData.file[&quot;Image Height&quot;]?.value;
+    md.image.width &#x3D; exifData.file[&quot;Image Width&quot;]?.value;
+    md.image.colorComponents &#x3D; exifData.file[&quot;Color Components&quot;]?.value;
+    md.image.subsampling &#x3D; exifData.file[&quot;Subsampling&quot;]?.description;
+    if (exifData.png) {
+      md.image.height &#x3D; exifData.png[&quot;Image Height&quot;]?.value;
+      md.image.width &#x3D; exifData.png[&quot;Image Width&quot;]?.value;
+      md.image.bitDepth &#x3D; exifData.png[&quot;Bit Depth&quot;]?.value;
+      md.image.colorType &#x3D; exifData.png[&quot;Color Type&quot;]?.description;
+      md.image.compression &#x3D; exifData.png[&quot;Compression&quot;]?.description;
+      md.image.filter &#x3D; exifData.png[&quot;Filter&quot;]?.description;
+      md.image.interlace &#x3D; exifData.png[&quot;Interlace&quot;]?.description;
+    }
+    if (exifData.gps) {
+      md.gps &#x3D; new GpsFileMetadataEntity();
+      md.gps.altitude &#x3D; exifData.gps?.Altitude;
+      md.gps.longitude &#x3D; exifData.gps?.Longitude;
+      md.gps.latitude &#x3D; exifData.gps?.Latitude;
+    }
+    if (exifData.icc) {
+      md.icc &#x3D; new IccFileMetadataEntity();
+      md.icc.profileVersion &#x3D; exifData.icc[&quot;Profile Version&quot;]?.description;
+      md.icc.profileClassName &#x3D;
+        exifData.icc[&quot;Profile/Device class&quot;]?.description;
+      md.icc.profileClassValue &#x3D; exifData.icc[&quot;Profile/Device class&quot;]?.value;
+      md.icc.connectionSpace &#x3D; exifData.icc[&quot;Connection Space&quot;]?.description;
+      md.icc.iccProfileDate &#x3D; new Date(exifData.icc[&quot;ICC Profile Date&quot;]?.value);
+      if (exifData.icc[&quot;ICC Profile Date&quot;]?.value) {
+        md.image.dateTime &#x3D; md.icc.iccProfileDate;
+      }
+      md.icc.iccSignature &#x3D; exifData.icc[&quot;ICC Signature&quot;]?.description;
+      md.icc.primaryPlatform &#x3D; exifData.icc[&quot;Primary Platform&quot;]?.description;
+      md.icc.deviceManufacturer &#x3D;
+        exifData.icc[&quot;Device Manufacturer&quot;]?.description;
+      md.icc.deviceModelNumber &#x3D;
+        exifData.icc[&quot;Device Model Number&quot;]?.description;
+      md.icc.renderingIntentName &#x3D;
+        exifData.icc[&quot;Rendering Intent&quot;]?.description;
+      md.icc.renderingIntentValue &#x3D; exifData.icc[&quot;Rendering Intent&quot;]?.value;
+      md.icc.profileCreator &#x3D; exifData.icc[&quot;Profile Creator&quot;]?.description;
+      md.icc.iccDescription &#x3D; exifData.icc[&quot;ICC Description&quot;]?.description;
+      md.icc.iccCopyright &#x3D; exifData.icc[&quot;ICC Copyright&quot;]?.description;
+    }
+    if (exifData.exif) {
+      md.exif &#x3D; new ExifFileMetadataEntity();
+      md.exif.make &#x3D; exifData.exif.Make?.description;
+      md.exif.model &#x3D; exifData.exif.Model?.description;
+      md.exif.orientation &#x3D; exifData.exif.Orientation?.description;
+      md.exif.resolutionX &#x3D; exifData.exif.XResolution?.description;
+      md.exif.resolutionY &#x3D; exifData.exif.YResolution?.description;
+      md.exif.resolutionUnit &#x3D; exifData.exif.ResolutionUnit?.description;
+      md.exif.software &#x3D; exifData.exif.Software?.description;
+      md.exif.ycbCrPositioning &#x3D; exifData.exif.YCbCrPositioning?.description;
+      md.exif.exifIfdPointer &#x3D; exifData.exif[&quot;Exif IFD Pointer&quot;]?.description;
+      md.exif.gpsInfoIfdPointer &#x3D;
+        exifData.exif[&quot;GPS Info IFD Pointer&quot;]?.description;
+      md.exif.exposureTime &#x3D; exifData.exif.ExposureTime?.description;
+      md.exif.fNumber &#x3D; exifData.exif.FNumber?.description;
+      md.exif.exposureProgram &#x3D; exifData.exif.ExposureProgram?.description;
+      md.exif.isoSpeedRatings &#x3D; exifData.exif.ISOSpeedRatings?.description;
+      md.exif.exifVersion &#x3D; exifData.exif.ExifVersion?.description;
+      md.exif.offsetTime &#x3D; exifData.exif.OffsetTime?.description;
+      md.exif.shutterSpeedValue &#x3D; exifData.exif.ShutterSpeedValue?.description;
+      md.exif.aperture &#x3D; exifData.exif.ApertureValue?.description;
+      md.exif.brightness &#x3D; exifData.exif.BrightnessValue?.description;
+      md.exif.exposureBias &#x3D; exifData.exif.ExposureBiasValue?.description;
+      md.exif.maxAperture &#x3D; exifData.exif.MaxApertureValue?.description;
+      md.exif.subjectDistance &#x3D; exifData.exif.SubjectDistance?.description;
+      md.exif.meteringMode &#x3D; exifData.exif.MeteringMode?.description;
+      md.exif.flash &#x3D; exifData.exif.Flash?.description;
+      md.exif.focalLength &#x3D; exifData.exif.FocalLength?.description;
+      md.exif.flashpixVersion &#x3D; exifData.exif.FlashpixVersion?.description;
+      md.exif.colorSpace &#x3D; exifData.exif.ColorSpace?.description;
+      md.exif.pixelXDimension &#x3D; exifData.exif.PixelXDimension?.description;
+      md.exif.pixelYDimension &#x3D; exifData.exif.PixelYDimension?.description;
+      md.exif.interoperabilityIfdPointer &#x3D;
+        exifData.exif[&quot;Interoperability IFD Pointer&quot;]?.description;
+      md.exif.sensingMethod &#x3D; exifData.exif.SensingMethod?.description;
+      md.exif.sceneType &#x3D; exifData.exif.SceneType?.description;
+      md.exif.customRendered &#x3D; exifData.exif.CustomRendered?.description;
+      md.exif.exposureMode &#x3D; exifData.exif.ExposureMode?.description;
+      md.exif.whiteBalance &#x3D; exifData.exif.WhiteBalance?.description;
+      md.exif.digitalZoomRatio &#x3D; exifData.exif.DigitalZoomRatio?.description;
+      md.exif.sceneCaptureType &#x3D; exifData.exif.SceneCaptureType?.description;
+      md.exif.contrast &#x3D; exifData.exif.Contrast?.description;
+      md.exif.saturation &#x3D; exifData.exif.Saturation?.description;
+      md.exif.sharpness &#x3D; exifData.exif.Sharpness?.description;
+      md.exif.subjectDistanceRange &#x3D;
+        exifData.exif.SubjectDistanceRange?.description;
+      md.exif.lensMake &#x3D; exifData.exif.LensMake?.description;
+      md.exif.lensModel &#x3D; exifData.exif.LensModel?.description;
+      md.exif.compositeImage &#x3D; exifData.exif[&quot;CompositeImage&quot;]?.description;
+      md.exif.interoperabilityIndex &#x3D;
+        exifData.exif.InteroperabilityIndex?.description;
+      md.exif.interoperabilityVersion &#x3D;
+        exifData.exif[&quot;InteroperabilityVersion&quot;]?.description;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'FileMetadataService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

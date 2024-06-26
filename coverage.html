@@ -1,0 +1,3033 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@k-platform/core documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="./" class="navbar-brand">@k-platform/core documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content coverage">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">Documentation coverage</li>
+</ol>
+
+<div>
+    <img src="./images/coverage-badge-documentation.svg">
+</div>
+
+<table class="table table-bordered coverage" id="coverage-table">
+    <thead class="coverage-header">
+        <tr>
+            <th>File</th>
+            <th>Type</th>
+            <th>Identifier</th>
+            <th style="text-align:right" class="statements" data-sort-default>Statements</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/AuthService.html">lib/common/auth/auth.constants.ts</a>
+            </td>
+            <td>class</td>
+            <td>AuthService</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/4)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#ACCESS_TOKEN_ERROR_MSG">lib/common/auth/auth.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>ACCESS_TOKEN_ERROR_MSG</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#AUTH_ACCESS_TOKEN_PREFIX">lib/common/auth/auth.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>AUTH_ACCESS_TOKEN_PREFIX</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#AUTH_JWT_CACHE_PREFIX">lib/common/auth/auth.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>AUTH_JWT_CACHE_PREFIX</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#AUTH_REFRESH_TOKEN_PREFIX">lib/common/auth/auth.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>AUTH_REFRESH_TOKEN_PREFIX</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#BRUTEFORCE_JWT_CACHE_PREFIX">lib/common/auth/auth.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>BRUTEFORCE_JWT_CACHE_PREFIX</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#bruteForceIPKey">lib/common/auth/auth.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>bruteForceIPKey</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#bruteForceLoginKey">lib/common/auth/auth.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>bruteForceLoginKey</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#jwtAccessTokenKey">lib/common/auth/auth.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>jwtAccessTokenKey</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#jwtRefreshTokenKey">lib/common/auth/auth.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>jwtRefreshTokenKey</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#REFRESH_TOKEN_ERROR_MSG">lib/common/auth/auth.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>REFRESH_TOKEN_ERROR_MSG</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#UNKNOWN_IP">lib/common/auth/auth.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>UNKNOWN_IP</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/ExchangeTokenPayload.html">lib/common/auth/auth.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>ExchangeTokenPayload</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/2)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/JwtDto.html">lib/common/auth/auth.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>JwtDto</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/6)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/LoginPayload.html">lib/common/auth/auth.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>LoginPayload</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/6)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/AuthorizationService.html">lib/common/auth/authorization.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>AuthorizationService</td>
+            <td align="right" data-sort="23">
+                <span class="coverage-percent">23 %</span>
+                <span class="coverage-count">(4/17)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#blockedUsrIpPayload">lib/common/auth/mock/auth.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>blockedUsrIpPayload</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#blockedUsrLoginPayload">lib/common/auth/mock/auth.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>blockedUsrLoginPayload</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#jwtService">lib/common/auth/mock/auth.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>jwtService</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#refreshTokenWithoutRelatedUser">lib/common/auth/mock/auth.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>refreshTokenWithoutRelatedUser</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#Storage">lib/common/auth/mock/auth.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>Storage</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#testUser">lib/common/auth/mock/auth.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>testUser</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#validAccessToken">lib/common/auth/mock/auth.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>validAccessToken</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#validCredentialsUsrPayload">lib/common/auth/mock/auth.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>validCredentialsUsrPayload</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#validRefreshToken">lib/common/auth/mock/auth.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>validRefreshToken</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#wrongCredentialsUsrPayload">lib/common/auth/mock/auth.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>wrongCredentialsUsrPayload</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#CAPTCHA_CACHE_PREFIX">lib/common/captcha/captcha.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>CAPTCHA_CACHE_PREFIX</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/CaptchaRequest.html">lib/common/captcha/captcha.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>CaptchaRequest</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/3)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/CaptchaService.html">lib/common/captcha/captcha.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>CaptchaService</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/3)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/GoogleCaptchaService.html">lib/common/captcha/google-captcha.service.ts</a>
+            </td>
+            <td>class</td>
+            <td>GoogleCaptchaService</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/4)</span>
+            </td>
+        </tr>
+        <tr class="good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/GraphicCaptchaService.html">lib/common/captcha/graphic-captcha.service.ts</a>
+            </td>
+            <td>class</td>
+            <td>GraphicCaptchaService</td>
+            <td align="right" data-sort="55">
+                <span class="coverage-percent">55 %</span>
+                <span class="coverage-count">(5/9)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#captchaRequestWithInvalidData">lib/common/captcha/mock/captcha.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>captchaRequestWithInvalidData</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#captchaRequestWithInvalidId">lib/common/captcha/mock/captcha.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>captchaRequestWithInvalidId</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#Storage">lib/common/captcha/mock/captcha.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>Storage</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#validCaptchaRequest">lib/common/captcha/mock/captcha.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>validCaptchaRequest</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#CONFIG_CACHE_PREFIX">lib/common/config/config.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>CONFIG_CACHE_PREFIX</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#CONFIG_FILE_EXT_PATTERN">lib/common/config/config.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>CONFIG_FILE_EXT_PATTERN</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#FILES_ENCODING">lib/common/config/config.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>FILES_ENCODING</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#GEN_SRC_DIR">lib/common/config/config.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>GEN_SRC_DIR</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#KP_PROPERTIES_FILE_NAME">lib/common/config/config.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>KP_PROPERTIES_FILE_NAME</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#LOCAL_PROPERTIES_FILE_NAME">lib/common/config/config.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>LOCAL_PROPERTIES_FILE_NAME</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#PROPERTIES_FILE_EXT_PATTERN">lib/common/config/config.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>PROPERTIES_FILE_EXT_PATTERN</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#InitConfig">lib/common/config/config.init-fn.ts</a>
+            </td>
+            <td>variable</td>
+            <td>InitConfig</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="medium">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/ConfigService.html">lib/common/config/config.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>ConfigService</td>
+            <td align="right" data-sort="31">
+                <span class="coverage-percent">31 %</span>
+                <span class="coverage-count">(5/16)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/ConfigItem.html">lib/common/config/config.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>ConfigItem</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/3)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#Storage">lib/common/config/mock/config.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>Storage</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#testExistedProp">lib/common/config/mock/config.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>testExistedProp</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#testSetProp">lib/common/config/mock/config.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>testSetProp</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/BasicExplorerService.html">lib/common/explorer/basic-explorer.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>BasicExplorerService</td>
+            <td align="right" data-sort="95">
+                <span class="coverage-percent">95 %</span>
+                <span class="coverage-count">(22/23)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/ExplorerActionEntity.html">lib/common/explorer/entity/explorer-action.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>ExplorerActionEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/ExplorerColumnRendererEntity.html">lib/common/explorer/entity/explorer-column-renderer.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>ExplorerColumnRendererEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/ExplorerColumnEntity.html">lib/common/explorer/entity/explorer-column.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>ExplorerColumnEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/ExplorerTabEntity.html">lib/common/explorer/entity/explorer-tab.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>ExplorerTabEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/ExplorerTargetEntity.html">lib/common/explorer/entity/explorer-target.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>ExplorerTargetEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#ENTITY_SAVE_HANDLER">lib/common/explorer/explorer.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>ENTITY_SAVE_HANDLER</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#TARGET_RELATIONS_BASIC">lib/common/explorer/explorer.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>TARGET_RELATIONS_BASIC</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#TARGET_RELATIONS_FULL">lib/common/explorer/explorer.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>TARGET_RELATIONS_FULL</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#TARGET_RELATIONS_OBJECT">lib/common/explorer/explorer.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>TARGET_RELATIONS_OBJECT</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#TARGET_RELATIONS_SECTION">lib/common/explorer/explorer.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>TARGET_RELATIONS_SECTION</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/ExplorerAction.html">lib/common/explorer/explorer.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>ExplorerAction</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/7)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/ExplorerColumnRenderer.html">lib/common/explorer/explorer.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>ExplorerColumnRenderer</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/6)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/ExplorerService.html">lib/common/explorer/explorer.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>ExplorerService</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/9)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/EntitySaveHandler.html">lib/common/explorer/explorer.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>EntitySaveHandler</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/2)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/ExplorerColumn.html">lib/common/explorer/explorer.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>ExplorerColumn</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/23)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/ExplorerTab.html">lib/common/explorer/explorer.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>ExplorerTab</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/6)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/ExplorerTarget.html">lib/common/explorer/explorer.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>ExplorerTarget</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/15)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/TargetData.html">lib/common/explorer/explorer.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>TargetData</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/4)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/UserEntityPwdAndRolesSaveHandler.html">lib/common/explorer/handlers/user-entity-pwd-and-roles.save-handler.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>UserEntityPwdAndRolesSaveHandler</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/2)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/AudioFileMetadataEntity.html">lib/common/file/entity/audio-file-metadata.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>AudioFileMetadataEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/ExifFileMetadataEntity.html">lib/common/file/entity/exif-file-metadata.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>ExifFileMetadataEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/FileMetadataEntity.html">lib/common/file/entity/file-metadata.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>FileMetadataEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/FileEntity.html">lib/common/file/entity/file.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>FileEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/FileEntity.html">lib/common/file/entity/file.entity.ts</a>
+            </td>
+            <td>class</td>
+            <td>FileEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/11)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/GpsFileMetadataEntity.html">lib/common/file/entity/gps-file-metadata.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>GpsFileMetadataEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/IccFileMetadataEntity.html">lib/common/file/entity/icc-file-metadata.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>IccFileMetadataEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/ImageFileMetadataEntity.html">lib/common/file/entity/image-file-metadata.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>ImageFileMetadataEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/VideoFileMetadataEntity.html">lib/common/file/entity/video-file-metadata.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>VideoFileMetadataEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/FileMetadataService.html">lib/common/file/file-metadata.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>FileMetadataService</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/6)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/FileManager.html">lib/common/file/file.constants.ts</a>
+            </td>
+            <td>class</td>
+            <td>FileManager</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/8)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/FileMd.html">lib/common/file/file.constants.ts</a>
+            </td>
+            <td>class</td>
+            <td>FileMd</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/2)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/FileService.html">lib/common/file/file.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>FileService</td>
+            <td align="right" data-sort="78">
+                <span class="coverage-percent">78 %</span>
+                <span class="coverage-count">(11/14)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/AudioFileMetadata.html">lib/common/file/file.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>AudioFileMetadata</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/16)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/ExifFileMetadata.html">lib/common/file/file.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>ExifFileMetadata</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/48)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/File.html">lib/common/file/file.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>File</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/11)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/FileMetadata.html">lib/common/file/file.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>FileMetadata</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/11)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/GpsFileMetadata.html">lib/common/file/file.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>GpsFileMetadata</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/5)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/IccFileMetadata.html">lib/common/file/file.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>IccFileMetadata</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/16)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/ImageFileMetadata.html">lib/common/file/file.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>ImageFileMetadata</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/13)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/VideoFileMetadata.html">lib/common/file/file.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>VideoFileMetadata</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/14)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/MediaExtEntity.html">lib/common/media/entity/media-ext.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>MediaExtEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/MediaFileEntity.html">lib/common/media/entity/media-file.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>MediaFileEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/MediaFormatEntity.html">lib/common/media/entity/media-format.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>MediaFormatEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/MediaTypeEntity.html">lib/common/media/entity/media-type.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>MediaTypeEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/MediaEntity.html">lib/common/media/entity/media.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>MediaEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/MediaEntity.html">lib/common/media/entity/media.entity.ts</a>
+            </td>
+            <td>class</td>
+            <td>MediaEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/8)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#DEFAULT_MEDIA_QUALITY">lib/common/media/media.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>DEFAULT_MEDIA_QUALITY</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#DEFAULT_MEDIA_TYPE">lib/common/media/media.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>DEFAULT_MEDIA_TYPE</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#MEDIA_RELATIONS">lib/common/media/media.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>MEDIA_RELATIONS</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#MEDIA_TYPE_RELATIONS">lib/common/media/media.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>MEDIA_TYPE_RELATIONS</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#ORIGINAL">lib/common/media/media.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>ORIGINAL</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#SVG">lib/common/media/media.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>SVG</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#THUMB">lib/common/media/media.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>THUMB</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/MediaService.html">lib/common/media/media.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>MediaService</td>
+            <td align="right" data-sort="79">
+                <span class="coverage-percent">79 %</span>
+                <span class="coverage-count">(19/24)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/MediaDto.html">lib/common/media/media.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>MediaDto</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/8)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/MediaFileDto.html">lib/common/media/media.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>MediaFileDto</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/9)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/MediaFormatDto.html">lib/common/media/media.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>MediaFormatDto</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/5)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/MediaManager.html">lib/common/media/media.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>MediaManager</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/9)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/MediaTypeDto.html">lib/common/media/media.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>MediaTypeDto</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/8)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/Media.html">lib/common/media/media.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>Media</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/8)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/MediaExt.html">lib/common/media/media.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>MediaExt</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/3)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/MediaFile.html">lib/common/media/media.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>MediaFile</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/9)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/MediaFormat.html">lib/common/media/media.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>MediaFormat</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/5)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/MediaType.html">lib/common/media/media.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>MediaType</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/8)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/UpsertMediaRequest.html">lib/common/media/media.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>UpsertMediaRequest</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/6)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/AbstractProcess.html">lib/common/process/abstract-process.ts</a>
+            </td>
+            <td>class</td>
+            <td>AbstractProcess</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/14)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/TmpDirCleanerProcess.html">lib/common/process/default/tmp-dir-cleaner.process.ts</a>
+            </td>
+            <td>class</td>
+            <td>TmpDirCleanerProcess</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/15)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/ProcessLogEntity.html">lib/common/process/entity/process.log.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>ProcessLogEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/ProcessUnitEntity.html">lib/common/process/entity/process.unit.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>ProcessUnitEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/ProcessManagerService.html">lib/common/process/process-manager.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>ProcessManagerService</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/15)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/ProcessRegisterService.html">lib/common/process/process-register.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>ProcessRegisterService</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/6)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#getProcessInstance">lib/common/process/process.constants.ts</a>
+            </td>
+            <td>function</td>
+            <td>getProcessInstance</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#getRegisteredProcesses">lib/common/process/process.constants.ts</a>
+            </td>
+            <td>function</td>
+            <td>getRegisteredProcesses</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#hasProcessInstance">lib/common/process/process.constants.ts</a>
+            </td>
+            <td>function</td>
+            <td>hasProcessInstance</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#registerProcess">lib/common/process/process.constants.ts</a>
+            </td>
+            <td>function</td>
+            <td>registerProcess</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#REGISTERED_PROCESSES">lib/common/process/process.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>REGISTERED_PROCESSES</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/ProcessLog.html">lib/common/process/process.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>ProcessLog</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/6)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/ProcessUnit.html">lib/common/process/process.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>ProcessUnit</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/8)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/AbstractUserSubscriber.html">lib/common/user/abstract-user-subscriber.ts</a>
+            </td>
+            <td>class</td>
+            <td>AbstractUserSubscriber</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/5)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/UserRoleEntity.html">lib/common/user/entity/user-role.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>UserRoleEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/UserEntity.html">lib/common/user/entity/user.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>UserEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/UserEntity.html">lib/common/user/entity/user.entity.ts</a>
+            </td>
+            <td>class</td>
+            <td>UserEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/12)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/UserSubscriber.html">lib/common/user/entity/user.subscriber.ts</a>
+            </td>
+            <td>class</td>
+            <td>UserSubscriber</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/5)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/BasicUserService.html">lib/common/user/user-service-basic.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>BasicUserService</td>
+            <td align="right" data-sort="85">
+                <span class="coverage-percent">85 %</span>
+                <span class="coverage-count">(6/7)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#USER_RELATIONS">lib/common/user/user.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>USER_RELATIONS</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/UserDto.html">lib/common/user/user.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>UserDto</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/12)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/UserRoleDto.html">lib/common/user/user.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>UserRoleDto</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/4)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/UserService.html">lib/common/user/user.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>UserService</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/6)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/User.html">lib/common/user/user.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>User</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/12)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/UserRole.html">lib/common/user/user.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>UserRole</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/4)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/UserUpdateRequest.html">lib/common/user/user.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>UserUpdateRequest</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/3)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/XmlDataBridgeExportService.html">lib/common/xml-data-bridge/xml-data-bridge-export.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>XmlDataBridgeExportService</td>
+            <td align="right" data-sort="14">
+                <span class="coverage-percent">14 %</span>
+                <span class="coverage-count">(2/14)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#xmlFileInsertUpdateNodeTpl">lib/common/xml-data-bridge/xml-data-bridge-file-schema.ts</a>
+            </td>
+            <td>function</td>
+            <td>xmlFileInsertUpdateNodeTpl</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#xmlFileNodeTpl">lib/common/xml-data-bridge/xml-data-bridge-file-schema.ts</a>
+            </td>
+            <td>function</td>
+            <td>xmlFileNodeTpl</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#xmlFileRowNode">lib/common/xml-data-bridge/xml-data-bridge-file-schema.ts</a>
+            </td>
+            <td>function</td>
+            <td>xmlFileRowNode</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#xmlFileRowPropertyNode">lib/common/xml-data-bridge/xml-data-bridge-file-schema.ts</a>
+            </td>
+            <td>function</td>
+            <td>xmlFileRowPropertyNode</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#xmlFileSchemaTpl">lib/common/xml-data-bridge/xml-data-bridge-file-schema.ts</a>
+            </td>
+            <td>function</td>
+            <td>xmlFileSchemaTpl</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#xmlMediaNodeTpl">lib/common/xml-data-bridge/xml-data-bridge-file-schema.ts</a>
+            </td>
+            <td>function</td>
+            <td>xmlMediaNodeTpl</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#BODY_TOKEN">lib/common/xml-data-bridge/xml-data-bridge-file-schema.ts</a>
+            </td>
+            <td>variable</td>
+            <td>BODY_TOKEN</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/XmlDataBridgeImportService.html">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>XmlDataBridgeImportService</td>
+            <td align="right" data-sort="90">
+                <span class="coverage-percent">90 %</span>
+                <span class="coverage-count">(20/22)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/XdbExportService.html">lib/common/xml-data-bridge/xml-data-bridge.constants.ts</a>
+            </td>
+            <td>class</td>
+            <td>XdbExportService</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/2)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/XdbImportService.html">lib/common/xml-data-bridge/xml-data-bridge.constants.ts</a>
+            </td>
+            <td>class</td>
+            <td>XdbImportService</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/3)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#deepEqual">lib/common/xml-data-bridge/xml-data-bridge.constants.ts</a>
+            </td>
+            <td>function</td>
+            <td>deepEqual</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#getXmlParser">lib/common/xml-data-bridge/xml-data-bridge.constants.ts</a>
+            </td>
+            <td>function</td>
+            <td>getXmlParser</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#parseXmlBody">lib/common/xml-data-bridge/xml-data-bridge.constants.ts</a>
+            </td>
+            <td>function</td>
+            <td>parseXmlBody</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#parseXmlFile">lib/common/xml-data-bridge/xml-data-bridge.constants.ts</a>
+            </td>
+            <td>function</td>
+            <td>parseXmlFile</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#removeDuplicateObjects">lib/common/xml-data-bridge/xml-data-bridge.constants.ts</a>
+            </td>
+            <td>function</td>
+            <td>removeDuplicateObjects</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#parser">lib/common/xml-data-bridge/xml-data-bridge.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>parser</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#ReadOperatorRe">lib/common/xml-data-bridge/xml-data-bridge.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>ReadOperatorRe</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#rootToken">lib/common/xml-data-bridge/xml-data-bridge.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>rootToken</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/XmlDataBridgeMiddleware.html">lib/common/xml-data-bridge/xml-data-bridge.middleware.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>XmlDataBridgeMiddleware</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/4)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/XdbRequest.html">lib/common/xml-data-bridge/xml-data-bridge.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>XdbRequest</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/3)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/Roles.html">lib/shared/constants.ts</a>
+            </td>
+            <td>class</td>
+            <td>Roles</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/4)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#MS_EXCEPTION_ID">lib/shared/constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>MS_EXCEPTION_ID</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#REQUEST_PROPS">lib/shared/constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>REQUEST_PROPS</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#AccessToken">lib/shared/decorators/access-token.decorator.ts</a>
+            </td>
+            <td>variable</td>
+            <td>AccessToken</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#CurrentUser">lib/shared/decorators/current-user.decorator.ts</a>
+            </td>
+            <td>variable</td>
+            <td>CurrentUser</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#AllowedForMetadataKey">lib/shared/decorators/for-roles.decorator.ts</a>
+            </td>
+            <td>variable</td>
+            <td>AllowedForMetadataKey</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#ForRoles">lib/shared/decorators/for-roles.decorator.ts</a>
+            </td>
+            <td>variable</td>
+            <td>ForRoles</td>
+            <td align="right" data-sort="100">
+                <span class="coverage-percent">100 %</span>
+                <span class="coverage-count">(1/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#ResponseDto">lib/shared/decorators/response-dto.decorator.ts</a>
+            </td>
+            <td>function</td>
+            <td>ResponseDto</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/BadRequestMsException.html">lib/shared/exceptions/bad-request-ms.exception.ts</a>
+            </td>
+            <td>class</td>
+            <td>BadRequestMsException</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/2)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/ForbiddenMsException.html">lib/shared/exceptions/forbidden-ms.exception.ts</a>
+            </td>
+            <td>class</td>
+            <td>ForbiddenMsException</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/2)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/InvalidTokenMsException.html">lib/shared/exceptions/invalid-token-ms.exception.ts</a>
+            </td>
+            <td>class</td>
+            <td>InvalidTokenMsException</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/2)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/MsException.html">lib/shared/exceptions/ms.exception.ts</a>
+            </td>
+            <td>class</td>
+            <td>MsException</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/2)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/NotFoundMsException.html">lib/shared/exceptions/not-found-ms.exception.ts</a>
+            </td>
+            <td>class</td>
+            <td>NotFoundMsException</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/2)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/TooManyRequestsMsException.html">lib/shared/exceptions/too-many-requests-ms.exception.ts</a>
+            </td>
+            <td>class</td>
+            <td>TooManyRequestsMsException</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/2)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/UnauthorizedMsException.html">lib/shared/exceptions/unauthorized-ms.exception.ts</a>
+            </td>
+            <td>class</td>
+            <td>UnauthorizedMsException</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/2)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/DbExceptionFilter.html">lib/shared/filters/db-exception-filter.ts</a>
+            </td>
+            <td>class</td>
+            <td>DbExceptionFilter</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/2)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./guards/AbstractAuthGuard.html">lib/shared/guards/abstract-auth.guard.ts</a>
+            </td>
+            <td>guard</td>
+            <td>AbstractAuthGuard</td>
+            <td align="right" data-sort="12">
+                <span class="coverage-percent">12 %</span>
+                <span class="coverage-count">(1/8)</span>
+            </td>
+        </tr>
+        <tr class="medium">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/AuthGuard.html">lib/shared/guards/auth.guard.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>AuthGuard</td>
+            <td align="right" data-sort="50">
+                <span class="coverage-percent">50 %</span>
+                <span class="coverage-count">(1/2)</span>
+            </td>
+        </tr>
+        <tr class="medium">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/LiteAuthGuard.html">lib/shared/guards/lite-auth.guard.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>LiteAuthGuard</td>
+            <td align="right" data-sort="33">
+                <span class="coverage-percent">33 %</span>
+                <span class="coverage-count">(1/3)</span>
+            </td>
+        </tr>
+        <tr class="medium">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./guards/RolesGuard.html">lib/shared/guards/roles.guard.ts</a>
+            </td>
+            <td>guard</td>
+            <td>RolesGuard</td>
+            <td align="right" data-sort="33">
+                <span class="coverage-percent">33 %</span>
+                <span class="coverage-count">(1/3)</span>
+            </td>
+        </tr>
+        <tr class="medium">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/DtoInterceptor.html">lib/shared/interceptors/dto.interceptor.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>DtoInterceptor</td>
+            <td align="right" data-sort="33">
+                <span class="coverage-percent">33 %</span>
+                <span class="coverage-count">(1/3)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#REDIS_CLIENT">lib/shared/modules/cache/cache.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>REDIS_CLIENT</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/CacheService.html">lib/shared/modules/cache/cache.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>CacheService</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/9)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/MockCacheService.html">lib/shared/modules/cache/mock/mock-cache.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>MockCacheService</td>
+            <td align="right" data-sort="90">
+                <span class="coverage-percent">90 %</span>
+                <span class="coverage-count">(9/10)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/RedisCacheService.html">lib/shared/modules/cache/redis-cache.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>RedisCacheService</td>
+            <td align="right" data-sort="90">
+                <span class="coverage-percent">90 %</span>
+                <span class="coverage-count">(9/10)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#CATEGORY_RELATIONS">lib/shared/modules/category/category.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>CATEGORY_RELATIONS</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="medium">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/CategoryService.html">lib/shared/modules/category/category.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>CategoryService</td>
+            <td align="right" data-sort="50">
+                <span class="coverage-percent">50 %</span>
+                <span class="coverage-count">(2/4)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/CategoryRestrictionEntity.html">lib/shared/modules/category/entity/category-restriction.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>CategoryRestrictionEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/CategoryEntity.html">lib/shared/modules/category/entity/category.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>CategoryEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/CategoryEntity.html">lib/shared/modules/category/entity/category.entity.ts</a>
+            </td>
+            <td>class</td>
+            <td>CategoryEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/10)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/LanguageEntity.html">lib/shared/modules/locale/entity/language.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>LanguageEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/LocaleSubscriber.html">lib/shared/modules/locale/entity/locale-subscriber.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>LocaleSubscriber</td>
+            <td align="right" data-sort="100">
+                <span class="coverage-percent">100 %</span>
+                <span class="coverage-count">(3/3)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/LocalizedMediaEntity.html">lib/shared/modules/locale/entity/localized-media.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>LocalizedMediaEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./entitys/LocalizedStringEntity.html">lib/shared/modules/locale/entity/localized-string.entity.ts</a>
+            </td>
+            <td>entity</td>
+            <td>LocalizedStringEntity</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/LocaleService.html">lib/shared/modules/locale/locale.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>LocaleService</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/3)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/Language.html">lib/shared/modules/locale/locale.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>Language</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/4)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/LocalizedMedia.html">lib/shared/modules/locale/locale.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>LocalizedMedia</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/5)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/LocalizedString.html">lib/shared/modules/locale/locale.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>LocalizedString</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/5)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#LOGGER">lib/shared/modules/log/log.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>LOGGER</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/LogService.html">lib/shared/modules/log/log.service.ts</a>
+            </td>
+            <td>class</td>
+            <td>LogService</td>
+            <td align="right" data-sort="11">
+                <span class="coverage-percent">11 %</span>
+                <span class="coverage-count">(1/9)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#MESSAGES_BROKER">lib/shared/modules/messages-broker/messages-broker.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>MESSAGES_BROKER</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/MessagesBrokerService.html">lib/shared/modules/messages-broker/messages-broker.service.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>MessagesBrokerService</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/9)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/MessagesBroker.html">lib/shared/modules/messages-broker/messages-broker.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>MessagesBroker</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/4)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#LoggerMock">lib/shared/modules/mock/logger.mock.ts</a>
+            </td>
+            <td>variable</td>
+            <td>LoggerMock</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/MockStorage.html">lib/shared/modules/mock/mock.storage.ts</a>
+            </td>
+            <td>class</td>
+            <td>MockStorage</td>
+            <td align="right" data-sort="16">
+                <span class="coverage-percent">16 %</span>
+                <span class="coverage-count">(1/6)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/MockMsClient.html">lib/shared/modules/ms-client/mock/mock-ms-client.ts</a>
+            </td>
+            <td>class</td>
+            <td>MockMsClient</td>
+            <td align="right" data-sort="80">
+                <span class="coverage-percent">80 %</span>
+                <span class="coverage-count">(4/5)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#MS_CLIENT">lib/shared/modules/ms-client/ms-client.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>MS_CLIENT</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#MSG_BUS">lib/shared/modules/ms-client/ms-client.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>MSG_BUS</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/MsClient.html">lib/shared/modules/ms-client/ms-client.ts</a>
+            </td>
+            <td>class</td>
+            <td>MsClient</td>
+            <td align="right" data-sort="66">
+                <span class="coverage-percent">66 %</span>
+                <span class="coverage-count">(4/6)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/MessageBus.html">lib/shared/modules/ms-client/ms-client.types.ts</a>
+            </td>
+            <td>interface</td>
+            <td>MessageBus</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/4)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/PageableData.html">lib/shared/modules/pageable/pageable.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>PageableData</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/2)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./classes/PageableParams.html">lib/shared/modules/pageable/pageable.types.ts</a>
+            </td>
+            <td>class</td>
+            <td>PageableParams</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/6)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#WARLOCK">lib/shared/modules/warlock/warlock.constants.ts</a>
+            </td>
+            <td>variable</td>
+            <td>WARLOCK</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="medium">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./injectables/NotEmptyPipe.html">lib/shared/pipes/not-empty.pipe.ts</a>
+            </td>
+            <td>injectable</td>
+            <td>NotEmptyPipe</td>
+            <td align="right" data-sort="33">
+                <span class="coverage-percent">33 %</span>
+                <span class="coverage-count">(1/3)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#SimpleJsonTransformer">lib/shared/transformers/simple-json.transformer.ts</a>
+            </td>
+            <td>variable</td>
+            <td>SimpleJsonTransformer</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#sleep">lib/shared/utils/common.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>sleep</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#loadEnvironment">lib/shared/utils/env.loader.ts</a>
+            </td>
+            <td>function</td>
+            <td>loadEnvironment</td>
+            <td align="right" data-sort="100">
+                <span class="coverage-percent">100 %</span>
+                <span class="coverage-count">(1/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./interfaces/DirectoryStructure.html">lib/shared/utils/files.utils.ts</a>
+            </td>
+            <td>interface</td>
+            <td>DirectoryStructure</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#createDirectoriesIfNotExist">lib/shared/utils/files.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>createDirectoriesIfNotExist</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#fileType">lib/shared/utils/files.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>fileType</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#getHashFromBuffer">lib/shared/utils/files.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>getHashFromBuffer</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#readDirectoryRecursively">lib/shared/utils/files.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>readDirectoryRecursively</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#readFile">lib/shared/utils/files.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>readFile</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/variables.html#fileTypeModule">lib/shared/utils/files.utils.ts</a>
+            </td>
+            <td>variable</td>
+            <td>fileTypeModule</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#jsonFilter">lib/shared/utils/json.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>jsonFilter</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#removeCircularReferences">lib/shared/utils/json.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>removeCircularReferences</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#generateRandomInt">lib/shared/utils/number.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>generateRandomInt</td>
+            <td align="right" data-sort="100">
+                <span class="coverage-percent">100 %</span>
+                <span class="coverage-count">(1/1)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#inspect">lib/shared/utils/object.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>inspect</td>
+            <td align="right" data-sort="100">
+                <span class="coverage-percent">100 %</span>
+                <span class="coverage-count">(1/1)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#sort">lib/shared/utils/object.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>sort</td>
+            <td align="right" data-sort="100">
+                <span class="coverage-percent">100 %</span>
+                <span class="coverage-count">(1/1)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#generateRandomString">lib/shared/utils/string.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>generateRandomString</td>
+            <td align="right" data-sort="100">
+                <span class="coverage-percent">100 %</span>
+                <span class="coverage-count">(1/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#dateToTime">lib/shared/utils/transform.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>dateToTime</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#parseParamsString">lib/shared/utils/transform.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>parseParamsString</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#stringifyParamsObject">lib/shared/utils/transform.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>stringifyParamsObject</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#hasAccessForRoles">lib/shared/utils/user.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>hasAccessForRoles</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                <a href="./miscellaneous/functions.html#hasSomeRole">lib/shared/utils/user.utils.ts</a>
+            </td>
+            <td>function</td>
+            <td>hasSomeRole</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script src="js/libs/tablesort.min.js"></script>
+<script src="js/libs/tablesort.number.min.js"></script>
+<script>
+    new Tablesort(document.getElementById('coverage-table'));
+</script>
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'coverage';
+            var COMPODOC_CURRENT_PAGE_URL = 'coverage.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+
+       <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
