@@ -21,53 +21,110 @@ import { UserDto } from "../user/user.types";
 import { TransformUtils } from "../../shared/utils/transform.utils";
 import { AuthService } from "./auth.constants";
 
+/**
+ * Data transfer object for login payload.
+ * Contains user login information required for authentication.
+ */
 export class LoginPayload {
+  /**
+   * The login of the user.
+   * @example ```typescript
+   * "admin"
+   */
   @IsString()
   @IsNotEmpty()
   login: string;
 
+  /**
+   * The password of the user.
+   * @example ```typescript
+   * "P@ssw0rd!"
+   */
   @IsString()
   @IsNotEmpty()
   password: string;
 
+  /**
+   * The IP address of the user.
+   * Optional.
+   * @example ```typescript
+   * "192.168.0.1"
+   */
   @IsIP()
   @IsOptional()
   ipAddress: string;
 
+  /**
+   * The ID of the captcha.
+   * Optional.
+   */
   @IsString()
   @IsOptional()
   captchaId?: string;
 
+  /**
+   * The payload of the captcha.
+   * Optional.
+   */
   @IsString()
   @IsOptional()
   captchaPayload?: string;
 }
 
+/**
+ * Data transfer object for token exchange payload.
+ * Contains the token to be exchanged for a new token pair JwtDto.
+ */
 export class ExchangeTokenPayload {
+  /**
+   * The refresh token to be exchanged.
+   */
   @IsString()
-  @IsNotEmpty()
   @IsOptional()
   token: string;
 }
 
+/**
+ * Data transfer object for JWT tokens.
+ * Contains access and refresh tokens along with their expiration dates and user information.
+ */
 export class JwtDto {
+  /**
+   * The user-data object.
+   */
   @Expose()
   @Type(() => UserDto)
   user: UserDto;
 
+  /**
+   * The access token.
+   */
   @Expose()
   accessToken: string;
 
+  /**
+   * The refresh token.
+   */
   @Expose()
   refreshToken: string;
 
+  /**
+   * The expiration date of the access token.
+   */
   @Transform(TransformUtils.dateToTime)
   atExp: Date;
 
+  /**
+   * The expiration date of the refresh token.
+   */
   @Transform(TransformUtils.dateToTime)
   rtExp: Date;
 }
 
+/**
+ * Options for configuring the authentication module.
+ * @property service - The authentication service class.
+ */
 export type AuthModuleOptions = {
   service: Class<AuthService>;
 };

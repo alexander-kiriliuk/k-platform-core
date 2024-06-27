@@ -64,6 +64,7 @@ export class AuthorizationService extends AuthService {
    * @param data - LoginPayload object with user login information.
    * @returns A Promise that resolves to a JwtDto containing access and refresh tokens.
    * @throws UnauthorizedException unauthorized exception if authentication fails.
+   * @throws InternalServerErrorException if too many login attempts are detected.
    */
   async authenticate(data: LoginPayload): Promise<JwtDto> {
     if (!data.ipAddress?.length) {
@@ -182,6 +183,14 @@ export class AuthorizationService extends AuthService {
     return { accessToken, refreshToken: newRefreshToken };
   }
 
+  /**
+   * Check if the user is blocked due to too many failed login attempts.
+   * @param login - The user's login.
+   * @param ipAddress - The IP address of the user.
+   * @returns A Promise that resolves to true if the user is blocked, false otherwise.
+   *
+   * @private
+   */
   private async isBlocked(login: string, ipAddress: string): Promise<boolean> {
     const bfEnabled = await this.getBruteForceEnabled();
     if (!bfEnabled) {
@@ -200,6 +209,13 @@ export class AuthorizationService extends AuthService {
     );
   }
 
+  /**
+   * Register a failed login attempt.
+   * @param login - The user's login.
+   * @param ipAddress - The IP address of the user.
+   *
+   * @private
+   */
   private async registerFailedAttempt(
     login: string,
     ipAddress: string,
@@ -227,6 +243,13 @@ export class AuthorizationService extends AuthService {
     await Promise.all([loginUpdate, ipUpdate]);
   }
 
+  /**
+   * Reset failed login attempts for a user.
+   * @param login - The user's login.
+   * @param ipAddress - The IP address of the user.
+   *
+   * @private
+   */
   private async resetFailedAttempts(
     login: string,
     ipAddress: string,
@@ -243,6 +266,13 @@ export class AuthorizationService extends AuthService {
     await this.cacheService.del(loginKey, ipKey);
   }
 
+  /**
+   * Validate user credentials.
+   * @param payload - The login payload containing user credentials.
+   * @returns A Promise that resolves to the user object if validation is successful, null otherwise.
+   *
+   * @private
+   */
   private async validateUser(payload: LoginPayload): Promise<User> {
     const user = await this.userService.findByLogin(payload.login);
     if (!user) {
@@ -256,6 +286,13 @@ export class AuthorizationService extends AuthService {
     return null;
   }
 
+  /**
+   * Extract access token from refresh token key.
+   * @param refreshTokenKey - The refresh token key.
+   * @returns The access token if extraction is successful, null otherwise.
+   *
+   * @private
+   */
   private extractAccessTokenFromRefreshTokenKey(refreshTokenKey: string) {
     const regex = new RegExp(
       `${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:(.*):[^:]*$`,
@@ -267,11 +304,24 @@ export class AuthorizationService extends AuthService {
     return null;
   }
 
+  /**
+   * Delete an access token.
+   * @param accessToken - The access token to delete.
+   *
+   * @private
+   */
   private async deleteAccessToken(accessToken: string): Promise<void> {
     this.logger.debug(`Deleting access token: ${accessToken}`);
     await this.cacheService.del(jwtAccessTokenKey(accessToken));
   }
 
+  /**
+   * Delete refresh tokens associated with an access token.
+   * @param accessToken - The access token.
+   * @param pattern - The pattern to match refresh token keys.
+   *
+   * @private
+   */
   private async deleteRefreshTokens(
     accessToken: string,
     pattern: string,
@@ -285,26 +335,56 @@ export class AuthorizationService extends AuthService {
     }
   }
 
+  /**
+   * Get the access token expiration time defined in configuration.
+   * @returns A Promise that resolves to the access token expiration time.
+   *
+   * @private
+   */
   private async getAccessTokenExp() {
     return await this.cacheService.getNumber(
       AuthConfig.ACCESS_TOKEN_EXPIRATION,
     );
   }
 
+  /**
+   * Get the refresh token expiration time defined in configuration.
+   * @returns A Promise that resolves to the refresh token expiration time.
+   *
+   * @private
+   */
   private async getRefreshTokenExp() {
     return await this.cacheService.getNumber(
       AuthConfig.REFRESH_TOKEN_EXPIRATION,
     );
   }
 
+  /**
+   * Get the maximum number of brute force attempts allowed defined in configuration.
+   * @returns A Promise that resolves to the maximum number of attempts.
+   *
+   * @private
+   */
   private async getBruteForceMaxAttempts() {
     return await this.cacheService.getNumber(BruteforceConfig.MAX_ATTEMPTS);
   }
 
+  /**
+   * Check if brute force protection is enabled.
+   * @returns A Promise that resolves to true if brute force protection is enabled, false otherwise.
+   *
+   * @private
+   */
   private async getBruteForceEnabled() {
     return await this.cacheService.getBoolean(BruteforceConfig.ENABLED);
   }
 
+  /**
+   * Get the duration for which a user is blocked after reaching the maximum number of failed attempts.
+   * @returns A Promise that resolves to the block duration in seconds.
+   *
+   * @private
+   */
   private async getBruteForceBlockDuration() {
     return await this.cacheService.getNumber(BruteforceConfig.BLOCK_DURATION);
   }

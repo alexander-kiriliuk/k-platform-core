@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Properties",
+    "file": "./lib/kp.properties.doc.md",
+    "children": [
+      {
+        "title": "kp.properties",
+        "file": "./lib/kp.properties.doc.md"
+      },
+      {
+        "title": "auth.properties",
+        "file": "./lib/common/auth/auth.properties.doc.md"
+      },
+      {
+        "title": "bruteforce.properties",
+        "file": "./lib/common/auth/bruteforce.properties.doc.md"
+      }
+    ]
+  }
+]
