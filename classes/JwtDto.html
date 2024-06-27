@@ -123,6 +123,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Data transfer object for JWT tokens.
+Contains access and refresh tokens along with their expiration dates and user information.</p>
+
+            </p>
 
 
 
@@ -208,10 +216,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">lib/common/auth/auth.types.ts:59</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="103" class="link-to-prism">lib/common/auth/auth.types.ts:103</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The access token.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -244,10 +258,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">lib/common/auth/auth.types.ts:65</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="115" class="link-to-prism">lib/common/auth/auth.types.ts:115</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The expiration date of the access token.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -280,10 +300,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">lib/common/auth/auth.types.ts:62</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="109" class="link-to-prism">lib/common/auth/auth.types.ts:109</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The refresh token.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -316,10 +342,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">lib/common/auth/auth.types.ts:68</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="121" class="link-to-prism">lib/common/auth/auth.types.ts:121</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The expiration date of the refresh token.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -353,10 +385,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">lib/common/auth/auth.types.ts:56</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="97" class="link-to-prism">lib/common/auth/auth.types.ts:97</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The user-data object.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -379,53 +417,110 @@ import { UserDto } from &quot;../user/user.types&quot;;
 import { TransformUtils } from &quot;../../shared/utils/transform.utils&quot;;
 import { AuthService } from &quot;./auth.constants&quot;;
 
+/**
+ * Data transfer object for login payload.
+ * Contains user login information required for authentication.
+ */
 export class LoginPayload {
+  /**
+   * The login of the user.
+   * @example &#x60;&#x60;&#x60;typescript
+   * &quot;admin&quot;
+   */
   @IsString()
   @IsNotEmpty()
   login: string;
 
+  /**
+   * The password of the user.
+   * @example &#x60;&#x60;&#x60;typescript
+   * &quot;P@ssw0rd!&quot;
+   */
   @IsString()
   @IsNotEmpty()
   password: string;
 
+  /**
+   * The IP address of the user.
+   * Optional.
+   * @example &#x60;&#x60;&#x60;typescript
+   * &quot;192.168.0.1&quot;
+   */
   @IsIP()
   @IsOptional()
   ipAddress: string;
 
+  /**
+   * The ID of the captcha.
+   * Optional.
+   */
   @IsString()
   @IsOptional()
   captchaId?: string;
 
+  /**
+   * The payload of the captcha.
+   * Optional.
+   */
   @IsString()
   @IsOptional()
   captchaPayload?: string;
 }
 
+/**
+ * Data transfer object for token exchange payload.
+ * Contains the token to be exchanged for a new token pair JwtDto.
+ */
 export class ExchangeTokenPayload {
+  /**
+   * The refresh token to be exchanged.
+   */
   @IsString()
-  @IsNotEmpty()
   @IsOptional()
   token: string;
 }
 
+/**
+ * Data transfer object for JWT tokens.
+ * Contains access and refresh tokens along with their expiration dates and user information.
+ */
 export class JwtDto {
+  /**
+   * The user-data object.
+   */
   @Expose()
   @Type(() &#x3D;&gt; UserDto)
   user: UserDto;
 
+  /**
+   * The access token.
+   */
   @Expose()
   accessToken: string;
 
+  /**
+   * The refresh token.
+   */
   @Expose()
   refreshToken: string;
 
+  /**
+   * The expiration date of the access token.
+   */
   @Transform(TransformUtils.dateToTime)
   atExp: Date;
 
+  /**
+   * The expiration date of the refresh token.
+   */
   @Transform(TransformUtils.dateToTime)
   rtExp: Date;
 }
 
+/**
+ * Options for configuring the authentication module.
+ * @property service - The authentication service class.
+ */
 export type AuthModuleOptions &#x3D; {
   service: Class&lt;AuthService&gt;;
 };

@@ -350,7 +350,7 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AuthService.html#source" target="_self" >AuthService:68</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AuthService.html#source" target="_self" >AuthService:69</a></code>
 </div>
                         </td>
                     </tr>
@@ -430,14 +430,16 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="270"
-                                    class="link-to-prism">lib/common/auth/authorization.service.ts:270</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="313"
+                                    class="link-to-prism">lib/common/auth/authorization.service.ts:313</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Delete an access token.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -448,6 +450,7 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -462,6 +465,12 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The access token to delete.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -500,14 +509,16 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="275"
-                                    class="link-to-prism">lib/common/auth/authorization.service.ts:275</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="325"
+                                    class="link-to-prism">lib/common/auth/authorization.service.ts:325</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Delete refresh tokens associated with an access token.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -518,6 +529,7 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -532,6 +544,12 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The access token.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>pattern</td>
@@ -544,6 +562,12 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The pattern to match refresh token keys.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -587,7 +611,7 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AuthService.html#source" target="_self" >AuthService:146</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AuthService.html#source" target="_self" >AuthService:147</a></code>
 </div>
                         </td>
                     </tr>
@@ -666,14 +690,16 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="259"
-                                    class="link-to-prism">lib/common/auth/authorization.service.ts:259</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="296"
+                                    class="link-to-prism">lib/common/auth/authorization.service.ts:296</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Extract access token from refresh token key.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -684,6 +710,7 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -698,6 +725,12 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The refresh token key.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -707,7 +740,8 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The access token if extraction is successful, null otherwise.</p>
+
                             </div>
                 </td>
             </tr>
@@ -736,19 +770,25 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="288"
-                                    class="link-to-prism">lib/common/auth/authorization.service.ts:288</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="344"
+                                    class="link-to-prism">lib/common/auth/authorization.service.ts:344</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Get the access token expiration time defined in configuration.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>A Promise that resolves to the access token expiration time.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -776,19 +816,25 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="308"
-                                    class="link-to-prism">lib/common/auth/authorization.service.ts:308</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="388"
+                                    class="link-to-prism">lib/common/auth/authorization.service.ts:388</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Get the duration for which a user is blocked after reaching the maximum number of failed attempts.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>A Promise that resolves to the block duration in seconds.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -816,19 +862,25 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="304"
-                                    class="link-to-prism">lib/common/auth/authorization.service.ts:304</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="378"
+                                    class="link-to-prism">lib/common/auth/authorization.service.ts:378</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Check if brute force protection is enabled.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>A Promise that resolves to true if brute force protection is enabled, false otherwise.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -856,19 +908,25 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="300"
-                                    class="link-to-prism">lib/common/auth/authorization.service.ts:300</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="368"
+                                    class="link-to-prism">lib/common/auth/authorization.service.ts:368</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Get the maximum number of brute force attempts allowed defined in configuration.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>A Promise that resolves to the maximum number of attempts.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -896,19 +954,25 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="294"
-                                    class="link-to-prism">lib/common/auth/authorization.service.ts:294</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="356"
+                                    class="link-to-prism">lib/common/auth/authorization.service.ts:356</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Get the refresh token expiration time defined in configuration.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>A Promise that resolves to the refresh token expiration time.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -941,7 +1005,7 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AuthService.html#source" target="_self" >AuthService:120</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AuthService.html#source" target="_self" >AuthService:121</a></code>
 </div>
                         </td>
                     </tr>
@@ -1021,14 +1085,16 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="185"
-                                    class="link-to-prism">lib/common/auth/authorization.service.ts:185</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="194"
+                                    class="link-to-prism">lib/common/auth/authorization.service.ts:194</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Check if the user is blocked due to too many failed login attempts.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1039,6 +1105,7 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1053,6 +1120,12 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The user&#39;s login.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>ipAddress</td>
@@ -1065,6 +1138,12 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The IP address of the user.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1074,7 +1153,8 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A Promise that resolves to true if the user is blocked, false otherwise.</p>
+
                             </div>
                 </td>
             </tr>
@@ -1103,14 +1183,16 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="203"
-                                    class="link-to-prism">lib/common/auth/authorization.service.ts:203</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="219"
+                                    class="link-to-prism">lib/common/auth/authorization.service.ts:219</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Register a failed login attempt.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1121,6 +1203,7 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1135,6 +1218,12 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The user&#39;s login.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>ipAddress</td>
@@ -1147,6 +1236,12 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The IP address of the user.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1185,14 +1280,16 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="230"
-                                    class="link-to-prism">lib/common/auth/authorization.service.ts:230</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="253"
+                                    class="link-to-prism">lib/common/auth/authorization.service.ts:253</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Reset failed login attempts for a user.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1203,6 +1300,7 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1217,6 +1315,12 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The user&#39;s login.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>ipAddress</td>
@@ -1229,6 +1333,12 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The IP address of the user.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1267,14 +1377,16 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="246"
-                                    class="link-to-prism">lib/common/auth/authorization.service.ts:246</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="276"
+                                    class="link-to-prism">lib/common/auth/authorization.service.ts:276</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Validate user credentials.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1285,6 +1397,7 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1299,6 +1412,12 @@ This service provides methods to authenticate users, invalidate tokens, exchange
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The login payload containing user credentials.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1308,7 +1427,8 @@ This service provides methods to authenticate users, invalidate tokens, exchange
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A Promise that resolves to the user object if validation is successful, null otherwise.</p>
+
                             </div>
                 </td>
             </tr>
@@ -1370,6 +1490,7 @@ export class AuthorizationService extends AuthService {
    * @param data - LoginPayload object with user login information.
    * @returns A Promise that resolves to a JwtDto containing access and refresh tokens.
    * @throws UnauthorizedException unauthorized exception if authentication fails.
+   * @throws InternalServerErrorException if too many login attempts are detected.
    */
   async authenticate(data: LoginPayload): Promise&lt;JwtDto&gt; {
     if (!data.ipAddress?.length) {
@@ -1488,6 +1609,14 @@ export class AuthorizationService extends AuthService {
     return { accessToken, refreshToken: newRefreshToken };
   }
 
+  /**
+   * Check if the user is blocked due to too many failed login attempts.
+   * @param login - The user&#x27;s login.
+   * @param ipAddress - The IP address of the user.
+   * @returns A Promise that resolves to true if the user is blocked, false otherwise.
+   *
+   * @private
+   */
   private async isBlocked(login: string, ipAddress: string): Promise&lt;boolean&gt; {
     const bfEnabled &#x3D; await this.getBruteForceEnabled();
     if (!bfEnabled) {
@@ -1506,6 +1635,13 @@ export class AuthorizationService extends AuthService {
     );
   }
 
+  /**
+   * Register a failed login attempt.
+   * @param login - The user&#x27;s login.
+   * @param ipAddress - The IP address of the user.
+   *
+   * @private
+   */
   private async registerFailedAttempt(
     login: string,
     ipAddress: string,
@@ -1533,6 +1669,13 @@ export class AuthorizationService extends AuthService {
     await Promise.all([loginUpdate, ipUpdate]);
   }
 
+  /**
+   * Reset failed login attempts for a user.
+   * @param login - The user&#x27;s login.
+   * @param ipAddress - The IP address of the user.
+   *
+   * @private
+   */
   private async resetFailedAttempts(
     login: string,
     ipAddress: string,
@@ -1549,6 +1692,13 @@ export class AuthorizationService extends AuthService {
     await this.cacheService.del(loginKey, ipKey);
   }
 
+  /**
+   * Validate user credentials.
+   * @param payload - The login payload containing user credentials.
+   * @returns A Promise that resolves to the user object if validation is successful, null otherwise.
+   *
+   * @private
+   */
   private async validateUser(payload: LoginPayload): Promise&lt;User&gt; {
     const user &#x3D; await this.userService.findByLogin(payload.login);
     if (!user) {
@@ -1562,6 +1712,13 @@ export class AuthorizationService extends AuthService {
     return null;
   }
 
+  /**
+   * Extract access token from refresh token key.
+   * @param refreshTokenKey - The refresh token key.
+   * @returns The access token if extraction is successful, null otherwise.
+   *
+   * @private
+   */
   private extractAccessTokenFromRefreshTokenKey(refreshTokenKey: string) {
     const regex &#x3D; new RegExp(
       &#x60;${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:(.*):[^:]*$&#x60;,
@@ -1573,11 +1730,24 @@ export class AuthorizationService extends AuthService {
     return null;
   }
 
+  /**
+   * Delete an access token.
+   * @param accessToken - The access token to delete.
+   *
+   * @private
+   */
   private async deleteAccessToken(accessToken: string): Promise&lt;void&gt; {
     this.logger.debug(&#x60;Deleting access token: ${accessToken}&#x60;);
     await this.cacheService.del(jwtAccessTokenKey(accessToken));
   }
 
+  /**
+   * Delete refresh tokens associated with an access token.
+   * @param accessToken - The access token.
+   * @param pattern - The pattern to match refresh token keys.
+   *
+   * @private
+   */
   private async deleteRefreshTokens(
     accessToken: string,
     pattern: string,
@@ -1591,26 +1761,56 @@ export class AuthorizationService extends AuthService {
     }
   }
 
+  /**
+   * Get the access token expiration time defined in configuration.
+   * @returns A Promise that resolves to the access token expiration time.
+   *
+   * @private
+   */
   private async getAccessTokenExp() {
     return await this.cacheService.getNumber(
       AuthConfig.ACCESS_TOKEN_EXPIRATION,
     );
   }
 
+  /**
+   * Get the refresh token expiration time defined in configuration.
+   * @returns A Promise that resolves to the refresh token expiration time.
+   *
+   * @private
+   */
   private async getRefreshTokenExp() {
     return await this.cacheService.getNumber(
       AuthConfig.REFRESH_TOKEN_EXPIRATION,
     );
   }
 
+  /**
+   * Get the maximum number of brute force attempts allowed defined in configuration.
+   * @returns A Promise that resolves to the maximum number of attempts.
+   *
+   * @private
+   */
   private async getBruteForceMaxAttempts() {
     return await this.cacheService.getNumber(BruteforceConfig.MAX_ATTEMPTS);
   }
 
+  /**
+   * Check if brute force protection is enabled.
+   * @returns A Promise that resolves to true if brute force protection is enabled, false otherwise.
+   *
+   * @private
+   */
   private async getBruteForceEnabled() {
     return await this.cacheService.getBoolean(BruteforceConfig.ENABLED);
   }
 
+  /**
+   * Get the duration for which a user is blocked after reaching the maximum number of failed attempts.
+   * @returns A Promise that resolves to the block duration in seconds.
+   *
+   * @private
+   */
   private async getBruteForceBlockDuration() {
     return await this.cacheService.getNumber(BruteforceConfig.BLOCK_DURATION);
   }

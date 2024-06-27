@@ -123,6 +123,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Data transfer object for login payload.
+Contains user login information required for authentication.</p>
+
+            </p>
 
 
 
@@ -216,10 +224,17 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">lib/common/auth/auth.types.ts:39</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">lib/common/auth/auth.types.ts:63</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The ID of the captcha.
+Optional.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -254,10 +269,17 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">lib/common/auth/auth.types.ts:43</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">lib/common/auth/auth.types.ts:71</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The payload of the captcha.
+Optional.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -291,10 +313,17 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">lib/common/auth/auth.types.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">lib/common/auth/auth.types.ts:55</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The IP address of the user.
+Optional.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&quot;192.168.0.1&quot;</code></pre></div></div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -328,10 +357,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">lib/common/auth/auth.types.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">lib/common/auth/auth.types.ts:36</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The login of the user.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&quot;admin&quot;</code></pre></div></div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -365,10 +400,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">lib/common/auth/auth.types.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">lib/common/auth/auth.types.ts:45</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The password of the user.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&quot;P&#64;ssw0rd!&quot;</code></pre></div></div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -391,53 +432,110 @@ import { UserDto } from &quot;../user/user.types&quot;;
 import { TransformUtils } from &quot;../../shared/utils/transform.utils&quot;;
 import { AuthService } from &quot;./auth.constants&quot;;
 
+/**
+ * Data transfer object for login payload.
+ * Contains user login information required for authentication.
+ */
 export class LoginPayload {
+  /**
+   * The login of the user.
+   * @example &#x60;&#x60;&#x60;typescript
+   * &quot;admin&quot;
+   */
   @IsString()
   @IsNotEmpty()
   login: string;
 
+  /**
+   * The password of the user.
+   * @example &#x60;&#x60;&#x60;typescript
+   * &quot;P@ssw0rd!&quot;
+   */
   @IsString()
   @IsNotEmpty()
   password: string;
 
+  /**
+   * The IP address of the user.
+   * Optional.
+   * @example &#x60;&#x60;&#x60;typescript
+   * &quot;192.168.0.1&quot;
+   */
   @IsIP()
   @IsOptional()
   ipAddress: string;
 
+  /**
+   * The ID of the captcha.
+   * Optional.
+   */
   @IsString()
   @IsOptional()
   captchaId?: string;
 
+  /**
+   * The payload of the captcha.
+   * Optional.
+   */
   @IsString()
   @IsOptional()
   captchaPayload?: string;
 }
 
+/**
+ * Data transfer object for token exchange payload.
+ * Contains the token to be exchanged for a new token pair JwtDto.
+ */
 export class ExchangeTokenPayload {
+  /**
+   * The refresh token to be exchanged.
+   */
   @IsString()
-  @IsNotEmpty()
   @IsOptional()
   token: string;
 }
 
+/**
+ * Data transfer object for JWT tokens.
+ * Contains access and refresh tokens along with their expiration dates and user information.
+ */
 export class JwtDto {
+  /**
+   * The user-data object.
+   */
   @Expose()
   @Type(() &#x3D;&gt; UserDto)
   user: UserDto;
 
+  /**
+   * The access token.
+   */
   @Expose()
   accessToken: string;
 
+  /**
+   * The refresh token.
+   */
   @Expose()
   refreshToken: string;
 
+  /**
+   * The expiration date of the access token.
+   */
   @Transform(TransformUtils.dateToTime)
   atExp: Date;
 
+  /**
+   * The expiration date of the refresh token.
+   */
   @Transform(TransformUtils.dateToTime)
   rtExp: Date;
 }
 
+/**
+ * Options for configuring the authentication module.
+ * @property service - The authentication service class.
+ */
 export type AuthModuleOptions &#x3D; {
   service: Class&lt;AuthService&gt;;
 };

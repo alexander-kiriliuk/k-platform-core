@@ -50,6 +50,36 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                     </ul>
                 </li>
+                    <li class="chapter additional">
+                        <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ? 'data-bs-target="#additional-pages"'
+                            : 'data-bs-target="#xs-additional-pages"' }>
+                            <span class="icon ion-ios-book"></span>
+                            <span>Additional documentation</span>
+                            <span class="icon ion-ios-arrow-down"></span>
+                        </div>
+                        <ul class="links collapse " ${ isNormalMode ? 'id="additional-pages"' : 'id="xs-additional-pages"' }>
+                                    <li class="chapter inner">
+                                        <a data-type="chapter-link" href="additional-documentation/properties.html" data-context-id="additional">
+                                            <div class="menu-toggler linked" data-bs-toggle="collapse" ${ isNormalMode ?
+                                            'data-bs-target="#additional-page-8f57e17a600e822d85a7841746a5549f05f5b80ec8f4484e94ab417bde3888cba1b4ae9467f1827fa3157aff70ad581bb65453c2bc33da8c0c912c019da707cc"' : 'data-bs-target="#xs-additional-page-8f57e17a600e822d85a7841746a5549f05f5b80ec8f4484e94ab417bde3888cba1b4ae9467f1827fa3157aff70ad581bb65453c2bc33da8c0c912c019da707cc"' }>
+                                                <span class="link-name">Properties</span>
+                                                <span class="icon ion-ios-arrow-down"></span>
+                                            </div>
+                                        </a>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="additional-page-8f57e17a600e822d85a7841746a5549f05f5b80ec8f4484e94ab417bde3888cba1b4ae9467f1827fa3157aff70ad581bb65453c2bc33da8c0c912c019da707cc"' : 'id="xs-additional-page-8f57e17a600e822d85a7841746a5549f05f5b80ec8f4484e94ab417bde3888cba1b4ae9467f1827fa3157aff70ad581bb65453c2bc33da8c0c912c019da707cc"' }>
+                                            <li class="link for-chapter2">
+                                                <a href="additional-documentation/properties/kp.properties.html" data-type="entity-link" data-context="sub-entity" data-context-id="additional">kp.properties</a>
+                                            </li>
+                                            <li class="link for-chapter2">
+                                                <a href="additional-documentation/properties/auth.properties.html" data-type="entity-link" data-context="sub-entity" data-context-id="additional">auth.properties</a>
+                                            </li>
+                                            <li class="link for-chapter2">
+                                                <a href="additional-documentation/properties/bruteforce.properties.html" data-type="entity-link" data-context="sub-entity" data-context-id="additional">bruteforce.properties</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                        </ul>
+                    </li>
                     <li class="chapter modules">
                         <a data-type="chapter-link" href="modules.html">
                             <div class="menu-toggler linked" data-bs-toggle="collapse" ${ isNormalMode ?
@@ -624,12 +654,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                     </li>
                     <li class="chapter">
                         <a data-type="chapter-link" href="coverage.html"><span class="icon ion-ios-stats"></span>Documentation coverage</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li class="copyright">
-                        Documentation generated using <a href="https://compodoc.app/" target="_blank" rel="noopener noreferrer">
-                            <img data-src="images/compodoc-vectorise.png" class="img-responsive" data-type="compodoc-logo">
-                        </a>
                     </li>
             </ul>
         </nav>

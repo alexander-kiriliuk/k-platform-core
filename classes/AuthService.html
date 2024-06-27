@@ -123,6 +123,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Abstract service class for authentication and authorization.
+Defines the methods that must be implemented by any derived service.</p>
+
+            </p>
 
 
 
@@ -193,14 +201,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="45"
-                                    class="link-to-prism">lib/common/auth/auth.constants.ts:45</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="109"
+                                    class="link-to-prism">lib/common/auth/auth.constants.ts:109</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Authenticate the user with the provided login payload.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -211,6 +221,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -225,6 +236,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>LoginPayload object with user login information.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -234,7 +251,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A Promise that resolves to a JwtDto containing access and refresh tokens.</p>
+
                             </div>
                 </td>
             </tr>
@@ -262,14 +280,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="49"
-                                    class="link-to-prism">lib/common/auth/auth.constants.ts:49</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">lib/common/auth/auth.constants.ts:123</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Exchange the provided refresh token for a new access token.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -280,6 +300,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -294,6 +315,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The refresh token to exchange.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -303,7 +330,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A Promise that resolves to a Partial<JwtDto> containing new access and refresh tokens.</p>
+
                             </div>
                 </td>
             </tr>
@@ -331,14 +359,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="47"
-                                    class="link-to-prism">lib/common/auth/auth.constants.ts:47</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="116"
+                                    class="link-to-prism">lib/common/auth/auth.constants.ts:116</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Invalidate the specified access token.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -349,6 +379,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -363,6 +394,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The access token to invalidate.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -372,7 +409,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A Promise that resolves to true if the token was invalidated successfully, or throws an error.</p>
+
                             </div>
                 </td>
             </tr>
@@ -390,18 +428,63 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { JwtDto, LoginPayload } from &quot;./auth.types&quot;;
 
+/**
+ * Error message for access token related errors.
+ * @constant
+ */
 export const ACCESS_TOKEN_ERROR_MSG &#x3D; &quot;ERR_TOKEN_A&quot;;
+
+/**
+ * Error message for refresh token related errors.
+ * @constant
+ */
 export const REFRESH_TOKEN_ERROR_MSG &#x3D; &quot;ERR_TOKEN_R&quot;;
+
+/**
+ * Placeholder for unknown IP addresses.
+ * @constant
+ */
 export const UNKNOWN_IP &#x3D; &quot;unknown&quot;;
+
+/**
+ * Prefix for JWT cache keys.
+ * @constant
+ */
 export const AUTH_JWT_CACHE_PREFIX &#x3D; &quot;jwt&quot;;
+
+/**
+ * Prefix for access token cache keys.
+ * @constant
+ */
 export const AUTH_ACCESS_TOKEN_PREFIX &#x3D; &quot;access_token&quot;;
+
+/**
+ * Prefix for refresh token cache keys.
+ * @constant
+ */
 export const AUTH_REFRESH_TOKEN_PREFIX &#x3D; &quot;refresh_token&quot;;
+
+/**
+ * Prefix for brute force protection cache keys.
+ * @constant
+ */
 export const BRUTEFORCE_JWT_CACHE_PREFIX &#x3D; &quot;bruteforce&quot;;
 
+/**
+ * Generates a cache key for an access token.
+ * @param accessToken - The access token.
+ * @returns The generated cache key.
+ */
 export const jwtAccessTokenKey &#x3D; (accessToken: string) &#x3D;&gt; {
   return &#x60;${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${accessToken}&#x60;;
 };
 
+/**
+ * Generates a cache key for a refresh token.
+ * @param accessToken - The access token.
+ * @param refreshToken - The refresh token.
+ * @returns The generated cache key.
+ */
 export const jwtRefreshTokenKey &#x3D; (
   accessToken: string,
   refreshToken: string,
@@ -409,17 +492,46 @@ export const jwtRefreshTokenKey &#x3D; (
   return &#x60;${AUTH_JWT_CACHE_PREFIX}:${AUTH_REFRESH_TOKEN_PREFIX}:${accessToken}:${refreshToken}&#x60;;
 };
 
+/**
+ * Generates a cache key for tracking brute force login attempts by login.
+ * @param login - The user&#x27;s login.
+ * @returns The generated cache key.
+ */
 export const bruteForceLoginKey &#x3D; (login: string) &#x3D;&gt;
   &#x60;${BRUTEFORCE_JWT_CACHE_PREFIX}:login:${login}&#x60;;
 
+/**
+ * Generates a cache key for tracking brute force login attempts by IP address.
+ * @param ipAddress - The IP address of the user.
+ * @returns The generated cache key.
+ */
 export const bruteForceIPKey &#x3D; (ipAddress: string) &#x3D;&gt;
   &#x60;${BRUTEFORCE_JWT_CACHE_PREFIX}:ip:${ipAddress}&#x60;;
 
+/**
+ * Abstract service class for authentication and authorization.
+ * Defines the methods that must be implemented by any derived service.
+ */
 export abstract class AuthService {
+  /**
+   * Authenticate the user with the provided login payload.
+   * @param data - LoginPayload object with user login information.
+   * @returns A Promise that resolves to a JwtDto containing access and refresh tokens.
+   */
   abstract authenticate(data: LoginPayload): Promise&lt;JwtDto&gt;;
 
+  /**
+   * Invalidate the specified access token.
+   * @param accessToken - The access token to invalidate.
+   * @returns A Promise that resolves to true if the token was invalidated successfully, or throws an error.
+   */
   abstract invalidateToken(accessToken: string);
 
+  /**
+   * Exchange the provided refresh token for a new access token.
+   * @param refreshToken - The refresh token to exchange.
+   * @returns A Promise that resolves to a Partial&lt;JwtDto&gt; containing new access and refresh tokens.
+   */
   abstract exchangeToken(refreshToken: string): Promise&lt;Partial&lt;JwtDto&gt;&gt;;
 }
 </code></pre>

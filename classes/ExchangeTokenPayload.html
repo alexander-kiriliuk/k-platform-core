@@ -123,6 +123,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Data transfer object for token exchange payload.
+Contains the token to be exchanged for a new token pair JwtDto.</p>
+
+            </p>
 
 
 
@@ -140,7 +148,6 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#token" >token</a>
@@ -172,7 +179,6 @@
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
-                            <span class="modifier"></span>
                         <span ><b>token</b></span>
                         <a href="#token"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -189,16 +195,22 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsString()<br />@IsNotEmpty()<br />@IsOptional()<br />
+                            @IsString()<br />@IsOptional()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">lib/common/auth/auth.types.ts:50</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">lib/common/auth/auth.types.ts:84</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The refresh token to be exchanged.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -221,53 +233,110 @@ import { UserDto } from &quot;../user/user.types&quot;;
 import { TransformUtils } from &quot;../../shared/utils/transform.utils&quot;;
 import { AuthService } from &quot;./auth.constants&quot;;
 
+/**
+ * Data transfer object for login payload.
+ * Contains user login information required for authentication.
+ */
 export class LoginPayload {
+  /**
+   * The login of the user.
+   * @example &#x60;&#x60;&#x60;typescript
+   * &quot;admin&quot;
+   */
   @IsString()
   @IsNotEmpty()
   login: string;
 
+  /**
+   * The password of the user.
+   * @example &#x60;&#x60;&#x60;typescript
+   * &quot;P@ssw0rd!&quot;
+   */
   @IsString()
   @IsNotEmpty()
   password: string;
 
+  /**
+   * The IP address of the user.
+   * Optional.
+   * @example &#x60;&#x60;&#x60;typescript
+   * &quot;192.168.0.1&quot;
+   */
   @IsIP()
   @IsOptional()
   ipAddress: string;
 
+  /**
+   * The ID of the captcha.
+   * Optional.
+   */
   @IsString()
   @IsOptional()
   captchaId?: string;
 
+  /**
+   * The payload of the captcha.
+   * Optional.
+   */
   @IsString()
   @IsOptional()
   captchaPayload?: string;
 }
 
+/**
+ * Data transfer object for token exchange payload.
+ * Contains the token to be exchanged for a new token pair JwtDto.
+ */
 export class ExchangeTokenPayload {
+  /**
+   * The refresh token to be exchanged.
+   */
   @IsString()
-  @IsNotEmpty()
   @IsOptional()
   token: string;
 }
 
+/**
+ * Data transfer object for JWT tokens.
+ * Contains access and refresh tokens along with their expiration dates and user information.
+ */
 export class JwtDto {
+  /**
+   * The user-data object.
+   */
   @Expose()
   @Type(() &#x3D;&gt; UserDto)
   user: UserDto;
 
+  /**
+   * The access token.
+   */
   @Expose()
   accessToken: string;
 
+  /**
+   * The refresh token.
+   */
   @Expose()
   refreshToken: string;
 
+  /**
+   * The expiration date of the access token.
+   */
   @Transform(TransformUtils.dateToTime)
   atExp: Date;
 
+  /**
+   * The expiration date of the refresh token.
+   */
   @Transform(TransformUtils.dateToTime)
   rtExp: Date;
 }
 
+/**
+ * Options for configuring the authentication module.
+ * @property service - The authentication service class.
+ */
 export type AuthModuleOptions &#x3D; {
   service: Class&lt;AuthService&gt;;
 };
