@@ -353,8 +353,8 @@ It manages the generation and validation of graphic captchas.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="131"
-                                    class="link-to-prism">lib/common/captcha/graphic-captcha.service.ts:131</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="129"
+                                    class="link-to-prism">lib/common/captcha/graphic-captcha.service.ts:129</a></div>
                         </td>
                     </tr>
 
@@ -401,19 +401,27 @@ It manages the generation and validation of graphic captchas.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="135"
-                                    class="link-to-prism">lib/common/captcha/graphic-captcha.service.ts:135</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">lib/common/captcha/graphic-captcha.service.ts:137</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the captcha expiration time defined in configuration.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <ul>
+<li>A promise resolving to the captcha expiration time.</li>
+</ul>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -441,19 +449,27 @@ It manages the generation and validation of graphic captchas.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="139"
-                                    class="link-to-prism">lib/common/captcha/graphic-captcha.service.ts:139</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="145"
+                                    class="link-to-prism">lib/common/captcha/graphic-captcha.service.ts:145</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the captcha font family defined in configuration.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <ul>
+<li>A promise resolving to the captcha font family.</li>
+</ul>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -481,19 +497,27 @@ It manages the generation and validation of graphic captchas.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="143"
-                                    class="link-to-prism">lib/common/captcha/graphic-captcha.service.ts:143</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="153"
+                                    class="link-to-prism">lib/common/captcha/graphic-captcha.service.ts:153</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the captcha font path defined in configuration and normalizes it.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <ul>
+<li>A promise resolving to the normalized captcha font path.</li>
+</ul>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -521,8 +545,8 @@ It manages the generation and validation of graphic captchas.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="97"
-                                    class="link-to-prism">lib/common/captcha/graphic-captcha.service.ts:97</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">lib/common/captcha/graphic-captcha.service.ts:96</a></div>
                         </td>
                     </tr>
 
@@ -755,7 +779,6 @@ export class GraphicCaptchaService extends CaptchaService&lt;CaptchaResponse&gt;
    * Generates an image from the provided text.
    * @param {string} text - The text to be drawn on the image.
    * @returns {Promise&lt;string&gt;} - A promise resolving to a base64 encoded image.
-   * @private
    */
   private async makeImageFromText(text: string) {
     const canvas &#x3D; createCanvas(200, 50);
@@ -789,20 +812,31 @@ export class GraphicCaptchaService extends CaptchaService&lt;CaptchaResponse&gt;
   /**
    * Generates a random RGB color.
    * @returns {string} - An RGB color string.
-   * @private
    */
   private generateColor() {
     return &#x60;rgb(${generateRandomInt(255)},${generateRandomInt(255)},${generateRandomInt(255)})&#x60;;
   }
 
+  /**
+   * Retrieves the captcha expiration time defined in configuration.
+   * @returns {Promise&lt;number&gt;} - A promise resolving to the captcha expiration time.
+   */
   private async getCaptchaExp() {
     return await this.cacheService.getNumber(CaptchaConfig.EXPIRATION);
   }
 
+  /**
+   * Retrieves the captcha font family defined in configuration.
+   * @returns {Promise&lt;string&gt;} - A promise resolving to the captcha font family.
+   */
   private async getCaptchaFontFamily() {
     return await this.cacheService.get(CaptchaConfig.FONT_FAMILY);
   }
 
+  /**
+   * Retrieves the captcha font path defined in configuration and normalizes it.
+   * @returns {Promise&lt;string&gt;} - A promise resolving to the normalized captcha font path.
+   */
   private async getCaptchaFontPath() {
     const dir &#x3D;
       process.cwd() + (await this.cacheService.get(CaptchaConfig.FONT_PATH));

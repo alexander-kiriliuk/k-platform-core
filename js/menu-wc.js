@@ -76,6 +76,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                             <li class="link for-chapter2">
                                                 <a href="additional-documentation/properties/bruteforce.properties.html" data-type="entity-link" data-context="sub-entity" data-context-id="additional">bruteforce.properties</a>
                                             </li>
+                                            <li class="link for-chapter2">
+                                                <a href="additional-documentation/properties/captcha.properties.html" data-type="entity-link" data-context="sub-entity" data-context-id="additional">captcha.properties</a>
+                                            </li>
                                         </ul>
                                     </li>
                         </ul>

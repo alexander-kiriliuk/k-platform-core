@@ -123,6 +123,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Abstract class representing a CAPTCHA service.</p>
+
+            </p>
 
 
 
@@ -189,19 +196,25 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="21"
-                                    class="link-to-prism">lib/common/captcha/captcha.types.ts:21</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="29"
+                                    class="link-to-prism">lib/common/captcha/captcha.types.ts:29</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Generates a CAPTCHA.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>Promise&lt;CaptchaBody&gt;</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>A promise that resolves with the CAPTCHA data.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -228,14 +241,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="23"
-                                    class="link-to-prism">lib/common/captcha/captcha.types.ts:23</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="36"
+                                    class="link-to-prism">lib/common/captcha/captcha.types.ts:36</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Validates a CAPTCHA.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -246,6 +261,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -260,6 +276,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The data for validate the CAPTCHA.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -269,7 +289,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves with the validation result (true if the CAPTCHA is valid).</p>
+
                             </div>
                 </td>
             </tr>
@@ -288,29 +309,76 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsNotEmpty, IsString } from &quot;class-validator&quot;;
 import { Type as Class } from &quot;@nestjs/common/interfaces/type.interface&quot;;
 
+/**
+ * Abstract class representing a CAPTCHA service.
+ * @template CaptchaBody Type of data returned when generating CAPTCHA.
+ */
 export abstract class CaptchaService&lt;CaptchaBody &#x3D; any&gt; {
+  /**
+   * Generates a CAPTCHA.
+   * @returns {Promise&lt;CaptchaBody&gt;} A promise that resolves with the CAPTCHA data.
+   */
   abstract generateCaptcha(): Promise&lt;CaptchaBody&gt;;
 
+  /**
+   * Validates a CAPTCHA.
+   * @param {CaptchaRequest} request The data for validate the CAPTCHA.
+   * @returns {Promise&lt;boolean&gt;} A promise that resolves with the validation result (true if the CAPTCHA is valid).
+   */
   abstract validateCaptcha(request: CaptchaRequest): Promise&lt;boolean&gt;;
 }
 
+/**
+ * Data transfer object for validate the CAPTCHA.
+ * @template T Type of the CAPTCHA data.
+ */
 export class CaptchaRequest&lt;T &#x3D; any&gt; {
+  /**
+   * The unique identifier for the CAPTCHA.
+   */
   @IsString()
   @IsNotEmpty()
   id: string;
 
+  /**
+   * The data associated with the CAPTCHA request.
+   */
   @IsNotEmpty()
   data: T;
 }
 
+/**
+ * Type representing a CAPTCHA response for client side.
+ */
 export type CaptchaResponse &#x3D; {
+  /**
+   * The type of the CAPTCHA.
+   */
   type?: string;
+
+  /**
+   * The image data for the CAPTCHA.
+   */
   image?: string;
+
+  /**
+   * The unique identifier for the CAPTCHA.
+   */
   id?: string;
+
+  /**
+   * Whether the CAPTCHA is enabled in configuration.
+   */
   enabled?: boolean;
 };
 
+/**
+ * Options for configuring the CAPTCHA module.
+ */
 export type CaptchaModuleOptions &#x3D; {
+  /**
+   * The class providing the CAPTCHA service.
+   */
   service: Class&lt;CaptchaService&gt;;
 };
 </code></pre>

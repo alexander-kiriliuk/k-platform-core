@@ -123,6 +123,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The GoogleCaptchaService class extends the CaptchaService class with a specialization for Google reCAPTCHA.
+It manages the generation and validation of Google reCAPTCHAs.</p>
+
+            </p>
 
             <p class="comment">
                 <h3>Extends</h3>
@@ -177,7 +185,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">lib/common/captcha/google-captcha.service.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">lib/common/captcha/google-captcha.service.ts:33</a></div>
                             </td>
                         </tr>
 
@@ -273,7 +281,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/CaptchaService.html#source" target="_self" >CaptchaService:38</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/CaptchaService.html#source" target="_self" >CaptchaService:46</a></code>
 </div>
                         </td>
                     </tr>
@@ -281,11 +289,19 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Generates a new Google reCAPTCHA and retrieves the public key defined in configuration.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#CaptchaResponse" target="_self" >Promise&lt;CaptchaResponse&gt;</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <ul>
+<li>A promise resolving to a CaptchaResponse object containing the captcha id and type.</li>
+</ul>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -318,7 +334,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/CaptchaService.html#source" target="_self" >CaptchaService:49</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/CaptchaService.html#source" target="_self" >CaptchaService:62</a></code>
 </div>
                         </td>
                     </tr>
@@ -326,6 +342,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Validates the provided captcha request against Google&#39;s reCAPTCHA verification service.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -336,6 +354,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -350,6 +369,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The captcha request to be validated.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -359,7 +384,10 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <ul>
+<li>A promise resolving to a boolean indicating whether the captcha is valid or not.</li>
+</ul>
+
                             </div>
                 </td>
             </tr>
@@ -387,6 +415,10 @@ import { LOGGER } from &quot;../../shared/modules/log/log.constants&quot;;
 import { CacheService } from &quot;../../shared/modules/cache/cache.types&quot;;
 import { CaptchaConfig } from &quot;../../../gen-src/captcha.config&quot;;
 
+/**
+ * The GoogleCaptchaService class extends the CaptchaService class with a specialization for Google reCAPTCHA.
+ * It manages the generation and validation of Google reCAPTCHAs.
+ */
 export class GoogleCaptchaService extends CaptchaService&lt;CaptchaResponse&gt; {
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
@@ -396,6 +428,10 @@ export class GoogleCaptchaService extends CaptchaService&lt;CaptchaResponse&gt; 
     super();
   }
 
+  /**
+   * Generates a new Google reCAPTCHA and retrieves the public key defined in configuration.
+   * @returns {Promise&lt;CaptchaResponse&gt;} - A promise resolving to a CaptchaResponse object containing the captcha id and type.
+   */
   async generateCaptcha(): Promise&lt;CaptchaResponse&gt; {
     const captchaEnabled &#x3D; await this.cacheService.getBoolean(
       CaptchaConfig.ENABLED,
@@ -407,6 +443,11 @@ export class GoogleCaptchaService extends CaptchaService&lt;CaptchaResponse&gt; 
     return { id, type: &quot;google&quot; };
   }
 
+  /**
+   * Validates the provided captcha request against Google&#x27;s reCAPTCHA verification service.
+   * @param {CaptchaRequest} request - The captcha request to be validated.
+   * @returns {Promise&lt;boolean&gt;} - A promise resolving to a boolean indicating whether the captcha is valid or not.
+   */
   async validateCaptcha(request: CaptchaRequest): Promise&lt;boolean&gt; {
     const secretKey &#x3D; await this.cacheService.get(
       CaptchaConfig.GOOGLE_SECRET_KEY,
