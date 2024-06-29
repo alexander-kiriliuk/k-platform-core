@@ -92,7 +92,6 @@ export class GraphicCaptchaService extends CaptchaService<CaptchaResponse> {
    * Generates an image from the provided text.
    * @param {string} text - The text to be drawn on the image.
    * @returns {Promise<string>} - A promise resolving to a base64 encoded image.
-   * @private
    */
   private async makeImageFromText(text: string) {
     const canvas = createCanvas(200, 50);
@@ -126,20 +125,31 @@ export class GraphicCaptchaService extends CaptchaService<CaptchaResponse> {
   /**
    * Generates a random RGB color.
    * @returns {string} - An RGB color string.
-   * @private
    */
   private generateColor() {
     return `rgb(${generateRandomInt(255)},${generateRandomInt(255)},${generateRandomInt(255)})`;
   }
 
+  /**
+   * Retrieves the captcha expiration time defined in configuration.
+   * @returns {Promise<number>} - A promise resolving to the captcha expiration time.
+   */
   private async getCaptchaExp() {
     return await this.cacheService.getNumber(CaptchaConfig.EXPIRATION);
   }
 
+  /**
+   * Retrieves the captcha font family defined in configuration.
+   * @returns {Promise<string>} - A promise resolving to the captcha font family.
+   */
   private async getCaptchaFontFamily() {
     return await this.cacheService.get(CaptchaConfig.FONT_FAMILY);
   }
 
+  /**
+   * Retrieves the captcha font path defined in configuration and normalizes it.
+   * @returns {Promise<string>} - A promise resolving to the normalized captcha font path.
+   */
   private async getCaptchaFontPath() {
     const dir =
       process.cwd() + (await this.cacheService.get(CaptchaConfig.FONT_PATH));

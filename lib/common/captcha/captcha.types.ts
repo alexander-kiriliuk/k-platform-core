@@ -17,28 +17,75 @@
 import { IsNotEmpty, IsString } from "class-validator";
 import { Type as Class } from "@nestjs/common/interfaces/type.interface";
 
+/**
+ * Abstract class representing a CAPTCHA service.
+ * @template CaptchaBody Type of data returned when generating CAPTCHA.
+ */
 export abstract class CaptchaService<CaptchaBody = any> {
+  /**
+   * Generates a CAPTCHA.
+   * @returns {Promise<CaptchaBody>} A promise that resolves with the CAPTCHA data.
+   */
   abstract generateCaptcha(): Promise<CaptchaBody>;
 
+  /**
+   * Validates a CAPTCHA.
+   * @param {CaptchaRequest} request The data for validate the CAPTCHA.
+   * @returns {Promise<boolean>} A promise that resolves with the validation result (true if the CAPTCHA is valid).
+   */
   abstract validateCaptcha(request: CaptchaRequest): Promise<boolean>;
 }
 
+/**
+ * Data transfer object for validate the CAPTCHA.
+ * @template T Type of the CAPTCHA data.
+ */
 export class CaptchaRequest<T = any> {
+  /**
+   * The unique identifier for the CAPTCHA.
+   */
   @IsString()
   @IsNotEmpty()
   id: string;
 
+  /**
+   * The data associated with the CAPTCHA request.
+   */
   @IsNotEmpty()
   data: T;
 }
 
+/**
+ * Type representing a CAPTCHA response for client side.
+ */
 export type CaptchaResponse = {
+  /**
+   * The type of the CAPTCHA.
+   */
   type?: string;
+
+  /**
+   * The image data for the CAPTCHA.
+   */
   image?: string;
+
+  /**
+   * The unique identifier for the CAPTCHA.
+   */
   id?: string;
+
+  /**
+   * Whether the CAPTCHA is enabled in configuration.
+   */
   enabled?: boolean;
 };
 
+/**
+ * Options for configuring the CAPTCHA module.
+ */
 export type CaptchaModuleOptions = {
+  /**
+   * The class providing the CAPTCHA service.
+   */
   service: Class<CaptchaService>;
 };

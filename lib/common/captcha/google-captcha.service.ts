@@ -26,6 +26,10 @@ import { LOGGER } from "../../shared/modules/log/log.constants";
 import { CacheService } from "../../shared/modules/cache/cache.types";
 import { CaptchaConfig } from "../../../gen-src/captcha.config";
 
+/**
+ * The GoogleCaptchaService class extends the CaptchaService class with a specialization for Google reCAPTCHA.
+ * It manages the generation and validation of Google reCAPTCHAs.
+ */
 export class GoogleCaptchaService extends CaptchaService<CaptchaResponse> {
   constructor(
     @Inject(LOGGER) private readonly logger: Logger,
@@ -35,6 +39,10 @@ export class GoogleCaptchaService extends CaptchaService<CaptchaResponse> {
     super();
   }
 
+  /**
+   * Generates a new Google reCAPTCHA and retrieves the public key defined in configuration.
+   * @returns {Promise<CaptchaResponse>} - A promise resolving to a CaptchaResponse object containing the captcha id and type.
+   */
   async generateCaptcha(): Promise<CaptchaResponse> {
     const captchaEnabled = await this.cacheService.getBoolean(
       CaptchaConfig.ENABLED,
@@ -46,6 +54,11 @@ export class GoogleCaptchaService extends CaptchaService<CaptchaResponse> {
     return { id, type: "google" };
   }
 
+  /**
+   * Validates the provided captcha request against Google's reCAPTCHA verification service.
+   * @param {CaptchaRequest} request - The captcha request to be validated.
+   * @returns {Promise<boolean>} - A promise resolving to a boolean indicating whether the captcha is valid or not.
+   */
   async validateCaptcha(request: CaptchaRequest): Promise<boolean> {
     const secretKey = await this.cacheService.get(
       CaptchaConfig.GOOGLE_SECRET_KEY,

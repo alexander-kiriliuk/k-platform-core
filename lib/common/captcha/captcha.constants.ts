@@ -13,5 +13,8 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
+/**
+ *
+ * The prefix used for storing CAPTCHA data.
+ */
 export const CAPTCHA_CACHE_PREFIX = "captcha";

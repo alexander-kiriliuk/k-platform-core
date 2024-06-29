@@ -14,6 +14,10 @@
       {
         "title": "bruteforce.properties",
         "file": "./lib/common/auth/bruteforce.properties.doc.md"
+      },
+      {
+        "title": "captcha.properties",
+        "file": "./lib/common/captcha/captcha.properties.doc.md"
       }
     ]
   }
