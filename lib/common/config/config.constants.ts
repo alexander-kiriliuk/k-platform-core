@@ -14,10 +14,40 @@
  *    limitations under the License.
  */
 
+/**
+ * The prefix used for storing configuration items.
+ */
 export const CONFIG_CACHE_PREFIX = "config";
+
+/**
+ * The directory where generated source files are stored.
+ */
 export const GEN_SRC_DIR = "gen-src";
+
+/**
+ * The pattern for configuration file extensions.
+ */
 export const CONFIG_FILE_EXT_PATTERN = ".config.ts";
+
+/**
+ * The pattern for properties file extensions.
+ */
 export const PROPERTIES_FILE_EXT_PATTERN = ".properties";
+
+/**
+ * The name of the local properties file
+ * It is assumed that such files override neighboring ones .properties files and are out of version control.
+ */
 export const LOCAL_PROPERTIES_FILE_NAME = "local.properties";
+
+/**
+ * The name of the kp properties file.
+ * It is assumed that this is the main configuration file, located in the root of the project
+ * and can override the properties of any .properties in the entire project
+ */
 export const KP_PROPERTIES_FILE_NAME = "kp.properties";
+
+/**
+ * The encoding used for reading and writing configuration files.
+ */
 export const FILES_ENCODING = "utf-8";

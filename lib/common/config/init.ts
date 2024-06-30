@@ -16,6 +16,9 @@
 
 import { InitConfig } from "./config.init-fn";
 
+/**
+ * It is used to initialize the project configuration with a separate command, for example - npm scripts
+ */
 (async () => {
   await InitConfig();
 })();

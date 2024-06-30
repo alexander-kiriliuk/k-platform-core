@@ -22,6 +22,11 @@ import { LOGGER } from "../../shared/modules/log/log.constants";
 import { EnvLoader } from "../../shared/utils/env.loader";
 import { ConfigService } from "./config.service";
 
+/**
+ * Asynchronously initializes the application context with the ConfigModule,
+ * loads environment variables, and initializes the configuration service with .properties files.
+ * This function used for initialize config store
+ */
 export const InitConfig = async () => {
   const app = await NestFactory.createApplicationContext(ConfigModule);
   await app.init();

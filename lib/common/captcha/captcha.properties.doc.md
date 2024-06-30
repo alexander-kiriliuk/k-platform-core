@@ -8,7 +8,7 @@ The `captcha.properties` configuration file contains settings for CAPTCHA genera
     - **Example:** `true`
 
 - **captcha.expiration**
-    - **Description:** Expiration time for CAPTCHA entries in the cache.
+    - **Description:** Expiration time for CAPTCHA entries.
     - **Type:** number
     - **Example:** `300`
     - **Note:** The CAPTCHA will be valid for 5 minutes (300 seconds).

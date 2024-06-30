@@ -35,8 +35,8 @@ import {
 } from "../../shared/modules/pageable/pageable.types";
 
 /**
- * ConfigService is a service responsible for managing configurations in your application.
- * It reads configuration properties from .properties files and stores the values in a cache for fast retrieval.
+ * ConfigService is a service responsible for managing configurations in application.
+ * It reads configuration properties from .properties files and stores the values in a store for fast retrieval.
  * The service provides methods to get, set, and remove configuration properties.
  */
 @Injectable()
@@ -125,6 +125,11 @@ export class ConfigService {
     return await this.cacheService.del(fullKey);
   }
 
+  /**
+   * Scans the specified directory for properties files and processes them.
+   * @param directory - The directory to scan for properties files.
+   * @param globalKpContent - The content of the global KP properties file, if any.
+   */
   private async scanForPropertiesFiles(
     directory: string,
     globalKpContent: string | null = null,
@@ -196,6 +201,13 @@ export class ConfigService {
     }
   }
 
+  /**
+   * Processes and validates the content of a properties file.
+   * @param filePath - The path to the properties file.
+   * @param content - The content of the properties file.
+   * @param fileNamePrefix - The prefix to use for the properties in the file.
+   * @returns An object containing the processed data.
+   */
   private async processAndValidatePropertiesContent(
     filePath: string,
     content: string,
@@ -231,6 +243,11 @@ export class ConfigService {
     return processedData;
   }
 
+  /**
+   * Parses the value of a configuration property.
+   * @param value - The value to parse.
+   * @returns The parsed value.
+   */
   private parseValue(value: string) {
     let processedValue = value.trim();
     if (processedValue === "true" || processedValue === "false") {
@@ -247,6 +264,12 @@ export class ConfigService {
     return processedValue;
   }
 
+  /**
+   * Generates a namespace with variables based on the processed data.
+   * @param namespaceName - The name of the namespace.
+   * @param processedData - The processed data to include in the namespace.
+   * @returns The generated namespace content as a string.
+   */
   private generateNamespaceWithVariables(
     namespaceName: string,
     processedData: { [key: string]: string },
@@ -260,6 +283,10 @@ export class ConfigService {
     return generatedContent;
   }
 
+  /**
+   * Deletes existing configuration TypeScript files in the specified directory.
+   * @param directory - The directory to scan for generated configuration files.
+   */
   private async deleteExistingConfigTsFiles(directory: string) {
     if (directory === process.cwd() + "/node_modules") {
       return;
@@ -289,6 +316,9 @@ export class ConfigService {
     }
   }
 
+  /**
+   * Generates TypeScript configuration files based on the processed properties files.
+   */
   private async generateConfigTsFiles() {
     for (const filePath in this.propertiesFiles) {
       if (path.basename(filePath) === LOCAL_PROPERTIES_FILE_NAME) {
@@ -318,6 +348,12 @@ export class ConfigService {
     }
   }
 
+  /**
+   * Merges the content of the main properties file with the content of the local properties file.
+   * @param mainContent - The content of the main properties file.
+   * @param localContent - The content of the local properties file.
+   * @returns The merged content.
+   */
   private mergePropertiesContent(
     mainContent: string,
     localContent: string,

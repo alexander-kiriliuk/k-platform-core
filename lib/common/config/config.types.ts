@@ -14,7 +14,20 @@
  *    limitations under the License.
  */
 
+/**
+ * Represents a configuration item.
+ * Each configuration item consists of a key and a value, both of which are strings.
+ */
 export interface ConfigItem {
+  /**
+   * The key of the configuration item.
+   * This is the identifier for the configuration setting.
+   */
   key: string;
+
+  /**
+   * The value of the configuration item.
+   * This is the value associated with the configuration key.
+   */
   value: string;
 }
