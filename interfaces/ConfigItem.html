@@ -126,6 +126,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Represents a configuration item.
+Each configuration item consists of a key and a value, both of which are strings.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -194,6 +202,13 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The key of the configuration item.
+This is the identifier for the configuration setting.</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -227,6 +242,13 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The value of the configuration item.
+This is the value associated with the configuration key.</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -235,7 +257,16 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface ConfigItem {
+  /**
+   * The key of the configuration item.
+   * This is the identifier for the configuration setting.
+   */
   key: string;
+
+  /**
+   * The value of the configuration item.
+   * This is the value associated with the configuration key.
+   */
   value: string;
 }
 </code></pre>

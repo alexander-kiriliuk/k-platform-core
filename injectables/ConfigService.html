@@ -123,8 +123,8 @@
                 <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>ConfigService is a service responsible for managing configurations in your application.
-It reads configuration properties from .properties files and stores the values in a cache for fast retrieval.
+                <p>ConfigService is a service responsible for managing configurations in application.
+It reads configuration properties from .properties files and stores the values in a store for fast retrieval.
 The service provides methods to get, set, and remove configuration properties.</p>
 
             </p>
@@ -318,14 +318,16 @@ The service provides methods to get, set, and remove configuration properties.</
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="263"
-                                    class="link-to-prism">lib/common/config/config.service.ts:263</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="290"
+                                    class="link-to-prism">lib/common/config/config.service.ts:290</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Deletes existing configuration TypeScript files in the specified directory.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -336,6 +338,7 @@ The service provides methods to get, set, and remove configuration properties.</
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -350,6 +353,12 @@ The service provides methods to get, set, and remove configuration properties.</
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The directory to scan for generated configuration files.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -388,14 +397,16 @@ The service provides methods to get, set, and remove configuration properties.</
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="292"
-                                    class="link-to-prism">lib/common/config/config.service.ts:292</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="322"
+                                    class="link-to-prism">lib/common/config/config.service.ts:322</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Generates TypeScript configuration files based on the processed properties files.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -427,14 +438,16 @@ The service provides methods to get, set, and remove configuration properties.</
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="250"
-                                    class="link-to-prism">lib/common/config/config.service.ts:250</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="273"
+                                    class="link-to-prism">lib/common/config/config.service.ts:273</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Generates a namespace with variables based on the processed data.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -445,6 +458,7 @@ The service provides methods to get, set, and remove configuration properties.</
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -459,6 +473,12 @@ The service provides methods to get, set, and remove configuration properties.</
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The name of the namespace.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>processedData</td>
@@ -471,6 +491,12 @@ The service provides methods to get, set, and remove configuration properties.</
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The processed data to include in the namespace.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -480,7 +506,8 @@ The service provides methods to get, set, and remove configuration properties.</
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The generated namespace content as a string.</p>
+
                             </div>
                 </td>
             </tr>
@@ -658,14 +685,16 @@ The service provides methods to get, set, and remove configuration properties.</
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="321"
-                                    class="link-to-prism">lib/common/config/config.service.ts:321</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="357"
+                                    class="link-to-prism">lib/common/config/config.service.ts:357</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Merges the content of the main properties file with the content of the local properties file.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -676,6 +705,7 @@ The service provides methods to get, set, and remove configuration properties.</
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -690,6 +720,12 @@ The service provides methods to get, set, and remove configuration properties.</
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The content of the main properties file.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>localContent</td>
@@ -702,6 +738,12 @@ The service provides methods to get, set, and remove configuration properties.</
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The content of the local properties file.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -711,7 +753,8 @@ The service provides methods to get, set, and remove configuration properties.</
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The merged content.</p>
+
                             </div>
                 </td>
             </tr>
@@ -739,14 +782,16 @@ The service provides methods to get, set, and remove configuration properties.</
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="234"
-                                    class="link-to-prism">lib/common/config/config.service.ts:234</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="251"
+                                    class="link-to-prism">lib/common/config/config.service.ts:251</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Parses the value of a configuration property.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -757,6 +802,7 @@ The service provides methods to get, set, and remove configuration properties.</
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -771,6 +817,12 @@ The service provides methods to get, set, and remove configuration properties.</
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The value to parse.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -780,7 +832,8 @@ The service provides methods to get, set, and remove configuration properties.</
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The parsed value.</p>
+
                             </div>
                 </td>
             </tr>
@@ -809,14 +862,16 @@ The service provides methods to get, set, and remove configuration properties.</
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="199"
-                                    class="link-to-prism">lib/common/config/config.service.ts:199</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="211"
+                                    class="link-to-prism">lib/common/config/config.service.ts:211</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Processes and validates the content of a properties file.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -827,6 +882,7 @@ The service provides methods to get, set, and remove configuration properties.</
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -841,6 +897,12 @@ The service provides methods to get, set, and remove configuration properties.</
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The path to the properties file.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>content</td>
@@ -853,6 +915,12 @@ The service provides methods to get, set, and remove configuration properties.</
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The content of the properties file.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>fileNamePrefix</td>
@@ -865,6 +933,12 @@ The service provides methods to get, set, and remove configuration properties.</
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The prefix to use for the properties in the file.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -874,7 +948,8 @@ The service provides methods to get, set, and remove configuration properties.</
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>An object containing the processed data.</p>
+
                             </div>
                 </td>
             </tr>
@@ -982,14 +1057,16 @@ The service provides methods to get, set, and remove configuration properties.</
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="128"
-                                    class="link-to-prism">lib/common/config/config.service.ts:128</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="133"
+                                    class="link-to-prism">lib/common/config/config.service.ts:133</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Scans the specified directory for properties files and processes them.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1001,6 +1078,7 @@ The service provides methods to get, set, and remove configuration properties.</
                                                 <td>Type</td>
                                             <td>Optional</td>
                                                 <td>Default value</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1017,6 +1095,12 @@ The service provides methods to get, set, and remove configuration properties.</
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The directory to scan for properties files.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>globalKpContent</td>
@@ -1032,6 +1116,12 @@ The service provides methods to get, set, and remove configuration properties.</
                                                     <code>null</code>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The content of the global KP properties file, if any.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1252,8 +1342,8 @@ import {
 } from &quot;../../shared/modules/pageable/pageable.types&quot;;
 
 /**
- * ConfigService is a service responsible for managing configurations in your application.
- * It reads configuration properties from .properties files and stores the values in a cache for fast retrieval.
+ * ConfigService is a service responsible for managing configurations in application.
+ * It reads configuration properties from .properties files and stores the values in a store for fast retrieval.
  * The service provides methods to get, set, and remove configuration properties.
  */
 @Injectable()
@@ -1342,6 +1432,11 @@ export class ConfigService {
     return await this.cacheService.del(fullKey);
   }
 
+  /**
+   * Scans the specified directory for properties files and processes them.
+   * @param directory - The directory to scan for properties files.
+   * @param globalKpContent - The content of the global KP properties file, if any.
+   */
   private async scanForPropertiesFiles(
     directory: string,
     globalKpContent: string | null &#x3D; null,
@@ -1413,6 +1508,13 @@ export class ConfigService {
     }
   }
 
+  /**
+   * Processes and validates the content of a properties file.
+   * @param filePath - The path to the properties file.
+   * @param content - The content of the properties file.
+   * @param fileNamePrefix - The prefix to use for the properties in the file.
+   * @returns An object containing the processed data.
+   */
   private async processAndValidatePropertiesContent(
     filePath: string,
     content: string,
@@ -1448,6 +1550,11 @@ export class ConfigService {
     return processedData;
   }
 
+  /**
+   * Parses the value of a configuration property.
+   * @param value - The value to parse.
+   * @returns The parsed value.
+   */
   private parseValue(value: string) {
     let processedValue &#x3D; value.trim();
     if (processedValue &#x3D;&#x3D;&#x3D; &quot;true&quot; || processedValue &#x3D;&#x3D;&#x3D; &quot;false&quot;) {
@@ -1464,6 +1571,12 @@ export class ConfigService {
     return processedValue;
   }
 
+  /**
+   * Generates a namespace with variables based on the processed data.
+   * @param namespaceName - The name of the namespace.
+   * @param processedData - The processed data to include in the namespace.
+   * @returns The generated namespace content as a string.
+   */
   private generateNamespaceWithVariables(
     namespaceName: string,
     processedData: { [key: string]: string },
@@ -1477,6 +1590,10 @@ export class ConfigService {
     return generatedContent;
   }
 
+  /**
+   * Deletes existing configuration TypeScript files in the specified directory.
+   * @param directory - The directory to scan for generated configuration files.
+   */
   private async deleteExistingConfigTsFiles(directory: string) {
     if (directory &#x3D;&#x3D;&#x3D; process.cwd() + &quot;/node_modules&quot;) {
       return;
@@ -1506,6 +1623,9 @@ export class ConfigService {
     }
   }
 
+  /**
+   * Generates TypeScript configuration files based on the processed properties files.
+   */
   private async generateConfigTsFiles() {
     for (const filePath in this.propertiesFiles) {
       if (path.basename(filePath) &#x3D;&#x3D;&#x3D; LOCAL_PROPERTIES_FILE_NAME) {
@@ -1535,6 +1655,12 @@ export class ConfigService {
     }
   }
 
+  /**
+   * Merges the content of the main properties file with the content of the local properties file.
+   * @param mainContent - The content of the main properties file.
+   * @param localContent - The content of the local properties file.
+   * @returns The merged content.
+   */
   private mergePropertiesContent(
     mainContent: string,
     localContent: string,
