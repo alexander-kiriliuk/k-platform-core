@@ -19,6 +19,9 @@ import { EntitySaveHandler } from "../explorer.types";
 import { User } from "../../user/user.types";
 import { Roles } from "../../../shared/constants";
 
+/**
+ * Handler for saving user entities, ensuring appropriate permissions and roles are applied.
+ */
 @Injectable()
 export class UserEntityPwdAndRolesSaveHandler
   implements EntitySaveHandler<User>

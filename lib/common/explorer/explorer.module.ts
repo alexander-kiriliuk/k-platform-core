@@ -22,6 +22,9 @@ import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
 import { ExplorerModuleOptions, ExplorerService } from "./explorer.types";
 import { LogModule } from "../../shared/modules/log/log.module";
 
+/**
+ * Module for exploring and analyzing the database schema and relationships.
+ */
 @Module({})
 export class ExplorerModule implements OnModuleInit {
   static forRoot(
@@ -47,6 +50,9 @@ export class ExplorerModule implements OnModuleInit {
 
   constructor(private readonly service: ExplorerService) {}
 
+  /**
+   * Initializes the module and analyzes the database.
+   */
   async onModuleInit() {
     await this.service.analyzeDatabase();
   }

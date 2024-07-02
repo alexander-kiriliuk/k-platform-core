@@ -63,7 +63,8 @@ import hasAccessForRoles = UserUtils.hasAccessForRoles;
 import { Type } from "@nestjs/common/interfaces/type.interface";
 
 /**
- * Service for exploring and analyzing the database schema and relationships.
+ * Basic implementation of the ExplorerService.
+ * Provides functionality for exploring and analyzing the database schema.
  */
 @Injectable()
 export class BasicExplorerService extends ExplorerService {
@@ -79,6 +80,10 @@ export class BasicExplorerService extends ExplorerService {
     super();
   }
 
+  /**
+   * Gets the current database connection.
+   * @returns The current database connection.
+   */
   private get connection() {
     return this.dataSource.manager.connection;
   }

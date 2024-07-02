@@ -15,8 +15,14 @@
  */
 
 export namespace Explorer {
+  /**
+   * Token for injecting entity save handler.
+   */
   export const ENTITY_SAVE_HANDLER = Symbol("ENTITY_SAVE_HANDLER");
 
+  /**
+   * Basic target relations for entities.
+   */
   export const TARGET_RELATIONS_BASIC = [
     "name",
     "name.lang",
@@ -31,6 +37,9 @@ export namespace Explorer {
     "icon.type.ext",
   ];
 
+  /**
+   * Full target relations for entities.
+   */
   export const TARGET_RELATIONS_FULL = [
     "name",
     "name.lang",
@@ -74,6 +83,9 @@ export namespace Explorer {
     "canWrite.name.lang",
   ];
 
+  /**
+   * Target relations for object-entities.
+   */
   export const TARGET_RELATIONS_OBJECT = [
     "name",
     "name.lang",
@@ -102,6 +114,9 @@ export namespace Explorer {
     "actions.description.lang",
   ];
 
+  /**
+   * Target relations for section-entities.
+   */
   export const TARGET_RELATIONS_SECTION = [
     "name",
     "name.lang",
@@ -127,5 +142,8 @@ export namespace Explorer {
     "actions.description.lang",
   ];
 
+  /**
+   * Type representing a fetch-mode for explorer entity.
+   */
   export type Variation = "section" | "object";
 }

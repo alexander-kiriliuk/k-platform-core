@@ -26,6 +26,9 @@ import {
   PageableParams,
 } from "../../shared/modules/pageable/pageable.types";
 
+/**
+ * Type representing embedded data types for a column.
+ */
 export type ColumnDataType =
   | "string"
   | "number"
@@ -34,6 +37,9 @@ export type ColumnDataType =
   | "reference"
   | "unknown";
 
+/**
+ * Interface representing an explorer target entity.
+ */
 export interface ExplorerTarget {
   target: string;
   tableName: string;
@@ -51,6 +57,9 @@ export interface ExplorerTarget {
   size?: number;
 }
 
+/**
+ * Interface representing a column in an explorer target entity.
+ */
 export interface ExplorerColumn {
   id: string;
   property: string;
@@ -76,6 +85,9 @@ export interface ExplorerColumn {
   tab: ExplorerTab;
 }
 
+/**
+ * Interface representing a tab in an explorer target entity.
+ */
 export interface ExplorerTab {
   id: string;
   name: LocalizedString[];
@@ -84,7 +96,10 @@ export interface ExplorerTab {
   target: ExplorerTarget;
 }
 
-export class ExplorerColumnRenderer {
+/**
+ * Interface representing a renderer for an explorer column.
+ */
+export interface ExplorerColumnRenderer {
   code: string;
   name: LocalizedString[];
   description: LocalizedString[];
@@ -92,7 +107,10 @@ export class ExplorerColumnRenderer {
   params: object;
 }
 
-export class ExplorerAction {
+/**
+ * Interface representing an action in an explorer target entity.
+ */
+export interface ExplorerAction {
   code: string;
   name: LocalizedString[];
   description: LocalizedString[];
@@ -101,12 +119,18 @@ export class ExplorerAction {
   params: object;
 }
 
+/**
+ * Interface representing the data of an explorer target.
+ */
 export interface TargetData {
   primaryColumn: ExplorerColumn;
   namedColumn: ExplorerColumn;
   entity: ExplorerTarget;
 }
 
+/**
+ * Type representing parameters for find explorer targets
+ */
 export type ExplorerTargetParams = {
   section?: boolean;
   object?: boolean;
@@ -116,41 +140,88 @@ export type ExplorerTargetParams = {
   checkUserAccess?: User;
 };
 
+/**
+ * Type representing selection parameters for an explorer entity.
+ */
 export type ExplorerSelectParams = {
   section?: boolean;
   object?: boolean;
   prefix?: string;
 };
 
+/**
+ * Options for configuring the Explorer module.
+ */
 export type ExplorerModuleOptions = {
   service: Class<ExplorerService>;
 };
 
+/**
+ * Interface representing a handler for saving an entity.
+ * Such handlers are triggered when entity recording occurs.
+ * @template T The type of the entity being handled.
+ */
 export interface EntitySaveHandler<T = any> {
   handle(target: string, data: T, currentUser: User): T;
 }
 
+/**
+ * Abstract class representing an explorer service.
+ */
 export abstract class ExplorerService {
+  /**
+   * Analyzes the database schema and relationships.
+   * Fill data for explorer tables based on that analysis.
+   */
   abstract analyzeDatabase(): Promise<void>;
 
+  /**
+   * Retrieves paginated entity data with relations.
+   * @param {string} target - The name of the target entity or table.
+   * @param {PageableParams} [params] - An optional object containing pageable parameters.
+   * @param {ExplorerTargetParams} [targetParams] - Parameters to fetch and check entity access.
+   * @returns {Promise<PageableData>} A promise that resolves to a PageableData object containing the paginated results.
+   */
   abstract getPageableEntityData(
     target: string,
     params?: PageableParams,
     targetParams?: ExplorerTargetParams,
   ): Promise<PageableData>;
 
+  /**
+   * Saves or updates an entity, including its nested entities.
+   * @param {string} target - The name of the target entity.
+   * @param entity - The entity object to be saved or updated.
+   * @param {ExplorerTargetParams} [targetParams] - Parameters to fetch and check entity access.
+   * @returns {Promise} A promise that resolves to the saved or updated entity.
+   */
   abstract saveEntityData<T = any>(
     target: string,
     entity: T,
     targetParams?: ExplorerTargetParams,
   ): Promise<T>;
 
+  /**
+   * Removes an entity by its ID.
+   * @param {string} target - The name of the entity-target.
+   * @param {string | number} id - The ID of the entity to be removed.
+   * @param {ExplorerTargetParams} [targetParams] - Parameters to fetch and check entity access.
+   * @returns {Promise<ObjectLiteral>} A promise that resolves to the removed entity.
+   */
   abstract removeEntity(
     target: string,
     id: string | number,
     targetParams?: ExplorerTargetParams,
   ): Promise<ObjectLiteral>;
 
+  /**
+   * Retrieves entity data for the given target and rowId, with relations attached up to the specified depth.
+   * @param {string} target - The target entity name.
+   * @param {string | number} rowId - The ID of the row to fetch.
+   * @param {number} [maxDepth] - The maximum depth of relations to fetch. Defaults to Infinity.
+   * @param {ExplorerTargetParams} [targetParams] - Parameters to fetch and check entity access.
+   * @returns {Promise<ObjectLiteral>} A promise that resolves to the entity object.
+   */
   abstract getEntityData(
     target: string,
     rowId: string | number,
@@ -158,12 +229,27 @@ export abstract class ExplorerService {
     targetParams?: ExplorerTargetParams,
   ): Promise<ObjectLiteral>;
 
+  /**
+   * Retrieves target data for the specified target entity name.
+   * @param {string} target - The target entity name.
+   * @param {ExplorerTargetParams} [targetParams] - Parameters to fetch and check entity access.
+   * @returns {Promise<TargetData>} A promise that resolves to the TargetData object.
+   */
   abstract getTargetData(
     target: string,
     targetParams?: ExplorerTargetParams,
   ): Promise<TargetData>;
 
+  /**
+   * Retrieves a list of all registered targets with their item counts.
+   * @returns {Promise<ExplorerTarget[]>} A promise that resolves to an array of ExplorerTarget objects.
+   */
   abstract getTargetList(): Promise<ExplorerTarget[]>;
 
+  /**
+   * Changes the target data.
+   * @param {ExplorerTarget} target - The data of the target entity.
+   * @returns {Promise<ExplorerTarget>} A promise that resolves to the changed target entity.
+   */
   abstract changeTarget(target: ExplorerTarget): Promise<ExplorerTarget>;
 }
