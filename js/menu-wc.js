@@ -335,12 +335,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/ExchangeTokenPayload.html" data-type="entity-link" >ExchangeTokenPayload</a>
                             </li>
                             <li class="link">
-                                <a href="classes/ExplorerAction.html" data-type="entity-link" >ExplorerAction</a>
-                            </li>
-                            <li class="link">
-                                <a href="classes/ExplorerColumnRenderer.html" data-type="entity-link" >ExplorerColumnRenderer</a>
-                            </li>
-                            <li class="link">
                                 <a href="classes/ExplorerService.html" data-type="entity-link" >ExplorerService</a>
                             </li>
                             <li class="link">
@@ -554,7 +548,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/ExifFileMetadata.html" data-type="entity-link" >ExifFileMetadata</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/ExplorerAction.html" data-type="entity-link" >ExplorerAction</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/ExplorerColumn.html" data-type="entity-link" >ExplorerColumn</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/ExplorerColumnRenderer.html" data-type="entity-link" >ExplorerColumnRenderer</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/ExplorerTab.html" data-type="entity-link" >ExplorerTab</a>

@@ -119,6 +119,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Handler for saving user entities, ensuring appropriate permissions and roles are applied.</p>
+
+            </p>
 
 
 
@@ -176,8 +183,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">lib/common/explorer/handlers/user-entity-pwd-and-roles.save-handler.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="29"
+                                    class="link-to-prism">lib/common/explorer/handlers/user-entity-pwd-and-roles.save-handler.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -258,6 +265,9 @@ import { EntitySaveHandler } from &quot;../explorer.types&quot;;
 import { User } from &quot;../../user/user.types&quot;;
 import { Roles } from &quot;../../../shared/constants&quot;;
 
+/**
+ * Handler for saving user entities, ensuring appropriate permissions and roles are applied.
+ */
 @Injectable()
 export class UserEntityPwdAndRolesSaveHandler
   implements EntitySaveHandler&lt;User&gt;
