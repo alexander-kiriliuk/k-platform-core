@@ -24,6 +24,9 @@ import { LOGGER } from "../../../shared/modules/log/log.constants";
 import { CacheService } from "../../../shared/modules/cache/cache.types";
 import readDirectoryRecursively = FilesUtils.readDirectoryRecursively;
 
+/**
+ * Process class for cleaning the temporary directory.
+ */
 export class TmpDirCleanerProcess extends AbstractProcess {
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
@@ -33,6 +36,9 @@ export class TmpDirCleanerProcess extends AbstractProcess {
     super();
   }
 
+  /**
+   * Executes the process to clean the temporary directory.
+   */
   protected async execute() {
     const tmpDir =
       process.cwd() + (await this.cacheService.get(KpConfig.TMP_DIR));
@@ -49,6 +55,11 @@ export class TmpDirCleanerProcess extends AbstractProcess {
     await this.writeLog(`Tmp dir was cleaned`);
   }
 
+  /**
+   * Gets statistics on the number of files and folders to be deleted.
+   * @param dirStruct - The structure of the directory.
+   * @returns An object containing the file and folder counts.
+   */
   private getDeleteStats(dirStruct: { [k: string]: string[] }) {
     let filesCount = 0;
     let foldersCount = 0;

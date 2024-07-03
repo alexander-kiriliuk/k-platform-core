@@ -34,6 +34,9 @@ import Status = Process.Status;
 import Command = Process.Command;
 import hasProcessInstance = Process.hasProcessInstance;
 
+/**
+ * Service for managing processes.
+ */
 @Injectable()
 export class ProcessManagerService {
   private static pmInitStatus: boolean;
@@ -48,6 +51,9 @@ export class ProcessManagerService {
     private readonly processLogRep: Repository<ProcessLogEntity>,
   ) {}
 
+  /**
+   * Initializes the process manager service, resets process statuses, and registers processes.
+   */
   async init() {
     if (ProcessManagerService.pmInitStatus) {
       this.logger.warn("Autostart processes has been executed");
@@ -70,6 +76,10 @@ export class ProcessManagerService {
     }
   }
 
+  /**
+   * Starts a process by its code.
+   * @param code - The code of the process to start.
+   */
   async startProcess(code: string) {
     const processData = await this.getProcessData(code, true);
     if (!processData) {
@@ -80,6 +90,10 @@ export class ProcessManagerService {
     this.broker.emit(Command.Start, processData);
   }
 
+  /**
+   * Stops a process by its code.
+   * @param code - The code of the process to stop.
+   */
   async stopProcess(code: string) {
     const processData = await this.getProcessData(code, true);
     if (!processData) {
@@ -90,6 +104,10 @@ export class ProcessManagerService {
     this.broker.emit(Command.Stop, processData);
   }
 
+  /**
+   * Toggles the enabled status of a process.
+   * @param code - The code of the process to toggle.
+   */
   async toggleProcess(code: string) {
     if (!hasProcessInstance(code)) {
       throw new InternalServerErrorException(`Process ${code} not exists`);
@@ -104,17 +122,32 @@ export class ProcessManagerService {
     }
   }
 
+  /**
+   * Sets the status of a process unit.
+   * @param code - The code of the process unit.
+   * @param status - The new status to set.
+   */
   async setProcessUnitStatus(code: string, status: Process.Status) {
     const processData = await this.getProcessData(code, true);
     processData.status = status;
     return this.processUnitRep.save(processData);
   }
 
+  /**
+   * Gets the status of a process unit.
+   * @param code - The code of the process unit.
+   * @returns The current status of the process unit.
+   */
   async getProcessUnitStatus(code: string) {
     const processData = await this.getProcessData(code, true);
     return processData.status;
   }
 
+  /**
+   * Creates a log instance for a process.
+   * @param processCode - The code of the process.
+   * @returns The created ProcessLogEntity instance.
+   */
   async createLogInstance(processCode: string) {
     const process = await this.getProcessData(processCode);
     return this.processLogRep.save({
@@ -123,15 +156,31 @@ export class ProcessManagerService {
     } as ProcessLogEntity);
   }
 
+  /**
+   * Updates a log instance.
+   * @param logInstance - The ProcessLogEntity instance to update.
+   * @returns The updated ProcessLogEntity instance.
+   */
   updateLogInstance(logInstance: ProcessLogEntity) {
     return this.processLogRep.save(logInstance);
   }
 
+  /**
+   * Gets process data by its code.
+   * @param code - The code of the process.
+   * @param force - Whether to force getting the process data regardless of its enabled status.
+   * @returns The ProcessUnitEntity instance.
+   */
   getProcessData(code: string, force = false) {
     const params = { code, enabled: true };
     return this.processUnitRep.findOne({ where: force ? { code } : params });
   }
 
+  /**
+   * Gets a process log by its ID.
+   * @param id - The ID of the process log.
+   * @returns The ProcessLogEntity instance.
+   */
   getProcessLogById(id: number) {
     return this.processLogRep.findOne({
       where: { id },
@@ -139,6 +188,12 @@ export class ProcessManagerService {
     });
   }
 
+  /**
+   * Gets the last logs of a process by its code.
+   * @param processCode - The code of the process.
+   * @param limit - The maximum number of logs to retrieve (default is 3).
+   * @returns An array of ProcessLogEntity instances.
+   */
   getLastLogsByProcess(processCode: string, limit = 3) {
     return this.processLogRep.find({
       where: { process: { code: processCode } },
@@ -147,6 +202,9 @@ export class ProcessManagerService {
     });
   }
 
+  /**
+   * Resets the statuses of all enabled processes to "Ready".
+   */
   private async resetAllProcessStatuses() {
     const entities = await this.processUnitRep.find({
       where: { enabled: true },

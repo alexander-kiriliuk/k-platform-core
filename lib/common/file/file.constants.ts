@@ -18,6 +18,9 @@ import { FileEntity } from "./entity/file.entity";
 import { FileMetadataEntity } from "./entity/file-metadata.entity";
 import { File } from "./file.types";
 
+/**
+ * Abstract class representing the file management service.
+ */
 export abstract class FileManager {
   abstract createOrUpdateFile(
     file: Buffer,
@@ -41,6 +44,9 @@ export abstract class FileManager {
   abstract remove(id: number): Promise<FileEntity>;
 }
 
+/**
+ * Abstract class representing the file metadata service.
+ */
 export abstract class FileMd {
   abstract createFileMetadataEntity(
     buf: Buffer,

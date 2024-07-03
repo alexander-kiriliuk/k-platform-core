@@ -17,7 +17,10 @@
 import { Process } from "./process.constants";
 import { LocalizedString } from "../../shared/modules/locale/locale.types";
 
-export class ProcessLog {
+/**
+ * Interface representing a process log entry.
+ */
+export interface ProcessLog {
   id: number;
   content: string;
   tsCreated: Date;
@@ -25,6 +28,9 @@ export class ProcessLog {
   process: ProcessUnit;
 }
 
+/**
+ * Interface representing a process unit.
+ */
 export interface ProcessUnit {
   code: string;
   status: Process.Status;

@@ -24,6 +24,9 @@ import Status = Process.Status;
 import inspect = ObjectUtils.inspect;
 import LogLevel = Process.LogLevel;
 
+/**
+ * Abstract class representing a process unit managing instance.
+ */
 export abstract class AbstractProcess {
   protected abstract readonly logger: Logger;
   protected abstract readonly pmService: ProcessManagerService;
@@ -35,6 +38,9 @@ export abstract class AbstractProcess {
     registerProcess(this);
   }
 
+  /**
+   * Starts the process and handles its execution.
+   */
   async start() {
     const status = await this.getStatus();
     if (status === Status.Execute) {
@@ -68,6 +74,9 @@ export abstract class AbstractProcess {
     }
   }
 
+  /**
+   * Stops the process and updates its status.
+   */
   async stop() {
     await this.writeLog(`Try to stop process with id ${this.constructor.name}`);
     await this.setStatus(Status.Ready);
@@ -76,6 +85,12 @@ export abstract class AbstractProcess {
     this.logInstance = undefined;
   }
 
+  /**
+   * Writes a log entry with the specified message, data, and log level.
+   * @param message - The log message.
+   * @param data - Optional additional data.
+   * @param level - The log level (default: LogLevel.Log).
+   */
   protected async writeLog(
     message: string,
     data?: unknown,
@@ -118,22 +133,43 @@ export abstract class AbstractProcess {
     await this.pmService.updateLogInstance(this.logInstance);
   }
 
+  /**
+   * Callback method that is called when the process finishes.
+   * Can be overridden by subclasses if needed.
+   */
   protected async onFinish() {
     // implement callback in child class if it needs
   }
 
+  /**
+   * Callback method that is called when the process stops.
+   * Can be overridden by subclasses if needed.
+   */
   protected async onStop() {
     // implement callback in child class if it needs
   }
 
+  /**
+   * Callback method that is called when the process crashes.
+   * Can be overridden by subclasses if needed.
+   * @param error - The error that caused the crash.
+   */
   protected async onCrash(error: Error) {
     // implement callback in child class if it needs
   }
 
+  /**
+   * Gets the current status of the process.
+   * @returns The current process status.
+   */
   private async getStatus() {
     return await this.pmService.getProcessUnitStatus(this.constructor.name);
   }
 
+  /**
+   * Sets the status of the process.
+   * @param status - The new status to set.
+   */
   private async setStatus(status: Status) {
     await this.pmService.setProcessUnitStatus(this.constructor.name, status);
   }

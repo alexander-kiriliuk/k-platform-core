@@ -20,6 +20,9 @@ import { CaptchaModuleOptions, CaptchaService } from "./captcha.types";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
 import { LogModule } from "../../shared/modules/log/log.module";
 
+/**
+ * Module for work with captcha.
+ */
 @Module({})
 export class CaptchaModule {
   static forRoot(

@@ -14,21 +14,39 @@
  *    limitations under the License.
  */
 
+/**
+ * Default media type code.
+ */
 export const DEFAULT_MEDIA_TYPE = "default";
 
+/**
+ * Default media quality value.
+ */
 export const DEFAULT_MEDIA_QUALITY = 78;
 
+/**
+ * Namespace containing reserved media formats.
+ */
 export namespace ReservedMediaFormat {
   export const ORIGINAL = "original";
   export const THUMB = "thumb";
 }
 
+/**
+ * Namespace containing reserved media extensions.
+ */
 export namespace ReservedMediaExt {
   export const SVG = "svg";
 }
 
+/**
+ * Array containing relations for media type.
+ */
 export const MEDIA_TYPE_RELATIONS = ["ext", "formats"];
 
+/**
+ * Array containing relations for media.
+ */
 export const MEDIA_RELATIONS = [
   "name",
   "name.lang",

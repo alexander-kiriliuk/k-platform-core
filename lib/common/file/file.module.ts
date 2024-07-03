@@ -24,6 +24,9 @@ import { LogModule } from "../../shared/modules/log/log.module";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
 import { FileManager, FileMd } from "./file.constants";
 
+/**
+ * Module for managing files.
+ */
 @Module({})
 export class FileModule {
   static forRoot(

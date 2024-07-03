@@ -29,6 +29,9 @@ import getProcessInstance = Process.getProcessInstance;
 import Command = Process.Command;
 import Status = Process.Status;
 
+/**
+ * Service for registering and managing cron jobs for processes.
+ */
 @Injectable()
 export class ProcessRegisterService {
   constructor(
@@ -52,6 +55,10 @@ export class ProcessRegisterService {
     );
   }
 
+  /**
+   * Starts a registered process.
+   * @param processData - The data of the process to start.
+   */
   private startProcess(processData: ProcessUnit) {
     const processInstance = getProcessInstance(processData.code);
     if (!processInstance) {
@@ -63,6 +70,10 @@ export class ProcessRegisterService {
     );
   }
 
+  /**
+   * Stops a registered process.
+   * @param processData - The data of the process to stop.
+   */
   private stopProcess(processData: ProcessUnit) {
     const processInstance = getProcessInstance(processData.code);
     if (!processInstance) {
@@ -72,6 +83,11 @@ export class ProcessRegisterService {
     processInstance.stop();
   }
 
+  /**
+   * Registers a cron job for a process.
+   * @param processData - The data of the process to register.
+   * @returns True if the cron job was registered, otherwise false.
+   */
   private async registerCronJob(processData: ProcessUnit) {
     if (this.schedulerRegistry.doesExist("cron", processData.code)) {
       this.logger.warn(
@@ -102,6 +118,11 @@ export class ProcessRegisterService {
     return true;
   }
 
+  /**
+   * Unregisters a cron job for a process.
+   * @param processData - The data of the process to unregister.
+   * @returns True if the cron job was unregistered, otherwise false.
+   */
   private async unregisterCronJob(processData: ProcessUnit) {
     if (!this.schedulerRegistry.doesExist("cron", processData.code)) {
       this.logger.warn(

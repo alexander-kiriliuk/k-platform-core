@@ -19,6 +19,9 @@ import { ConfigService } from "./config.service";
 import { LogModule } from "../../shared/modules/log/log.module";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
 
+/**
+ * Module for work with system configuration.
+ */
 @Module({
   imports: [LogModule, CacheModule],
   providers: [ConfigService],

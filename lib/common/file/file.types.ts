@@ -18,6 +18,9 @@ import { Type as Class } from "@nestjs/common/interfaces/type.interface";
 import { Media } from "../media/media.types";
 import { FileManager, FileMd } from "./file.constants";
 
+/**
+ * Interface representing a file.
+ */
 export interface File {
   id: number;
   code: string;
@@ -31,6 +34,9 @@ export interface File {
   tsCreated: Date;
 }
 
+/**
+ * Interface representing file metadata.
+ */
 export interface FileMetadata {
   id: number;
   mime: string;
@@ -44,6 +50,9 @@ export interface FileMetadata {
   video: VideoFileMetadata;
 }
 
+/**
+ * Interface representing image file metadata.
+ */
 export interface ImageFileMetadata {
   id: number;
   bps: number;
@@ -59,6 +68,9 @@ export interface ImageFileMetadata {
   interlace: string;
 }
 
+/**
+ * Interface representing ICC file metadata.
+ */
 export interface IccFileMetadata {
   id: number;
   profileVersion: string;
@@ -77,6 +89,9 @@ export interface IccFileMetadata {
   iccCopyright: string;
 }
 
+/**
+ * Interface representing EXIF file metadata.
+ */
 export interface ExifFileMetadata {
   id: number;
   make: string;
@@ -127,6 +142,9 @@ export interface ExifFileMetadata {
   interoperabilityVersion: string;
 }
 
+/**
+ * Interface representing GPS file metadata.
+ */
 export interface GpsFileMetadata {
   id: number;
   latitude: number;
@@ -134,6 +152,9 @@ export interface GpsFileMetadata {
   altitude: number;
 }
 
+/**
+ * Interface representing video file metadata.
+ */
 export interface VideoFileMetadata {
   id: number;
   codec: string;
@@ -150,6 +171,9 @@ export interface VideoFileMetadata {
   rotate: string;
 }
 
+/**
+ * Interface representing audio file metadata.
+ */
 export interface AudioFileMetadata {
   id: number;
   container: string;
@@ -168,6 +192,9 @@ export interface AudioFileMetadata {
   label: string;
 }
 
+/**
+ * Options for configuring the FileModule.
+ */
 export type FileModuleOptions = {
   fileManager: Class<FileManager>;
   fileMd: Class<FileMd>;

@@ -25,6 +25,10 @@ import { LogModule } from "../../shared/modules/log/log.module";
 import { MessagesBrokerModule } from "../../shared/modules/messages-broker/messages-broker.module";
 import { WarlockModule } from "../../shared/modules/warlock/warlock.module";
 
+/**
+ * Module is responsible for initializing and managing processes in the application.
+ * It uses the NestJS lifecycle hook `onApplicationBootstrap` to initialize processes on startup.
+ */
 @Global()
 @Module({
   imports: [

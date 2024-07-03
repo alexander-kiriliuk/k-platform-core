@@ -38,7 +38,7 @@ import PUBLIC_DIR = FileConfig.PUBLIC_DIR;
 import createDirectoriesIfNotExist = FilesUtils.createDirectoriesIfNotExist;
 
 /**
- * Injectable service for managing files, including uploading, finding, and removing files.
+ * Service for managing files, including uploading, finding, and removing files.
  */
 @Injectable()
 export class FileService extends FileManager {
@@ -276,11 +276,19 @@ export class FileService extends FileManager {
     return this.fileRep.save(entity);
   }
 
+  /**
+   * Retrieves the public directory path stored in configuration.
+   * @returns A promise that resolves to the normalized public directory path.
+   */
   private async getPublicDir() {
     const dir = process.cwd() + (await this.cacheService.get(PUBLIC_DIR));
     return path.normalize(dir);
   }
 
+  /**
+   * Retrieves the private directory path stored in configuration.
+   * @returns A promise that resolves to the normalized private directory path.
+   */
   private async getPrivateDir() {
     const dir = process.cwd() + (await this.cacheService.get(PRIVATE_DIR));
     return path.normalize(dir);

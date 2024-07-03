@@ -18,6 +18,14 @@
       {
         "title": "captcha.properties",
         "file": "./lib/common/captcha/captcha.properties.doc.md"
+      },
+      {
+        "title": "file.properties",
+        "file": "./lib/common/file/file.properties.doc.md"
+      },
+      {
+        "title": "media.properties",
+        "file": "./lib/common/media/media.properties.doc.md"
       }
     ]
   }

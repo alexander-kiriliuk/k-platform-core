@@ -20,6 +20,9 @@ import { LocalizedString } from "../../shared/modules/locale/locale.types";
 import { FileMetadata } from "../file/file.types";
 import { MediaEntity } from "./entity/media.entity";
 
+/**
+ * Interface representing a media object.
+ */
 export interface Media {
   id: number;
   code: string;
@@ -30,6 +33,9 @@ export interface Media {
   tsCreated: Date;
 }
 
+/**
+ * Interface representing a media type.
+ */
 export interface MediaType {
   code: string;
   name: string;
@@ -40,6 +46,9 @@ export interface MediaType {
   formats: MediaFormat[];
 }
 
+/**
+ * Interface representing a media format.
+ */
 export interface MediaFormat {
   code: string;
   name: string;
@@ -47,6 +56,9 @@ export interface MediaFormat {
   height: string;
 }
 
+/**
+ * Interface representing a media file.
+ */
 export interface MediaFile {
   id: number;
   code: string;
@@ -58,11 +70,17 @@ export interface MediaFile {
   media: Media;
 }
 
+/**
+ * Interface representing a media extension.
+ */
 export interface MediaExt {
   code: string;
   name: string;
 }
 
+/**
+ * Interface representing the request to upsert a media object.
+ */
 export interface UpsertMediaRequest {
   file: Buffer;
   type: string;
@@ -71,6 +89,9 @@ export interface UpsertMediaRequest {
   entityName?: LocalizedString[];
 }
 
+/**
+ * Data transfer object for media type.
+ */
 export class MediaTypeDto implements MediaType {
   @Expose()
   code: string;
@@ -95,6 +116,9 @@ export class MediaTypeDto implements MediaType {
   quality: number;
 }
 
+/**
+ * Data transfer object for media format.
+ */
 export class MediaFormatDto implements MediaFormat {
   @Expose()
   code: string;
@@ -109,6 +133,9 @@ export class MediaFormatDto implements MediaFormat {
   width: string;
 }
 
+/**
+ * Data transfer object for media.
+ */
 export class MediaDto implements Media {
   @Expose()
   id: number;
@@ -134,6 +161,9 @@ export class MediaDto implements Media {
   tsCreated: Date;
 }
 
+/**
+ * Data transfer object for media file.
+ */
 export class MediaFileDto implements MediaFile {
   @Expose()
   id: number;
@@ -161,6 +191,9 @@ export class MediaFileDto implements MediaFile {
   width: number;
 }
 
+/**
+ * Abstract class representing the media management service.
+ */
 export abstract class MediaManager {
   abstract findByCode(code: string): Promise<MediaEntity>;
 
@@ -192,6 +225,9 @@ export abstract class MediaManager {
   ): Promise<string>;
 }
 
+/**
+ * Options for configuring the MediaModule.
+ */
 export type MediaModuleOptions = {
   service: Class<MediaManager>;
 };

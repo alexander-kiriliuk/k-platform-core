@@ -26,6 +26,9 @@ import { FileModule } from "../file/file.module";
 import { LogModule } from "../../shared/modules/log/log.module";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
 
+/**
+ * Module for management media system.
+ */
 @Module({})
 export class MediaModule {
   static forRoot(

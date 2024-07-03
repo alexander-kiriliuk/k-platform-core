@@ -26,6 +26,9 @@ import { CacheService } from "../../shared/modules/cache/cache.types";
 import { AuthConfig } from "../../../gen-src/auth.config";
 import { AuthService } from "./auth.constants";
 
+/**
+ * Module providing auth process.
+ */
 @Module({})
 export class AuthModule {
   static forRoot(

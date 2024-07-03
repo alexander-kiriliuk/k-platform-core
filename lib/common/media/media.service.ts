@@ -581,24 +581,40 @@ export class MediaService extends MediaManager {
       .leftJoinAndSelect("name.lang", "lang");
   }
 
+  /**
+   * Retrieves the path to the public media directory stored in configuration.
+   * @returns The normalized path to the public media directory.
+   */
   private async getPublicDir() {
     const dir =
       process.cwd() + (await this.cacheService.get(MediaConfig.PUBLIC_DIR));
     return path.normalize(dir);
   }
 
+  /**
+   * Retrieves the path to the private media directory stored in configuration.
+   * @returns The normalized path to the private media directory.
+   */
   private async getPrivateDir() {
     const dir =
       process.cwd() + (await this.cacheService.get(MediaConfig.PRIVATE_DIR));
     return path.normalize(dir);
   }
 
+  /**
+   * Retrieves media format for files originals.
+   * @returns The MediaFormatEntity instance representing the original format.
+   */
   private async getOriginalFormat() {
     return await this.mediaFormatRep.findOne({
       where: { code: ReservedMediaFormat.ORIGINAL },
     });
   }
 
+  /**
+   * Retrieves media format for files thumbnails.
+   * @returns The MediaFormatEntity instance representing the thumbnail format.
+   */
   private async getThumbFormat() {
     return await this.mediaFormatRep.findOne({
       where: { code: ReservedMediaFormat.THUMB },

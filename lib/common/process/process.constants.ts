@@ -17,18 +17,30 @@
 import { AbstractProcess } from "./abstract-process";
 import { InternalServerErrorException } from "@nestjs/common";
 
+/**
+ * Namespace containing enums and functions for process management.
+ */
 export namespace Process {
+  /**
+   * Sore for registered processes
+   */
   const REGISTERED_PROCESSES: Map<string, AbstractProcess> = new Map<
     string,
     AbstractProcess
   >();
 
+  /**
+   * Enum of possible process statuses.
+   */
   export enum Status {
     Execute = "execute",
     Ready = "ready",
     Crashed = "crashed",
   }
 
+  /**
+   * Enum of possible process commands.
+   */
   export enum Command {
     Register = "process:register",
     Unregister = "process:unregister",
@@ -36,6 +48,9 @@ export namespace Process {
     Stop = "process:stop",
   }
 
+  /**
+   * Enum of log levels.
+   */
   export enum LogLevel {
     Log = "LOG",
     Error = "ERROR",
@@ -44,10 +59,19 @@ export namespace Process {
     Debug = "DEBUG",
   }
 
+  /**
+   * Gets the store of registered processes.
+   * @returns The map of registered processes.
+   */
   export function getRegisteredProcesses() {
     return REGISTERED_PROCESSES;
   }
 
+  /**
+   * Registers a process.
+   * @param process - The process to register.
+   * @throws InternalServerErrorException if the process is already registered.
+   */
   export function registerProcess<T extends AbstractProcess>(process: T) {
     const processName = process.constructor.name;
     if (REGISTERED_PROCESSES.has(processName)) {
@@ -58,10 +82,20 @@ export namespace Process {
     REGISTERED_PROCESSES.set(processName, process);
   }
 
+  /**
+   * Checks if a process instance is registered.
+   * @param code - The code of the process.
+   * @returns True if the process is registered, otherwise false.
+   */
   export function hasProcessInstance(code: string) {
     return REGISTERED_PROCESSES.has(code);
   }
 
+  /**
+   * Gets a process instance by its code.
+   * @param code - The code of the process.
+   * @returns The process instance if found, otherwise undefined.
+   */
   export function getProcessInstance(code: string) {
     const registeredProcesses = getRegisteredProcesses();
     const process = registeredProcesses.get(code);
