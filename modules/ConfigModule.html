@@ -224,6 +224,13 @@
 
 
 
+        <p class="comment">
+            <h3>Description</h3>
+        </p>
+        <p class="comment">
+            <p>Module for work with system configuration.</p>
+
+        </p>
 
 
         <div class="container-fluid module">
@@ -289,6 +296,9 @@ import { ConfigService } from &quot;./config.service&quot;;
 import { LogModule } from &quot;../../shared/modules/log/log.module&quot;;
 import { CacheModule } from &quot;../../shared/modules/cache/cache.module&quot;;
 
+/**
+ * Module for work with system configuration.
+ */
 @Module({
   imports: [LogModule, CacheModule],
   providers: [ConfigService],

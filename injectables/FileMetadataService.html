@@ -119,6 +119,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service for managing file metadata, including creation and setting metadata properties.</p>
+
+            </p>
 
             <p class="comment">
                 <h3>Extends</h3>
@@ -209,7 +216,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/FileMd.html#source" target="_self" >FileMd:36</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/FileMd.html#source" target="_self" >FileMd:45</a></code>
 </div>
                         </td>
                     </tr>
@@ -217,6 +224,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Creates a FileMetadataEntity for the given buffer and file path.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -227,6 +236,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -241,6 +251,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Buffer containing the file data.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>filePath</td>
@@ -253,6 +269,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Optional file path for the file.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -262,7 +284,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to the created FileMetadataEntity.</p>
+
                             </div>
                 </td>
             </tr>
@@ -291,14 +314,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="115"
-                                    class="link-to-prism">lib/common/file/file-metadata.service.ts:115</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="139"
+                                    class="link-to-prism">lib/common/file/file-metadata.service.ts:139</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Sets audio metadata for the given FileMetadataEntity and buffer.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -309,6 +334,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -323,6 +349,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The FileMetadataEntity to set the metadata for.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>buf</td>
@@ -335,6 +367,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The buffer containing the audio data.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -372,14 +410,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="137"
-                                    class="link-to-prism">lib/common/file/file-metadata.service.ts:137</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="166"
+                                    class="link-to-prism">lib/common/file/file-metadata.service.ts:166</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Sets image metadata for the given FileMetadataEntity and buffer.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -390,6 +430,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -404,6 +445,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The FileMetadataEntity to set the metadata for.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>buf</td>
@@ -416,6 +463,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The buffer containing the image data.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -454,14 +507,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="82"
-                                    class="link-to-prism">lib/common/file/file-metadata.service.ts:82</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="101"
+                                    class="link-to-prism">lib/common/file/file-metadata.service.ts:101</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Sets video metadata for the given FileMetadataEntity and file path.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -472,6 +527,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -486,6 +542,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The FileMetadataEntity to set the metadata for.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>filePath</td>
@@ -498,6 +560,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The file path for the video file.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -535,8 +603,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="58"
-                                    class="link-to-prism">lib/common/file/file-metadata.service.ts:58</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">lib/common/file/file-metadata.service.ts:72</a></div>
                         </td>
                     </tr>
 
@@ -551,6 +619,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Trims properties of an object, removing empty or invalid values.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -561,6 +631,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -575,6 +646,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The object to trim.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -584,7 +661,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The trimmed object.</p>
+
                             </div>
                 </td>
             </tr>
@@ -613,8 +691,17 @@ import { IccFileMetadataEntity } from &quot;./entity/icc-file-metadata.entity&qu
 import getHashFromBuffer &#x3D; FilesUtils.getHashFromBuffer;
 import fileType &#x3D; FilesUtils.fileType;
 
+/**
+ * Service for managing file metadata, including creation and setting metadata properties.
+ */
 @Injectable()
 export class FileMetadataService extends FileMd {
+  /**
+   * Creates a FileMetadataEntity for the given buffer and file path.
+   * @param buf - Buffer containing the file data.
+   * @param filePath - Optional file path for the file.
+   * @returns A promise that resolves to the created FileMetadataEntity.
+   */
   async createFileMetadataEntity(buf: Buffer, filePath?: string) {
     const fileTypeData &#x3D; await fileType().fileTypeFromBuffer(buf);
     const md &#x3D; new FileMetadataEntity();
@@ -637,6 +724,11 @@ export class FileMetadataService extends FileMd {
     return this.trimProperties(md);
   }
 
+  /**
+   * Trims properties of an object, removing empty or invalid values.
+   * @param obj - The object to trim.
+   * @returns The trimmed object.
+   */
   private trimProperties&lt;T &#x3D; any&gt;(obj: T): T {
     if (typeof obj &#x3D;&#x3D;&#x3D; &quot;string&quot;) {
       return obj.trim() &#x3D;&#x3D;&#x3D; &quot;&quot; || obj.indexOf(&quot; &quot;) !&#x3D;&#x3D; -1
@@ -661,6 +753,11 @@ export class FileMetadataService extends FileMd {
     }
   }
 
+  /**
+   * Sets video metadata for the given FileMetadataEntity and file path.
+   * @param md - The FileMetadataEntity to set the metadata for.
+   * @param filePath - The file path for the video file.
+   */
   private async setVideoMd(md: FileMetadataEntity, filePath: string) {
     if (filePath) {
       const ffProbeMd &#x3D; await ffprobe(filePath, { path: ffprobeStatic.path });
@@ -694,6 +791,11 @@ export class FileMetadataService extends FileMd {
     }
   }
 
+  /**
+   * Sets audio metadata for the given FileMetadataEntity and buffer.
+   * @param md - The FileMetadataEntity to set the metadata for.
+   * @param buf - The buffer containing the audio data.
+   */
   private async setAudioMd(md: FileMetadataEntity, buf: Buffer) {
     const musicMd &#x3D; await parseBuffer(buf);
     if (!musicMd) {
@@ -716,6 +818,11 @@ export class FileMetadataService extends FileMd {
     md.audio.label &#x3D; musicMd.common.label?.join(&quot;, &quot;);
   }
 
+  /**
+   * Sets image metadata for the given FileMetadataEntity and buffer.
+   * @param md - The FileMetadataEntity to set the metadata for.
+   * @param buf - The buffer containing the image data.
+   */
   private setImageMd(md: FileMetadataEntity, buf: Buffer) {
     const exifData &#x3D; ExifReader.load(buf, {
       expanded: true,

@@ -1594,19 +1594,25 @@ uploading, resizing, optimizing, and removing images.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="596"
-                                    class="link-to-prism">lib/common/media/media.service.ts:596</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="608"
+                                    class="link-to-prism">lib/common/media/media.service.ts:608</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves media format for files originals.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>The MediaFormatEntity instance representing the original format.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -1705,19 +1711,25 @@ uploading, resizing, optimizing, and removing images.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="590"
-                                    class="link-to-prism">lib/common/media/media.service.ts:590</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="598"
+                                    class="link-to-prism">lib/common/media/media.service.ts:598</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the path to the private media directory stored in configuration.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>The normalized path to the private media directory.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -1745,19 +1757,25 @@ uploading, resizing, optimizing, and removing images.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="584"
-                                    class="link-to-prism">lib/common/media/media.service.ts:584</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="588"
+                                    class="link-to-prism">lib/common/media/media.service.ts:588</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the path to the public media directory stored in configuration.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>The normalized path to the public media directory.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -1785,19 +1803,25 @@ uploading, resizing, optimizing, and removing images.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="602"
-                                    class="link-to-prism">lib/common/media/media.service.ts:602</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="618"
+                                    class="link-to-prism">lib/common/media/media.service.ts:618</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves media format for files thumbnails.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>The MediaFormatEntity instance representing the thumbnail format.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -2911,24 +2935,40 @@ export class MediaService extends MediaManager {
       .leftJoinAndSelect(&quot;name.lang&quot;, &quot;lang&quot;);
   }
 
+  /**
+   * Retrieves the path to the public media directory stored in configuration.
+   * @returns The normalized path to the public media directory.
+   */
   private async getPublicDir() {
     const dir &#x3D;
       process.cwd() + (await this.cacheService.get(MediaConfig.PUBLIC_DIR));
     return path.normalize(dir);
   }
 
+  /**
+   * Retrieves the path to the private media directory stored in configuration.
+   * @returns The normalized path to the private media directory.
+   */
   private async getPrivateDir() {
     const dir &#x3D;
       process.cwd() + (await this.cacheService.get(MediaConfig.PRIVATE_DIR));
     return path.normalize(dir);
   }
 
+  /**
+   * Retrieves media format for files originals.
+   * @returns The MediaFormatEntity instance representing the original format.
+   */
   private async getOriginalFormat() {
     return await this.mediaFormatRep.findOne({
       where: { code: ReservedMediaFormat.ORIGINAL },
     });
   }
 
+  /**
+   * Retrieves media format for files thumbnails.
+   * @returns The MediaFormatEntity instance representing the thumbnail format.
+   */
   private async getThumbFormat() {
     return await this.mediaFormatRep.findOne({
       where: { code: ReservedMediaFormat.THUMB },

@@ -123,7 +123,7 @@
                 <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>Injectable service for managing files, including uploading, finding, and removing files.</p>
+                <p>Service for managing files, including uploading, finding, and removing files.</p>
 
             </p>
 
@@ -1187,19 +1187,25 @@ Also creates a FileEntity and saves the file&#39;s metadata in the database.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="284"
-                                    class="link-to-prism">lib/common/file/file.service.ts:284</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="292"
+                                    class="link-to-prism">lib/common/file/file.service.ts:292</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the private directory path stored in configuration.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>A promise that resolves to the normalized private directory path.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -1227,19 +1233,25 @@ Also creates a FileEntity and saves the file&#39;s metadata in the database.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="279"
-                                    class="link-to-prism">lib/common/file/file.service.ts:279</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="283"
+                                    class="link-to-prism">lib/common/file/file.service.ts:283</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the public directory path stored in configuration.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>A promise that resolves to the normalized public directory path.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -1359,7 +1371,7 @@ import PUBLIC_DIR &#x3D; FileConfig.PUBLIC_DIR;
 import createDirectoriesIfNotExist &#x3D; FilesUtils.createDirectoriesIfNotExist;
 
 /**
- * Injectable service for managing files, including uploading, finding, and removing files.
+ * Service for managing files, including uploading, finding, and removing files.
  */
 @Injectable()
 export class FileService extends FileManager {
@@ -1597,11 +1609,19 @@ export class FileService extends FileManager {
     return this.fileRep.save(entity);
   }
 
+  /**
+   * Retrieves the public directory path stored in configuration.
+   * @returns A promise that resolves to the normalized public directory path.
+   */
   private async getPublicDir() {
     const dir &#x3D; process.cwd() + (await this.cacheService.get(PUBLIC_DIR));
     return path.normalize(dir);
   }
 
+  /**
+   * Retrieves the private directory path stored in configuration.
+   * @returns A promise that resolves to the normalized private directory path.
+   */
   private async getPrivateDir() {
     const dir &#x3D; process.cwd() + (await this.cacheService.get(PRIVATE_DIR));
     return path.normalize(dir);

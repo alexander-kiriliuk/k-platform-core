@@ -123,6 +123,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Abstract class representing the file metadata service.</p>
+
+            </p>
 
 
 
@@ -185,8 +192,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="45"
-                                    class="link-to-prism">lib/common/file/file.constants.ts:45</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">lib/common/file/file.constants.ts:51</a></div>
                         </td>
                     </tr>
 
@@ -258,6 +265,9 @@
 import { FileMetadataEntity } from &quot;./entity/file-metadata.entity&quot;;
 import { File } from &quot;./file.types&quot;;
 
+/**
+ * Abstract class representing the file management service.
+ */
 export abstract class FileManager {
   abstract createOrUpdateFile(
     file: Buffer,
@@ -281,6 +291,9 @@ export abstract class FileManager {
   abstract remove(id: number): Promise&lt;FileEntity&gt;;
 }
 
+/**
+ * Abstract class representing the file metadata service.
+ */
 export abstract class FileMd {
   abstract createFileMetadataEntity(
     buf: Buffer,

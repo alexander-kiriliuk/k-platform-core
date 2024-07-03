@@ -248,6 +248,14 @@
 
 
 
+        <p class="comment">
+            <h3>Description</h3>
+        </p>
+        <p class="comment">
+            <p>Module is responsible for initializing and managing processes in the application.
+It uses the NestJS lifecycle hook <code>onApplicationBootstrap</code> to initialize processes on startup.</p>
+
+        </p>
 
 
         <div class="container-fluid module">
@@ -320,8 +328,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="43"
-                                    class="link-to-prism">lib/common/process/process.module.ts:43</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">lib/common/process/process.module.ts:47</a></div>
                         </td>
                     </tr>
 
@@ -369,6 +377,10 @@ import { LogModule } from &quot;../../shared/modules/log/log.module&quot;;
 import { MessagesBrokerModule } from &quot;../../shared/modules/messages-broker/messages-broker.module&quot;;
 import { WarlockModule } from &quot;../../shared/modules/warlock/warlock.module&quot;;
 
+/**
+ * Module is responsible for initializing and managing processes in the application.
+ * It uses the NestJS lifecycle hook &#x60;onApplicationBootstrap&#x60; to initialize processes on startup.
+ */
 @Global()
 @Module({
   imports: [

@@ -123,6 +123,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Abstract class representing a process unit managing instance.</p>
+
+            </p>
 
 
 
@@ -234,7 +241,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">lib/common/process/abstract-process.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">lib/common/process/abstract-process.ts:35</a></div>
                             </td>
                         </tr>
 
@@ -269,7 +276,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">lib/common/process/abstract-process.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">lib/common/process/abstract-process.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -296,7 +303,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">lib/common/process/abstract-process.ts:30</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">lib/common/process/abstract-process.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -325,7 +332,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">lib/common/process/abstract-process.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">lib/common/process/abstract-process.ts:32</a></div>
                         </td>
                     </tr>
 
@@ -362,8 +369,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="32"
-                                    class="link-to-prism">lib/common/process/abstract-process.ts:32</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">lib/common/process/abstract-process.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -402,19 +409,25 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="133"
-                                    class="link-to-prism">lib/common/process/abstract-process.ts:133</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="165"
+                                    class="link-to-prism">lib/common/process/abstract-process.ts:165</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Gets the current status of the process.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>The current process status.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -442,14 +455,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="129"
-                                    class="link-to-prism">lib/common/process/abstract-process.ts:129</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="157"
+                                    class="link-to-prism">lib/common/process/abstract-process.ts:157</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Callback method that is called when the process crashes.
+Can be overridden by subclasses if needed.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -460,6 +476,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -474,6 +491,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The error that caused the crash.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -512,14 +535,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="121"
-                                    class="link-to-prism">lib/common/process/abstract-process.ts:121</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="140"
+                                    class="link-to-prism">lib/common/process/abstract-process.ts:140</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Callback method that is called when the process finishes.
+Can be overridden by subclasses if needed.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -552,14 +578,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="125"
-                                    class="link-to-prism">lib/common/process/abstract-process.ts:125</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="148"
+                                    class="link-to-prism">lib/common/process/abstract-process.ts:148</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Callback method that is called when the process stops.
+Can be overridden by subclasses if needed.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -592,14 +621,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="137"
-                                    class="link-to-prism">lib/common/process/abstract-process.ts:137</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="173"
+                                    class="link-to-prism">lib/common/process/abstract-process.ts:173</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Sets the status of the process.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -610,6 +641,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -624,6 +656,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The new status to set.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -661,14 +699,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="38"
-                                    class="link-to-prism">lib/common/process/abstract-process.ts:38</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">lib/common/process/abstract-process.ts:44</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Starts the process and handles its execution.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -700,14 +740,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="71"
-                                    class="link-to-prism">lib/common/process/abstract-process.ts:71</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">lib/common/process/abstract-process.ts:80</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Stops the process and updates its status.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -740,14 +782,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="79"
-                                    class="link-to-prism">lib/common/process/abstract-process.ts:79</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="94"
+                                    class="link-to-prism">lib/common/process/abstract-process.ts:94</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Writes a log entry with the specified message, data, and log level.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -759,6 +803,7 @@
                                                 <td>Type</td>
                                             <td>Optional</td>
                                                 <td>Default value</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -775,6 +820,12 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The log message.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -788,6 +839,12 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>Optional additional data.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>level</td>
@@ -802,6 +859,12 @@
                                                     <code>LogLevel.Log</code>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The log level (default: LogLevel.Log).</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -837,6 +900,9 @@ import Status &#x3D; Process.Status;
 import inspect &#x3D; ObjectUtils.inspect;
 import LogLevel &#x3D; Process.LogLevel;
 
+/**
+ * Abstract class representing a process unit managing instance.
+ */
 export abstract class AbstractProcess {
   protected abstract readonly logger: Logger;
   protected abstract readonly pmService: ProcessManagerService;
@@ -848,6 +914,9 @@ export abstract class AbstractProcess {
     registerProcess(this);
   }
 
+  /**
+   * Starts the process and handles its execution.
+   */
   async start() {
     const status &#x3D; await this.getStatus();
     if (status &#x3D;&#x3D;&#x3D; Status.Execute) {
@@ -881,6 +950,9 @@ export abstract class AbstractProcess {
     }
   }
 
+  /**
+   * Stops the process and updates its status.
+   */
   async stop() {
     await this.writeLog(&#x60;Try to stop process with id ${this.constructor.name}&#x60;);
     await this.setStatus(Status.Ready);
@@ -889,6 +961,12 @@ export abstract class AbstractProcess {
     this.logInstance &#x3D; undefined;
   }
 
+  /**
+   * Writes a log entry with the specified message, data, and log level.
+   * @param message - The log message.
+   * @param data - Optional additional data.
+   * @param level - The log level (default: LogLevel.Log).
+   */
   protected async writeLog(
     message: string,
     data?: unknown,
@@ -931,22 +1009,43 @@ export abstract class AbstractProcess {
     await this.pmService.updateLogInstance(this.logInstance);
   }
 
+  /**
+   * Callback method that is called when the process finishes.
+   * Can be overridden by subclasses if needed.
+   */
   protected async onFinish() {
     // implement callback in child class if it needs
   }
 
+  /**
+   * Callback method that is called when the process stops.
+   * Can be overridden by subclasses if needed.
+   */
   protected async onStop() {
     // implement callback in child class if it needs
   }
 
+  /**
+   * Callback method that is called when the process crashes.
+   * Can be overridden by subclasses if needed.
+   * @param error - The error that caused the crash.
+   */
   protected async onCrash(error: Error) {
     // implement callback in child class if it needs
   }
 
+  /**
+   * Gets the current status of the process.
+   * @returns The current process status.
+   */
   private async getStatus() {
     return await this.pmService.getProcessUnitStatus(this.constructor.name);
   }
 
+  /**
+   * Sets the status of the process.
+   * @param status - The new status to set.
+   */
   private async setStatus(status: Status) {
     await this.pmService.setProcessUnitStatus(this.constructor.name, status);
   }

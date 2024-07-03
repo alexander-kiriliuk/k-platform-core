@@ -123,6 +123,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Abstract class representing the file management service.</p>
+
+            </p>
 
 
 
@@ -209,8 +216,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="22"
-                                    class="link-to-prism">lib/common/file/file.constants.ts:22</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="25"
+                                    class="link-to-prism">lib/common/file/file.constants.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -338,8 +345,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="31"
-                                    class="link-to-prism">lib/common/file/file.constants.ts:31</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="34"
+                                    class="link-to-prism">lib/common/file/file.constants.ts:34</a></div>
                         </td>
                     </tr>
 
@@ -407,8 +414,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="33"
-                                    class="link-to-prism">lib/common/file/file.constants.ts:33</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="36"
+                                    class="link-to-prism">lib/common/file/file.constants.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -476,8 +483,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="37"
-                                    class="link-to-prism">lib/common/file/file.constants.ts:37</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">lib/common/file/file.constants.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -545,8 +552,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">lib/common/file/file.constants.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="38"
+                                    class="link-to-prism">lib/common/file/file.constants.ts:38</a></div>
                         </td>
                     </tr>
 
@@ -614,8 +621,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="39"
-                                    class="link-to-prism">lib/common/file/file.constants.ts:39</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="42"
+                                    class="link-to-prism">lib/common/file/file.constants.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -683,8 +690,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="41"
-                                    class="link-to-prism">lib/common/file/file.constants.ts:41</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">lib/common/file/file.constants.ts:44</a></div>
                         </td>
                     </tr>
 
@@ -744,6 +751,9 @@
 import { FileMetadataEntity } from &quot;./entity/file-metadata.entity&quot;;
 import { File } from &quot;./file.types&quot;;
 
+/**
+ * Abstract class representing the file management service.
+ */
 export abstract class FileManager {
   abstract createOrUpdateFile(
     file: Buffer,
@@ -767,6 +777,9 @@ export abstract class FileManager {
   abstract remove(id: number): Promise&lt;FileEntity&gt;;
 }
 
+/**
+ * Abstract class representing the file metadata service.
+ */
 export abstract class FileMd {
   abstract createFileMetadataEntity(
     buf: Buffer,

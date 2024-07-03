@@ -119,6 +119,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service for managing processes.</p>
+
+            </p>
 
 
 
@@ -214,12 +221,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(lockExec: <a href="../undefineds/WarlockFn.html" target="_self">WarlockFn</a>, logger: Logger, broker: <a href="../interfaces/MessagesBroker.html" target="_self">MessagesBroker</a>, processUnitRep: <a href="../interfaces/ProcessUnit.html" target="_self">Repository&lt;ProcessUnitEntity&gt;</a>, processLogRep: <a href="../classes/ProcessLog.html" target="_self">Repository&lt;ProcessLogEntity&gt;</a>)</code>
+<code>constructor(lockExec: <a href="../undefineds/WarlockFn.html" target="_self">WarlockFn</a>, logger: Logger, broker: <a href="../interfaces/MessagesBroker.html" target="_self">MessagesBroker</a>, processUnitRep: <a href="../interfaces/ProcessUnit.html" target="_self">Repository&lt;ProcessUnitEntity&gt;</a>, processLogRep: <a href="../interfaces/ProcessLog.html" target="_self">Repository&lt;ProcessLogEntity&gt;</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">lib/common/process/process-manager.service.ts:39</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">lib/common/process/process-manager.service.ts:42</a></div>
                             </td>
                         </tr>
 
@@ -288,7 +295,7 @@
                                                         <td>processLogRep</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../classes/ProcessLog.html" target="_self" >Repository&lt;ProcessLogEntity&gt;</a></code>
+                                                                        <code><a href="../interfaces/ProcessLog.html" target="_self" >Repository&lt;ProcessLogEntity&gt;</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -332,14 +339,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="118"
-                                    class="link-to-prism">lib/common/process/process-manager.service.ts:118</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">lib/common/process/process-manager.service.ts:151</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Creates a log instance for a process.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -350,6 +359,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -364,6 +374,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The code of the process.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -373,7 +389,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The created ProcessLogEntity instance.</p>
+
                             </div>
                 </td>
             </tr>
@@ -399,14 +416,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="142"
-                                    class="link-to-prism">lib/common/process/process-manager.service.ts:142</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="197"
+                                    class="link-to-prism">lib/common/process/process-manager.service.ts:197</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Gets the last logs of a process by its code.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -418,6 +437,7 @@
                                                 <td>Type</td>
                                             <td>Optional</td>
                                                 <td>Default value</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -434,6 +454,12 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The code of the process.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>limit</td>
@@ -449,6 +475,12 @@
                                                     <code>3</code>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The maximum number of logs to retrieve (default is 3).</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -458,7 +490,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>An array of ProcessLogEntity instances.</p>
+
                             </div>
                 </td>
             </tr>
@@ -484,14 +517,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="130"
-                                    class="link-to-prism">lib/common/process/process-manager.service.ts:130</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="174"
+                                    class="link-to-prism">lib/common/process/process-manager.service.ts:174</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Gets process data by its code.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -503,6 +538,7 @@
                                                 <td>Type</td>
                                             <td>Optional</td>
                                                 <td>Default value</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -519,6 +555,12 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The code of the process.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>force</td>
@@ -533,6 +575,12 @@
                                                     <code>false</code>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>Whether to force getting the process data regardless of its enabled status.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -542,7 +590,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The ProcessUnitEntity instance.</p>
+
                             </div>
                 </td>
             </tr>
@@ -568,14 +617,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="135"
-                                    class="link-to-prism">lib/common/process/process-manager.service.ts:135</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="184"
+                                    class="link-to-prism">lib/common/process/process-manager.service.ts:184</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Gets a process log by its ID.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -586,6 +637,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -600,6 +652,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the process log.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -609,7 +667,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The ProcessLogEntity instance.</p>
+
                             </div>
                 </td>
             </tr>
@@ -637,14 +696,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="113"
-                                    class="link-to-prism">lib/common/process/process-manager.service.ts:113</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="141"
+                                    class="link-to-prism">lib/common/process/process-manager.service.ts:141</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Gets the status of a process unit.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -655,6 +716,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -669,6 +731,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The code of the process unit.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -678,7 +746,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The current status of the process unit.</p>
+
                             </div>
                 </td>
             </tr>
@@ -706,14 +775,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="51"
-                                    class="link-to-prism">lib/common/process/process-manager.service.ts:51</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">lib/common/process/process-manager.service.ts:57</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Initializes the process manager service, resets process statuses, and registers processes.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -746,14 +817,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="150"
-                                    class="link-to-prism">lib/common/process/process-manager.service.ts:150</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="208"
+                                    class="link-to-prism">lib/common/process/process-manager.service.ts:208</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Resets the statuses of all enabled processes to &quot;Ready&quot;.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -785,14 +858,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="107"
-                                    class="link-to-prism">lib/common/process/process-manager.service.ts:107</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">lib/common/process/process-manager.service.ts:130</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Sets the status of a process unit.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -803,6 +878,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -817,6 +893,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The code of the process unit.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>status</td>
@@ -829,6 +911,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The new status to set.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -866,14 +954,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="73"
-                                    class="link-to-prism">lib/common/process/process-manager.service.ts:73</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="83"
+                                    class="link-to-prism">lib/common/process/process-manager.service.ts:83</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Starts a process by its code.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -884,6 +974,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -898,6 +989,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The code of the process to start.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -935,14 +1032,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="83"
-                                    class="link-to-prism">lib/common/process/process-manager.service.ts:83</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="97"
+                                    class="link-to-prism">lib/common/process/process-manager.service.ts:97</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Stops a process by its code.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -953,6 +1052,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -967,6 +1067,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The code of the process to stop.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1004,14 +1110,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="93"
-                                    class="link-to-prism">lib/common/process/process-manager.service.ts:93</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">lib/common/process/process-manager.service.ts:111</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the enabled status of a process.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1022,6 +1130,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1036,6 +1145,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The code of the process to toggle.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1071,14 +1186,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="126"
-                                    class="link-to-prism">lib/common/process/process-manager.service.ts:126</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">lib/common/process/process-manager.service.ts:164</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Updates a log instance.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1089,6 +1206,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1103,6 +1221,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ProcessLogEntity instance to update.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1112,7 +1236,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The updated ProcessLogEntity instance.</p>
+
                             </div>
                 </td>
             </tr>
@@ -1145,7 +1270,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">lib/common/process/process-manager.service.ts:39</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">lib/common/process/process-manager.service.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -1178,6 +1303,9 @@ import Status &#x3D; Process.Status;
 import Command &#x3D; Process.Command;
 import hasProcessInstance &#x3D; Process.hasProcessInstance;
 
+/**
+ * Service for managing processes.
+ */
 @Injectable()
 export class ProcessManagerService {
   private static pmInitStatus: boolean;
@@ -1192,6 +1320,9 @@ export class ProcessManagerService {
     private readonly processLogRep: Repository&lt;ProcessLogEntity&gt;,
   ) {}
 
+  /**
+   * Initializes the process manager service, resets process statuses, and registers processes.
+   */
   async init() {
     if (ProcessManagerService.pmInitStatus) {
       this.logger.warn(&quot;Autostart processes has been executed&quot;);
@@ -1214,6 +1345,10 @@ export class ProcessManagerService {
     }
   }
 
+  /**
+   * Starts a process by its code.
+   * @param code - The code of the process to start.
+   */
   async startProcess(code: string) {
     const processData &#x3D; await this.getProcessData(code, true);
     if (!processData) {
@@ -1224,6 +1359,10 @@ export class ProcessManagerService {
     this.broker.emit(Command.Start, processData);
   }
 
+  /**
+   * Stops a process by its code.
+   * @param code - The code of the process to stop.
+   */
   async stopProcess(code: string) {
     const processData &#x3D; await this.getProcessData(code, true);
     if (!processData) {
@@ -1234,6 +1373,10 @@ export class ProcessManagerService {
     this.broker.emit(Command.Stop, processData);
   }
 
+  /**
+   * Toggles the enabled status of a process.
+   * @param code - The code of the process to toggle.
+   */
   async toggleProcess(code: string) {
     if (!hasProcessInstance(code)) {
       throw new InternalServerErrorException(&#x60;Process ${code} not exists&#x60;);
@@ -1248,17 +1391,32 @@ export class ProcessManagerService {
     }
   }
 
+  /**
+   * Sets the status of a process unit.
+   * @param code - The code of the process unit.
+   * @param status - The new status to set.
+   */
   async setProcessUnitStatus(code: string, status: Process.Status) {
     const processData &#x3D; await this.getProcessData(code, true);
     processData.status &#x3D; status;
     return this.processUnitRep.save(processData);
   }
 
+  /**
+   * Gets the status of a process unit.
+   * @param code - The code of the process unit.
+   * @returns The current status of the process unit.
+   */
   async getProcessUnitStatus(code: string) {
     const processData &#x3D; await this.getProcessData(code, true);
     return processData.status;
   }
 
+  /**
+   * Creates a log instance for a process.
+   * @param processCode - The code of the process.
+   * @returns The created ProcessLogEntity instance.
+   */
   async createLogInstance(processCode: string) {
     const process &#x3D; await this.getProcessData(processCode);
     return this.processLogRep.save({
@@ -1267,15 +1425,31 @@ export class ProcessManagerService {
     } as ProcessLogEntity);
   }
 
+  /**
+   * Updates a log instance.
+   * @param logInstance - The ProcessLogEntity instance to update.
+   * @returns The updated ProcessLogEntity instance.
+   */
   updateLogInstance(logInstance: ProcessLogEntity) {
     return this.processLogRep.save(logInstance);
   }
 
+  /**
+   * Gets process data by its code.
+   * @param code - The code of the process.
+   * @param force - Whether to force getting the process data regardless of its enabled status.
+   * @returns The ProcessUnitEntity instance.
+   */
   getProcessData(code: string, force &#x3D; false) {
     const params &#x3D; { code, enabled: true };
     return this.processUnitRep.findOne({ where: force ? { code } : params });
   }
 
+  /**
+   * Gets a process log by its ID.
+   * @param id - The ID of the process log.
+   * @returns The ProcessLogEntity instance.
+   */
   getProcessLogById(id: number) {
     return this.processLogRep.findOne({
       where: { id },
@@ -1283,6 +1457,12 @@ export class ProcessManagerService {
     });
   }
 
+  /**
+   * Gets the last logs of a process by its code.
+   * @param processCode - The code of the process.
+   * @param limit - The maximum number of logs to retrieve (default is 3).
+   * @returns An array of ProcessLogEntity instances.
+   */
   getLastLogsByProcess(processCode: string, limit &#x3D; 3) {
     return this.processLogRep.find({
       where: { process: { code: processCode } },
@@ -1291,6 +1471,9 @@ export class ProcessManagerService {
     });
   }
 
+  /**
+   * Resets the statuses of all enabled processes to &quot;Ready&quot;.
+   */
   private async resetAllProcessStatuses() {
     const entities &#x3D; await this.processUnitRep.find({
       where: { enabled: true },

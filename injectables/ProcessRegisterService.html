@@ -119,6 +119,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service for registering and managing cron jobs for processes.</p>
+
+            </p>
 
 
 
@@ -176,7 +183,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">lib/common/process/process-register.service.ts:33</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">lib/common/process/process-register.service.ts:36</a></div>
                             </td>
                         </tr>
 
@@ -290,14 +297,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="75"
-                                    class="link-to-prism">lib/common/process/process-register.service.ts:75</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="91"
+                                    class="link-to-prism">lib/common/process/process-register.service.ts:91</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Registers a cron job for a process.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -308,6 +317,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -322,6 +332,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The data of the process to register.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -331,7 +347,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>True if the cron job was registered, otherwise false.</p>
+
                             </div>
                 </td>
             </tr>
@@ -359,14 +376,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="55"
-                                    class="link-to-prism">lib/common/process/process-register.service.ts:55</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="62"
+                                    class="link-to-prism">lib/common/process/process-register.service.ts:62</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Starts a registered process.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -377,6 +396,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -391,6 +411,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The data of the process to start.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -428,14 +454,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="66"
-                                    class="link-to-prism">lib/common/process/process-register.service.ts:66</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="77"
+                                    class="link-to-prism">lib/common/process/process-register.service.ts:77</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Stops a registered process.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -446,6 +474,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -460,6 +489,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The data of the process to stop.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -498,14 +533,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="105"
-                                    class="link-to-prism">lib/common/process/process-register.service.ts:105</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="126"
+                                    class="link-to-prism">lib/common/process/process-register.service.ts:126</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Unregisters a cron job for a process.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -516,6 +553,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -530,6 +568,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The data of the process to unregister.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -539,7 +583,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>True if the cron job was unregistered, otherwise false.</p>
+
                             </div>
                 </td>
             </tr>
@@ -566,6 +611,9 @@ import getProcessInstance &#x3D; Process.getProcessInstance;
 import Command &#x3D; Process.Command;
 import Status &#x3D; Process.Status;
 
+/**
+ * Service for registering and managing cron jobs for processes.
+ */
 @Injectable()
 export class ProcessRegisterService {
   constructor(
@@ -589,6 +637,10 @@ export class ProcessRegisterService {
     );
   }
 
+  /**
+   * Starts a registered process.
+   * @param processData - The data of the process to start.
+   */
   private startProcess(processData: ProcessUnit) {
     const processInstance &#x3D; getProcessInstance(processData.code);
     if (!processInstance) {
@@ -600,6 +652,10 @@ export class ProcessRegisterService {
     );
   }
 
+  /**
+   * Stops a registered process.
+   * @param processData - The data of the process to stop.
+   */
   private stopProcess(processData: ProcessUnit) {
     const processInstance &#x3D; getProcessInstance(processData.code);
     if (!processInstance) {
@@ -609,6 +665,11 @@ export class ProcessRegisterService {
     processInstance.stop();
   }
 
+  /**
+   * Registers a cron job for a process.
+   * @param processData - The data of the process to register.
+   * @returns True if the cron job was registered, otherwise false.
+   */
   private async registerCronJob(processData: ProcessUnit) {
     if (this.schedulerRegistry.doesExist(&quot;cron&quot;, processData.code)) {
       this.logger.warn(
@@ -639,6 +700,11 @@ export class ProcessRegisterService {
     return true;
   }
 
+  /**
+   * Unregisters a cron job for a process.
+   * @param processData - The data of the process to unregister.
+   * @returns True if the cron job was unregistered, otherwise false.
+   */
   private async unregisterCronJob(processData: ProcessUnit) {
     if (!this.schedulerRegistry.doesExist(&quot;cron&quot;, processData.code)) {
       this.logger.warn(

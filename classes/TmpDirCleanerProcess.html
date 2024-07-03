@@ -123,6 +123,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Process class for cleaning the temporary directory.</p>
+
+            </p>
 
             <p class="comment">
                 <h3>Extends</h3>
@@ -243,7 +250,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">lib/common/process/default/tmp-dir-cleaner.process.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">lib/common/process/default/tmp-dir-cleaner.process.ts:30</a></div>
                             </td>
                         </tr>
 
@@ -338,7 +345,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:28</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:31</a></code>
 </div>
                         </td>
                     </tr>
@@ -372,7 +379,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:30</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:33</a></code>
 </div>
                         </td>
                     </tr>
@@ -408,7 +415,7 @@
                         </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:29</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:32</a></code>
 </div>
                         </td>
                     </tr>
@@ -452,7 +459,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:36</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:42</a></code>
 </div>
                         </td>
                     </tr>
@@ -460,6 +467,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Executes the process to clean the temporary directory.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -491,14 +500,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="52"
-                                    class="link-to-prism">lib/common/process/default/tmp-dir-cleaner.process.ts:52</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">lib/common/process/default/tmp-dir-cleaner.process.ts:63</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Gets statistics on the number of files and folders to be deleted.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -509,6 +520,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -523,6 +535,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The structure of the directory.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -532,7 +550,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>An object containing the file and folder counts.</p>
+
                             </div>
                 </td>
             </tr>
@@ -567,7 +586,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:133</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:165</a></code>
 </div>
                         </td>
                     </tr>
@@ -575,11 +594,17 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Gets the current status of the process.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>unknown</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>The current process status.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -613,7 +638,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:129</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:157</a></code>
 </div>
                         </td>
                     </tr>
@@ -621,6 +646,9 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Callback method that is called when the process crashes.
+Can be overridden by subclasses if needed.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -631,6 +659,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -645,6 +674,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The error that caused the crash.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -689,7 +724,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:121</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:140</a></code>
 </div>
                         </td>
                     </tr>
@@ -697,6 +732,9 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Callback method that is called when the process finishes.
+Can be overridden by subclasses if needed.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -735,7 +773,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:125</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:148</a></code>
 </div>
                         </td>
                     </tr>
@@ -743,6 +781,9 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Callback method that is called when the process stops.
+Can be overridden by subclasses if needed.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -781,7 +822,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:137</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:173</a></code>
 </div>
                         </td>
                     </tr>
@@ -789,6 +830,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Sets the status of the process.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -799,6 +842,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -813,6 +857,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The new status to set.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -856,7 +906,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:38</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:44</a></code>
 </div>
                         </td>
                     </tr>
@@ -864,6 +914,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Starts the process and handles its execution.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -901,7 +953,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:71</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:80</a></code>
 </div>
                         </td>
                     </tr>
@@ -909,6 +961,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Stops the process and updates its status.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -947,7 +1001,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:79</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/AbstractProcess.html#source" target="_self" >AbstractProcess:94</a></code>
 </div>
                         </td>
                     </tr>
@@ -955,6 +1009,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Writes a log entry with the specified message, data, and log level.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -966,6 +1022,7 @@
                                                 <td>Type</td>
                                             <td>Optional</td>
                                                 <td>Default value</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -982,6 +1039,12 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The log message.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -995,6 +1058,12 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>Optional additional data.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>level</td>
@@ -1009,6 +1078,12 @@
                                                     <code>LogLevel.Log</code>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The log level (default: LogLevel.Log).</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1044,6 +1119,9 @@ import { LOGGER } from &quot;../../../shared/modules/log/log.constants&quot;;
 import { CacheService } from &quot;../../../shared/modules/cache/cache.types&quot;;
 import readDirectoryRecursively &#x3D; FilesUtils.readDirectoryRecursively;
 
+/**
+ * Process class for cleaning the temporary directory.
+ */
 export class TmpDirCleanerProcess extends AbstractProcess {
   constructor(
     @Inject(LOGGER) protected readonly logger: Logger,
@@ -1053,6 +1131,9 @@ export class TmpDirCleanerProcess extends AbstractProcess {
     super();
   }
 
+  /**
+   * Executes the process to clean the temporary directory.
+   */
   protected async execute() {
     const tmpDir &#x3D;
       process.cwd() + (await this.cacheService.get(KpConfig.TMP_DIR));
@@ -1069,6 +1150,11 @@ export class TmpDirCleanerProcess extends AbstractProcess {
     await this.writeLog(&#x60;Tmp dir was cleaned&#x60;);
   }
 
+  /**
+   * Gets statistics on the number of files and folders to be deleted.
+   * @param dirStruct - The structure of the directory.
+   * @returns An object containing the file and folder counts.
+   */
   private getDeleteStats(dirStruct: { [k: string]: string[] }) {
     let filesCount &#x3D; 0;
     let foldersCount &#x3D; 0;
