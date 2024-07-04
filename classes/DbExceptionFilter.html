@@ -123,6 +123,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Exception filter to handle database errors and transform them into HTTP responses.
+This filter catches TypeORM errors and returns a 502 Bad Gateway response with the error message.</p>
+
+            </p>
 
 
             <p class="comment">
@@ -188,8 +196,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="23"
-                                    class="link-to-prism">lib/shared/filters/db-exception-filter.ts:23</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="27"
+                                    class="link-to-prism">lib/shared/filters/db-exception-filter.ts:27</a></div>
                         </td>
                     </tr>
 
@@ -261,6 +269,10 @@
 import { QueryFailedError } from &quot;typeorm&quot;;
 import { TypeORMError } from &quot;typeorm/error/TypeORMError&quot;;
 
+/**
+ * Exception filter to handle database errors and transform them into HTTP responses.
+ * This filter catches TypeORM errors and returns a 502 Bad Gateway response with the error message.
+ */
 @Catch(TypeORMError)
 export class DbExceptionFilter implements DbExceptionFilter {
   catch(exception: QueryFailedError, host: ArgumentsHost) {

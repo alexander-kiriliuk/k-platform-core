@@ -499,14 +499,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="567"
-                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:567</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="572"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge-import.service.ts:572</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Finds a read operator in a string.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -517,6 +519,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -531,6 +534,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The input string.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -540,7 +549,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The found read operator.</p>
+
                             </div>
                 </td>
             </tr>
@@ -2750,6 +2760,11 @@ export class XmlDataBridgeImportService extends XdbImportService {
     }
   }
 
+  /**
+   * Finds a read operator in a string.
+   * @param input - The input string.
+   * @returns The found read operator.
+   */
   private findReadOperator(input: string) {
     const match &#x3D; input?.match(ReadOperatorRe);
     if (match?.length &gt; 1) {

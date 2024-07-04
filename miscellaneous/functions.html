@@ -244,6 +244,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Creates directories if they do not exist.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -254,6 +256,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -268,6 +271,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The path of the directory to create.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -296,6 +305,13 @@
 
 
 
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Gets the file type module.</p>
+</div>
+
+                </td>
+            </tr>
         </tbody>
     </table>
     <table class="table table-sm table-bordered">
@@ -320,6 +336,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Generates an SHA-256 hash from a buffer.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -330,6 +348,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -344,6 +363,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The buffer to hash.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -374,6 +399,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Recursively reads a directory and returns its structure.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -384,6 +411,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -398,6 +426,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The path of the directory to read.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -407,7 +441,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to the directory structure.</p>
+
                             </div>
                 </td>
             </tr>
@@ -435,6 +470,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Reads a file.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -445,6 +482,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -459,6 +497,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The path of the file to read.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>options</td>
@@ -470,6 +514,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Optional read options.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -502,6 +552,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Converts a Date object to a timestamp.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -511,6 +563,7 @@
                                         <tr>
                                             <td>Name</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -522,6 +575,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The Date object to convert.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -552,6 +611,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Parses a parameter string into an object.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -562,6 +623,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -576,6 +638,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The parameter string to parse.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -585,7 +653,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>An object representing the parsed parameters.</p>
+
                             </div>
                 </td>
             </tr>
@@ -613,6 +682,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Stringifies an object into a parameter string.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -622,6 +693,7 @@
                                         <tr>
                                             <td>Name</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -633,6 +705,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The object to stringify.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -642,7 +720,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The parameter string.</p>
+
                             </div>
                 </td>
             </tr>
@@ -672,6 +751,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Checks if two objects are deeply equal.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -682,6 +763,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -696,6 +778,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The first object.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>obj2</td>
@@ -708,6 +796,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The second object.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -717,7 +811,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A boolean indicating whether the objects are deeply equal.</p>
+
                             </div>
                 </td>
             </tr>
@@ -743,6 +838,13 @@
 
 
 
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Returns the XML parser instance.</p>
+</div>
+
+                </td>
+            </tr>
         </tbody>
     </table>
     <table class="table table-sm table-bordered">
@@ -767,6 +869,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Parses the XML body into an XdbObject.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -776,6 +880,7 @@
                                         <tr>
                                             <td>Name</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -787,6 +892,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The body containing the XML schema.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -817,6 +928,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Parses an XML file into an XdbObject.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -827,6 +940,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -841,6 +955,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The XML data buffer.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -850,7 +970,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to the parsed XdbObject.</p>
+
                             </div>
                 </td>
             </tr>
@@ -878,6 +999,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Removes duplicate objects from an array of XdbDecomposedEntity.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -887,6 +1010,7 @@
                                         <tr>
                                             <td>Name</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -898,6 +1022,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The array of XdbDecomposedEntity.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -907,7 +1037,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The array with duplicates removed.</p>
+
                             </div>
                 </td>
             </tr>
@@ -1337,6 +1468,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Checks if a user has access based on their roles and the allowed roles.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1346,6 +1479,7 @@
                                         <tr>
                                             <td>Name</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1357,6 +1491,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The roles of the user.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>allowedRoles</td>
@@ -1366,6 +1506,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The roles that are allowed access.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1396,6 +1542,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Checks if a user has at least one of the specified roles.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1405,6 +1553,7 @@
                                         <tr>
                                             <td>Name</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1416,6 +1565,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The roles of the user.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>roles</td>
@@ -1425,6 +1580,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The roles to check for.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1628,6 +1789,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Filters JSON objects, removing null values and empty arrays.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1637,6 +1800,7 @@
                                         <tr>
                                             <td>Name</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1648,6 +1812,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The key of the JSON object.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>value</td>
@@ -1657,6 +1827,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The value of the JSON object.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1687,6 +1863,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Removes circular references from an object or array to make it serializable.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1697,6 +1875,7 @@
                                             <td>Name</td>
                                             <td>Optional</td>
                                                 <td>Default value</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1710,6 +1889,12 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>The object or array to process.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>cache</td>
@@ -1722,6 +1907,12 @@
                                                     <code>new Set()</code>
                                             </td>
 
+                                            <td>
+                                                    <ul>
+<li>A Set used to store already visited nodes to detect circular references.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1879,6 +2070,8 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Pauses execution for a specified duration.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1889,6 +2082,7 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1903,6 +2097,12 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The delay in milliseconds.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1935,6 +2135,8 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Generates the XML file InsertUpdate node template.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1945,6 +2147,7 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1959,6 +2162,12 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The target entity.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1989,6 +2198,8 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Generates the XML file node template.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1999,6 +2210,7 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -2013,6 +2225,12 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The file object.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -2041,6 +2259,13 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
 
 
 
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Generates the XML file row node template.</p>
+</div>
+
+                </td>
+            </tr>
         </tbody>
     </table>
     <table class="table table-sm table-bordered">
@@ -2065,6 +2290,8 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Generates the XML file row property node template.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -2075,6 +2302,7 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -2088,6 +2316,12 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The stack of decomposed entities.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>key</td>
@@ -2100,6 +2334,12 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The property key.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>value</td>
@@ -2111,6 +2351,12 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The property value.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -2139,6 +2385,13 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
 
 
 
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Generates the XML file schema template.</p>
+</div>
+
+                </td>
+            </tr>
         </tbody>
     </table>
     <table class="table table-sm table-bordered">
@@ -2163,6 +2416,8 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Generates the XML media node template.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -2173,6 +2428,7 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -2187,6 +2443,12 @@ Falls back to the &quot;default.env&quot; file if the target .env file is not fo
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The media object.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

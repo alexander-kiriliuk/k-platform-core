@@ -123,6 +123,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>A class containing static constants representing different user roles.</p>
+
+            </p>
 
 
 
@@ -199,10 +206,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">lib/shared/constants.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">lib/shared/constants.ts:31</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Represents the admin role with administrative access.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -232,10 +245,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">lib/shared/constants.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">lib/shared/constants.ts:36</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Represents the manager role.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -265,10 +284,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">lib/shared/constants.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">lib/shared/constants.ts:26</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Represents the root role with the highest level of access.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -285,16 +310,45 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export class Roles {
+  /**
+   * @constant ROOT
+   * Represents the root role with the highest level of access.
+   */
   static readonly ROOT &#x3D; &quot;root&quot;;
+  /**
+   * @constant ADMIN
+   * Represents the admin role with administrative access.
+   */
   static readonly ADMIN &#x3D; &quot;admin&quot;;
+  /**
+   * @constant MANAGER
+   * Represents the manager role.
+   */
   static readonly MANAGER &#x3D; &quot;manager&quot;;
 }
 
+/**
+ * @const REQUEST_PROPS
+ * An object containing properties used for request handling.
+ */
 export const REQUEST_PROPS &#x3D; {
+  /**
+   * @property accessToken
+   * The property name for storing the access token in the request.
+   */
   accessToken: &quot;accessToken&quot;,
+
+  /**
+   * @property currentUser
+   * The property name for storing the current user in the request.
+   */
   currentUser: &quot;currentUser&quot;,
 };
 
+/**
+ * @constant MS_EXCEPTION_ID
+ * A constant representing the exception identifier for microservices.
+ */
 export const MS_EXCEPTION_ID &#x3D; &quot;MsException&quot;;
 </code></pre>
     </div>

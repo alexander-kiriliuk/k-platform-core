@@ -123,6 +123,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Abstract class representing the user service.</p>
+
+            </p>
 
 
 
@@ -201,8 +208,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="102"
-                                    class="link-to-prism">lib/common/user/user.types.ts:102</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="120"
+                                    class="link-to-prism">lib/common/user/user.types.ts:120</a></div>
                         </td>
                     </tr>
 
@@ -270,8 +277,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="98"
-                                    class="link-to-prism">lib/common/user/user.types.ts:98</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="116"
+                                    class="link-to-prism">lib/common/user/user.types.ts:116</a></div>
                         </td>
                     </tr>
 
@@ -339,8 +346,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="96"
-                                    class="link-to-prism">lib/common/user/user.types.ts:96</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="114"
+                                    class="link-to-prism">lib/common/user/user.types.ts:114</a></div>
                         </td>
                     </tr>
 
@@ -408,8 +415,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="104"
-                                    class="link-to-prism">lib/common/user/user.types.ts:104</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="122"
+                                    class="link-to-prism">lib/common/user/user.types.ts:122</a></div>
                         </td>
                     </tr>
 
@@ -477,8 +484,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="100"
-                                    class="link-to-prism">lib/common/user/user.types.ts:100</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="118"
+                                    class="link-to-prism">lib/common/user/user.types.ts:118</a></div>
                         </td>
                     </tr>
 
@@ -552,6 +559,9 @@ import { Media } from &quot;../media/media.types&quot;;
 import { LocalizedString } from &quot;../../shared/modules/locale/locale.types&quot;;
 import { UserEntity } from &quot;./entity/user.entity&quot;;
 
+/**
+ * Interface representing a user object.
+ */
 export interface User {
   id: string;
   avatar: Media;
@@ -566,12 +576,18 @@ export interface User {
   tsCreated: Date;
 }
 
+/**
+ * Interface representing a user role.
+ */
 export interface UserRole {
   code: string;
   name: LocalizedString[];
   tsCreated: Date;
 }
 
+/**
+ * Data transfer object for user role.
+ */
 export class UserRoleDto implements UserRole {
   @Expose()
   code: string;
@@ -583,6 +599,9 @@ export class UserRoleDto implements UserRole {
   tsCreated: Date;
 }
 
+/**
+ * Data transfer object for user.
+ */
 export class UserDto implements User {
   @Expose()
   id: string;
@@ -619,11 +638,17 @@ export class UserDto implements User {
   tsCreated: Date;
 }
 
+/**
+ * Interface representing a request to update a user.
+ */
 export interface UserUpdateRequest {
   id: string;
   user: User;
 }
 
+/**
+ * Abstract class representing the user service.
+ */
 export abstract class UserService {
   abstract findByLogin(login: string): Promise&lt;UserEntity&gt;;
 
@@ -636,6 +661,9 @@ export abstract class UserService {
   abstract removeById(id: string): Promise&lt;UserEntity&gt;;
 }
 
+/**
+ * Options for configuring the UserModule.
+ */
 export type UserModuleOptions &#x3D; {
   service: Class&lt;UserService&gt;;
 };

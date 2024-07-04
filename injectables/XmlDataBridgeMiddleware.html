@@ -119,6 +119,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Middleware for parsing XML data from requests.</p>
+
+            </p>
 
 
 
@@ -192,21 +199,23 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>parseXMLFromRequest(req)</code>
+                    <code>parseXMLFromRequest(req: Request)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="33"
-                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.middleware.ts:33</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.middleware.ts:47</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Parses XML data from the request.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -215,18 +224,29 @@
                                     <thead>
                                         <tr>
                                             <td>Name</td>
+                                                <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                                 <td>req</td>
+                                            <td>
+                                                        <code>Request</code>
+                                            </td>
 
                                             <td>
                                                     No
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The request object.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -236,7 +256,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to the parsed XML data.</p>
+
                             </div>
                 </td>
             </tr>
@@ -264,14 +285,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="25"
-                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.middleware.ts:25</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="34"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.middleware.ts:34</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Parses XML data from the request and modifies the request body.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -282,6 +305,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -296,6 +320,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The request object.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>res</td>
@@ -308,6 +338,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The response object.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>next</td>
@@ -320,6 +356,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The next function to call.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -361,7 +403,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.middleware.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.middleware.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -378,10 +420,19 @@
 import { NextFunction, Request, Response } from &quot;express&quot;;
 import { Xdb } from &quot;./xml-data-bridge.constants&quot;;
 
+/**
+ * Middleware for parsing XML data from requests.
+ */
 @Injectable()
 export class XmlDataBridgeMiddleware implements NestMiddleware {
   private readonly parser &#x3D; Xdb.getXmlParser();
 
+  /**
+   * Parses XML data from the request and modifies the request body.
+   * @param req - The request object.
+   * @param res - The response object.
+   * @param next - The next function to call.
+   */
   async use(req: Request, res: Response, next: NextFunction) {
     if (req.headers[&quot;content-type&quot;] &#x3D;&#x3D;&#x3D; &quot;application/xml&quot;) {
       req.body &#x3D; await this.parseXMLFromRequest(req);
@@ -390,7 +441,12 @@ export class XmlDataBridgeMiddleware implements NestMiddleware {
     next();
   }
 
-  private parseXMLFromRequest(req): Promise&lt;object&gt; {
+  /**
+   * Parses XML data from the request.
+   * @param req - The request object.
+   * @returns A promise that resolves to the parsed XML data.
+   */
+  private parseXMLFromRequest(req: Request): Promise&lt;object&gt; {
     return new Promise((resolve, reject) &#x3D;&gt; {
       let xmlData &#x3D; &quot;&quot;;
       req.on(&quot;data&quot;, (chunk) &#x3D;&gt; {

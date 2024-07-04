@@ -123,6 +123,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Data transfer object for user.</p>
+
+            </p>
 
 
             <p class="comment">
@@ -238,7 +245,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">lib/common/user/user.types.ts:78</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">lib/common/user/user.types.ts:90</a></div>
                         </td>
                     </tr>
 
@@ -274,7 +281,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">lib/common/user/user.types.ts:81</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">lib/common/user/user.types.ts:93</a></div>
                         </td>
                     </tr>
 
@@ -310,7 +317,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">lib/common/user/user.types.ts:62</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">lib/common/user/user.types.ts:74</a></div>
                         </td>
                     </tr>
 
@@ -346,7 +353,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">lib/common/user/user.types.ts:65</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">lib/common/user/user.types.ts:77</a></div>
                         </td>
                     </tr>
 
@@ -382,7 +389,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">lib/common/user/user.types.ts:56</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">lib/common/user/user.types.ts:68</a></div>
                         </td>
                     </tr>
 
@@ -418,7 +425,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">lib/common/user/user.types.ts:68</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">lib/common/user/user.types.ts:80</a></div>
                         </td>
                     </tr>
 
@@ -454,7 +461,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">lib/common/user/user.types.ts:59</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">lib/common/user/user.types.ts:71</a></div>
                         </td>
                     </tr>
 
@@ -490,7 +497,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">lib/common/user/user.types.ts:71</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">lib/common/user/user.types.ts:83</a></div>
                         </td>
                     </tr>
 
@@ -526,7 +533,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">lib/common/user/user.types.ts:84</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">lib/common/user/user.types.ts:96</a></div>
                         </td>
                     </tr>
 
@@ -563,7 +570,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">lib/common/user/user.types.ts:75</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">lib/common/user/user.types.ts:87</a></div>
                         </td>
                     </tr>
 
@@ -599,7 +606,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">lib/common/user/user.types.ts:87</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">lib/common/user/user.types.ts:99</a></div>
                         </td>
                     </tr>
 
@@ -624,6 +631,9 @@ import { Media } from &quot;../media/media.types&quot;;
 import { LocalizedString } from &quot;../../shared/modules/locale/locale.types&quot;;
 import { UserEntity } from &quot;./entity/user.entity&quot;;
 
+/**
+ * Interface representing a user object.
+ */
 export interface User {
   id: string;
   avatar: Media;
@@ -638,12 +648,18 @@ export interface User {
   tsCreated: Date;
 }
 
+/**
+ * Interface representing a user role.
+ */
 export interface UserRole {
   code: string;
   name: LocalizedString[];
   tsCreated: Date;
 }
 
+/**
+ * Data transfer object for user role.
+ */
 export class UserRoleDto implements UserRole {
   @Expose()
   code: string;
@@ -655,6 +671,9 @@ export class UserRoleDto implements UserRole {
   tsCreated: Date;
 }
 
+/**
+ * Data transfer object for user.
+ */
 export class UserDto implements User {
   @Expose()
   id: string;
@@ -691,11 +710,17 @@ export class UserDto implements User {
   tsCreated: Date;
 }
 
+/**
+ * Interface representing a request to update a user.
+ */
 export interface UserUpdateRequest {
   id: string;
   user: User;
 }
 
+/**
+ * Abstract class representing the user service.
+ */
 export abstract class UserService {
   abstract findByLogin(login: string): Promise&lt;UserEntity&gt;;
 
@@ -708,6 +733,9 @@ export abstract class UserService {
   abstract removeById(id: string): Promise&lt;UserEntity&gt;;
 }
 
+/**
+ * Options for configuring the UserModule.
+ */
 export type UserModuleOptions &#x3D; {
   service: Class&lt;UserService&gt;;
 };

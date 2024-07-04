@@ -126,6 +126,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface representing a user role.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -279,6 +286,9 @@ import { Media } from &quot;../media/media.types&quot;;
 import { LocalizedString } from &quot;../../shared/modules/locale/locale.types&quot;;
 import { UserEntity } from &quot;./entity/user.entity&quot;;
 
+/**
+ * Interface representing a user object.
+ */
 export interface User {
   id: string;
   avatar: Media;
@@ -293,12 +303,18 @@ export interface User {
   tsCreated: Date;
 }
 
+/**
+ * Interface representing a user role.
+ */
 export interface UserRole {
   code: string;
   name: LocalizedString[];
   tsCreated: Date;
 }
 
+/**
+ * Data transfer object for user role.
+ */
 export class UserRoleDto implements UserRole {
   @Expose()
   code: string;
@@ -310,6 +326,9 @@ export class UserRoleDto implements UserRole {
   tsCreated: Date;
 }
 
+/**
+ * Data transfer object for user.
+ */
 export class UserDto implements User {
   @Expose()
   id: string;
@@ -346,11 +365,17 @@ export class UserDto implements User {
   tsCreated: Date;
 }
 
+/**
+ * Interface representing a request to update a user.
+ */
 export interface UserUpdateRequest {
   id: string;
   user: User;
 }
 
+/**
+ * Abstract class representing the user service.
+ */
 export abstract class UserService {
   abstract findByLogin(login: string): Promise&lt;UserEntity&gt;;
 
@@ -363,6 +388,9 @@ export abstract class UserService {
   abstract removeById(id: string): Promise&lt;UserEntity&gt;;
 }
 
+/**
+ * Options for configuring the UserModule.
+ */
 export type UserModuleOptions &#x3D; {
   service: Class&lt;UserService&gt;;
 };

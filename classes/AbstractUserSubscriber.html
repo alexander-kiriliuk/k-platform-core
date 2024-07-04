@@ -123,6 +123,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Abstract class for user entity subscribers to handle specific events.</p>
+
+            </p>
 
 
 
@@ -212,7 +219,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">lib/common/user/abstract-user-subscriber.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">lib/common/user/abstract-user-subscriber.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -249,14 +256,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="59"
-                                    class="link-to-prism">lib/common/user/abstract-user-subscriber.ts:59</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="76"
+                                    class="link-to-prism">lib/common/user/abstract-user-subscriber.ts:76</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Hashes a password using bcrypt.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -267,6 +276,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -281,6 +291,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The password to hash.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -290,7 +306,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The hashed password.</p>
+
                             </div>
                 </td>
             </tr>
@@ -319,14 +336,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="36"
-                                    class="link-to-prism">lib/common/user/abstract-user-subscriber.ts:36</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="48"
+                                    class="link-to-prism">lib/common/user/abstract-user-subscriber.ts:48</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Hashes the user password if it has changed.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -337,6 +356,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -351,6 +371,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The insert or update event.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -389,14 +415,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="27"
-                                    class="link-to-prism">lib/common/user/abstract-user-subscriber.ts:27</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">lib/common/user/abstract-user-subscriber.ts:35</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Validates the login format.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -407,6 +435,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -421,6 +450,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The login string to validate.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -453,9 +488,17 @@ import * as bcrypt from &quot;bcrypt&quot;;
 import { Type } from &quot;@nestjs/common/interfaces/type.interface&quot;;
 import { UserEntity } from &quot;./entity/user.entity&quot;;
 
+/**
+ * Abstract class for user entity subscribers to handle specific events.
+ */
 export abstract class AbstractUserSubscriber&lt;T extends UserEntity&gt; {
   protected abstract readonly type: Type&lt;T&gt;;
 
+  /**
+   * Validates the login format.
+   * @param login - The login string to validate.
+   * @throws BadRequestException if the login format is invalid.
+   */
   protected async validateLogin(login: string) {
     const loginRegex &#x3D; /^[A-Za-z0-9_]+$/;
     if (!loginRegex.test(login)) {
@@ -465,6 +508,10 @@ export abstract class AbstractUserSubscriber&lt;T extends UserEntity&gt; {
     }
   }
 
+  /**
+   * Hashes the user password if it has changed.
+   * @param event - The insert or update event.
+   */
   protected async hashPasswordIfNeeded(event: InsertEvent&lt;T&gt; | UpdateEvent&lt;T&gt;) {
     const { entity: user, manager } &#x3D; event;
     if (typeof user.password &#x3D;&#x3D;&#x3D; &quot;number&quot;) {
@@ -488,6 +535,11 @@ export abstract class AbstractUserSubscriber&lt;T extends UserEntity&gt; {
     }
   }
 
+  /**
+   * Hashes a password using bcrypt.
+   * @param password - The password to hash.
+   * @returns The hashed password.
+   */
   protected async hashPassword(password: string) {
     return await bcrypt.hash(password, 10);
   }

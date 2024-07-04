@@ -392,12 +392,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/MediaTypeDto.html" data-type="entity-link" >MediaTypeDto</a>
                             </li>
                             <li class="link">
-                                <a href="classes/MockMsClient.html" data-type="entity-link" >MockMsClient</a>
-                            </li>
-                            <li class="link">
-                                <a href="classes/MockStorage.html" data-type="entity-link" >MockStorage</a>
-                            </li>
-                            <li class="link">
                                 <a href="classes/MsClient.html" data-type="entity-link" >MsClient</a>
                             </li>
                             <li class="link">
@@ -487,9 +481,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                 <li class="link">
                                     <a href="injectables/MessagesBrokerService.html" data-type="entity-link" >MessagesBrokerService</a>
-                                </li>
-                                <li class="link">
-                                    <a href="injectables/MockCacheService.html" data-type="entity-link" >MockCacheService</a>
                                 </li>
                                 <li class="link">
                                     <a href="injectables/NotEmptyPipe.html" data-type="entity-link" >NotEmptyPipe</a>

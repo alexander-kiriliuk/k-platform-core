@@ -126,6 +126,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface representing an XML data bridge request.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -244,11 +251,17 @@ import {
 } from &quot;./xml-data-bridge.constants&quot;;
 import { User } from &quot;../user/user.types&quot;;
 
+/**
+ * Interface representing an XML data bridge request.
+ */
 export interface XdbRequest {
   target: string;
   id: string;
 }
 
+/**
+ * Type representing a row data value in the XML data bridge.
+ */
 export type XdbRowDataValue &#x3D; {
   attrs?: {
     key?: string;
@@ -259,10 +272,16 @@ export type XdbRowDataValue &#x3D; {
   values?: string[];
 };
 
+/**
+ * Type representing a row of data in the XML data bridge.
+ */
 export type XdbRowData &#x3D; {
   [key: string]: XdbRowDataValue;
 };
 
+/**
+ * Type representing a media row in the XML data bridge.
+ */
 export type MediaRow &#x3D; {
   name: XdbRowDataValue;
   code: string;
@@ -270,6 +289,9 @@ export type MediaRow &#x3D; {
   file: string;
 };
 
+/**
+ * Type representing a file row in the XML data bridge.
+ */
 export type FileRow &#x3D; {
   name: string;
   code: string;
@@ -277,6 +299,9 @@ export type FileRow &#x3D; {
   file: string;
 };
 
+/**
+ * Type representing an action in the XML data bridge.
+ */
 export type XdbAction &#x3D; {
   action: &quot;InsertUpdate&quot; | &quot;Media&quot; | &quot;File&quot; | &quot;Remove&quot; | &quot;Include&quot; | &quot;Query&quot;;
   attrs: {
@@ -287,10 +312,16 @@ export type XdbAction &#x3D; {
   rows: Array&lt;XdbRowData | FileRow&gt;;
 };
 
+/**
+ * Type representing an XML data bridge object.
+ */
 export type XdbObject &#x3D; {
   schema: XdbAction[];
 };
 
+/**
+ * Options for configuring the XmlDataBridgeModule.
+ */
 export type XdbModuleOptions &#x3D; {
   importService: Class&lt;XdbImportService&gt;;
   exportService: Class&lt;XdbExportService&gt;;
@@ -299,6 +330,9 @@ export type XdbModuleOptions &#x3D; {
   &gt;;
 };
 
+/**
+ * Type representing export parameters for the XML data bridge.
+ */
 export type XdbExportParams &#x3D; {
   target: string;
   id: string;
@@ -308,10 +342,16 @@ export type XdbExportParams &#x3D; {
   user: User;
 };
 
+/**
+ * Type representing the export DTO for the XML data bridge.
+ */
 export type XdbExportDto &#x3D; {
   file: string;
 };
 
+/**
+ * Type representing a decomposed entity in the XML data bridge.
+ */
 export type XdbDecomposedEntity &#x3D; {
   metadata: { type: string; fieldName: string; path: string };
   data: ObjectLiteral | Array&lt;ObjectLiteral&gt;;

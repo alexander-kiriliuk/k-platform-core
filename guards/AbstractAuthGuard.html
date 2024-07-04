@@ -237,14 +237,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="44"
-                                    class="link-to-prism">lib/shared/guards/abstract-auth.guard.ts:44</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="49"
+                                    class="link-to-prism">lib/shared/guards/abstract-auth.guard.ts:49</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Determines whether the current request is allowed to proceed based on the presence and validity of an access token.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -255,6 +257,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -269,6 +272,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The execution context of the request.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -278,7 +287,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A boolean indicating whether the request is allowed to proceed.</p>
+
                             </div>
                 </td>
             </tr>
@@ -306,14 +316,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="70"
-                                    class="link-to-prism">lib/shared/guards/abstract-auth.guard.ts:70</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="85"
+                                    class="link-to-prism">lib/shared/guards/abstract-auth.guard.ts:85</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Extracts the access token from the request.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -324,6 +336,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -338,6 +351,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The request object.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -347,7 +366,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The access token if found, otherwise null.</p>
+
                             </div>
                 </td>
             </tr>
@@ -376,14 +396,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="64"
-                                    class="link-to-prism">lib/shared/guards/abstract-auth.guard.ts:64</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">lib/shared/guards/abstract-auth.guard.ts:74</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Validates the given access token by checking it against the store.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -394,6 +416,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -408,6 +431,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The access token to validate.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -417,7 +446,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The user identity if the token is valid, otherwise null.</p>
+
                             </div>
                 </td>
             </tr>
@@ -455,6 +485,11 @@ export abstract class AbstractAuthGuard implements CanActivate {
   protected abstract readonly userService: UserService;
   protected fetchUser &#x3D; true;
 
+  /**
+   * Determines whether the current request is allowed to proceed based on the presence and validity of an access token.
+   * @param context - The execution context of the request.
+   * @returns A boolean indicating whether the request is allowed to proceed.
+   */
   async canActivate(context: ExecutionContext) {
     const req &#x3D; context.switchToHttp().getRequest();
     const token &#x3D; this.getAccessTokenFromRequest(req);
@@ -475,12 +510,22 @@ export abstract class AbstractAuthGuard implements CanActivate {
     return true;
   }
 
+  /**
+   * Validates the given access token by checking it against the store.
+   * @param token - The access token to validate.
+   * @returns The user identity if the token is valid, otherwise null.
+   */
   private async validateToken(token: string) {
     return this.cacheService.get(
       &#x60;${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${token}&#x60;,
     );
   }
 
+  /**
+   * Extracts the access token from the request.
+   * @param req - The request object.
+   * @returns The access token if found, otherwise null.
+   */
   private getAccessTokenFromRequest(req: Request) {
     if (req.cookies?.accessToken) {
       return req.cookies.accessToken;
