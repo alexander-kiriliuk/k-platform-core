@@ -26,17 +26,25 @@ import * as xml2js from "xml2js";
 import { Parser } from "yargs-parser";
 import { ObjectLiteral } from "typeorm";
 
+/**
+ * Abstract class for XML data import services.
+ */
 export abstract class XdbImportService {
   abstract importXml(xml: XdbObject): Promise<boolean>;
 
   abstract importFromFile(fileData: Buffer): Promise<boolean>;
 }
-
+/**
+ * Abstract class for XML data export services.
+ */
 export abstract class XdbExportService {
   abstract exportXml(params: XdbExportParams): Promise<XdbExportDto>;
 }
 
 export namespace Xdb {
+  /**
+   * Representing root-node identifier
+   */
   export const rootToken = "@root";
 
   let parser: Parser & {
@@ -46,8 +54,15 @@ export namespace Xdb {
     ) => void;
   };
 
+  /**
+   * Regex for detect read-operator in xml-schema
+   */
   export const ReadOperatorRe = /\$\{@read:([^}]*)}/;
 
+  /**
+   * Returns the XML parser instance.
+   * @returns The XML parser instance.
+   */
   export function getXmlParser() {
     if (parser) {
       return parser;
@@ -60,6 +75,11 @@ export namespace Xdb {
     return parser;
   }
 
+  /**
+   * Parses the XML body into an XdbObject.
+   * @param body - The body containing the XML schema.
+   * @returns The parsed XdbObject.
+   */
   export function parseXmlBody(body: { schema }) {
     const schema = body.schema;
     const actions = schema.$$;
@@ -100,6 +120,11 @@ export namespace Xdb {
     return result;
   }
 
+  /**
+   * Parses an XML file into an XdbObject.
+   * @param xmlData - The XML data buffer.
+   * @returns A promise that resolves to the parsed XdbObject.
+   */
   export async function parseXmlFile(xmlData: Buffer): Promise<XdbObject> {
     return new Promise((resolve, reject) => {
       getXmlParser().parseString(xmlData, async (err, result) => {
@@ -113,6 +138,11 @@ export namespace Xdb {
     });
   }
 
+  /**
+   * Removes duplicate objects from an array of XdbDecomposedEntity.
+   * @param array - The array of XdbDecomposedEntity.
+   * @returns The array with duplicates removed.
+   */
   export function removeDuplicateObjects(
     array: XdbDecomposedEntity[],
   ): XdbDecomposedEntity[] {
@@ -125,6 +155,12 @@ export namespace Xdb {
     return uniqueObjects.reverse();
   }
 
+  /**
+   * Checks if two objects are deeply equal.
+   * @param obj1 - The first object.
+   * @param obj2 - The second object.
+   * @returns A boolean indicating whether the objects are deeply equal.
+   */
   function deepEqual(obj1: ObjectLiteral, obj2: ObjectLiteral): boolean {
     if (obj1 === obj2) {
       return true;

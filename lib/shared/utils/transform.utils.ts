@@ -15,6 +15,11 @@
  */
 
 export namespace TransformUtils {
+  /**
+   * Converts a Date object to a timestamp.
+   * @param value - The Date object to convert.
+   * @returns The timestamp.
+   */
   export function dateToTime({ value }) {
     if (value instanceof Date) {
       return value.getTime();
@@ -22,6 +27,11 @@ export namespace TransformUtils {
     return value;
   }
 
+  /**
+   * Parses a parameter string into an object.
+   * @param filterString - The parameter string to parse.
+   * @returns An object representing the parsed parameters.
+   */
   export function parseParamsString(filterString: string): {
     [key: string]: string;
   } {
@@ -37,6 +47,11 @@ export namespace TransformUtils {
     return filterObject;
   }
 
+  /**
+   * Stringifies an object into a parameter string.
+   * @param filterObject - The object to stringify.
+   * @returns The parameter string.
+   */
   export function stringifyParamsObject(filterObject: {
     [key: string]: string;
   }): string {

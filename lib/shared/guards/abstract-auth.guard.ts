@@ -41,6 +41,11 @@ export abstract class AbstractAuthGuard implements CanActivate {
   protected abstract readonly userService: UserService;
   protected fetchUser = true;
 
+  /**
+   * Determines whether the current request is allowed to proceed based on the presence and validity of an access token.
+   * @param context - The execution context of the request.
+   * @returns A boolean indicating whether the request is allowed to proceed.
+   */
   async canActivate(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest();
     const token = this.getAccessTokenFromRequest(req);
@@ -61,12 +66,22 @@ export abstract class AbstractAuthGuard implements CanActivate {
     return true;
   }
 
+  /**
+   * Validates the given access token by checking it against the store.
+   * @param token - The access token to validate.
+   * @returns The user identity if the token is valid, otherwise null.
+   */
   private async validateToken(token: string) {
     return this.cacheService.get(
       `${AUTH_JWT_CACHE_PREFIX}:${AUTH_ACCESS_TOKEN_PREFIX}:${token}`,
     );
   }
 
+  /**
+   * Extracts the access token from the request.
+   * @param req - The request object.
+   * @returns The access token if found, otherwise null.
+   */
   private getAccessTokenFromRequest(req: Request) {
     if (req.cookies?.accessToken) {
       return req.cookies.accessToken;

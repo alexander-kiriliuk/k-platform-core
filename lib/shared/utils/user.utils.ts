@@ -18,6 +18,12 @@ import { UserRole } from "../../common/user/user.types";
 import { Roles } from "../constants";
 
 export namespace UserUtils {
+  /**
+   * Checks if a user has access based on their roles and the allowed roles.
+   * @param userRoles - The roles of the user.
+   * @param allowedRoles - The roles that are allowed access.
+   * @returns True if the user has access, false otherwise.
+   */
   export function hasAccessForRoles(
     userRoles: UserRole[],
     allowedRoles: UserRole[],
@@ -36,6 +42,12 @@ export namespace UserUtils {
     return allowed;
   }
 
+  /**
+   * Checks if a user has at least one of the specified roles.
+   * @param userRoles - The roles of the user.
+   * @param roles - The roles to check for.
+   * @returns True if the user has at least one of the roles, false otherwise.
+   */
   export function hasSomeRole(userRoles: UserRole[], ...roles: string[]) {
     if (!userRoles?.length) {
       return false;

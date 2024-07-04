@@ -16,6 +16,10 @@
 
 import { ValueTransformer } from "typeorm/decorator/options/ValueTransformer";
 
+/**
+ * A ValueTransformer for transforming JSON data in a database column.
+ * This transformer is used to automatically parse JSON strings from the database into JavaScript objects and vice versa.
+ */
 export const SimpleJsonTransformer: ValueTransformer = {
   from(value: string | object) {
     if (typeof value === "string") {

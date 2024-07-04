@@ -18,6 +18,10 @@ import { ArgumentsHost, Catch } from "@nestjs/common";
 import { QueryFailedError } from "typeorm";
 import { TypeORMError } from "typeorm/error/TypeORMError";
 
+/**
+ * Exception filter to handle database errors and transform them into HTTP responses.
+ * This filter catches TypeORM errors and returns a 502 Bad Gateway response with the error message.
+ */
 @Catch(TypeORMError)
 export class DbExceptionFilter implements DbExceptionFilter {
   catch(exception: QueryFailedError, host: ArgumentsHost) {

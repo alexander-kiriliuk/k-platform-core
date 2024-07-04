@@ -14,15 +14,48 @@
  *    limitations under the License.
  */
 
+/**
+ * @class Roles
+ * A class containing static constants representing different user roles.
+ */
 export class Roles {
+  /**
+   * @constant ROOT
+   * Represents the root role with the highest level of access.
+   */
   static readonly ROOT = "root";
+  /**
+   * @constant ADMIN
+   * Represents the admin role with administrative access.
+   */
   static readonly ADMIN = "admin";
+  /**
+   * @constant MANAGER
+   * Represents the manager role.
+   */
   static readonly MANAGER = "manager";
 }
 
+/**
+ * @const REQUEST_PROPS
+ * An object containing properties used for request handling.
+ */
 export const REQUEST_PROPS = {
+  /**
+   * @property accessToken
+   * The property name for storing the access token in the request.
+   */
   accessToken: "accessToken",
+
+  /**
+   * @property currentUser
+   * The property name for storing the current user in the request.
+   */
   currentUser: "currentUser",
 };
 
+/**
+ * @constant MS_EXCEPTION_ID
+ * A constant representing the exception identifier for microservices.
+ */
 export const MS_EXCEPTION_ID = "MsException";

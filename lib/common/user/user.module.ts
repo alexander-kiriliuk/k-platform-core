@@ -20,6 +20,9 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserEntity } from "./entity/user.entity";
 import { UserModuleOptions, UserService } from "./user.types";
 
+/**
+ * Module is responsible for managing system users
+ */
 @Module({})
 export class UserModule {
   static forRoot(

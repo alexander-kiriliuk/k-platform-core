@@ -20,6 +20,9 @@ import { Media } from "../media/media.types";
 import { LocalizedString } from "../../shared/modules/locale/locale.types";
 import { UserEntity } from "./entity/user.entity";
 
+/**
+ * Interface representing a user object.
+ */
 export interface User {
   id: string;
   avatar: Media;
@@ -34,12 +37,18 @@ export interface User {
   tsCreated: Date;
 }
 
+/**
+ * Interface representing a user role.
+ */
 export interface UserRole {
   code: string;
   name: LocalizedString[];
   tsCreated: Date;
 }
 
+/**
+ * Data transfer object for user role.
+ */
 export class UserRoleDto implements UserRole {
   @Expose()
   code: string;
@@ -51,6 +60,9 @@ export class UserRoleDto implements UserRole {
   tsCreated: Date;
 }
 
+/**
+ * Data transfer object for user.
+ */
 export class UserDto implements User {
   @Expose()
   id: string;
@@ -87,11 +99,17 @@ export class UserDto implements User {
   tsCreated: Date;
 }
 
+/**
+ * Interface representing a request to update a user.
+ */
 export interface UserUpdateRequest {
   id: string;
   user: User;
 }
 
+/**
+ * Abstract class representing the user service.
+ */
 export abstract class UserService {
   abstract findByLogin(login: string): Promise<UserEntity>;
 
@@ -104,6 +122,9 @@ export abstract class UserService {
   abstract removeById(id: string): Promise<UserEntity>;
 }
 
+/**
+ * Options for configuring the UserModule.
+ */
 export type UserModuleOptions = {
   service: Class<UserService>;
 };

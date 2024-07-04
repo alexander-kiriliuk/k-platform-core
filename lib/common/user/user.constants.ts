@@ -14,6 +14,9 @@
  *    limitations under the License.
  */
 
+/**
+ * Array of user entity relations.
+ */
 export const USER_RELATIONS = [
   "avatar",
   "avatar.name",

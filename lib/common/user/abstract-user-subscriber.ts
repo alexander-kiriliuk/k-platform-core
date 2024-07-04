@@ -21,9 +21,17 @@ import * as bcrypt from "bcrypt";
 import { Type } from "@nestjs/common/interfaces/type.interface";
 import { UserEntity } from "./entity/user.entity";
 
+/**
+ * Abstract class for user entity subscribers to handle specific events.
+ */
 export abstract class AbstractUserSubscriber<T extends UserEntity> {
   protected abstract readonly type: Type<T>;
 
+  /**
+   * Validates the login format.
+   * @param login - The login string to validate.
+   * @throws BadRequestException if the login format is invalid.
+   */
   protected async validateLogin(login: string) {
     const loginRegex = /^[A-Za-z0-9_]+$/;
     if (!loginRegex.test(login)) {
@@ -33,6 +41,10 @@ export abstract class AbstractUserSubscriber<T extends UserEntity> {
     }
   }
 
+  /**
+   * Hashes the user password if it has changed.
+   * @param event - The insert or update event.
+   */
   protected async hashPasswordIfNeeded(event: InsertEvent<T> | UpdateEvent<T>) {
     const { entity: user, manager } = event;
     if (typeof user.password === "number") {
@@ -56,6 +68,11 @@ export abstract class AbstractUserSubscriber<T extends UserEntity> {
     }
   }
 
+  /**
+   * Hashes a password using bcrypt.
+   * @param password - The password to hash.
+   * @returns The hashed password.
+   */
   protected async hashPassword(password: string) {
     return await bcrypt.hash(password, 10);
   }

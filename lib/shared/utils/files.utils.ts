@@ -33,16 +33,29 @@ interface DirectoryStructure {
 }
 
 export namespace FilesUtils {
+  /**
+   * Gets the file type module.
+   * @returns The file type module.
+   */
   export function fileType() {
     return fileTypeModule.lib;
   }
 
+  /**
+   * Generates an SHA-256 hash from a buffer.
+   * @param fileBuffer - The buffer to hash.
+   * @returns The SHA-256 hash as a hex string.
+   */
   export function getHashFromBuffer(fileBuffer: Buffer) {
     const hashSum = crypto.createHash("sha256");
     hashSum.update(fileBuffer);
     return hashSum.digest("hex");
   }
 
+  /**
+   * Creates directories if they do not exist.
+   * @param directoryPath - The path of the directory to create.
+   */
   export async function createDirectoriesIfNotExist(directoryPath: string) {
     try {
       await fs.promises.access(directoryPath);
@@ -51,6 +64,12 @@ export namespace FilesUtils {
     }
   }
 
+  /**
+   * Reads a file.
+   * @param path - The path of the file to read.
+   * @param options - Optional read options.
+   * @returns The file contents as a buffer.
+   */
   export async function readFile(
     path: string,
     options?:
@@ -63,6 +82,11 @@ export namespace FilesUtils {
     return await fs.promises.readFile(path);
   }
 
+  /**
+   * Recursively reads a directory and returns its structure.
+   * @param dirPath - The path of the directory to read.
+   * @returns A promise that resolves to the directory structure.
+   */
   export async function readDirectoryRecursively(
     dirPath: string,
   ): Promise<DirectoryStructure | string[]> {

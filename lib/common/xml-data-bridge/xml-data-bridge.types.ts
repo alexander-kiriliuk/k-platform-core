@@ -24,11 +24,17 @@ import {
 } from "./xml-data-bridge.constants";
 import { User } from "../user/user.types";
 
+/**
+ * Interface representing an XML data bridge request.
+ */
 export interface XdbRequest {
   target: string;
   id: string;
 }
 
+/**
+ * Type representing a row data value in the XML data bridge.
+ */
 export type XdbRowDataValue = {
   attrs?: {
     key?: string;
@@ -39,10 +45,16 @@ export type XdbRowDataValue = {
   values?: string[];
 };
 
+/**
+ * Type representing a row of data in the XML data bridge.
+ */
 export type XdbRowData = {
   [key: string]: XdbRowDataValue;
 };
 
+/**
+ * Type representing a media row in the XML data bridge.
+ */
 export type MediaRow = {
   name: XdbRowDataValue;
   code: string;
@@ -50,6 +62,9 @@ export type MediaRow = {
   file: string;
 };
 
+/**
+ * Type representing a file row in the XML data bridge.
+ */
 export type FileRow = {
   name: string;
   code: string;
@@ -57,6 +72,9 @@ export type FileRow = {
   file: string;
 };
 
+/**
+ * Type representing an action in the XML data bridge.
+ */
 export type XdbAction = {
   action: "InsertUpdate" | "Media" | "File" | "Remove" | "Include" | "Query";
   attrs: {
@@ -67,10 +85,16 @@ export type XdbAction = {
   rows: Array<XdbRowData | FileRow>;
 };
 
+/**
+ * Type representing an XML data bridge object.
+ */
 export type XdbObject = {
   schema: XdbAction[];
 };
 
+/**
+ * Options for configuring the XmlDataBridgeModule.
+ */
 export type XdbModuleOptions = {
   importService: Class<XdbImportService>;
   exportService: Class<XdbExportService>;
@@ -79,6 +103,9 @@ export type XdbModuleOptions = {
   >;
 };
 
+/**
+ * Type representing export parameters for the XML data bridge.
+ */
 export type XdbExportParams = {
   target: string;
   id: string;
@@ -88,10 +115,16 @@ export type XdbExportParams = {
   user: User;
 };
 
+/**
+ * Type representing the export DTO for the XML data bridge.
+ */
 export type XdbExportDto = {
   file: string;
 };
 
+/**
+ * Type representing a decomposed entity in the XML data bridge.
+ */
 export type XdbDecomposedEntity = {
   metadata: { type: string; fieldName: string; path: string };
   data: ObjectLiteral | Array<ObjectLiteral>;

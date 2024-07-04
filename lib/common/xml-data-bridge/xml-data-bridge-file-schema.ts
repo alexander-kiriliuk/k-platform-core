@@ -23,6 +23,10 @@ import { Xdb } from "./xml-data-bridge.constants";
 export namespace XmlDataBridgeFileSchema {
   export const BODY_TOKEN = `%%%body%%%`;
 
+  /**
+   * Generates the XML file schema template.
+   * @returns The XML file schema template as a string.
+   */
   export function xmlFileSchemaTpl() {
     let data = `<?xml version="1.0" encoding="UTF-8"?>\n\n`;
     data += `<schema>\n`;
@@ -31,6 +35,11 @@ export namespace XmlDataBridgeFileSchema {
     return data;
   }
 
+  /**
+   * Generates the XML media node template.
+   * @param obj - The media object.
+   * @returns The XML media node template as a string.
+   */
   export function xmlMediaNodeTpl(obj: ObjectLiteral) {
     const media = obj as Media & { file: string; type: string; name: string[] };
     let data = `\n\t<Media>\n\t\t<row>\n`;
@@ -50,6 +59,11 @@ export namespace XmlDataBridgeFileSchema {
     return data;
   }
 
+  /**
+   * Generates the XML file node template.
+   * @param obj - The file object.
+   * @returns The XML file node template as a string.
+   */
   export function xmlFileNodeTpl(obj: ObjectLiteral) {
     const file = obj as File & {
       file: string;
@@ -76,6 +90,11 @@ export namespace XmlDataBridgeFileSchema {
     return data;
   }
 
+  /**
+   * Generates the XML file InsertUpdate node template.
+   * @param target - The target entity.
+   * @returns The XML file InsertUpdate node template as a string.
+   */
   export function xmlFileInsertUpdateNodeTpl(target: string) {
     let data = `\n\t<InsertUpdate target="${target}">\n`;
     data += BODY_TOKEN;
@@ -83,6 +102,10 @@ export namespace XmlDataBridgeFileSchema {
     return data;
   }
 
+  /**
+   * Generates the XML file row node template.
+   * @returns The XML file row node template as a string.
+   */
   export function xmlFileRowNode() {
     let data = `\t\t<row>`;
     data += BODY_TOKEN;
@@ -90,6 +113,13 @@ export namespace XmlDataBridgeFileSchema {
     return data;
   }
 
+  /**
+   * Generates the XML file row property node template.
+   * @param stack - The stack of decomposed entities.
+   * @param key - The property key.
+   * @param value - The property value.
+   * @returns The XML file row property node template as a string.
+   */
   export function xmlFileRowPropertyNode(
     stack: XdbDecomposedEntity[],
     key: string,

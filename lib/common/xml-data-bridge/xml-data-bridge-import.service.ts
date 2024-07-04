@@ -564,6 +564,11 @@ export class XmlDataBridgeImportService extends XdbImportService {
     }
   }
 
+  /**
+   * Finds a read operator in a string.
+   * @param input - The input string.
+   * @returns The found read operator.
+   */
   private findReadOperator(input: string) {
     const match = input?.match(ReadOperatorRe);
     if (match?.length > 1) {

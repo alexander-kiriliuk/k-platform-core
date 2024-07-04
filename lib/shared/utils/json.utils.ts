@@ -15,6 +15,12 @@
  */
 
 export namespace JsonUtils {
+  /**
+   * Filters JSON objects, removing null values and empty arrays.
+   * @param key - The key of the JSON object.
+   * @param value - The value of the JSON object.
+   * @returns The filtered value, or undefined if it should be removed.
+   */
   export function jsonFilter(key, value) {
     if (value === null || (Array.isArray(value) && !value.length)) {
       return undefined;
@@ -22,6 +28,12 @@ export namespace JsonUtils {
     return removeCircularReferences(value);
   }
 
+  /**
+   * Removes circular references from an object or array to make it serializable.
+   * @param value - The object or array to process.
+   * @param cache - A Set used to store already visited nodes to detect circular references.
+   * @returns The processed object or array with circular references removed.
+   */
   function removeCircularReferences(value, cache = new Set()) {
     if (
       !(value instanceof Date) &&

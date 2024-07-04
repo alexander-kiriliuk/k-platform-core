@@ -28,6 +28,9 @@ import {
   XdbImportService,
 } from "./xml-data-bridge.constants";
 
+/**
+ * Module responsible for import and export XML-configuration.
+ */
 @Module({})
 export class XmlDataBridgeModule {
   static forRoot(

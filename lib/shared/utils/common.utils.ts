@@ -15,6 +15,11 @@
  */
 
 export namespace CommonUtils {
+  /**
+   * Pauses execution for a specified duration.
+   * @param delay - The delay in milliseconds.
+   * @returns A promise that resolves after the specified delay.
+   */
   export function sleep(delay: number) {
     return new Promise((resolve) => {
       setTimeout(() => resolve(true), delay);

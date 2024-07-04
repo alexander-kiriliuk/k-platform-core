@@ -18,10 +18,19 @@ import { Injectable, NestMiddleware } from "@nestjs/common";
 import { NextFunction, Request, Response } from "express";
 import { Xdb } from "./xml-data-bridge.constants";
 
+/**
+ * Middleware for parsing XML data from requests.
+ */
 @Injectable()
 export class XmlDataBridgeMiddleware implements NestMiddleware {
   private readonly parser = Xdb.getXmlParser();
 
+  /**
+   * Parses XML data from the request and modifies the request body.
+   * @param req - The request object.
+   * @param res - The response object.
+   * @param next - The next function to call.
+   */
   async use(req: Request, res: Response, next: NextFunction) {
     if (req.headers["content-type"] === "application/xml") {
       req.body = await this.parseXMLFromRequest(req);
@@ -30,7 +39,12 @@ export class XmlDataBridgeMiddleware implements NestMiddleware {
     next();
   }
 
-  private parseXMLFromRequest(req): Promise<object> {
+  /**
+   * Parses XML data from the request.
+   * @param req - The request object.
+   * @returns A promise that resolves to the parsed XML data.
+   */
+  private parseXMLFromRequest(req: Request): Promise<object> {
     return new Promise((resolve, reject) => {
       let xmlData = "";
       req.on("data", (chunk) => {

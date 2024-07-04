@@ -136,6 +136,11 @@ export class XmlDataBridgeExportService extends XdbExportService {
     return { file: `${fileName}/${fileName}.zip` };
   }
 
+  /**
+   * Builds the XML body from the decomposed entity stack.
+   * @param decomposedEntityStack - The stack of decomposed entities.
+   * @returns The XML body as a string.
+   */
   private buildXmlBody(decomposedEntityStack: XdbDecomposedEntity[]) {
     let body = ``;
     for (const entity of decomposedEntityStack) {
@@ -171,6 +176,13 @@ export class XmlDataBridgeExportService extends XdbExportService {
     return xmlBody.replace(BODY_TOKEN, body);
   }
 
+  /**
+   * Decomposes an entity into a stack of decomposed entities.
+   * @param object - The entity object.
+   * @param target - The target data.
+   * @param tParams - The target parameters.
+   * @returns A promise that resolves to the stack of decomposed entities.
+   */
   private async decomposeEntity(
     object: ObjectLiteral,
     target: TargetData,
@@ -256,6 +268,12 @@ export class XmlDataBridgeExportService extends XdbExportService {
     return await this.handleStackRoots(stack, tParams);
   }
 
+  /**
+   * Handles stack roots.
+   * @param stack - The stack of decomposed entities.
+   * @param tParams - The target parameters.
+   * @returns A promise that resolves to the handled stack.
+   */
   private async handleStackRoots(
     stack: XdbDecomposedEntity[],
     tParams: ExplorerTargetParams,
@@ -319,6 +337,15 @@ export class XmlDataBridgeExportService extends XdbExportService {
     return stack;
   }
 
+  /**
+   * Marks references in the stack of decomposed entities.
+   * @param rootPrimaryCol - The root primary column.
+   * @param tParams - The target parameters.
+   * @param stack - The stack of decomposed entities.
+   * @param node - The current node.
+   * @param parent - The parent node.
+   * @param path - The current path.
+   */
   private async markReferences(
     rootPrimaryCol: ExplorerColumn,
     tParams: ExplorerTargetParams,
@@ -424,6 +451,14 @@ export class XmlDataBridgeExportService extends XdbExportService {
     }
   }
 
+  /**
+   * Handles a node in the stack of decomposed entities.
+   * @param stack - The stack of decomposed entities.
+   * @param node - The current node.
+   * @param fieldName - The field name.
+   * @param path - The current path.
+   * @param arrayClassName - The class name for array elements.
+   */
   private handleNode(
     stack: XdbDecomposedEntity[],
     node: ObjectLiteral,
@@ -463,10 +498,20 @@ export class XmlDataBridgeExportService extends XdbExportService {
     }
   }
 
+  /**
+   * Checks if a node is primitive.
+   * @param node - The node to check.
+   * @returns A boolean indicating whether the node is primitive.
+   */
   private isPrimitiveNode(node: ObjectLiteral) {
     return !node || typeof node !== "object" || node instanceof Date;
   }
 
+  /**
+   * Checks if a node has nested nodes.
+   * @param node - The node to check.
+   * @returns A boolean indicating whether the node has nested nodes.
+   */
   private hasNestedNodes(node: ObjectLiteral) {
     for (const key in node) {
       if (!this.isPrimitiveNode(node[key])) {
@@ -476,6 +521,12 @@ export class XmlDataBridgeExportService extends XdbExportService {
     return false;
   }
 
+  /**
+   * Gets the key property name for an entity.
+   * @param target - The target data.
+   * @param node - The entity object.
+   * @returns The key property name.
+   */
   private getKeyPropertyName(target: TargetData, node: ObjectLiteral) {
     const primaryProperty = target.primaryColumn.property;
     const uniqColumns = target.entity.columns.filter((v) => v.unique);
@@ -511,6 +562,12 @@ export class XmlDataBridgeExportService extends XdbExportService {
     return propertyName;
   }
 
+  /**
+   * Handles decomposed media entities.
+   * @param stack - The stack of decomposed entities.
+   * @param operationDir - The operation directory.
+   * @returns A promise that resolves to an array of handled media file paths.
+   */
   private async handleDecomposedMedias(
     stack: XdbDecomposedEntity[],
     operationDir: string,
@@ -541,6 +598,12 @@ export class XmlDataBridgeExportService extends XdbExportService {
     return result;
   }
 
+  /**
+   * Handles decomposed file entities.
+   * @param stack - The stack of decomposed entities.
+   * @param operationDir - The operation directory.
+   * @returns A promise that resolves to an array of handled file paths.
+   */
   private async handleDecomposedFiles(
     stack: XdbDecomposedEntity[],
     operationDir: string,
@@ -570,6 +633,10 @@ export class XmlDataBridgeExportService extends XdbExportService {
     return result;
   }
 
+  /**
+   * Handles string values in the stack of decomposed entities.
+   * @param stack - The stack of decomposed entities.
+   */
   private handleStringValues(stack: XdbDecomposedEntity[]) {
     for (const item of stack) {
       for (const key of Object.keys(item.data)) {
