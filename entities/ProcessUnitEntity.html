@@ -117,6 +117,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The entity stores system processes, their configuration and state</p>
+
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -211,7 +218,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">lib/common/process/entity/process.unit.entity.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">lib/common/process/entity/process.unit.entity.ts:38</a></div>
                         </td>
                     </tr>
 
@@ -248,7 +255,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">lib/common/process/entity/process.unit.entity.ts:60</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">lib/common/process/entity/process.unit.entity.ts:63</a></div>
                         </td>
                     </tr>
 
@@ -285,7 +292,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">lib/common/process/entity/process.unit.entity.ts:56</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">lib/common/process/entity/process.unit.entity.ts:59</a></div>
                         </td>
                     </tr>
 
@@ -322,7 +329,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">lib/common/process/entity/process.unit.entity.ts:52</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">lib/common/process/entity/process.unit.entity.ts:55</a></div>
                         </td>
                     </tr>
 
@@ -358,7 +365,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">lib/common/process/entity/process.unit.entity.ts:63</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">lib/common/process/entity/process.unit.entity.ts:66</a></div>
                         </td>
                     </tr>
 
@@ -395,7 +402,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">lib/common/process/entity/process.unit.entity.ts:48</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">lib/common/process/entity/process.unit.entity.ts:51</a></div>
                         </td>
                     </tr>
 
@@ -432,7 +439,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">lib/common/process/entity/process.unit.entity.ts:67</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">lib/common/process/entity/process.unit.entity.ts:70</a></div>
                         </td>
                     </tr>
 
@@ -475,6 +482,9 @@ import { ProcessUnit } from &quot;../process.types&quot;;
 import { ProcessLogEntity } from &quot;./process.log.entity&quot;;
 import { LocalizedStringEntity } from &quot;../../../shared/modules/locale/entity/localized-string.entity&quot;;
 
+/**
+ * The entity stores system processes, their configuration and state
+ */
 @Entity(&quot;process_units&quot;)
 export class ProcessUnitEntity implements ProcessUnit {
   @PrimaryColumn(&quot;varchar&quot;)

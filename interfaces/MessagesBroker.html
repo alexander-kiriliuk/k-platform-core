@@ -126,6 +126,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface defining the contract for message brokering.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -190,8 +197,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="18"
-                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.types.ts:18</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="26"
+                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.types.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -206,6 +213,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Emits a message to a specific channel.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -216,6 +225,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -230,6 +240,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The channel to emit the message to.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -242,6 +258,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The data to emit.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -277,8 +299,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="20"
-                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.types.ts:20</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="33"
+                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.types.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -293,6 +315,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Subscribes to a specific channel with a handler function.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -303,6 +327,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -317,6 +342,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The channel to subscribe to.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>handler</td>
@@ -329,6 +360,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The handler function to handle the data.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -364,14 +401,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="22"
-                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.types.ts:22</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="39"
+                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.types.ts:39</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Unsubscribes from a specific channel.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -382,6 +421,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -396,6 +436,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The channel to unsubscribe from.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -418,10 +464,24 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface MessagesBroker {
+  /**
+   * Emits a message to a specific channel.
+   * @param chanel - The channel to emit the message to.
+   * @param data - The data to emit.
+   */
   emit&lt;T &#x3D; unknown&gt;(chanel: string, data: T): Promise&lt;void&gt;;
 
+  /**
+   * Subscribes to a specific channel with a handler function.
+   * @param chanel - The channel to subscribe to.
+   * @param handler - The handler function to handle the data.
+   */
   subscribe&lt;T &#x3D; unknown&gt;(chanel: string, handler: (data: T) &#x3D;&gt; void);
 
+  /**
+   * Unsubscribes from a specific channel.
+   * @param chanel - The channel to unsubscribe from.
+   */
   unsubscribe(chanel: string);
 }
 </code></pre>

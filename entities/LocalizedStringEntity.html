@@ -117,6 +117,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The entity stores the translations in itself</p>
+
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -196,7 +203,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">lib/shared/modules/locale/entity/localized-string.entity.ts:34</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">lib/shared/modules/locale/entity/localized-string.entity.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -232,7 +239,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">lib/shared/modules/locale/entity/localized-string.entity.ts:30</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">lib/shared/modules/locale/entity/localized-string.entity.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -268,7 +275,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">lib/shared/modules/locale/entity/localized-string.entity.ts:37</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">lib/shared/modules/locale/entity/localized-string.entity.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -304,7 +311,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">lib/shared/modules/locale/entity/localized-string.entity.ts:40</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">lib/shared/modules/locale/entity/localized-string.entity.ts:43</a></div>
                         </td>
                     </tr>
 
@@ -342,6 +349,9 @@ import {
 import { LocalizedString } from &quot;../locale.types&quot;;
 import { LanguageEntity } from &quot;./language.entity&quot;;
 
+/**
+ * The entity stores the translations in itself
+ */
 @Entity(&quot;localized_strings&quot;)
 export class LocalizedStringEntity implements LocalizedString {
   @PrimaryGeneratedColumn({ zerofill: true })

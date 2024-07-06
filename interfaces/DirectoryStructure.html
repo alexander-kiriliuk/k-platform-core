@@ -126,6 +126,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>An interface representing a structure of directories and files.
+The keys are directory names, and the values are either arrays of file names or nested DirectoryStructure objects.</p>
+
+            </p>
 
 
 
@@ -142,7 +150,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">lib/shared/utils/files.utils.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">lib/shared/utils/files.utils.ts:43</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -159,7 +167,15 @@ import { OpenMode } from &quot;node:fs&quot;;
 import { Abortable } from &quot;node:events&quot;;
 import * as path from &quot;path&quot;;
 
+/**
+ * Object to hold the dynamically imported file-type module.
+ */
 const fileTypeModule &#x3D; {} as { lib: typeof import(&quot;file-type&quot;) };
+
+/**
+ * Immediately Invoked Function Expression (IIFE) to dynamically import the ES module &#x27;file-type&#x27;.
+ * @param {object} ft - The fileTypeModule object.
+ */
 (async (ft) &#x3D;&gt; {
   // crutch for import ES module
   ft.lib &#x3D; await (eval(&#x27;import(&quot;file-type&quot;)&#x27;) as Promise&lt;
@@ -167,6 +183,10 @@ const fileTypeModule &#x3D; {} as { lib: typeof import(&quot;file-type&quot;) };
   &gt;);
 })(fileTypeModule);
 
+/**
+ * An interface representing a structure of directories and files.
+ * The keys are directory names, and the values are either arrays of file names or nested DirectoryStructure objects.
+ */
 interface DirectoryStructure {
   [key: string]: string[] | DirectoryStructure;
 }

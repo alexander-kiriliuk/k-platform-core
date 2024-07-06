@@ -123,6 +123,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>A class that represents paginated data.</p>
+
+            </p>
 
 
 
@@ -139,12 +146,14 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">lib/shared/modules/pageable/pageable.types.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">lib/shared/modules/pageable/pageable.types.ts:56</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>Creates an instance of PageableData.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -153,6 +162,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -167,6 +177,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The items for the current page.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>totalCount</td>
@@ -179,6 +195,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The total number of items available.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>currentPage</td>
@@ -191,6 +213,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The current page number.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>pageSize</td>
@@ -203,6 +231,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The number of items per page.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -227,27 +261,66 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Type } from &quot;class-transformer&quot;;
 import { Max, Min } from &quot;class-validator&quot;;
 
+/**
+ * A class that defines the parameters for pagination.
+ */
 export class PageableParams {
   @Min(1)
   @Max(1000)
   @Type(() &#x3D;&gt; Number)
+  /**
+   * The maximum number of items to return per page.
+   * @type {number}
+   * @default 20
+   */
   limit &#x3D; 20;
 
   @Min(1)
   @Type(() &#x3D;&gt; Number)
+  /**
+   * The page number to return.
+   * @type {number}
+   * @default 1
+   */
   page &#x3D; 1;
 
   @Type(() &#x3D;&gt; String)
+  /**
+   * The field by which to sort the items.
+   * @type {string}
+   * @optional
+   */
   sort?: string;
 
   @Type(() &#x3D;&gt; String)
+  /**
+   * The order in which to sort the items.
+   * @type {SortOrder}
+   * @optional
+   */
   order?: SortOrder;
 
   @Type(() &#x3D;&gt; String)
+  /**
+   * The filter criteria to apply to the items.
+   * @type {string}
+   * @optional
+   */
   filter?: string;
 }
 
+/**
+ * A class that represents paginated data.
+ * @template T - The type of items in the paginated data.
+ */
 export class PageableData&lt;T &#x3D; any&gt; {
+  /**
+   * Creates an instance of PageableData.
+   * @param {T[]} items - The items for the current page.
+   * @param {number} totalCount - The total number of items available.
+   * @param {number} currentPage - The current page number.
+   * @param {number} pageSize - The number of items per page.
+   */
   constructor(
     readonly items: T[],
     readonly totalCount: number,
@@ -256,6 +329,10 @@ export class PageableData&lt;T &#x3D; any&gt; {
   ) {}
 }
 
+/**
+ * @enum SortOrder
+ * Enumeration for the sort order.
+ */
 export enum SortOrder {
   ASC &#x3D; &quot;ASC&quot;,
   DESC &#x3D; &quot;DESC&quot;,

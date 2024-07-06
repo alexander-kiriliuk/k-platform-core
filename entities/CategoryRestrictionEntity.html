@@ -117,6 +117,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The entity stores the settings for restricting access by user roles for categories</p>
+
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -197,7 +204,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">lib/shared/modules/category/entity/category-restriction.entity.ts:40</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">lib/shared/modules/category/entity/category-restriction.entity.ts:43</a></div>
                         </td>
                     </tr>
 
@@ -233,7 +240,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">lib/shared/modules/category/entity/category-restriction.entity.ts:43</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">lib/shared/modules/category/entity/category-restriction.entity.ts:46</a></div>
                         </td>
                     </tr>
 
@@ -270,7 +277,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">lib/shared/modules/category/entity/category-restriction.entity.ts:36</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">lib/shared/modules/category/entity/category-restriction.entity.ts:39</a></div>
                         </td>
                     </tr>
 
@@ -306,7 +313,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">lib/shared/modules/category/entity/category-restriction.entity.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">lib/shared/modules/category/entity/category-restriction.entity.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -346,6 +353,9 @@ import {
 import { CategoryEntity } from &quot;./category.entity&quot;;
 import { UserRoleEntity } from &quot;../../../../common/user/entity/user-role.entity&quot;;
 
+/**
+ * The entity stores the settings for restricting access by user roles for categories
+ */
 @Entity(&quot;category_restriction&quot;)
 export class CategoryRestrictionEntity {
   @PrimaryGeneratedColumn({ zerofill: true })

@@ -117,6 +117,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>An entity stores parameters for rendering the read/write interface of a specific column of a specific entity</p>
+
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -201,7 +208,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">lib/common/explorer/entity/explorer-column-renderer.entity.ts:33</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">lib/common/explorer/entity/explorer-column-renderer.entity.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -238,7 +245,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">lib/common/explorer/entity/explorer-column-renderer.entity.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">lib/common/explorer/entity/explorer-column-renderer.entity.ts:44</a></div>
                         </td>
                     </tr>
 
@@ -275,7 +282,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">lib/common/explorer/entity/explorer-column-renderer.entity.ts:37</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">lib/common/explorer/entity/explorer-column-renderer.entity.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -311,7 +318,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">lib/common/explorer/entity/explorer-column-renderer.entity.ts:57</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">lib/common/explorer/entity/explorer-column-renderer.entity.ts:60</a></div>
                         </td>
                     </tr>
 
@@ -348,7 +355,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">lib/common/explorer/entity/explorer-column-renderer.entity.ts:50</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">lib/common/explorer/entity/explorer-column-renderer.entity.ts:53</a></div>
                         </td>
                     </tr>
 
@@ -389,6 +396,9 @@ import { LocalizedStringEntity } from &quot;../../../shared/modules/locale/entit
 import { SimpleJsonTransformer } from &quot;../../../shared/transformers/simple-json.transformer&quot;;
 import { Explorer } from &quot;../explorer.constants&quot;;
 
+/**
+ * An entity stores parameters for rendering the read/write interface of a specific column of a specific entity
+ */
 @Entity(&quot;explorer_column_renderers&quot;)
 export class ExplorerColumnRendererEntity implements ExplorerColumnRenderer {
   @PrimaryColumn(&quot;varchar&quot;)

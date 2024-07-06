@@ -119,6 +119,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>A service that implements the MessagesBroker interface for message brokering using Redis.</p>
+
+            </p>
 
 
 
@@ -197,7 +204,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:29</a></div>
                             </td>
                         </tr>
 
@@ -262,8 +269,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="39"
-                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:39</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:47</a></div>
                         </td>
                     </tr>
 
@@ -278,6 +285,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Emits a message to a specific channel.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -288,6 +297,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -302,6 +312,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The channel to emit the message to.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -314,6 +330,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The data to emit.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -351,14 +373,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="61"
-                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:61</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="88"
+                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:88</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Safely deserializes a JSON string to an object.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -369,6 +393,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -383,6 +408,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The JSON string to deserialize.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -392,7 +423,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The deserialized object.</p>
+
                             </div>
                 </td>
             </tr>
@@ -420,8 +452,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="53"
-                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:53</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:75</a></div>
                         </td>
                     </tr>
 
@@ -436,6 +468,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Safely serializes data to a JSON string.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -446,6 +480,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -460,6 +495,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The data to serialize.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -469,7 +510,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The serialized JSON string.</p>
+
                             </div>
                 </td>
             </tr>
@@ -495,8 +537,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="43"
-                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:43</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:56</a></div>
                         </td>
                     </tr>
 
@@ -511,6 +553,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Subscribes to a specific channel with a handler function.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -521,6 +565,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -535,6 +580,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The channel to subscribe to.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>handler</td>
@@ -547,6 +598,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The handler function to handle the data.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -582,14 +639,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="48"
-                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:48</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="65"
+                                    class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:65</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Unsubscribes from a specific channel.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -600,6 +659,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -614,6 +674,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The channel to unsubscribe from.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -656,7 +722,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:27</a></div>
                         </td>
                     </tr>
 
@@ -689,7 +755,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">lib/shared/modules/messages-broker/messages-broker.service.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -707,6 +773,9 @@ import Redis from &quot;ioredis&quot;;
 import { MessagesBroker } from &quot;./messages-broker.types&quot;;
 import { REDIS_CLIENT } from &quot;../cache/cache.constants&quot;;
 
+/**
+ * A service that implements the MessagesBroker interface for message brokering using Redis.
+ */
 @Injectable()
 export class MessagesBrokerService implements MessagesBroker {
   private readonly subClient: Redis;
@@ -724,20 +793,39 @@ export class MessagesBrokerService implements MessagesBroker {
     });
   }
 
+  /**
+   * Emits a message to a specific channel.
+   * @param chanel - The channel to emit the message to.
+   * @param data - The data to emit.
+   */
   async emit&lt;T &#x3D; unknown&gt;(chanel: string, data: T) {
     await this.pubClient.publish(chanel, this.safeSerialize(data));
   }
 
+  /**
+   * Subscribes to a specific channel with a handler function.
+   * @param chanel - The channel to subscribe to.
+   * @param handler - The handler function to handle the data.
+   */
   subscribe&lt;T &#x3D; unknown&gt;(chanel: string, handler: (data: T) &#x3D;&gt; void) {
     this.subClient.subscribe(chanel);
     this.subscribers.set(chanel, handler);
   }
 
+  /**
+   * Unsubscribes from a specific channel.
+   * @param chanel - The channel to unsubscribe from.
+   */
   unsubscribe(chanel: string) {
     this.subClient.unsubscribe(chanel);
     this.subscribers.delete(chanel);
   }
 
+  /**
+   * Safely serializes data to a JSON string.
+   * @param data - The data to serialize.
+   * @returns The serialized JSON string.
+   */
   private safeSerialize&lt;T &#x3D; unknown&gt;(data: T) {
     try {
       return JSON.stringify(data);
@@ -746,6 +834,11 @@ export class MessagesBrokerService implements MessagesBroker {
     }
   }
 
+  /**
+   * Safely deserializes a JSON string to an object.
+   * @param data - The JSON string to deserialize.
+   * @returns The deserialized object.
+   */
   private safeDeSerialize(data: string) {
     try {
       return JSON.parse(data);

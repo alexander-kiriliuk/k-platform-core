@@ -343,14 +343,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="56"
-                                    class="link-to-prism">lib/shared/modules/category/category.service.ts:56</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">lib/shared/modules/category/category.service.ts:60</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Sorts the children of a category by priority.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -361,6 +363,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -375,6 +378,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The category entity whose children need to be sorted.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -435,6 +444,10 @@ export class CategoryService {
     return res;
   }
 
+  /**
+   * Sorts the children of a category by priority.
+   * @param cat - The category entity whose children need to be sorted.
+   */
   private sort(cat: CategoryEntity) {
     ObjectUtils.sort&lt;CategoryEntity&gt;(cat.children, &quot;priority&quot;, false);
   }

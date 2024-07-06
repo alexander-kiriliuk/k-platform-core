@@ -519,8 +519,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="89"
-                                    class="link-to-prism">lib/shared/modules/ms-client/ms-client.ts:89</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="97"
+                                    class="link-to-prism">lib/shared/modules/ms-client/ms-client.ts:97</a></div>
                         </td>
                     </tr>
 
@@ -535,6 +535,8 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Handles the request by logging and managing errors and timeouts.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -545,6 +547,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -559,6 +562,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The observable source.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>pattern</td>
@@ -571,6 +580,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The message pattern.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -583,6 +598,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The message data.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>opts</td>
@@ -595,6 +616,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Optional configuration options for the client.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -604,7 +631,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>An observable of the result.</p>
+
                             </div>
                 </td>
             </tr>
@@ -814,6 +842,14 @@ export class MsClient implements MessageBus {
     return this.handleRequest(source, pattern, data, opts);
   }
 
+  /**
+   * Handles the request by logging and managing errors and timeouts.
+   * @param source - The observable source.
+   * @param pattern - The message pattern.
+   * @param data - The message data.
+   * @param opts - Optional configuration options for the client.
+   * @returns An observable of the result.
+   */
   private handleRequest&lt;T&gt;(
     source: Observable&lt;T&gt;,
     pattern: any,

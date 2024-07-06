@@ -117,6 +117,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The entity stores the system languages</p>
+
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -198,7 +205,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">lib/shared/modules/locale/entity/language.entity.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">lib/shared/modules/locale/entity/language.entity.ts:32</a></div>
                         </td>
                     </tr>
 
@@ -234,7 +241,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">lib/shared/modules/locale/entity/language.entity.ts:36</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">lib/shared/modules/locale/entity/language.entity.ts:39</a></div>
                         </td>
                     </tr>
 
@@ -271,7 +278,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">lib/shared/modules/locale/entity/language.entity.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">lib/shared/modules/locale/entity/language.entity.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -308,7 +315,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">lib/shared/modules/locale/entity/language.entity.ts:33</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">lib/shared/modules/locale/entity/language.entity.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -340,6 +347,9 @@ import { Column, Entity, Index, ManyToOne, PrimaryColumn } from &quot;typeorm&qu
 import { MediaEntity } from &quot;../../../../common/media/entity/media.entity&quot;;
 import { Language } from &quot;../locale.types&quot;;
 
+/**
+ * The entity stores the system languages
+ */
 @Entity(&quot;languages&quot;)
 export class LanguageEntity implements Language {
   @Index({ unique: true })

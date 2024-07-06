@@ -123,6 +123,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Custom microservice exception for forbidden requests, extending MsException.</p>
+
+            </p>
 
             <p class="comment">
                 <h3>Extends</h3>
@@ -145,7 +152,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">lib/shared/exceptions/forbidden-ms.exception.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">lib/shared/exceptions/forbidden-ms.exception.ts:23</a></div>
                             </td>
                         </tr>
 
@@ -197,6 +204,9 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpStatus } from &quot;@nestjs/common&quot;;
 import { MsException } from &quot;./ms.exception&quot;;
 
+/**
+ * Custom microservice exception for forbidden requests, extending MsException.
+ */
 export class ForbiddenMsException extends MsException {
   constructor(message?: string) {
     super(HttpStatus.FORBIDDEN, message || &quot;Forbidden&quot;);

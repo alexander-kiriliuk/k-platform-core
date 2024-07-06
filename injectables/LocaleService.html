@@ -119,6 +119,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service for handling localization operations.</p>
+
+            </p>
 
 
 
@@ -162,7 +169,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">lib/shared/modules/locale/locale.service.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">lib/shared/modules/locale/locale.service.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -251,14 +258,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">lib/shared/modules/locale/locale.service.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">lib/shared/modules/locale/locale.service.ts:44</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Creates localized strings for all available languages.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -269,6 +278,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -283,6 +293,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The value to be localized.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>code</td>
@@ -295,6 +311,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>An optional code to be used for the localized strings.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -304,7 +326,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to an array of LocalizedStringEntity objects.</p>
+
                             </div>
                 </td>
             </tr>
@@ -323,6 +346,9 @@ import { LanguageEntity } from &quot;./entity/language.entity&quot;;
 import { LocalizedStringEntity } from &quot;./entity/localized-string.entity&quot;;
 import { LocalizedMediaEntity } from &quot;./entity/localized-media.entity&quot;;
 
+/**
+ * Service for handling localization operations.
+ */
 @Injectable()
 export class LocaleService {
   constructor(
@@ -334,6 +360,12 @@ export class LocaleService {
     private readonly localizedMediaRep: Repository&lt;LocalizedMediaEntity&gt;,
   ) {}
 
+  /**
+   * Creates localized strings for all available languages.
+   * @param value - The value to be localized.
+   * @param code - An optional code to be used for the localized strings.
+   * @returns A promise that resolves to an array of LocalizedStringEntity objects.
+   */
   async createLocalizedStrings(
     value: string,
     code?: string,

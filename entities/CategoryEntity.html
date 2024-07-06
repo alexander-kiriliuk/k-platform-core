@@ -117,6 +117,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The entity stores category trees</p>
+
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -217,7 +224,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:68</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:71</a></div>
                         </td>
                     </tr>
 
@@ -254,7 +261,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:44</a></div>
                         </td>
                     </tr>
 
@@ -290,7 +297,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:58</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:61</a></div>
                         </td>
                     </tr>
 
@@ -326,7 +333,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:37</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -363,7 +370,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:48</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:51</a></div>
                         </td>
                     </tr>
 
@@ -399,7 +406,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:55</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:58</a></div>
                         </td>
                     </tr>
 
@@ -435,7 +442,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:65</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:68</a></div>
                         </td>
                     </tr>
 
@@ -472,7 +479,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:62</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:65</a></div>
                         </td>
                     </tr>
 
@@ -508,7 +515,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:44</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">lib/shared/modules/category/entity/category.entity.ts:47</a></div>
                         </td>
                     </tr>
 
@@ -552,6 +559,9 @@ import { LocalizedStringEntity } from &quot;../../locale/entity/localized-string
 import { SimpleJsonTransformer } from &quot;../../../transformers/simple-json.transformer&quot;;
 import { MediaEntity } from &quot;../../../../common/media/entity/media.entity&quot;;
 
+/**
+ * The entity stores category trees
+ */
 @Entity(&quot;categories&quot;)
 @Tree(&quot;nested-set&quot;)
 export class CategoryEntity {

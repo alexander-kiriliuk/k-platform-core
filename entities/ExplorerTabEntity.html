@@ -117,6 +117,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The entity stores the tabbed display parameters in the entity editing interface.</p>
+
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -202,7 +209,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">lib/common/explorer/entity/explorer-tab.entity.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">lib/common/explorer/entity/explorer-tab.entity.ts:38</a></div>
                         </td>
                     </tr>
 
@@ -239,7 +246,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">lib/common/explorer/entity/explorer-tab.entity.ts:39</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">lib/common/explorer/entity/explorer-tab.entity.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -276,7 +283,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">lib/common/explorer/entity/explorer-tab.entity.ts:43</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">lib/common/explorer/entity/explorer-tab.entity.ts:46</a></div>
                         </td>
                     </tr>
 
@@ -312,7 +319,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">lib/common/explorer/entity/explorer-tab.entity.ts:50</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">lib/common/explorer/entity/explorer-tab.entity.ts:53</a></div>
                         </td>
                     </tr>
 
@@ -348,7 +355,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">lib/common/explorer/entity/explorer-tab.entity.ts:53</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">lib/common/explorer/entity/explorer-tab.entity.ts:56</a></div>
                         </td>
                     </tr>
 
@@ -390,6 +397,9 @@ import { LocalizedStringEntity } from &quot;../../../shared/modules/locale/entit
 import { SimpleJsonTransformer } from &quot;../../../shared/transformers/simple-json.transformer&quot;;
 import { ExplorerTargetEntity } from &quot;./explorer-target.entity&quot;;
 
+/**
+ * The entity stores the tabbed display parameters in the entity editing interface.
+ */
 @Entity(&quot;explorer_tabs&quot;)
 export class ExplorerTabEntity implements ExplorerTab {
   @Index({ unique: true })

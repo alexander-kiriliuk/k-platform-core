@@ -117,6 +117,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The entity stores extensions of media objects</p>
+
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -189,7 +196,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">lib/common/media/entity/media-ext.entity.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">lib/common/media/entity/media-ext.entity.ts:11</a></div>
                         </td>
                     </tr>
 
@@ -226,7 +233,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">lib/common/media/entity/media-ext.entity.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">lib/common/media/entity/media-ext.entity.ts:15</a></div>
                         </td>
                     </tr>
 
@@ -241,6 +248,9 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Column, Entity, Index, PrimaryColumn } from &quot;typeorm&quot;;
 import { MediaExt } from &quot;../media.types&quot;;
 
+/**
+ * The entity stores extensions of media objects
+ */
 @Entity(&quot;medias_ext&quot;)
 export class MediaExtEntity implements MediaExt {
   @Index({ unique: true })

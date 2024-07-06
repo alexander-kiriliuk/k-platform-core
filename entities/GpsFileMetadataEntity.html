@@ -117,6 +117,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The entity stores the GPS metadata of the file</p>
+
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -198,7 +205,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">lib/common/file/entity/gps-file-metadata.entity.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">lib/common/file/entity/gps-file-metadata.entity.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -234,7 +241,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">lib/common/file/entity/gps-file-metadata.entity.ts:7</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">lib/common/file/entity/gps-file-metadata.entity.ts:10</a></div>
                         </td>
                     </tr>
 
@@ -271,7 +278,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">lib/common/file/entity/gps-file-metadata.entity.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">lib/common/file/entity/gps-file-metadata.entity.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -308,7 +315,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">lib/common/file/entity/gps-file-metadata.entity.ts:34</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">lib/common/file/entity/gps-file-metadata.entity.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -323,6 +330,9 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Column, Entity, Index, PrimaryGeneratedColumn } from &quot;typeorm&quot;;
 import { GpsFileMetadata } from &quot;../file.types&quot;;
 
+/**
+ * The entity stores the GPS metadata of the file
+ */
 @Entity(&quot;file_metadata_gps&quot;)
 export class GpsFileMetadataEntity implements GpsFileMetadata {
   @PrimaryGeneratedColumn({ zerofill: true })

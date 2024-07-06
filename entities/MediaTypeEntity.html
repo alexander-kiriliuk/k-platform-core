@@ -117,6 +117,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The entity stores the types of media objects</p>
+
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -210,7 +217,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">lib/common/media/entity/media-type.entity.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">lib/common/media/entity/media-type.entity.ts:21</a></div>
                         </td>
                     </tr>
 
@@ -246,7 +253,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">lib/common/media/entity/media-type.entity.ts:34</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">lib/common/media/entity/media-type.entity.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -283,7 +290,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">lib/common/media/entity/media-type.entity.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">lib/common/media/entity/media-type.entity.ts:41</a></div>
                         </td>
                     </tr>
 
@@ -320,7 +327,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">lib/common/media/entity/media-type.entity.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">lib/common/media/entity/media-type.entity.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -356,7 +363,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">lib/common/media/entity/media-type.entity.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">lib/common/media/entity/media-type.entity.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -392,7 +399,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">lib/common/media/entity/media-type.entity.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">lib/common/media/entity/media-type.entity.ts:34</a></div>
                         </td>
                     </tr>
 
@@ -428,7 +435,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">lib/common/media/entity/media-type.entity.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">lib/common/media/entity/media-type.entity.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -453,6 +460,9 @@ import { MediaFormatEntity } from &quot;./media-format.entity&quot;;
 import { MediaType } from &quot;../media.types&quot;;
 import { MediaExtEntity } from &quot;./media-ext.entity&quot;;
 
+/**
+ * The entity stores the types of media objects
+ */
 @Entity(&quot;medias_types&quot;)
 export class MediaTypeEntity implements MediaType {
   @Index({ unique: true })

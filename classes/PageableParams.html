@@ -123,6 +123,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>A class that defines the parameters for pagination.</p>
+
+            </p>
 
 
 
@@ -214,7 +221,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">lib/shared/modules/pageable/pageable.types.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">lib/shared/modules/pageable/pageable.types.ts:49</a></div>
                         </td>
                     </tr>
 
@@ -257,7 +264,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">lib/shared/modules/pageable/pageable.types.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">lib/shared/modules/pageable/pageable.types.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -294,7 +301,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">lib/shared/modules/pageable/pageable.types.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">lib/shared/modules/pageable/pageable.types.ts:41</a></div>
                         </td>
                     </tr>
 
@@ -336,7 +343,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">lib/shared/modules/pageable/pageable.types.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">lib/shared/modules/pageable/pageable.types.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -373,7 +380,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">lib/shared/modules/pageable/pageable.types.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">lib/shared/modules/pageable/pageable.types.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -395,27 +402,66 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Type } from &quot;class-transformer&quot;;
 import { Max, Min } from &quot;class-validator&quot;;
 
+/**
+ * A class that defines the parameters for pagination.
+ */
 export class PageableParams {
   @Min(1)
   @Max(1000)
   @Type(() &#x3D;&gt; Number)
+  /**
+   * The maximum number of items to return per page.
+   * @type {number}
+   * @default 20
+   */
   limit &#x3D; 20;
 
   @Min(1)
   @Type(() &#x3D;&gt; Number)
+  /**
+   * The page number to return.
+   * @type {number}
+   * @default 1
+   */
   page &#x3D; 1;
 
   @Type(() &#x3D;&gt; String)
+  /**
+   * The field by which to sort the items.
+   * @type {string}
+   * @optional
+   */
   sort?: string;
 
   @Type(() &#x3D;&gt; String)
+  /**
+   * The order in which to sort the items.
+   * @type {SortOrder}
+   * @optional
+   */
   order?: SortOrder;
 
   @Type(() &#x3D;&gt; String)
+  /**
+   * The filter criteria to apply to the items.
+   * @type {string}
+   * @optional
+   */
   filter?: string;
 }
 
+/**
+ * A class that represents paginated data.
+ * @template T - The type of items in the paginated data.
+ */
 export class PageableData&lt;T &#x3D; any&gt; {
+  /**
+   * Creates an instance of PageableData.
+   * @param {T[]} items - The items for the current page.
+   * @param {number} totalCount - The total number of items available.
+   * @param {number} currentPage - The current page number.
+   * @param {number} pageSize - The number of items per page.
+   */
   constructor(
     readonly items: T[],
     readonly totalCount: number,
@@ -424,6 +470,10 @@ export class PageableData&lt;T &#x3D; any&gt; {
   ) {}
 }
 
+/**
+ * @enum SortOrder
+ * Enumeration for the sort order.
+ */
 export enum SortOrder {
   ASC &#x3D; &quot;ASC&quot;,
   DESC &#x3D; &quot;DESC&quot;,

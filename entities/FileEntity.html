@@ -117,6 +117,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The entity stores data about uploaded files</p>
+
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -222,7 +229,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">lib/common/file/entity/file.entity.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">lib/common/file/entity/file.entity.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -258,7 +265,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">lib/common/file/entity/file.entity.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">lib/common/file/entity/file.entity.ts:44</a></div>
                         </td>
                     </tr>
 
@@ -294,7 +301,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">lib/common/file/entity/file.entity.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">lib/common/file/entity/file.entity.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -331,7 +338,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">lib/common/file/entity/file.entity.ts:51</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">lib/common/file/entity/file.entity.ts:54</a></div>
                         </td>
                     </tr>
 
@@ -367,7 +374,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">lib/common/file/entity/file.entity.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">lib/common/file/entity/file.entity.ts:32</a></div>
                         </td>
                     </tr>
 
@@ -403,7 +410,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">lib/common/file/entity/file.entity.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">lib/common/file/entity/file.entity.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -439,7 +446,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">lib/common/file/entity/file.entity.ts:44</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">lib/common/file/entity/file.entity.ts:47</a></div>
                         </td>
                     </tr>
 
@@ -475,7 +482,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">lib/common/file/entity/file.entity.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">lib/common/file/entity/file.entity.ts:38</a></div>
                         </td>
                     </tr>
 
@@ -511,7 +518,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">lib/common/file/entity/file.entity.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">lib/common/file/entity/file.entity.ts:41</a></div>
                         </td>
                     </tr>
 
@@ -548,7 +555,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">lib/common/file/entity/file.entity.ts:55</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">lib/common/file/entity/file.entity.ts:58</a></div>
                         </td>
                     </tr>
 
@@ -575,6 +582,9 @@ import { File } from &quot;../file.types&quot;;
 import { MediaEntity } from &quot;../../media/entity/media.entity&quot;;
 import { FileMetadataEntity } from &quot;./file-metadata.entity&quot;;
 
+/**
+ * The entity stores data about uploaded files
+ */
 @Entity(&quot;files&quot;)
 @TableInheritance({
   column: { type: &quot;varchar&quot;, name: &quot;class&quot;, nullable: true },

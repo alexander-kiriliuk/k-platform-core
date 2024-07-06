@@ -117,6 +117,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The entity stores the roles of the system users</p>
+
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -194,7 +201,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">lib/common/user/entity/user-role.entity.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">lib/common/user/entity/user-role.entity.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -231,7 +238,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">lib/common/user/entity/user-role.entity.ts:36</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">lib/common/user/entity/user-role.entity.ts:39</a></div>
                         </td>
                     </tr>
 
@@ -268,7 +275,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">lib/common/user/entity/user-role.entity.ts:40</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">lib/common/user/entity/user-role.entity.ts:43</a></div>
                         </td>
                     </tr>
 
@@ -307,6 +314,9 @@ import {
 import { UserRole } from &quot;../user.types&quot;;
 import { LocalizedStringEntity } from &quot;../../../shared/modules/locale/entity/localized-string.entity&quot;;
 
+/**
+ * The entity stores the roles of the system users
+ */
 @Entity(&quot;users_roles&quot;)
 export class UserRoleEntity implements UserRole {
   @Index({ unique: true })
