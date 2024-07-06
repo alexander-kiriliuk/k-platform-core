@@ -30,6 +30,9 @@ import { LocalizedStringEntity } from "../../locale/entity/localized-string.enti
 import { SimpleJsonTransformer } from "../../../transformers/simple-json.transformer";
 import { MediaEntity } from "../../../../common/media/entity/media.entity";
 
+/**
+ * The entity stores category trees
+ */
 @Entity("categories")
 @Tree("nested-set")
 export class CategoryEntity {

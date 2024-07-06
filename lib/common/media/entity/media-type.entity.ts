@@ -11,6 +11,9 @@ import { MediaFormatEntity } from "./media-format.entity";
 import { MediaType } from "../media.types";
 import { MediaExtEntity } from "./media-ext.entity";
 
+/**
+ * The entity stores the types of media objects
+ */
 @Entity("medias_types")
 export class MediaTypeEntity implements MediaType {
   @Index({ unique: true })

@@ -25,6 +25,9 @@ import {
 import { UserRole } from "../user.types";
 import { LocalizedStringEntity } from "../../../shared/modules/locale/entity/localized-string.entity";
 
+/**
+ * The entity stores the roles of the system users
+ */
 @Entity("users_roles")
 export class UserRoleEntity implements UserRole {
   @Index({ unique: true })

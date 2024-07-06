@@ -14,6 +14,9 @@
  *    limitations under the License.
  */
 
+/**
+ * An abstract class defining methods for cache operations.
+ */
 export abstract class CacheService {
   abstract get(key: string): Promise<string>;
 

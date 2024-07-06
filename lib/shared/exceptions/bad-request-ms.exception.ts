@@ -17,6 +17,9 @@
 import { HttpStatus } from "@nestjs/common";
 import { MsException } from "./ms.exception";
 
+/**
+ * Custom microservice exception for bad requests, extending MsException.
+ */
 export class BadRequestMsException extends MsException {
   constructor(message?: string) {
     super(HttpStatus.BAD_REQUEST, message || "Bad request");

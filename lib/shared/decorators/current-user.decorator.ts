@@ -18,7 +18,6 @@ import { createParamDecorator, ExecutionContext } from "@nestjs/common";
 import { REQUEST_PROPS } from "../constants";
 
 /**
- * @function CurrentUser
  * A custom decorator for extracting the current user from a request.
  */
 export const CurrentUser = createParamDecorator(

@@ -13,6 +13,9 @@ import { ExifFileMetadataEntity } from "./exif-file-metadata.entity";
 import { VideoFileMetadataEntity } from "./video-file-metadata.entity";
 import { AudioFileMetadataEntity } from "./audio-file-metadata.entity";
 
+/**
+ * The entity stores the basic metadata of the file
+ */
 @Entity("file_metadata")
 export class FileMetadataEntity implements FileMetadata {
   @PrimaryGeneratedColumn({ zerofill: true })

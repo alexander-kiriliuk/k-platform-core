@@ -16,6 +16,10 @@
 
 import { SetMetadata } from "@nestjs/common";
 
+/**
+ * A constant string key used for role-based access control metadata.
+ * This key is used to annotate routes or controllers with the roles allowed to access them.
+ */
 export const AllowedForMetadataKey = "for_roles";
 
 /**

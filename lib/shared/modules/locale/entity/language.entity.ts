@@ -18,6 +18,9 @@ import { Column, Entity, Index, ManyToOne, PrimaryColumn } from "typeorm";
 import { MediaEntity } from "../../../../common/media/entity/media.entity";
 import { Language } from "../locale.types";
 
+/**
+ * The entity stores the system languages
+ */
 @Entity("languages")
 export class LanguageEntity implements Language {
   @Index({ unique: true })

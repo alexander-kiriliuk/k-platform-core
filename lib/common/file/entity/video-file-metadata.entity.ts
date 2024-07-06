@@ -1,6 +1,9 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 import { VideoFileMetadata } from "../file.types";
 
+/**
+ * The entity stores the video metadata of the file
+ */
 @Entity("file_metadata_video")
 export class VideoFileMetadataEntity implements VideoFileMetadata {
   @PrimaryGeneratedColumn({ zerofill: true })

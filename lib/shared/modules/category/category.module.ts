@@ -20,6 +20,9 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { CategoryEntity } from "./entity/category.entity";
 import { LogModule } from "../log/log.module";
 
+/**
+ * A module that provides services and configurations for working with categories.
+ */
 @Module({
   imports: [LogModule, TypeOrmModule.forFeature([CategoryEntity])],
   providers: [CategoryService],

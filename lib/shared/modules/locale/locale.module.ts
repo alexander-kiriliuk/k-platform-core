@@ -21,6 +21,9 @@ import { LocalizedStringEntity } from "./entity/localized-string.entity";
 import { LocalizedMediaEntity } from "./entity/localized-media.entity";
 import { LocaleService } from "./locale.service";
 
+/**
+ * A module that provides services and configurations for handling localization.
+ */
 @Module({
   imports: [
     TypeOrmModule.forFeature([

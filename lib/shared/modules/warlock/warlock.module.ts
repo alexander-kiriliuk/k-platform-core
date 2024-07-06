@@ -25,6 +25,9 @@ import { WARLOCK } from "./warlock.constants";
 import { REDIS_CLIENT } from "../cache/cache.constants";
 import { WarlockFn } from "./warlock.types";
 
+/**
+ * A module that provides functionality for locking mechanisms using Redis.
+ */
 @Module({
   imports: [
     RedisModule.forRootAsync({

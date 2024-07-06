@@ -18,7 +18,6 @@ import { createParamDecorator, ExecutionContext } from "@nestjs/common";
 import { REQUEST_PROPS } from "../constants";
 
 /**
- * @function AccessToken
  * A custom decorator for extracting access token from a request.
  */
 export const AccessToken = createParamDecorator(

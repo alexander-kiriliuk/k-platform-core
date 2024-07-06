@@ -22,6 +22,9 @@ import { MS_CLIENT, MSG_BUS } from "./ms-client.constants";
 import { EnvLoader } from "../../utils/env.loader";
 import { MsClient } from "./ms-client";
 
+/**
+ * A module that provides microservices client functionality for dispatching messages between microservices.
+ */
 @Module({
   imports: [
     LogModule,

@@ -26,6 +26,9 @@ import {
 import { CategoryEntity } from "./category.entity";
 import { UserRoleEntity } from "../../../../common/user/entity/user-role.entity";
 
+/**
+ * The entity stores the settings for restricting access by user roles for categories
+ */
 @Entity("category_restriction")
 export class CategoryRestrictionEntity {
   @PrimaryGeneratedColumn({ zerofill: true })

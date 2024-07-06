@@ -22,6 +22,9 @@ import { LOGGER } from "../log/log.constants";
 import { EnvLoader } from "../../utils/env.loader";
 import { MessagesBrokerService } from "./messages-broker.service";
 
+/**
+ * A module that provides message brokering functionality using Redis.
+ */
 @Module({
   imports: [
     RedisModule.forRootAsync({

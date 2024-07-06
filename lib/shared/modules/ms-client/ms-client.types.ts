@@ -16,10 +16,16 @@
 
 import { Observable } from "rxjs";
 
+/**
+ * Type definition for microservices client options.
+ */
 export type MsClientOptions = {
   timeout: number;
 };
 
+/**
+ * Interface defining the contract for the message bus.
+ */
 export interface MessageBus {
   dispatch<TResult = any, TInput = any>(
     pattern: any,

@@ -14,4 +14,9 @@
  *    limitations under the License.
  */
 
+/**
+ * Type definition for the warlock function used for locking mechanisms.
+ * @param lockCode - The code for the lock.
+ * @param caller - The function to call once the lock is acquired.
+ */
 export type WarlockFn = (lockCode: string, caller: () => Promise<void>) => void;

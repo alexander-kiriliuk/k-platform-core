@@ -18,7 +18,6 @@ import { applyDecorators, UseInterceptors } from "@nestjs/common";
 import { DtoInterceptor } from "../interceptors/dto.interceptor";
 
 /**
- * @function ResponseDto
  * A decorator to apply the specified DTO serializer to the response.
  * @param serializer - The DTO serializer to use.
  */

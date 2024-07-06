@@ -25,6 +25,9 @@ import { LocalizedMedia } from "../locale.types";
 import { LanguageEntity } from "./language.entity";
 import { MediaEntity } from "../../../../common/media/entity/media.entity";
 
+/**
+ * The entity stores internationalized media objects
+ */
 @Entity("localized_medias")
 export class LocalizedMediaEntity implements LocalizedMedia {
   @PrimaryGeneratedColumn({ zerofill: true })

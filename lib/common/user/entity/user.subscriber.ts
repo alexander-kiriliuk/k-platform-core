@@ -23,6 +23,10 @@ import { UserEntity } from "./user.entity";
 import { InsertEvent } from "typeorm/subscriber/event/InsertEvent";
 import { AbstractUserSubscriber } from "../abstract-user-subscriber";
 
+/**
+ * A subscriber for UserEntity that handles entity events such as insert and update.
+ * It validates the login and hashes the password before these events.
+ */
 @EventSubscriber()
 export class UserSubscriber
   extends AbstractUserSubscriber<UserEntity>

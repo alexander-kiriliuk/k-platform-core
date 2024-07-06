@@ -27,6 +27,9 @@ import { LocalizedStringEntity } from "../../../shared/modules/locale/entity/loc
 import { SimpleJsonTransformer } from "../../../shared/transformers/simple-json.transformer";
 import { Explorer } from "../explorer.constants";
 
+/**
+ * An entity stores parameters for rendering the read/write interface of a specific column of a specific entity
+ */
 @Entity("explorer_column_renderers")
 export class ExplorerColumnRendererEntity implements ExplorerColumnRenderer {
   @PrimaryColumn("varchar")

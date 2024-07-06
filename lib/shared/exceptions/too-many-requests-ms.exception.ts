@@ -17,6 +17,9 @@
 import { HttpStatus } from "@nestjs/common";
 import { MsException } from "./ms.exception";
 
+/**
+ * Custom microservice exception for too many requests, extending MsException.
+ */
 export class TooManyRequestsMsException extends MsException {
   constructor(message?: string) {
     super(

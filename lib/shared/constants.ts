@@ -15,7 +15,6 @@
  */
 
 /**
- * @class Roles
  * A class containing static constants representing different user roles.
  */
 export class Roles {
@@ -37,7 +36,6 @@ export class Roles {
 }
 
 /**
- * @const REQUEST_PROPS
  * An object containing properties used for request handling.
  */
 export const REQUEST_PROPS = {
@@ -55,7 +53,6 @@ export const REQUEST_PROPS = {
 };
 
 /**
- * @constant MS_EXCEPTION_ID
  * A constant representing the exception identifier for microservices.
  */
 export const MS_EXCEPTION_ID = "MsException";

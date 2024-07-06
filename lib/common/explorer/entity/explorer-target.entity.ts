@@ -31,6 +31,10 @@ import { MediaEntity } from "../../media/entity/media.entity";
 import { ExplorerActionEntity } from "./explorer-action.entity";
 import { UserRoleEntity } from "../../user/entity/user-role.entity";
 
+/**
+ * The entity stores a detailed description of the entity (tables in the database) in the form of an object
+ * with metadata and stores the display configuration in lists and detailed pages
+ */
 @Entity("explorer_targets")
 export class ExplorerTargetEntity implements ExplorerTarget {
   @PrimaryColumn("varchar")

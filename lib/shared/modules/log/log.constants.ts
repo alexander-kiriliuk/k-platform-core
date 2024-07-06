@@ -14,4 +14,7 @@
  *    limitations under the License.
  */
 
+/**
+ * Symbol used as a token for the LogService.
+ */
 export const LOGGER = Symbol("LOGGER_SERVICE");

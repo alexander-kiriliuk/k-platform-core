@@ -14,4 +14,7 @@
  *    limitations under the License.
  */
 
+/**
+ * Symbol used as a token for injecting the warlock mechanism.
+ */
 export const WARLOCK = Symbol("WARLOCK");

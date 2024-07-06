@@ -18,6 +18,9 @@ import { Media } from "../media.types";
 import { LocalizedStringEntity } from "../../../shared/modules/locale/entity/localized-string.entity";
 import { FileMetadataEntity } from "../../file/entity/file-metadata.entity";
 
+/**
+ * The entity stores media objects in itself
+ */
 @Entity("medias")
 @TableInheritance({
   column: { type: "varchar", name: "class", nullable: true },

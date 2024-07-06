@@ -9,6 +9,9 @@ import { MediaEntity } from "./media.entity";
 import { MediaFile } from "../media.types";
 import { MediaFormatEntity } from "./media-format.entity";
 
+/**
+ * The entity stores media object files (links)
+ */
 @Entity("medias_files")
 export class MediaFileEntity implements MediaFile {
   @PrimaryGeneratedColumn({ zerofill: true })

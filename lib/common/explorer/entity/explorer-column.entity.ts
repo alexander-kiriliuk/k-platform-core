@@ -30,6 +30,10 @@ import { ExplorerColumnRendererEntity } from "./explorer-column-renderer.entity"
 import { SimpleJsonTransformer } from "../../../shared/transformers/simple-json.transformer";
 import { ExplorerTabEntity } from "./explorer-tab.entity";
 
+/**
+ * The entity stores the metadata of the field (columns in the database table)
+ * and stores the display configuration in lists and detailed pages
+ */
 @Entity("explorer_columns")
 export class ExplorerColumnEntity implements ExplorerColumn {
   @Index({ unique: true })

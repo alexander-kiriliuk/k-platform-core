@@ -13,6 +13,9 @@ import { File } from "../file.types";
 import { MediaEntity } from "../../media/entity/media.entity";
 import { FileMetadataEntity } from "./file-metadata.entity";
 
+/**
+ * The entity stores data about uploaded files
+ */
 @Entity("files")
 @TableInheritance({
   column: { type: "varchar", name: "class", nullable: true },

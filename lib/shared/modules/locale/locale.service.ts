@@ -21,6 +21,9 @@ import { LanguageEntity } from "./entity/language.entity";
 import { LocalizedStringEntity } from "./entity/localized-string.entity";
 import { LocalizedMediaEntity } from "./entity/localized-media.entity";
 
+/**
+ * Service for handling localization operations.
+ */
 @Injectable()
 export class LocaleService {
   constructor(
@@ -32,6 +35,12 @@ export class LocaleService {
     private readonly localizedMediaRep: Repository<LocalizedMediaEntity>,
   ) {}
 
+  /**
+   * Creates localized strings for all available languages.
+   * @param value - The value to be localized.
+   * @param code - An optional code to be used for the localized strings.
+   * @returns A promise that resolves to an array of LocalizedStringEntity objects.
+   */
   async createLocalizedStrings(
     value: string,
     code?: string,

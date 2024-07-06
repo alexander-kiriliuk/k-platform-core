@@ -24,6 +24,9 @@ import {
 import { LocalizedString } from "../locale.types";
 import { LanguageEntity } from "./language.entity";
 
+/**
+ * The entity stores the translations in itself
+ */
 @Entity("localized_strings")
 export class LocalizedStringEntity implements LocalizedString {
   @PrimaryGeneratedColumn({ zerofill: true })

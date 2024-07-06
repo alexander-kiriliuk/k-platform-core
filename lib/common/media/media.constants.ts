@@ -28,7 +28,13 @@ export const DEFAULT_MEDIA_QUALITY = 78;
  * Namespace containing reserved media formats.
  */
 export namespace ReservedMediaFormat {
+  /**
+   * Represents the original media format.
+   */
   export const ORIGINAL = "original";
+  /**
+   * Represents the thumbnail media format.
+   */
   export const THUMB = "thumb";
 }
 
@@ -36,6 +42,9 @@ export namespace ReservedMediaFormat {
  * Namespace containing reserved media extensions.
  */
 export namespace ReservedMediaExt {
+  /**
+   * Represents the SVG media extension.
+   */
   export const SVG = "svg";
 }
 

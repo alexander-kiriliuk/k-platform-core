@@ -19,6 +19,9 @@ import Redis from "ioredis";
 import { MessagesBroker } from "./messages-broker.types";
 import { REDIS_CLIENT } from "../cache/cache.constants";
 
+/**
+ * A service that implements the MessagesBroker interface for message brokering using Redis.
+ */
 @Injectable()
 export class MessagesBrokerService implements MessagesBroker {
   private readonly subClient: Redis;
@@ -36,20 +39,39 @@ export class MessagesBrokerService implements MessagesBroker {
     });
   }
 
+  /**
+   * Emits a message to a specific channel.
+   * @param chanel - The channel to emit the message to.
+   * @param data - The data to emit.
+   */
   async emit<T = unknown>(chanel: string, data: T) {
     await this.pubClient.publish(chanel, this.safeSerialize(data));
   }
 
+  /**
+   * Subscribes to a specific channel with a handler function.
+   * @param chanel - The channel to subscribe to.
+   * @param handler - The handler function to handle the data.
+   */
   subscribe<T = unknown>(chanel: string, handler: (data: T) => void) {
     this.subClient.subscribe(chanel);
     this.subscribers.set(chanel, handler);
   }
 
+  /**
+   * Unsubscribes from a specific channel.
+   * @param chanel - The channel to unsubscribe from.
+   */
   unsubscribe(chanel: string) {
     this.subClient.unsubscribe(chanel);
     this.subscribers.delete(chanel);
   }
 
+  /**
+   * Safely serializes data to a JSON string.
+   * @param data - The data to serialize.
+   * @returns The serialized JSON string.
+   */
   private safeSerialize<T = unknown>(data: T) {
     try {
       return JSON.stringify(data);
@@ -58,6 +80,11 @@ export class MessagesBrokerService implements MessagesBroker {
     }
   }
 
+  /**
+   * Safely deserializes a JSON string to an object.
+   * @param data - The JSON string to deserialize.
+   * @returns The deserialized object.
+   */
   private safeDeSerialize(data: string) {
     try {
       return JSON.parse(data);

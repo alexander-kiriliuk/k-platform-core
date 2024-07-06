@@ -14,5 +14,12 @@
  *    limitations under the License.
  */
 
+/**
+ * Symbol used as a token for injecting the microservices' client.
+ */
 export const MS_CLIENT = Symbol("MS_CLIENT");
+
+/**
+ * Symbol used as a token for injecting the message bus.
+ */
 export const MSG_BUS = Symbol("MSG_BUS");

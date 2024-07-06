@@ -53,6 +53,10 @@ export class CategoryService {
     return res;
   }
 
+  /**
+   * Sorts the children of a category by priority.
+   * @param cat - The category entity whose children need to be sorted.
+   */
   private sort(cat: CategoryEntity) {
     ObjectUtils.sort<CategoryEntity>(cat.children, "priority", false);
   }

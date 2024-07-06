@@ -14,4 +14,7 @@
  *    limitations under the License.
  */
 
+/**
+ * A symbol used for injecting the Redis client.
+ */
 export const REDIS_CLIENT = Symbol("REDIS_CLIENT");

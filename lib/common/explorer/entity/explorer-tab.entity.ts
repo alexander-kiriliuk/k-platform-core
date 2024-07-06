@@ -28,6 +28,9 @@ import { LocalizedStringEntity } from "../../../shared/modules/locale/entity/loc
 import { SimpleJsonTransformer } from "../../../shared/transformers/simple-json.transformer";
 import { ExplorerTargetEntity } from "./explorer-target.entity";
 
+/**
+ * The entity stores the tabbed display parameters in the entity editing interface.
+ */
 @Entity("explorer_tabs")
 export class ExplorerTabEntity implements ExplorerTab {
   @Index({ unique: true })

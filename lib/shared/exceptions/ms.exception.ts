@@ -17,6 +17,9 @@
 import { RpcException } from "@nestjs/microservices";
 import { MS_EXCEPTION_ID } from "../constants";
 
+/**
+ * Base class for custom microservice exceptions, extending RpcException.
+ */
 export class MsException extends RpcException {
   constructor(
     readonly code: number,

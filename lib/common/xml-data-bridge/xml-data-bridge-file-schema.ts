@@ -21,6 +21,10 @@ import { XdbDecomposedEntity } from "./xml-data-bridge.types";
 import { Xdb } from "./xml-data-bridge.constants";
 
 export namespace XmlDataBridgeFileSchema {
+  /**
+   * A placeholder string used for tokenizing the body content within templates.
+   * This token is used to dynamically replace or insert content in XML or other templated strings.
+   */
   export const BODY_TOKEN = `%%%body%%%`;
 
   /**

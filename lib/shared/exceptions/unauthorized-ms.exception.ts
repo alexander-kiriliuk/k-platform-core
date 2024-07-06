@@ -17,6 +17,9 @@
 import { HttpStatus } from "@nestjs/common";
 import { MsException } from "./ms.exception";
 
+/**
+ * Custom microservice exception for unauthorized requests, extending MsException.
+ */
 export class UnauthorizedMsException extends MsException {
   constructor(message?: string) {
     super(HttpStatus.UNAUTHORIZED, message || "Unauthorized request");

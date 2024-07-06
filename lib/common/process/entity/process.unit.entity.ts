@@ -29,6 +29,9 @@ import { ProcessUnit } from "../process.types";
 import { ProcessLogEntity } from "./process.log.entity";
 import { LocalizedStringEntity } from "../../../shared/modules/locale/entity/localized-string.entity";
 
+/**
+ * The entity stores system processes, their configuration and state
+ */
 @Entity("process_units")
 export class ProcessUnitEntity implements ProcessUnit {
   @PrimaryColumn("varchar")

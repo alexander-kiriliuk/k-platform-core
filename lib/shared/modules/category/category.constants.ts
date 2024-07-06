@@ -14,6 +14,9 @@
  *    limitations under the License.
  */
 
+/**
+ * An array defining the relations to be loaded with the Category entity.
+ */
 export const CATEGORY_RELATIONS = [
   "icon",
   "icon.name",

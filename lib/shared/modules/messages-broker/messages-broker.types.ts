@@ -14,10 +14,27 @@
  *    limitations under the License.
  */
 
+/**
+ * Interface defining the contract for message brokering.
+ */
 export interface MessagesBroker {
+  /**
+   * Emits a message to a specific channel.
+   * @param chanel - The channel to emit the message to.
+   * @param data - The data to emit.
+   */
   emit<T = unknown>(chanel: string, data: T): Promise<void>;
 
+  /**
+   * Subscribes to a specific channel with a handler function.
+   * @param chanel - The channel to subscribe to.
+   * @param handler - The handler function to handle the data.
+   */
   subscribe<T = unknown>(chanel: string, handler: (data: T) => void);
 
+  /**
+   * Unsubscribes from a specific channel.
+   * @param chanel - The channel to unsubscribe from.
+   */
   unsubscribe(chanel: string);
 }

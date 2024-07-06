@@ -17,6 +17,9 @@
 import { HttpStatus } from "@nestjs/common";
 import { MsException } from "./ms.exception";
 
+/**
+ * Custom microservice exception for invalid token, extending MsException.
+ */
 export class InvalidTokenMsException extends MsException {
   constructor(message?: string) {
     super(HttpStatus.UNAUTHORIZED, message || "Invalid token");

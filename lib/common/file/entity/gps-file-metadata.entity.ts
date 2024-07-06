@@ -1,6 +1,9 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 import { GpsFileMetadata } from "../file.types";
 
+/**
+ * The entity stores the GPS metadata of the file
+ */
 @Entity("file_metadata_gps")
 export class GpsFileMetadataEntity implements GpsFileMetadata {
   @PrimaryGeneratedColumn({ zerofill: true })

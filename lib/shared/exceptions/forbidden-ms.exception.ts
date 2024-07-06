@@ -17,6 +17,9 @@
 import { HttpStatus } from "@nestjs/common";
 import { MsException } from "./ms.exception";
 
+/**
+ * Custom microservice exception for forbidden requests, extending MsException.
+ */
 export class ForbiddenMsException extends MsException {
   constructor(message?: string) {
     super(HttpStatus.FORBIDDEN, message || "Forbidden");

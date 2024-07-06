@@ -86,6 +86,14 @@ export class MsClient implements MessageBus {
     return this.handleRequest(source, pattern, data, opts);
   }
 
+  /**
+   * Handles the request by logging and managing errors and timeouts.
+   * @param source - The observable source.
+   * @param pattern - The message pattern.
+   * @param data - The message data.
+   * @param opts - Optional configuration options for the client.
+   * @returns An observable of the result.
+   */
   private handleRequest<T>(
     source: Observable<T>,
     pattern: any,

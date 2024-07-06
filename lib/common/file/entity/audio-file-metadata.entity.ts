@@ -1,6 +1,9 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 import { AudioFileMetadata } from "../file.types";
 
+/**
+ * The entity stores the audio metadata of the file
+ */
 @Entity("file_metadata_audio")
 export class AudioFileMetadataEntity implements AudioFileMetadata {
   @PrimaryGeneratedColumn({ zerofill: true })

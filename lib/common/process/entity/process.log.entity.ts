@@ -26,6 +26,9 @@ import {
 import { ProcessUnitEntity } from "./process.unit.entity";
 import { ProcessLog } from "../process.types";
 
+/**
+ * The entity stores logs of system processes
+ */
 @Entity("process_logs")
 export class ProcessLogEntity implements ProcessLog {
   @PrimaryGeneratedColumn({ zerofill: true })

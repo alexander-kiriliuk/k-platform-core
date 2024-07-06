@@ -29,6 +29,9 @@ import { UserRoleEntity } from "./user-role.entity";
 import { User } from "../user.types";
 import { MediaEntity } from "../../media/entity/media.entity";
 
+/**
+ * The entity stores the users of the system
+ */
 @Entity("users")
 @TableInheritance({
   column: { type: "varchar", name: "class", nullable: true },

@@ -22,6 +22,9 @@ import { EnvLoader } from "../../utils/env.loader";
 import { CacheService } from "./cache.types";
 import { RedisCacheService } from "./redis-cache.service";
 
+/**
+ * A module that provides caching functionality using Redis.
+ */
 @Module({
   imports: [
     RedisModule.forRootAsync({

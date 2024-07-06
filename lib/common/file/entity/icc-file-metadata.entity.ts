@@ -1,6 +1,9 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 import { IccFileMetadata } from "../file.types";
 
+/**
+ * The entity stores the ICC metadata of the file
+ */
 @Entity("file_metadata_icc")
 export class IccFileMetadataEntity implements IccFileMetadata {
   @PrimaryGeneratedColumn({ zerofill: true })

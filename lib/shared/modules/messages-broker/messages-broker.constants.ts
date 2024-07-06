@@ -14,4 +14,7 @@
  *    limitations under the License.
  */
 
+/**
+ * Symbol used as a token for injecting the MessagesBrokerService.
+ */
 export const MESSAGES_BROKER = Symbol("MSG_BROKER");

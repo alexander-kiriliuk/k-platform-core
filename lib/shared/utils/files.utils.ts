@@ -20,7 +20,15 @@ import { OpenMode } from "node:fs";
 import { Abortable } from "node:events";
 import * as path from "path";
 
+/**
+ * Object to hold the dynamically imported file-type module.
+ */
 const fileTypeModule = {} as { lib: typeof import("file-type") };
+
+/**
+ * Immediately Invoked Function Expression (IIFE) to dynamically import the ES module 'file-type'.
+ * @param {object} ft - The fileTypeModule object.
+ */
 (async (ft) => {
   // crutch for import ES module
   ft.lib = await (eval('import("file-type")') as Promise<
@@ -28,6 +36,10 @@ const fileTypeModule = {} as { lib: typeof import("file-type") };
   >);
 })(fileTypeModule);
 
+/**
+ * An interface representing a structure of directories and files.
+ * The keys are directory names, and the values are either arrays of file names or nested DirectoryStructure objects.
+ */
 interface DirectoryStructure {
   [key: string]: string[] | DirectoryStructure;
 }

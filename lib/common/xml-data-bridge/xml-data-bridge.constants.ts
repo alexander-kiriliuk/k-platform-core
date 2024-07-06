@@ -47,6 +47,9 @@ export namespace Xdb {
    */
   export const rootToken = "@root";
 
+  /**
+   * Stored xml-parser instance
+   */
   let parser: Parser & {
     parseString: (
       xmlData: string | Buffer,

@@ -19,6 +19,9 @@ import { Redis } from "ioredis";
 import { REDIS_CLIENT } from "./cache.constants";
 import { EnvLoader } from "../../utils/env.loader";
 
+/**
+ * A module that provides Redis client configuration and setup.
+ */
 @Module({})
 export class RedisModule {
   private static redisInstance: Redis | null = null;

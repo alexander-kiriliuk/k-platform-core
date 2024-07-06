@@ -27,6 +27,9 @@ import { LocalizedStringEntity } from "../../../shared/modules/locale/entity/loc
 import { Explorer } from "../explorer.constants";
 import { SimpleJsonTransformer } from "../../../shared/transformers/simple-json.transformer";
 
+/**
+ * The entity stores the available actions on the entities of the system, both in the lists and in the detailed editing pages
+ */
 @Entity("explorer_actions")
 export class ExplorerActionEntity implements ExplorerAction {
   @PrimaryColumn("varchar")
