@@ -1,7 +1,7 @@
-<h1 style="padding: 0; text-align: center">
+<h1 align="center">
     K-Platform is a framework for the rapid development of modern applications
 </h1>
-<p style="padding: 0; text-align: center">
+<p align="center">
     <img src="guide/logo-big.svg" alt="logo" height="80px"/>
 </p>
 
