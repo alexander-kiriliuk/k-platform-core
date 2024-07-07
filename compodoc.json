@@ -3,5 +3,5 @@
   "output": "./dist/docs",
   "includes": "./",
   "hideGenerator": "true",
-  "customFavicon": "./examples/web-server/res/images/kp-logo.png"
+  "customFavicon": "./guide/kp-logo.png"
 }
