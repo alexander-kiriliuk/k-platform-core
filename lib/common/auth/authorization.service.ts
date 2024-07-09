@@ -44,7 +44,6 @@ import { AuthConfig } from "../../../gen-src/auth.config";
 import { BruteforceConfig } from "../../../gen-src/bruteforce.config";
 
 /**
- * @class AuthorizationService
  * A service for authentication and authorization using JSON Web Tokens (JWT) and handling brute force protection.
  * This service provides methods to authenticate users, invalidate tokens, exchange tokens, and manage failed attempts.
  */
