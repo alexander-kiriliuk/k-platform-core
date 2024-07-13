@@ -1,15 +1,19 @@
 {
   "name": "@k-platform/core",
   "version": "0.0.1",
-  "description": "todo description",
-  "main": "dist/core/lib/index.js",
-  "types": "dist/core/lib/index.d.ts",
+  "description": "Framework for the rapid development of modern applications",
+  "main": "./dist/core/lib/index.js",
+  "types": "./dist/core/lib/index.d.ts",
   "exports": "./dist/core/lib/index.js",
   "author": "Alexander Kiriliuk",
   "license": "Apache-2.0",
   "workspaces": [
     "examples/*"
   ],
+  "engines": {
+    "node": ">=18.20.3",
+    "npm": ">=10.7.0"
+  },
   "scripts": {
     "init:config": "nest start init-config",
     "build": "rimraf dist/core && tsc -p lib/tsconfig.lib.json",

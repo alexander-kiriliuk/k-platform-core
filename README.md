@@ -23,11 +23,24 @@ Please navigate to [guides folder](guide) for read detailed documentations of ap
 
 ## Fast start
 
-todo 
+Before installing the platform, make sure that you have Node.js, Redis installed and one of the supported DBMS.
 
+Now let's set up the configuration.
+
+The connection settings to Redis are stored in the `default.env`, that file located in the root directory, use the properties `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB`, `REDIS_USER`, `REDIS_PASSWORD`. You can change it or create a `local.env` file to override some properties on your local machine.
+
+Next, go to the `./examples/web-server` directory, here you will find the `db.properties` file. Inside that, you will find the DBMS connection settings, you can change it or create a `local.properties` file to override some properties on your local machine (the names of all properties in the file match the [TypeORM data source options](https://typeorm.io/data-source-options)).
+
+Now that all the preinstallation recommendations are done, you can install the platform.
+- Run `npm i` command for install all dependencies
+- Run `npm run init:web-app` for generate configuration files, build sources and fill cache DB, and import default state of DB from default XML-configuration
+- Run  `npm run start:web-app` for start example web-application server
+
+Now you can proceed to the installation of the client application, which is an admin panel for system management. To do this, visit the repository [@k-platform/client](https://github.com/alexander-kiriliuk/k-platform-client).
+
+> Recommendation: use Postgres or MySQL as a DBMS, and in the future you can replace Radius with the desired to if necessary by writing your own custom interaction service.
 
 > Note: all modules has been tested only with Postgres and MySQL database systems.
-
 
 ### Based on
 
