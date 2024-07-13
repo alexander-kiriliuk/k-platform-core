@@ -105,7 +105,20 @@ please <a href="https://github.com/alexander-kiriliuk/k-platform-client">read mo
 <h2>Documentation</h2>
 <p>Please navigate to <a href="guide">guides folder</a> for read detailed documentations of application and also visit <a href="https://alexander-kiriliuk.github.io/k-platform-core">codebase documentations website</a></p>
 <h2>Fast start</h2>
-<p>todo </p>
+<p>Before installing the platform, make sure that you have Node.js, Redis installed and one of the supported DBMS.</p>
+<p>Now let&#39;s set up the configuration.</p>
+<p>The connection settings to Redis are stored in the <code>default.env</code>, that file located in the root directory, use the properties <code>REDIS_HOST</code>, <code>REDIS_PORT</code>, <code>REDIS_DB</code>, <code>REDIS_USER</code>, <code>REDIS_PASSWORD</code>. You can change it or create a <code>local.env</code> file to override some properties on your local machine.</p>
+<p>Next, go to the <code>./examples/web-server</code> directory, here you will find the <code>db.properties</code> file. Inside that, you will find the DBMS connection settings, you can change it or create a <code>local.properties</code> file to override some properties on your local machine (the names of all properties in the file match the <a href="https://typeorm.io/data-source-options">TypeORM data source options</a>).</p>
+<p>Now that all the preinstallation recommendations are done, you can install the platform.</p>
+<ul>
+<li>Run <code>npm i</code> command for install all dependencies</li>
+<li>Run <code>npm run init:web-app</code> for generate configuration files, build sources and fill cache DB, and import default state of DB from default XML-configuration</li>
+<li>Run  <code>npm run start:web-app</code> for start example web-application server</li>
+</ul>
+<p>Now you can proceed to the installation of the client application, which is an admin panel for system management. To do this, visit the repository <a href="https://github.com/alexander-kiriliuk/k-platform-client">@k-platform/client</a>.</p>
+<blockquote>
+<p>Recommendation: use Postgres or MySQL as a DBMS, and in the future you can replace Radius with the desired to if necessary by writing your own custom interaction service.</p>
+</blockquote>
 <blockquote>
 <p>Note: all modules has been tested only with Postgres and MySQL database systems.</p>
 </blockquote>
