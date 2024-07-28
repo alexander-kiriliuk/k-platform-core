@@ -26,7 +26,12 @@ module.exports = {
         "singleQuote": false
       }
     ],
-    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "warn", {
+        varsIgnorePattern: "^_|error|opts",
+        argsIgnorePattern: "^_|error|opts"
+      }
+    ],
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",

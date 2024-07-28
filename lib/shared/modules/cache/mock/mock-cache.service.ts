@@ -25,12 +25,6 @@ import { MockStorage } from "../../mock/mock.storage";
 export class MockCacheService implements CacheService {
   constructor(private readonly storage: MockStorage) {}
 
-  /**
-   * Retrieves the value of the specified key from the mock storage.
-   *
-   * @param key - The key to retrieve from the mock storage.
-   * @returns A Promise that resolves to the value of the key or null.
-   */
   async get(key: string): Promise<string | null> {
     return new Promise((resolve) => {
       const res = this.storage.find(key);
@@ -38,53 +32,23 @@ export class MockCacheService implements CacheService {
     });
   }
 
-  /**
-   * Retrieves the boolean value of the specified key from the mock storage.
-   *
-   * @param key - The key to retrieve from the mock storage.
-   * @returns A Promise that resolves to the boolean value of the key.
-   */
   async getBoolean(key: string) {
     const val = await this.get(key);
     return Boolean(val);
   }
 
-  /**
-   * Retrieves the number value of the specified key from the mock storage.
-   *
-   * @param key - The key to retrieve from the mock storage.
-   * @returns A Promise that resolves to the number value of the key.
-   */
   async getNumber(key: string) {
     const val = await this.get(key);
     return +val;
   }
 
-  /**
-   * Sets the value of the specified key in the mock storage.
-   *
-   * @param key - The key to set in the cache.
-   * @param value - The value to set for the key.
-   * @param expiresIn - Optional expiration time in seconds (not affect to anything).
-   * @returns A true value always.
-   */
-  async set(
-    key: string,
-    value: string | number,
-    expiresIn?: number,
-  ): Promise<boolean> {
+  async set(key: string, value: string | number, _?: number): Promise<boolean> {
     return new Promise((resolve) => {
       this.storage.set(key, value);
       resolve(true);
     });
   }
 
-  /**
-   * Deletes the specified keys from the mock storage.
-   *
-   * @param keys - The keys to delete from the mock storage.
-   * @returns A true value always.
-   */
   async del(...keys: string[]): Promise<boolean> {
     return new Promise((resolve) => {
       keys.forEach((k) => this.storage.remove(k));
@@ -92,12 +56,6 @@ export class MockCacheService implements CacheService {
     });
   }
 
-  /**
-   * Increments the value of the specified key in the mock storage.
-   *
-   * @param key - The key to increment.
-   * @returns A Promise that resolves to the new value of the key or null if an error occurs.
-   */
   async incr(key: string): Promise<number | null> {
     return new Promise(async (resolve) => {
       try {
@@ -111,22 +69,10 @@ export class MockCacheService implements CacheService {
     });
   }
 
-  /**
-   * Sets the expiration time for the given key in the mock storage (this method is a stub).
-   * @param key - The key to set the expiration time for (not affect to anything).
-   * @param expiresIn - The expiration time in seconds (not affect to anything).
-   * @returns A true value always.
-   */
-  async expire(key: string, expiresIn: number): Promise<boolean> {
+  async expire(_: string, __: number): Promise<boolean> {
     return new Promise((resolve) => resolve(true));
   }
 
-  /**
-   * Retrieves the value of the specified key-pattern from the mock storage,
-   * it is assumed that an array of strings will be mocked as data
-   * @param key - The key-pattern to retrieve from the mock storage.
-   * @returns An array of data.
-   */
   getFromPattern(key: string): Promise<string[]> {
     return new Promise((resolve) => {
       const res = this.storage.filter(key);
