@@ -226,12 +226,12 @@ export namespace FilesUtils {
   /**
    * Reads a file.
    * @param path - The path of the file to read.
-   * @param options - Optional read options.
+   * @param opts - Optional read options.
    * @returns The file contents as a buffer.
    */
   export async function readFile(
     path: string,
-    options?:
+    opts?:
       | ({
           encoding?: null | undefined;
           flag?: OpenMode | undefined;
