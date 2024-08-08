@@ -261,6 +261,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The bit depth of the image, indicating the number of bits used for color representation</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -294,6 +300,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The number of bits used to represent the color of a single pixel in the image</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -327,6 +339,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The number of color components used to represent the color of the image</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -360,6 +378,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The color type of the image, indicating the color model used</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -393,6 +417,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Contains the compression method used to reduce the size of the image</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -426,6 +456,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The date and time when the image was created or last modified</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -459,6 +495,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Specifies the filtering method used to process the image data before compressing it</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -492,6 +534,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The height of the image in pixels</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -525,6 +573,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>This field contains the identification number</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -558,6 +612,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Indicates whether interlacing is used in the image, allowing for progressive display</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -591,6 +651,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The subsampling method used for the image, indicating how color information is sampled</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -624,6 +690,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The width of the image in pixels</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -655,15 +727,25 @@ export interface File {
  * Interface representing file metadata.
  */
 export interface FileMetadata {
+  /** This field contains the identification number */
   id: number;
+  /** The MIME type of the file, indicating the nature and format of the file content */
   mime: string;
+  /** The file extension, indicating the file format */
   ext: string;
+  /** The cryptographic hash of the file content, used for integrity verification and identification */
   hash: string;
+  /** The ICC (International Color Consortium) profile data associated with the file, used for color management */
   icc: IccFileMetadata;
+  /** GPS data associated with the location where the file was created, including latitude, longitude and elevation */
   gps: GpsFileMetadata;
+  /** This field is used to store information about the structure and characteristics of the image, such as size, resolution, color depth, and other image characteristics */
   image: ImageFileMetadata;
+  /** This is EXIF (Exchangeable Image File Format) data, which includes various metadata that was recorded by the camera or device when the image was created */
   exif: ExifFileMetadata;
+  /** This field is used to store information about the structure and properties of the audio file */
   audio: AudioFileMetadata;
+  /** This field is used to store information about the structure and properties of the video recording*/
   video: VideoFileMetadata;
 }
 
@@ -671,17 +753,29 @@ export interface FileMetadata {
  * Interface representing image file metadata.
  */
 export interface ImageFileMetadata {
+  /** This field contains the identification number */
   id: number;
+  /** The number of bits used to represent the color of a single pixel in the image */
   bps: number;
+  /** The width of the image in pixels */
   width: number;
+  /** The height of the image in pixels */
   height: number;
+  /** The number of color components used to represent the color of the image */
   colorComponents: number;
+  /** The subsampling method used for the image, indicating how color information is sampled */
   subsampling: string;
+  /** The date and time when the image was created or last modified */
   dateTime: Date;
+  /** The bit depth of the image, indicating the number of bits used for color representation */
   bitDepth: number;
+  /** The color type of the image, indicating the color model used */
   colorType: string;
+  /** Contains the compression method used to reduce the size of the image */
   compression: string;
+  /** Specifies the filtering method used to process the image data before compressing it */
   filter: string;
+  /**  Indicates whether interlacing is used in the image, allowing for progressive display */
   interlace: string;
 }
 
