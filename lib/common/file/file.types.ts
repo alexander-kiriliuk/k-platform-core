@@ -94,20 +94,35 @@ export interface ImageFileMetadata {
  * Interface representing ICC file metadata.
  */
 export interface IccFileMetadata {
+  /** This field contains the identification number */
   id: number;
+  /** The version of the ICC profile, indicating the specification version used to create the color profile. */
   profileVersion: string;
+  /** The class of the ICC profile, indicating its primary purpose and type */
   profileClassValue: string;
+  /** The name of the ICC profile class, describing its primary purpose */
   profileClassName: string;
+  /** The connection space of the ICC profile, representing the intermediate color space used for color conversions. */
   connectionSpace: string;
+  /** The date and time when the ICC profile was created or last modified */
   iccProfileDate: Date;
+  /** A unique signature of the ICC profile used to confirm its authenticity and validity */
   iccSignature: string;
+  /** The primary platform or operating system for which the ICC profile was created or optimized */
   primaryPlatform: string;
+  /** The manufacturer of the device for which the ICC profile was created */
   deviceManufacturer: string;
+  /** The model number of the device for which the ICC profile was created */
   deviceModelNumber: string;
+  /**  Indicates the type of rendering to be used when converting colors between color spaces */
   renderingIntentValue: string;
+  /** Specifies the name of the rendering type that is used when converting colors between color spaces */
   renderingIntentName: string;
+  /** The name or identifier of the creator of the ICC profile */
   profileCreator: string;
+  /** A description of the ICC profile, explaining its purpose and characteristics */
   iccDescription: string;
+  /** The copyright information for the ICC profile, indicating ownership and usage rights */
   iccCopyright: string;
 }
 
@@ -229,18 +244,31 @@ export interface GpsFileMetadata {
  * Interface representing video file metadata.
  */
 export interface VideoFileMetadata {
+  /** This field contains the identification number */
   id: number;
+  /** A codec ( algorithm or method ) used to compress and decompress a video file */
   codec: string;
+  /** The container format of the video file, indicating how video, audio, and other data streams are packaged together */
   container: string;
+  /** The width of the video in pixels */
   width: number;
+  /** The height of the video in pixels */
   height: number;
+  /**  The bitrate of the video file, indicating the amount of data processed per second */
   bitrate: number;
+  /** The duration of the video file in seconds */
   duration: number;
+  /** A sample video aspect ratio indicating how pixels are distributed in a video stream */
   sampleAspectRatio: string;
+  /** The display aspect ratio of the video, indicating the ratio of width to height for playback.*/
   displayAspectRatio: string;
+  /** Video color range, indicating the set of colors used in the video file */
   colorRange: string;
+  /** The color space of the video, indicating how colors are represented and interpreted */
   colorSpace: string;
+  /** The frame rate of the video, indicating the number of frames displayed per second */
   frameRate: string;
+  /** The rotation angle of the video in degrees, indicating its orientation */
   rotate: string;
 }
 
