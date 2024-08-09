@@ -1,5 +1,7 @@
 # XML data-bridge
 
+## Import data
+
 This module allows you to import and export any database data using special XML markup. Also, there is support for exporting/importing a file archive of data including associated static files (e.g. Media entities). The ability to execute SQL queries using XML markup is supported.
 
 A basic XML file with markup looks like this:
@@ -13,7 +15,7 @@ A basic XML file with markup looks like this:
 
 Next, let's look at the various import commands in detail. 
 
-## InsertUpdate
+### InsertUpdate
 
 This command creates a new record if it does not exist in the database or updates an existing one. Let's consider a simple example that involves creating a new user:
 
@@ -69,18 +71,44 @@ Note the `mode="push"` attribute, it indicates that the entry should be added to
 
 Also, it should be noted that the values `true`, `false`, `null` are supported. These values are not recognised as strings in fields with corresponding types.
 
-## Remove
+### Remove
+
+Deleting a record works on the same principle as `InsertUpdate`. In this example, the `target` attribute of the `Remove` tag contains the name of a database entity (the name of a class decorated with the `@Entity()` TypeORM decorator), the child node `<row>` informs that a record will be deleted (there can be several rows), the entity data is inside `<row>`, the tag names correspond to the field names of the `UserEntity` class (decorated with the `@Entity()` TypeORM decorator), and the contents of these tags are their values.
+
+    <Remove target="UserEntity">
+        <row>
+            <login>test</login>
+        </row>
+    </Remove>
+
+In this case we use `<login>` field as the system identifies the record by primary and unique indexes, and in this case `login` is a primary key field.
+
+### Media
+
+To import images, the `Media` command is used to create or update an existing `MediaEntity`. The principle of operation is the same as `InsertUpdate`, but there are some differences. Let's consider a simple example:
+
+    <Media>
+        <row>
+            <code>test-image</code>
+            <type>default</type>
+            <file>/test-dir/test.png</file>
+        </row>
+    </Media>
+
+In this example:
+
+- `code` is the unique index of `MediaEntity`. \
+- `type` is a reference to a media type (`MediaTypeEntity`), in this case `default` is the specific type code that contains the image encoding and thumbnail creation parameters. Unlike `InsertUpdate`, the `key` parameter is not required here.
+- `file` is the path to the image source file relative to the project root.
+
+For detailed information about all media attributes and how they are organised, see the [section media](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/guide/media.md).
+
+### File
 todo
 
-## Media
+### Include
 todo
 
-## File
-todo
-
-## Include
-todo
-
-## Query
+### Query
 todo
 
