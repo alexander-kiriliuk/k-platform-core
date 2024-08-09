@@ -267,6 +267,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The bitrate of the video file, indicating the amount of data processed per second</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -300,6 +306,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>A codec ( algorithm or method ) used to compress and decompress a video file</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -333,6 +345,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Video color range, indicating the set of colors used in the video file</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -366,6 +384,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The color space of the video, indicating how colors are represented and interpreted</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -399,6 +423,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The container format of the video file, indicating how video, audio, and other data streams are packaged together</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -432,6 +462,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The display aspect ratio of the video, indicating the ratio of width to height for playback.</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -465,6 +501,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The duration of the video file in seconds</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -498,6 +540,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The frame rate of the video, indicating the number of frames displayed per second</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -531,6 +579,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The height of the video in pixels</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -564,6 +618,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>This field contains the identification number</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -597,6 +657,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The rotation angle of the video in degrees, indicating its orientation</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -630,6 +696,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>A sample video aspect ratio indicating how pixels are distributed in a video stream</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -663,6 +735,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The width of the video in pixels</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -900,18 +978,31 @@ export interface GpsFileMetadata {
  * Interface representing video file metadata.
  */
 export interface VideoFileMetadata {
+  /** This field contains the identification number */
   id: number;
+  /** A codec ( algorithm or method ) used to compress and decompress a video file */
   codec: string;
+  /** The container format of the video file, indicating how video, audio, and other data streams are packaged together */
   container: string;
+  /** The width of the video in pixels */
   width: number;
+  /** The height of the video in pixels */
   height: number;
+  /**  The bitrate of the video file, indicating the amount of data processed per second */
   bitrate: number;
+  /** The duration of the video file in seconds */
   duration: number;
+  /** A sample video aspect ratio indicating how pixels are distributed in a video stream */
   sampleAspectRatio: string;
+  /** The display aspect ratio of the video, indicating the ratio of width to height for playback.*/
   displayAspectRatio: string;
+  /** Video color range, indicating the set of colors used in the video file */
   colorRange: string;
+  /** The color space of the video, indicating how colors are represented and interpreted */
   colorSpace: string;
+  /** The frame rate of the video, indicating the number of frames displayed per second */
   frameRate: string;
+  /** The rotation angle of the video in degrees, indicating its orientation */
   rotate: string;
 }
 

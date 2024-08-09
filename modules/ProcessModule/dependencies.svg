@@ -28,13 +28,13 @@
 <title>cluster_ProcessModule_imports</title>
 <polygon fill="none" stroke="black" points="469,-78 469,-130 863,-130 863,-78 469,-78"/>
 </g>
-<g id="clust6" class="cluster">
-<title>cluster_ProcessModule_providers</title>
-<polygon fill="none" stroke="black" points="16,-78 16,-130 461,-130 461,-78 16,-78"/>
-</g>
 <g id="clust4" class="cluster">
 <title>cluster_ProcessModule_exports</title>
 <polygon fill="none" stroke="black" points="446,-208 446,-260 616,-260 616,-208 446,-208"/>
+</g>
+<g id="clust6" class="cluster">
+<title>cluster_ProcessModule_providers</title>
+<polygon fill="none" stroke="black" points="16,-78 16,-130 461,-130 461,-78 16,-78"/>
 </g>
 <!-- LogModule -->
 <g id="node1" class="node">

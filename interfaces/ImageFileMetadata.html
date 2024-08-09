@@ -933,18 +933,31 @@ export interface GpsFileMetadata {
  * Interface representing video file metadata.
  */
 export interface VideoFileMetadata {
+  /** This field contains the identification number */
   id: number;
+  /** A codec ( algorithm or method ) used to compress and decompress a video file */
   codec: string;
+  /** The container format of the video file, indicating how video, audio, and other data streams are packaged together */
   container: string;
+  /** The width of the video in pixels */
   width: number;
+  /** The height of the video in pixels */
   height: number;
+  /**  The bitrate of the video file, indicating the amount of data processed per second */
   bitrate: number;
+  /** The duration of the video file in seconds */
   duration: number;
+  /** A sample video aspect ratio indicating how pixels are distributed in a video stream */
   sampleAspectRatio: string;
+  /** The display aspect ratio of the video, indicating the ratio of width to height for playback.*/
   displayAspectRatio: string;
+  /** Video color range, indicating the set of colors used in the video file */
   colorRange: string;
+  /** The color space of the video, indicating how colors are represented and interpreted */
   colorSpace: string;
+  /** The frame rate of the video, indicating the number of frames displayed per second */
   frameRate: string;
+  /** The rotation angle of the video in degrees, indicating its orientation */
   rotate: string;
 }
 
