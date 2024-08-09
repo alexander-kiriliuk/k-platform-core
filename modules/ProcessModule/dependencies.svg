@@ -24,95 +24,95 @@
 <title>cluster_ProcessModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-70 8,-268 871,-268 871,-70 8,-70"/>
 </g>
-<g id="clust4" class="cluster">
-<title>cluster_ProcessModule_exports</title>
-<polygon fill="none" stroke="black" points="276,-208 276,-260 446,-260 446,-208 276,-208"/>
+<g id="clust3" class="cluster">
+<title>cluster_ProcessModule_imports</title>
+<polygon fill="none" stroke="black" points="469,-78 469,-130 863,-130 863,-78 469,-78"/>
 </g>
 <g id="clust6" class="cluster">
 <title>cluster_ProcessModule_providers</title>
-<polygon fill="none" stroke="black" points="418,-78 418,-130 863,-130 863,-78 418,-78"/>
+<polygon fill="none" stroke="black" points="16,-78 16,-130 461,-130 461,-78 16,-78"/>
 </g>
-<g id="clust3" class="cluster">
-<title>cluster_ProcessModule_imports</title>
-<polygon fill="none" stroke="black" points="16,-78 16,-130 410,-130 410,-78 16,-78"/>
+<g id="clust4" class="cluster">
+<title>cluster_ProcessModule_exports</title>
+<polygon fill="none" stroke="black" points="446,-208 446,-260 616,-260 616,-208 446,-208"/>
 </g>
 <!-- LogModule -->
 <g id="node1" class="node">
 <title>LogModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="402.1,-122 399.1,-126 378.1,-126 375.1,-122 319.9,-122 319.9,-86 402.1,-86 402.1,-122"/>
-<text text-anchor="middle" x="361" y="-99.8" font-family="Times,serif" font-size="14.00">LogModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="855.1,-122 852.1,-126 831.1,-126 828.1,-122 772.9,-122 772.9,-86 855.1,-86 855.1,-122"/>
+<text text-anchor="middle" x="814" y="-99.8" font-family="Times,serif" font-size="14.00">LogModule</text>
 </g>
 <!-- ProcessModule -->
 <g id="node4" class="node">
 <title>ProcessModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="412.31,-187 409.31,-191 388.31,-191 385.31,-187 309.69,-187 309.69,-151 412.31,-151 412.31,-187"/>
-<text text-anchor="middle" x="361" y="-164.8" font-family="Times,serif" font-size="14.00">ProcessModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="582.31,-187 579.31,-191 558.31,-191 555.31,-187 479.69,-187 479.69,-151 582.31,-151 582.31,-187"/>
+<text text-anchor="middle" x="531" y="-164.8" font-family="Times,serif" font-size="14.00">ProcessModule</text>
 </g>
 <!-- LogModule&#45;&gt;ProcessModule -->
 <g id="edge1" class="edge">
 <title>LogModule&#45;&gt;ProcessModule</title>
-<path fill="none" stroke="black" d="M361,-122.11C361,-122.11 361,-140.99 361,-140.99"/>
-<polygon fill="black" stroke="black" points="357.5,-140.99 361,-150.99 364.5,-140.99 357.5,-140.99"/>
+<path fill="none" stroke="black" d="M814,-122.28C814,-143.32 814,-175 814,-175 814,-175 592.25,-175 592.25,-175"/>
+<polygon fill="black" stroke="black" points="592.25,-171.5 582.25,-175 592.25,-178.5 592.25,-171.5"/>
 </g>
 <!-- MessagesBrokerModule -->
 <g id="node2" class="node">
 <title>MessagesBrokerModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="302.34,-122 299.34,-126 278.34,-126 275.34,-122 149.66,-122 149.66,-86 302.34,-86 302.34,-122"/>
-<text text-anchor="middle" x="226" y="-99.8" font-family="Times,serif" font-size="14.00">MessagesBrokerModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="755.34,-122 752.34,-126 731.34,-126 728.34,-122 602.66,-122 602.66,-86 755.34,-86 755.34,-122"/>
+<text text-anchor="middle" x="679" y="-99.8" font-family="Times,serif" font-size="14.00">MessagesBrokerModule</text>
 </g>
 <!-- MessagesBrokerModule&#45;&gt;ProcessModule -->
 <g id="edge2" class="edge">
 <title>MessagesBrokerModule&#45;&gt;ProcessModule</title>
-<path fill="none" stroke="black" d="M302.54,-104C310.01,-104 314.9,-104 314.9,-104 314.9,-104 314.9,-140.89 314.9,-140.89"/>
-<polygon fill="black" stroke="black" points="311.4,-140.89 314.9,-150.89 318.4,-140.89 311.4,-140.89"/>
+<path fill="none" stroke="black" d="M681.71,-122.02C681.71,-139.37 681.71,-163 681.71,-163 681.71,-163 592.44,-163 592.44,-163"/>
+<polygon fill="black" stroke="black" points="592.44,-159.5 582.44,-163 592.44,-166.5 592.44,-159.5"/>
 </g>
 <!-- WarlockModule -->
 <g id="node3" class="node">
 <title>WarlockModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="131.75,-122 128.75,-126 107.75,-126 104.75,-122 24.25,-122 24.25,-86 131.75,-86 131.75,-122"/>
-<text text-anchor="middle" x="78" y="-99.8" font-family="Times,serif" font-size="14.00">WarlockModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="584.75,-122 581.75,-126 560.75,-126 557.75,-122 477.25,-122 477.25,-86 584.75,-86 584.75,-122"/>
+<text text-anchor="middle" x="531" y="-99.8" font-family="Times,serif" font-size="14.00">WarlockModule</text>
 </g>
 <!-- WarlockModule&#45;&gt;ProcessModule -->
 <g id="edge3" class="edge">
 <title>WarlockModule&#45;&gt;ProcessModule</title>
-<path fill="none" stroke="black" d="M78,-122.11C78,-141.34 78,-169 78,-169 78,-169 299.75,-169 299.75,-169"/>
-<polygon fill="black" stroke="black" points="299.75,-172.5 309.75,-169 299.75,-165.5 299.75,-172.5"/>
+<path fill="none" stroke="black" d="M531,-122.11C531,-122.11 531,-140.99 531,-140.99"/>
+<polygon fill="black" stroke="black" points="527.5,-140.99 531,-150.99 534.5,-140.99 527.5,-140.99"/>
 </g>
 <!-- ProcessManagerService  -->
 <g id="node5" class="node">
 <title>ProcessManagerService </title>
-<polygon fill="#fb8072" stroke="black" points="437.99,-252 284.01,-252 284.01,-216 437.99,-216 437.99,-252"/>
-<text text-anchor="middle" x="361" y="-229.8" font-family="Times,serif" font-size="14.00">ProcessManagerService </text>
+<polygon fill="#fb8072" stroke="black" points="607.99,-252 454.01,-252 454.01,-216 607.99,-216 607.99,-252"/>
+<text text-anchor="middle" x="531" y="-229.8" font-family="Times,serif" font-size="14.00">ProcessManagerService </text>
 </g>
 <!-- ProcessModule&#45;&gt;ProcessManagerService  -->
 <g id="edge4" class="edge">
 <title>ProcessModule&#45;&gt;ProcessManagerService </title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M361,-187.11C361,-187.11 361,-205.99 361,-205.99"/>
-<polygon fill="black" stroke="black" points="357.5,-205.99 361,-215.99 364.5,-205.99 357.5,-205.99"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M531,-187.11C531,-187.11 531,-205.99 531,-205.99"/>
+<polygon fill="black" stroke="black" points="527.5,-205.99 531,-215.99 534.5,-205.99 527.5,-205.99"/>
 </g>
 <!-- ProcessManagerService -->
 <g id="node6" class="node">
 <title>ProcessManagerService</title>
-<ellipse fill="#fdb462" stroke="black" cx="751" cy="-104" rx="103.61" ry="18"/>
-<text text-anchor="middle" x="751" y="-99.8" font-family="Times,serif" font-size="14.00">ProcessManagerService</text>
+<ellipse fill="#fdb462" stroke="black" cx="349" cy="-104" rx="103.61" ry="18"/>
+<text text-anchor="middle" x="349" y="-99.8" font-family="Times,serif" font-size="14.00">ProcessManagerService</text>
 </g>
 <!-- ProcessManagerService&#45;&gt;ProcessModule -->
 <g id="edge5" class="edge">
 <title>ProcessManagerService&#45;&gt;ProcessModule</title>
-<path fill="none" stroke="black" d="M751,-122.28C751,-143.32 751,-175 751,-175 751,-175 422.39,-175 422.39,-175"/>
-<polygon fill="black" stroke="black" points="422.39,-171.5 412.39,-175 422.39,-178.5 422.39,-171.5"/>
+<path fill="none" stroke="black" d="M349,-122.02C349,-139.37 349,-163 349,-163 349,-163 469.82,-163 469.82,-163"/>
+<polygon fill="black" stroke="black" points="469.82,-166.5 479.82,-163 469.82,-159.5 469.82,-166.5"/>
 </g>
 <!-- ProcessRegisterService -->
 <g id="node7" class="node">
 <title>ProcessRegisterService</title>
-<ellipse fill="#fdb462" stroke="black" cx="528" cy="-104" rx="101.84" ry="18"/>
-<text text-anchor="middle" x="528" y="-99.8" font-family="Times,serif" font-size="14.00">ProcessRegisterService</text>
+<ellipse fill="#fdb462" stroke="black" cx="126" cy="-104" rx="101.84" ry="18"/>
+<text text-anchor="middle" x="126" y="-99.8" font-family="Times,serif" font-size="14.00">ProcessRegisterService</text>
 </g>
 <!-- ProcessRegisterService&#45;&gt;ProcessModule -->
 <g id="edge6" class="edge">
 <title>ProcessRegisterService&#45;&gt;ProcessModule</title>
-<path fill="none" stroke="black" d="M432.16,-110.31C432.16,-125.53 432.16,-163 432.16,-163 432.16,-163 422.34,-163 422.34,-163"/>
-<polygon fill="black" stroke="black" points="422.34,-159.5 412.34,-163 422.34,-166.5 422.34,-159.5"/>
+<path fill="none" stroke="black" d="M126,-122.28C126,-143.32 126,-175 126,-175 126,-175 469.71,-175 469.71,-175"/>
+<polygon fill="black" stroke="black" points="469.71,-178.5 479.71,-175 469.71,-171.5 469.71,-178.5"/>
 </g>
 </g>
 </svg>

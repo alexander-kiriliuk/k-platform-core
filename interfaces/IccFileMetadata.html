@@ -279,6 +279,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The connection space of the ICC profile, representing the intermediate color space used for color conversions.</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -312,6 +318,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The manufacturer of the device for which the ICC profile was created</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -345,6 +357,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The model number of the device for which the ICC profile was created</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -378,6 +396,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The copyright information for the ICC profile, indicating ownership and usage rights</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -411,6 +435,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>A description of the ICC profile, explaining its purpose and characteristics</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -444,6 +474,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The date and time when the ICC profile was created or last modified</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -477,6 +513,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>A unique signature of the ICC profile used to confirm its authenticity and validity</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -510,6 +552,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>This field contains the identification number</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -543,6 +591,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The primary platform or operating system for which the ICC profile was created or optimized</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -576,6 +630,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The name of the ICC profile class, describing its primary purpose</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -609,6 +669,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The class of the ICC profile, indicating its primary purpose and type</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -642,6 +708,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The name or identifier of the creator of the ICC profile</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -675,6 +747,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The version of the ICC profile, indicating the specification version used to create the color profile.</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -708,6 +786,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Specifies the name of the rendering type that is used when converting colors between color spaces</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -741,6 +825,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Indicates the type of rendering to be used when converting colors between color spaces</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -828,20 +918,35 @@ export interface ImageFileMetadata {
  * Interface representing ICC file metadata.
  */
 export interface IccFileMetadata {
+  /** This field contains the identification number */
   id: number;
+  /** The version of the ICC profile, indicating the specification version used to create the color profile. */
   profileVersion: string;
+  /** The class of the ICC profile, indicating its primary purpose and type */
   profileClassValue: string;
+  /** The name of the ICC profile class, describing its primary purpose */
   profileClassName: string;
+  /** The connection space of the ICC profile, representing the intermediate color space used for color conversions. */
   connectionSpace: string;
+  /** The date and time when the ICC profile was created or last modified */
   iccProfileDate: Date;
+  /** A unique signature of the ICC profile used to confirm its authenticity and validity */
   iccSignature: string;
+  /** The primary platform or operating system for which the ICC profile was created or optimized */
   primaryPlatform: string;
+  /** The manufacturer of the device for which the ICC profile was created */
   deviceManufacturer: string;
+  /** The model number of the device for which the ICC profile was created */
   deviceModelNumber: string;
+  /**  Indicates the type of rendering to be used when converting colors between color spaces */
   renderingIntentValue: string;
+  /** Specifies the name of the rendering type that is used when converting colors between color spaces */
   renderingIntentName: string;
+  /** The name or identifier of the creator of the ICC profile */
   profileCreator: string;
+  /** A description of the ICC profile, explaining its purpose and characteristics */
   iccDescription: string;
+  /** The copyright information for the ICC profile, indicating ownership and usage rights */
   iccCopyright: string;
 }
 
