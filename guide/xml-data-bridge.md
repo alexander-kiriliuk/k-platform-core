@@ -97,7 +97,7 @@ To import images, the `Media` command is used to create or update an existing `M
 
 In this example:
 
-- `code` is the unique index of `MediaEntity`. \
+- `code` is the unique index of `MediaEntity`.
 - `type` is a reference to a media type (`MediaTypeEntity`), in this case `default` is the specific type code that contains the image encoding and thumbnail creation parameters. Unlike `InsertUpdate`, the `key` parameter is not required here.
 - `file` is the path to the image source file relative to the project root.
 
@@ -115,7 +115,7 @@ To import any files, the `File` command is used to create or update an existing 
 
 In this example:
 
-- `code` is the unique index of `FileEntity`. \
+- `code` is the unique index of `FileEntity`.
 - `file` is the path to the image source file relative to the project root.
 
 For details of all the file features and how they are organised, see [file section](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/guide/files.md).
@@ -124,7 +124,7 @@ For details of all the file features and how they are organised, see [file secti
 
 The `Include` command is required to include another xml configuration inside one xml configuration. For example:
 
-    <Include read="/test-dir/test.xml"/>.
+    <Include read="/test-dir/test.xml"/>
 
 This command has only one `read` attribute, which contains the path to the imported configuration relative to the project root. This is useful when you have several large configurations performing different operations, and you need to import them at the same time. As an illustrative example, [initial-data.xml](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/examples/web-server/res/initial-data.xml) creates default data on the system to initialise a web server example project.
 
@@ -142,7 +142,7 @@ This command has only one `content` attribute, which contains the SQL query.
 
 Data export is a helper function that is designed to simplify the creation of configuration files. For example, you can create your test user as in the examples above or export any other user (or any other entity in the system). For example, go to the users section, find your user with the login `test` and click the `Export` button.
 
-![export-dialog.png](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/res/export-dialog.png)
+![export-dialog.png](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/guide/res/export-dialog.png)
 
 In the window that appears, tick the following fields in the `Exclude fields to export` list: `ID` - because this is a generated primary key, and we won't need it, `New password` - this is a virtual field, `Created date` - this is an automatically filled field, and we won't need it either. Next, click the `Export` button at the top of the dialogue box. You will get approximately this XML markup:
 
