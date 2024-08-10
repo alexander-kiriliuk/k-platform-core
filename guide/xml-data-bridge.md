@@ -104,11 +104,83 @@ In this example:
 For detailed information about all media attributes and how they are organised, see the [section media](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/guide/media.md).
 
 ### File
-todo
+To import any files, the `File` command is used to create or update an existing `FileEntity`. The principle of operation is the same as that of `Media`. Let's consider a simple example:
 
+    <File>
+        <row>
+            <code>test-file</code>
+            <file>/test-dir/test.txt</file>
+        </row>
+    </File>
+
+In this example:
+
+- `code` is the unique index of `FileEntity`. \
+- `file` is the path to the image source file relative to the project root.
+
+For details of all the file features and how they are organised, see [file section](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/guide/files.md).
+ 
 ### Include
-todo
+
+The `Include` command is required to include another xml configuration inside one xml configuration. For example:
+
+    <Include read="/test-dir/test.xml"/>.
+
+This command has only one `read` attribute, which contains the path to the imported configuration relative to the project root. This is useful when you have several large configurations performing different operations, and you need to import them at the same time. As an illustrative example, [initial-data.xml](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/examples/web-server/res/initial-data.xml) creates default data on the system to initialise a web server example project.
 
 ### Query
-todo
+
+This command is necessary to execute SQL queries directly to the database, bypassing ORM. Let's consider a simple example:
+
+    <Query content="UPDATE users SET first_name='test updated' WHERE login='test'" />
+
+This command has only one `content` attribute, which contains the SQL query.
+
+> A large number of examples of XML configurations can be found in the [simple web server example](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/examples/web-server/res).
+ 
+## Export data
+
+Data export is a helper function that is designed to simplify the creation of configuration files. For example, you can create your test user as in the examples above or export any other user (or any other entity in the system). For example, go to the users section, find your user with the login `test` and click the `Export` button.
+
+![export-dialog.png](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/res/export-dialog.png)
+
+In the window that appears, tick the following fields in the `Exclude fields to export` list: `ID` - because this is a generated primary key, and we won't need it, `New password` - this is a virtual field, `Created date` - this is an automatically filled field, and we won't need it either. Next, click the `Export` button at the top of the dialogue box. You will get approximately this XML markup:
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <schema>
+    
+        <InsertUpdate target="UserEntity">
+            <row>
+                <login>test</login>
+                <email>null</email>
+                <phone>null</phone>
+                <firstName>test updated</firstName>
+                <lastName>User</lastName>
+                <active>true</active>
+                <avatar>null</avatar>
+            </row>
+        </InsertUpdate>
+    
+    </schema>
+
+You can edit that (for example, by removing optional fields) and use it to transfer your data to another server.
+In the export dialogue box there is also such a field as `Depth` - here you can set the depth of the entity dependencies search, by default the system will find all dependencies of the entity starting from the root and going to the last one in the hierarchy. The `Export files` flag tells the system to return an archive with all dependencies and associated static files instead of an XML file and then the whole archive can be imported with all its contents. This is useful when exporting entities that have such entities as `MediaEntity` or `FileEntity` as dependencies, then a configuration for importing such entities will be created in the archive and the dependent file will be read from the imported archive. For an illustrative example, you can export a user who has an avatar, and if you unzip the resulting archive, you will see something like:
+
+    <Media>
+        <row>
+            <code>admin-avatar</code>
+            <type>default</type>
+            <file>@zip:/5491018796962664.png</file>
+        </row>
+    </Media>
+
+    <InsertUpdate target="UserEntity">
+        <row>
+            <login>admin</login>
+            <avatar key="code">admin-avatar</avatar>
+        </row>
+    </InsertUpdate>
+
+Here we see that the user avatar was saved to the archive as a regular file, but in the generated XML, the path to it starts with the prefix `@zip:/` - this indicates that this file will be read from the root of the archive.
 
