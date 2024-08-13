@@ -517,6 +517,9 @@ export class BasicExplorerService extends ExplorerService {
     );
     for (const col of referencedCols) {
       const relationProp = col.property;
+      if (!entity?.hasOwnProperty(relationProp)) {
+        continue;
+      }
       const relatedEntityData = entity[relationProp];
       if (relatedEntityData) {
         const currTargetData = await this.getTargetData(

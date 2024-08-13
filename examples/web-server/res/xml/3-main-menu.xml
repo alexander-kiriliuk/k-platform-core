@@ -91,13 +91,13 @@
         </row>
         <row>
             <lang key="id">ru</lang>
-            <code>a-menu-objects-name-ru</code>
-            <value>Объекты</value>
+            <code>a-menu-entities-name-ru</code>
+            <value>Сущности</value>
         </row>
         <row>
             <lang key="id">en</lang>
-            <code>a-menu-objects-name-en</code>
-            <value>Objects</value>
+            <code>a-menu-entities-name-en</code>
+            <value>Entities</value>
         </row>
         <row>
             <lang key="id">ru</lang>
@@ -301,14 +301,14 @@
             </name>
         </row>
         <row>
-            <code>a-menu-objects</code>
-            <url>/system/objects</url>
+            <code>a-menu-entities</code>
+            <url>/system/entities</url>
             <params>{"iconClass": "pi pi-box"}</params>
             <parent key="code">a-menu-system</parent>
             <priority>303</priority>
             <name key="code">
-                <row>a-menu-objects-name-ru</row>
-                <row>a-menu-objects-name-en</row>
+                <row>a-menu-entities-name-ru</row>
+                <row>a-menu-entities-name-en</row>
             </name>
         </row>
         <row>
@@ -390,7 +390,7 @@
         </row>
         <row>
             <code>objects-node</code>
-            <category key="code">a-menu-objects</category>
+            <category key="code">a-menu-entities</category>
             <allowFor key="code">
                 <row>admin</row>
             </allowFor>
