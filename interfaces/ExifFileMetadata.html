@@ -2540,20 +2540,35 @@ export interface VideoFileMetadata {
  * Interface representing audio file metadata.
  */
 export interface AudioFileMetadata {
+  /** This field contains the identification number */
   id: number;
+  /** The format of the audio file container, which encapsulates audio streams and metadata */
   container: string;
+  /** The audio codec used for encoding or decoding the audio data */
   codec: string;
+  /** The sample rate of the audio file, indicating the number of samples per second */
   sampleRate: number;
+  /**  The number of audio channels in the file, indicating the sound configuration (e.g., mono, stereo) */
   numberOfChannels: number;
+  /**  The bitrate of the audio file, indicating the amount of data processed per second. */
   bitrate: number;
+  /** The codec profile used for encoding the audio data, indicating specific settings and capabilities */
   codecProfile: string;
+  /** The tool or software used to encode or process the audio file */
   tool: string;
+  /** The duration of the audio file in seconds */
   duration: number;
+  /** The title of the audio file or track */
   title: string;
+  /** The name of the artist or band who performed the audio track. */
   artist: string;
+  /** The name of the album that the audio track belongs to */
   album: string;
+  /** The year the audio track was release */
   year: number;
+  /** The genre of the audio track */
   genre: string;
+  /** The music label or company that released the audio trac */
   label: string;
 }
 
@@ -2561,7 +2576,9 @@ export interface AudioFileMetadata {
  * Options for configuring the FileModule.
  */
 export type FileModuleOptions &#x3D; {
+  /** Class responsible for file management operations */
   fileManager: Class&lt;FileManager&gt;;
+  /** Class responsible for file management operations */
   fileMd: Class&lt;FileMd&gt;;
 };
 </code></pre>
