@@ -190,17 +190,44 @@ Let's refresh the page and see that there are new items in the menu:
 Let's try to go for example to the link of one of the added items `/section/products` and get the error `Not Found 404`, because this link is different from `/section/ProductEntity`. To make our beautiful link work, we need to go to the `/system/entities` section, find `ProductEntity` there and set value `products` in the `Alias` field and in the `ProductShowcaseEntity` set `products-showcases` respectively. Now the links in the main menu `section/products` and `/section/products-showcases` will work.
 
 ## Objects
-todo
+
+Let's open any of the created products, for example `/object/products/1`, the UI looks like this:
+
+![object-test.png](res/object-test.png)
+
+Note that for all fields of the `ProductEntity` entity, the edit elements corresponding to their type are displayed in the form. The idea is that all the entity column data types in the database were analysed at the time of the system metadata synchronisation, and were reduced to more simplified types for use with explorer. By default, the system reduces these types to the default set of types: `string`, `number`, `boolean`, `date`, `reference`, `unknown`. Each type can be seen in the `Data type` field by opening the column editor, in the entity editor in the `/system/entities` list. Each default data type has its own default renderer (which will be discussed next), which visualises the corresponding entity edit form control. We have the option to extend the list of data types by adding our own, as well as to override the default renderer for a particular entity column, or to create our own custom renderer.
 
 ### Tabs
-todo
+
+The entity UI allows you to split the form into tabs for ease of use. To do this, open the entity editor, create a new tab by pressing the corresponding `+` button:
+
+![object-tab.png](res/object-tab.png)
+
+Next, assign the tab to multiple fields of the entity:
+
+![object-tab-select.png](res/object-tab-select.png)
+
+![object-tab-selected.png](res/object-tab-selected.png)
+
+After saving, go to UI edit entity record `/object/products/1`:
+
+![object-tabs-result-1.png](res/object-tabs-result-1.png)
+
+![object-tabs-result-2.png](res/object-tabs-result-2.png)
+
+Note that all fields for which no tab was selected are moved to the `Administration` tab (this is the default tab). If there are hasn't fields without tabs, then the `Administration` tab will disappear. We can also see that the created `General` tab has two columns - this is adjusted in the `Size` field when creating the tab, here we see the parameters as a JSON string, where the parameter "desktop" sets the number of tabs for desktop devices, "tablet" - for tablets, and for smartphones there will always be one column. The `Priority` field here characterises the order of tabs.
 
 ## Renderers
 todo
 
 ### Default renderers
-todo
 // describe all default renderers
+
+#### Section renderers
+todo
+
+#### Object renderers
+todo
 
 ### Custom renderers
 todo
