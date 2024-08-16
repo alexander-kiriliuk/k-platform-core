@@ -324,6 +324,6 @@ export interface AudioFileMetadata {
 export type FileModuleOptions = {
   /** Class responsible for file management operations */
   fileManager: Class<FileManager>;
-  /** Class responsible for file management operations */
+  /** Class responsible for file Metadata */
   fileMd: Class<FileMd>;
 };
