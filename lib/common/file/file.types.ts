@@ -22,15 +22,25 @@ import { FileManager, FileMd } from "./file.constants";
  * Interface representing a file.
  */
 export interface File {
+  /** This field contains the identification number */
   id: number;
+  /** This field contains a unique character identifier */
   code: string;
+  /** This field contains the name of the file */
   name: string;
+  /** This field stores the path to the file on the server */
   path: string;
+  /** This field specifies the type of access to the file, public or private */
   public: boolean;
+  /** This field stores the size of the file in bytes */
   size: number;
+  /** This field stores Media type data to further identify the file */
   icon: Media;
+  /** This field stores Media type data with a brief description of the file */
   preview: Media;
+  /** This field contains a reference to the FileMetadata container */
   metadata: FileMetadata;
+  /** This field contains the date the file was created */
   tsCreated: Date;
 }
 
