@@ -170,7 +170,7 @@
             <value>Новый пароль</value>
         </row>
         <row>
-            <lang key="id">ru</lang>
+            <lang key="id">en</lang>
             <code>ex-file-stat-object-renderer-name-en</code>
             <value>File data</value>
         </row>
