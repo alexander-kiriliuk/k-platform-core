@@ -24,12 +24,19 @@ import { MediaEntity } from "./entity/media.entity";
  * Interface representing a media object.
  */
 export interface Media {
+  /** This field contains the identification number of the file  */
   id: number;
+  /** This field contains a unique character identifier */
   code: string;
+  /** This field contains the name of the file in all languages involved */
   name: LocalizedString[];
+  /** This field contains a list of unique settings and functions that the file contains */
   type: MediaType;
+  /** This field contains a link to the original file and all its thumbnails */
   files: MediaFile[];
+  /** This field contains a link to the meta data container */
   metadata: FileMetadata;
+  /** This field contains the date the file was created */
   tsCreated: Date;
 }
 
@@ -37,12 +44,19 @@ export interface Media {
  * Interface representing a media type.
  */
 export interface MediaType {
+  /** A unique code representing the media file type */
   code: string;
+  /** This field contains a unique character identifier */
   name: string;
+  /** This field defines the possibility to create a duplicate file in WEBP format */
   vp6: boolean;
+  /** This field indicates the type of access to the file, public or private */
   private: boolean;
+  /** A numeric value reflecting the quality level of the media (defines the compression rate or overall quality) */
   quality: number;
+  /** A file extension associated with the media type and which defines the file format  */
   ext: MediaExt;
+  /** An array of supported media formats for this media type */
   formats: MediaFormat[];
 }
 
@@ -50,9 +64,13 @@ export interface MediaType {
  * Interface representing a media format.
  */
 export interface MediaFormat {
+  /** This field contains a unique character identifier */
   code: string;
+  /** This field contains the name of the media format */
   name: string;
+  /** The width of the media file in pixels, represented as a string  */
   width: string;
+  /** The height of the media file in pixels, represented as a string  */
   height: string;
 }
 
@@ -60,12 +78,19 @@ export interface MediaFormat {
  * Interface representing a media file.
  */
 export interface MediaFile {
+  /** A unique code or identifier for the media file*/
   id: number;
+  /** This field contains a unique character identifier */
   code: string;
+  /** This field contains the name of the media file */
   name: string;
+  /** The width of the media file in pixels */
   width: number;
+  /** The height of the media file in pixels */
   height: number;
+  /** The size of the media file in bytes */
   size: number;
+  /** The format of the media file, represented by the MediaFormat type */
   format: MediaFormat;
   media: Media;
 }
@@ -74,7 +99,9 @@ export interface MediaFile {
  * Interface representing a media extension.
  */
 export interface MediaExt {
+  /** This field contains a unique character identifier */
   code: string;
+  /** A unique code or identifier for the media file*/
   name: string;
 }
 
