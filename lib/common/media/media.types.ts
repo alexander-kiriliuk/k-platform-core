@@ -32,7 +32,7 @@ export interface Media {
   name: LocalizedString[];
   /** This field contains a list of unique settings and functions that the file contains */
   type: MediaType;
-  /** This field contains the media file and all copies and thumbnails */
+  /** This field contains a link to the original file and all its thumbnails */
   files: MediaFile[];
   /** This field contains a link to the meta data container */
   metadata: FileMetadata;
@@ -48,7 +48,7 @@ export interface MediaType {
   code: string;
   /** This field contains a unique character identifier */
   name: string;
-  /** Indicates whether the media type supports the VP6 video codec */
+  /** This field defines the possibility to create a duplicate file in WEBP format */
   vp6: boolean;
   /** This field indicates the type of access to the file, public or private */
   private: boolean;
@@ -68,9 +68,9 @@ export interface MediaFormat {
   code: string;
   /** This field contains the name of the media format */
   name: string;
-  /** The width of the media file in pixels, represented as a string (Example: '1920', '1280') */
+  /** The width of the media file in pixels, represented as a string  */
   width: string;
-  /** The height of the media file in pixels, represented as a string (Example values: '1080', '720') */
+  /** The height of the media file in pixels, represented as a string  */
   height: string;
 }
 

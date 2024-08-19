@@ -34,9 +34,9 @@ export interface File {
   public: boolean;
   /** This field stores the size of the file in bytes */
   size: number;
-  /** This field stores Media type data to further identify the file */
+  /** This field stores the icon of the file */
   icon: Media;
-  /** This field stores Media type data with a brief description of the file */
+  /** This field stores the media preview of the file  */
   preview: Media;
   /** This field contains a reference to the FileMetadata container */
   metadata: FileMetadata;
