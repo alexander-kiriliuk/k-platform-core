@@ -846,15 +846,25 @@ import { FileManager, FileMd } from &quot;./file.constants&quot;;
  * Interface representing a file.
  */
 export interface File {
+  /** This field contains the identification number */
   id: number;
+  /** This field contains a unique character identifier */
   code: string;
+  /** This field contains the name of the file */
   name: string;
+  /** This field stores the path to the file on the server */
   path: string;
+  /** This field specifies the type of access to the file, public or private */
   public: boolean;
+  /** This field stores the size of the file in bytes */
   size: number;
+  /** This field stores the icon of the file */
   icon: Media;
+  /** This field stores the media preview of the file  */
   preview: Media;
+  /** This field contains a reference to the FileMetadata container */
   metadata: FileMetadata;
+  /** This field contains the date the file was created */
   tsCreated: Date;
 }
 
@@ -1138,7 +1148,7 @@ export interface AudioFileMetadata {
 export type FileModuleOptions &#x3D; {
   /** Class responsible for file management operations */
   fileManager: Class&lt;FileManager&gt;;
-  /** Class responsible for file management operations */
+  /** Class responsible for file Metadata */
   fileMd: Class&lt;FileMd&gt;;
 };
 </code></pre>
