@@ -22,7 +22,7 @@ import { InternalServerErrorException } from "@nestjs/common";
  */
 export namespace Process {
   /**
-   * Sore for registered processes
+   * Store for registered processes
    */
   const REGISTERED_PROCESSES: Map<string, AbstractProcess> = new Map<
     string,
@@ -49,7 +49,7 @@ export namespace Process {
   }
 
   /**
-   * Enum of log levels.
+   * Enum of process log levels.
    */
   export enum LogLevel {
     Log = "LOG",
