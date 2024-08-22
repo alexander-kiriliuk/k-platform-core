@@ -51,11 +51,11 @@ The section will display a list of entity records, click `Create` and create mul
 
 ![section-test-entity-create.png](https://raw.githubusercontent.com/alexander-kiriliuk/k-platform-core/master/guide/res/section-test-entity-create.png)
 
-To speed up the creation process, use the `Duplicate' button in the object's user interface to create a copy of an existing record. As a result, the list of this section will look as follows:
+To speed up the creation process, use the `Duplicate` button in the object's user interface to create a copy of an existing record. As a result, the list of this section will look as follows:
 
 ![section-test-entity-created.png](https://raw.githubusercontent.com/alexander-kiriliuk/k-platform-core/master/guide/res/section-test-entity-created.png)
 
-You can customise the appearance of this section, for example, give names to the columns or change their order. To do this, go to `/system/entities` section, find our `ProductEntity` there. In the entity editor you can fill in the name of the entity in the `Name` field, then go to the editor of each column and change the value in the `Section priority` field, according to the order of the columns in the list. The larger the value is, the more to the left the column will be. Here in the `Name` field you can also set a name for each column. The edited parameters can give this appearance:
+You can customize the appearance of this section, for example, give names to the columns or change their order. To do this, go to `/system/entities` section, find our `ProductEntity` there. In the entity editor you can fill in the name of the entity in the `Name` field, then go to the editor of each column and change the value in the `Section priority` field, according to the order of the columns in the list. The larger the value is, the more to the left the column will be. Here in the `Name` field you can also set a name for each column. The edited parameters can give this appearance:
 
 ![section-test-entity-edited.png](https://raw.githubusercontent.com/alexander-kiriliuk/k-platform-core/master/guide/res/section-test-entity-edited.png)
 
