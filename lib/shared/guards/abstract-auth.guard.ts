@@ -31,8 +31,6 @@ import { UserService } from "../../common/user/user.types";
 import { REQUEST_PROPS } from "../constants";
 
 /**
- * @abstract
- * @class AbstractAuthGuard
  * An abstract class for creating authentication guards.
  */
 export abstract class AbstractAuthGuard implements CanActivate {

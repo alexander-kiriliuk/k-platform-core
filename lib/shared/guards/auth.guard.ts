@@ -21,7 +21,6 @@ import { UserService } from "../../common/user/user.types";
 import { CacheService } from "../modules/cache/cache.types";
 
 /**
- * @class AuthGuard
  * An authentication guard that extends AbstractAuthGuard, used for full authentication including user fetching.
  */
 @Injectable()

@@ -24,7 +24,6 @@ import { map } from "rxjs";
 import { plainToInstance } from "class-transformer";
 
 /**
- * @class DtoInterceptor
  * An interceptor to transform plain JavaScript objects into instances of a specified DTO class.
  * @template T - The DTO class to use for transformation.
  */

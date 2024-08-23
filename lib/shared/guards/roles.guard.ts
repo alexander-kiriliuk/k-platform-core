@@ -23,7 +23,6 @@ import { REQUEST_PROPS, Roles } from "../constants";
 import hasSomeRole = UserUtils.hasSomeRole;
 
 /**
- * @class RolesGuard
  * A guard for role-based access control.
  */
 @Injectable()

@@ -21,7 +21,6 @@ import { UserService } from "../../common/user/user.types";
 import { CacheService } from "../modules/cache/cache.types";
 
 /**
- * @class LiteAuthGuard
  * An authentication guard that extends AbstractAuthGuard, used for lightweight authentication without user fetching.
  */
 @Injectable()

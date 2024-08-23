@@ -22,7 +22,6 @@ import { UserEntity } from "./entity/user.entity";
 import { USER_RELATIONS } from "./user.constants";
 
 /**
- * @class BasicUserService
  * Provides methods to interact with the UserEntity repository.
  */
 @Injectable()

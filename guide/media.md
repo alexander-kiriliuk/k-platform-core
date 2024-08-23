@@ -16,7 +16,7 @@ Let's consider the fields of this object:
 - `WEBP` - specifies whether additional copies of the image and its thumbnails should be stored in `webp` format
 - `Formats` - defines what thumbnails will be created within the media object (their sizes)
 - `Extension` - file extension, characterizes the conversion of the incoming file.
-- `Prvate` - the active state of this flag indicates that physical image files will be placed in a private directory on the server (set in the configuration)
+- `Prvate` - the active state of this flag indicates that physical image files will be placed in a private directory on the server (set in the configuration property - `media.private.dir`).
 
 The default types are `default` and `vector`. The `vector` type is used if the incoming image file is vector, and the `svg` extension is used for it.
 
