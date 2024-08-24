@@ -11,7 +11,7 @@
 - [Files](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/guide/files.md): provides easy integration and powerful file management, including uploading, storing in public and private directories. Support storing extended metadata for images, audio and video files.
 - [Users](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/guide/users.md): provide scalable functionality for managing system users. Supports password encrypting, user profile management with role-based access control.
 - [Authorization](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/guide/auth.md): provides a OAuth 2.0 mechanism for authentication and authorization of users in the system, as well as protection against brute-force attacks.
-- [Captcha](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/guide/captcha.md): represents two built-in CAPTCHA-types: Google reCAPTCHA and standard graphical CAPTCHA. You can also extend the module with your own CAPTCHA implementation.
+- [CAPTCHA](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/guide/captcha.md): represents two built-in CAPTCHA-types: Google reCAPTCHA and standard graphical CAPTCHA. You can also extend the module with your own CAPTCHA implementation.
 - [Configuration](https://github.com/alexander-kiriliuk/k-platform-core/blob/master/guide/config.md): allows you to effectively manage the application settings using .properties files, supports real-time dynamic configuration change and type safety through automatic generation of TypeScript files. Also supports local and global overrides, which allow you to flexibly adapt the configuration for different environments.
 
 > **Admin-panel** of application is based on Angular,
