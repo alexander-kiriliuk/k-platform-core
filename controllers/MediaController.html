@@ -79,23 +79,16 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content class">
+               <div class="content controller">
                    <div class="content-data">
 
 
 
 
 
-
-
-
-
-
-
-
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Classes</li>
-  <li class="breadcrumb-item" >UserService</li>
+  <li class="breadcrumb-item">Controllers</li>
+  <li class="breadcrumb-item" >MediaController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -119,17 +112,17 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>lib/common/user/user.types.ts</code>
+            <code>lib/common/media/media.controller.ts</code>
         </p>
 
-
             <p class="comment">
-                <h3>Description</h3>
+                <h3>Prefix</h3>
             </p>
             <p class="comment">
-                <p>Abstract class representing the user service.</p>
-
+                <code>/media</code>
             </p>
+
+
 
 
 
@@ -148,24 +141,30 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#create" >create</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#createMedia" >createMedia</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#findById" >findById</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getMedia" >getMedia</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#findByLogin" >findByLogin</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getPrivateMedia" >getPrivateMedia</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#removeById" >removeById</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#recreateMedia" >recreateMedia</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#updateById" >updateById</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#removeMedia" >removeMedia</a>
                             </li>
                         </ul>
                     </td>
@@ -179,8 +178,6 @@
     </table>
 </section>
 
-
-
             <section data-compodoc="block-methods">
     
     <h3 id="methods">
@@ -190,26 +187,35 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="create"></a>
+                    <a name="createMedia"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>create</b></span>
-                        <a href="#create"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>createMedia</b></span>
+                        <a href="#createMedia"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>create(user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
+                    <code>createMedia(file: <a href="../interfaces/File.html" target="_self">Express.Multer.File</a>, type, id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;/upload/:type?&#x27;)<br />@UseInterceptors(undefined)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="119"
-                                    class="link-to-prism">lib/common/user/user.types.ts:119</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">lib/common/media/media.controller.ts:44</a></div>
                         </td>
                     </tr>
 
@@ -226,26 +232,57 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Default value</td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>user</td>
+                                                <td>file</td>
                                             <td>
-                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                                            <code><a href="../interfaces/File.html" target="_self" >Express.Multer.File</a></code>
                                             </td>
 
                                             <td>
                                                     No
                                             </td>
 
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>DEFAULT_MEDIA_TYPE</code>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
 
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
+                            <b>Returns : </b>        <code><a href="../interfaces/Media.html" target="_self" >Promise&lt;Media&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -259,26 +296,34 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="findById"></a>
+                    <a name="getMedia"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>findById</b></span>
-                        <a href="#findById"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getMedia</b></span>
+                        <a href="#getMedia"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>getMedia(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;/:id&#x27;)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="115"
-                                    class="link-to-prism">lib/common/user/user.types.ts:115</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">lib/common/media/media.controller.ts:70</a></div>
                         </td>
                     </tr>
 
@@ -301,7 +346,7 @@
                                         <tr>
                                                 <td>id</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
                                             </td>
 
                                             <td>
@@ -314,7 +359,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
+                            <b>Returns : </b>        <code><a href="../interfaces/Media.html" target="_self" >Promise&lt;Media&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -328,26 +373,34 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="findByLogin"></a>
+                    <a name="getPrivateMedia"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>findByLogin</b></span>
-                        <a href="#findByLogin"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getPrivateMedia</b></span>
+                        <a href="#getPrivateMedia"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findByLogin(login: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>getPrivateMedia(res: Response, id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, format: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, webp: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;/private/:id&#x27;)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="113"
-                                    class="link-to-prism">lib/common/user/user.types.ts:113</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="58"
+                                    class="link-to-prism">lib/common/media/media.controller.ts:58</a></div>
                         </td>
                     </tr>
 
@@ -368,9 +421,45 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>login</td>
+                                                <td>res</td>
+                                            <td>
+                                                        <code>Response</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>format</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>webp</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
                                             </td>
 
                                             <td>
@@ -383,7 +472,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
 
                         </div>
                             <div class="io-description">
@@ -397,26 +486,34 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="removeById"></a>
+                    <a name="recreateMedia"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>removeById</b></span>
-                        <a href="#removeById"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>recreateMedia</b></span>
+                        <a href="#recreateMedia"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>removeById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>recreateMedia(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;/recreate/:id&#x27;)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="121"
-                                    class="link-to-prism">lib/common/user/user.types.ts:121</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">lib/common/media/media.controller.ts:80</a></div>
                         </td>
                     </tr>
 
@@ -439,7 +536,7 @@
                                         <tr>
                                                 <td>id</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
                                             </td>
 
                                             <td>
@@ -452,7 +549,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
+                            <b>Returns : </b>        <code><a href="../interfaces/Media.html" target="_self" >Promise&lt;Media&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -466,26 +563,34 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="updateById"></a>
+                    <a name="removeMedia"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>updateById</b></span>
-                        <a href="#updateById"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>removeMedia</b></span>
+                        <a href="#removeMedia"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>updateById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
+                    <code>removeMedia(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Delete(&#x27;/:id&#x27;)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="117"
-                                    class="link-to-prism">lib/common/user/user.types.ts:117</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">lib/common/media/media.controller.ts:75</a></div>
                         </td>
                     </tr>
 
@@ -508,19 +613,7 @@
                                         <tr>
                                                 <td>id</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>user</td>
-                                            <td>
-                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
                                             </td>
 
                                             <td>
@@ -533,7 +626,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
+                            <b>Returns : </b>        <code><a href="../interfaces/Media.html" target="_self" >Promise&lt;Media&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -543,143 +636,103 @@
             </tr>
         </tbody>
     </table>
-</section>
-
-
-
-
-
-    </div>
+</section>    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Exclude, Expose, Type } from &quot;class-transformer&quot;;
-import { Type as Class } from &quot;@nestjs/common/interfaces/type.interface&quot;;
-import { Media } from &quot;../media/media.types&quot;;
-import { LocalizedString } from &quot;../../shared/modules/locale/locale.types&quot;;
-
-/**
- * Interface representing a user object.
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">/*
+ * Copyright 2023 Alexander Kiriliuk
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
  */
-export interface User {
-  id: string;
-  avatar: Media;
-  password: string;
-  login: string;
-  email: string;
-  phone: string;
-  firstName: string;
-  lastName: string;
-  active: boolean;
-  roles: UserRole[];
-  tsCreated: Date;
+
+import {
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+  Res,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from &quot;@nestjs/common&quot;;
+import { FileInterceptor } from &quot;@nestjs/platform-express&quot;;
+import { Response } from &quot;express&quot;;
+import * as path from &quot;path&quot;;
+import { AuthGuard } from &quot;../../shared/guards/auth.guard&quot;;
+import { BasicMediaController, Media, MediaManager } from &quot;./media.types&quot;;
+import { NotEmptyPipe } from &quot;../../shared/pipes/not-empty.pipe&quot;;
+import { DEFAULT_MEDIA_TYPE } from &quot;./media.constants&quot;;
+
+@Controller(&quot;/media&quot;)
+@UseGuards(AuthGuard)
+export class MediaController implements BasicMediaController {
+  constructor(private readonly mediaService: MediaManager) {}
+
+  @Post(&quot;/upload/:type?&quot;)
+  @UseInterceptors(FileInterceptor(&quot;file&quot;))
+  async createMedia(
+    @UploadedFile(&quot;file&quot;, new NotEmptyPipe(&quot;file&quot;)) file: Express.Multer.File,
+    @Param(&quot;type&quot;) type &#x3D; DEFAULT_MEDIA_TYPE,
+    @Query(&quot;id&quot;) id: number,
+  ): Promise&lt;Media&gt; {
+    return await this.mediaService.createOrUpdateMedia(
+      file.buffer,
+      type,
+      undefined,
+      id,
+    );
+  }
+
+  @Get(&quot;/private/:id&quot;)
+  async getPrivateMedia(
+    @Res() res: Response,
+    @Param(&quot;id&quot;) id: number,
+    @Query(&quot;format&quot;) format: string,
+    @Query(&quot;webp&quot;) webp: boolean,
+  ): Promise&lt;void&gt; {
+    const media &#x3D; await this.mediaService.findPrivateById(id);
+    const mediaPath &#x3D; await this.mediaService.getMediaPath(media, format, webp);
+    res.sendFile(path.join(process.cwd(), mediaPath));
+  }
+
+  @Get(&quot;/:id&quot;)
+  async getMedia(@Param(&quot;id&quot;) id: number): Promise&lt;Media&gt; {
+    return await this.mediaService.findPublicById(id);
+  }
+
+  @Delete(&quot;/:id&quot;)
+  async removeMedia(@Param(&quot;id&quot;) id: number): Promise&lt;Media&gt; {
+    return await this.mediaService.remove(id);
+  }
+
+  @Post(&quot;/recreate/:id&quot;)
+  async recreateMedia(@Param(&quot;id&quot;) id: number): Promise&lt;Media&gt; {
+    return await this.mediaService.recreate(id);
+  }
 }
-
-/**
- * Interface representing a user role.
- */
-export interface UserRole {
-  code: string;
-  name: LocalizedString[];
-  tsCreated: Date;
-}
-
-/**
- * Data transfer object for user role.
- */
-export class UserRoleDto implements UserRole {
-  @Expose()
-  code: string;
-
-  @Expose()
-  name: LocalizedString[];
-
-  @Exclude()
-  tsCreated: Date;
-}
-
-/**
- * Data transfer object for user.
- */
-export class UserDto implements User {
-  @Expose()
-  id: string;
-
-  @Expose()
-  login: string;
-
-  @Expose()
-  email: string;
-
-  @Expose()
-  firstName: string;
-
-  @Expose()
-  lastName: string;
-
-  @Exclude()
-  password: string;
-
-  @Expose()
-  @Type(() &#x3D;&gt; UserRoleDto)
-  roles: UserRoleDto[];
-
-  @Expose()
-  active: boolean;
-
-  @Expose()
-  avatar: Media;
-
-  @Expose()
-  phone: string;
-
-  @Exclude()
-  tsCreated: Date;
-}
-
-/**
- * Interface representing a request to update a user.
- */
-export interface UserUpdateRequest {
-  id: string;
-  user: User;
-}
-
-/**
- * Abstract class representing the user service.
- */
-export abstract class UserService {
-  abstract findByLogin(login: string): Promise&lt;User&gt;;
-
-  abstract findById(id: string): Promise&lt;User&gt;;
-
-  abstract updateById(id: string, user: User): Promise&lt;User&gt;;
-
-  abstract create(user: User): Promise&lt;User&gt;;
-
-  abstract removeById(id: string): Promise&lt;User&gt;;
-}
-
-export interface BasicUserController {
-  getUserProfile(id: string, user: User): Promise&lt;User&gt;;
-
-  updateUserProfile(id: string, profile: User, user: User): Promise&lt;User&gt;;
-
-  removeUserProfile(id: string): Promise&lt;User&gt;;
-
-  createUserProfile(profile: User): Promise&lt;User&gt;;
-}
-
-/**
- * Options for configuring the UserModule.
- */
-export type UserModuleOptions &#x3D; {
-  service: Class&lt;UserService&gt;;
-  controller: Class&lt;BasicUserController&gt;;
-};
 </code></pre>
     </div>
 </div>
+
+
+
+
+
+
+
 
 
 
@@ -714,8 +767,8 @@ export type UserModuleOptions &#x3D; {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'UserService.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'MediaController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

@@ -201,7 +201,7 @@ Contains the token to be exchanged for a new token pair JwtDto.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">lib/common/auth/auth.types.ts:84</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">lib/common/auth/auth.types.ts:85</a></div>
                         </td>
                     </tr>
 
@@ -232,6 +232,7 @@ import { Type as Class } from &quot;@nestjs/common&quot;;
 import { UserDto } from &quot;../user/user.types&quot;;
 import { TransformUtils } from &quot;../../shared/utils/transform.utils&quot;;
 import { AuthService } from &quot;./auth.constants&quot;;
+import { Request, Response } from &quot;express&quot;;
 
 /**
  * Data transfer object for login payload.
@@ -333,12 +334,29 @@ export class JwtDto {
   rtExp: Date;
 }
 
+export interface BasicAuthController {
+  login(
+    payload: LoginPayload,
+    request: Request,
+    response: Response,
+  ): Promise&lt;JwtDto&gt;;
+
+  logout(token: string, response: Response): Promise&lt;{ result: unknown }&gt;;
+
+  exchange(
+    payload: ExchangeTokenPayload,
+    request: Request,
+    response: Response,
+  ): Promise&lt;Partial&lt;JwtDto&gt;&gt;;
+}
+
 /**
  * Options for configuring the authentication module.
  * @property service - The authentication service class.
  */
 export type AuthModuleOptions &#x3D; {
   service: Class&lt;AuthService&gt;;
+  controller: Class&lt;BasicAuthController&gt;;
 };
 </code></pre>
     </div>

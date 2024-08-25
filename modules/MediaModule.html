@@ -158,8 +158,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="34"
-                                    class="link-to-prism">lib/common/media/media.module.ts:34</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="36"
+                                    class="link-to-prism">lib/common/media/media.module.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -193,6 +193,7 @@
                                             <td>
                                                     <code>{
       service: MediaService,
+      controller: MediaController,
     }</code>
                                             </td>
 
@@ -243,6 +244,8 @@ import { MediaManager, MediaModuleOptions } from &quot;./media.types&quot;;
 import { FileModule } from &quot;../file/file.module&quot;;
 import { LogModule } from &quot;../../shared/modules/log/log.module&quot;;
 import { CacheModule } from &quot;../../shared/modules/cache/cache.module&quot;;
+import { MediaController } from &quot;./media.controller&quot;;
+import { UserModule } from &quot;../user/user.module&quot;;
 
 /**
  * Module for management media system.
@@ -252,10 +255,12 @@ export class MediaModule {
   static forRoot(
     options: MediaModuleOptions &#x3D; {
       service: MediaService,
+      controller: MediaController,
     },
   ): DynamicModule {
     return {
       module: MediaModule,
+      controllers: [options.controller],
       imports: [
         TypeOrmModule.forFeature([
           MediaEntity,
@@ -263,6 +268,7 @@ export class MediaModule {
           MediaFileEntity,
           MediaFormatEntity,
         ]),
+        UserModule.forRoot(),
         FileModule.forRoot(),
         LogModule,
         CacheModule,

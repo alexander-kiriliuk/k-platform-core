@@ -79,7 +79,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content class">
+               <div class="content interface">
                    <div class="content-data">
 
 
@@ -93,9 +93,12 @@
 
 
 
+
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Classes</li>
-  <li class="breadcrumb-item" >ExplorerService</li>
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  BasicExplorerController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -123,75 +126,68 @@
         </p>
 
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>Abstract class representing an explorer service.</p>
-
-            </p>
 
 
-
-
-            <section data-compodoc="block-index">
-    <h3 id="index">Index</h3>
-    <table class="table table-sm table-bordered index-table">
-        <tbody>
-
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Methods</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#analyzeDatabase" >analyzeDatabase</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#changeTarget" >changeTarget</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#getEntityData" >getEntityData</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#getPageableEntityData" >getPageableEntityData</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#getTargetData" >getTargetData</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#getTargetList" >getTargetList</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#removeEntity" >removeEntity</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#saveEntityData" >saveEntityData</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-
-
-
-
-
-        </tbody>
-    </table>
-</section>
-
-
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Methods</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#getEntity" 
+>
+                                        getEntity
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#getEntityList" 
+>
+                                        getEntityList
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#getTarget" 
+>
+                                        getTarget
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#getTargetList" 
+>
+                                        getTargetList
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#removeEntity" 
+>
+                                        removeEntity
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#saveEntity" 
+>
+                                        saveEntity
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#saveTarget" 
+>
+                                        saveTarget
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
             <section data-compodoc="block-methods">
     
@@ -202,76 +198,30 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="analyzeDatabase"></a>
+                    <a name="getEntity"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>analyzeDatabase</b></span>
-                        <a href="#analyzeDatabase"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>getEntity</b></span>
+                        <a href="#getEntity"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>analyzeDatabase()</code>
+<code>getEntity(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="202"
-                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:202</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:51</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Analyzes the database schema and relationships.
-Fill data for explorer tables based on that analysis.</p>
-</div>
-
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
-
-                        </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="changeTarget"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>changeTarget</b></span>
-                        <a href="#changeTarget"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>changeTarget(target: <a href="../interfaces/ExplorerTarget.html" target="_self">ExplorerTarget</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="280"
-                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:280</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-description"><p>Changes the target data.</p>
-</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -282,86 +232,6 @@ Fill data for explorer tables based on that analysis.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>target</td>
-                                            <td>
-                                                            <code><a href="../interfaces/ExplorerTarget.html" target="_self" >ExplorerTarget</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <ul>
-<li>The data of the target entity.</li>
-</ul>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/ExplorerTarget.html" target="_self" >Promise&lt;ExplorerTarget&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                <p>A promise that resolves to the changed target entity.</p>
-
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getEntityData"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>getEntityData</b></span>
-                        <a href="#getEntityData"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getEntityData(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, rowId: string | number, maxDepth?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, targetParams?: <a href="../undefineds/ExplorerTargetParams.html" target="_self">ExplorerTargetParams</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="251"
-                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:251</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-description"><p>Retrieves entity data for the given target and rowId, with relations attached up to the specified depth.</p>
-</div>
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -376,17 +246,11 @@ Fill data for explorer tables based on that analysis.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The target entity name.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                         <tr>
-                                                <td>rowId</td>
+                                                <td>id</td>
                                             <td>
-                                                        <code>string | number</code>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
 
                                             <td>
@@ -394,48 +258,18 @@ Fill data for explorer tables based on that analysis.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The ID of the row to fetch.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                         <tr>
-                                                <td>maxDepth</td>
+                                                <td>user</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
                                             </td>
 
                                             <td>
-                                                    Yes
+                                                    No
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The maximum depth of relations to fetch. Defaults to Infinity.</li>
-</ul>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                                <td>targetParams</td>
-                                            <td>
-                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerTargetParams" target="_self" >ExplorerTargetParams</a></code>
-                                            </td>
-
-                                            <td>
-                                                    Yes
-                                            </td>
-
-
-                                            <td>
-                                                    <ul>
-<li>Parameters to fetch and check entity access.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -445,8 +279,7 @@ Fill data for explorer tables based on that analysis.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>A promise that resolves to the entity object.</p>
-
+                                
                             </div>
                 </td>
             </tr>
@@ -456,34 +289,30 @@ Fill data for explorer tables based on that analysis.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getPageableEntityData"></a>
+                    <a name="getEntityList"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>getPageableEntityData</b></span>
-                        <a href="#getPageableEntityData"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>getEntityList</b></span>
+                        <a href="#getEntityList"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getPageableEntityData(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, params?: <a href="../classes/PageableParams.html" target="_self">PageableParams</a>, targetParams?: <a href="../undefineds/ExplorerTargetParams.html" target="_self">ExplorerTargetParams</a>)</code>
+<code>getEntityList(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, params: <a href="../classes/PageableParams.html" target="_self">PageableParams</a>, user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="211"
-                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:211</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="53"
+                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:53</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Retrieves paginated entity data with relations.</p>
-</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -494,7 +323,6 @@ Fill data for explorer tables based on that analysis.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -509,12 +337,6 @@ Fill data for explorer tables based on that analysis.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The name of the target entity or table.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>params</td>
@@ -523,45 +345,32 @@ Fill data for explorer tables based on that analysis.</p>
                                             </td>
 
                                             <td>
-                                                    Yes
+                                                    No
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>An optional object containing pageable parameters.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                         <tr>
-                                                <td>targetParams</td>
+                                                <td>user</td>
                                             <td>
-                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerTargetParams" target="_self" >ExplorerTargetParams</a></code>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
                                             </td>
 
                                             <td>
-                                                    Yes
+                                                    No
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>Parameters to fetch and check entity access.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../classes/PageableData.html" target="_self" >Promise&lt;PageableData&gt;</a></code>
+                            <b>Returns : </b>        <code><a href="../classes/PageableData.html" target="_self" >Promise&lt;PageableData&lt;any&gt;&gt;</a></code>
 
                         </div>
                             <div class="io-description">
-                                <p>A promise that resolves to a PageableData object containing the paginated results.</p>
-
+                                
                             </div>
                 </td>
             </tr>
@@ -571,34 +380,30 @@ Fill data for explorer tables based on that analysis.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getTargetData"></a>
+                    <a name="getTarget"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>getTargetData</b></span>
-                        <a href="#getTargetData"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>getTarget</b></span>
+                        <a href="#getTarget"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getTargetData(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, targetParams?: <a href="../undefineds/ExplorerTargetParams.html" target="_self">ExplorerTargetParams</a>)</code>
+<code>getTarget(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, type: "section" | "object", user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="264"
-                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:264</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="45"
+                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:45</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Retrieves target data for the specified target entity name.</p>
-</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -609,7 +414,6 @@ Fill data for explorer tables based on that analysis.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -624,30 +428,30 @@ Fill data for explorer tables based on that analysis.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The target entity name.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                         <tr>
-                                                <td>targetParams</td>
+                                                <td>type</td>
                                             <td>
-                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerTargetParams" target="_self" >ExplorerTargetParams</a></code>
+                                                        <code>&quot;section&quot; | &quot;object&quot;</code>
                                             </td>
 
                                             <td>
-                                                    Yes
+                                                    No
                                             </td>
 
+
+                                        </tr>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                            </td>
 
                                             <td>
-                                                    <ul>
-<li>Parameters to fetch and check entity access.</li>
-</ul>
-
+                                                    No
                                             </td>
+
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -657,8 +461,7 @@ Fill data for explorer tables based on that analysis.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>A promise that resolves to the TargetData object.</p>
-
+                                
                             </div>
                 </td>
             </tr>
@@ -670,7 +473,6 @@ Fill data for explorer tables based on that analysis.</p>
                 <td class="col-md-4">
                     <a name="getTargetList"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
                         <span ><b>getTargetList</b></span>
                         <a href="#getTargetList"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -678,33 +480,26 @@ Fill data for explorer tables based on that analysis.</p>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getTargetList()</code>
+<code>getTargetList()</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="273"
-                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:273</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:41</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Retrieves a list of all registered targets with their item counts.</p>
-</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="../interfaces/ExplorerTarget.html" target="_self" >Promise&lt;ExplorerTarget[]&gt;</a></code>
 
                         </div>
-                            <div class="io-description">
-                                <p>A promise that resolves to an array of ExplorerTarget objects.</p>
-
-                            </div>
                 </td>
             </tr>
         </tbody>
@@ -715,7 +510,6 @@ Fill data for explorer tables based on that analysis.</p>
                 <td class="col-md-4">
                     <a name="removeEntity"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
                         <span ><b>removeEntity</b></span>
                         <a href="#removeEntity"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -723,24 +517,21 @@ Fill data for explorer tables based on that analysis.</p>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>removeEntity(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, id: string | number, targetParams?: <a href="../undefineds/ExplorerTargetParams.html" target="_self">ExplorerTargetParams</a>)</code>
+<code>removeEntity(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="237"
-                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:237</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="61"
+                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:61</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Removes an entity by its ID.</p>
-</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -751,7 +542,6 @@ Fill data for explorer tables based on that analysis.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -766,17 +556,11 @@ Fill data for explorer tables based on that analysis.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The name of the entity-target.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>id</td>
                                             <td>
-                                                        <code>string | number</code>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
 
                                             <td>
@@ -784,30 +568,18 @@ Fill data for explorer tables based on that analysis.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The ID of the entity to be removed.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                         <tr>
-                                                <td>targetParams</td>
+                                                <td>user</td>
                                             <td>
-                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerTargetParams" target="_self" >ExplorerTargetParams</a></code>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
                                             </td>
 
                                             <td>
-                                                    Yes
+                                                    No
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>Parameters to fetch and check entity access.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -817,8 +589,7 @@ Fill data for explorer tables based on that analysis.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>A promise that resolves to the removed entity.</p>
-
+                                
                             </div>
                 </td>
             </tr>
@@ -828,26 +599,24 @@ Fill data for explorer tables based on that analysis.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="saveEntityData"></a>
+                    <a name="saveEntity"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>saveEntityData</b></span>
-                        <a href="#saveEntityData"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>saveEntity</b></span>
+                        <a href="#saveEntity"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>saveEntityData(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, entity: T, targetParams?: <a href="../undefineds/ExplorerTargetParams.html" target="_self">ExplorerTargetParams</a>)</code>
+<code>saveEntity(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, body: T, user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="224"
-                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:224</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:59</a></div>
                         </td>
                     </tr>
 
@@ -862,8 +631,6 @@ Fill data for explorer tables based on that analysis.</p>
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Saves or updates an entity, including its nested entities.</p>
-</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -874,7 +641,6 @@ Fill data for explorer tables based on that analysis.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -889,15 +655,9 @@ Fill data for explorer tables based on that analysis.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The name of the target entity.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                         <tr>
-                                                <td>entity</td>
+                                                <td>body</td>
                                             <td>
                                                         <code>T</code>
                                             </td>
@@ -907,30 +667,18 @@ Fill data for explorer tables based on that analysis.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>The entity object to be saved or updated.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                         <tr>
-                                                <td>targetParams</td>
+                                                <td>user</td>
                                             <td>
-                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerTargetParams" target="_self" >ExplorerTargetParams</a></code>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
                                             </td>
 
                                             <td>
-                                                    Yes
+                                                    No
                                             </td>
 
 
-                                            <td>
-                                                    <ul>
-<li>Parameters to fetch and check entity access.</li>
-</ul>
-
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -940,18 +688,80 @@ Fill data for explorer tables based on that analysis.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>A promise that resolves to the saved or updated entity.</p>
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveTarget"></a>
+                    <span class="name">
+                        <span ><b>saveTarget</b></span>
+                        <a href="#saveTarget"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveTarget(target: <a href="../interfaces/ExplorerTarget.html" target="_self">ExplorerTarget</a>)</code>
+                </td>
+            </tr>
 
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="43"
+                                    class="link-to-prism">lib/common/explorer/explorer.types.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ExplorerTarget.html" target="_self" >ExplorerTarget</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/ExplorerTarget.html" target="_self" >Promise&lt;ExplorerTarget&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
                             </div>
                 </td>
             </tr>
         </tbody>
     </table>
 </section>
-
-
-
-
 
     </div>
 
@@ -1233,7 +1043,6 @@ export abstract class ExplorerService {
 
 
 
-
                    </div><div class="search-results">
     <div class="has-results">
         <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
@@ -1259,8 +1068,8 @@ export abstract class ExplorerService {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'ExplorerService.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'BasicExplorerController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

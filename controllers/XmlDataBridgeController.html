@@ -79,23 +79,16 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content class">
+               <div class="content controller">
                    <div class="content-data">
 
 
 
 
 
-
-
-
-
-
-
-
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Classes</li>
-  <li class="breadcrumb-item" >UserService</li>
+  <li class="breadcrumb-item">Controllers</li>
+  <li class="breadcrumb-item" >XmlDataBridgeController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -119,17 +112,17 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>lib/common/user/user.types.ts</code>
+            <code>lib/common/xml-data-bridge/xml-data-bridge.controller.ts</code>
         </p>
 
-
             <p class="comment">
-                <h3>Description</h3>
+                <h3>Prefix</h3>
             </p>
             <p class="comment">
-                <p>Abstract class representing the user service.</p>
-
+                <code>xdb</code>
             </p>
+
+
 
 
 
@@ -148,24 +141,23 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#create" >create</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#export" >export</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#findById" >findById</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#import" >import</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#findByLogin" >findByLogin</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#removeById" >removeById</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#updateById" >updateById</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#importFile" >importFile</a>
                             </li>
                         </ul>
                     </td>
@@ -179,8 +171,6 @@
     </table>
 </section>
 
-
-
             <section data-compodoc="block-methods">
     
     <h3 id="methods">
@@ -190,26 +180,35 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="create"></a>
+                    <a name="export"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>create</b></span>
-                        <a href="#create"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>export</b></span>
+                        <a href="#export"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>create(user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
+                    <code>export(body: <a href="../undefineds/XdbExportParams.html" target="_self">XdbExportParams</a>, user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;/export&#x27;)<br />@ForRoles(Roles.ADMIN)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="119"
-                                    class="link-to-prism">lib/common/user/user.types.ts:119</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.controller.ts:63</a></div>
                         </td>
                     </tr>
 
@@ -230,285 +229,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>user</td>
+                                                <td>body</td>
                                             <td>
-                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="findById"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>findById</b></span>
-                        <a href="#findById"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="115"
-                                    class="link-to-prism">lib/common/user/user.types.ts:115</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>id</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="findByLogin"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>findByLogin</b></span>
-                        <a href="#findByLogin"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findByLogin(login: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="113"
-                                    class="link-to-prism">lib/common/user/user.types.ts:113</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>login</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="removeById"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>removeById</b></span>
-                        <a href="#removeById"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>removeById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="121"
-                                    class="link-to-prism">lib/common/user/user.types.ts:121</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>id</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="updateById"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>updateById</b></span>
-                        <a href="#updateById"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>updateById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="117"
-                                    class="link-to-prism">lib/common/user/user.types.ts:117</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>id</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbExportParams" target="_self" >XdbExportParams</a></code>
                                             </td>
 
                                             <td>
@@ -533,7 +256,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
+                            <b>Returns : </b>    <code>unknown</code>
 
                         </div>
                             <div class="io-description">
@@ -543,143 +266,247 @@
             </tr>
         </tbody>
     </table>
-</section>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="import"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>import</b></span>
+                        <a href="#import"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>import(body: <a href="../undefineds/XdbObject.html" target="_self">XdbObject</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;/import&#x27;)<br />@ForRoles(Roles.ROOT)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="48"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.controller.ts:48</a></div>
+                        </td>
+                    </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>body</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#XdbObject" target="_self" >XdbObject</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
 
 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
 
-    </div>
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="importFile"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>importFile</b></span>
+                        <a href="#importFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>importFile(file: <a href="../interfaces/File.html" target="_self">Express.Multer.File</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;/import-file&#x27;)<br />@UseInterceptors(undefined)<br />@ForRoles(Roles.ROOT)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.controller.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                            <code><a href="../interfaces/File.html" target="_self" >Express.Multer.File</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Exclude, Expose, Type } from &quot;class-transformer&quot;;
-import { Type as Class } from &quot;@nestjs/common/interfaces/type.interface&quot;;
-import { Media } from &quot;../media/media.types&quot;;
-import { LocalizedString } from &quot;../../shared/modules/locale/locale.types&quot;;
-
-/**
- * Interface representing a user object.
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">/*
+ * Copyright 2023 Alexander Kiriliuk
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
  */
-export interface User {
-  id: string;
-  avatar: Media;
-  password: string;
-  login: string;
-  email: string;
-  phone: string;
-  firstName: string;
-  lastName: string;
-  active: boolean;
-  roles: UserRole[];
-  tsCreated: Date;
+
+import {
+  Body,
+  Controller,
+  Post,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from &quot;@nestjs/common&quot;;
+import { FileInterceptor } from &quot;@nestjs/platform-express&quot;;
+import { AuthGuard } from &quot;../../shared/guards/auth.guard&quot;;
+import {
+  XdbExportService,
+  XdbImportService,
+} from &quot;./xml-data-bridge.constants&quot;;
+import { Roles } from &quot;../../shared/constants&quot;;
+import { ForRoles } from &quot;../../shared/decorators/for-roles.decorator&quot;;
+import { XdbExportParams, XdbObject } from &quot;./xml-data-bridge.types&quot;;
+import { NotEmptyPipe } from &quot;../../shared/pipes/not-empty.pipe&quot;;
+import { CurrentUser } from &quot;../../shared/decorators/current-user.decorator&quot;;
+import { User } from &quot;../user/user.types&quot;;
+
+@Controller(&quot;xdb&quot;)
+@UseGuards(AuthGuard)
+export class XmlDataBridgeController {
+  constructor(
+    private readonly xdbImportService: XdbImportService,
+    private readonly xdbExportService: XdbExportService,
+  ) {}
+
+  @Post(&quot;/import&quot;)
+  @ForRoles(Roles.ROOT)
+  async import(@Body() body: XdbObject) {
+    return await this.xdbImportService.importXml(body);
+  }
+
+  @Post(&quot;/import-file&quot;)
+  @UseInterceptors(FileInterceptor(&quot;file&quot;))
+  @ForRoles(Roles.ROOT)
+  async importFile(
+    @UploadedFile(&quot;file&quot;, new NotEmptyPipe(&quot;file&quot;)) file: Express.Multer.File,
+  ) {
+    return await this.xdbImportService.importFromFile(file.buffer);
+  }
+
+  @Post(&quot;/export&quot;)
+  @ForRoles(Roles.ADMIN)
+  async export(@Body() body: XdbExportParams, @CurrentUser() user: User) {
+    body.user &#x3D; user;
+    if (!body.depth) {
+      body.depth &#x3D; undefined;
+    }
+    return await this.xdbExportService.exportXml(body);
+  }
 }
-
-/**
- * Interface representing a user role.
- */
-export interface UserRole {
-  code: string;
-  name: LocalizedString[];
-  tsCreated: Date;
-}
-
-/**
- * Data transfer object for user role.
- */
-export class UserRoleDto implements UserRole {
-  @Expose()
-  code: string;
-
-  @Expose()
-  name: LocalizedString[];
-
-  @Exclude()
-  tsCreated: Date;
-}
-
-/**
- * Data transfer object for user.
- */
-export class UserDto implements User {
-  @Expose()
-  id: string;
-
-  @Expose()
-  login: string;
-
-  @Expose()
-  email: string;
-
-  @Expose()
-  firstName: string;
-
-  @Expose()
-  lastName: string;
-
-  @Exclude()
-  password: string;
-
-  @Expose()
-  @Type(() &#x3D;&gt; UserRoleDto)
-  roles: UserRoleDto[];
-
-  @Expose()
-  active: boolean;
-
-  @Expose()
-  avatar: Media;
-
-  @Expose()
-  phone: string;
-
-  @Exclude()
-  tsCreated: Date;
-}
-
-/**
- * Interface representing a request to update a user.
- */
-export interface UserUpdateRequest {
-  id: string;
-  user: User;
-}
-
-/**
- * Abstract class representing the user service.
- */
-export abstract class UserService {
-  abstract findByLogin(login: string): Promise&lt;User&gt;;
-
-  abstract findById(id: string): Promise&lt;User&gt;;
-
-  abstract updateById(id: string, user: User): Promise&lt;User&gt;;
-
-  abstract create(user: User): Promise&lt;User&gt;;
-
-  abstract removeById(id: string): Promise&lt;User&gt;;
-}
-
-export interface BasicUserController {
-  getUserProfile(id: string, user: User): Promise&lt;User&gt;;
-
-  updateUserProfile(id: string, profile: User, user: User): Promise&lt;User&gt;;
-
-  removeUserProfile(id: string): Promise&lt;User&gt;;
-
-  createUserProfile(profile: User): Promise&lt;User&gt;;
-}
-
-/**
- * Options for configuring the UserModule.
- */
-export type UserModuleOptions &#x3D; {
-  service: Class&lt;UserService&gt;;
-  controller: Class&lt;BasicUserController&gt;;
-};
 </code></pre>
     </div>
 </div>
+
+
+
+
+
+
+
 
 
 
@@ -714,8 +541,8 @@ export type UserModuleOptions &#x3D; {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'UserService.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'XmlDataBridgeController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

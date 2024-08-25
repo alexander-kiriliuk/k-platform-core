@@ -381,6 +381,30 @@ export type ColumnDataType &#x3D;
   | &quot;reference&quot;
   | &quot;unknown&quot;;
 
+export interface BasicExplorerController {
+  getTargetList(): Promise&lt;ExplorerTarget[]&gt;;
+
+  saveTarget(target: ExplorerTarget): Promise&lt;ExplorerTarget&gt;;
+
+  getTarget(
+    target: string,
+    type: &quot;section&quot; | &quot;object&quot;,
+    user: User,
+  ): Promise&lt;TargetData&gt;;
+
+  getEntity(target: string, id: string, user: User): Promise&lt;ObjectLiteral&gt;;
+
+  getEntityList(
+    target: string,
+    params: PageableParams,
+    user: User,
+  ): Promise&lt;PageableData&lt;any&gt;&gt;;
+
+  saveEntity&lt;T&gt;(target: string, body: T, user: User): Promise&lt;T&gt;;
+
+  removeEntity(target: string, id: string, user: User): Promise&lt;ObjectLiteral&gt;;
+}
+
 /**
  * Interface representing an explorer target entity.
  */
@@ -498,6 +522,8 @@ export type ExplorerSelectParams &#x3D; {
  */
 export type ExplorerModuleOptions &#x3D; {
   service: Class&lt;ExplorerService&gt;;
+  controller?: Class&lt;BasicExplorerController&gt;;
+  saveHandlers?: Class&lt;EntitySaveHandler&gt;[];
 };
 
 /**

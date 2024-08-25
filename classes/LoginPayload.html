@@ -224,7 +224,7 @@ Contains user login information required for authentication.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">lib/common/auth/auth.types.ts:63</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">lib/common/auth/auth.types.ts:64</a></div>
                         </td>
                     </tr>
 
@@ -269,7 +269,7 @@ Optional.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">lib/common/auth/auth.types.ts:71</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">lib/common/auth/auth.types.ts:72</a></div>
                         </td>
                     </tr>
 
@@ -313,7 +313,7 @@ Optional.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">lib/common/auth/auth.types.ts:55</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">lib/common/auth/auth.types.ts:56</a></div>
                         </td>
                     </tr>
 
@@ -357,7 +357,7 @@ Optional.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">lib/common/auth/auth.types.ts:36</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">lib/common/auth/auth.types.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -400,7 +400,7 @@ Optional.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">lib/common/auth/auth.types.ts:45</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">lib/common/auth/auth.types.ts:46</a></div>
                         </td>
                     </tr>
 
@@ -431,6 +431,7 @@ import { Type as Class } from &quot;@nestjs/common&quot;;
 import { UserDto } from &quot;../user/user.types&quot;;
 import { TransformUtils } from &quot;../../shared/utils/transform.utils&quot;;
 import { AuthService } from &quot;./auth.constants&quot;;
+import { Request, Response } from &quot;express&quot;;
 
 /**
  * Data transfer object for login payload.
@@ -532,12 +533,29 @@ export class JwtDto {
   rtExp: Date;
 }
 
+export interface BasicAuthController {
+  login(
+    payload: LoginPayload,
+    request: Request,
+    response: Response,
+  ): Promise&lt;JwtDto&gt;;
+
+  logout(token: string, response: Response): Promise&lt;{ result: unknown }&gt;;
+
+  exchange(
+    payload: ExchangeTokenPayload,
+    request: Request,
+    response: Response,
+  ): Promise&lt;Partial&lt;JwtDto&gt;&gt;;
+}
+
 /**
  * Options for configuring the authentication module.
  * @property service - The authentication service class.
  */
 export type AuthModuleOptions &#x3D; {
   service: Class&lt;AuthService&gt;;
+  controller: Class&lt;BasicAuthController&gt;;
 };
 </code></pre>
     </div>

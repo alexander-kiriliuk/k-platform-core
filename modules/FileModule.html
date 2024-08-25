@@ -158,8 +158,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="32"
-                                    class="link-to-prism">lib/common/file/file.module.ts:32</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="34"
+                                    class="link-to-prism">lib/common/file/file.module.ts:34</a></div>
                         </td>
                     </tr>
 
@@ -194,6 +194,7 @@
                                                     <code>{
       fileManager: FileService,
       fileMd: FileMetadataService,
+      controller: FileController,
     }</code>
                                             </td>
 
@@ -242,6 +243,8 @@ import { FileMetadataService } from &quot;./file-metadata.service&quot;;
 import { LogModule } from &quot;../../shared/modules/log/log.module&quot;;
 import { CacheModule } from &quot;../../shared/modules/cache/cache.module&quot;;
 import { FileManager, FileMd } from &quot;./file.constants&quot;;
+import { FileController } from &quot;./file.controller&quot;;
+import { UserModule } from &quot;@k-platform/core/common/user/user.module&quot;;
 
 /**
  * Module for managing files.
@@ -252,11 +255,18 @@ export class FileModule {
     options: FileModuleOptions &#x3D; {
       fileManager: FileService,
       fileMd: FileMetadataService,
+      controller: FileController,
     },
   ): DynamicModule {
     return {
       module: FileModule,
-      imports: [TypeOrmModule.forFeature([FileEntity]), LogModule, CacheModule],
+      imports: [
+        TypeOrmModule.forFeature([FileEntity]),
+        LogModule,
+        CacheModule,
+        UserModule.forRoot(),
+      ],
+      controllers: [options.controller],
       providers: [
         {
           provide: FileManager,

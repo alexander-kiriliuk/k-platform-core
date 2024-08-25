@@ -841,6 +841,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Type as Class } from &quot;@nestjs/common/interfaces/type.interface&quot;;
 import { Media } from &quot;../media/media.types&quot;;
 import { FileManager, FileMd } from &quot;./file.constants&quot;;
+import { Response } from &quot;express&quot;;
 
 /**
  * Interface representing a file.
@@ -1142,14 +1143,23 @@ export interface AudioFileMetadata {
   label: string;
 }
 
+export interface BasicFileController {
+  createFile(file: Express.Multer.File, isPublic: string): Promise&lt;File&gt;;
+
+  getPrivateFile(res: Response, id: number): Promise&lt;void&gt;;
+
+  getFile(id: number): Promise&lt;File&gt;;
+
+  removeFile(id: number): Promise&lt;File&gt;;
+}
+
 /**
  * Options for configuring the FileModule.
  */
 export type FileModuleOptions &#x3D; {
-  /** Class responsible for file management operations */
   fileManager: Class&lt;FileManager&gt;;
-  /** Class responsible for file Metadata */
   fileMd: Class&lt;FileMd&gt;;
+  controller: Class&lt;BasicFileController&gt;;
 };
 </code></pre>
     </div>

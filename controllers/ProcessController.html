@@ -79,23 +79,16 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content class">
+               <div class="content controller">
                    <div class="content-data">
 
 
 
 
 
-
-
-
-
-
-
-
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Classes</li>
-  <li class="breadcrumb-item" >UserService</li>
+  <li class="breadcrumb-item">Controllers</li>
+  <li class="breadcrumb-item" >ProcessController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -119,17 +112,17 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>lib/common/user/user.types.ts</code>
+            <code>lib/common/process/process.controller.ts</code>
         </p>
 
-
             <p class="comment">
-                <h3>Description</h3>
+                <h3>Prefix</h3>
             </p>
             <p class="comment">
-                <p>Abstract class representing the user service.</p>
-
+                <code>process</code>
             </p>
+
+
 
 
 
@@ -148,24 +141,34 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#create" >create</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getLogs" >getLogs</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#findById" >findById</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getStats" >getStats</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#findByLogin" >findByLogin</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#startProcess" >startProcess</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#removeById" >removeById</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#stopProcess" >stopProcess</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#updateById" >updateById</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#toggleProcess" >toggleProcess</a>
                             </li>
                         </ul>
                     </td>
@@ -179,8 +182,6 @@
     </table>
 </section>
 
-
-
             <section data-compodoc="block-methods">
     
     <h3 id="methods">
@@ -190,95 +191,35 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="create"></a>
+                    <a name="getLogs"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>create</b></span>
-                        <a href="#create"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getLogs</b></span>
+                        <a href="#getLogs"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>create(user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
+                    <code>getLogs(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;/log/:id&#x27;)<br />@ForRoles(Roles.ADMIN)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="119"
-                                    class="link-to-prism">lib/common/user/user.types.ts:119</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>user</td>
-                                            <td>
-                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="findById"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>findById</b></span>
-                        <a href="#findById"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="115"
-                                    class="link-to-prism">lib/common/user/user.types.ts:115</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="69"
+                                    class="link-to-prism">lib/common/process/process.controller.ts:69</a></div>
                         </td>
                     </tr>
 
@@ -301,7 +242,7 @@
                                         <tr>
                                                 <td>id</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
                                             </td>
 
                                             <td>
@@ -314,7 +255,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
+                            <b>Returns : </b>    <code>unknown</code>
 
                         </div>
                             <div class="io-description">
@@ -328,26 +269,35 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="findByLogin"></a>
+                    <a name="getStats"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>findByLogin</b></span>
-                        <a href="#findByLogin"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getStats</b></span>
+                        <a href="#getStats"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findByLogin(login: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>getStats(code: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;/stats/:code&#x27;)<br />@ForRoles(Roles.ADMIN)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="113"
-                                    class="link-to-prism">lib/common/user/user.types.ts:113</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">lib/common/process/process.controller.ts:56</a></div>
                         </td>
                     </tr>
 
@@ -368,7 +318,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>login</td>
+                                                <td>code</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
@@ -383,7 +333,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
+                            <b>Returns : </b>    <code>unknown</code>
 
                         </div>
                             <div class="io-description">
@@ -397,26 +347,35 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="removeById"></a>
+                    <a name="startProcess"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>removeById</b></span>
-                        <a href="#removeById"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>startProcess</b></span>
+                        <a href="#startProcess"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>removeById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>startProcess(code: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;/start/:code&#x27;)<br />@ForRoles(Roles.ADMIN)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="121"
-                                    class="link-to-prism">lib/common/user/user.types.ts:121</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="38"
+                                    class="link-to-prism">lib/common/process/process.controller.ts:38</a></div>
                         </td>
                     </tr>
 
@@ -437,7 +396,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>id</td>
+                                                <td>code</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
@@ -452,7 +411,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
                             <div class="io-description">
@@ -466,26 +425,35 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="updateById"></a>
+                    <a name="stopProcess"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>updateById</b></span>
-                        <a href="#updateById"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>stopProcess</b></span>
+                        <a href="#stopProcess"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>updateById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
+                    <code>stopProcess(code: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;/stop/:code&#x27;)<br />@ForRoles(Roles.ADMIN)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="117"
-                                    class="link-to-prism">lib/common/user/user.types.ts:117</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">lib/common/process/process.controller.ts:44</a></div>
                         </td>
                     </tr>
 
@@ -506,21 +474,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>id</td>
+                                                <td>code</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>user</td>
-                                            <td>
-                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
                                             </td>
 
                                             <td>
@@ -533,7 +489,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
                             <div class="io-description">
@@ -543,143 +499,180 @@
             </tr>
         </tbody>
     </table>
-</section>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleProcess"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>toggleProcess</b></span>
+                        <a href="#toggleProcess"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>toggleProcess(code: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;/toggle/:code&#x27;)<br />@ForRoles(Roles.ADMIN)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="50"
+                                    class="link-to-prism">lib/common/process/process.controller.ts:50</a></div>
+                        </td>
+                    </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>code</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
 
 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
-    </div>
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Exclude, Expose, Type } from &quot;class-transformer&quot;;
-import { Type as Class } from &quot;@nestjs/common/interfaces/type.interface&quot;;
-import { Media } from &quot;../media/media.types&quot;;
-import { LocalizedString } from &quot;../../shared/modules/locale/locale.types&quot;;
-
-/**
- * Interface representing a user object.
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">/*
+ * Copyright 2023 Alexander Kiriliuk
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
  */
-export interface User {
-  id: string;
-  avatar: Media;
-  password: string;
-  login: string;
-  email: string;
-  phone: string;
-  firstName: string;
-  lastName: string;
-  active: boolean;
-  roles: UserRole[];
-  tsCreated: Date;
+
+import {
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  UseGuards,
+} from &quot;@nestjs/common&quot;;
+import { CommonUtils } from &quot;../../shared/utils/common.utils&quot;;
+import { AuthGuard } from &quot;../../shared/guards/auth.guard&quot;;
+import { ProcessManagerService } from &quot;./process-manager.service&quot;;
+import { ForRoles } from &quot;../../shared/decorators/for-roles.decorator&quot;;
+import { Roles } from &quot;../../shared/constants&quot;;
+import sleep &#x3D; CommonUtils.sleep;
+
+@Controller(&quot;process&quot;)
+@UseGuards(AuthGuard)
+export class ProcessController {
+  constructor(private readonly pmService: ProcessManagerService) {}
+
+  @Get(&quot;/start/:code&quot;)
+  @ForRoles(Roles.ADMIN)
+  async startProcess(@Param(&quot;code&quot;) code: string) {
+    await this.pmService.startProcess(code);
+  }
+
+  @Get(&quot;/stop/:code&quot;)
+  @ForRoles(Roles.ADMIN)
+  async stopProcess(@Param(&quot;code&quot;) code: string) {
+    await this.pmService.stopProcess(code);
+  }
+
+  @Get(&quot;/toggle/:code&quot;)
+  @ForRoles(Roles.ADMIN)
+  async toggleProcess(@Param(&quot;code&quot;) code: string) {
+    await this.pmService.toggleProcess(code);
+  }
+
+  @Get(&quot;/stats/:code&quot;)
+  @ForRoles(Roles.ADMIN)
+  async getStats(@Param(&quot;code&quot;) code: string) {
+    const processData &#x3D; await this.pmService.getProcessData(code, true);
+    if (!processData) {
+      throw new NotFoundException();
+    }
+    processData.logs &#x3D; await this.pmService.getLastLogsByProcess(
+      processData.code,
+    );
+    return processData;
+  }
+
+  @Get(&quot;/log/:id&quot;)
+  @ForRoles(Roles.ADMIN)
+  async getLogs(@Param(&quot;id&quot;) id: number) {
+    const logData &#x3D; await this.pmService.getProcessLogById(id);
+    if (!logData) {
+      throw new NotFoundException();
+    }
+    for (let i &#x3D; 0; i &lt; 5; i++) {
+      const currentLog &#x3D; await this.pmService.getProcessLogById(id);
+      if (currentLog.tsUpdated.getTime() !&#x3D;&#x3D; logData.tsUpdated.getTime()) {
+        return currentLog;
+      }
+      await sleep(1000);
+    }
+  }
 }
-
-/**
- * Interface representing a user role.
- */
-export interface UserRole {
-  code: string;
-  name: LocalizedString[];
-  tsCreated: Date;
-}
-
-/**
- * Data transfer object for user role.
- */
-export class UserRoleDto implements UserRole {
-  @Expose()
-  code: string;
-
-  @Expose()
-  name: LocalizedString[];
-
-  @Exclude()
-  tsCreated: Date;
-}
-
-/**
- * Data transfer object for user.
- */
-export class UserDto implements User {
-  @Expose()
-  id: string;
-
-  @Expose()
-  login: string;
-
-  @Expose()
-  email: string;
-
-  @Expose()
-  firstName: string;
-
-  @Expose()
-  lastName: string;
-
-  @Exclude()
-  password: string;
-
-  @Expose()
-  @Type(() &#x3D;&gt; UserRoleDto)
-  roles: UserRoleDto[];
-
-  @Expose()
-  active: boolean;
-
-  @Expose()
-  avatar: Media;
-
-  @Expose()
-  phone: string;
-
-  @Exclude()
-  tsCreated: Date;
-}
-
-/**
- * Interface representing a request to update a user.
- */
-export interface UserUpdateRequest {
-  id: string;
-  user: User;
-}
-
-/**
- * Abstract class representing the user service.
- */
-export abstract class UserService {
-  abstract findByLogin(login: string): Promise&lt;User&gt;;
-
-  abstract findById(id: string): Promise&lt;User&gt;;
-
-  abstract updateById(id: string, user: User): Promise&lt;User&gt;;
-
-  abstract create(user: User): Promise&lt;User&gt;;
-
-  abstract removeById(id: string): Promise&lt;User&gt;;
-}
-
-export interface BasicUserController {
-  getUserProfile(id: string, user: User): Promise&lt;User&gt;;
-
-  updateUserProfile(id: string, profile: User, user: User): Promise&lt;User&gt;;
-
-  removeUserProfile(id: string): Promise&lt;User&gt;;
-
-  createUserProfile(profile: User): Promise&lt;User&gt;;
-}
-
-/**
- * Options for configuring the UserModule.
- */
-export type UserModuleOptions &#x3D; {
-  service: Class&lt;UserService&gt;;
-  controller: Class&lt;BasicUserController&gt;;
-};
 </code></pre>
     </div>
 </div>
+
+
+
+
+
+
+
 
 
 
@@ -714,8 +707,8 @@ export type UserModuleOptions &#x3D; {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'UserService.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'ProcessController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

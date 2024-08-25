@@ -79,23 +79,16 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content class">
+               <div class="content controller">
                    <div class="content-data">
 
 
 
 
 
-
-
-
-
-
-
-
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Classes</li>
-  <li class="breadcrumb-item" >UserService</li>
+  <li class="breadcrumb-item">Controllers</li>
+  <li class="breadcrumb-item" >AuthController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -119,17 +112,17 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>lib/common/user/user.types.ts</code>
+            <code>lib/common/auth/auth.controller.ts</code>
         </p>
 
-
             <p class="comment">
-                <h3>Description</h3>
+                <h3>Prefix</h3>
             </p>
             <p class="comment">
-                <p>Abstract class representing the user service.</p>
-
+                <code>/auth</code>
             </p>
+
+
 
 
 
@@ -148,24 +141,22 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#create" >create</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#exchange" >exchange</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#findById" >findById</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#login" >login</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#findByLogin" >findByLogin</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#removeById" >removeById</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#updateById" >updateById</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#logout" >logout</a>
                             </li>
                         </ul>
                     </td>
@@ -179,8 +170,6 @@
     </table>
 </section>
 
-
-
             <section data-compodoc="block-methods">
     
     <h3 id="methods">
@@ -190,26 +179,35 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="create"></a>
+                    <a name="exchange"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>create</b></span>
-                        <a href="#create"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>exchange</b></span>
+                        <a href="#exchange"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>create(user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
+                    <code>exchange(payload: <a href="../classes/ExchangeTokenPayload.html" target="_self">ExchangeTokenPayload</a>, request: Request, response: Response)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ResponseDto(JwtDto)<br />@Post(&#x27;/exchange-token&#x27;)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="119"
-                                    class="link-to-prism">lib/common/user/user.types.ts:119</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="99"
+                                    class="link-to-prism">lib/common/auth/auth.controller.ts:99</a></div>
                         </td>
                     </tr>
 
@@ -230,9 +228,33 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>user</td>
+                                                <td>payload</td>
                                             <td>
-                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                                            <code><a href="../classes/ExchangeTokenPayload.html" target="_self" >ExchangeTokenPayload</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>request</td>
+                                            <td>
+                                                        <code>Request</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>response</td>
+                                            <td>
+                                                        <code>Response</code>
                                             </td>
 
                                             <td>
@@ -245,7 +267,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
+                            <b>Returns : </b>        <code><a href="../classes/JwtDto.html" target="_self" >Promise&lt;Partial&lt;JwtDto&gt;&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -259,26 +281,35 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="findById"></a>
+                    <a name="login"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>findById</b></span>
-                        <a href="#findById"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>login</b></span>
+                        <a href="#login"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>login(payload: <a href="../classes/LoginPayload.html" target="_self">LoginPayload</a>, request: Request, response: Response)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ResponseDto(JwtDto)<br />@Post(&#x27;/login&#x27;)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="115"
-                                    class="link-to-prism">lib/common/user/user.types.ts:115</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">lib/common/auth/auth.controller.ts:51</a></div>
                         </td>
                     </tr>
 
@@ -299,9 +330,33 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>id</td>
+                                                <td>payload</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                            <code><a href="../classes/LoginPayload.html" target="_self" >LoginPayload</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>request</td>
+                                            <td>
+                                                        <code>Request</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>response</td>
+                                            <td>
+                                                        <code>Response</code>
                                             </td>
 
                                             <td>
@@ -314,7 +369,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
+                            <b>Returns : </b>        <code><a href="../classes/JwtDto.html" target="_self" >Promise&lt;JwtDto&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -328,26 +383,35 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="findByLogin"></a>
+                    <a name="logout"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>findByLogin</b></span>
-                        <a href="#findByLogin"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>logout</b></span>
+                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findByLogin(login: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>logout(token: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, response: Response)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@UseGuards(LiteAuthGuard)<br />@Post(&#x27;/logout&#x27;)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="113"
-                                    class="link-to-prism">lib/common/user/user.types.ts:113</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="87"
+                                    class="link-to-prism">lib/common/auth/auth.controller.ts:87</a></div>
                         </td>
                     </tr>
 
@@ -368,9 +432,21 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>login</td>
+                                                <td>token</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>response</td>
+                                            <td>
+                                                        <code>Response</code>
                                             </td>
 
                                             <td>
@@ -383,7 +459,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
+                            <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
 
                         </div>
                             <div class="io-description">
@@ -393,293 +469,138 @@
             </tr>
         </tbody>
     </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="removeById"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>removeById</b></span>
-                        <a href="#removeById"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>removeById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="121"
-                                    class="link-to-prism">lib/common/user/user.types.ts:121</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>id</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="updateById"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>updateById</b></span>
-                        <a href="#updateById"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>updateById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="117"
-                                    class="link-to-prism">lib/common/user/user.types.ts:117</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>id</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>user</td>
-                                            <td>
-                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Promise&lt;User&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
-
-
-
-
-
-    </div>
+</section>    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Exclude, Expose, Type } from &quot;class-transformer&quot;;
-import { Type as Class } from &quot;@nestjs/common/interfaces/type.interface&quot;;
-import { Media } from &quot;../media/media.types&quot;;
-import { LocalizedString } from &quot;../../shared/modules/locale/locale.types&quot;;
-
-/**
- * Interface representing a user object.
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">/*
+ * Copyright 2023 Alexander Kiriliuk
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
  */
-export interface User {
-  id: string;
-  avatar: Media;
-  password: string;
-  login: string;
-  email: string;
-  phone: string;
-  firstName: string;
-  lastName: string;
-  active: boolean;
-  roles: UserRole[];
-  tsCreated: Date;
+
+import {
+  Body,
+  Controller,
+  ForbiddenException,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from &quot;@nestjs/common&quot;;
+import { Request, Response } from &quot;express&quot;;
+import { CaptchaConfig } from &quot;@gen-src/captcha.config&quot;;
+import { AuthService } from &quot;./auth.constants&quot;;
+import { CacheService } from &quot;../../shared/modules/cache/cache.types&quot;;
+import { CaptchaService } from &quot;../captcha/captcha.types&quot;;
+import { ResponseDto } from &quot;../../shared/decorators/response-dto.decorator&quot;;
+import { LiteAuthGuard } from &quot;../../shared/guards/lite-auth.guard&quot;;
+import { AccessToken } from &quot;../../shared/decorators/access-token.decorator&quot;;
+import {
+  BasicAuthController,
+  ExchangeTokenPayload,
+  JwtDto,
+  LoginPayload,
+} from &quot;./auth.types&quot;;
+
+@Controller(&quot;/auth&quot;)
+export class AuthController implements BasicAuthController {
+  constructor(
+    private readonly authService: AuthService,
+    private readonly cacheService: CacheService,
+    private readonly captchaService: CaptchaService,
+  ) {}
+
+  @ResponseDto(JwtDto)
+  @Post(&quot;/login&quot;)
+  async login(
+    @Body() payload: LoginPayload,
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ): Promise&lt;JwtDto&gt; {
+    const captchaEnabled &#x3D; await this.cacheService.getBoolean(
+      CaptchaConfig.ENABLED,
+    );
+    if (captchaEnabled) {
+      const res &#x3D; await this.captchaService.validateCaptcha({
+        id: payload.captchaId,
+        data: payload.captchaPayload,
+      });
+      if (!res) {
+        throw new ForbiddenException(&quot;Invalid captcha&quot;);
+      }
+    }
+    if (request.ip) {
+      payload.ipAddress &#x3D; request.ip;
+    }
+    const data &#x3D; await this.authService.authenticate(payload);
+    response.cookie(&quot;accessToken&quot;, data.accessToken, {
+      sameSite: true,
+      httpOnly: true,
+      expires: data.atExp,
+    });
+    response.cookie(&quot;refreshToken&quot;, data.refreshToken, {
+      sameSite: true,
+      httpOnly: true,
+      expires: data.rtExp,
+    });
+    return data;
+  }
+
+  @UseGuards(LiteAuthGuard)
+  @Post(&quot;/logout&quot;)
+  async logout(
+    @AccessToken() token: string,
+    @Res({ passthrough: true }) response: Response,
+  ): Promise&lt;{ result: unknown }&gt; {
+    const result &#x3D; await this.authService.invalidateToken(token);
+    response.clearCookie(&quot;accessToken&quot;);
+    response.clearCookie(&quot;refreshToken&quot;);
+    return { result };
+  }
+
+  @ResponseDto(JwtDto)
+  @Post(&quot;/exchange-token&quot;)
+  async exchange(
+    @Body() payload: ExchangeTokenPayload,
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ): Promise&lt;Partial&lt;JwtDto&gt;&gt; {
+    const token &#x3D; payload?.token ?? request.cookies?.refreshToken;
+    const data &#x3D; await this.authService.exchangeToken(token);
+    response.cookie(&quot;accessToken&quot;, data.accessToken, {
+      sameSite: true,
+      httpOnly: true,
+      expires: data.atExp,
+    });
+    response.cookie(&quot;refreshToken&quot;, data.refreshToken, {
+      sameSite: true,
+      httpOnly: true,
+      expires: data.rtExp,
+    });
+    return data;
+  }
 }
-
-/**
- * Interface representing a user role.
- */
-export interface UserRole {
-  code: string;
-  name: LocalizedString[];
-  tsCreated: Date;
-}
-
-/**
- * Data transfer object for user role.
- */
-export class UserRoleDto implements UserRole {
-  @Expose()
-  code: string;
-
-  @Expose()
-  name: LocalizedString[];
-
-  @Exclude()
-  tsCreated: Date;
-}
-
-/**
- * Data transfer object for user.
- */
-export class UserDto implements User {
-  @Expose()
-  id: string;
-
-  @Expose()
-  login: string;
-
-  @Expose()
-  email: string;
-
-  @Expose()
-  firstName: string;
-
-  @Expose()
-  lastName: string;
-
-  @Exclude()
-  password: string;
-
-  @Expose()
-  @Type(() &#x3D;&gt; UserRoleDto)
-  roles: UserRoleDto[];
-
-  @Expose()
-  active: boolean;
-
-  @Expose()
-  avatar: Media;
-
-  @Expose()
-  phone: string;
-
-  @Exclude()
-  tsCreated: Date;
-}
-
-/**
- * Interface representing a request to update a user.
- */
-export interface UserUpdateRequest {
-  id: string;
-  user: User;
-}
-
-/**
- * Abstract class representing the user service.
- */
-export abstract class UserService {
-  abstract findByLogin(login: string): Promise&lt;User&gt;;
-
-  abstract findById(id: string): Promise&lt;User&gt;;
-
-  abstract updateById(id: string, user: User): Promise&lt;User&gt;;
-
-  abstract create(user: User): Promise&lt;User&gt;;
-
-  abstract removeById(id: string): Promise&lt;User&gt;;
-}
-
-export interface BasicUserController {
-  getUserProfile(id: string, user: User): Promise&lt;User&gt;;
-
-  updateUserProfile(id: string, profile: User, user: User): Promise&lt;User&gt;;
-
-  removeUserProfile(id: string): Promise&lt;User&gt;;
-
-  createUserProfile(profile: User): Promise&lt;User&gt;;
-}
-
-/**
- * Options for configuring the UserModule.
- */
-export type UserModuleOptions &#x3D; {
-  service: Class&lt;UserService&gt;;
-  controller: Class&lt;BasicUserController&gt;;
-};
 </code></pre>
     </div>
 </div>
+
+
+
+
+
+
+
 
 
 
@@ -714,8 +635,8 @@ export type UserModuleOptions &#x3D; {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'UserService.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'AuthController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

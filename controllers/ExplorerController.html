@@ -79,23 +79,16 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content class">
+               <div class="content controller">
                    <div class="content-data">
 
 
 
 
 
-
-
-
-
-
-
-
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Classes</li>
-  <li class="breadcrumb-item" >MediaManager</li>
+  <li class="breadcrumb-item">Controllers</li>
+  <li class="breadcrumb-item" >ExplorerController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -119,17 +112,17 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>lib/common/media/media.types.ts</code>
+            <code>lib/common/explorer/explorer.controller.ts</code>
         </p>
 
-
             <p class="comment">
-                <h3>Description</h3>
+                <h3>Prefix</h3>
             </p>
             <p class="comment">
-                <p>Abstract class representing the media management service.</p>
-
+                <code>/explorer</code>
             </p>
+
+
 
 
 
@@ -148,36 +141,41 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#createOrUpdateMedia" >createOrUpdateMedia</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getEntity" >getEntity</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#findByCode" >findByCode</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getEntityList" >getEntityList</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#findMediaById" >findMediaById</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getTarget" >getTarget</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#findPrivateById" >findPrivateById</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getTargetList" >getTargetList</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#findPublicById" >findPublicById</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#removeEntity" >removeEntity</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#getMediaPath" >getMediaPath</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#saveEntity" >saveEntity</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#recreate" >recreate</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#remove" >remove</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#saveTarget" >saveTarget</a>
                             </li>
                         </ul>
                     </td>
@@ -191,8 +189,6 @@
     </table>
 </section>
 
-
-
             <section data-compodoc="block-methods">
     
     <h3 id="methods">
@@ -202,26 +198,34 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="createOrUpdateMedia"></a>
+                    <a name="getEntity"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>createOrUpdateMedia</b></span>
-                        <a href="#createOrUpdateMedia"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getEntity</b></span>
+                        <a href="#getEntity"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>createOrUpdateMedia(file: Buffer, type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, code?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, existedEntityId?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, name?: <a href="../interfaces/LocalizedString.html" target="_self">LocalizedString[]</a>)</code>
+                    <code>getEntity(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;/entity/:target&#x27;)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="237"
-                                    class="link-to-prism">lib/common/media/media.types.ts:237</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">lib/common/explorer/explorer.controller.ts:95</a></div>
                         </td>
                     </tr>
 
@@ -242,9 +246,211 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>file</td>
+                                                <td>target</td>
                                             <td>
-                                                        <code>Buffer</code>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;ObjectLiteral&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getEntityList"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getEntityList</b></span>
+                        <a href="#getEntityList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getEntityList(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, params: <a href="../classes/PageableParams.html" target="_self">PageableParams</a>, user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;/pageable/:target&#x27;)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="117"
+                                    class="link-to-prism">lib/common/explorer/explorer.controller.ts:117</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>params</td>
+                                            <td>
+                                                            <code><a href="../classes/PageableParams.html" target="_self" >PageableParams</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/PageableData.html" target="_self" >Promise&lt;PageableData&lt;any&gt;&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTarget"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getTarget</b></span>
+                        <a href="#getTarget"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getTarget(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, type: "section" | "object", user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;/target/:target&#x27;)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">lib/common/explorer/explorer.controller.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
 
                                             <td>
@@ -256,6 +462,143 @@
                                         <tr>
                                                 <td>type</td>
                                             <td>
+                                                        <code>&quot;section&quot; | &quot;object&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/TargetData.html" target="_self" >Promise&lt;TargetData&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTargetList"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getTargetList</b></span>
+                        <a href="#getTargetList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getTargetList()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;/target-list&#x27;)<br />@ForRoles(Roles.ADMIN)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="64"
+                                    class="link-to-prism">lib/common/explorer/explorer.controller.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/ExplorerTarget.html" target="_self" >Promise&lt;ExplorerTarget[]&gt;</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeEntity"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>removeEntity</b></span>
+                        <a href="#removeEntity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>removeEntity(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Delete(&#x27;/entity/:target&#x27;)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="155"
+                                    class="link-to-prism">lib/common/explorer/explorer.controller.ts:155</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
 
@@ -266,100 +609,7 @@
 
                                         </tr>
                                         <tr>
-                                                <td>code</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    Yes
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>existedEntityId</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                            </td>
-
-                                            <td>
-                                                    Yes
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>name</td>
-                                            <td>
-                                                            <code><a href="../interfaces/LocalizedString.html" target="_self" >LocalizedString[]</a></code>
-                                            </td>
-
-                                            <td>
-                                                    Yes
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/Media.html" target="_self" >Promise&lt;Media&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="findByCode"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>findByCode</b></span>
-                        <a href="#findByCode"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findByCode(code: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="225"
-                                    class="link-to-prism">lib/common/media/media.types.ts:225</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>code</td>
+                                                <td>id</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
@@ -370,11 +620,23 @@
 
 
                                         </tr>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/Media.html" target="_self" >Promise&lt;Media&gt;</a></code>
+                            <b>Returns : </b>    <code>Promise&lt;ObjectLiteral&gt;</code>
 
                         </div>
                             <div class="io-description">
@@ -388,29 +650,45 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="findMediaById"></a>
+                    <a name="saveEntity"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>findMediaById</b></span>
-                        <a href="#findMediaById"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>saveEntity</b></span>
+                        <a href="#saveEntity"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findMediaById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, privateMedia?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                    <code>saveEntity(target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, body: T, user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;/entity/:target&#x27;)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="227"
-                                    class="link-to-prism">lib/common/media/media.types.ts:227</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="134"
+                                    class="link-to-prism">lib/common/explorer/explorer.controller.ts:134</a></div>
                         </td>
                     </tr>
 
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
 
             <tr>
                 <td class="col-md-4">
@@ -428,256 +706,37 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>id</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>privateMedia</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-                                            </td>
-
-                                            <td>
-                                                    Yes
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/Media.html" target="_self" >Promise&lt;Media&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="findPrivateById"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>findPrivateById</b></span>
-                        <a href="#findPrivateById"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findPrivateById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="231"
-                                    class="link-to-prism">lib/common/media/media.types.ts:231</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>id</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/Media.html" target="_self" >Promise&lt;Media&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="findPublicById"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>findPublicById</b></span>
-                        <a href="#findPublicById"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findPublicById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="229"
-                                    class="link-to-prism">lib/common/media/media.types.ts:229</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>id</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/Media.html" target="_self" >Promise&lt;Media&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getMediaPath"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>getMediaPath</b></span>
-                        <a href="#getMediaPath"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getMediaPath(media: <a href="../interfaces/Media.html" target="_self">Media</a>, format?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, webpSupport?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="245"
-                                    class="link-to-prism">lib/common/media/media.types.ts:245</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>media</td>
-                                            <td>
-                                                            <code><a href="../interfaces/Media.html" target="_self" >Media</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>format</td>
+                                                <td>target</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
 
                                             <td>
-                                                    Yes
+                                                    No
                                             </td>
 
 
                                         </tr>
                                         <tr>
-                                                <td>webpSupport</td>
+                                                <td>body</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                                        <code>T</code>
                                             </td>
 
                                             <td>
-                                                    Yes
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
                                             </td>
 
 
@@ -686,7 +745,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
+                            <b>Returns : </b>    <code>Promise&lt;T&gt;</code>
 
                         </div>
                             <div class="io-description">
@@ -700,26 +759,35 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="recreate"></a>
+                    <a name="saveTarget"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>recreate</b></span>
-                        <a href="#recreate"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>saveTarget</b></span>
+                        <a href="#saveTarget"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>recreate(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    <code>saveTarget(target: <a href="../interfaces/ExplorerTarget.html" target="_self">ExplorerTarget</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;/target&#x27;)<br />@ForRoles(Roles.ADMIN)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="235"
-                                    class="link-to-prism">lib/common/media/media.types.ts:235</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">lib/common/explorer/explorer.controller.ts:70</a></div>
                         </td>
                     </tr>
 
@@ -740,9 +808,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>id</td>
+                                                <td>target</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                            <code><a href="../interfaces/ExplorerTarget.html" target="_self" >ExplorerTarget</a></code>
                                             </td>
 
                                             <td>
@@ -755,7 +823,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/Media.html" target="_self" >Promise&lt;Media&gt;</a></code>
+                            <b>Returns : </b>        <code><a href="../interfaces/ExplorerTarget.html" target="_self" >Promise&lt;ExplorerTarget&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -765,351 +833,186 @@
             </tr>
         </tbody>
     </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="remove"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>remove</b></span>
-                        <a href="#remove"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>remove(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="233"
-                                    class="link-to-prism">lib/common/media/media.types.ts:233</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>id</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/Media.html" target="_self" >Promise&lt;Media&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
-
-
-
-
-
-    </div>
+</section>    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Exclude, Expose, Type } from &quot;class-transformer&quot;;
-import { Type as Class } from &quot;@nestjs/common/interfaces/type.interface&quot;;
-import { LocalizedString } from &quot;../../shared/modules/locale/locale.types&quot;;
-import { FileMetadata } from &quot;../file/file.types&quot;;
-import { Response } from &quot;express&quot;;
-
-/**
- * Interface representing a media object.
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">/*
+ * Copyright 2023 Alexander Kiriliuk
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
  */
-export interface Media {
-  /** This field contains the identification number of the file  */
-  id: number;
-  /** This field contains a unique character identifier */
-  code: string;
-  /** This field contains the name of the file in all languages involved */
-  name: LocalizedString[];
-  /** This field contains a list of unique settings and functions that the file contains */
-  type: MediaType;
-  /** This field contains a link to the original file and all its thumbnails */
-  files: MediaFile[];
-  /** This field contains a link to the meta data container */
-  metadata: FileMetadata;
-  /** This field contains the date the file was created */
-  tsCreated: Date;
+
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Inject,
+  NotFoundException,
+  Optional,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from &quot;@nestjs/common&quot;;
+import { AuthGuard } from &quot;../../shared/guards/auth.guard&quot;;
+import { RolesGuard } from &quot;../../shared/guards/roles.guard&quot;;
+import {
+  BasicExplorerController,
+  EntitySaveHandler,
+  ExplorerService,
+  ExplorerTarget,
+  ExplorerTargetParams,
+  TargetData,
+} from &quot;./explorer.types&quot;;
+import { ForRoles } from &quot;../../shared/decorators/for-roles.decorator&quot;;
+import { Roles } from &quot;../../shared/constants&quot;;
+import { ObjectLiteral } from &quot;typeorm&quot;;
+import { CurrentUser } from &quot;../../shared/decorators/current-user.decorator&quot;;
+import { User } from &quot;../user/user.types&quot;;
+import {
+  PageableData,
+  PageableParams,
+} from &quot;../../shared/modules/pageable/pageable.types&quot;;
+import ENTITY_SAVE_HANDLER &#x3D; Explorer.ENTITY_SAVE_HANDLER;
+import { Explorer } from &quot;./explorer.constants&quot;;
+
+@Controller(&quot;/explorer&quot;)
+@UseGuards(AuthGuard, RolesGuard)
+export class ExplorerController implements BasicExplorerController {
+  constructor(
+    @Optional()
+    @Inject(ENTITY_SAVE_HANDLER)
+    private readonly saveHandlers: EntitySaveHandler[] &#x3D; [],
+    private readonly explorerService: ExplorerService,
+  ) {}
+
+  @Get(&quot;/target-list&quot;)
+  @ForRoles(Roles.ADMIN)
+  async getTargetList(): Promise&lt;ExplorerTarget[]&gt; {
+    return await this.explorerService.getTargetList();
+  }
+
+  @Post(&quot;/target&quot;)
+  @ForRoles(Roles.ADMIN)
+  async saveTarget(@Body() target: ExplorerTarget): Promise&lt;ExplorerTarget&gt; {
+    return await this.explorerService.changeTarget(target);
+  }
+
+  @Get(&quot;/target/:target&quot;)
+  async getTarget(
+    @Param(&quot;target&quot;) target: string,
+    @Query(&quot;type&quot;) type: &quot;section&quot; | &quot;object&quot;,
+    @CurrentUser() user: User,
+  ): Promise&lt;TargetData&gt; {
+    const targetParams: ExplorerTargetParams &#x3D; {
+      section: type &#x3D;&#x3D;&#x3D; &quot;section&quot;,
+      object: type &#x3D;&#x3D;&#x3D; &quot;object&quot;,
+      fullRelations: true,
+      readRequest: true,
+      checkUserAccess: user,
+    };
+    const res &#x3D; await this.explorerService.getTargetData(target, targetParams);
+    if (!res) {
+      throw new NotFoundException();
+    }
+    return res;
+  }
+
+  @Get(&quot;/entity/:target&quot;)
+  async getEntity(
+    @Param(&quot;target&quot;) target: string,
+    @Query(&quot;id&quot;) id: string,
+    @CurrentUser() user: User,
+  ): Promise&lt;ObjectLiteral&gt; {
+    const targetParams: ExplorerTargetParams &#x3D; {
+      readRequest: true,
+      checkUserAccess: user,
+    };
+    const res &#x3D; await this.explorerService.getEntityData(
+      target,
+      id,
+      undefined,
+      targetParams,
+    );
+    if (!res) {
+      throw new NotFoundException();
+    }
+    return res;
+  }
+
+  @Get(&quot;/pageable/:target&quot;)
+  async getEntityList(
+    @Param(&quot;target&quot;) target: string,
+    @Query() params: PageableParams,
+    @CurrentUser() user: User,
+  ): Promise&lt;PageableData&lt;any&gt;&gt; {
+    const targetParams: ExplorerTargetParams &#x3D; {
+      readRequest: true,
+      checkUserAccess: user,
+    };
+    return await this.explorerService.getPageableEntityData(
+      target,
+      params,
+      targetParams,
+    );
+  }
+
+  @Post(&quot;/entity/:target&quot;)
+  async saveEntity&lt;T&gt;(
+    @Param(&quot;target&quot;) target: string,
+    @Body() body: T,
+    @CurrentUser() user: User,
+  ): Promise&lt;T&gt; {
+    let data &#x3D; body;
+    for (const handler of this.saveHandlers) {
+      data &#x3D; handler.handle(target, data, user);
+    }
+    const targetParams: ExplorerTargetParams &#x3D; {
+      writeRequest: true,
+      checkUserAccess: user,
+    };
+    return await this.explorerService.saveEntityData(
+      target,
+      data,
+      targetParams,
+    );
+  }
+
+  @Delete(&quot;/entity/:target&quot;)
+  async removeEntity(
+    @Param(&quot;target&quot;) target: string,
+    @Query(&quot;id&quot;) id: string,
+    @CurrentUser() user: User,
+  ): Promise&lt;ObjectLiteral&gt; {
+    const targetParams: ExplorerTargetParams &#x3D; {
+      writeRequest: true,
+      checkUserAccess: user,
+    };
+    return await this.explorerService.removeEntity(target, id, targetParams);
+  }
 }
-
-/**
- * Interface representing a media type.
- */
-export interface MediaType {
-  /** A unique code representing the media file type */
-  code: string;
-  /** This field contains a unique character identifier */
-  name: string;
-  /** This field defines the possibility to create a duplicate file in WEBP format */
-  vp6: boolean;
-  /** This field indicates the type of access to the file, public or private */
-  private: boolean;
-  /** A numeric value reflecting the quality level of the media (defines the compression rate or overall quality) */
-  quality: number;
-  /** A file extension associated with the media type and which defines the file format  */
-  ext: MediaExt;
-  /** An array of supported media formats for this media type */
-  formats: MediaFormat[];
-}
-
-/**
- * Interface representing a media format.
- */
-export interface MediaFormat {
-  /** This field contains a unique character identifier */
-  code: string;
-  /** This field contains the name of the media format */
-  name: string;
-  /** The width of the media file in pixels, represented as a string  */
-  width: string;
-  /** The height of the media file in pixels, represented as a string  */
-  height: string;
-}
-
-/**
- * Interface representing a media file.
- */
-export interface MediaFile {
-  /** A unique code or identifier for the media file*/
-  id: number;
-  /** This field contains a unique character identifier */
-  code: string;
-  /** This field contains the name of the media file */
-  name: string;
-  /** The width of the media file in pixels */
-  width: number;
-  /** The height of the media file in pixels */
-  height: number;
-  /** The size of the media file in bytes */
-  size: number;
-  /** The format of the media file, represented by the MediaFormat type */
-  format: MediaFormat;
-  media: Media;
-}
-
-/**
- * Interface representing a media extension.
- */
-export interface MediaExt {
-  /** This field contains a unique character identifier */
-  code: string;
-  /** A unique code or identifier for the media file*/
-  name: string;
-}
-
-/**
- * Interface representing the request to upsert a media object.
- */
-export interface UpsertMediaRequest {
-  file: Buffer;
-  type: string;
-  code?: string;
-  entityIdForPatch?: number;
-  entityName?: LocalizedString[];
-}
-
-/**
- * Data transfer object for media type.
- */
-export class MediaTypeDto implements MediaType {
-  @Expose()
-  code: string;
-
-  @Expose()
-  ext: MediaExt;
-
-  @Expose()
-  @Type(() &#x3D;&gt; MediaFormatDto)
-  formats: MediaFormatDto[];
-
-  @Expose()
-  name: string;
-
-  @Expose()
-  private: boolean;
-
-  @Expose()
-  vp6: boolean;
-
-  @Expose()
-  quality: number;
-}
-
-/**
- * Data transfer object for media format.
- */
-export class MediaFormatDto implements MediaFormat {
-  @Expose()
-  code: string;
-
-  @Expose()
-  height: string;
-
-  @Expose()
-  name: string;
-
-  @Expose()
-  width: string;
-}
-
-/**
- * Data transfer object for media.
- */
-export class MediaDto implements Media {
-  @Expose()
-  id: number;
-
-  @Expose()
-  code: string;
-
-  @Expose()
-  name: LocalizedString[];
-
-  @Expose()
-  @Type(() &#x3D;&gt; MediaTypeDto)
-  type: MediaType;
-
-  @Expose()
-  @Type(() &#x3D;&gt; MediaFileDto)
-  files: MediaFile[];
-
-  @Expose()
-  metadata: FileMetadata;
-
-  @Expose()
-  tsCreated: Date;
-}
-
-/**
- * Data transfer object for media file.
- */
-export class MediaFileDto implements MediaFile {
-  @Expose()
-  id: number;
-
-  @Expose()
-  code: string;
-
-  @Expose()
-  @Type(() &#x3D;&gt; MediaFormatDto)
-  format: MediaFormatDto;
-
-  @Expose()
-  height: number;
-
-  @Exclude()
-  media: Media;
-
-  @Expose()
-  name: string;
-
-  @Expose()
-  size: number;
-
-  @Expose()
-  width: number;
-}
-
-/**
- * Abstract class representing the media management service.
- */
-export abstract class MediaManager {
-  abstract findByCode(code: string): Promise&lt;Media&gt;;
-
-  abstract findMediaById(id: number, privateMedia?: boolean): Promise&lt;Media&gt;;
-
-  abstract findPublicById(id: number): Promise&lt;Media&gt;;
-
-  abstract findPrivateById(id: number): Promise&lt;Media&gt;;
-
-  abstract remove(id: number): Promise&lt;Media&gt;;
-
-  abstract recreate(id: number): Promise&lt;Media&gt;;
-
-  abstract createOrUpdateMedia(
-    file: Buffer,
-    type: string,
-    code?: string,
-    existedEntityId?: number,
-    name?: LocalizedString[],
-  ): Promise&lt;Media&gt;;
-
-  abstract getMediaPath(
-    media: Media,
-    format?: string,
-    webpSupport?: boolean,
-  ): Promise&lt;string&gt;;
-}
-
-export interface BasicMediaController {
-  createMedia(
-    file: Express.Multer.File,
-    type: string,
-    id: number,
-  ): Promise&lt;Media&gt;;
-
-  getPrivateMedia(
-    res: Response,
-    id: number,
-    format: string,
-    webp: boolean,
-  ): Promise&lt;void&gt;;
-
-  getMedia(id: number): Promise&lt;Media&gt;;
-
-  removeMedia(id: number): Promise&lt;Media&gt;;
-
-  recreateMedia(id: number): Promise&lt;Media&gt;;
-}
-
-/**
- * Options for configuring the MediaModule.
- */
-export type MediaModuleOptions &#x3D; {
-  service: Class&lt;MediaManager&gt;;
-  controller: Class&lt;BasicMediaController&gt;;
-};
 </code></pre>
     </div>
 </div>
+
+
+
+
+
+
+
 
 
 
@@ -1144,8 +1047,8 @@ export type MediaModuleOptions &#x3D; {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'MediaManager.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'ExplorerController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

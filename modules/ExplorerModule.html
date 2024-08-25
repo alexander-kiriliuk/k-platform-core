@@ -151,15 +151,15 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>forRoot(options: <a href="../undefineds/ExplorerModuleOptions.html" target="_self">ExplorerModuleOptions</a>)</code>
+                    <code>forRoot(options: <a href="../modules/ExplorerModule.html" target="_self">Partial&lt;ExplorerModuleOptions&gt;</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="30"
-                                    class="link-to-prism">lib/common/explorer/explorer.module.ts:30</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">lib/common/explorer/explorer.module.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -183,7 +183,7 @@
                                         <tr>
                                                 <td>options</td>
                                             <td>
-                                                            <code><a href="../miscellaneous/typealiases.html#ExplorerModuleOptions" target="_self" >ExplorerModuleOptions</a></code>
+                                                            <code><a href="../modules/ExplorerModule.html" target="_self" >Partial&lt;ExplorerModuleOptions&gt;</a></code>
                                             </td>
 
                                             <td>
@@ -193,6 +193,8 @@
                                             <td>
                                                     <code>{
       service: BasicExplorerService,
+      controller: ExplorerController,
+      saveHandlers: [],
     }</code>
                                             </td>
 
@@ -233,8 +235,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="56"
-                                    class="link-to-prism">lib/common/explorer/explorer.module.ts:56</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="68"
+                                    class="link-to-prism">lib/common/explorer/explorer.module.ts:68</a></div>
                         </td>
                     </tr>
 
@@ -280,6 +282,11 @@ import { ExplorerTargetEntity } from &quot;./entity/explorer-target.entity&quot;
 import { ExplorerColumnEntity } from &quot;./entity/explorer-column.entity&quot;;
 import { ExplorerModuleOptions, ExplorerService } from &quot;./explorer.types&quot;;
 import { LogModule } from &quot;../../shared/modules/log/log.module&quot;;
+import { ExplorerController } from &quot;./explorer.controller&quot;;
+import { UserModule } from &quot;../user/user.module&quot;;
+import { CacheModule } from &quot;../../shared/modules/cache/cache.module&quot;;
+import { Explorer } from &quot;./explorer.constants&quot;;
+import DEFAULT_EXPLORER_MODULE_DEPS &#x3D; Explorer.DEFAULT_EXPLORER_MODULE_DEPS;
 
 /**
  * Module for exploring and analyzing the database schema and relationships.
@@ -287,21 +294,28 @@ import { LogModule } from &quot;../../shared/modules/log/log.module&quot;;
 @Module({})
 export class ExplorerModule implements OnModuleInit {
   static forRoot(
-    options: ExplorerModuleOptions &#x3D; {
+    options: Partial&lt;ExplorerModuleOptions&gt; &#x3D; {
       service: BasicExplorerService,
+      controller: ExplorerController,
+      saveHandlers: [],
     },
   ): DynamicModule {
+    const opts &#x3D; Object.assign({}, DEFAULT_EXPLORER_MODULE_DEPS, options);
     return {
       module: ExplorerModule,
+      controllers: [opts.controller],
       imports: [
         TypeOrmModule.forFeature([ExplorerTargetEntity, ExplorerColumnEntity]),
         LogModule,
+        UserModule.forRoot(),
+        CacheModule,
       ],
       providers: [
         {
           provide: ExplorerService,
-          useClass: options.service,
+          useClass: opts.service,
         },
+        Explorer.provideSaveHandlers(...opts.saveHandlers), // TODO resolve ERROR
       ],
       exports: [ExplorerService],
     };

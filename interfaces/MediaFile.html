@@ -521,7 +521,7 @@
 import { Type as Class } from &quot;@nestjs/common/interfaces/type.interface&quot;;
 import { LocalizedString } from &quot;../../shared/modules/locale/locale.types&quot;;
 import { FileMetadata } from &quot;../file/file.types&quot;;
-import { MediaEntity } from &quot;./entity/media.entity&quot;;
+import { Response } from &quot;express&quot;;
 
 /**
  * Interface representing a media object.
@@ -725,20 +725,17 @@ export class MediaFileDto implements MediaFile {
  * Abstract class representing the media management service.
  */
 export abstract class MediaManager {
-  abstract findByCode(code: string): Promise&lt;MediaEntity&gt;;
+  abstract findByCode(code: string): Promise&lt;Media&gt;;
 
-  abstract findMediaById(
-    id: number,
-    privateMedia?: boolean,
-  ): Promise&lt;MediaEntity&gt;;
+  abstract findMediaById(id: number, privateMedia?: boolean): Promise&lt;Media&gt;;
 
-  abstract findPublicById(id: number): Promise&lt;MediaEntity&gt;;
+  abstract findPublicById(id: number): Promise&lt;Media&gt;;
 
-  abstract findPrivateById(id: number): Promise&lt;MediaEntity&gt;;
+  abstract findPrivateById(id: number): Promise&lt;Media&gt;;
 
-  abstract remove(id: number): Promise&lt;MediaEntity&gt;;
+  abstract remove(id: number): Promise&lt;Media&gt;;
 
-  abstract recreate(id: number): Promise&lt;MediaEntity&gt;;
+  abstract recreate(id: number): Promise&lt;Media&gt;;
 
   abstract createOrUpdateMedia(
     file: Buffer,
@@ -746,7 +743,7 @@ export abstract class MediaManager {
     code?: string,
     existedEntityId?: number,
     name?: LocalizedString[],
-  ): Promise&lt;MediaEntity&gt;;
+  ): Promise&lt;Media&gt;;
 
   abstract getMediaPath(
     media: Media,
@@ -755,11 +752,33 @@ export abstract class MediaManager {
   ): Promise&lt;string&gt;;
 }
 
+export interface BasicMediaController {
+  createMedia(
+    file: Express.Multer.File,
+    type: string,
+    id: number,
+  ): Promise&lt;Media&gt;;
+
+  getPrivateMedia(
+    res: Response,
+    id: number,
+    format: string,
+    webp: boolean,
+  ): Promise&lt;void&gt;;
+
+  getMedia(id: number): Promise&lt;Media&gt;;
+
+  removeMedia(id: number): Promise&lt;Media&gt;;
+
+  recreateMedia(id: number): Promise&lt;Media&gt;;
+}
+
 /**
  * Options for configuring the MediaModule.
  */
 export type MediaModuleOptions &#x3D; {
   service: Class&lt;MediaManager&gt;;
+  controller: Class&lt;BasicMediaController&gt;;
 };
 </code></pre>
     </div>

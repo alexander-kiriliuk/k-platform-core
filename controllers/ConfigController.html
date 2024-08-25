@@ -79,23 +79,16 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content class">
+               <div class="content controller">
                    <div class="content-data">
 
 
 
 
 
-
-
-
-
-
-
-
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Classes</li>
-  <li class="breadcrumb-item" >CaptchaService</li>
+  <li class="breadcrumb-item">Controllers</li>
+  <li class="breadcrumb-item" >ConfigController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -119,17 +112,17 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>lib/common/captcha/captcha.types.ts</code>
+            <code>lib/common/config/config.controller.ts</code>
         </p>
 
-
             <p class="comment">
-                <h3>Description</h3>
+                <h3>Prefix</h3>
             </p>
             <p class="comment">
-                <p>Abstract class representing a CAPTCHA service.</p>
-
+                <code>config</code>
             </p>
+
+
 
 
 
@@ -148,12 +141,25 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#generateCaptcha" >generateCaptcha</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#list" >list</a>
                             </li>
                             <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#validateCaptcha" >validateCaptcha</a>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#removeProperty" >removeProperty</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#setProperty" >setProperty</a>
                             </li>
                         </ul>
                     </td>
@@ -167,8 +173,6 @@
     </table>
 </section>
 
-
-
             <section data-compodoc="block-methods">
     
     <h3 id="methods">
@@ -178,79 +182,42 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="generateCaptcha"></a>
+                    <a name="list"></a>
                     <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>generateCaptcha</b></span>
-                        <a href="#generateCaptcha"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>list</b></span>
+                        <a href="#list"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>generateCaptcha()</code>
+                    <code>list(params: <a href="../classes/PageableParams.html" target="_self">PageableParams</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@UseGuards(AuthGuard)<br />@Get(&#x27;/&#x27;)<br />@ForRoles(Roles.ADMIN)<br /></code>
+                </td>
+            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="29"
-                                    class="link-to-prism">lib/common/captcha/captcha.types.ts:29</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">lib/common/config/config.controller.ts:44</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Generates a CAPTCHA.</p>
-</div>
-
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;CaptchaBody&gt;</code>
-
-                        </div>
-                            <div class="io-description">
-                                <p>A promise that resolves with the CAPTCHA data.</p>
-
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="validateCaptcha"></a>
-                    <span class="name">
-                            <span class="modifier">Abstract</span>
-                        <span ><b>validateCaptcha</b></span>
-                        <a href="#validateCaptcha"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>validateCaptcha(request: <a href="../classes/CaptchaRequest.html" target="_self">CaptchaRequest</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="36"
-                                    class="link-to-prism">lib/common/captcha/captcha.types.ts:36</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-description"><p>Validates a CAPTCHA.</p>
-</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -261,14 +228,13 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>request</td>
+                                                <td>params</td>
                                             <td>
-                                                            <code><a href="../classes/CaptchaRequest.html" target="_self" >CaptchaRequest</a></code>
+                                                            <code><a href="../classes/PageableParams.html" target="_self" >PageableParams</a></code>
                                             </td>
 
                                             <td>
@@ -276,10 +242,85 @@
                                             </td>
 
 
-                                            <td>
-                                                    <p>The data for validate the CAPTCHA.</p>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/ConfigItem.html" target="_self" >Promise&lt;PageableData&lt;ConfigItem&gt;&gt;</a></code>
 
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeProperty"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>removeProperty</b></span>
+                        <a href="#removeProperty"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>removeProperty(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@UseGuards(AuthGuard)<br />@Delete(&#x27;/&#x27;)<br />@ForRoles(Roles.ADMIN)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">lib/common/config/config.controller.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>key</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -289,105 +330,168 @@
 
                         </div>
                             <div class="io-description">
-                                <p>A promise that resolves with the validation result (true if the CAPTCHA is valid).</p>
-
+                                
                             </div>
                 </td>
             </tr>
         </tbody>
     </table>
-</section>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setProperty"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>setProperty</b></span>
+                        <a href="#setProperty"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setProperty(body: <a href="../interfaces/ConfigItem.html" target="_self">ConfigItem</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@UseGuards(AuthGuard)<br />@Post(&#x27;/&#x27;)<br />@ForRoles(Roles.ADMIN)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="53"
+                                    class="link-to-prism">lib/common/config/config.controller.ts:53</a></div>
+                        </td>
+                    </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>body</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ConfigItem.html" target="_self" >ConfigItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
 
 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;boolean&gt;</code>
 
-    </div>
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsNotEmpty, IsString } from &quot;class-validator&quot;;
-import { Type as Class } from &quot;@nestjs/common/interfaces/type.interface&quot;;
-
-/**
- * Abstract class representing a CAPTCHA service.
- * @template CaptchaBody Type of data returned when generating CAPTCHA.
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">/*
+ * Copyright 2023 Alexander Kiriliuk
+ *
+ *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
  */
-export abstract class CaptchaService&lt;CaptchaBody &#x3D; any&gt; {
-  /**
-   * Generates a CAPTCHA.
-   * @returns {Promise&lt;CaptchaBody&gt;} A promise that resolves with the CAPTCHA data.
-   */
-  abstract generateCaptcha(): Promise&lt;CaptchaBody&gt;;
 
-  /**
-   * Validates a CAPTCHA.
-   * @param {CaptchaRequest} request The data for validate the CAPTCHA.
-   * @returns {Promise&lt;boolean&gt;} A promise that resolves with the validation result (true if the CAPTCHA is valid).
-   */
-  abstract validateCaptcha(request: CaptchaRequest): Promise&lt;boolean&gt;;
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Query,
+  UseGuards,
+} from &quot;@nestjs/common&quot;;
+import { AuthGuard } from &quot;../../shared/guards/auth.guard&quot;;
+import { ConfigService } from &quot;./config.service&quot;;
+import { ForRoles } from &quot;../../shared/decorators/for-roles.decorator&quot;;
+import { Roles } from &quot;../../shared/constants&quot;;
+import {
+  PageableData,
+  PageableParams,
+} from &quot;../../shared/modules/pageable/pageable.types&quot;;
+import { ConfigItem } from &quot;./config.types&quot;;
+
+@Controller(&quot;config&quot;)
+@UseGuards(AuthGuard)
+export class ConfigController {
+  constructor(private readonly configService: ConfigService) {}
+
+  @UseGuards(AuthGuard)
+  @Get(&quot;/&quot;)
+  @ForRoles(Roles.ADMIN)
+  async list(
+    @Query() params: PageableParams,
+  ): Promise&lt;PageableData&lt;ConfigItem&gt;&gt; {
+    return await this.configService.getPropertiesPage(params);
+  }
+
+  @UseGuards(AuthGuard)
+  @Post(&quot;/&quot;)
+  @ForRoles(Roles.ADMIN)
+  async setProperty(@Body() body: ConfigItem): Promise&lt;boolean&gt; {
+    return await this.configService.setProperty(body);
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete(&quot;/&quot;)
+  @ForRoles(Roles.ADMIN)
+  async removeProperty(@Query(&quot;key&quot;) key: string): Promise&lt;boolean&gt; {
+    return await this.configService.removeProperty(key);
+  }
 }
-
-/**
- * Data transfer object for validate the CAPTCHA.
- * @template T Type of the CAPTCHA data.
- */
-export class CaptchaRequest&lt;T &#x3D; any&gt; {
-  /**
-   * The unique identifier for the CAPTCHA.
-   */
-  @IsString()
-  @IsNotEmpty()
-  id: string;
-
-  /**
-   * The data associated with the CAPTCHA request.
-   */
-  @IsNotEmpty()
-  data: T;
-}
-
-/**
- * Type representing a CAPTCHA response for client side.
- */
-export type CaptchaResponse &#x3D; {
-  /**
-   * The type of the CAPTCHA.
-   */
-  type?: string;
-
-  /**
-   * The image data for the CAPTCHA.
-   */
-  image?: string;
-
-  /**
-   * The unique identifier for the CAPTCHA.
-   */
-  id?: string;
-
-  /**
-   * Whether the CAPTCHA is enabled in configuration.
-   */
-  enabled?: boolean;
-};
-
-export interface BasicCaptchaController {
-  validateCaptcha(payload: CaptchaRequest): Promise&lt;{ result: unknown }&gt;;
-
-  getCaptcha(): Promise&lt;CaptchaResponse&gt;;
-}
-
-/**
- * Options for configuring the CAPTCHA module.
- */
-export type CaptchaModuleOptions &#x3D; {
-  service: Class&lt;CaptchaService&gt;;
-  controller: Class&lt;BasicCaptchaController&gt;;
-};
 </code></pre>
     </div>
 </div>
+
+
+
+
+
+
+
 
 
 
@@ -422,8 +526,8 @@ export type CaptchaModuleOptions &#x3D; {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'CaptchaService.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'ConfigController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
