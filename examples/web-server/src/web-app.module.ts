@@ -14,21 +14,12 @@
  *    limitations under the License.
  */
 
-import { Logger, MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
-import { ProfileController } from "./controllers/profile.controller";
-import { AuthController } from "./controllers/auth.controller";
-import { CaptchaController } from "./controllers/captcha.controller";
+import { Logger, Module } from "@nestjs/common";
 import { MulterModule } from "@nestjs/platform-express";
-import { ExplorerController } from "./controllers/explorer.controller";
-import { MediaController } from "./controllers/media.controller";
-import { FileController } from "./controllers/file.controller";
-import { ConfigController } from "./controllers/config.controller";
 import { MulterConfig } from "./multer.config";
-import { XmlDataBridgeController } from "./controllers/xml-data-bridge.controller";
 import { Orm } from "./orm.config";
-import { AppController } from "./controllers/app.controller";
+import { AppController } from "./app.controller";
 import { WebAppService } from "./web-app.service";
-import { ProcessController } from "./controllers/process.controller";
 import { HttpModule, HttpService } from "@nestjs/axios";
 import {
   AuthModule,
@@ -37,7 +28,6 @@ import {
   CaptchaModule,
   CategoryModule,
   ConfigModule,
-  Explorer,
   ExplorerModule,
   FileModule,
   GoogleCaptchaService,
@@ -50,7 +40,6 @@ import {
   TmpDirCleanerProcess,
   UserEntityPwdAndRolesSaveHandler,
   UserModule,
-  XmlDataBridgeMiddleware,
   XmlDataBridgeModule,
 } from "@k-platform/core";
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -60,7 +49,6 @@ import {
 } from "@nestjs/serve-static";
 import { CaptchaConfig } from "@gen-src/captcha.config";
 import { KpConfig } from "@gen-src/kp.config";
-import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
 
 @Module({
   imports: [
@@ -90,7 +78,9 @@ import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
       },
     }),
     UserModule.forRoot(),
-    ExplorerModule.forRoot(),
+    ExplorerModule.forRoot({
+      saveHandlers: [UserEntityPwdAndRolesSaveHandler],
+    }),
     XmlDataBridgeModule.forRoot(),
     TypeOrmModule.forRootAsync(Orm.getOptions()),
     MulterModule.registerAsync({ useClass: MulterConfig }),
@@ -108,32 +98,12 @@ import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
       },
     }),
   ],
-  controllers: [
-    AppController,
-    AuthController,
-    CaptchaController,
-    ProfileController,
-    ExplorerController,
-    MediaController,
-    FileController,
-    ConfigController,
-    XmlDataBridgeController,
-    ProcessController,
-  ],
+  controllers: [AppController],
   providers: [
     LocaleSubscriber,
     WebAppService,
-    UserEntityPwdAndRolesSaveHandler,
     TmpDirCleanerProcess,
-    {
-      provide: ENTITY_SAVE_HANDLER,
-      useFactory: (h1: UserEntityPwdAndRolesSaveHandler) => [h1],
-      inject: [UserEntityPwdAndRolesSaveHandler],
-    },
+    UserEntityPwdAndRolesSaveHandler,
   ],
 })
-export class WebAppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(XmlDataBridgeMiddleware).forRoutes(XmlDataBridgeController);
-  }
-}
+export class WebAppModule {}

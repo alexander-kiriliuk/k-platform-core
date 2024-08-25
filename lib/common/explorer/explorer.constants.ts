@@ -14,6 +14,11 @@
  *    limitations under the License.
  */
 
+import { Type as Class } from "@nestjs/common/interfaces/type.interface";
+import { EntitySaveHandler, ExplorerModuleOptions } from "./explorer.types";
+import { BasicExplorerService } from "./basic-explorer.service";
+import { ExplorerController } from "./explorer.controller";
+
 export namespace Explorer {
   /**
    * Token for injecting entity save handler.
@@ -146,4 +151,17 @@ export namespace Explorer {
    * Type representing a fetch-mode for explorer entity.
    */
   export type Variation = "section" | "object";
+
+  export const DEFAULT_EXPLORER_MODULE_DEPS: Partial<ExplorerModuleOptions> = {
+    service: BasicExplorerService,
+    controller: ExplorerController,
+  };
+
+  export function provideSaveHandlers(...args: Class<EntitySaveHandler>[]) {
+    return {
+      provide: ENTITY_SAVE_HANDLER,
+      useFactory: (...handlers: EntitySaveHandler[]) => handlers,
+      inject: args,
+    };
+  }
 }

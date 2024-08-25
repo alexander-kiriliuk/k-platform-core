@@ -80,12 +80,16 @@ export type CaptchaResponse = {
   enabled?: boolean;
 };
 
+export interface BasicCaptchaController {
+  validateCaptcha(payload: CaptchaRequest): Promise<{ result: unknown }>;
+
+  getCaptcha(): Promise<CaptchaResponse>;
+}
+
 /**
  * Options for configuring the CAPTCHA module.
  */
 export type CaptchaModuleOptions = {
-  /**
-   * The class providing the CAPTCHA service.
-   */
   service: Class<CaptchaService>;
+  controller: Class<BasicCaptchaController>;
 };

@@ -18,7 +18,6 @@ import { Exclude, Expose, Type } from "class-transformer";
 import { Type as Class } from "@nestjs/common/interfaces/type.interface";
 import { Media } from "../media/media.types";
 import { LocalizedString } from "../../shared/modules/locale/locale.types";
-import { UserEntity } from "./entity/user.entity";
 
 /**
  * Interface representing a user object.
@@ -111,15 +110,25 @@ export interface UserUpdateRequest {
  * Abstract class representing the user service.
  */
 export abstract class UserService {
-  abstract findByLogin(login: string): Promise<UserEntity>;
+  abstract findByLogin(login: string): Promise<User>;
 
-  abstract findById(id: string): Promise<UserEntity>;
+  abstract findById(id: string): Promise<User>;
 
-  abstract updateById(id: string, user: User): Promise<UserEntity>;
+  abstract updateById(id: string, user: User): Promise<User>;
 
-  abstract create(user: User): Promise<UserEntity>;
+  abstract create(user: User): Promise<User>;
 
-  abstract removeById(id: string): Promise<UserEntity>;
+  abstract removeById(id: string): Promise<User>;
+}
+
+export interface BasicUserController {
+  getUserProfile(id: string, user: User): Promise<User>;
+
+  updateUserProfile(id: string, profile: User, user: User): Promise<User>;
+
+  removeUserProfile(id: string): Promise<User>;
+
+  createUserProfile(profile: User): Promise<User>;
 }
 
 /**
@@ -127,4 +136,5 @@ export abstract class UserService {
  */
 export type UserModuleOptions = {
   service: Class<UserService>;
+  controller: Class<BasicUserController>;
 };

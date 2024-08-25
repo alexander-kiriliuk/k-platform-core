@@ -21,13 +21,11 @@ import {
   Param,
   UseGuards,
 } from "@nestjs/common";
-import {
-  AuthGuard,
-  CommonUtils,
-  ForRoles,
-  ProcessManagerService,
-  Roles,
-} from "@k-platform/core";
+import { CommonUtils } from "../../shared/utils/common.utils";
+import { AuthGuard } from "../../shared/guards/auth.guard";
+import { ProcessManagerService } from "./process-manager.service";
+import { ForRoles } from "../../shared/decorators/for-roles.decorator";
+import { Roles } from "../../shared/constants";
 import sleep = CommonUtils.sleep;
 
 @Controller("process")

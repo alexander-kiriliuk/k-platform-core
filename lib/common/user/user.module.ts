@@ -19,6 +19,9 @@ import { BasicUserService } from "./user-service-basic.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserEntity } from "./entity/user.entity";
 import { UserModuleOptions, UserService } from "./user.types";
+import { ProfileController } from "./profile.controller";
+import { LogModule } from "../../shared/modules/log/log.module";
+import { CacheModule } from "../../shared/modules/cache/cache.module";
 
 /**
  * Module is responsible for managing system users
@@ -28,11 +31,13 @@ export class UserModule {
   static forRoot(
     options: UserModuleOptions = {
       service: BasicUserService,
+      controller: ProfileController,
     },
   ): DynamicModule {
     return {
       module: UserModule,
-      imports: [TypeOrmModule.forFeature([UserEntity])],
+      imports: [LogModule, CacheModule, TypeOrmModule.forFeature([UserEntity])],
+      controllers: [options.controller],
       providers: [
         {
           provide: UserService,

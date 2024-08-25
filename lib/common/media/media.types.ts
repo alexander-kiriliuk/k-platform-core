@@ -18,7 +18,7 @@ import { Exclude, Expose, Type } from "class-transformer";
 import { Type as Class } from "@nestjs/common/interfaces/type.interface";
 import { LocalizedString } from "../../shared/modules/locale/locale.types";
 import { FileMetadata } from "../file/file.types";
-import { MediaEntity } from "./entity/media.entity";
+import { Response } from "express";
 
 /**
  * Interface representing a media object.
@@ -222,20 +222,17 @@ export class MediaFileDto implements MediaFile {
  * Abstract class representing the media management service.
  */
 export abstract class MediaManager {
-  abstract findByCode(code: string): Promise<MediaEntity>;
+  abstract findByCode(code: string): Promise<Media>;
 
-  abstract findMediaById(
-    id: number,
-    privateMedia?: boolean,
-  ): Promise<MediaEntity>;
+  abstract findMediaById(id: number, privateMedia?: boolean): Promise<Media>;
 
-  abstract findPublicById(id: number): Promise<MediaEntity>;
+  abstract findPublicById(id: number): Promise<Media>;
 
-  abstract findPrivateById(id: number): Promise<MediaEntity>;
+  abstract findPrivateById(id: number): Promise<Media>;
 
-  abstract remove(id: number): Promise<MediaEntity>;
+  abstract remove(id: number): Promise<Media>;
 
-  abstract recreate(id: number): Promise<MediaEntity>;
+  abstract recreate(id: number): Promise<Media>;
 
   abstract createOrUpdateMedia(
     file: Buffer,
@@ -243,7 +240,7 @@ export abstract class MediaManager {
     code?: string,
     existedEntityId?: number,
     name?: LocalizedString[],
-  ): Promise<MediaEntity>;
+  ): Promise<Media>;
 
   abstract getMediaPath(
     media: Media,
@@ -252,9 +249,31 @@ export abstract class MediaManager {
   ): Promise<string>;
 }
 
+export interface BasicMediaController {
+  createMedia(
+    file: Express.Multer.File,
+    type: string,
+    id: number,
+  ): Promise<Media>;
+
+  getPrivateMedia(
+    res: Response,
+    id: number,
+    format: string,
+    webp: boolean,
+  ): Promise<void>;
+
+  getMedia(id: number): Promise<Media>;
+
+  removeMedia(id: number): Promise<Media>;
+
+  recreateMedia(id: number): Promise<Media>;
+}
+
 /**
  * Options for configuring the MediaModule.
  */
 export type MediaModuleOptions = {
   service: Class<MediaManager>;
+  controller: Class<BasicMediaController>;
 };

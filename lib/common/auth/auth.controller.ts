@@ -23,22 +23,23 @@ import {
   Res,
   UseGuards,
 } from "@nestjs/common";
-import {
-  AccessToken,
-  AuthService,
-  CacheService,
-  CaptchaService,
-  ExchangeTokenPayload,
-  JwtDto,
-  LiteAuthGuard,
-  LoginPayload,
-  ResponseDto,
-} from "@k-platform/core";
 import { Request, Response } from "express";
 import { CaptchaConfig } from "@gen-src/captcha.config";
+import { AuthService } from "./auth.constants";
+import { CacheService } from "../../shared/modules/cache/cache.types";
+import { CaptchaService } from "../captcha/captcha.types";
+import { ResponseDto } from "../../shared/decorators/response-dto.decorator";
+import { LiteAuthGuard } from "../../shared/guards/lite-auth.guard";
+import { AccessToken } from "../../shared/decorators/access-token.decorator";
+import {
+  BasicAuthController,
+  ExchangeTokenPayload,
+  JwtDto,
+  LoginPayload,
+} from "./auth.types";
 
 @Controller("/auth")
-export class AuthController {
+export class AuthController implements BasicAuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly cacheService: CacheService,
@@ -51,7 +52,7 @@ export class AuthController {
     @Body() payload: LoginPayload,
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
-  ) {
+  ): Promise<JwtDto> {
     const captchaEnabled = await this.cacheService.getBoolean(
       CaptchaConfig.ENABLED,
     );
@@ -86,7 +87,7 @@ export class AuthController {
   async logout(
     @AccessToken() token: string,
     @Res({ passthrough: true }) response: Response,
-  ) {
+  ): Promise<{ result: unknown }> {
     const result = await this.authService.invalidateToken(token);
     response.clearCookie("accessToken");
     response.clearCookie("refreshToken");
@@ -99,7 +100,7 @@ export class AuthController {
     @Body() payload: ExchangeTokenPayload,
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
-  ) {
+  ): Promise<Partial<JwtDto>> {
     const token = payload?.token ?? request.cookies?.refreshToken;
     const data = await this.authService.exchangeToken(token);
     response.cookie("accessToken", data.accessToken, {

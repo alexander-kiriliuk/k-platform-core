@@ -17,6 +17,7 @@
 import { Type as Class } from "@nestjs/common/interfaces/type.interface";
 import { Media } from "../media/media.types";
 import { FileManager, FileMd } from "./file.constants";
+import { Response } from "express";
 
 /**
  * Interface representing a file.
@@ -318,12 +319,21 @@ export interface AudioFileMetadata {
   label: string;
 }
 
+export interface BasicFileController {
+  createFile(file: Express.Multer.File, isPublic: string): Promise<File>;
+
+  getPrivateFile(res: Response, id: number): Promise<void>;
+
+  getFile(id: number): Promise<File>;
+
+  removeFile(id: number): Promise<File>;
+}
+
 /**
  * Options for configuring the FileModule.
  */
 export type FileModuleOptions = {
-  /** Class responsible for file management operations */
   fileManager: Class<FileManager>;
-  /** Class responsible for file Metadata */
   fileMd: Class<FileMd>;
+  controller: Class<BasicFileController>;
 };

@@ -22,19 +22,18 @@ import {
   UseGuards,
   UseInterceptors,
 } from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { AuthGuard } from "../../shared/guards/auth.guard";
 import {
-  AuthGuard,
-  CurrentUser,
-  ForRoles,
-  NotEmptyPipe,
-  Roles,
-  User,
-  XdbExportParams,
   XdbExportService,
   XdbImportService,
-  XdbObject,
-} from "@k-platform/core";
-import { FileInterceptor } from "@nestjs/platform-express";
+} from "./xml-data-bridge.constants";
+import { Roles } from "../../shared/constants";
+import { ForRoles } from "../../shared/decorators/for-roles.decorator";
+import { XdbExportParams, XdbObject } from "./xml-data-bridge.types";
+import { NotEmptyPipe } from "../../shared/pipes/not-empty.pipe";
+import { CurrentUser } from "../../shared/decorators/current-user.decorator";
+import { User } from "../user/user.types";
 
 @Controller("xdb")
 @UseGuards(AuthGuard)

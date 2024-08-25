@@ -21,6 +21,11 @@ import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
 import { ExplorerModuleOptions, ExplorerService } from "./explorer.types";
 import { LogModule } from "../../shared/modules/log/log.module";
+import { ExplorerController } from "./explorer.controller";
+import { UserModule } from "../user/user.module";
+import { CacheModule } from "../../shared/modules/cache/cache.module";
+import { Explorer } from "./explorer.constants";
+import DEFAULT_EXPLORER_MODULE_DEPS = Explorer.DEFAULT_EXPLORER_MODULE_DEPS;
 
 /**
  * Module for exploring and analyzing the database schema and relationships.
@@ -28,21 +33,28 @@ import { LogModule } from "../../shared/modules/log/log.module";
 @Module({})
 export class ExplorerModule implements OnModuleInit {
   static forRoot(
-    options: ExplorerModuleOptions = {
+    options: Partial<ExplorerModuleOptions> = {
       service: BasicExplorerService,
+      controller: ExplorerController,
+      saveHandlers: [],
     },
   ): DynamicModule {
+    const opts = Object.assign({}, DEFAULT_EXPLORER_MODULE_DEPS, options);
     return {
       module: ExplorerModule,
+      controllers: [opts.controller],
       imports: [
         TypeOrmModule.forFeature([ExplorerTargetEntity, ExplorerColumnEntity]),
         LogModule,
+        UserModule.forRoot(),
+        CacheModule,
       ],
       providers: [
         {
           provide: ExplorerService,
-          useClass: options.service,
+          useClass: opts.service,
         },
+        Explorer.provideSaveHandlers(...opts.saveHandlers), // TODO resolve ERROR
       ],
       exports: [ExplorerService],
     };

@@ -23,14 +23,15 @@ import {
   Query,
   UseGuards,
 } from "@nestjs/common";
+import { AuthGuard } from "../../shared/guards/auth.guard";
+import { ConfigService } from "./config.service";
+import { ForRoles } from "../../shared/decorators/for-roles.decorator";
+import { Roles } from "../../shared/constants";
 import {
-  AuthGuard,
-  ConfigItem,
-  ConfigService,
-  ForRoles,
+  PageableData,
   PageableParams,
-  Roles,
-} from "@k-platform/core";
+} from "../../shared/modules/pageable/pageable.types";
+import { ConfigItem } from "./config.types";
 
 @Controller("config")
 @UseGuards(AuthGuard)
@@ -40,21 +41,23 @@ export class ConfigController {
   @UseGuards(AuthGuard)
   @Get("/")
   @ForRoles(Roles.ADMIN)
-  async list(@Query() params: PageableParams) {
+  async list(
+    @Query() params: PageableParams,
+  ): Promise<PageableData<ConfigItem>> {
     return await this.configService.getPropertiesPage(params);
   }
 
   @UseGuards(AuthGuard)
   @Post("/")
   @ForRoles(Roles.ADMIN)
-  async setProperty(@Body() body: ConfigItem) {
+  async setProperty(@Body() body: ConfigItem): Promise<boolean> {
     return await this.configService.setProperty(body);
   }
 
   @UseGuards(AuthGuard)
   @Delete("/")
   @ForRoles(Roles.ADMIN)
-  async removeProperty(@Query("key") key: string) {
+  async removeProperty(@Query("key") key: string): Promise<boolean> {
     return await this.configService.removeProperty(key);
   }
 }

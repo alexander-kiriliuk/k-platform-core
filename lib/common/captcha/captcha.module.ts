@@ -16,9 +16,15 @@
 
 import { DynamicModule, Module } from "@nestjs/common";
 import { GraphicCaptchaService } from "./graphic-captcha.service";
-import { CaptchaModuleOptions, CaptchaService } from "./captcha.types";
+import {
+  BasicCaptchaController,
+  CaptchaModuleOptions,
+  CaptchaService,
+} from "./captcha.types";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
 import { LogModule } from "../../shared/modules/log/log.module";
+import { CaptchaController } from "./captcha.controller";
+import { Type as Class } from "@nestjs/common/interfaces/type.interface";
 
 /**
  * Module for work with captcha.
@@ -26,10 +32,14 @@ import { LogModule } from "../../shared/modules/log/log.module";
 @Module({})
 export class CaptchaModule {
   static forRoot(
-    options: CaptchaModuleOptions = { service: GraphicCaptchaService },
+    options: CaptchaModuleOptions = {
+      service: GraphicCaptchaService,
+      controller: CaptchaController,
+    },
   ): DynamicModule {
     return {
       module: CaptchaModule,
+      controllers: [options.controller],
       imports: [CacheModule, LogModule],
       providers: [
         {
@@ -44,12 +54,14 @@ export class CaptchaModule {
   static forRootAsync(options: {
     inject?: any[];
     imports?: any[];
+    controller?: Class<BasicCaptchaController>;
     useFactory: (...args) => Promise<CaptchaService> | CaptchaService;
   }): DynamicModule {
-    const { inject, imports, useFactory } = options;
+    const { inject, imports, controller, useFactory } = options;
     return {
       module: CaptchaModule,
       imports: [...(imports || [])],
+      controllers: [controller || CaptchaController],
       providers: [
         {
           provide: CaptchaService,

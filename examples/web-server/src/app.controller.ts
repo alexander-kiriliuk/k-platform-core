@@ -15,7 +15,7 @@
  */
 
 import { Controller, Get, UseGuards } from "@nestjs/common";
-import { WebAppService } from "../web-app.service";
+import { WebAppService } from "./web-app.service";
 import { AuthGuard, CurrentUser, User } from "@k-platform/core";
 
 @Controller("app")

@@ -29,16 +29,14 @@ import {
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Response } from "express";
 import * as path from "path";
-import {
-  AuthGuard,
-  DEFAULT_MEDIA_TYPE,
-  MediaManager,
-  NotEmptyPipe,
-} from "@k-platform/core";
+import { AuthGuard } from "../../shared/guards/auth.guard";
+import { BasicMediaController, Media, MediaManager } from "./media.types";
+import { NotEmptyPipe } from "../../shared/pipes/not-empty.pipe";
+import { DEFAULT_MEDIA_TYPE } from "./media.constants";
 
 @Controller("/media")
 @UseGuards(AuthGuard)
-export class MediaController {
+export class MediaController implements BasicMediaController {
   constructor(private readonly mediaService: MediaManager) {}
 
   @Post("/upload/:type?")
@@ -47,7 +45,7 @@ export class MediaController {
     @UploadedFile("file", new NotEmptyPipe("file")) file: Express.Multer.File,
     @Param("type") type = DEFAULT_MEDIA_TYPE,
     @Query("id") id: number,
-  ) {
+  ): Promise<Media> {
     return await this.mediaService.createOrUpdateMedia(
       file.buffer,
       type,
@@ -62,24 +60,24 @@ export class MediaController {
     @Param("id") id: number,
     @Query("format") format: string,
     @Query("webp") webp: boolean,
-  ) {
+  ): Promise<void> {
     const media = await this.mediaService.findPrivateById(id);
     const mediaPath = await this.mediaService.getMediaPath(media, format, webp);
     res.sendFile(path.join(process.cwd(), mediaPath));
   }
 
   @Get("/:id")
-  async getMedia(@Param("id") id: number) {
+  async getMedia(@Param("id") id: number): Promise<Media> {
     return await this.mediaService.findPublicById(id);
   }
 
   @Delete("/:id")
-  async removeMedia(@Param("id") id: number) {
+  async removeMedia(@Param("id") id: number): Promise<Media> {
     return await this.mediaService.remove(id);
   }
 
   @Post("/recreate/:id")
-  async recreateMedia(@Param("id") id: number) {
+  async recreateMedia(@Param("id") id: number): Promise<Media> {
     return await this.mediaService.recreate(id);
   }
 }

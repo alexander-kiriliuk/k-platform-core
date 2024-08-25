@@ -18,12 +18,15 @@ import { Module } from "@nestjs/common";
 import { ConfigService } from "./config.service";
 import { LogModule } from "../../shared/modules/log/log.module";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
+import { UserModule } from "../user/user.module";
+import { ConfigController } from "./config.controller";
 
 /**
  * Module for work with system configuration.
  */
 @Module({
-  imports: [LogModule, CacheModule],
+  imports: [LogModule, CacheModule, UserModule.forRoot()],
+  controllers: [ConfigController],
   providers: [ConfigService],
   exports: [ConfigService],
 })

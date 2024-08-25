@@ -27,25 +27,31 @@ import {
   Query,
   UseGuards,
 } from "@nestjs/common";
+import { AuthGuard } from "../../shared/guards/auth.guard";
+import { RolesGuard } from "../../shared/guards/roles.guard";
 import {
-  AuthGuard,
-  CurrentUser,
+  BasicExplorerController,
   EntitySaveHandler,
-  Explorer,
   ExplorerService,
   ExplorerTarget,
   ExplorerTargetParams,
-  ForRoles,
+  TargetData,
+} from "./explorer.types";
+import { ForRoles } from "../../shared/decorators/for-roles.decorator";
+import { Roles } from "../../shared/constants";
+import { ObjectLiteral } from "typeorm";
+import { CurrentUser } from "../../shared/decorators/current-user.decorator";
+import { User } from "../user/user.types";
+import {
+  PageableData,
   PageableParams,
-  Roles,
-  RolesGuard,
-  User,
-} from "@k-platform/core";
+} from "../../shared/modules/pageable/pageable.types";
 import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
+import { Explorer } from "./explorer.constants";
 
 @Controller("/explorer")
 @UseGuards(AuthGuard, RolesGuard)
-export class ExplorerController {
+export class ExplorerController implements BasicExplorerController {
   constructor(
     @Optional()
     @Inject(ENTITY_SAVE_HANDLER)
@@ -55,13 +61,13 @@ export class ExplorerController {
 
   @Get("/target-list")
   @ForRoles(Roles.ADMIN)
-  async getTargetList() {
+  async getTargetList(): Promise<ExplorerTarget[]> {
     return await this.explorerService.getTargetList();
   }
 
   @Post("/target")
   @ForRoles(Roles.ADMIN)
-  async saveTarget(@Body() target: ExplorerTarget) {
+  async saveTarget(@Body() target: ExplorerTarget): Promise<ExplorerTarget> {
     return await this.explorerService.changeTarget(target);
   }
 
@@ -70,7 +76,7 @@ export class ExplorerController {
     @Param("target") target: string,
     @Query("type") type: "section" | "object",
     @CurrentUser() user: User,
-  ) {
+  ): Promise<TargetData> {
     const targetParams: ExplorerTargetParams = {
       section: type === "section",
       object: type === "object",
@@ -90,7 +96,7 @@ export class ExplorerController {
     @Param("target") target: string,
     @Query("id") id: string,
     @CurrentUser() user: User,
-  ) {
+  ): Promise<ObjectLiteral> {
     const targetParams: ExplorerTargetParams = {
       readRequest: true,
       checkUserAccess: user,
@@ -112,7 +118,7 @@ export class ExplorerController {
     @Param("target") target: string,
     @Query() params: PageableParams,
     @CurrentUser() user: User,
-  ) {
+  ): Promise<PageableData<any>> {
     const targetParams: ExplorerTargetParams = {
       readRequest: true,
       checkUserAccess: user,
@@ -129,7 +135,7 @@ export class ExplorerController {
     @Param("target") target: string,
     @Body() body: T,
     @CurrentUser() user: User,
-  ) {
+  ): Promise<T> {
     let data = body;
     for (const handler of this.saveHandlers) {
       data = handler.handle(target, data, user);
@@ -150,7 +156,7 @@ export class ExplorerController {
     @Param("target") target: string,
     @Query("id") id: string,
     @CurrentUser() user: User,
-  ) {
+  ): Promise<ObjectLiteral> {
     const targetParams: ExplorerTargetParams = {
       writeRequest: true,
       checkUserAccess: user,

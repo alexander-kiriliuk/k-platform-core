@@ -25,6 +25,8 @@ import { UserModule } from "../user/user.module";
 import { CacheService } from "../../shared/modules/cache/cache.types";
 import { AuthConfig } from "../../../gen-src/auth.config";
 import { AuthService } from "./auth.constants";
+import { AuthController } from "./auth.controller";
+import { CaptchaModule } from "../captcha/captcha.module";
 
 /**
  * Module providing auth process.
@@ -32,14 +34,19 @@ import { AuthService } from "./auth.constants";
 @Module({})
 export class AuthModule {
   static forRoot(
-    options: AuthModuleOptions = { service: AuthorizationService },
+    options: AuthModuleOptions = {
+      service: AuthorizationService,
+      controller: AuthController,
+    },
   ): DynamicModule {
     return {
       module: AuthModule,
+      controllers: [options.controller],
       imports: [
         PassportModule,
         CacheModule,
         LogModule,
+        CaptchaModule.forRoot(),
         UserModule.forRoot(),
         JwtModule.registerAsync({
           imports: [CacheModule],

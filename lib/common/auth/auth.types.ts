@@ -20,6 +20,7 @@ import { Type as Class } from "@nestjs/common";
 import { UserDto } from "../user/user.types";
 import { TransformUtils } from "../../shared/utils/transform.utils";
 import { AuthService } from "./auth.constants";
+import { Request, Response } from "express";
 
 /**
  * Data transfer object for login payload.
@@ -121,10 +122,27 @@ export class JwtDto {
   rtExp: Date;
 }
 
+export interface BasicAuthController {
+  login(
+    payload: LoginPayload,
+    request: Request,
+    response: Response,
+  ): Promise<JwtDto>;
+
+  logout(token: string, response: Response): Promise<{ result: unknown }>;
+
+  exchange(
+    payload: ExchangeTokenPayload,
+    request: Request,
+    response: Response,
+  ): Promise<Partial<JwtDto>>;
+}
+
 /**
  * Options for configuring the authentication module.
  * @property service - The authentication service class.
  */
 export type AuthModuleOptions = {
   service: Class<AuthService>;
+  controller: Class<BasicAuthController>;
 };

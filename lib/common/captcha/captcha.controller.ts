@@ -16,17 +16,20 @@
 
 import { Body, Controller, Get, Post } from "@nestjs/common";
 import {
+  BasicCaptchaController,
   CaptchaRequest,
   CaptchaResponse,
   CaptchaService,
-} from "@k-platform/core";
+} from "./captcha.types";
 
 @Controller("/captcha")
-export class CaptchaController {
+export class CaptchaController implements BasicCaptchaController {
   constructor(private readonly captchaService: CaptchaService) {}
 
   @Post("/validate")
-  async validateCaptcha(@Body() payload: CaptchaRequest) {
+  async validateCaptcha(
+    @Body() payload: CaptchaRequest,
+  ): Promise<{ result: unknown }> {
     const result = await this.captchaService.validateCaptcha(payload);
     return { result };
   }

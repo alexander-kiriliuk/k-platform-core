@@ -23,6 +23,8 @@ import { FileMetadataService } from "./file-metadata.service";
 import { LogModule } from "../../shared/modules/log/log.module";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
 import { FileManager, FileMd } from "./file.constants";
+import { FileController } from "./file.controller";
+import { UserModule } from "@k-platform/core/common/user/user.module";
 
 /**
  * Module for managing files.
@@ -33,11 +35,18 @@ export class FileModule {
     options: FileModuleOptions = {
       fileManager: FileService,
       fileMd: FileMetadataService,
+      controller: FileController,
     },
   ): DynamicModule {
     return {
       module: FileModule,
-      imports: [TypeOrmModule.forFeature([FileEntity]), LogModule, CacheModule],
+      imports: [
+        TypeOrmModule.forFeature([FileEntity]),
+        LogModule,
+        CacheModule,
+        UserModule.forRoot(),
+      ],
+      controllers: [options.controller],
       providers: [
         {
           provide: FileManager,

@@ -28,11 +28,14 @@ import {
 } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Response } from "express";
-import { AuthGuard, FileManager, NotEmptyPipe } from "@k-platform/core";
+import { AuthGuard } from "../../shared/guards/auth.guard";
+import { FileManager } from "./file.constants";
+import { NotEmptyPipe } from "../../shared/pipes/not-empty.pipe";
+import { BasicFileController, File } from "./file.types";
 
 @Controller("/file")
 @UseGuards(AuthGuard)
-export class FileController {
+export class FileController implements BasicFileController {
   constructor(private readonly fileService: FileManager) {}
 
   @Post("/upload")
@@ -40,7 +43,7 @@ export class FileController {
   async createFile(
     @UploadedFile("file", new NotEmptyPipe("file")) file: Express.Multer.File,
     @Query("public") isPublic = "true",
-  ) {
+  ): Promise<File> {
     return this.fileService.createOrUpdateFile(
       file.buffer,
       file.originalname.split(".").pop(),
@@ -52,19 +55,22 @@ export class FileController {
   }
 
   @Get("/private/:id")
-  async getPrivateFile(@Res() res: Response, @Param("id") id: number) {
+  async getPrivateFile(
+    @Res() res: Response,
+    @Param("id") id: number,
+  ): Promise<void> {
     const file = await this.fileService.findPrivateById(id);
     const filePath = await this.fileService.getFilePath(file);
     res.sendFile(filePath);
   }
 
   @Get("/:id")
-  async getFile(@Param("id") id: number) {
+  async getFile(@Param("id") id: number): Promise<File> {
     return await this.fileService.findPublicById(id);
   }
 
   @Delete("/:id")
-  async removeFile(@Param("id") id: number) {
+  async removeFile(@Param("id") id: number): Promise<File> {
     return await this.fileService.remove(id);
   }
 }
