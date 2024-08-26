@@ -15,9 +15,7 @@
  */
 
 import { Type as Class } from "@nestjs/common/interfaces/type.interface";
-import { EntitySaveHandler, ExplorerModuleOptions } from "./explorer.types";
-import { BasicExplorerService } from "./basic-explorer.service";
-import { ExplorerController } from "./explorer.controller";
+import { EntitySaveHandler } from "./explorer.types";
 
 export namespace Explorer {
   /**
@@ -152,16 +150,18 @@ export namespace Explorer {
    */
   export type Variation = "section" | "object";
 
-  export const DEFAULT_EXPLORER_MODULE_DEPS: Partial<ExplorerModuleOptions> = {
-    service: BasicExplorerService,
-    controller: ExplorerController,
-  };
-
-  export function provideSaveHandlers(...args: Class<EntitySaveHandler>[]) {
+  /**
+   * This function provide save handlers for entities, check UserEntityPwdAndRolesSaveHandler as example
+   */
+  export function provideSaveHandlers(args: Class<EntitySaveHandler>[]) {
+    const types = args.filter((a) => a !== undefined);
+    if (!types.length) {
+      return null;
+    }
     return {
       provide: ENTITY_SAVE_HANDLER,
-      useFactory: (...handlers: EntitySaveHandler[]) => handlers,
-      inject: args,
+      useFactory: (handlers: EntitySaveHandler[]) => [handlers],
+      inject: types,
     };
   }
 }

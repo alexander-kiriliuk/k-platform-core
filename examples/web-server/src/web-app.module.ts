@@ -99,11 +99,6 @@ import { KpConfig } from "@gen-src/kp.config";
     }),
   ],
   controllers: [AppController],
-  providers: [
-    LocaleSubscriber,
-    WebAppService,
-    TmpDirCleanerProcess,
-    UserEntityPwdAndRolesSaveHandler,
-  ],
+  providers: [LocaleSubscriber, WebAppService, TmpDirCleanerProcess],
 })
 export class WebAppModule {}

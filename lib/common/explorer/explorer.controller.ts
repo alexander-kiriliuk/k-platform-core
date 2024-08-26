@@ -19,9 +19,7 @@ import {
   Controller,
   Delete,
   Get,
-  Inject,
   NotFoundException,
-  Optional,
   Param,
   Post,
   Query,
@@ -31,7 +29,6 @@ import { AuthGuard } from "../../shared/guards/auth.guard";
 import { RolesGuard } from "../../shared/guards/roles.guard";
 import {
   BasicExplorerController,
-  EntitySaveHandler,
   ExplorerService,
   ExplorerTarget,
   ExplorerTargetParams,
@@ -46,18 +43,11 @@ import {
   PageableData,
   PageableParams,
 } from "../../shared/modules/pageable/pageable.types";
-import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
-import { Explorer } from "./explorer.constants";
 
 @Controller("/explorer")
 @UseGuards(AuthGuard, RolesGuard)
 export class ExplorerController implements BasicExplorerController {
-  constructor(
-    @Optional()
-    @Inject(ENTITY_SAVE_HANDLER)
-    private readonly saveHandlers: EntitySaveHandler[] = [],
-    private readonly explorerService: ExplorerService,
-  ) {}
+  constructor(private readonly explorerService: ExplorerService) {}
 
   @Get("/target-list")
   @ForRoles(Roles.ADMIN)
@@ -136,17 +126,13 @@ export class ExplorerController implements BasicExplorerController {
     @Body() body: T,
     @CurrentUser() user: User,
   ): Promise<T> {
-    let data = body;
-    for (const handler of this.saveHandlers) {
-      data = handler.handle(target, data, user);
-    }
     const targetParams: ExplorerTargetParams = {
       writeRequest: true,
       checkUserAccess: user,
     };
     return await this.explorerService.saveEntityData(
       target,
-      data,
+      body,
       targetParams,
     );
   }

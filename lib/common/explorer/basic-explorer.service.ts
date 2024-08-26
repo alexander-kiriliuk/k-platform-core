@@ -21,6 +21,7 @@ import {
   InternalServerErrorException,
   Logger,
   NotFoundException,
+  Optional,
 } from "@nestjs/common";
 import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
@@ -35,6 +36,7 @@ import {
 } from "typeorm";
 import {
   ColumnDataType,
+  EntitySaveHandler,
   ExplorerColumn,
   ExplorerSelectParams,
   ExplorerService,
@@ -55,12 +57,13 @@ import {
 } from "../../shared/modules/pageable/pageable.types";
 import { ObjectUtils } from "../../shared/utils/object.utils";
 import { LocalizedStringEntity } from "../../shared/modules/locale/entity/localized-string.entity";
+import { Type } from "@nestjs/common/interfaces/type.interface";
+import ENTITY_SAVE_HANDLER = Explorer.ENTITY_SAVE_HANDLER;
 import parseParamsString = TransformUtils.parseParamsString;
 import TARGET_RELATIONS_OBJECT = Explorer.TARGET_RELATIONS_OBJECT;
 import TARGET_RELATIONS_SECTION = Explorer.TARGET_RELATIONS_SECTION;
 import TARGET_RELATIONS_FULL = Explorer.TARGET_RELATIONS_FULL;
 import hasAccessForRoles = UserUtils.hasAccessForRoles;
-import { Type } from "@nestjs/common/interfaces/type.interface";
 
 /**
  * Basic implementation of the ExplorerService.
@@ -69,6 +72,9 @@ import { Type } from "@nestjs/common/interfaces/type.interface";
 @Injectable()
 export class BasicExplorerService extends ExplorerService {
   constructor(
+    @Optional()
+    @Inject(ENTITY_SAVE_HANDLER)
+    private readonly saveHandlers: EntitySaveHandler[] = [],
     @InjectDataSource()
     private readonly dataSource: DataSource,
     @InjectRepository(ExplorerTargetEntity)
@@ -155,6 +161,9 @@ export class BasicExplorerService extends ExplorerService {
     entity: T,
     targetParams?: ExplorerTargetParams,
   ): Promise<T> {
+    for (const handler of this.saveHandlers) {
+      entity = handler.handle(target, entity, targetParams?.checkUserAccess);
+    }
     const targetData = await this.getTargetData(target, targetParams);
     const repository = this.connection.getRepository(targetData.entity.target);
     if (!entity[targetData.primaryColumn.property]) {

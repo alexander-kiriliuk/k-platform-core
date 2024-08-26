@@ -39,6 +39,6 @@ export class LocalizedStringEntity implements LocalizedString {
   @ManyToOne(() => LanguageEntity, (t) => t.id)
   lang: LanguageEntity;
 
-  @Column("text", { nullable: false })
+  @Column("text", { nullable: true })
   value: string;
 }

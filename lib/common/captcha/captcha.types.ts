@@ -80,9 +80,21 @@ export type CaptchaResponse = {
   enabled?: boolean;
 };
 
+/**
+ * Interface representing the basic functionality for a CAPTCHA controller.
+ */
 export interface BasicCaptchaController {
+  /**
+   * Validates the provided CAPTCHA response against the expected solution.
+   * @param payload - The CAPTCHA validation request.
+   * @returns A promise that resolves to an object indicating whether the CAPTCHA validation was successful.
+   */
   validateCaptcha(payload: CaptchaRequest): Promise<{ result: unknown }>;
 
+  /**
+   * Generates a CAPTCHA data.
+   * @returns A promise that resolves to a CAPTCHA response.
+   */
   getCaptcha(): Promise<CaptchaResponse>;
 }
 

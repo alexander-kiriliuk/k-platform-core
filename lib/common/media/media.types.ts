@@ -249,13 +249,32 @@ export abstract class MediaManager {
   ): Promise<string>;
 }
 
+/**
+ * Interface representing the basic functionality for a media management controller.
+ */
 export interface BasicMediaController {
+  /**
+   * Handles the uploading of media, saving it to the system, and associating it with a specific type and ID.
+   * @param file - The media file to be uploaded.
+   * @param type - The type of media being uploaded (e.g., image, video).
+   * @param id - An optional ID for associating the media with an existing entity.
+   * @returns A promise that resolves to the saved media entity.
+   */
   createMedia(
     file: Express.Multer.File,
     type: string,
     id: number,
   ): Promise<Media>;
 
+  /**
+   * Retrieves a private media file by its ID, applies any requested format transformations,
+   * and sends it as a response.
+   * @param res - The HTTP response object used to send the media file.
+   * @param id - The ID of the media to be retrieved.
+   * @param format - An optional format for transforming the media before sending.
+   * @param webp - A boolean indicating whether to convert the media to WebP format.
+   * @returns A promise that resolves when the media file is sent.
+   */
   getPrivateMedia(
     res: Response,
     id: number,
@@ -263,10 +282,25 @@ export interface BasicMediaController {
     webp: boolean,
   ): Promise<void>;
 
+  /**
+   * Retrieves a public media file by its ID.
+   * @param id - The ID of the media to be retrieved.
+   * @returns A promise that resolves to the retrieved media entity.
+   */
   getMedia(id: number): Promise<Media>;
 
+  /**
+   * Removes a media file by its ID from the system.
+   * @param id - The ID of the media to be removed.
+   * @returns A promise that resolves to the removed media entity.
+   */
   removeMedia(id: number): Promise<Media>;
 
+  /**
+   * Recreates a media file by regenerating it.
+   * @param id - The ID of the media to be recreated.
+   * @returns A promise that resolves to the recreated media entity.
+   */
   recreateMedia(id: number): Promise<Media>;
 }
 

@@ -25,7 +25,8 @@ import { ExplorerController } from "./explorer.controller";
 import { UserModule } from "../user/user.module";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
 import { Explorer } from "./explorer.constants";
-import DEFAULT_EXPLORER_MODULE_DEPS = Explorer.DEFAULT_EXPLORER_MODULE_DEPS;
+import { Provider } from "@nestjs/common/interfaces/modules/provider.interface";
+import { Type } from "@nestjs/common/interfaces/type.interface";
 
 /**
  * Module for exploring and analyzing the database schema and relationships.
@@ -39,23 +40,37 @@ export class ExplorerModule implements OnModuleInit {
       saveHandlers: [],
     },
   ): DynamicModule {
-    const opts = Object.assign({}, DEFAULT_EXPLORER_MODULE_DEPS, options);
+    if (!options.service) {
+      options.service = BasicExplorerService;
+    }
+    if (!options.controller) {
+      options.controller = ExplorerController;
+    }
+    const providers: Provider[] = [
+      {
+        provide: ExplorerService,
+        useClass: options.service,
+      },
+    ];
+    if (options.saveHandlers.length) {
+      const providerWithHandlers = Explorer.provideSaveHandlers(
+        options.saveHandlers,
+      );
+      options.saveHandlers.forEach((h) => {
+        providers.push(h as Type);
+      });
+      providers.push(providerWithHandlers);
+    }
     return {
       module: ExplorerModule,
-      controllers: [opts.controller],
+      controllers: [options.controller],
       imports: [
         TypeOrmModule.forFeature([ExplorerTargetEntity, ExplorerColumnEntity]),
         LogModule,
         UserModule.forRoot(),
         CacheModule,
       ],
-      providers: [
-        {
-          provide: ExplorerService,
-          useClass: opts.service,
-        },
-        Explorer.provideSaveHandlers(...opts.saveHandlers), // TODO resolve ERROR
-      ],
+      providers: providers,
       exports: [ExplorerService],
     };
   }
