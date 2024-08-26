@@ -126,6 +126,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface representing the basic functionality for an authentication controller.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -190,14 +197,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="134"
-                                    class="link-to-prism">lib/common/auth/auth.types.ts:134</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="159"
+                                    class="link-to-prism">lib/common/auth/auth.types.ts:159</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Exchanges a refresh token for a new set of access and refresh tokens.
+The new tokens are set as HTTP-only cookies.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -208,6 +218,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -222,6 +233,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The payload containing the refresh token to be exchanged.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>request</td>
@@ -234,6 +251,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The incoming HTTP request object.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>response</td>
@@ -246,6 +269,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The HTTP response object where new cookies will be set.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -255,7 +284,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to a partial JWT data transfer object containing the new tokens.</p>
+
                             </div>
                 </td>
             </tr>
@@ -281,14 +311,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="126"
-                                    class="link-to-prism">lib/common/auth/auth.types.ts:126</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">lib/common/auth/auth.types.ts:137</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Handles user login by validating the provided credentials, generating JWT tokens,
+and setting them as HTTP-only cookies.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -299,6 +332,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -313,6 +347,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The login credentials, including username, password, and optional captcha data.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>request</td>
@@ -325,6 +365,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The incoming HTTP request object.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>response</td>
@@ -337,6 +383,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The HTTP response object where cookies will be set.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -346,7 +398,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to a JWT data transfer object containing access and refresh tokens.</p>
+
                             </div>
                 </td>
             </tr>
@@ -372,14 +425,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="132"
-                                    class="link-to-prism">lib/common/auth/auth.types.ts:132</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="149"
+                                    class="link-to-prism">lib/common/auth/auth.types.ts:149</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Logs out the user by invalidating the provided access token and clearing related cookies.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -390,6 +445,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -404,6 +460,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The JWT access token that needs to be invalidated.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>response</td>
@@ -416,6 +478,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The HTTP response object where cookies will be cleared.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -425,7 +493,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to an object indicating the result of the logout operation.</p>
+
                             </div>
                 </td>
             </tr>
@@ -545,15 +614,40 @@ export class JwtDto {
   rtExp: Date;
 }
 
+/**
+ * Interface representing the basic functionality for an authentication controller.
+ */
 export interface BasicAuthController {
+  /**
+   * Handles user login by validating the provided credentials, generating JWT tokens,
+   * and setting them as HTTP-only cookies.
+   * @param payload - The login credentials, including username, password, and optional captcha data.
+   * @param request - The incoming HTTP request object.
+   * @param response - The HTTP response object where cookies will be set.
+   * @returns A promise that resolves to a JWT data transfer object containing access and refresh tokens.
+   */
   login(
     payload: LoginPayload,
     request: Request,
     response: Response,
   ): Promise&lt;JwtDto&gt;;
 
+  /**
+   * Logs out the user by invalidating the provided access token and clearing related cookies.
+   * @param token - The JWT access token that needs to be invalidated.
+   * @param response - The HTTP response object where cookies will be cleared.
+   * @returns A promise that resolves to an object indicating the result of the logout operation.
+   */
   logout(token: string, response: Response): Promise&lt;{ result: unknown }&gt;;
 
+  /**
+   * Exchanges a refresh token for a new set of access and refresh tokens.
+   * The new tokens are set as HTTP-only cookies.
+   * @param payload - The payload containing the refresh token to be exchanged.
+   * @param request - The incoming HTTP request object.
+   * @param response - The HTTP response object where new cookies will be set.
+   * @returns A promise that resolves to a partial JWT data transfer object containing the new tokens.
+   */
   exchange(
     payload: ExchangeTokenPayload,
     request: Request,

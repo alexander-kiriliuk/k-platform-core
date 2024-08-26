@@ -348,13 +348,39 @@ export abstract class UserService {
   abstract removeById(id: string): Promise&lt;User&gt;;
 }
 
+/**
+ * Interface representing the basic functionality for a user profile management controller.
+ */
 export interface BasicUserController {
+  /**
+   * Retrieves the profile of a user by ID or returns the profile of the current user if no ID is provided.
+   * @param id - The ID of the user profile to be retrieved. If not provided, the current user&#x27;s profile is returned.
+   * @param user - The current authenticated user.
+   * @returns A promise that resolves to the retrieved user entity.
+   */
   getUserProfile(id: string, user: User): Promise&lt;User&gt;;
 
+  /**
+   * Updates the profile of a user by ID or updates the profile of the current user if no ID is provided.
+   * @param id - The ID of the user profile to be updated. If not provided, the current user&#x27;s profile is updated.
+   * @param profile - The new profile data.
+   * @param user - The current authenticated user.
+   * @returns A promise that resolves to the updated user entity.
+   */
   updateUserProfile(id: string, profile: User, user: User): Promise&lt;User&gt;;
 
+  /**
+   * Removes a user profile by ID from the system.
+   * @param id - The ID of the user profile to be removed.
+   * @returns A promise that resolves to the removed user entity.
+   */
   removeUserProfile(id: string): Promise&lt;User&gt;;
 
+  /**
+   * Creates a new user profile in the system.
+   * @param profile - The profile data for the new user.
+   * @returns A promise that resolves to the created user entity.
+   */
   createUserProfile(profile: User): Promise&lt;User&gt;;
 }
 

@@ -126,6 +126,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface representing the basic functionality for a media management controller.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -202,14 +209,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="253"
-                                    class="link-to-prism">lib/common/media/media.types.ts:253</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="263"
+                                    class="link-to-prism">lib/common/media/media.types.ts:263</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Handles the uploading of media, saving it to the system, and associating it with a specific type and ID.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -220,6 +229,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -234,6 +244,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The media file to be uploaded.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>type</td>
@@ -246,6 +262,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The type of media being uploaded (e.g., image, video).</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>id</td>
@@ -258,6 +280,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>An optional ID for associating the media with an existing entity.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -267,7 +295,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to the saved media entity.</p>
+
                             </div>
                 </td>
             </tr>
@@ -293,14 +322,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="266"
-                                    class="link-to-prism">lib/common/media/media.types.ts:266</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="290"
+                                    class="link-to-prism">lib/common/media/media.types.ts:290</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves a public media file by its ID.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -311,6 +342,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -325,6 +357,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the media to be retrieved.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -334,7 +372,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to the retrieved media entity.</p>
+
                             </div>
                 </td>
             </tr>
@@ -360,14 +399,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="259"
-                                    class="link-to-prism">lib/common/media/media.types.ts:259</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="278"
+                                    class="link-to-prism">lib/common/media/media.types.ts:278</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves a private media file by its ID, applies any requested format transformations,
+and sends it as a response.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -378,6 +420,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -392,6 +435,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The HTTP response object used to send the media file.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>id</td>
@@ -404,6 +453,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the media to be retrieved.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>format</td>
@@ -416,6 +471,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>An optional format for transforming the media before sending.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>webp</td>
@@ -428,6 +489,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>A boolean indicating whether to convert the media to WebP format.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -437,7 +504,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves when the media file is sent.</p>
+
                             </div>
                 </td>
             </tr>
@@ -463,14 +531,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="270"
-                                    class="link-to-prism">lib/common/media/media.types.ts:270</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="304"
+                                    class="link-to-prism">lib/common/media/media.types.ts:304</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Recreates a media file by regenerating it.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -481,6 +551,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -495,6 +566,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the media to be recreated.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -504,7 +581,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to the recreated media entity.</p>
+
                             </div>
                 </td>
             </tr>
@@ -530,14 +608,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="268"
-                                    class="link-to-prism">lib/common/media/media.types.ts:268</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="297"
+                                    class="link-to-prism">lib/common/media/media.types.ts:297</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Removes a media file by its ID from the system.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -548,6 +628,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -562,6 +643,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the media to be removed.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -571,7 +658,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to the removed media entity.</p>
+
                             </div>
                 </td>
             </tr>
@@ -818,13 +906,32 @@ export abstract class MediaManager {
   ): Promise&lt;string&gt;;
 }
 
+/**
+ * Interface representing the basic functionality for a media management controller.
+ */
 export interface BasicMediaController {
+  /**
+   * Handles the uploading of media, saving it to the system, and associating it with a specific type and ID.
+   * @param file - The media file to be uploaded.
+   * @param type - The type of media being uploaded (e.g., image, video).
+   * @param id - An optional ID for associating the media with an existing entity.
+   * @returns A promise that resolves to the saved media entity.
+   */
   createMedia(
     file: Express.Multer.File,
     type: string,
     id: number,
   ): Promise&lt;Media&gt;;
 
+  /**
+   * Retrieves a private media file by its ID, applies any requested format transformations,
+   * and sends it as a response.
+   * @param res - The HTTP response object used to send the media file.
+   * @param id - The ID of the media to be retrieved.
+   * @param format - An optional format for transforming the media before sending.
+   * @param webp - A boolean indicating whether to convert the media to WebP format.
+   * @returns A promise that resolves when the media file is sent.
+   */
   getPrivateMedia(
     res: Response,
     id: number,
@@ -832,10 +939,25 @@ export interface BasicMediaController {
     webp: boolean,
   ): Promise&lt;void&gt;;
 
+  /**
+   * Retrieves a public media file by its ID.
+   * @param id - The ID of the media to be retrieved.
+   * @returns A promise that resolves to the retrieved media entity.
+   */
   getMedia(id: number): Promise&lt;Media&gt;;
 
+  /**
+   * Removes a media file by its ID from the system.
+   * @param id - The ID of the media to be removed.
+   * @returns A promise that resolves to the removed media entity.
+   */
   removeMedia(id: number): Promise&lt;Media&gt;;
 
+  /**
+   * Recreates a media file by regenerating it.
+   * @param id - The ID of the media to be recreated.
+   * @returns A promise that resolves to the recreated media entity.
+   */
   recreateMedia(id: number): Promise&lt;Media&gt;;
 }
 

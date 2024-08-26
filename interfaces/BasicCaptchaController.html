@@ -126,6 +126,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface representing the basic functionality for a CAPTCHA controller.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -184,19 +191,25 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="86"
-                                    class="link-to-prism">lib/common/captcha/captcha.types.ts:86</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="98"
+                                    class="link-to-prism">lib/common/captcha/captcha.types.ts:98</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Generates a CAPTCHA data.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#CaptchaResponse" target="_self" >Promise&lt;CaptchaResponse&gt;</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>A promise that resolves to a CAPTCHA response.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -221,14 +234,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="84"
-                                    class="link-to-prism">lib/common/captcha/captcha.types.ts:84</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">lib/common/captcha/captcha.types.ts:92</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Validates the provided CAPTCHA response against the expected solution.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -239,6 +254,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -253,6 +269,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The CAPTCHA validation request.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -262,7 +284,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to an object indicating whether the CAPTCHA validation was successful.</p>
+
                             </div>
                 </td>
             </tr>
@@ -340,9 +363,21 @@ export type CaptchaResponse &#x3D; {
   enabled?: boolean;
 };
 
+/**
+ * Interface representing the basic functionality for a CAPTCHA controller.
+ */
 export interface BasicCaptchaController {
+  /**
+   * Validates the provided CAPTCHA response against the expected solution.
+   * @param payload - The CAPTCHA validation request.
+   * @returns A promise that resolves to an object indicating whether the CAPTCHA validation was successful.
+   */
   validateCaptcha(payload: CaptchaRequest): Promise&lt;{ result: unknown }&gt;;
 
+  /**
+   * Generates a CAPTCHA data.
+   * @returns A promise that resolves to a CAPTCHA response.
+   */
   getCaptcha(): Promise&lt;CaptchaResponse&gt;;
 }
 

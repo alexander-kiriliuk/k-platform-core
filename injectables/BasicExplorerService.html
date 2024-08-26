@@ -272,12 +272,12 @@ Provides functionality for exploring and analyzing the database schema.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(dataSource: DataSource, targetRep: <a href="../interfaces/ExplorerTarget.html" target="_self">Repository&lt;ExplorerTargetEntity&gt;</a>, columnRep: <a href="../interfaces/ExplorerColumn.html" target="_self">Repository&lt;ExplorerColumnEntity&gt;</a>, logger: Logger)</code>
+<code>constructor(saveHandlers: <a href="../interfaces/EntitySaveHandler.html" target="_self">EntitySaveHandler[]</a>, dataSource: DataSource, targetRep: <a href="../interfaces/ExplorerTarget.html" target="_self">Repository&lt;ExplorerTargetEntity&gt;</a>, columnRep: <a href="../interfaces/ExplorerColumn.html" target="_self">Repository&lt;ExplorerColumnEntity&gt;</a>, logger: Logger)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:70</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:73</a></div>
                             </td>
                         </tr>
 
@@ -294,6 +294,18 @@ Provides functionality for exploring and analyzing the database schema.</p>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                                <tr>
+                                                        <td>saveHandlers</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/EntitySaveHandler.html" target="_self" >EntitySaveHandler[]</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                                 <tr>
                                                         <td>dataSource</td>
                                                   
@@ -384,7 +396,7 @@ Provides functionality for exploring and analyzing the database schema.</p>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:94</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:100</a></code>
 </div>
                         </td>
                     </tr>
@@ -425,8 +437,8 @@ Provides functionality for exploring and analyzing the database schema.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="488"
-                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:488</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="497"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:497</a></div>
                         </td>
                     </tr>
 
@@ -565,8 +577,8 @@ Provides functionality for exploring and analyzing the database schema.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="457"
-                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:457</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="466"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:466</a></div>
                         </td>
                     </tr>
 
@@ -706,8 +718,8 @@ Provides functionality for exploring and analyzing the database schema.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="381"
-                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:381</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="390"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:390</a></div>
                         </td>
                     </tr>
 
@@ -829,8 +841,8 @@ Provides functionality for exploring and analyzing the database schema.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="564"
-                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:564</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="573"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:573</a></div>
                         </td>
                     </tr>
 
@@ -997,7 +1009,7 @@ Provides functionality for exploring and analyzing the database schema.</p>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:170</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:179</a></code>
 </div>
                         </td>
                     </tr>
@@ -1075,8 +1087,8 @@ Provides functionality for exploring and analyzing the database schema.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="740"
-                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:740</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="749"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:749</a></div>
                         </td>
                     </tr>
 
@@ -1170,8 +1182,8 @@ Provides functionality for exploring and analyzing the database schema.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="431"
-                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:431</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="440"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:440</a></div>
                         </td>
                     </tr>
 
@@ -1246,8 +1258,8 @@ Provides functionality for exploring and analyzing the database schema.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="633"
-                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:633</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="642"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:642</a></div>
                         </td>
                     </tr>
 
@@ -1344,8 +1356,8 @@ Provides functionality for exploring and analyzing the database schema.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="773"
-                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:773</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="782"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:782</a></div>
                         </td>
                     </tr>
 
@@ -1427,7 +1439,7 @@ Provides functionality for exploring and analyzing the database schema.</p>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:228</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:237</a></code>
 </div>
                         </td>
                     </tr>
@@ -1569,7 +1581,7 @@ Provides functionality for exploring and analyzing the database schema.</p>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:273</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:282</a></code>
 </div>
                         </td>
                     </tr>
@@ -1690,7 +1702,7 @@ Provides functionality for exploring and analyzing the database schema.</p>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:328</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:337</a></code>
 </div>
                         </td>
                     </tr>
@@ -1797,7 +1809,7 @@ Provides functionality for exploring and analyzing the database schema.</p>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:177</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:186</a></code>
 </div>
                         </td>
                     </tr>
@@ -1838,8 +1850,8 @@ Provides functionality for exploring and analyzing the database schema.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="715"
-                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:715</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="724"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:724</a></div>
                         </td>
                     </tr>
 
@@ -1937,7 +1949,7 @@ Provides functionality for exploring and analyzing the database schema.</p>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:196</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:205</a></code>
 </div>
                         </td>
                     </tr>
@@ -2053,8 +2065,8 @@ Provides functionality for exploring and analyzing the database schema.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="678"
-                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:678</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="687"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:687</a></div>
                         </td>
                     </tr>
 
@@ -2135,7 +2147,7 @@ Provides functionality for exploring and analyzing the database schema.</p>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:153</a></code>
+                                <div class="io-line">Defined in         <code><a href="../classes/ExplorerService.html#source" target="_self" >ExplorerService:159</a></code>
 </div>
                         </td>
                     </tr>
@@ -2259,8 +2271,8 @@ Provides functionality for exploring and analyzing the database schema.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="510"
-                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:510</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="519"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:519</a></div>
                         </td>
                     </tr>
 
@@ -2383,8 +2395,8 @@ Provides functionality for exploring and analyzing the database schema.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="662"
-                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:662</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="671"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:671</a></div>
                         </td>
                     </tr>
 
@@ -2460,8 +2472,8 @@ Provides functionality for exploring and analyzing the database schema.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="694"
-                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:694</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="703"
+                                    class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:703</a></div>
                         </td>
                     </tr>
 
@@ -2568,7 +2580,7 @@ Provides functionality for exploring and analyzing the database schema.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:87</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">lib/common/explorer/basic-explorer.service.ts:93</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -2595,6 +2607,7 @@ Provides functionality for exploring and analyzing the database schema.</p>
   InternalServerErrorException,
   Logger,
   NotFoundException,
+  Optional,
 } from &quot;@nestjs/common&quot;;
 import { ExplorerTargetEntity } from &quot;./entity/explorer-target.entity&quot;;
 import { ExplorerColumnEntity } from &quot;./entity/explorer-column.entity&quot;;
@@ -2609,6 +2622,7 @@ import {
 } from &quot;typeorm&quot;;
 import {
   ColumnDataType,
+  EntitySaveHandler,
   ExplorerColumn,
   ExplorerSelectParams,
   ExplorerService,
@@ -2629,12 +2643,13 @@ import {
 } from &quot;../../shared/modules/pageable/pageable.types&quot;;
 import { ObjectUtils } from &quot;../../shared/utils/object.utils&quot;;
 import { LocalizedStringEntity } from &quot;../../shared/modules/locale/entity/localized-string.entity&quot;;
+import { Type } from &quot;@nestjs/common/interfaces/type.interface&quot;;
+import ENTITY_SAVE_HANDLER &#x3D; Explorer.ENTITY_SAVE_HANDLER;
 import parseParamsString &#x3D; TransformUtils.parseParamsString;
 import TARGET_RELATIONS_OBJECT &#x3D; Explorer.TARGET_RELATIONS_OBJECT;
 import TARGET_RELATIONS_SECTION &#x3D; Explorer.TARGET_RELATIONS_SECTION;
 import TARGET_RELATIONS_FULL &#x3D; Explorer.TARGET_RELATIONS_FULL;
 import hasAccessForRoles &#x3D; UserUtils.hasAccessForRoles;
-import { Type } from &quot;@nestjs/common/interfaces/type.interface&quot;;
 
 /**
  * Basic implementation of the ExplorerService.
@@ -2643,6 +2658,9 @@ import { Type } from &quot;@nestjs/common/interfaces/type.interface&quot;;
 @Injectable()
 export class BasicExplorerService extends ExplorerService {
   constructor(
+    @Optional()
+    @Inject(ENTITY_SAVE_HANDLER)
+    private readonly saveHandlers: EntitySaveHandler[] &#x3D; [],
     @InjectDataSource()
     private readonly dataSource: DataSource,
     @InjectRepository(ExplorerTargetEntity)
@@ -2729,6 +2747,9 @@ export class BasicExplorerService extends ExplorerService {
     entity: T,
     targetParams?: ExplorerTargetParams,
   ): Promise&lt;T&gt; {
+    for (const handler of this.saveHandlers) {
+      entity &#x3D; handler.handle(target, entity, targetParams?.checkUserAccess);
+    }
     const targetData &#x3D; await this.getTargetData(target, targetParams);
     const repository &#x3D; this.connection.getRepository(targetData.entity.target);
     if (!entity[targetData.primaryColumn.property]) {

@@ -305,7 +305,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column(&#x27;text&#x27;, {nullable: false})<br />
+                            @Column(&#x27;text&#x27;, {nullable: true})<br />
                         </code>
                     </td>
                 </tr>
@@ -364,7 +364,7 @@ export class LocalizedStringEntity implements LocalizedString {
   @ManyToOne(() &#x3D;&gt; LanguageEntity, (t) &#x3D;&gt; t.id)
   lang: LanguageEntity;
 
-  @Column(&quot;text&quot;, { nullable: false })
+  @Column(&quot;text&quot;, { nullable: true })
   value: string;
 }
 </code></pre>

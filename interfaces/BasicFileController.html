@@ -126,6 +126,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface representing the basic functionality for a file management controller.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -196,14 +203,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="323"
-                                    class="link-to-prism">lib/common/file/file.types.ts:323</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="332"
+                                    class="link-to-prism">lib/common/file/file.types.ts:332</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Handles the uploading of a file, saving it to the system, and optionally marking it as public.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -214,6 +223,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -228,6 +238,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The file to be uploaded.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>isPublic</td>
@@ -240,6 +256,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>A string indicating whether the file should be public (&quot;true&quot;) or private (&quot;false&quot;).</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -249,7 +271,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to the saved file entity.</p>
+
                             </div>
                 </td>
             </tr>
@@ -275,14 +298,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="327"
-                                    class="link-to-prism">lib/common/file/file.types.ts:327</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="347"
+                                    class="link-to-prism">lib/common/file/file.types.ts:347</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves a public file by its ID.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -293,6 +318,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -307,6 +333,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the file to be retrieved.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -316,7 +348,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to the retrieved file entity.</p>
+
                             </div>
                 </td>
             </tr>
@@ -342,14 +375,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="325"
-                                    class="link-to-prism">lib/common/file/file.types.ts:325</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="340"
+                                    class="link-to-prism">lib/common/file/file.types.ts:340</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves a private file by its ID and sends it as a response.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -360,6 +395,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -374,6 +410,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The HTTP response object used to send the file.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>id</td>
@@ -386,6 +428,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the file to be retrieved.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -395,7 +443,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves when the file is sent.</p>
+
                             </div>
                 </td>
             </tr>
@@ -421,14 +470,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="329"
-                                    class="link-to-prism">lib/common/file/file.types.ts:329</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="354"
+                                    class="link-to-prism">lib/common/file/file.types.ts:354</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Removes a file by its ID from the system.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -439,6 +490,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -453,6 +505,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the file to be removed.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -462,7 +520,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves to the removed file entity.</p>
+
                             </div>
                 </td>
             </tr>
@@ -779,13 +838,38 @@ export interface AudioFileMetadata {
   label: string;
 }
 
+/**
+ * Interface representing the basic functionality for a file management controller.
+ */
 export interface BasicFileController {
+  /**
+   * Handles the uploading of a file, saving it to the system, and optionally marking it as public.
+   * @param file - The file to be uploaded.
+   * @param isPublic - A string indicating whether the file should be public (&quot;true&quot;) or private (&quot;false&quot;).
+   * @returns A promise that resolves to the saved file entity.
+   */
   createFile(file: Express.Multer.File, isPublic: string): Promise&lt;File&gt;;
 
+  /**
+   * Retrieves a private file by its ID and sends it as a response.
+   * @param res - The HTTP response object used to send the file.
+   * @param id - The ID of the file to be retrieved.
+   * @returns A promise that resolves when the file is sent.
+   */
   getPrivateFile(res: Response, id: number): Promise&lt;void&gt;;
 
+  /**
+   * Retrieves a public file by its ID.
+   * @param id - The ID of the file to be retrieved.
+   * @returns A promise that resolves to the retrieved file entity.
+   */
   getFile(id: number): Promise&lt;File&gt;;
 
+  /**
+   * Removes a file by its ID from the system.
+   * @param id - The ID of the file to be removed.
+   * @returns A promise that resolves to the removed file entity.
+   */
   removeFile(id: number): Promise&lt;File&gt;;
 }
 

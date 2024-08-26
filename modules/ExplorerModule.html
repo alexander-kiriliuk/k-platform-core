@@ -158,8 +158,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">lib/common/explorer/explorer.module.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="36"
+                                    class="link-to-prism">lib/common/explorer/explorer.module.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -235,8 +235,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="68"
-                                    class="link-to-prism">lib/common/explorer/explorer.module.ts:68</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="83"
+                                    class="link-to-prism">lib/common/explorer/explorer.module.ts:83</a></div>
                         </td>
                     </tr>
 
@@ -286,7 +286,8 @@ import { ExplorerController } from &quot;./explorer.controller&quot;;
 import { UserModule } from &quot;../user/user.module&quot;;
 import { CacheModule } from &quot;../../shared/modules/cache/cache.module&quot;;
 import { Explorer } from &quot;./explorer.constants&quot;;
-import DEFAULT_EXPLORER_MODULE_DEPS &#x3D; Explorer.DEFAULT_EXPLORER_MODULE_DEPS;
+import { Provider } from &quot;@nestjs/common/interfaces/modules/provider.interface&quot;;
+import { Type } from &quot;@nestjs/common/interfaces/type.interface&quot;;
 
 /**
  * Module for exploring and analyzing the database schema and relationships.
@@ -300,23 +301,37 @@ export class ExplorerModule implements OnModuleInit {
       saveHandlers: [],
     },
   ): DynamicModule {
-    const opts &#x3D; Object.assign({}, DEFAULT_EXPLORER_MODULE_DEPS, options);
+    if (!options.service) {
+      options.service &#x3D; BasicExplorerService;
+    }
+    if (!options.controller) {
+      options.controller &#x3D; ExplorerController;
+    }
+    const providers: Provider[] &#x3D; [
+      {
+        provide: ExplorerService,
+        useClass: options.service,
+      },
+    ];
+    if (options.saveHandlers.length) {
+      const providerWithHandlers &#x3D; Explorer.provideSaveHandlers(
+        options.saveHandlers,
+      );
+      options.saveHandlers.forEach((h) &#x3D;&gt; {
+        providers.push(h as Type);
+      });
+      providers.push(providerWithHandlers);
+    }
     return {
       module: ExplorerModule,
-      controllers: [opts.controller],
+      controllers: [options.controller],
       imports: [
         TypeOrmModule.forFeature([ExplorerTargetEntity, ExplorerColumnEntity]),
         LogModule,
         UserModule.forRoot(),
         CacheModule,
       ],
-      providers: [
-        {
-          provide: ExplorerService,
-          useClass: opts.service,
-        },
-        Explorer.provideSaveHandlers(...opts.saveHandlers), // TODO resolve ERROR
-      ],
+      providers: providers,
       exports: [ExplorerService],
     };
   }

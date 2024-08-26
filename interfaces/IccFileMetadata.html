@@ -1143,13 +1143,38 @@ export interface AudioFileMetadata {
   label: string;
 }
 
+/**
+ * Interface representing the basic functionality for a file management controller.
+ */
 export interface BasicFileController {
+  /**
+   * Handles the uploading of a file, saving it to the system, and optionally marking it as public.
+   * @param file - The file to be uploaded.
+   * @param isPublic - A string indicating whether the file should be public (&quot;true&quot;) or private (&quot;false&quot;).
+   * @returns A promise that resolves to the saved file entity.
+   */
   createFile(file: Express.Multer.File, isPublic: string): Promise&lt;File&gt;;
 
+  /**
+   * Retrieves a private file by its ID and sends it as a response.
+   * @param res - The HTTP response object used to send the file.
+   * @param id - The ID of the file to be retrieved.
+   * @returns A promise that resolves when the file is sent.
+   */
   getPrivateFile(res: Response, id: number): Promise&lt;void&gt;;
 
+  /**
+   * Retrieves a public file by its ID.
+   * @param id - The ID of the file to be retrieved.
+   * @returns A promise that resolves to the retrieved file entity.
+   */
   getFile(id: number): Promise&lt;File&gt;;
 
+  /**
+   * Removes a file by its ID from the system.
+   * @param id - The ID of the file to be removed.
+   * @returns A promise that resolves to the removed file entity.
+   */
   removeFile(id: number): Promise&lt;File&gt;;
 }
 

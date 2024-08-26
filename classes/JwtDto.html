@@ -518,15 +518,40 @@ export class JwtDto {
   rtExp: Date;
 }
 
+/**
+ * Interface representing the basic functionality for an authentication controller.
+ */
 export interface BasicAuthController {
+  /**
+   * Handles user login by validating the provided credentials, generating JWT tokens,
+   * and setting them as HTTP-only cookies.
+   * @param payload - The login credentials, including username, password, and optional captcha data.
+   * @param request - The incoming HTTP request object.
+   * @param response - The HTTP response object where cookies will be set.
+   * @returns A promise that resolves to a JWT data transfer object containing access and refresh tokens.
+   */
   login(
     payload: LoginPayload,
     request: Request,
     response: Response,
   ): Promise&lt;JwtDto&gt;;
 
+  /**
+   * Logs out the user by invalidating the provided access token and clearing related cookies.
+   * @param token - The JWT access token that needs to be invalidated.
+   * @param response - The HTTP response object where cookies will be cleared.
+   * @returns A promise that resolves to an object indicating the result of the logout operation.
+   */
   logout(token: string, response: Response): Promise&lt;{ result: unknown }&gt;;
 
+  /**
+   * Exchanges a refresh token for a new set of access and refresh tokens.
+   * The new tokens are set as HTTP-only cookies.
+   * @param payload - The payload containing the refresh token to be exchanged.
+   * @param request - The incoming HTTP request object.
+   * @param response - The HTTP response object where new cookies will be set.
+   * @returns A promise that resolves to a partial JWT data transfer object containing the new tokens.
+   */
   exchange(
     payload: ExchangeTokenPayload,
     request: Request,
