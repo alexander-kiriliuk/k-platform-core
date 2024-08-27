@@ -1627,11 +1627,12 @@ It is assumed that such files override neighboring ones .properties files and ar
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>async () &#x3D;&gt; {
-  const app &#x3D; await NestFactory.createApplicationContext(ConfigModule);
+  const mod &#x3D; ConfigModule.forInitializer();
+  const app &#x3D; await NestFactory.createApplicationContext(mod);
   await app.init();
   const logger: Logger &#x3D; app.select(LogModule).get(LOGGER);
   EnvLoader.loadEnvironment(logger);
-  const configService &#x3D; app.select(ConfigModule).get(ConfigService);
+  const configService &#x3D; app.select(mod).get(ConfigService);
   const genCnfDir &#x3D; &#x60;${process.cwd()}/${process.env.CONFIG_SRC_DIR}&#x60;;
   await configService.initWithPropertiesFiles(genCnfDir);
   await app.close();
