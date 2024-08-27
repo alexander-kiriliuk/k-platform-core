@@ -6,6 +6,9 @@
     "type": "git",
     "url": "https://github.com/alexander-kiriliuk/k-platform-core"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.9.0",
   "description": "Framework for the rapid development of modern applications",
   "keywords": [
