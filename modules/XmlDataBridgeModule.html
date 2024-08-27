@@ -156,8 +156,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="76"
-                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.module.ts:76</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="101"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.module.ts:101</a></div>
                         </td>
                     </tr>
 
@@ -194,6 +194,75 @@
                             </div>
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="forInitializer"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>forInitializer</b></span>
+                        <a href="#forInitializer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>forInitializer(TypeormRootModule: DynamicModule)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="76"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.module.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>TypeormRootModule</td>
+                                            <td>
+                                                        <code>DynamicModule</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>DynamicModule</code>
 
                         </div>
                             <div class="io-description">
@@ -361,6 +430,31 @@ export class XmlDataBridgeModule implements NestModule {
         {
           provide: XdbExportService,
           useClass: options.exportService,
+        },
+      ],
+      exports: [XdbImportService, XdbExportService],
+    };
+  }
+
+  static forInitializer(TypeormRootModule: DynamicModule): DynamicModule {
+    return {
+      module: XmlDataBridgeModule,
+      imports: [
+        LogModule,
+        CacheModule,
+        ExplorerModule.forRoot(),
+        FileModule.forRoot(),
+        MediaModule.forRoot(),
+        TypeormRootModule,
+      ],
+      providers: [
+        {
+          provide: XdbImportService,
+          useClass: XmlDataBridgeImportService,
+        },
+        {
+          provide: XdbExportService,
+          useClass: XmlDataBridgeExportService,
         },
       ],
       exports: [XdbImportService, XdbExportService],
