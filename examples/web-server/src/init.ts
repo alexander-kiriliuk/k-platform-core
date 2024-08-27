@@ -15,25 +15,19 @@
  */
 
 import { NestFactory } from "@nestjs/core";
-import { Orm } from "./orm.config";
 import Redis from "ioredis";
 import { DataSource } from "typeorm";
 import {
   CacheModule,
   CacheService,
   EnvLoader,
-  ExplorerModule,
-  FileModule,
   FilesUtils,
-  LogModule,
-  MediaModule,
   Xdb,
   XdbImportService,
-  XmlDataBridgeExportService,
-  XmlDataBridgeImportService,
   XmlDataBridgeModule,
 } from "@k-platform/core";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { Orm } from "./orm.config";
 import { DbConfig } from "@gen-src/db.config";
 import readFile = FilesUtils.readFile;
 
@@ -82,18 +76,8 @@ import readFile = FilesUtils.readFile;
   }
 
   async function initDatabase() {
-    const mod = XmlDataBridgeModule.forRoot({
-      importService: XmlDataBridgeImportService,
-      exportService: XmlDataBridgeExportService,
-      imports: [
-        LogModule,
-        CacheModule,
-        FileModule.forRoot(),
-        MediaModule.forRoot(),
-        ExplorerModule.forRoot(),
-        TypeOrmModule.forRootAsync(Orm.getOptions(true)),
-      ],
-    });
+    const typeormRootMod = TypeOrmModule.forRootAsync(Orm.getOptions(true));
+    const mod = XmlDataBridgeModule.forInitializer(typeormRootMod);
     const app = await NestFactory.createApplicationContext(mod);
     await app.init();
     console.log("Database was initialized");

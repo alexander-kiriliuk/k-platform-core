@@ -73,6 +73,31 @@ export class XmlDataBridgeModule implements NestModule {
     };
   }
 
+  static forInitializer(TypeormRootModule: DynamicModule): DynamicModule {
+    return {
+      module: XmlDataBridgeModule,
+      imports: [
+        LogModule,
+        CacheModule,
+        ExplorerModule.forRoot(),
+        FileModule.forRoot(),
+        MediaModule.forRoot(),
+        TypeormRootModule,
+      ],
+      providers: [
+        {
+          provide: XdbImportService,
+          useClass: XmlDataBridgeImportService,
+        },
+        {
+          provide: XdbExportService,
+          useClass: XmlDataBridgeExportService,
+        },
+      ],
+      exports: [XdbImportService, XdbExportService],
+    };
+  }
+
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(XmlDataBridgeMiddleware).forRoutes(XmlDataBridgeController);
   }
