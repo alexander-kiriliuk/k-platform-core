@@ -28,11 +28,12 @@ import { ConfigService } from "./config.service";
  * This function used for initialize config store
  */
 export const InitConfig = async () => {
-  const app = await NestFactory.createApplicationContext(ConfigModule);
+  const mod = ConfigModule.forInitializer();
+  const app = await NestFactory.createApplicationContext(mod);
   await app.init();
   const logger: Logger = app.select(LogModule).get(LOGGER);
   EnvLoader.loadEnvironment(logger);
-  const configService = app.select(ConfigModule).get(ConfigService);
+  const configService = app.select(mod).get(ConfigService);
   const genCnfDir = `${process.cwd()}/${process.env.CONFIG_SRC_DIR}`;
   await configService.initWithPropertiesFiles(genCnfDir);
   await app.close();
