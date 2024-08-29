@@ -24,7 +24,7 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { Request, Response } from "express";
-import { CaptchaConfig } from "@gen-src/captcha.config";
+import { CaptchaConfig } from "../../../gen-src/captcha.config";
 import { AuthService } from "./auth.constants";
 import { CacheService } from "../../shared/modules/cache/cache.types";
 import { CaptchaService } from "../captcha/captcha.types";
