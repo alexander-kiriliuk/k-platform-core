@@ -24,7 +24,7 @@ import { LogModule } from "../../shared/modules/log/log.module";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
 import { FileManager, FileMd } from "./file.constants";
 import { FileController } from "./file.controller";
-import { UserModule } from "@k-platform/core/common/user/user.module";
+import { UserModule } from "../user/user.module";
 
 /**
  * Module for managing files.
