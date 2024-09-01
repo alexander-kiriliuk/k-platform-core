@@ -54,7 +54,7 @@ import { KpConfig } from "@gen-src/kp.config";
   imports: [
     CacheModule,
     LogModule,
-    ConfigModule,
+    ConfigModule.forRoot(),
     CategoryModule,
     ProcessModule,
     AuthModule.forRoot(),
