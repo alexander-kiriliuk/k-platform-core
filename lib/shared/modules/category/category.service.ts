@@ -44,11 +44,17 @@ export class CategoryService {
       where: { code },
       relations: CATEGORY_RELATIONS,
     });
+    if (!cat) {
+      return null;
+    }
     const res = await this.catRep.findDescendantsTree(cat, {
       depth,
       relations: CATEGORY_RELATIONS,
     });
-    res.children?.forEach((cat) => this.sort(cat));
+    if (!res.children?.length) {
+      return res;
+    }
+    res.children.forEach((cat) => this.sort(cat));
     this.sort(res);
     return res;
   }
