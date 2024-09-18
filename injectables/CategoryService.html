@@ -343,8 +343,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="60"
-                                    class="link-to-prism">lib/shared/modules/category/category.service.ts:60</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="66"
+                                    class="link-to-prism">lib/shared/modules/category/category.service.ts:66</a></div>
                         </td>
                     </tr>
 
@@ -435,11 +435,17 @@ export class CategoryService {
       where: { code },
       relations: CATEGORY_RELATIONS,
     });
+    if (!cat) {
+      return null;
+    }
     const res &#x3D; await this.catRep.findDescendantsTree(cat, {
       depth,
       relations: CATEGORY_RELATIONS,
     });
-    res.children?.forEach((cat) &#x3D;&gt; this.sort(cat));
+    if (!res.children?.length) {
+      return res;
+    }
+    res.children.forEach((cat) &#x3D;&gt; this.sort(cat));
     this.sort(res);
     return res;
   }
