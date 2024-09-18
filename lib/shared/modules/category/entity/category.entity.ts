@@ -34,7 +34,7 @@ import { MediaEntity } from "../../../../common/media/entity/media.entity";
  * The entity stores category trees
  */
 @Entity("categories")
-@Tree("nested-set")
+@Tree("materialized-path")
 export class CategoryEntity {
   @PrimaryGeneratedColumn({ zerofill: true })
   id: number;
