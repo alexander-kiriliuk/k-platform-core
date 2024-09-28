@@ -297,16 +297,6 @@ It uses the NestJS lifecycle hook <code>onApplicationBootstrap</code> to initial
                     </ul>
                 </div>
                 <div class="col-sm-3">
-                    <h3>Controllers<a href="https://docs.nestjs.com/controllers" target="_blank" rel="noopener noreferrer"
-                            title="Official documentation about module controllers"><span
-                                class="icon ion-ios-information-circle-outline"></a></h3>
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <a href="../controllers/ProcessController.html">ProcessController</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
                     <h3>Imports<a href="https://angular.io/api/core/NgModule#imports" target="_blank" rel="noopener noreferrer"
                             title="Official documentation about module imports"><span
                                 class="icon ion-ios-information-circle-outline"></a></h3>
@@ -368,8 +358,8 @@ It uses the NestJS lifecycle hook <code>onApplicationBootstrap</code> to initial
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="53"
-                                    class="link-to-prism">lib/common/process/process.module.ts:53</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">lib/common/process/process.module.ts:51</a></div>
                         </td>
                     </tr>
 
@@ -416,7 +406,6 @@ import { ProcessLogEntity } from &quot;./entity/process.log.entity&quot;;
 import { LogModule } from &quot;../../shared/modules/log/log.module&quot;;
 import { MessagesBrokerModule } from &quot;../../shared/modules/messages-broker/messages-broker.module&quot;;
 import { WarlockModule } from &quot;../../shared/modules/warlock/warlock.module&quot;;
-import { ProcessController } from &quot;./process.controller&quot;;
 import { UserModule } from &quot;../user/user.module&quot;;
 import { CacheModule } from &quot;../../shared/modules/cache/cache.module&quot;;
 
@@ -435,7 +424,6 @@ import { CacheModule } from &quot;../../shared/modules/cache/cache.module&quot;;
     UserModule.forRoot(),
     CacheModule,
   ],
-  controllers: [ProcessController],
   providers: [ProcessManagerService, ProcessRegisterService],
   exports: [ProcessManagerService],
 })

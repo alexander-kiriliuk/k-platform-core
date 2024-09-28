@@ -158,8 +158,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="36"
-                                    class="link-to-prism">lib/common/explorer/explorer.module.ts:36</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">lib/common/explorer/explorer.module.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -193,7 +193,6 @@
                                             <td>
                                                     <code>{
       service: BasicExplorerService,
-      controller: ExplorerController,
       saveHandlers: [],
     }</code>
                                             </td>
@@ -235,8 +234,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="83"
-                                    class="link-to-prism">lib/common/explorer/explorer.module.ts:83</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="78"
+                                    class="link-to-prism">lib/common/explorer/explorer.module.ts:78</a></div>
                         </td>
                     </tr>
 
@@ -282,7 +281,6 @@ import { ExplorerTargetEntity } from &quot;./entity/explorer-target.entity&quot;
 import { ExplorerColumnEntity } from &quot;./entity/explorer-column.entity&quot;;
 import { ExplorerModuleOptions, ExplorerService } from &quot;./explorer.types&quot;;
 import { LogModule } from &quot;../../shared/modules/log/log.module&quot;;
-import { ExplorerController } from &quot;./explorer.controller&quot;;
 import { UserModule } from &quot;../user/user.module&quot;;
 import { CacheModule } from &quot;../../shared/modules/cache/cache.module&quot;;
 import { Explorer } from &quot;./explorer.constants&quot;;
@@ -297,16 +295,13 @@ export class ExplorerModule implements OnModuleInit {
   static forRoot(
     options: Partial&lt;ExplorerModuleOptions&gt; &#x3D; {
       service: BasicExplorerService,
-      controller: ExplorerController,
       saveHandlers: [],
     },
   ): DynamicModule {
     if (!options.service) {
       options.service &#x3D; BasicExplorerService;
     }
-    if (!options.controller) {
-      options.controller &#x3D; ExplorerController;
-    }
+
     const providers: Provider[] &#x3D; [
       {
         provide: ExplorerService,
@@ -324,7 +319,6 @@ export class ExplorerModule implements OnModuleInit {
     }
     return {
       module: ExplorerModule,
-      controllers: [options.controller],
       imports: [
         TypeOrmModule.forFeature([ExplorerTargetEntity, ExplorerColumnEntity]),
         LogModule,

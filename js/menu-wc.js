@@ -165,29 +165,15 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="modules/ProcessModule.html" data-type="entity-link" >ProcessModule</a>
-                                    <li class="chapter inner">
-                                        <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
-                                            'data-bs-target="#controllers-links-module-ProcessModule-626852d60c0435ddd9e81e4905d7051832c3d1e5a65651df1daa9055bf638ba189d6d2e67bec476f6c69c2725a45f46738640502149ce06864bd5e9f8a228e10"' : 'data-bs-target="#xs-controllers-links-module-ProcessModule-626852d60c0435ddd9e81e4905d7051832c3d1e5a65651df1daa9055bf638ba189d6d2e67bec476f6c69c2725a45f46738640502149ce06864bd5e9f8a228e10"' }>
-                                            <span class="icon ion-md-swap"></span>
-                                            <span>Controllers</span>
-                                            <span class="icon ion-ios-arrow-down"></span>
-                                        </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="controllers-links-module-ProcessModule-626852d60c0435ddd9e81e4905d7051832c3d1e5a65651df1daa9055bf638ba189d6d2e67bec476f6c69c2725a45f46738640502149ce06864bd5e9f8a228e10"' :
-                                            'id="xs-controllers-links-module-ProcessModule-626852d60c0435ddd9e81e4905d7051832c3d1e5a65651df1daa9055bf638ba189d6d2e67bec476f6c69c2725a45f46738640502149ce06864bd5e9f8a228e10"' }>
-                                            <li class="link">
-                                                <a href="controllers/ProcessController.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >ProcessController</a>
-                                            </li>
-                                        </ul>
-                                    </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
-                                        'data-bs-target="#injectables-links-module-ProcessModule-626852d60c0435ddd9e81e4905d7051832c3d1e5a65651df1daa9055bf638ba189d6d2e67bec476f6c69c2725a45f46738640502149ce06864bd5e9f8a228e10"' : 'data-bs-target="#xs-injectables-links-module-ProcessModule-626852d60c0435ddd9e81e4905d7051832c3d1e5a65651df1daa9055bf638ba189d6d2e67bec476f6c69c2725a45f46738640502149ce06864bd5e9f8a228e10"' }>
+                                        'data-bs-target="#injectables-links-module-ProcessModule-40d7ae49b2a023ce3109c6ebedd544f186f9484a2c66c18d974300c023ae6979f0def1e30f84a011a79b2e37c8e67011f78296f143b9d665ac39d543089972b8"' : 'data-bs-target="#xs-injectables-links-module-ProcessModule-40d7ae49b2a023ce3109c6ebedd544f186f9484a2c66c18d974300c023ae6979f0def1e30f84a011a79b2e37c8e67011f78296f143b9d665ac39d543089972b8"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-ProcessModule-626852d60c0435ddd9e81e4905d7051832c3d1e5a65651df1daa9055bf638ba189d6d2e67bec476f6c69c2725a45f46738640502149ce06864bd5e9f8a228e10"' :
-                                        'id="xs-injectables-links-module-ProcessModule-626852d60c0435ddd9e81e4905d7051832c3d1e5a65651df1daa9055bf638ba189d6d2e67bec476f6c69c2725a45f46738640502149ce06864bd5e9f8a228e10"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-ProcessModule-40d7ae49b2a023ce3109c6ebedd544f186f9484a2c66c18d974300c023ae6979f0def1e30f84a011a79b2e37c8e67011f78296f143b9d665ac39d543089972b8"' :
+                                        'id="xs-injectables-links-module-ProcessModule-40d7ae49b2a023ce3109c6ebedd544f186f9484a2c66c18d974300c023ae6979f0def1e30f84a011a79b2e37c8e67011f78296f143b9d665ac39d543089972b8"' }>
                                         <li class="link">
                                             <a href="injectables/ProcessManagerService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >ProcessManagerService</a>
                                         </li>
@@ -211,40 +197,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                 </ul>
                 </li>
-                        <li class="chapter">
-                            <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ? 'data-bs-target="#controllers-links"' :
-                                'data-bs-target="#xs-controllers-links"' }>
-                                <span class="icon ion-md-swap"></span>
-                                <span>Controllers</span>
-                                <span class="icon ion-ios-arrow-down"></span>
-                            </div>
-                            <ul class="links collapse " ${ isNormalMode ? 'id="controllers-links"' : 'id="xs-controllers-links"' }>
-                                <li class="link">
-                                    <a href="controllers/AuthController.html" data-type="entity-link" >AuthController</a>
-                                </li>
-                                <li class="link">
-                                    <a href="controllers/CaptchaController.html" data-type="entity-link" >CaptchaController</a>
-                                </li>
-                                <li class="link">
-                                    <a href="controllers/ConfigController.html" data-type="entity-link" >ConfigController</a>
-                                </li>
-                                <li class="link">
-                                    <a href="controllers/ExplorerController.html" data-type="entity-link" >ExplorerController</a>
-                                </li>
-                                <li class="link">
-                                    <a href="controllers/FileController.html" data-type="entity-link" >FileController</a>
-                                </li>
-                                <li class="link">
-                                    <a href="controllers/MediaController.html" data-type="entity-link" >MediaController</a>
-                                </li>
-                                <li class="link">
-                                    <a href="controllers/ProfileController.html" data-type="entity-link" >ProfileController</a>
-                                </li>
-                                <li class="link">
-                                    <a href="controllers/XmlDataBridgeController.html" data-type="entity-link" >XmlDataBridgeController</a>
-                                </li>
-                            </ul>
-                        </li>
                         <li class="chapter">
                             <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ? 'data-bs-target="#entities-links"' :
                                 'data-bs-target="#xs-entities-links"' }>

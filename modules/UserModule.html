@@ -158,8 +158,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="31"
-                                    class="link-to-prism">lib/common/user/user.module.ts:31</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">lib/common/user/user.module.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -193,7 +193,6 @@
                                             <td>
                                                     <code>{
       service: BasicUserService,
-      controller: ProfileController,
     }</code>
                                             </td>
 
@@ -238,7 +237,6 @@ import { BasicUserService } from &quot;./user-service-basic.service&quot;;
 import { TypeOrmModule } from &quot;@nestjs/typeorm&quot;;
 import { UserEntity } from &quot;./entity/user.entity&quot;;
 import { UserModuleOptions, UserService } from &quot;./user.types&quot;;
-import { ProfileController } from &quot;./profile.controller&quot;;
 import { LogModule } from &quot;../../shared/modules/log/log.module&quot;;
 import { CacheModule } from &quot;../../shared/modules/cache/cache.module&quot;;
 
@@ -250,13 +248,11 @@ export class UserModule {
   static forRoot(
     options: UserModuleOptions &#x3D; {
       service: BasicUserService,
-      controller: ProfileController,
     },
   ): DynamicModule {
     return {
       module: UserModule,
       imports: [LogModule, CacheModule, TypeOrmModule.forFeature([UserEntity])],
-      controllers: [options.controller],
       providers: [
         {
           provide: UserService,

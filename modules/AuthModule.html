@@ -158,8 +158,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="36"
-                                    class="link-to-prism">lib/common/auth/auth.module.ts:36</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">lib/common/auth/auth.module.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -193,7 +193,6 @@
                                             <td>
                                                     <code>{
       service: AuthorizationService,
-      controller: AuthController,
     }</code>
                                             </td>
 
@@ -244,7 +243,6 @@ import { UserModule } from &quot;../user/user.module&quot;;
 import { CacheService } from &quot;../../shared/modules/cache/cache.types&quot;;
 import { AuthConfig } from &quot;../../../gen-src/auth.config&quot;;
 import { AuthService } from &quot;./auth.constants&quot;;
-import { AuthController } from &quot;./auth.controller&quot;;
 import { CaptchaModule } from &quot;../captcha/captcha.module&quot;;
 
 /**
@@ -255,12 +253,10 @@ export class AuthModule {
   static forRoot(
     options: AuthModuleOptions &#x3D; {
       service: AuthorizationService,
-      controller: AuthController,
     },
   ): DynamicModule {
     return {
       module: AuthModule,
-      controllers: [options.controller],
       imports: [
         PassportModule,
         CacheModule,

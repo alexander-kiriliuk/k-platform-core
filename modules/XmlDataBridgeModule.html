@@ -140,73 +140,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="configure"></a>
-                    <span class="name">
-                        <span ><b>configure</b></span>
-                        <a href="#configure"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>configure(consumer: MiddlewareConsumer)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="101"
-                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.module.ts:101</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>consumer</td>
-                                            <td>
-                                                        <code>MiddlewareConsumer</code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="forInitializer"></a>
                     <span class="name">
                             <span class="modifier">Static</span>
@@ -225,8 +158,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="76"
-                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.module.ts:76</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="68"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.module.ts:68</a></div>
                         </td>
                     </tr>
 
@@ -294,8 +227,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="44"
-                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.module.ts:44</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="37"
+                                    class="link-to-prism">lib/common/xml-data-bridge/xml-data-bridge.module.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -377,12 +310,7 @@
  *    limitations under the License.
  */
 
-import {
-  DynamicModule,
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-} from &quot;@nestjs/common&quot;;
+import { DynamicModule, Module } from &quot;@nestjs/common&quot;;
 import { XdbModuleOptions } from &quot;./xml-data-bridge.types&quot;;
 import { XmlDataBridgeImportService } from &quot;./xml-data-bridge-import.service&quot;;
 import { XmlDataBridgeExportService } from &quot;./xml-data-bridge-export.service&quot;;
@@ -395,15 +323,13 @@ import {
   XdbExportService,
   XdbImportService,
 } from &quot;./xml-data-bridge.constants&quot;;
-import { XmlDataBridgeController } from &quot;./xml-data-bridge.controller&quot;;
-import { XmlDataBridgeMiddleware } from &quot;./xml-data-bridge.middleware&quot;;
 import { UserModule } from &quot;../user/user.module&quot;;
 
 /**
  * Module responsible for import and export XML-configuration.
  */
 @Module({})
-export class XmlDataBridgeModule implements NestModule {
+export class XmlDataBridgeModule {
   static forRoot(
     options: XdbModuleOptions &#x3D; {
       importService: XmlDataBridgeImportService,
@@ -421,7 +347,6 @@ export class XmlDataBridgeModule implements NestModule {
     return {
       module: XmlDataBridgeModule,
       imports: options.imports,
-      controllers: [XmlDataBridgeController],
       providers: [
         {
           provide: XdbImportService,
@@ -459,10 +384,6 @@ export class XmlDataBridgeModule implements NestModule {
       ],
       exports: [XdbImportService, XdbExportService],
     };
-  }
-
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(XmlDataBridgeMiddleware).forRoutes(XmlDataBridgeController);
   }
 }
 </code></pre>

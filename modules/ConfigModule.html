@@ -158,8 +158,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="39"
-                                    class="link-to-prism">lib/common/config/config.module.ts:39</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="37"
+                                    class="link-to-prism">lib/common/config/config.module.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -197,8 +197,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="29"
-                                    class="link-to-prism">lib/common/config/config.module.ts:29</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="28"
+                                    class="link-to-prism">lib/common/config/config.module.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -240,7 +240,6 @@ import { ConfigService } from &quot;./config.service&quot;;
 import { LogModule } from &quot;../../shared/modules/log/log.module&quot;;
 import { CacheModule } from &quot;../../shared/modules/cache/cache.module&quot;;
 import { UserModule } from &quot;../user/user.module&quot;;
-import { ConfigController } from &quot;./config.controller&quot;;
 
 /**
  * Module for work with system configuration.
@@ -251,7 +250,6 @@ export class ConfigModule {
     return {
       module: ConfigModule,
       imports: [LogModule, CacheModule, UserModule.forRoot()],
-      controllers: [ConfigController],
       providers: [ConfigService],
       exports: [ConfigService],
     };

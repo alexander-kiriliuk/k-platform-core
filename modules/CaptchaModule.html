@@ -158,8 +158,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="34"
-                                    class="link-to-prism">lib/common/captcha/captcha.module.ts:34</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="28"
+                                    class="link-to-prism">lib/common/captcha/captcha.module.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -193,7 +193,6 @@
                                             <td>
                                                     <code>{
       service: GraphicCaptchaService,
-      controller: CaptchaController,
     }</code>
                                             </td>
 
@@ -234,8 +233,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="54"
-                                    class="link-to-prism">lib/common/captcha/captcha.module.ts:54</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="46"
+                                    class="link-to-prism">lib/common/captcha/captcha.module.ts:46</a></div>
                         </td>
                     </tr>
 
@@ -304,15 +303,9 @@
 
 import { DynamicModule, Module } from &quot;@nestjs/common&quot;;
 import { GraphicCaptchaService } from &quot;./graphic-captcha.service&quot;;
-import {
-  BasicCaptchaController,
-  CaptchaModuleOptions,
-  CaptchaService,
-} from &quot;./captcha.types&quot;;
+import { CaptchaModuleOptions, CaptchaService } from &quot;./captcha.types&quot;;
 import { CacheModule } from &quot;../../shared/modules/cache/cache.module&quot;;
 import { LogModule } from &quot;../../shared/modules/log/log.module&quot;;
-import { CaptchaController } from &quot;./captcha.controller&quot;;
-import { Type as Class } from &quot;@nestjs/common/interfaces/type.interface&quot;;
 
 /**
  * Module for work with captcha.
@@ -322,12 +315,10 @@ export class CaptchaModule {
   static forRoot(
     options: CaptchaModuleOptions &#x3D; {
       service: GraphicCaptchaService,
-      controller: CaptchaController,
     },
   ): DynamicModule {
     return {
       module: CaptchaModule,
-      controllers: [options.controller],
       imports: [CacheModule, LogModule],
       providers: [
         {
@@ -342,14 +333,12 @@ export class CaptchaModule {
   static forRootAsync(options: {
     inject?: any[];
     imports?: any[];
-    controller?: Class&lt;BasicCaptchaController&gt;;
     useFactory: (...args) &#x3D;&gt; Promise&lt;CaptchaService&gt; | CaptchaService;
   }): DynamicModule {
-    const { inject, imports, controller, useFactory } &#x3D; options;
+    const { inject, imports, useFactory } &#x3D; options;
     return {
       module: CaptchaModule,
       imports: [...(imports || [])],
-      controllers: [controller || CaptchaController],
       providers: [
         {
           provide: CaptchaService,
