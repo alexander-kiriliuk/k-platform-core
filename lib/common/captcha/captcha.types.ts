@@ -103,5 +103,4 @@ export interface BasicCaptchaController {
  */
 export type CaptchaModuleOptions = {
   service: Class<CaptchaService>;
-  controller: Class<BasicCaptchaController>;
 };

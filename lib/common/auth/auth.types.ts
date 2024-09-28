@@ -169,5 +169,4 @@ export interface BasicAuthController {
  */
 export type AuthModuleOptions = {
   service: Class<AuthService>;
-  controller: Class<BasicAuthController>;
 };

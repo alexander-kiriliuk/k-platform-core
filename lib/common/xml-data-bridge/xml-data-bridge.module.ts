@@ -14,12 +14,7 @@
  *    limitations under the License.
  */
 
-import {
-  DynamicModule,
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-} from "@nestjs/common";
+import { DynamicModule, Module } from "@nestjs/common";
 import { XdbModuleOptions } from "./xml-data-bridge.types";
 import { XmlDataBridgeImportService } from "./xml-data-bridge-import.service";
 import { XmlDataBridgeExportService } from "./xml-data-bridge-export.service";
@@ -32,15 +27,13 @@ import {
   XdbExportService,
   XdbImportService,
 } from "./xml-data-bridge.constants";
-import { XmlDataBridgeController } from "./xml-data-bridge.controller";
-import { XmlDataBridgeMiddleware } from "./xml-data-bridge.middleware";
 import { UserModule } from "../user/user.module";
 
 /**
  * Module responsible for import and export XML-configuration.
  */
 @Module({})
-export class XmlDataBridgeModule implements NestModule {
+export class XmlDataBridgeModule {
   static forRoot(
     options: XdbModuleOptions = {
       importService: XmlDataBridgeImportService,
@@ -58,7 +51,6 @@ export class XmlDataBridgeModule implements NestModule {
     return {
       module: XmlDataBridgeModule,
       imports: options.imports,
-      controllers: [XmlDataBridgeController],
       providers: [
         {
           provide: XdbImportService,
@@ -96,9 +88,5 @@ export class XmlDataBridgeModule implements NestModule {
       ],
       exports: [XdbImportService, XdbExportService],
     };
-  }
-
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(XmlDataBridgeMiddleware).forRoutes(XmlDataBridgeController);
   }
 }

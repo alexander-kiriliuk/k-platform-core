@@ -23,7 +23,6 @@ import { FileMetadataService } from "./file-metadata.service";
 import { LogModule } from "../../shared/modules/log/log.module";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
 import { FileManager, FileMd } from "./file.constants";
-import { FileController } from "./file.controller";
 import { UserModule } from "../user/user.module";
 
 /**
@@ -35,7 +34,6 @@ export class FileModule {
     options: FileModuleOptions = {
       fileManager: FileService,
       fileMd: FileMetadataService,
-      controller: FileController,
     },
   ): DynamicModule {
     return {
@@ -46,7 +44,6 @@ export class FileModule {
         CacheModule,
         UserModule.forRoot(),
       ],
-      controllers: [options.controller],
       providers: [
         {
           provide: FileManager,

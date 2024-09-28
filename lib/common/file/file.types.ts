@@ -360,5 +360,4 @@ export interface BasicFileController {
 export type FileModuleOptions = {
   fileManager: Class<FileManager>;
   fileMd: Class<FileMd>;
-  controller: Class<BasicFileController>;
 };

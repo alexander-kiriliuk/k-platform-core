@@ -24,7 +24,6 @@ import { ProcessLogEntity } from "./entity/process.log.entity";
 import { LogModule } from "../../shared/modules/log/log.module";
 import { MessagesBrokerModule } from "../../shared/modules/messages-broker/messages-broker.module";
 import { WarlockModule } from "../../shared/modules/warlock/warlock.module";
-import { ProcessController } from "./process.controller";
 import { UserModule } from "../user/user.module";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
 
@@ -43,7 +42,6 @@ import { CacheModule } from "../../shared/modules/cache/cache.module";
     UserModule.forRoot(),
     CacheModule,
   ],
-  controllers: [ProcessController],
   providers: [ProcessManagerService, ProcessRegisterService],
   exports: [ProcessManagerService],
 })

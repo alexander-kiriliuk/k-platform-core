@@ -25,24 +25,22 @@ import {
   Query,
   UseGuards,
 } from "@nestjs/common";
-import { AuthGuard } from "../../shared/guards/auth.guard";
-import { RolesGuard } from "../../shared/guards/roles.guard";
+import { ObjectLiteral } from "typeorm";
 import {
+  AuthGuard,
   BasicExplorerController,
+  CurrentUser,
   ExplorerService,
   ExplorerTarget,
   ExplorerTargetParams,
-  TargetData,
-} from "./explorer.types";
-import { ForRoles } from "../../shared/decorators/for-roles.decorator";
-import { Roles } from "../../shared/constants";
-import { ObjectLiteral } from "typeorm";
-import { CurrentUser } from "../../shared/decorators/current-user.decorator";
-import { User } from "../user/user.types";
-import {
+  ForRoles,
   PageableData,
   PageableParams,
-} from "../../shared/modules/pageable/pageable.types";
+  Roles,
+  RolesGuard,
+  TargetData,
+  User,
+} from "@k-platform/core";
 
 @Controller("/explorer")
 @UseGuards(AuthGuard, RolesGuard)

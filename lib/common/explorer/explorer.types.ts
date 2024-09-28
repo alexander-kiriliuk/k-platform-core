@@ -178,7 +178,6 @@ export type ExplorerSelectParams = {
  */
 export type ExplorerModuleOptions = {
   service: Class<ExplorerService>;
-  controller?: Class<BasicExplorerController>;
   saveHandlers?: Class<EntitySaveHandler>[];
 };
 

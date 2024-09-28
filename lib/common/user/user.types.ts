@@ -162,5 +162,4 @@ export interface BasicUserController {
  */
 export type UserModuleOptions = {
   service: Class<UserService>;
-  controller: Class<BasicUserController>;
 };

@@ -26,15 +26,20 @@ import {
   Post,
   UseGuards,
 } from "@nestjs/common";
-import { UserUtils } from "../../shared/utils/user.utils";
-import { AuthGuard } from "../../shared/guards/auth.guard";
-import { RolesGuard } from "../../shared/guards/roles.guard";
-import { BasicUserController, User, UserDto, UserService } from "./user.types";
-import { ResponseDto } from "../../shared/decorators/response-dto.decorator";
-import { CurrentUser } from "../../shared/decorators/current-user.decorator";
-import { UserEntity } from "./entity/user.entity";
-import { Roles } from "../../shared/constants";
-import { ForRoles } from "../../shared/decorators/for-roles.decorator";
+import {
+  AuthGuard,
+  BasicUserController,
+  CurrentUser,
+  ForRoles,
+  ResponseDto,
+  Roles,
+  RolesGuard,
+  User,
+  UserDto,
+  UserEntity,
+  UserService,
+  UserUtils,
+} from "@k-platform/core";
 import hasSomeRole = UserUtils.hasSomeRole;
 
 @Controller("/profile")

@@ -28,49 +28,60 @@ import {
 } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Response } from "express";
-import { AuthGuard } from "../../shared/guards/auth.guard";
-import { FileManager } from "./file.constants";
-import { NotEmptyPipe } from "../../shared/pipes/not-empty.pipe";
-import { BasicFileController, File } from "./file.types";
+import * as path from "path";
+import {
+  AuthGuard,
+  BasicMediaController,
+  DEFAULT_MEDIA_TYPE,
+  Media,
+  MediaManager,
+  NotEmptyPipe,
+} from "@k-platform/core";
 
-@Controller("/file")
+@Controller("/media")
 @UseGuards(AuthGuard)
-export class FileController implements BasicFileController {
-  constructor(private readonly fileService: FileManager) {}
+export class MediaController implements BasicMediaController {
+  constructor(private readonly mediaService: MediaManager) {}
 
-  @Post("/upload")
+  @Post("/upload/:type?")
   @UseInterceptors(FileInterceptor("file"))
-  async createFile(
+  async createMedia(
     @UploadedFile("file", new NotEmptyPipe("file")) file: Express.Multer.File,
-    @Query("public") isPublic = "true",
-  ): Promise<File> {
-    return this.fileService.createOrUpdateFile(
+    @Param("type") type = DEFAULT_MEDIA_TYPE,
+    @Query("id") id: number,
+  ): Promise<Media> {
+    return await this.mediaService.createOrUpdateMedia(
       file.buffer,
-      file.originalname.split(".").pop(),
-      isPublic === "true",
+      type,
       undefined,
-      undefined,
-      file.originalname,
+      id,
     );
   }
 
   @Get("/private/:id")
-  async getPrivateFile(
+  async getPrivateMedia(
     @Res() res: Response,
     @Param("id") id: number,
+    @Query("format") format: string,
+    @Query("webp") webp: boolean,
   ): Promise<void> {
-    const file = await this.fileService.findPrivateById(id);
-    const filePath = await this.fileService.getFilePath(file);
-    res.sendFile(filePath);
+    const media = await this.mediaService.findPrivateById(id);
+    const mediaPath = await this.mediaService.getMediaPath(media, format, webp);
+    res.sendFile(path.join(process.cwd(), mediaPath));
   }
 
   @Get("/:id")
-  async getFile(@Param("id") id: number): Promise<File> {
-    return await this.fileService.findPublicById(id);
+  async getMedia(@Param("id") id: number): Promise<Media> {
+    return await this.mediaService.findPublicById(id);
   }
 
   @Delete("/:id")
-  async removeFile(@Param("id") id: number): Promise<File> {
-    return await this.fileService.remove(id);
+  async removeMedia(@Param("id") id: number): Promise<Media> {
+    return await this.mediaService.remove(id);
+  }
+
+  @Post("/recreate/:id")
+  async recreateMedia(@Param("id") id: number): Promise<Media> {
+    return await this.mediaService.recreate(id);
   }
 }

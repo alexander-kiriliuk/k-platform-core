@@ -19,7 +19,6 @@ import { ConfigService } from "./config.service";
 import { LogModule } from "../../shared/modules/log/log.module";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
 import { UserModule } from "../user/user.module";
-import { ConfigController } from "./config.controller";
 
 /**
  * Module for work with system configuration.
@@ -30,7 +29,6 @@ export class ConfigModule {
     return {
       module: ConfigModule,
       imports: [LogModule, CacheModule, UserModule.forRoot()],
-      controllers: [ConfigController],
       providers: [ConfigService],
       exports: [ConfigService],
     };

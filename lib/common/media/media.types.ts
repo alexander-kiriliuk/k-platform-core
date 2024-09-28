@@ -309,5 +309,4 @@ export interface BasicMediaController {
  */
 export type MediaModuleOptions = {
   service: Class<MediaManager>;
-  controller: Class<BasicMediaController>;
 };

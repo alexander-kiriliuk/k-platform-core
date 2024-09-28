@@ -24,19 +24,19 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { Request, Response } from "express";
-import { CaptchaConfig } from "../../../gen-src/captcha.config";
-import { AuthService } from "./auth.constants";
-import { CacheService } from "../../shared/modules/cache/cache.types";
-import { CaptchaService } from "../captcha/captcha.types";
-import { ResponseDto } from "../../shared/decorators/response-dto.decorator";
-import { LiteAuthGuard } from "../../shared/guards/lite-auth.guard";
-import { AccessToken } from "../../shared/decorators/access-token.decorator";
+import { CaptchaConfig } from "@gen-src/captcha.config";
 import {
+  AccessToken,
+  AuthService,
+  CacheService,
+  CaptchaService,
+  LiteAuthGuard,
+  ResponseDto,
   BasicAuthController,
   ExchangeTokenPayload,
   JwtDto,
   LoginPayload,
-} from "./auth.types";
+} from "@k-platform/core";
 
 @Controller("/auth")
 export class AuthController implements BasicAuthController {

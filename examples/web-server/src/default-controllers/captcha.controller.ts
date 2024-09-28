@@ -20,7 +20,7 @@ import {
   CaptchaRequest,
   CaptchaResponse,
   CaptchaService,
-} from "./captcha.types";
+} from "@k-platform/core";
 
 @Controller("/captcha")
 export class CaptchaController implements BasicCaptchaController {

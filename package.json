@@ -9,7 +9,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.9.92",
+  "version": "0.9.93",
   "description": "Framework for the rapid development of modern applications",
   "keywords": [
     "nodejs framework",

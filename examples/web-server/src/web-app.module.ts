@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-import { Logger, Module } from "@nestjs/common";
+import { Logger, MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { MulterModule } from "@nestjs/platform-express";
 import { MulterConfig } from "./multer.config";
 import { Orm } from "./orm.config";
@@ -40,6 +40,7 @@ import {
   TmpDirCleanerProcess,
   UserEntityPwdAndRolesSaveHandler,
   UserModule,
+  XmlDataBridgeMiddleware,
   XmlDataBridgeModule,
 } from "@k-platform/core";
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -49,6 +50,15 @@ import {
 } from "@nestjs/serve-static";
 import { CaptchaConfig } from "@gen-src/captcha.config";
 import { KpConfig } from "@gen-src/kp.config";
+import { AuthController } from "./default-controllers/auth.controller";
+import { CaptchaController } from "./default-controllers/captcha.controller";
+import { ConfigController } from "./default-controllers/config.controller";
+import { ExplorerController } from "./default-controllers/explorer.controller";
+import { FileController } from "./default-controllers/file.controller";
+import { MediaController } from "./default-controllers/media.controller";
+import { ProcessController } from "./default-controllers/process.controller";
+import { ProfileController } from "./default-controllers/profile.controller";
+import { XmlDataBridgeController } from "./default-controllers/xml-data-bridge.controller";
 
 @Module({
   imports: [
@@ -98,7 +108,22 @@ import { KpConfig } from "@gen-src/kp.config";
       },
     }),
   ],
-  controllers: [AppController],
+  controllers: [
+    AppController,
+    AuthController,
+    CaptchaController,
+    ConfigController,
+    ExplorerController,
+    FileController,
+    MediaController,
+    ProcessController,
+    ProfileController,
+    XmlDataBridgeController,
+  ],
   providers: [LocaleSubscriber, WebAppService, TmpDirCleanerProcess],
 })
-export class WebAppModule {}
+export class WebAppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(XmlDataBridgeMiddleware).forRoutes(XmlDataBridgeController);
+  }
+}

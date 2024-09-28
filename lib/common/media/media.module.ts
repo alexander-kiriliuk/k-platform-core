@@ -25,7 +25,6 @@ import { MediaManager, MediaModuleOptions } from "./media.types";
 import { FileModule } from "../file/file.module";
 import { LogModule } from "../../shared/modules/log/log.module";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
-import { MediaController } from "./media.controller";
 import { UserModule } from "../user/user.module";
 
 /**
@@ -36,12 +35,10 @@ export class MediaModule {
   static forRoot(
     options: MediaModuleOptions = {
       service: MediaService,
-      controller: MediaController,
     },
   ): DynamicModule {
     return {
       module: MediaModule,
-      controllers: [options.controller],
       imports: [
         TypeOrmModule.forFeature([
           MediaEntity,

@@ -23,15 +23,15 @@ import {
   Query,
   UseGuards,
 } from "@nestjs/common";
-import { AuthGuard } from "../../shared/guards/auth.guard";
-import { ConfigService } from "./config.service";
-import { ForRoles } from "../../shared/decorators/for-roles.decorator";
-import { Roles } from "../../shared/constants";
 import {
+  AuthGuard,
+  ConfigItem,
+  ConfigService,
+  ForRoles,
   PageableData,
   PageableParams,
-} from "../../shared/modules/pageable/pageable.types";
-import { ConfigItem } from "./config.types";
+  Roles,
+} from "@k-platform/core";
 
 @Controller("config")
 @UseGuards(AuthGuard)

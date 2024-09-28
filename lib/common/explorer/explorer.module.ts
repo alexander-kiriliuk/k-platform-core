@@ -21,7 +21,6 @@ import { ExplorerTargetEntity } from "./entity/explorer-target.entity";
 import { ExplorerColumnEntity } from "./entity/explorer-column.entity";
 import { ExplorerModuleOptions, ExplorerService } from "./explorer.types";
 import { LogModule } from "../../shared/modules/log/log.module";
-import { ExplorerController } from "./explorer.controller";
 import { UserModule } from "../user/user.module";
 import { CacheModule } from "../../shared/modules/cache/cache.module";
 import { Explorer } from "./explorer.constants";
@@ -36,16 +35,13 @@ export class ExplorerModule implements OnModuleInit {
   static forRoot(
     options: Partial<ExplorerModuleOptions> = {
       service: BasicExplorerService,
-      controller: ExplorerController,
       saveHandlers: [],
     },
   ): DynamicModule {
     if (!options.service) {
       options.service = BasicExplorerService;
     }
-    if (!options.controller) {
-      options.controller = ExplorerController;
-    }
+
     const providers: Provider[] = [
       {
         provide: ExplorerService,
@@ -63,7 +59,6 @@ export class ExplorerModule implements OnModuleInit {
     }
     return {
       module: ExplorerModule,
-      controllers: [options.controller],
       imports: [
         TypeOrmModule.forFeature([ExplorerTargetEntity, ExplorerColumnEntity]),
         LogModule,
